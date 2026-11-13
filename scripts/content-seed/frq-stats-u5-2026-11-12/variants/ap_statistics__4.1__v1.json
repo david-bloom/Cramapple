@@ -1,0 +1,193 @@
+{
+ "id": "ap_statistics__4.1__v1",
+ "parent": "ap_statistics__4.1__1",
+ "parent_status": "accepted",
+ "topic_code": "4.1",
+ "item": {
+  "title": "Sampling Distribution of Mean Bag Weight",
+  "calculator": "permitted",
+  "stimulus": "A packaging line fills bags of rice. The weight of a bag is normally distributed with a mean of 1000 grams and a standard deviation of 24 grams. A quality inspector will weigh a random sample of bags taken from the thousands filled today.",
+  "parts": [
+   {
+    "prompt": "Find the mean and the standard deviation of the sampling distribution of the sample mean x̄ for random samples of 16 bags.",
+    "criteria": [
+     {
+      "text": "States that the mean of the sampling distribution of x̄ is μ = 1000 grams.",
+      "evidence": "Response gives 1000 grams as the mean of the sampling distribution of the sample mean.",
+      "fix": "The sampling distribution of x̄ is centered at the population mean, whatever the sample size; state that value with units.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Calculates the standard deviation of the sampling distribution of x̄ as σ/√n = 24/√16 = 6 grams.",
+      "evidence": "Response divides 24 by √16 and reports about 6 grams.",
+      "fix": "Divide the population standard deviation by the square root of the sample size, and keep the units.",
+      "accepted_variants": [
+       "6.00",
+       "6"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Is the sampling distribution of x̄ approximately normal? Justify your answer by checking the conditions.",
+    "criteria": [
+     {
+      "text": "States that the sampling distribution of x̄ is approximately normal because the sample is random and much smaller than 10% of all bags, so the values are independent, and the population of bag weights is normally distributed, so x̄ is normal for any sample size.",
+      "evidence": "Response says the sampling distribution is approximately normal and gives the reason: random sample, independence, and a normal population.",
+      "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Find the probability that the mean of a random sample of 16 bags is greater than 1005 grams.",
+    "criteria": [
+     {
+      "text": "Finds the probability that the mean of a random sample of 16 bags is greater than 1005 grams: the probability is about 0.2023, using a normal distribution with mean 1000 and standard deviation 6 (for example, z = (1005 − 1000)/6 = 0.83).",
+      "evidence": "Response uses the mean 1000 and standard deviation 6 of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about 0.2023.",
+      "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+      "accepted_variants": [
+       "0.202",
+       "20.2%"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Suppose the sample size is 64 instead of 16. How does the standard deviation of x̄ change? Give its new value.",
+    "criteria": [
+     {
+      "text": "States that with n = 64 the standard deviation of the sampling distribution becomes 3 grams, smaller than 6 grams, because σ/√n decreases as n increases.",
+      "evidence": "Response gives 3 grams for the new sample size and says the standard deviation decreases as n increases.",
+      "fix": "Substitute the new sample size into σ/√n; larger samples give a smaller standard deviation of x̄.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) The mean of the sampling distribution of x̄ is μ = 1000 grams. The standard deviation is σ/√n = 24/√16 = 6 grams.\n\n(b) Yes. The sampling distribution of x̄ is approximately normal because the sample is random and much smaller than 10% of all bags, so the values are independent, and the population of bag weights is normally distributed, so x̄ is normal for any sample size.\n\n(c) z = (1005 − 1000)/6 = 0.83, so the probability that x̄ is greater than 1005 grams is about 0.2023.\n\n(d) With n = 64, the standard deviation of x̄ is 24/√64 = 3 grams, smaller than 6 grams, because σ/√n decreases as n increases.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nmu, sigma, n, n2, cut = 1000, 24, 16, 64, 1005\nsd = sigma / math.sqrt(n)\nassert abs(sd - 6.000000) < 1e-5\nz = (cut - mu) / sd\nassert abs(z - 0.833333) < 1e-5 and round(z, 2) == 0.83\np = 1 - ncdf(z)\nassert round(p, 4) == 0.2023\nassert abs(sigma / math.sqrt(n2) - 3.000000) < 1e-5\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:57:47.730Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"MEAN_XBAR\",\"SD_XBAR\"],[\"XBAR_SHAPE\"],[\"XBAR_PROB\"],[\"SD_CHANGE\"]]",
+  "child_order": "[[\"MEAN_XBAR\",\"SD_XBAR\"],[\"XBAR_SHAPE\"],[\"XBAR_PROB\"],[\"SD_CHANGE\"]]",
+  "child_pattern": [
+   [
+    "MEAN_XBAR",
+    "SD_XBAR"
+   ],
+   [
+    "XBAR_SHAPE"
+   ],
+   [
+    "XBAR_PROB"
+   ],
+   [
+    "SD_CHANGE"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 4, variant 4. Criteria per part: parent [2,1,1,1], variant [2,1,1,1]. Points: parent 5, variant 5.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"MEAN_XBAR\",\"SD_XBAR\"],[\"XBAR_SHAPE\"],[\"XBAR_PROB\"],[\"SD_CHANGE\"]]\nPart a prompt changed.\nCriterion a1 (MEAN_XBAR): wording and values changed\nCriterion a2 (SD_XBAR): wording and values changed; accepted variants changed\nCriterion b1 (XBAR_SHAPE): wording and values changed\nPart c prompt changed.\nCriterion c1 (XBAR_PROB): wording and values changed; accepted variants changed\nPart d prompt changed.\nCriterion d1 (SD_CHANGE): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from laptop battery life in hours to rice-bag weight in grams. The population changes from right-skewed with mean 12.4 and standard deviation 1.8 to normal with mean 1000 and standard deviation 24. Sample sizes change from 36 and 144 to 16 and 64. The probability changes from a lower-tail event below 12.0 to an upper-tail event above 1005. The normality justification appropriately changes from the central limit theorem to a normal population.",
+     "numbers_recomputed": "a1: μ_x̄ = 1000 grams, matching. a2: σ_x̄ = 24/√16 = 6 grams, matching all listed equivalent forms. b1: The 10% condition requires at least 160 bags for n = 16, satisfied by thousands; normality holds despite n < 30 because the population is normal. c1: z = (1005 − 1000)/6 = 0.833333…, which rounds to 0.83; P(x̄ > 1005) = 1 − Φ(0.833333…) ≈ 0.202328, matching 0.2023, 0.202, and 20.2%. d1: 24/√64 = 3 grams, half the original 6 grams, matching. The larger sample also satisfies the 10% condition because thousands exceeds the required 640 bags.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Context changed from laptop battery life to bag weight; population distribution changed from right-skewed to normal; population mean changed from 12.4 to 1000 and population standard deviation from 1.8 to 24; sample sizes changed from 36 to 16 and from 144 to 64; part (c) changed from less than 12.0 to greater than 1005. Rubric numbers and wording were updated accordingly.",
+     "numbers_recomputed": "Mean of x-bar = 1000 g (matches). SD for n=16 = 24/sqrt(16) = 6 g (matches). Normality now follows from the normally distributed population for any sample size (matches). P(x-bar > 1005) = P(Z > (1005-1000)/6 = 0.8333) ≈ 0.2023 (matches). SD for n=64 = 24/sqrt(64) = 3 g (matches).",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

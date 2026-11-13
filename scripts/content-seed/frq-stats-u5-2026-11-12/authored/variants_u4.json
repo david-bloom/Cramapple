@@ -1,0 +1,609 @@
+[
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.1",
+  "item": {
+   "title": "Sampling Distribution of Mean Bag Weight",
+   "calculator": "permitted",
+   "stimulus": "A packaging line fills bags of rice. The weight of a bag is normally distributed with a mean of 1000 grams and a standard deviation of 24 grams. A quality inspector will weigh a random sample of bags taken from the thousands filled today.",
+   "parts": [
+    {
+     "prompt": "Find the mean and the standard deviation of the sampling distribution of the sample mean x̄ for random samples of 16 bags.",
+     "criteria": [
+      {
+       "text": "States that the mean of the sampling distribution of x̄ is μ = 1000 grams.",
+       "evidence": "Response gives 1000 grams as the mean of the sampling distribution of the sample mean.",
+       "fix": "The sampling distribution of x̄ is centered at the population mean, whatever the sample size; state that value with units.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Calculates the standard deviation of the sampling distribution of x̄ as σ/√n = 24/√16 = 6 grams.",
+       "evidence": "Response divides 24 by √16 and reports about 6 grams.",
+       "fix": "Divide the population standard deviation by the square root of the sample size, and keep the units.",
+       "accepted_variants": [
+        "6.00",
+        "6"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Is the sampling distribution of x̄ approximately normal? Justify your answer by checking the conditions.",
+     "criteria": [
+      {
+       "text": "States that the sampling distribution of x̄ is approximately normal because the sample is random and much smaller than 10% of all bags, so the values are independent, and the population of bag weights is normally distributed, so x̄ is normal for any sample size.",
+       "evidence": "Response says the sampling distribution is approximately normal and gives the reason: random sample, independence, and a normal population.",
+       "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the probability that the mean of a random sample of 16 bags is greater than 1005 grams.",
+     "criteria": [
+      {
+       "text": "Finds the probability that the mean of a random sample of 16 bags is greater than 1005 grams: the probability is about 0.2023, using a normal distribution with mean 1000 and standard deviation 6 (for example, z = (1005 − 1000)/6 = 0.83).",
+       "evidence": "Response uses the mean 1000 and standard deviation 6 of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about 0.2023.",
+       "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+       "accepted_variants": [
+        "0.202",
+        "20.2%"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Suppose the sample size is 64 instead of 16. How does the standard deviation of x̄ change? Give its new value.",
+     "criteria": [
+      {
+       "text": "States that with n = 64 the standard deviation of the sampling distribution becomes 3 grams, smaller than 6 grams, because σ/√n decreases as n increases.",
+       "evidence": "Response gives 3 grams for the new sample size and says the standard deviation decreases as n increases.",
+       "fix": "Substitute the new sample size into σ/√n; larger samples give a smaller standard deviation of x̄.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The mean of the sampling distribution of x̄ is μ = 1000 grams. The standard deviation is σ/√n = 24/√16 = 6 grams.\n\n(b) Yes. The sampling distribution of x̄ is approximately normal because the sample is random and much smaller than 10% of all bags, so the values are independent, and the population of bag weights is normally distributed, so x̄ is normal for any sample size.\n\n(c) z = (1005 − 1000)/6 = 0.83, so the probability that x̄ is greater than 1005 grams is about 0.2023.\n\n(d) With n = 64, the standard deviation of x̄ is 24/√64 = 3 grams, smaller than 6 grams, because σ/√n decreases as n increases.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nmu, sigma, n, n2, cut = 1000, 24, 16, 64, 1005\nsd = sigma / math.sqrt(n)\nassert abs(sd - 6.000000) < 1e-5\nz = (cut - mu) / sd\nassert abs(z - 0.833333) < 1e-5 and round(z, 2) == 0.83\np = 1 - ncdf(z)\nassert round(p, 4) == 0.2023\nassert abs(sigma / math.sqrt(n2) - 3.000000) < 1e-5\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.2",
+  "item": {
+   "title": "Estimating Mean Fill Volume of Soda Cans",
+   "calculator": "permitted",
+   "stimulus": "A beverage company wants to estimate the mean fill volume of cans from one production line. From the thousands of cans filled in one shift, an inspector selects a random sample of 16 cans. The sample mean is 354.1 milliliters and the sample standard deviation is 2.6 milliliters. A dotplot of the sample shows no strong skewness and no outliers.",
+   "parts": [
+    {
+     "prompt": "Show that the conditions for the appropriate procedure for estimating the mean fill volume are met.",
+     "criteria": [
+      {
+       "text": "Checks the randomization condition: the cans were randomly selected.",
+       "evidence": "Response states the randomization condition in context: the cans were randomly selected.",
+       "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the 10% condition: 16 cans are less than 10% of the thousands filled in the shift.",
+       "evidence": "Response checks that the sample size is less than 10% of the population: 16 cans are less than 10% of the thousands filled in the shift.",
+       "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the sample-data condition: n = 16 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+       "evidence": "Response states the sample-data condition and why it is met: n = 16 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+       "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The t critical value for 95% confidence with 15 degrees of freedom is t* = 2.131. Calculate the standard error and the interval.",
+     "criteria": [
+      {
+       "text": "Calculates the standard error s/√n = 2.6/√16 = 0.65 milliliters.",
+       "evidence": "Response computes the standard error from the sample statistics and reports about 0.65 milliliters.",
+       "fix": "Use the standard error formula for this procedure with the sample standard deviation(s) and sample size(s).",
+       "accepted_variants": []
+      },
+      {
+       "text": "Computes the interval 354.1 ± 2.131(0.65) = 352.71 to 355.49 milliliters, using t* = 2.131.",
+       "evidence": "Response adds and subtracts t* times the standard error, giving an interval from 352.71 to 355.49 milliliters.",
+       "fix": "Add and subtract t* times the standard error from the sample statistic, using the given critical value.",
+       "accepted_variants": [
+        "(352.71, 355.49)",
+        "(352.7, 355.5)"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "For 95% confidence, the critical value from the standard normal distribution is z* = 1.96, which is smaller than t* = 2.131. Explain why t* is larger.",
+     "criteria": [
+      {
+       "text": "States that t* = 2.131 is larger than the normal critical value z* = 1.96 for 95% confidence, because the t-distribution (with 15 degrees of freedom) has heavier tails than the normal distribution.",
+       "evidence": "Response says t* is larger than z* and gives heavier tails of the t-distribution (using s to estimate σ, with 15 degrees of freedom) as the reason.",
+       "fix": "Recall that t-distributions have heavier tails than the normal, so for the same confidence level t* is larger than z*, especially for small samples.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The procedure is a one-sample t-interval for a population mean. Randomization: the cans were randomly selected. 10% condition: 16 cans are less than 10% of the thousands filled in the shift. Sample-data condition: n = 16 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.\n\n(b) SE = s/√n = 2.6/√16 = 0.65 milliliters. The interval is 354.1 ± 2.131(0.65) = 352.71 to 355.49 milliliters.\n\n(c) The t-distribution has heavier tails than the normal distribution because s is used to estimate σ (here with 15 degrees of freedom), so t* = 2.131 is larger than z* = 1.96.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, xbar, s, conf = 16, 354.1, 2.6, 0.95\nts = tinv(1 - (1 - conf) / 2, n - 1)\nassert abs(ts - 2.131) < 0.0006\nassert round(zstar(1 - (1 - conf) / 2), 2) == 1.96 and 2.131 > 1.96\nse = s / math.sqrt(n)\nassert round(se, 2) == 0.65\nlo = xbar - 2.131 * se; hi = xbar + 2.131 * se\nassert round(lo, 2) == 352.71 and round(hi, 2) == 355.49\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.3",
+  "item": {
+   "title": "Claims About a Mean Blood Pressure Drop",
+   "calculator": "permitted",
+   "stimulus": "A pharmacist recorded the systolic blood pressure of 24 randomly selected patients before and after four weeks on a new medication. For each patient, the difference (before minus after) in mmHg was calculated; positive differences mean blood pressure dropped. The differences have no strong skewness and no outliers. Using technology, the pharmacist found a 95% confidence interval for the population mean difference μ_d of (2.75, 10.85) mmHg.",
+   "parts": [
+    {
+     "prompt": "Interpret the interval in context.",
+     "criteria": [
+      {
+       "text": "Interprets the interval: we are 95% confident that the interval from 2.75 to 10.85 mmHg captures the true mean drop (before minus after) in systolic blood pressure for all patients like these after the new medication.",
+       "evidence": "Response states the confidence level, the interval from 2.75 to 10.85 mmHg, and the parameter it captures (true mean drop (before minus after) in systolic blood pressure for all patients like these after the new medication).",
+       "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The pharmacist claims that the medication does not change mean systolic blood pressure, that is, that μ_d = 0. Does the interval provide convincing evidence against this claim? Explain.",
+     "criteria": [
+      {
+       "text": "Because 0 is not in the interval (2.75, 10.85), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the medication is associated with a change in mean systolic blood pressure).",
+       "evidence": "Response compares 0 with the interval and concludes: 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the medication is associated with a change in mean systolic blood pressure).",
+       "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The pharmacist also claims that the medication lowers mean systolic blood pressure by at least 12 mmHg, that is, that μ_d is at least 12 mmHg. Does the interval support this claim? Explain.",
+     "criteria": [
+      {
+       "text": "Because 12 is above the interval (2.75, 10.85), 12 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim.",
+       "evidence": "Response compares 12 with the interval and concludes: 12 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim.",
+       "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Without recalculating, how would a 99% interval from the same data compare in width with this 95% interval? Explain.",
+     "criteria": [
+      {
+       "text": "States that a 99% interval from the same data would be wider, because a higher confidence level needs a larger critical value t* (a larger margin of error) to capture the parameter more often.",
+       "evidence": "Response says the interval would be wider and gives the higher confidence level (larger t*, larger margin of error, capturing the parameter more often) as the reason.",
+       "fix": "Hold the standard error fixed: higher confidence means a larger t*, so a larger margin of error and a wider interval.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) We are 95% confident that the interval from 2.75 to 10.85 mmHg captures the true mean drop (before minus after) in systolic blood pressure for all patients like these after the new medication.\n\n(b) Yes. Because 0 is not in the interval (2.75, 10.85), it is not a plausible value of μ_d, so the interval provides convincing evidence that the mean difference is not 0 (the medication is associated with a change in mean systolic blood pressure).\n\n(c) No. 12 is above the interval (2.75, 10.85), so it is not a plausible value of μ_d and every plausible value is below it; the interval does not support the claim.\n\n(d) A 99% interval would be wider, because a higher confidence level uses a larger critical value t*, which increases the margin of error.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, conf = 24, 6.8, 9.6, 0.95\nts = tinv(1 - (1 - conf) / 2, n - 1)\nse = s / math.sqrt(n)\nlo, hi = d - ts * se, d + ts * se\nassert round(lo, 2) == 2.75 and round(hi, 2) == 10.85\nassert lo > 0 and hi < 12\nassert tinv(1 - (1 - 0.99) / 2, n - 1) > ts\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.4",
+  "item": {
+   "title": "Setting Up a Test of a Claimed Mean Clinic Wait",
+   "calculator": "not_applicable",
+   "stimulus": "A clinic posts a sign saying that patients wait a mean of 20 minutes to see a provider. A patient advocate suspects the true mean wait is more than 20 minutes. The advocate takes a random sample of 18 patients from the hundreds seen this month and records each wait. The sample mean is 23.1 minutes and the sample standard deviation is 5.8 minutes. A dotplot of the sample shows no strong skewness and no outliers.",
+   "parts": [
+    {
+     "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+     "criteria": [
+      {
+       "text": "Defines μ as the true mean waiting time, in minutes, of all patients seen at this clinic this month.",
+       "evidence": "Response defines μ as the true mean waiting time, in minutes, of all patients seen at this clinic this month, naming the response variable and the population in context.",
+       "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States H₀: μ = 20 and Hₐ: μ > 20.",
+       "evidence": "Response writes H₀: μ = 20 and Hₐ: μ > 20, with the alternative in the correct direction.",
+       "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Identify the appropriate procedure and show that its conditions are met.",
+     "criteria": [
+      {
+       "text": "Identifies the appropriate procedure as a one-sample t-test for a population mean.",
+       "evidence": "Response names a one-sample t-test for a population mean.",
+       "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the randomization condition: the 18 patients were randomly selected.",
+       "evidence": "Response states the randomization condition in context: the 18 patients were randomly selected.",
+       "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the 10% condition: 18 patients are less than 10% of the hundreds seen this month.",
+       "evidence": "Response checks that the sample size is less than 10% of the population: 18 patients are less than 10% of the hundreds seen this month.",
+       "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the sample-data condition: n = 18 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+       "evidence": "Response states the sample-data condition and why it is met: n = 18 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+       "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) μ is the true mean waiting time, in minutes, of all patients seen at this clinic this month. H₀: μ = 20 versus Hₐ: μ > 20.\n\n(b) The procedure is a one-sample t-test for a population mean, Randomization: the 18 patients were randomly selected. 10% condition: 18 patients are less than 10% of the hundreds seen this month. Sample-data condition: n = 18 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+   "verification_python": "mu0, n = 20, 18\nassert n < 30\nassert 23.1 > mu0\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.5",
+  "item": {
+   "title": "Test of Mean Commute Difference Between Two Routes",
+   "calculator": "permitted",
+   "stimulus": "A commuter randomly selected 12 drivers from a large company, and each drove both route A and route B in a random order. For each driver, the difference (route A time minus route B time) in minutes was calculated. The sample of differences has mean −2.9 minutes and standard deviation 5.1 minutes, with no strong skewness and no outliers. The commuter tests H₀: μ_d = 0 versus Hₐ: μ_d ≠ 0 at significance level α = 0.05, where μ_d is the population mean difference (route A minus route B). Technology gives a p-value of 0.0746.",
+   "parts": [
+    {
+     "prompt": "Calculate the test statistic.",
+     "criteria": [
+      {
+       "text": "Calculates the test statistic t = d̄/(s_d/√n) = −2.90/(5.1/√12) = −1.97.",
+       "evidence": "Response substitutes the sample values into the formula and reports t of about −1.97.",
+       "fix": "Subtract the null value from the sample statistic and divide by the standard error computed from the sample standard deviations.",
+       "accepted_variants": [
+        "−1.97",
+        "−1.970"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the p-value in context.",
+     "criteria": [
+      {
+       "text": "Interprets the p-value 0.0746: assuming the mean commute-time difference (route A minus route B) for all drivers is 0, the probability of getting a sample mean difference at least 2.9 minutes away from 0 in either direction (equivalently, a test statistic at least about 1.97 away from 0) is about 0.0746.",
+       "evidence": "Response says 0.0746 is the probability, computed assuming the mean commute-time difference (route A minus route B) for all drivers is 0, of getting a sample mean difference at least 2.9 minutes away from 0 in either direction (equivalently, a test statistic at least about 1.97 away from 0) (an equivalent statement in terms of the test statistic is also acceptable).",
+       "fix": "Say the p-value is the probability of a result this extreme or more, in the direction of Hₐ, assuming H₀ is true.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use the p-value and the significance level α = 0.05 to state a conclusion about the claim, in context.",
+     "criteria": [
+      {
+       "text": "Compares the p-value 0.0746 with α = 0.05: because the p-value is greater than α, fail to reject H₀.",
+       "evidence": "Response compares 0.0746 with 0.05, and says fail to reject H₀.",
+       "fix": "Compare the p-value with α: reject H₀ when the p-value is less than or equal to α, otherwise fail to reject.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Concludes in context: there is not convincing evidence that the mean commute-time difference (route A minus route B) is not 0 minutes for all drivers like these.",
+       "evidence": "Response states not convincing evidence for Hₐ, in terms of Hₐ and in context.",
+       "fix": "State the conclusion in terms of Hₐ in context, using 'convincing evidence' or 'not convincing evidence'.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) t = d̄/(s_d/√n) = −2.90/(5.1/√12) = −1.97, with df = 11.\n\n(b) Assuming the mean commute-time difference (route A minus route B) for all drivers is 0, the probability of getting a sample mean difference at least 2.9 minutes away from 0 in either direction (equivalently, a test statistic at least about 1.97 away from 0) is about 0.0746.\n\n(c) The p-value 0.0746 is greater than α = 0.05, so we fail to reject H₀. There is not convincing evidence that the mean commute-time difference (route A minus route B) is not 0 minutes for all drivers like these.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, alpha = 12, -2.9, 5.1, 0.05\nt = d / (s / math.sqrt(n))\nassert round(t, 2) == -1.97\ntail = 1 - tcdf(abs(t), n - 1)\np = 2 * tail\nassert round(p, 4) == 0.0746\nassert (p < alpha) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.6",
+  "item": {
+   "title": "Sampling Distribution of a Difference in Mean Delivery Times",
+   "calculator": "permitted",
+   "stimulus": "Delivery times (in minutes) for Store 1 have a mean of 52 and a standard deviation of 10. Delivery times for Store 2 have a mean of 47 and a standard deviation of 7. An analyst takes independent random samples of 50 deliveries from Store 1 and 60 deliveries from Store 2, each far smaller than 10% of that store's deliveries. Let x̄₁ be the mean for Store 1 and x̄₂ the mean for Store 2.",
+   "parts": [
+    {
+     "prompt": "Find the mean of the sampling distribution of x̄₁ − x̄₂, the difference between the two sample means.",
+     "criteria": [
+      {
+       "text": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 5 minutes.",
+       "evidence": "Response gives 5 minutes as the mean of the sampling distribution of the difference in sample means.",
+       "fix": "The sampling distribution of x̄₁ − x̄₂ is centered at μ₁ − μ₂; subtract the second mean from the first.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the standard deviation of the sampling distribution of x̄₁ − x̄₂.",
+     "criteria": [
+      {
+       "text": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(10²/50 + 7²/60) = 1.678 minutes.",
+       "evidence": "Response adds the two variances divided by their sample sizes, takes the square root, and reports about 1.678 minutes.",
+       "fix": "Add the two variance-over-sample-size terms before taking the square root; do not subtract or add the standard deviations.",
+       "accepted_variants": [
+        "1.68"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Is the sampling distribution of x̄₁ − x̄₂ approximately normal? Justify your answer.",
+     "criteria": [
+      {
+       "text": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (50 and 60) are at least 30.",
+       "evidence": "Response says the sampling distribution is approximately normal and gives the reason: independent random samples and both sample sizes at least 30.",
+       "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the probability that the difference x̄₁ − x̄₂ is less than 2 minutes.",
+     "criteria": [
+      {
+       "text": "Finds the probability that x̄₁ − x̄₂ is less than 2 minutes: the probability is about 0.0369, using a normal distribution with mean 5 and standard deviation 1.678 (for example, z = (2 − 5)/1.678 = −1.79).",
+       "evidence": "Response uses the mean 5 and standard deviation 1.678 of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about 0.0369.",
+       "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+       "accepted_variants": [
+        "0.037",
+        "3.7%"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The mean is μ₁ − μ₂ = 52 − 47 = 5 minutes.\n\n(b) √(10²/50 + 7²/60) = 1.678 minutes.\n\n(c) Yes. The sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (50 and 60) are at least 30.\n\n(d) z = (2 − 5)/1.678 = −1.79, so the probability that x̄₁ − x̄₂ is less than 2 minutes is about 0.0369.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nm1, s1, n1, m2, s2, n2, cut = 52, 10, 50, 47, 7, 60, 2\nmd = m1 - m2\nsd = math.sqrt(s1 ** 2 / n1 + s2 ** 2 / n2)\nassert md == 5 and round(sd, 3) == 1.678\nz = (cut - md) / sd\nassert round(z, 2) == -1.79\np = ncdf(z)\nassert round(p, 4) == 0.0369\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.7",
+  "item": {
+   "title": "Estimating a Difference in Mean Seedling Heights for Two Greenhouses",
+   "calculator": "permitted",
+   "stimulus": "A botanist compares two large greenhouses. Independent random samples of seedlings were measured: 18 seedlings from Greenhouse A (mean height 14.6 cm, standard deviation 3.1 cm) and 22 seedlings from Greenhouse B (mean height 12.9 cm, standard deviation 2.8 cm). Each greenhouse holds thousands of seedlings. Dotplots of both samples show no strong skewness and no outliers.",
+   "parts": [
+    {
+     "prompt": "Show that the conditions for the appropriate procedure for estimating the difference in mean seedling height are met.",
+     "criteria": [
+      {
+       "text": "Checks the randomization condition: the seedlings were selected by independent random samples from the two greenhouses.",
+       "evidence": "Response states the randomization condition in context: the seedlings were selected by independent random samples from the two greenhouses.",
+       "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the 10% condition: each sample is less than 10% of the seedlings in its greenhouse.",
+       "evidence": "Response checks that the sample size is less than 10% of the population: each sample is less than 10% of the seedlings in its greenhouse.",
+       "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+       "evidence": "Response states the sample-data condition and why it is met: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+       "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Technology gives 95% confidence with approximately 34.7 degrees of freedom, so t* = 2.031. Calculate the standard error and the interval for μ₁ − μ₂.",
+     "criteria": [
+      {
+       "text": "Calculates the standard error √(s₁²/n₁ + s₂²/n₂) = √(3.1²/18 + 2.8²/22) = 0.944 centimeters.",
+       "evidence": "Response computes the standard error from the sample statistics and reports about 0.944 centimeters.",
+       "fix": "Use the standard error formula for this procedure with the sample standard deviation(s) and sample size(s).",
+       "accepted_variants": []
+      },
+      {
+       "text": "Computes the interval (14.6 − 12.9) ± 2.031(0.944) = −0.22 to 3.62 centimeters, using t* = 2.031.",
+       "evidence": "Response adds and subtracts t* times the standard error, giving an interval from −0.22 to 3.62 centimeters.",
+       "fix": "Add and subtract t* times the standard error from the sample statistic, using the given critical value.",
+       "accepted_variants": [
+        "(−0.22, 3.62)",
+        "(−0.2, 3.6)"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "State the point estimate for μ₁ − μ₂.",
+     "criteria": [
+      {
+       "text": "States the point estimate for μ₁ − μ₂ as x̄₁ − x̄₂ = 14.6 − 12.9 = 1.7 centimeters.",
+       "evidence": "Response states 1.7 centimeters (or an equivalent form) as the point estimate for the difference in means.",
+       "fix": "Estimate a difference in population means with the difference in sample means, subtracting in the order the parameter is written.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The procedure is a two-sample t-interval for a difference in population means. Randomization: the seedlings were selected by independent random samples from the two greenhouses. 10% condition: each sample is less than 10% of the seedlings in its greenhouse. Sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.\n\n(b) SE = √(3.1²/18 + 2.8²/22) = 0.944 centimeters. The interval is (14.6 − 12.9) ± 2.031(0.944) = −0.22 to 3.62 centimeters.\n\n(c) The point estimate is x̄₁ − x̄₂ = 14.6 − 12.9 = 1.7 centimeters.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn1, m1, s1, n2, m2, s2, conf = 18, 14.6, 3.1, 22, 12.9, 2.8, 0.95\nse, df = welch(s1, n1, s2, n2)\nassert round(df, 1) == 34.7\nts = tinv(1 - (1 - conf) / 2, 34.7)\nassert abs(ts - 2.031) < 0.0006\nassert round(se, 3) == 0.944\nlo = (m1 - m2) - 2.031 * se; hi = (m1 - m2) + 2.031 * se\nassert round(lo, 2) == -0.22 and round(hi, 2) == 3.62\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.8",
+  "item": {
+   "title": "Claims About a Difference in Mean Daily Steps",
+   "calculator": "permitted",
+   "stimulus": "A company randomly selected 42 employees who joined a wellness program and 45 who did not, and recorded each employee's mean daily steps, in thousands. Participants: mean 9.1, standard deviation 4.2. Non-participants: mean 5.9, standard deviation 3.6. Using technology, an analyst found a 95% confidence interval for μ₁ − μ₂, the difference (participant minus non-participant) in population means, of (1.53, 4.87) thousand steps.",
+   "parts": [
+    {
+     "prompt": "Interpret the interval in context.",
+     "criteria": [
+      {
+       "text": "Interprets the interval: we are 95% confident that the interval from 1.53 to 4.87 thousand steps captures the true difference (participant minus non-participant) in mean daily steps, in thousands, for all employees like these.",
+       "evidence": "Response states the confidence level, the interval from 1.53 to 4.87 thousand steps, and the parameter it captures (true difference (participant minus non-participant) in mean daily steps, in thousands, for all employees like these).",
+       "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The wellness manager claims that participants and non-participants have the same mean daily steps, that is, that μ₁ − μ₂ = 0. Does the interval provide convincing evidence against this claim? Explain.",
+     "criteria": [
+      {
+       "text": "Because 0 is not in the interval (1.53, 4.87), 0 is not a plausible value of the difference in population means, so the interval provides convincing evidence that the means differ (participants and non-participants differ in mean daily steps).",
+       "evidence": "Response compares 0 with the interval and concludes: 0 is not a plausible value of the difference in population means, so the interval provides convincing evidence that the means differ (participants and non-participants differ in mean daily steps).",
+       "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The wellness manager also claims that participants average at least 6 thousand more steps per day, that is, that μ₁ − μ₂ is at least 6 thousand steps. Does the interval support this claim? Explain.",
+     "criteria": [
+      {
+       "text": "Because 6 is above the interval (1.53, 4.87), 6 is not a plausible value of μ₁ − μ₂ and every plausible value is below it, so the interval does not support the claim.",
+       "evidence": "Response compares 6 with the interval and concludes: 6 is not a plausible value of μ₁ − μ₂ and every plausible value is below it, so the interval does not support the claim.",
+       "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Without recalculating, how would a 99% interval from the same data compare in width with this 95% interval? Explain.",
+     "criteria": [
+      {
+       "text": "States that a 99% interval from the same data would be wider, because a higher confidence level needs a larger critical value t* (a larger margin of error) to capture the parameter more often.",
+       "evidence": "Response says the interval would be wider and gives the higher confidence level (larger t*, larger margin of error, capturing the parameter more often) as the reason.",
+       "fix": "Hold the standard error fixed: higher confidence means a larger t*, so a larger margin of error and a wider interval.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) We are 95% confident that the interval from 1.53 to 4.87 thousand steps captures the true difference (participant minus non-participant) in mean daily steps, in thousands, for all employees like these.\n\n(b) Yes. Because 0 is not in the interval (1.53, 4.87), it is not a plausible value of μ₁ − μ₂, so the interval provides convincing evidence that the means differ (participants and non-participants differ in mean daily steps).\n\n(c) No. 6 is above the interval (1.53, 4.87), so it is not a plausible value and every plausible value is below it; the interval does not support the claim.\n\n(d) A 99% interval would be wider, because a higher confidence level uses a larger critical value t*, which increases the margin of error.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn1, m1, s1, n2, m2, s2, conf = 42, 9.1, 4.2, 45, 5.9, 3.6, 0.95\nse, df = welch(s1, n1, s2, n2)\nts = tinv(1 - (1 - conf) / 2, round(df, 1))\nlo = (m1 - m2) - ts * se; hi = (m1 - m2) + ts * se\nassert round(lo, 2) == 1.53 and round(hi, 2) == 4.87\nassert lo > 0 and hi < 6\nassert tinv(1 - (1 - 0.99) / 2, round(df, 1)) > ts\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.9",
+  "item": {
+   "title": "Setting Up a Test for Two Study Methods",
+   "calculator": "not_applicable",
+   "stimulus": "A teacher believes that students who study with flashcards earn a greater mean exam score than students who study by rereading notes. At a school of 400 students, 200 study with flashcards and 200 study by rereading. A counselor independently and randomly selected 14 of the students who study with flashcards (sample mean 84.3 points, standard deviation 6.2) and 16 of the students who study by rereading (sample mean 79.8 points, standard deviation 7.0). Dotplots of both samples show no strong skewness and no outliers.",
+   "parts": [
+    {
+     "prompt": "Define the parameters of interest and state the null and alternative hypotheses for the test.",
+     "criteria": [
+      {
+       "text": "Defines μ₁ and μ₂ as the μ₁ is the true mean exam score, in points, of all students at the school who study with flashcards, and μ₂ is the true mean exam score of all students at the school who study by rereading notes.",
+       "evidence": "Response defines μ₁ and μ₂ as the μ₁ is the true mean exam score, in points, of all students at the school who study with flashcards, and μ₂ is the true mean exam score of all students at the school who study by rereading notes, naming the response variable and the population in context.",
+       "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ > 0.",
+       "evidence": "Response writes H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ > 0, with the alternative in the correct direction.",
+       "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Identify the appropriate procedure and show that its conditions are met.",
+     "criteria": [
+      {
+       "text": "Identifies the appropriate procedure as a two-sample t-test for a difference in population means.",
+       "evidence": "Response names a two-sample t-test for a difference in population means.",
+       "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the randomization condition: the students were selected by independent random samples from the two groups of students.",
+       "evidence": "Response states the randomization condition in context: the students were selected by independent random samples from the two groups of students.",
+       "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the 10% condition: each sample is less than 10% of its group of 200 students (14 and 16 are each under 20).",
+       "evidence": "Response checks that the sample size is less than 10% of the population: each sample is less than 10% of its group of 200 students (14 and 16 are each under 20).",
+       "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+       "evidence": "Response states the sample-data condition and why it is met: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+       "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Μ₁ is the true mean exam score, in points, of all students at the school who study with flashcards, and μ₂ is the true mean exam score of all students at the school who study by rereading notes. H₀: μ₁ − μ₂ = 0 versus Hₐ: μ₁ − μ₂ > 0.\n\n(b) The procedure is a two-sample t-test for a difference in population means, Randomization: the students were selected by independent random samples from the two groups of students. 10% condition: each sample is less than 10% of its group of 200 students (14 and 16 are each under 20). Sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+   "verification_python": "n1, n2, m1, m2 = 14, 16, 84.3, 79.8\nassert max(n1, n2) < 30\nassert m1 > m2\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.10",
+  "item": {
+   "title": "Test of a Difference in Mean Recovery Times for Two Treatments",
+   "calculator": "permitted",
+   "stimulus": "A physiotherapy clinic randomly assigned patients to treatment 1 (26 patients, mean recovery time 71.4 minutes, standard deviation 9.8) or treatment 2 (28 patients, mean recovery time 68.9 minutes, standard deviation 11.3). Both samples have no strong skewness and no outliers. The clinic tests H₀: μ₁ − μ₂ = 0 versus Hₐ: μ₁ − μ₂ ≠ 0 at significance level α = 0.05. Technology gives df ≈ 51.8 and a p-value of 0.3882.",
+   "parts": [
+    {
+     "prompt": "Calculate the test statistic.",
+     "criteria": [
+      {
+       "text": "Calculates the test statistic t = (x̄₁ − x̄₂)/√(s₁²/n₁ + s₂²/n₂) = (71.4 − 68.9)/√(9.8²/26 + 11.3²/28) = 0.87.",
+       "evidence": "Response substitutes the sample values into the formula and reports t of about 0.87.",
+       "fix": "Subtract the null value from the sample statistic and divide by the standard error computed from the sample standard deviations.",
+       "accepted_variants": [
+        "0.87",
+        "0.870"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the p-value in context.",
+     "criteria": [
+      {
+       "text": "Interprets the p-value 0.3882: assuming the two treatments have the same mean recovery time (μ₁ − μ₂ = 0), the probability of getting a difference in sample means at least 2.5 minutes away from 0 in either direction (equivalently, a test statistic at least about 0.87 away from 0) is about 0.3882.",
+       "evidence": "Response says 0.3882 is the probability, computed assuming the two treatments have the same mean recovery time (μ₁ − μ₂ = 0), of getting a difference in sample means at least 2.5 minutes away from 0 in either direction (equivalently, a test statistic at least about 0.87 away from 0) (an equivalent statement in terms of the test statistic is also acceptable).",
+       "fix": "Say the p-value is the probability of a result this extreme or more, in the direction of Hₐ, assuming H₀ is true.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use the p-value and the significance level α = 0.05 to state a conclusion about the claim, in context.",
+     "criteria": [
+      {
+       "text": "Compares the p-value 0.3882 with α = 0.05: because the p-value is greater than α, fail to reject H₀.",
+       "evidence": "Response compares 0.3882 with 0.05, and says fail to reject H₀.",
+       "fix": "Compare the p-value with α: reject H₀ when the p-value is less than or equal to α, otherwise fail to reject.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Concludes in context: there is not convincing evidence that the mean recovery time with treatment 1 differs from the mean recovery time with treatment 2 for the patients in this study.",
+       "evidence": "Response states not convincing evidence for Hₐ, in terms of Hₐ and in context.",
+       "fix": "State the conclusion in terms of Hₐ in context, using 'convincing evidence' or 'not convincing evidence'.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) t = (71.4 − 68.9)/√(9.8²/26 + 11.3²/28) = 0.87.\n\n(b) Assuming the two treatments have the same mean recovery time (μ₁ − μ₂ = 0), the probability of getting a difference in sample means at least 2.5 minutes away from 0 in either direction (equivalently, a test statistic at least about 0.87 away from 0) is about 0.3882.\n\n(c) The p-value 0.3882 is greater than α = 0.05, so we fail to reject H₀. There is not convincing evidence that the mean recovery time with treatment 1 differs from the mean recovery time with treatment 2 for the patients in this study.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn1, m1, s1, n2, m2, s2, alpha = 26, 71.4, 9.8, 28, 68.9, 11.3, 0.05\nse, df = welch(s1, n1, s2, n2)\nassert round(df, 1) == 51.8\nt = (m1 - m2) / se\nassert round(t, 2) == 0.87\ntail = 1 - tcdf(abs(t), 51.8)\np = 2 * tail\nassert round(p, 4) == 0.3882\nassert (p < alpha) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ }
+]

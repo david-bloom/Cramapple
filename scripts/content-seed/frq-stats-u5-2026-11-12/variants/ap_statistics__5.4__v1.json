@@ -1,0 +1,202 @@
+{
+ "id": "ap_statistics__5.4__v1",
+ "parent": "ap_statistics__5.4__1",
+ "parent_status": "accepted",
+ "topic_code": "5.4",
+ "item": {
+  "title": "Residuals for a Model Predicting Exam Scores From Study Time",
+  "calculator": "permitted",
+  "stimulus": "A teacher fit a least-squares regression line to data from 30 students. The regression equation, found using technology, is ŷ = 48.6 + 4.1x, where x is the number of hours a student studied for the exam and ŷ is the predicted exam score in points.",
+  "parts": [
+   {
+    "prompt": "For the student who studied 8 hours, the observed exam score was 71.0 points. Calculate the residual for this student.",
+    "criteria": [
+     {
+      "text": "Substitutes x = 8 into ŷ = 48.6 + 4.1x and gets a predicted value of 81.4 points.",
+      "evidence": "Response replaces x with 8 in the regression equation and reports 81.4 points.",
+      "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+      "accepted_variants": [
+       "81.4"
+      ]
+     },
+     {
+      "text": "Calculates the residual as observed minus predicted: 71.0 - 81.4 = −10.4 points.",
+      "evidence": "Response subtracts the predicted value from the observed value 71.0 and reports −10.4 points.",
+      "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+      "accepted_variants": [
+       "−10.4",
+       "-10.4"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Interpret the residual you calculated in context.",
+    "criteria": [
+     {
+      "text": "States that because the residual is negative, the model overpredicts the response for this observation.",
+      "evidence": "Response links the negative residual to the model overpredicts (observed value is below the predicted value).",
+      "fix": "Link the sign: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Interprets the size in context: for the student who studied 8 hours, the observed exam score is about 10.4 points below the predicted value.",
+      "evidence": "Response states the difference of about 10.4 points between observed and predicted exam score for the student who studied 8 hours.",
+      "fix": "Restate the residual as a gap between observed and predicted values, with units and the specific case named.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "A residual plot of the residuals against the predicted exam score for the linear model shows an arch-shaped pattern, with negative residuals at both ends and positive residuals in the middle. What does this pattern suggest about the linear model, and what would an appropriate residual plot look like?",
+    "criteria": [
+     {
+      "text": "States that the arch-shaped pattern (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+      "evidence": "Response identifies the pattern as curvature and concludes the linear model is not the most appropriate.",
+      "fix": "Treat a curved pattern in the residual plot as evidence against a linear model; do not call it random scatter.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that apparent randomness (no pattern) in a residual plot would indicate the linear regression model is appropriate.",
+      "evidence": "Response names no pattern or random scatter as the residual-plot evidence that the linear model is appropriate.",
+      "fix": "Say what a good residual plot looks like: points scattered randomly with no curve or other pattern, supporting the linear model.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) ŷ = 48.6 + 4.1x with x = 8 gives ŷ = 81.4 points. The residual is observed minus predicted: 71.0 − 81.4 = −10.4 points.\n\n(b) The residual is negative, so the model overpredicts the exam score for this student: the observed value is below the predicted value. For the student who studied 8 hours, the observed exam score is about 10.4 points below the predicted value.\n\n(c) The arch-shaped pattern is curvature, which suggests the linear model is not the most appropriate model for the data. If the linear model were appropriate, the residual plot would show apparent randomness, with no pattern.",
+  "verification_python": "a = 48.6\nb = 4.1\nx0, y0 = 8, 71.0\nyh = a + b * x0\nassert abs(yh - 81.4) < 1e-9\ne = y0 - yh\nassert abs(e - -10.4) < 1e-9\nassert (e > 0) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:29:01.024Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"PREDICT\",\"RESID_CALC\"],[\"RESID_SIGN\",\"RESID_MAGNITUDE\"],[\"RESID_PLOT_CURVE\",\"RESID_PLOT_RANDOM\"]]",
+  "child_order": "[[\"PREDICT\",\"RESID_CALC\"],[\"RESID_SIGN\",\"RESID_MAGNITUDE\"],[\"RESID_PLOT_CURVE\",\"RESID_PLOT_RANDOM\"]]",
+  "child_pattern": [
+   [
+    "PREDICT",
+    "RESID_CALC"
+   ],
+   [
+    "RESID_SIGN",
+    "RESID_MAGNITUDE"
+   ],
+   [
+    "RESID_PLOT_CURVE",
+    "RESID_PLOT_RANDOM"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [2,2,2], variant [2,2,2]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"PREDICT\",\"RESID_CALC\"],[\"RESID_SIGN\",\"RESID_MAGNITUDE\"],[\"RESID_PLOT_CURVE\",\"RESID_PLOT_RANDOM\"]]\nPart a prompt changed.\nCriterion a1 (PREDICT): wording and values changed; accepted variants changed\nCriterion a2 (RESID_CALC): wording and values changed; accepted variants changed\nCriterion b1 (RESID_SIGN): wording and values changed\nCriterion b2 (RESID_MAGNITUDE): wording and values changed\nPart c prompt changed.\nCriterion c1 (RESID_PLOT_CURVE): wording and values changed\nCriterion c2 (RESID_PLOT_RANDOM): identical wording",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from weekly sales predicted by advertising to exam scores predicted by study hours, with 30 students instead of 24 weeks. The regression equation changes to ŷ = 48.6 + 4.1x, and the observation changes to 8 study hours and 71.0 points. The residual becomes negative, so the interpretation changes from underprediction to overprediction. The residual plot changes from U-shaped to arch-shaped; both indicate curvature.",
+     "numbers_recomputed": "Predicted score: 48.6 + 4.1(8) = 48.6 + 32.8 = 81.4 points, matching a1 and its equivalent form. Residual: 71.0 − 81.4 = −10.4 points, matching a2 and both equivalent forms. The observed score is 10.4 points below the prediction, matching b2. The sample size of 30 is a given, not a computed result.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changed from a retailer predicting weekly sales (thousands of dollars) from radio advertisements to a teacher predicting exam scores (points) from hours of study; sample size changed from 24 weeks to 30 students; the regression equation changed from ŷ = 38.4 + 7.2x to ŷ = 48.6 + 4.1x; the explanatory/response variables and units changed accordingly. In part (a), the given x changed from 5 to 8 and observed y from 80.5 to 71.0, producing a negative residual instead of a positive one. Part (c)'s residual plot pattern changed from U-shaped with positive ends/negative middle to arch-shaped with negative ends/positive middle.",
+     "numbers_recomputed": "Predicted value: 48.6 + 4.1(8) = 81.4 points; matches the rubric and model answer. Residual: 71.0 − 81.4 = −10.4 points; matches the rubric and model answer. The magnitude 10.4 used in the interpretation also matches.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

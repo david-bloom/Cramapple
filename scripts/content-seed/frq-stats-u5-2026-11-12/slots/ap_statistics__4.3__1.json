@@ -1,0 +1,523 @@
+{
+ "id": "ap_statistics__4.3__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.3",
+  "topic_title": "Justifying a Claim Based on a Confidence Interval for a Population Mean or Population Mean Difference",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:48:56.370Z",
+   "source": "given",
+   "item": {
+    "title": "Claims About a Mean Improvement in 5K Times",
+    "calculator": "permitted",
+    "stimulus": "A coach recorded the 5K running times of 20 randomly selected runners before and after a 6-week training program. For each runner, the difference (before minus after) in minutes was calculated; positive differences mean the runner got faster. The differences have no strong skewness and no outliers. Using technology, the coach found a 95% confidence interval for the population mean difference μ_d of (0.37, 2.33) minutes.",
+    "parts": [
+     {
+      "prompt": "Interpret the interval in context.",
+      "criteria": [
+       {
+        "text": "Interprets the interval: we are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program.",
+        "evidence": "Response states the confidence level, the interval from 0.37 to 2.33 minutes, and the parameter it captures (true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program).",
+        "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The coach claims that the program does not change mean 5K time, that is, that μ_d = 0. Does the interval provide convincing evidence against this claim? Explain.",
+      "criteria": [
+       {
+        "text": "Because 0 is not in the interval (0.37, 2.33), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the program is associated with a change in mean 5K time).",
+        "evidence": "Response compares 0 with the interval and concludes: 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the program is associated with a change in mean 5K time).",
+        "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The coach also claims that the program improves mean 5K time by at least 2.5 minutes, that is, that μ_d is at least 2.5 minutes. Does the interval support this claim? Explain.",
+      "criteria": [
+       {
+        "text": "Because 2.5 is above the interval (0.37, 2.33), 2.5 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim.",
+        "evidence": "Response compares 2.5 with the interval and concludes: 2.5 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim.",
+        "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Without recalculating, how would a 99% interval from the same data compare in width with this 95% interval? Explain.",
+      "criteria": [
+       {
+        "text": "States that a 99% interval from the same data would be wider, because a higher confidence level needs a larger critical value t* (a larger margin of error) to capture the parameter more often.",
+        "evidence": "Response says the interval would be wider and gives the higher confidence level (larger t*, larger margin of error, capturing the parameter more often) as the reason.",
+        "fix": "Hold the standard error fixed: higher confidence means a larger t*, so a larger margin of error and a wider interval.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) We are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program.\n\n(b) Yes. Because 0 is not in the interval (0.37, 2.33), it is not a plausible value of μ_d, so the interval provides convincing evidence that the mean difference is not 0 (the program is associated with a change in mean 5K time).\n\n(c) No. 2.5 is above the interval (0.37, 2.33), so it is not a plausible value of μ_d and every plausible value is below it; the interval does not support the claim.\n\n(d) A 99% interval would be wider, because a higher confidence level uses a larger critical value t*, which increases the margin of error.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, conf = 20, 1.35, 2.1, 0.95\nts = tinv(1 - (1 - conf) / 2, n - 1)\nse = s / math.sqrt(n)\nlo, hi = d - ts * se, d + ts * se\nassert round(lo, 2) == 0.37 and round(hi, 2) == 2.33\nassert lo > 0 and hi < 2.5\nassert tinv(1 - (1 - 0.99) / 2, n - 1) > ts\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Claims About a Mean Improvement in 5K Times",
+   "calculator": "permitted",
+   "stimulus": "A coach recorded the 5K running times of 20 randomly selected runners before and after a 6-week training program. For each runner, the difference (before minus after) in minutes was calculated; positive differences mean the runner got faster. The differences have no strong skewness and no outliers. Using technology, the coach found a 95% confidence interval for the population mean difference μ_d of (0.37, 2.33) minutes.",
+   "parts": [
+    {
+     "prompt": "Interpret the interval in context.",
+     "criteria": [
+      {
+       "text": "Interprets the interval: we are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program.",
+       "evidence": "Response states the confidence level, the interval from 0.37 to 2.33 minutes, and the parameter it captures (true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program).",
+       "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The coach claims that the program does not change mean 5K time, that is, that μ_d = 0. Does the interval provide convincing evidence against this claim? Explain.",
+     "criteria": [
+      {
+       "text": "Because 0 is not in the interval (0.37, 2.33), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the program is associated with a change in mean 5K time).",
+       "evidence": "Response compares 0 with the interval and concludes: 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the program is associated with a change in mean 5K time).",
+       "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The coach also claims that the program improves mean 5K time by at least 2.5 minutes, that is, that μ_d is at least 2.5 minutes. Does the interval support this claim? Explain.",
+     "criteria": [
+      {
+       "text": "Because 2.5 is above the interval (0.37, 2.33), 2.5 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim.",
+       "evidence": "Response compares 2.5 with the interval and concludes: 2.5 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim.",
+       "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Without recalculating, how would a 99% interval from the same data compare in width with this 95% interval? Explain.",
+     "criteria": [
+      {
+       "text": "States that a 99% interval from the same data would be wider, because a higher confidence level needs a larger critical value t* (a larger margin of error) to capture the parameter more often.",
+       "evidence": "Response says the interval would be wider and gives the higher confidence level (larger t*, larger margin of error, capturing the parameter more often) as the reason.",
+       "fix": "Hold the standard error fixed: higher confidence means a larger t*, so a larger margin of error and a wider interval.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) We are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program.\n\n(b) Yes. Because 0 is not in the interval (0.37, 2.33), it is not a plausible value of μ_d, so the interval provides convincing evidence that the mean difference is not 0 (the program is associated with a change in mean 5K time).\n\n(c) No. 2.5 is above the interval (0.37, 2.33), so it is not a plausible value of μ_d and every plausible value is below it; the interval does not support the claim.\n\n(d) A 99% interval would be wider, because a higher confidence level uses a larger critical value t*, which increases the margin of error.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, conf = 20, 1.35, 2.1, 0.95\nts = tinv(1 - (1 - conf) / 2, n - 1)\nse = s / math.sqrt(n)\nlo, hi = d - ts * se, d + ts * se\nassert round(lo, 2) == 0.37 and round(hi, 2) == 2.33\nassert lo > 0 and hi < 2.5\nassert tinv(1 - (1 - 0.99) / 2, n - 1) > ts\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items.py, rubric_patterns.json), 2026-11-12",
+  "at": "2026-11-12T21:48:55.634741Z"
+ },
+ "history_before_patch": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:40:29.930Z",
+   "source": "given",
+   "item": {
+    "title": "Claims About a Mean Improvement in 5K Times",
+    "calculator": "permitted",
+    "stimulus": "A coach recorded the 5K running times of 20 randomly selected runners before and after a 6-week training program. For each runner, the difference (before minus after) in minutes was calculated; positive differences mean the runner got faster. The differences have no strong skewness and no outliers. Using technology, the coach found a 95% confidence interval for the population mean difference μ_d of (0.37, 2.33) minutes.",
+    "parts": [
+     {
+      "prompt": "Interpret the interval in context.",
+      "criteria": [
+       {
+        "text": "Interprets the interval: we are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program.",
+        "evidence": "Response states the confidence level, the interval from 0.37 to 2.33 minutes, and the parameter it captures (true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program).",
+        "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The coach claims that the program does not change mean 5K time, that is, that μ_d = 0. Does the interval provide convincing evidence against this claim? Explain.",
+      "criteria": [
+       {
+        "text": "Because 0 is not in the interval (0.37, 2.33), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the program is associated with a change in mean 5K time).",
+        "evidence": "Response compares 0 with the interval and concludes: 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the program is associated with a change in mean 5K time).",
+        "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The coach also claims that the program improves mean 5K time by at least 2.5 minutes, that is, that μ_d is at least 2.5 minutes. Does the interval support this claim? Explain.",
+      "criteria": [
+       {
+        "text": "Because 2.5 is above the interval (0.37, 2.33), 2.5 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim.",
+        "evidence": "Response compares 2.5 with the interval and concludes: 2.5 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim.",
+        "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Without recalculating, how would a 99% interval from the same data compare in width with this 95% interval? Explain.",
+      "criteria": [
+       {
+        "text": "States that a 99% interval from the same data would be wider, because a higher confidence level uses a larger critical value t*.",
+        "evidence": "Response says the interval would be wider and gives the larger t* (higher confidence level) as the reason.",
+        "fix": "Higher confidence needs a larger t*, so the margin of error and the interval width both increase.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) We are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program.\n\n(b) Yes. Because 0 is not in the interval (0.37, 2.33), it is not a plausible value of μ_d, so the interval provides convincing evidence that the mean difference is not 0 (the program is associated with a change in mean 5K time).\n\n(c) No. 2.5 is above the interval (0.37, 2.33), so it is not a plausible value of μ_d and every plausible value is below it; the interval does not support the claim.\n\n(d) A 99% interval would be wider, because a higher confidence level uses a larger critical value t*, which increases the margin of error.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, conf = 20, 1.35, 2.1, 0.95\nts = tinv(1 - (1 - conf) / 2, n - 1)\nse = s / math.sqrt(n)\nlo, hi = d - ts * se, d + ts * se\nassert round(lo, 2) == 0.37 and round(hi, 2) == 2.33\nassert lo > 0 and hi < 2.5\nassert tinv(1 - (1 - 0.99) / 2, n - 1) > ts\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion d1 requires explicitly citing a larger critical value t*. A correct explanation that higher confidence requires a larger margin of error for the same data, making the interval wider, should also earn credit without mentioning t*. The criterion unnecessarily rejects valid alternative reasoning.",
+       "solution: The independent solution agrees with all mathematical conclusions: (a) 95% confidence concerns the population mean before-minus-after difference; (b) excluding 0 provides convincing evidence against no mean change; (c) the upper endpoint 2.33 is below 2.5, so the interval does not support the claimed improvement; (d) the 99% interval is wider. The only disagreement is d1's unnecessarily restrictive requirement to mention t* explicitly."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d1 requires explicitly citing a larger critical value t*. A correct explanation that higher confidence requires a larger margin of error for the same data, making the interval wider, should also earn credit without mentioning t*. The criterion unnecessarily rejects valid alternative reasoning."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all mathematical conclusions: (a) 95% confidence concerns the population mean before-minus-after difference; (b) excluding 0 provides convincing evidence against no mean change; (c) the upper endpoint 2.33 is below 2.5, so the interval does not support the claimed improvement; (d) the 99% interval is wider. The only disagreement is d1's unnecessarily restrictive requirement to mention t* explicitly.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion d1 requires an explanation specifically using a larger t*. Part (d) also permits valid explanations using increased long-run coverage with the same sampling variability. Accept equivalent statistical reasoning without requiring this particular explanation.",
+       "rubric_evidence: Criterion d1's Fix states a relationship but gives no concrete action for the student. Replace it with: 'Hold the standard error fixed and explain how increasing confidence changes the critical value, margin of error, and interval width.'"
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "All parts are answerable as statements about the population mean before–after difference μ_d. However, random selection alone does not establish that the training program caused the improvement; no randomized comparison with a control group is described.",
+      "audit": {
+       "primary_topic_code": "4.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d1 requires an explanation specifically using a larger t*. Part (d) also permits valid explanations using increased long-run coverage with the same sampling variability. Accept equivalent statistical reasoning without requiring this particular explanation."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Criterion d1's Fix states a relationship but gives no concrete action for the student. Replace it with: 'Hold the standard error fixed and explain how increasing confidence changes the critical value, margin of error, and interval width.'"
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "arbitration": {},
+ "accepted_round": 1
+}

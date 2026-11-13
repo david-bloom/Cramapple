@@ -1,0 +1,199 @@
+{
+ "id": "ap_statistics__4.4__v1",
+ "parent": "ap_statistics__4.4__1",
+ "parent_status": "accepted",
+ "topic_code": "4.4",
+ "item": {
+  "title": "Is a Matched-Pairs t-Test Appropriate? Sleep Aid and Time to Fall Asleep",
+  "calculator": "not_applicable",
+  "stimulus": "A sleep researcher suspects that a sleep aid reduces the time it takes adults to fall asleep. She randomly selected 12 adults from a large city. Each adult used the sleep aid on one night and no aid on another night, in a random order, and the researcher recorded each adult's difference (time to fall asleep without the aid minus time with it) in minutes. The sample of 12 differences has mean 4.8 minutes and standard deviation 9.6 minutes. A dotplot of the 12 differences is strongly left-skewed with one outlier.",
+  "parts": [
+   {
+    "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+    "criteria": [
+     {
+      "text": "Defines μ_d as the μ_d is the true mean difference (time to fall asleep without the sleep aid minus time with it), in minutes, for all adults in this city.",
+      "evidence": "Response defines μ_d as the μ_d is the true mean difference (time to fall asleep without the sleep aid minus time with it), in minutes, for all adults in this city, naming the response variable and the population in context.",
+      "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States H₀: μ_d = 0 and Hₐ: μ_d > 0.",
+      "evidence": "Response writes H₀: μ_d = 0 and Hₐ: μ_d > 0, with the alternative in the correct direction.",
+      "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "For the appropriate procedure, decide whether its conditions are met. Justify each decision.",
+    "criteria": [
+     {
+      "text": "Checks the randomization condition: the 12 adults were randomly selected.",
+      "evidence": "Response states the randomization condition in context: the 12 adults were randomly selected.",
+      "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the 10% condition: 12 adults are less than 10% of the adults in the city.",
+      "evidence": "Response checks that the sample size is less than 10% of the population: 12 adults are less than 10% of the adults in the city.",
+      "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the sample-data condition: the sample of differences has n = 12, which is less than 30, and its dotplot is strongly left-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+      "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: the sample of differences has n = 12, which is less than 30, and its dotplot is strongly left-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+      "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "A classmate proposes a two-sample t-test that compares the mean time to fall asleep with the aid and the mean time without it for these adults. Is that appropriate? Explain.",
+    "criteria": [
+     {
+      "text": "States that the classmate's two-sample t-test is not appropriate, because each adult provided both times, so the two sets of times are not independent samples; the analysis should use the 12 differences (a matched-pairs, one-sample procedure).",
+      "evidence": "Response rejects the classmate's two-sample t-test and gives the reason: each adult provided both times, so the two sets of times are not independent samples; the analysis should use the 12 differences (a matched-pairs, one-sample procedure).",
+      "fix": "Check whether the two measurements come from the same individuals; if so, analyze the differences with a one-sample procedure.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) Μ_d is the true mean difference (time to fall asleep without the sleep aid minus time with it), in minutes, for all adults in this city. H₀: μ_d = 0 versus Hₐ: μ_d > 0.\n\n(b) The procedure is a one-sample t-test for a population mean difference (matched pairs), applied to the 12 differences. Randomization: the 12 adults were randomly selected. 10% condition: 12 adults are less than 10% of the adults in the city. Sample-data condition: the sample of differences has n = 12, which is less than 30, and its dotplot is strongly left-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.\n\n(c) No. Each adult provided both times, so the two sets of times are not independent samples; the analysis should use the 12 differences (a matched-pairs, one-sample procedure).",
+  "verification_python": "n_small = 12\nmet = False\nassert (n_small >= 30) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T22:56:21.931Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"PROC_ERR\"]]",
+  "child_order": "[[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"PROC_ERR\"]]",
+  "child_pattern": [
+   [
+    "PARAM_DEFINE",
+    "HYPOTHESES"
+   ],
+   [
+    "COND_RANDOM",
+    "COND_TEN",
+    "COND_NORMAL"
+   ],
+   [
+    "PROC_ERR"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [2,3,1], variant [2,3,1]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"PROC_ERR\"]]\nCriterion a1 (PARAM_DEFINE): wording and values changed\nCriterion a2 (HYPOTHESES): wording and values changed\nCriterion b1 (COND_RANDOM): wording and values changed\nCriterion b2 (COND_TEN): wording and values changed\nCriterion b3 (COND_NORMAL): wording and values changed\nPart c prompt changed.\nCriterion c1 (PROC_ERR): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from students completing puzzles with and without music to adults falling asleep with and without a sleep aid. The sample size changes from 15 to 12, the mean difference from −9.3 seconds to 4.8 minutes, and the standard deviation from 12.1 seconds to 9.6 minutes. The difference remains defined as without minus with, but the suspected effect now implies a positive difference, so the alternative changes from μ_d < 0 to μ_d > 0. Strong right skew changes to strong left skew; one outlier remains.",
+     "numbers_recomputed": "There are 12 adults with two measurements each, producing 12 paired differences, matching b1, b3, and c1. For b2, 12 < 0.10N requires N > 120 adults, consistent with a large city. For b3, 12 < 30, so the stated strong skewness and outlier make the sample-data condition fail, as the rubric states. The null difference remains 0, and a reduction with the aid means without minus with > 0, matching a2. The mean 4.8 minutes and standard deviation 9.6 minutes are supplied summaries, not quantities recalculable without the raw data.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Context changed from music/puzzle times to sleep aid/fall asleep times; population changed from students at a school to adults in a city; sample size changed from 15 to 12; the difference in wording changed from time without music minus time with music to time to fall asleep without the sleep aid minus time with it; sample mean changed from -9.3 to 4.8, sample standard deviation changed from 12.1 to 9.6, and the dotplot shape changed from strongly right-skewed with one outlier to strongly left-skewed with one outlier. The alternative hypothesis direction changed from less than to greater than, and the wording in parts a, b, and c was updated to the new context.",
+     "numbers_recomputed": "n = 12 (matches rubric); sample mean = 4.8 (matches); sample standard deviation = 9.6 (matches); threshold for the sample-data condition remains 30, so n = 12 < 30 (matches b3); alternative direction is > because without the aid the time to fall asleep should be larger when the aid reduces time (matches a2); part c uses 12 differences (matches c1). No inferential test statistic is computed in this task.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "None"
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

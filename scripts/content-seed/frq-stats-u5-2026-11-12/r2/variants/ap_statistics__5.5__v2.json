@@ -1,0 +1,206 @@
+{
+ "id": "ap_statistics__5.5__v2",
+ "parent": "ap_statistics__5.5__1",
+ "parent_status": "accepted",
+ "topic_code": "5.5",
+ "item": {
+  "title": "Interpreting and Critiquing a Regression Line for Fuel Economy",
+  "calculator": "permitted",
+  "stimulus": "A magazine recorded the weight and the highway fuel economy of 45 vehicle models whose weights were between 2200 and 4200 pounds. Technology gives the least-squares regression line ŷ = 52.4 − 0.8x, where x is the vehicle weight in hundreds of pounds and ŷ is the predicted fuel economy in miles per gallon, and gives r² = 0.88.",
+  "parts": [
+   {
+    "prompt": "Interpret the slope of the regression line in context.",
+    "criteria": [
+     {
+      "text": "Interprets the slope in context: for each one-hundred pounds increase in vehicle weight, the predicted fuel economy decreases by about 0.8 miles per gallon.",
+      "evidence": "Response says the predicted fuel economy decreases by about 0.8 miles per gallon per one-hundred pounds increase in vehicle weight.",
+      "fix": "Use the pattern: for each one-unit increase in x, the predicted y increases or decreases by the slope, with units and context.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "State what the y-intercept represents, and explain whether it can be given a reasonable interpretation in this context.",
+    "criteria": [
+     {
+      "text": "States that the y-intercept 52.4 is the predicted fuel economy when vehicle weight is 0.",
+      "evidence": "Response identifies 52.4 as the predicted fuel economy at vehicle weight = 0.",
+      "fix": "Define the y-intercept as the predicted response when the explanatory variable equals 0, naming both variables.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that this intercept should not be interpreted because vehicle weight = 0 is outside the interval of values used to fit the line (22 to 42 hundreds of pounds), so it is extrapolation.",
+      "evidence": "Response says the intercept has no reasonable interpretation because 0 is beyond the range 22 to 42 hundreds of pounds (extrapolation).",
+      "fix": "Check whether x = 0 lies inside the observed x-values; if not, the intercept comes from extrapolation and has no meaningful interpretation.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "A student writes, \"Since r² = 0.88, the regression line predicts the fuel economy exactly for 88% of the vehicle models.\" Is the student's interpretation correct? Explain what r² does not measure, then give a correct interpretation of r² in context.",
+    "criteria": [
+     {
+      "text": "States that the student's interpretation that the regression line predicts the fuel economy exactly for 88% of the vehicle models is incorrect, because r² does not count points on the line or correct predictions.",
+      "evidence": "Response rejects the student's interpretation and says r² is not a percent of points on the line or of correct predictions.",
+      "fix": "Do not read r² as a count of points or correct predictions; it describes explained variation in the response.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Interprets r² = 0.88: about 88% of the variation in fuel economy is explained by the linear relationship with vehicle weight.",
+      "evidence": "Response states that about 88% of the variation in fuel economy is explained by the linear relationship with vehicle weight.",
+      "fix": "Write r² as a percent and say that share of the variation in the response is explained by the linear relationship with x.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "The mean fuel economy for the 45 vehicle models was 28.4 miles per gallon. Use the regression line to find the mean vehicle weight for these vehicle models.",
+    "criteria": [
+     {
+      "text": "Uses the fact that the line passes through (x̅, ȳ): solves 28.4 = 52.4 − 0.8x̅ to get a mean vehicle weight of 30 hundreds of pounds.",
+      "evidence": "Response substitutes the mean response 28.4 into the equation and solves for x̅, getting 30 hundreds of pounds.",
+      "fix": "Because the line passes through (mean x, mean y), set the predicted value equal to the mean of y and solve for x.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) For each one-hundred pounds increase in vehicle weight, the predicted fuel economy decreases by about 0.8 miles per gallon.\n\n(b) The y-intercept, 52.4, is the predicted fuel economy when vehicle weight is 0. It should not be interpreted, because vehicle weight = 0 is outside the interval of values used to fit the line (22 to 42 hundreds of pounds); this would be extrapolation.\n\n(c) The student is incorrect. r² does not measure the percent of points on the line or the percent of correct predictions. About 88% of the variation in fuel economy is explained by the linear relationship with vehicle weight.\n\n(d) The line passes through (x̅, ȳ), so 28.4 = 52.4 − 0.8x̅. Solving, x̅ = 30 hundreds of pounds.",
+  "verification_python": "a, b = 52.4, -0.8\nlo, hi = 22, 42\nybar, r2 = 28.4, 0.88\nxbar = (ybar - a) / b\nassert abs(xbar - 30) < 1e-9\nassert round(r2 * 100) == 88 and not (lo <= 0 <= hi) and a > 0\nassert round(abs(b), 1) == 0.8\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T23:05:18.594Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"SLOPE_INTERP\"],[\"INTERCEPT_DEF\",\"INTERCEPT_WHY\"],[\"R2_ERR\",\"R2_INTERP\"],[\"SOLVE_XBAR\"]]",
+  "child_order": "[[\"SLOPE_INTERP\"],[\"INTERCEPT_DEF\",\"INTERCEPT_WHY\"],[\"R2_ERR\",\"R2_INTERP\"],[\"SOLVE_XBAR\"]]",
+  "child_pattern": [
+   [
+    "SLOPE_INTERP"
+   ],
+   [
+    "INTERCEPT_DEF",
+    "INTERCEPT_WHY"
+   ],
+   [
+    "R2_ERR",
+    "R2_INTERP"
+   ],
+   [
+    "SOLVE_XBAR"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 4, variant 4. Criteria per part: parent [1,2,2,1], variant [1,2,2,1]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"SLOPE_INTERP\"],[\"INTERCEPT_DEF\",\"INTERCEPT_WHY\"],[\"R2_ERR\",\"R2_INTERP\"],[\"SOLVE_XBAR\"]]\nCriterion a1 (SLOPE_INTERP): wording and values changed\nCriterion b1 (INTERCEPT_DEF): wording and values changed\nCriterion b2 (INTERCEPT_WHY): wording and values changed\nPart c prompt changed.\nCriterion c1 (R2_ERR): wording and values changed\nCriterion c2 (R2_INTERP): wording and values changed\nPart d prompt changed.\nCriterion d1 (SOLVE_XBAR): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from hot-chocolate sales versus temperature to highway fuel economy versus vehicle weight. The sample size changes from 40 days to 45 vehicle models; the fitted range becomes 2200–4200 pounds, with x measured in hundreds of pounds. The regression equation, r², and supplied response mean all change. The incorrect r² claim is reworded as exact predictions rather than points falling on the line. Parts, criteria, and point allocations remain unchanged.",
+     "numbers_recomputed": "The weight range converts to 2200/100 = 22 through 4200/100 = 42 hundreds of pounds, matching b2. A one-unit increase in x represents 100 pounds, so the slope −0.8 means a predicted decrease of 0.8 mpg per 100-pound increase, matching a1. At x = 0, ŷ = 52.4 − 0.8(0) = 52.4 mpg, matching b1. r² = 0.88 corresponds to 88% explained variation, matching c2 and the percentage quoted in c1's rejected claim. Solving for the mean gives x̄ = (52.4 − 28.4)/0.8 = 24/0.8 = 30 hundreds of pounds, or 3000 pounds, matching d1.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "harder",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Changed context from café hot chocolate sales vs. noon temperature to vehicle highway fuel economy vs. weight; changed sample size from 40 days to 45 vehicle models; changed explanatory units from degrees Fahrenheit to hundreds of pounds; changed the regression line from ŷ = 312.4 − 3.8x to ŷ = 52.4 − 0.8x; changed r² from 0.81 to 0.88; changed the mean response in part (d) from 122.4 cups to 28.4 mpg; and reworded the student error in part (c) from days falling exactly on the line to predicting exactly for 88% of models.",
+     "numbers_recomputed": "Slope b = −0.8, intercept a = 52.4, and r² = 0.88 are given and repeated correctly. Weight range 2200–4200 pounds converts to 22–42 hundreds of pounds, which is stated correctly in criterion b2. In part (d), solving 28.4 = 52.4 − 0.8x̅ gives x̅ = (52.4 − 28.4)/0.8 = 24/0.8 = 30 hundreds of pounds, matching the rubric and model answer.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

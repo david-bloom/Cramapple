@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 - [APPROVAL-0258 — Calculus AB and BC Unit 5 topic 5.1 (granted and executed 2026-11-12)](APPROVAL-0258_CALCULUS_AB_BC_UNIT5_TOPIC_5_1_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0257 — AP Statistics Unit 5 re-leveling (granted and executed 2026-11-12)](APPROVAL-0257_STATS_UNIT5_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0258 — TASK-0050: publish 14 reviewed AP Statistics successors with labels (authorized 2026-11-12 ET; execution pending)](APPROVAL-0258_TASK0050_STATISTICS_14_SUCCESSORS_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0236 — TASK-0050 AP Statistics Phase B: 390 provisional skill cells added to Production (granted and executed 2026-11-11 ET)](APPROVAL-0236_TASK0050_STATISTICS_PHASE_B_PROVISIONAL_SKILLS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0218 — AP Chemistry topics 3.1 to 3.3 harder seeds: 24 items published, 12 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0218_AP_CHEMISTRY_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0229 — AP Physics 1 Unit 4 topics 4.1 to 4.4: 32 items published (granted and executed 2026-11-12)](APPROVAL-0229_AP_PHYSICS_1_UNIT4_4_1_TO_4_4_PRODUCTION_2026_11_12.md)
@@ -204,6 +205,7 @@ Most recent entries (full chronological list follows below):
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
+- [APPROVAL-0257 — AP Statistics Units 4-5 FRQs round 2: 30 FRQs published as content only, labels out (granted 2026-11-12)](APPROVAL-0257_STATS_UNITS_4_5_FRQS_CONTENT_ONLY_PRODUCTION_2026_11_12.md)
 <!-- INDEX_END -->
 
 

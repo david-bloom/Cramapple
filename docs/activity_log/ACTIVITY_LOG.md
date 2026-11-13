@@ -6,6 +6,9 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 - Calculus AB and BC Unit 5 topic 5.1 published to Production (`APPROVAL-0258`, 2026-11-12): 12 identical new MCQs per served pack with validated serving labels, selector checks passed, zero R1 or key disputes in the approved two-model checks. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - AP Statistics Unit 5 re-leveling published (`APPROVAL-0257`, 2026-11-12): 60 new MCQs with validated serving labels, 15 served-pack R1 items retired, and selector checks passed under David's one-time quality-gate exception. Status: `docs/product/STATS_UNIT5_RELEVELING_STATUS_2026_11_12.md`.
+- AP Statistics Units 4-5 round-2 FRQs published to Production, content only (`APPROVAL-0257`, 2026-11-12): 30 FRQs (10 seeds, 20 variants), labels out for a separate labeling task; 30/30 verified.
+- AP Statistics Unit 5 + Unit 4 (stand-in for the nonexistent Unit 6) FRQ cost-measured authoring run (2026-11-12, no approval: nothing published): 15 seeds + 15 variants accepted; gateway $5.75 measured at token level (seed $0.3191 avg, variant $0.0507 avg; Unit 5 $0.1465/$0.0279, Unit 4 $0.4054/$0.0620); 49-pattern rubric library, diff-style variant check. Record: `scripts/content-seed/frq-stats-u5-2026-11-12/README.md`. **Round 2 (2026-11-12, difficulty target added; David: Easy is too easy for AP level): 9 of 10 Easy seeds and 9 variants rewritten and accepted with no checker rating them Easy; 5.3 held; 5 split-rated r1 items not yet re-rated; r2 gateway $4.47.**
+- /question two-pane rebuild from David's MCQ/FRQ result mockups (2026-11-12): app PR `david-bloom/ap-prep-blueprint#57` implements the two-pane layout already approved as `DECISION-0133` (no new decision), per David's "approve the two-pane layout and go ahead" (the three-pane design "is getting poor reviews"). Not published to Lovable, nothing in Production.
 - Precalculus 1.4-B: two published items with inconsistent turning-point counts corrected in place (`APPROVAL-0255`, 2026-11-12).
 - Physics C: Mechanics Unit 1 re-leveling published (`APPROVAL-0254`, 2026-11-12): 40 new MCQs, 19 retired. Status: `docs/product/PHYSICS_C_MECH_UNIT1_RELEVELING_STATUS_2026_11_12.md`.
 - Unit 1 re-leveling for Physics 1, Biology, Chemistry, Calculus AB and BC, Precalculus and Statistics published (`APPROVAL-0243` to `APPROVAL-0253`, 2026-11-12): 632 new MCQs, 166 superseded items retired. Statistics retirements were narrowed to served items and topics kept at 12 or more where old items existed. Status: `docs/product/UNIT1_RELEVELING_STATUS_2026_11_12.md`.
@@ -321,6 +324,32 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+
+## 2026-11-13 — Session close: Statistics Units 4-5 FRQ authoring, cost and publish
+
+Session-close handoff `docs/handoffs/SESSION_CLOSE_2026_11_12_STATS_UNITS_4_5_FRQ_AUTHORING_AND_PUBLISH.md` and the fresh-context labeling prompt `docs/handoffs/PROMPT_LABEL_GAP_AUDIT_AND_PUBLISH_UNITS_1_5_2026_11_13.md`. PR #638 merged. The 30 published FRQs still need labels.
+
+## 2026-11-12 — AP Statistics Units 4-5 round-2 FRQs published to Production, content only (APPROVAL-0257)
+
+David accepted 5.3 as an exception, approved publication, and chose labels out. 30 FRQs (10 seeds, 20 variants) published in one rehearsed transaction; 30/30 verified by independent read; no labels, cells or difficulty rows written (separate labeling task). Items are not servable by topic until labeled. Record: `APPROVAL-0257_STATS_UNITS_4_5_FRQS_CONTENT_ONLY_PRODUCTION_2026_11_12.md`; tool `scripts/content-seed/frq-stats-u5-2026-11-12/r2/publish_frq_content_only.py`. Five unreplaced batch-1 seeds and the superseded Easy items were not published.
+
+## 2026-11-12 — AP Statistics Unit 5 and Unit 4 FRQ authoring run, cost measured (no publication)
+
+Side session of the 'FRQ authoring for Stats units 5-6' request. AP Statistics has five units, so there is no Unit 6; David confirmed Unit 4 as the stand-in. Claude authored 15 seeds and 15 variants in session from a 49-pattern rubric library (`rubric_patterns.json`); the gateway only checked.
+
+- **Done:** 15/15 seeds accepted by the full check (GPT-6.1 Sol + DeepSeek V4 Pro, six-vote probe); 15/15 variants accepted by the new diff-style check (`frq_pipeline/variant_check.mjs`); 30/30 model answers earn full credit from a third family. Unit 4 needed two patch loops (policy is one); every ruling is in `arbitration_u4.md`.
+- **Cost:** gateway $5.7535 (450 calls, token-level): Unit 5 seed $0.1465 / variant $0.0279; Unit 4 seed $0.4054 / variant $0.0620; variant about 16 percent of a seed. In-session authoring is an estimate (marginal about $0.35 total; whole session about $4.36, plus or minus 40 percent).
+- **Changed code:** `rubric.mjs` lint no longer treats the noun "plot" in "residual plot" as an instruction to draw; new `variant_check.mjs`.
+- **Round 2 / batch 2:** `--min-difficulty=Medium` gate and an AP-exam difficulty scale added; the variant check flags a variant easier than its parent. 9 of the 10 Easy r1 seeds re-authored and accepted with both checkers rating them Medium (5.3 held: Medium and Easy after the full loop allowance); 20 diff-checked variants (two per seed) accepted; 30/30 model answers full credit; batch 2 gateway $5.1715 (398 calls), seed average $0.4122, variant $0.0525; combined with batch 1 $10.925. Originals kept in place. Detail in the batch README (batch 2 final section).
+- **Not done:** no publication, no Production or Development write, no APPROVAL or DECISION numbered. Needs a Hard-Gate approval, a distinctness check against published Statistics 4.x/5.x FRQs (not read), and a decision on difficulty (10 of 15 seeds rated Easy).
+
+## 2026-11-12 — /question two-pane rebuild from the MCQ and FRQ result mockups (app PR #57; implements DECISION-0133)
+
+- **Owner:** David Bloom approved in chat: "Yes, approve the two-pane layout and go ahead. The three pane design is getting poor reviews." No new DECISION: `DECISION-0133` (2026-11-08) already chose two panes with a rail holding Rubric and Reference tabs and a pinned Cheat Sheet link.
+- **Done:** `david-bloom/ap-prep-blueprint#57` (branch `claude/qx-template-replacement`). Left pane is the question (MCQ rationales under each choice; FRQ answer with graded evidence marked in place); right panel has Score/Rubric and Reference tabs (Reference first before submit, Score/Rubric after, per D0133), Cheat Sheet pinned beneath. Design-rule tests now enforce two panes; the app's `AGENTS.md` and QA sweep doc record the supersession. Checked in the local `/dev-qx-harness` at 1440 and 375 widths. 1370 tests, `tsc` and build pass.
+- **Not built:** MCQ "Try again" (a submitted MCQ answer is final in the grading chain; needs a backend change and a decision); the Cheat Sheet modal from `DECISION-0133` (still a link); the mockups' MCQ skill-name row (no data source).
+- **Open:** CI on #57 fails only on two tests that already fail on app `main` since PR #56 (`question-topic-suggest` "RPC error → plain copy", `question-worked-example` "off-topic first question…"). Not published to Lovable and no Production change; publish is David's call after review.
 
 ## 2026-11-10 UTC — No-card trial Production QA session close and ledger comparison
 
