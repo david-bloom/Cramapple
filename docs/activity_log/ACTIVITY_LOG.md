@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Calculus AB and BC Unit 5 topic 5.1 published to Production (`APPROVAL-0258`, 2026-11-12): 12 identical new MCQs per served pack with validated serving labels, selector checks passed, zero R1 or key disputes in the approved two-model checks. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - AP Statistics Unit 5 re-leveling published (`APPROVAL-0257`, 2026-11-12): 60 new MCQs with validated serving labels, 15 served-pack R1 items retired, and selector checks passed under David's one-time quality-gate exception. Status: `docs/product/STATS_UNIT5_RELEVELING_STATUS_2026_11_12.md`.
 - Precalculus 1.4-B: two published items with inconsistent turning-point counts corrected in place (`APPROVAL-0255`, 2026-11-12).
 - Physics C: Mechanics Unit 1 re-leveling published (`APPROVAL-0254`, 2026-11-12): 40 new MCQs, 19 retired. Status: `docs/product/PHYSICS_C_MECH_UNIT1_RELEVELING_STATUS_2026_11_12.md`.
