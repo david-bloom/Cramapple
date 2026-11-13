@@ -209,6 +209,7 @@ Most recent entries (full chronological list follows below):
 - [APPROVAL-0261 — AP Chemistry 1.5 explainer reshaped into bullets, steps and a table, applied to Production (granted 2026-11-12)](APPROVAL-0261_AP_CHEMISTRY_1_5_STRUCTURED_EXPLAINER_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0262 — AP Statistics units 1-5 explainers reshaped into bullets, steps and tables, applied to Production (granted 2026-11-12)](APPROVAL-0262_AP_STATISTICS_UNITS_1_5_STRUCTURED_EXPLAINERS_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0263 — AP Biology units 1-5 explainers reshaped into bullets, steps and tables, applied to Production (granted 2026-11-12)](APPROVAL-0263_AP_BIOLOGY_UNITS_1_5_STRUCTURED_EXPLAINERS_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0264 — AP Chemistry units 1-5 (except 1.5) explainers reshaped into bullets, steps and tables, applied to Production (granted 2026-11-12)](APPROVAL-0264_AP_CHEMISTRY_UNITS_1_5_STRUCTURED_EXPLAINERS_PRODUCTION_2026_11_13.md)
 <!-- INDEX_END -->
 
 

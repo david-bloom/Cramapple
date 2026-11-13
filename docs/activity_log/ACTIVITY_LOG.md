@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- AP Chemistry units 1-5 explainers except 1.5 (47 topics) reshaped into bullets, steps and tables and applied to Production (`APPROVAL-0264`, 2026-11-12): completes the Statistics, Biology and Chemistry rollout of recommendation #3; app PR 60 must be published for students to see it rendered.
 - AP Biology units 1-5 explainers (33 topics) reshaped into bullets, steps and tables and applied to Production (`APPROVAL-0263`, 2026-11-12): four fields per topic, no schema change; Chemistry still Development-only; app PR 60 must be published for students to see it rendered.
 - AP Statistics units 1-5 explainers (55 topics) reshaped into bullets, steps and tables and applied to Production (`APPROVAL-0262`, 2026-11-12): four fields per topic, no schema change; Biology and Chemistry still Development-only; app PR 60 must be published for students to see it rendered.
 - AP Chemistry 1.5 explainer reshaped into bullets, numbered steps and a table, applied to Development then Production (`APPROVAL-0261`, 2026-11-12): one row, four fields, no schema change; two checker families passed; renderer is app PR 60, publish to Lovable still needed before students see it correctly.
