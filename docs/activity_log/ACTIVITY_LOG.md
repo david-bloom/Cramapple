@@ -4,6 +4,15 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- /question two-pane rebuild from David's MCQ/FRQ result mockups (2026-11-12): app PR `david-bloom/ap-prep-blueprint#57` implements the two-pane layout already approved as `DECISION-0133` (no new decision), per David's "approve the two-pane layout and go ahead" (the three-pane design "is getting poor reviews"). Not published to Lovable, nothing in Production.
+- Precalculus 1.4-B: two published items with inconsistent turning-point counts corrected in place (`APPROVAL-0255`, 2026-11-12).
+- Physics C: Mechanics Unit 1 re-leveling published (`APPROVAL-0254`, 2026-11-12): 40 new MCQs, 19 retired. Status: `docs/product/PHYSICS_C_MECH_UNIT1_RELEVELING_STATUS_2026_11_12.md`.
+- Unit 1 re-leveling for Physics 1, Biology, Chemistry, Calculus AB and BC, Precalculus and Statistics published (`APPROVAL-0243` to `APPROVAL-0253`, 2026-11-12): 632 new MCQs, 166 superseded items retired. Statistics retirements were narrowed to served items and topics kept at 12 or more where old items existed. Status: `docs/product/UNIT1_RELEVELING_STATUS_2026_11_12.md`.
+- Unit 2 re-leveling for Physics 1, Biology, Chemistry, Calculus AB and BC, and Precalculus published (`APPROVAL-0256` for Physics 1; `APPROVAL-0237` to `APPROVAL-0242` for the others, 2026-11-12): 488 new MCQs, 173 superseded items retired, all blind-solved by two models with disputed keys re-derived by hand; Physics 2 and both Physics C subjects remain on hold. Status: `docs/product/UNIT2_RELEVELING_STATUS_2026_11_12.md`.
+- AP Statistics TASK-0050 Phase B skill pass (`APPROVAL-0236`, 2026-11-11 ET): retired pilot labels could not transfer (zero matching content keys/titles/stems). David approved 873 gateway calls ($6.0790) and the exact Production write; 390 provisional skill cells added to live pack `548f06be` (364 MCQ, 26 FRQ), zero published versions now missing a skill, inventory-threshold cells 12 → 49. The 23 published item rows with only retired versions and promotion to `validated` remain open. PR #631 merged the package and verification; no app deployment.
+- Unit 4 build-out for Physics 1, Biology, Chemistry, Calculus AB and BC, and Precalculus published (`APPROVAL-0229` to `APPROVAL-0235`, 2026-11-12): 320 new MCQs, 19 superseded items retired, all blind-solved by two models plus a third on disputed items; Unit 4 was mostly unbuilt outside Statistics, so this is mainly new content. Physics 2 and Physics C remain on hold.
+- AP Statistics Unit 3 second seeds for 3.7, 3.12, 3.14 published (`APPROVAL-0228`, 2026-11-12): 12 new MCQs, none retired; blind solve 12/12 by two models. Unit 3 re-leveling is now complete for Statistics, Biology, Calculus AB and BC, Chemistry, Physics 1 and Precalculus; Physics 2 and Physics C remain on hold.
+- Unit 3 re-leveling for Biology, Calculus AB and BC, Chemistry, Physics 1 and Precalculus published (`APPROVAL-0221` to `APPROVAL-0227`, 2026-11-12): 328 new MCQs, 194 superseded items retired, all blind-solved by two models; Physics 2 and Physics C remain on hold; Statistics 3.7, 3.12, 3.14 still have one R1-leaning family each.
 - AP Precalculus topics 3.1 to 3.3 harder seeds published (`APPROVAL-0220`, 2026-11-11): 24 new MCQs, 11 superseded items retired; blind solve 24/24 by two models; third subject through the difficulty improvement plan.
 - AP Chemistry and Calculus AB topics 3.1 to 3.3 harder seeds published (`APPROVAL-0218`, `APPROVAL-0219`, 2026-11-11): 24 new MCQs each, 12 and 18 superseded items retired; blind solve 24/24 by two models; first subjects through the difficulty improvement plan (`docs/product/QUESTION_DIFFICULTY_IMPROVEMENT_PLAN_2026_11_11.md`).
 - AP Statistics Unit 4 harder seeds published (`APPROVAL-0217`, 2026-11-11): 48 new MCQs live (12 seeds + 36 variants, topics 4.1 to 4.10), 18 superseded items retired; blind solve 48/48 by two models; Unit 4 now 53 published MCQs, up from 23.
@@ -311,6 +320,14 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+
+## 2026-11-12 — /question two-pane rebuild from the MCQ and FRQ result mockups (app PR #57; implements DECISION-0133)
+
+- **Owner:** David Bloom approved in chat: "Yes, approve the two-pane layout and go ahead. The three pane design is getting poor reviews." No new DECISION: `DECISION-0133` (2026-11-08) already chose two panes with a rail holding Rubric and Reference tabs and a pinned Cheat Sheet link.
+- **Done:** `david-bloom/ap-prep-blueprint#57` (branch `claude/qx-template-replacement`). Left pane is the question (MCQ rationales under each choice; FRQ answer with graded evidence marked in place); right panel has Score/Rubric and Reference tabs (Reference first before submit, Score/Rubric after, per D0133), Cheat Sheet pinned beneath. Design-rule tests now enforce two panes; the app's `AGENTS.md` and QA sweep doc record the supersession. Checked in the local `/dev-qx-harness` at 1440 and 375 widths. 1370 tests, `tsc` and build pass.
+- **Not built:** MCQ "Try again" (a submitted MCQ answer is final in the grading chain; needs a backend change and a decision); the Cheat Sheet modal from `DECISION-0133` (still a link); the mockups' MCQ skill-name row (no data source).
+- **Open:** CI on #57 fails only on two tests that already fail on app `main` since PR #56 (`question-topic-suggest` "RPC error → plain copy", `question-worked-example` "off-topic first question…"). Not published to Lovable and no Production change; publish is David's call after review.
 
 ## 2026-11-10 UTC — No-card trial Production QA session close and ledger comparison
 
