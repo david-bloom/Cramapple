@@ -8,6 +8,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 - [APPROVAL-0259 — AP Statistics Unit 5 re-leveling (granted and executed 2026-11-12)](APPROVAL-0259_STATS_UNIT5_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0258 — TASK-0050: publish 14 reviewed AP Statistics successors with labels (authorized 2026-11-12 ET; execution pending)](APPROVAL-0258_TASK0050_STATISTICS_14_SUCCESSORS_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0259 — Calculus AB and BC Unit 5 topic 5.2 (granted 2026-11-12)](APPROVAL-0259_CALCULUS_AB_BC_UNIT5_TOPIC_5_2_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0259 — Calculus AB and BC Unit 5 topic 5.2 (granted and executed 2026-11-12)](APPROVAL-0259_CALCULUS_AB_BC_UNIT5_TOPIC_5_2_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0258 — Calculus AB and BC Unit 5 topic 5.1 (granted and executed 2026-11-12)](APPROVAL-0258_CALCULUS_AB_BC_UNIT5_TOPIC_5_1_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0257 — AP Statistics Unit 5 re-leveling (granted and executed 2026-11-12)](APPROVAL-0257_STATS_UNIT5_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0236 — TASK-0050 AP Statistics Phase B: 390 provisional skill cells added to Production (granted and executed 2026-11-11 ET)](APPROVAL-0236_TASK0050_STATISTICS_PHASE_B_PROVISIONAL_SKILLS_PRODUCTION_2026_11_11.md)
