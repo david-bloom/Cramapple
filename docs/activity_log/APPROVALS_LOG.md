@@ -204,6 +204,7 @@ Most recent entries (full chronological list follows below):
 
 - [APPROVAL-0257 — AP Statistics Units 4-5 FRQs round 2: 30 FRQs published as content only, labels out (granted 2026-11-12)](APPROVAL-0257_STATS_UNITS_4_5_FRQS_CONTENT_ONLY_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0265 — Label gap fill, Units 1-5: validated topic cells and serving labels (granted 2026-11-13)](APPROVAL-0265_LABEL_GAP_FILL_UNITS_1_5_SERVING_AND_TOPIC_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0266 — Label gap fill, Units 1-5, round 2: CED-text rulings on the residue (granted 2026-11-13)](APPROVAL-0266_LABEL_GAP_FILL_UNITS_1_5_ROUND2_CED_RULINGS_PRODUCTION_2026_11_13.md)
 <!-- INDEX_END -->
 
 

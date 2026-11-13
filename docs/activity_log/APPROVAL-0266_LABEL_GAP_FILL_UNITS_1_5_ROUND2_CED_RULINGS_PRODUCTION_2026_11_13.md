@@ -1,0 +1,14 @@
+# APPROVAL-0266 — Label gap fill, Units 1-5, round 2: CED-text rulings on the residue published to Production (2026-11-13)
+
+- **Date:** 2026-11-13.
+- **Authorization:** David Bloom (Product Owner), in chat after the round-1 report: "I approve the CED-text rulings by you for the 68 & 25. I approve releasing the other 10", on top of the task brief's direction to publish labels (serving and topic only). Note: the first group is 50 items, not 68 (my miscount; every item reviewed is inside what was approved).
+- **What is written (Production `pcntajvbdfqhbeewmdry`), labels only, one rehearsed transaction per subject, advisory lock (`publish_labels_r2.py`):** 82 items ruled in `docs/qa/LABEL_GAP_AUDIT_UNITS_1_5_ROUND2_CED_RULINGS_2026_11_13.md` (every item with its topic and reason):
+  - 51 new validated, hash-fresh serving labels (prior non-validated rows superseded); 12 of them release held labels (10 held for "other" as approved, 2 held for model_unit_disagreement resolved by the ruling).
+  - 9 new validated topic cells, 24 provisional/authored cells promoted in place (topic agrees), 34 provisional/authored primary cells replaced (a new validated cell; the old cell stays, `is_primary=false`, `superseded_by` the new one): 27 AP Statistics authored cells (20 `1.9`→`1.7`, 7 `1.11`→`1.12`, same unit), 7 AP Calculus AB provisional cells (4 `1.13`→`1.9`, 2 `1.2`→`1.5`, 1 `2.8`→`2.10`); 3 authored cells kept; 12 items already had the validated cell and only needed the label.
+- **Left unlabeled:** `apprecalc-frq-np2-010` (no single topic). Not touched: 17 held for rubric preflight failure, 2 Statistics items whose validated cell disagrees with the vote (`APSTAT-MOD4-H001-INV`, `APSTAT-MOD5-H001-INV`), 4 items whose vote moves the unit away from the recorded unit, 2 published FRQs whose parts-informed revote differs from their published label (`apcalcab-frq-u13-003`, `apcalcbc-frq-u13-015`).
+- **NOT changed:** no item text/version/status, difficulty row or skill cell; no validated cell or label modified; no schema, function, migration, edge function or frontend.
+- **Rollback (per subject, from `stage4/r2_pre_state_<subject>.json`):** delete rows tagged `source like 'label_gap_fill_u1_5_r2_2026_11_13%'` (labels with their validation decisions, inserted/replacement cells); `superseded_by = null` and `is_primary = true` on the replaced cells; restore promoted cells' status/source/model_run_id/validated_at/decision from the snapshot; `superseded_by = null` on the superseded labels.
+- **Cost:** parts-included revote $0.89 measured (ledger `stage3_rerun/cost_ledger.jsonl`); rulings by Claude in session (not gateway-priced).
+- **Numbering check:** highest APPROVAL on origin/main, open PRs and remote branches was 0265 (mine); this record takes 0266.
+- **Rehearsal:** nine subjects `REHEARSAL OK` and rolled back before commit.
+- **Result:** see the execution record appended below.
