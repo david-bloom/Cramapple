@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Label gap fill, Units 1-5, all ten AP subjects (`APPROVAL-0265`, `APPROVAL-0266`, 2026-11-13): 595 items given validated topic cells and serving labels (serving gaps 373 to 24); live selector 595/595 with topic match; 24 residue listed; measured gateway cost $11.20. Report: `docs/qa/LABEL_GAP_AUDIT_UNITS_1_5_FINAL_REPORT_2026_11_13.md`.
 - AP Biology units 1-5 explainers (33 topics) reshaped into bullets, steps and tables and applied to Production (`APPROVAL-0263`, 2026-11-12): four fields per topic, no schema change; Chemistry still Development-only; app PR 60 must be published for students to see it rendered.
 - AP Statistics units 1-5 explainers (55 topics) reshaped into bullets, steps and tables and applied to Production (`APPROVAL-0262`, 2026-11-12): four fields per topic, no schema change; Biology and Chemistry still Development-only; app PR 60 must be published for students to see it rendered.
 - AP Chemistry 1.5 explainer reshaped into bullets, numbered steps and a table, applied to Development then Production (`APPROVAL-0261`, 2026-11-12): one row, four fields, no schema change; two checker families passed; renderer is app PR 60, publish to Lovable still needed before students see it correctly.
@@ -327,6 +328,11 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-13 — Label gap audit and fill, Units 1-5, all ten AP subjects (APPROVAL-0265, APPROVAL-0266)
+
+Read-only audit of Production found 373 in-scope published items not served and 525 without a validated topic cell. On the owner's direction (serving and topic only) 595 items were labeled in two rehearsed, per-subject transactions (six-vote probe, deterministic provenance, inherited variants, then owner-approved CED-text rulings and release of held labels). Independent read-back 513/513 and 82/82; live selector 595/595 with topic match. 24 items remain unserved and are listed. Measured gateway $11.20. Handoff: `docs/handoffs/SESSION_CLOSE_2026_11_13_LABEL_GAP_UNITS_1_5.md`.
+
 
 
 ## 2026-11-13 — Session close: Statistics Units 4-5 FRQ authoring, cost and publish
