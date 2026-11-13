@@ -324,6 +324,10 @@ Most recent entries (full reverse-chronological list follows below):
 <!-- INDEX_END -->
 
 
+## 2026-11-13 — Session close: Statistics Units 4-5 FRQ authoring, cost and publish
+
+Session-close handoff `docs/handoffs/SESSION_CLOSE_2026_11_12_STATS_UNITS_4_5_FRQ_AUTHORING_AND_PUBLISH.md` and the fresh-context labeling prompt `docs/handoffs/PROMPT_LABEL_GAP_AUDIT_AND_PUBLISH_UNITS_1_5_2026_11_13.md`. PR #638 merged. The 30 published FRQs still need labels.
+
 ## 2026-11-12 — AP Statistics Units 4-5 round-2 FRQs published to Production, content only (APPROVAL-0257)
 
 David accepted 5.3 as an exception, approved publication, and chose labels out. 30 FRQs (10 seeds, 20 variants) published in one rehearsed transaction; 30/30 verified by independent read; no labels, cells or difficulty rows written (separate labeling task). Items are not servable by topic until labeled. Record: `APPROVAL-0257_STATS_UNITS_4_5_FRQS_CONTENT_ONLY_PRODUCTION_2026_11_12.md`; tool `scripts/content-seed/frq-stats-u5-2026-11-12/r2/publish_frq_content_only.py`. Five unreplaced batch-1 seeds and the superseded Easy items were not published.
