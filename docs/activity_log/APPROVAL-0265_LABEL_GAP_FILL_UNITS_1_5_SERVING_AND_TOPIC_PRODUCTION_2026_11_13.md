@@ -30,3 +30,10 @@
 - **Rehearsal:** all ten subjects `REHEARSAL OK` and rolled back before commit (counts and plan hash per subject printed by the script).
 - **Numbering check:** highest APPROVAL on origin/main, every open PR and all remote branches at 2026-11-13 was 0264; this record takes 0265.
 - **Result:** see the execution record appended below.
+
+## Execution record (2026-11-13)
+- Each of the ten subject transactions passed its own rehearsal again immediately before commit, then committed; in-transaction post-checks (topic cells, fresh validated labels, no duplicate primary, plan hash) passed for all ten.
+- Independent read after commit (`publish_labels.py verify`): 513 of 513 items have a validated (or retained authored) topic cell with the planned topic and a fresh validated serving label; for the 298 items that received a new label the stored max required unit equals the plan. 0 mismatches.
+- Correction to the counts above: 36 held items were released (not 38; two moved to residue when the unit-away-from-record rule was applied).
+- Observation: `apphycm-frq-012` already had a validated serving label with max required unit 6; the vote said 5. Only its topic cell (5.6) was added; the existing label was not touched (rule: never change a validated label). Owner may want to review it.
+- Not yet verified: live selector spot check and before/after served-set comparison (Stage 5).

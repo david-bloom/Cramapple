@@ -83,7 +83,7 @@ def verify(sub, rs):
       left join app.content_taxonomy_labels l on l.content_item_id=ci.id and l.label_scope='serving' and l.superseded_by is null and l.label_status='validated'
       where ci.content_key in ({keys}) and ci.status='published' order by ci.content_key""")
     exp = {r['content_key']: r for r in rs}
-    bad = [g['k'] for g in got if g['t'] != exp[g['k']]['topic'] or g['mx'] != exp[g['k']]['max_required_unit'] or not g['fresh']]
+    bad = [g['k'] for g in got if g['t'] != exp[g['k']]['topic'] or (exp[g['k']]['label_action'] and g['mx'] != exp[g['k']]['max_required_unit']) or not g['fresh']]
     ok = len(got) == len(rs) and not bad
     print(f"verify {sub}: {len(got)}/{len(rs)} items with validated topic cell + fresh validated serving label matching plan; mismatches {len(bad)} {bad[:5]} -> {'MATCH' if ok else 'MISMATCH'}")
     return ok
