@@ -32,3 +32,6 @@ Measured at token usage times listed price (the gateway key is shared; balance d
 
 ## Update 2026-11-13 (APPROVAL-0269): 16 of the 17 rubric-held FRQs repaired, published and labeled
 Rubric-side edits, new item versions, validated topic cells and serving labels; 16 of 16 returned by the live selector with topic_match. Residue is now **8 unserved**: `apcalcbc-frq-u13-020` (no prompt parts; author-or-retire is the owner's call), the 4 unit-move items, the 2 validated-cell conflicts and `apprecalc-frq-np2-010`. See `docs/activity_log/APPROVAL-0269_RUBRIC_PREFLIGHT_REPAIR_AND_LABEL_16_FRQS_PRODUCTION_2026_11_13.md`; rubric-check cost $0.50 (total gateway for the task about $11.70).
+
+## Update 2026-11-13 (APPROVAL-0270): `apcalcbc-frq-u13-020` authored, published and labeled
+Prompt parts authored from the surviving criteria; probe put it at topic 5.12 (Unit 5), units [2, 3, 5]. Residue is now **7 unserved**: the 4 unit-move items, the 2 validated-cell conflicts and `apprecalc-frq-np2-010`. All 17 rubric-held FRQs are done.

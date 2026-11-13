@@ -13,8 +13,8 @@ spec = importlib.util.spec_from_file_location('pmb', os.path.join(HERE, '..', 'p
 pmb = importlib.util.module_from_spec(spec); spec.loader.exec_module(pmb)
 REF = pmb.ENVS['prod']; assert REF == 'pcntajvbdfqhbeewmdry'
 OWNER = pmb.DEFAULT_OWNER; SRC = 'label_gap_fill_u1_5_r3_2026_11_13'
-def load(sub): return sorted(json.load(open(os.path.join(HERE, 'stage6', 'r3', f'load_{sub}.json'))), key=lambda r: r['content_key'])
-SUBJECTS = sorted(os.path.basename(f)[5:-5] for f in glob.glob(os.path.join(HERE, 'stage6', 'r3', 'load_*.json')))
+def load(sub): return sorted(json.load(open(os.path.join(HERE, os.environ.get('LOAD_DIR', 'stage6/r3'), f'load_{sub}.json'))), key=lambda r: r['content_key'])
+SUBJECTS = sorted(os.path.basename(f)[5:-5] for f in glob.glob(os.path.join(HERE, os.environ.get('LOAD_DIR', 'stage6/r3'), 'load_*.json')))
 def ph(rs): return hashlib.md5('\n'.join(f"{r['content_key']}:{r['topic']}:{r['max_required_unit']}:{r['cell_action']}:{r['label_action']}" for r in rs).encode()).hexdigest()
 def payload(rs):
     return [{'k': r['content_key'], 'vid': r['vid'], 'topic': r['topic'], 'pu': r['primary_unit'], 'ru': r['required_units'], 'mx': r['max_required_unit'],

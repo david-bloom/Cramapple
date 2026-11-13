@@ -6,7 +6,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.join(HERE, '..
 spec = importlib.util.spec_from_file_location('pmb', os.path.join(ROOT, '..', 'publish_mcq_batch.py')); pmb = importlib.util.module_from_spec(spec); spec.loader.exec_module(pmb)
 REF = pmb.ENVS['prod']; assert REF == 'pcntajvbdfqhbeewmdry'
 SUBJ = {'apcalcab':'ap_calculus_ab','apcalcbc':'ap_calculus_bc','apphy1':'ap_physics_1','apphy2':'ap_physics_2','apphycem':'ap_physics_c_em','apphycm':'ap_physics_c_mechanics','apprecalc':'ap_precalculus'}
-plan = json.load(open(os.path.join(HERE, 'plan.json'))); keys = [p['content_key'] for p in plan]
+plan = json.load(open(os.path.join(HERE, os.environ.get('PLAN_FILE', 'plan.json')))); keys = [p['content_key'] for p in plan]
 def load(f):
     d = collections.defaultdict(list)
     if os.path.exists(f):
@@ -14,7 +14,7 @@ def load(f):
             v = json.loads(l)
             if v['ok']: d[v['key']].append(v)
     return d
-a = load(os.path.join(ROOT, 'stage3/votes.jsonl')); b = load(os.path.join(ROOT, 'stage3_rerun/votes.jsonl'))
+a = load(os.path.join(ROOT, 'stage3/votes.jsonl')); b = load(os.path.join(ROOT, os.environ.get('VOTES', 'stage3_rerun/votes.jsonl')))
 tax = json.load(open(os.path.join(ROOT, 'raw/_taxonomy_topics.json'))); tunit = {(t['subject_key'], t['topic_code']): t['unit_number'] for t in tax}
 inl = ','.join(pmb.lit(k) for k in keys)
 st = pmb.query(REF, f"""select ci.content_key k, ci.id::text iid, v.id::text vid, v.status vs,
@@ -33,4 +33,4 @@ for k in keys:
       'required_units': ru, 'max_required_unit': max(ru), 'method': 'six_vote_probe_rubric_repair', 'basis_note': 'Blind six-vote probe on the unchanged prompt text (topic >= 5 of 6; units named by >= 4); rubric repaired under APPROVAL-0269 so the held rubric_preflight_failure no longer applies',
       'topic_votes': dict(t), 'unit_votes': {str(u): c for u, c in uc.items()}, 'cell_action': 'insert', 'cell_id': None, 'label_action': 'insert_validated', 'label_version': s['maxlv'] + 1,
       'supersedes': s['active_labels'], 'prior_label_status': s['active_status'], 'hold_reason': 'rubric_preflight_failure'})
-for sub, rs in out.items(): json.dump(rs, open(os.path.join(HERE, 'r3', f'load_{sub}.json'), 'w'), indent=1); print(sub, len(rs), [(r['content_key'], r['topic'], r['required_units']) for r in rs])
+for sub, rs in out.items(): json.dump(rs, open(os.path.join(HERE, os.environ.get('OUT_DIR', 'r3'), f'load_{sub}.json'), 'w'), indent=1); print(sub, len(rs), [(r['content_key'], r['topic'], r['required_units']) for r in rs])

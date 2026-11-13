@@ -11,3 +11,8 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs and all remote branches was 0269 (mine); this record takes 0270.
 - **Rehearsal:** `REHEARSAL OK` (rolled back, constraints forced immediate).
 - **Result:** see the execution record appended below.
+
+## Execution record (2026-11-13)
+- Phase 1: version 3 published, read-back MATCH (planned rubric hash, one published version). Phase 2: validated topic cell 5.12 and validated, hash-fresh serving label (units [2, 3, 5]), read-back MATCH.
+- Live selector: `apcalcbc-frq-u13-020` returned with `topic_match = true` (the BC release manifest allows units 1-10).
+- Cost measured about $0.05 (`stage6/r4/cost_ledger.jsonl`, `stage6/check_ledger_020.jsonl`).
