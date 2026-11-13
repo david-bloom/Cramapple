@@ -61,7 +61,7 @@ do $g$ declare n int; begin
  select count(*) into n from w join app.content_item_difficulty d on d.content_item_version_id=w.nvid; if n<{N} then raise exception 'difficulty rows carried %', n; end if;
 end $g$;
 """
-    if mode == 'rehearse': return body + f"do $g$ begin raise exception 'REHEARSAL OK: {sub} items={N} criteria={sum(len(p['criteria']) for p in rs)} hash={ph(rs)}'; end $g$;\nrollback;\n"
+    if mode == 'rehearse': return body + "set constraints all immediate;\n" + f"do $g$ begin raise exception 'REHEARSAL OK: {sub} items={N} criteria={sum(len(p['criteria']) for p in rs)} hash={ph(rs)}'; end $g$;\nrollback;\n"
     return body + "commit;\n"
 def verify(sub, rs):
     keys = ','.join(pmb.lit(p['content_key']) for p in rs)

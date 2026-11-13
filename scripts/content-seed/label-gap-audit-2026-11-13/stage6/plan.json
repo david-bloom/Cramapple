@@ -750,7 +750,7 @@
    "unit": 3,
    "parts": [
     {
-     "points": 6,
+     "points": 7,
      "prompt": "Derive an expression for the block's maximum vertical height h above the horizontal track. Begin from a fundamental physics principle, and show the work done by friction.",
      "criteria": [
       {
@@ -775,6 +775,10 @@
       },
       {
        "criterion_key": "part-a-criterion-06",
+       "points": 1
+      },
+      {
+       "criterion_key": "part-a-criterion-07",
        "points": 1
       }
      ],
@@ -819,15 +823,15 @@
   "criteria": [
    {
     "id": "cdf32437-638d-49a6-9e75-45908d9f11df",
-    "minimum_fix": "Write an equation of the form E_i + W_nc = E_f.",
+    "minimum_fix": "Start from energy conservation with nonconservative work, E_i + W_nc = E_f.",
     "criterion_key": "part-a-criterion-01",
     "judgement_kind": "text",
     "points_possible": 1,
     "accepted_variants": [
      "Equivalent algebraically correct reasoning with consistent signs and units earns credit."
     ],
-    "learner_facing_text": "States an energy relation connecting the initial spring energy, friction work, and final gravitational potential energy.",
-    "evidence_requirements": "The response explicitly uses energy conservation modified by nonconservative work.",
+    "learner_facing_text": "Begins from a fundamental principle: states conservation of energy with nonconservative work (or the work-energy theorem) in general form.",
+    "evidence_requirements": "Response explicitly names the principle and writes it in general form, such as E_initial + W_nonconservative = E_final.",
     "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
    },
    {
@@ -896,6 +900,19 @@
     "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
    },
    {
+    "id": "7ffead9f-ff1e-4107-ae36-9f99fdc221cb",
+    "minimum_fix": "Write the energy balance for this system: (1/2)kx^2 - mu*m*g*L = mgh.",
+    "criterion_key": "part-a-criterion-07",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Applies the principle to this system: sets (1/2)kx^2 - mu*m*g*L = mgh with zero kinetic energy at the start and at maximum height.",
+    "evidence_requirements": "Response writes the specific energy balance for the launch, friction region and maximum height before solving.",
+    "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
+   },
+   {
     "id": "6dd15bfe-7e02-493b-bcf9-dbf3c63e3838",
     "minimum_fix": "Replace x by 2x before simplifying.",
     "criterion_key": "part-b-criterion-01",
@@ -936,10 +953,14 @@
    }
   ],
   "old_total": 10,
-  "new_total": 9,
+  "new_total": 10,
   "ops": [
    [
-    "del",
+    "set",
+    "part-a-criterion-01"
+   ],
+   [
+    "set",
     "part-a-criterion-07"
    ]
   ]

@@ -27,7 +27,13 @@ EDITS = {
    S('part-a-criterion-01', None,
      'Response states the domain restriction -1<=x<=1 because arccos(x^2) requires x^2<=1.',
      'State the restriction on x that keeps x^2 within the domain of arccos, -1<=x<=1.')],
- 'apphy1-frq-035': [D('part-a-criterion-07')],
+ 'apphy1-frq-035': [
+   S('part-a-criterion-01', 'Begins from a fundamental principle: states conservation of energy with nonconservative work (or the work-energy theorem) in general form.',
+     'Response explicitly names the principle and writes it in general form, such as E_initial + W_nonconservative = E_final.',
+     'Start from energy conservation with nonconservative work, E_i + W_nc = E_f.'),
+   S('part-a-criterion-07', 'Applies the principle to this system: sets (1/2)kx^2 - mu*m*g*L = mgh with zero kinetic energy at the start and at maximum height.',
+     'Response writes the specific energy balance for the launch, friction region and maximum height before solving.',
+     'Write the energy balance for this system: (1/2)kx^2 - mu*m*g*L = mgh.')],
  'apphy1-frq-052': [D('b-limit')],
  'apphycm-frq-036': [
    S('part-c-criterion-03', 'Labels the axes (t and v; t and a) and marks initial values and asymptotes: v(0)=0 and v approaching v_T; a(0)=g and a approaching 0.',

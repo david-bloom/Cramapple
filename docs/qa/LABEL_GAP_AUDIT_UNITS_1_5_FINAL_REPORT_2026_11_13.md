@@ -29,3 +29,6 @@ Measured at token usage times listed price (the gateway key is shared; balance d
 
 ## Method defect found and handled
 43 FRQs were voted from a stem that omitted their part prompts (stored in `prompt_json.parts`). All were re-voted with the parts: 25 of the 27 already-published labels agreed; the two that differ are listed above, unchanged.
+
+## Update 2026-11-13 (APPROVAL-0269): 16 of the 17 rubric-held FRQs repaired, published and labeled
+Rubric-side edits, new item versions, validated topic cells and serving labels; 16 of 16 returned by the live selector with topic_match. Residue is now **8 unserved**: `apcalcbc-frq-u13-020` (no prompt parts; author-or-retire is the owner's call), the 4 unit-move items, the 2 validated-cell conflicts and `apprecalc-frq-np2-010`. See `docs/activity_log/APPROVAL-0269_RUBRIC_PREFLIGHT_REPAIR_AND_LABEL_16_FRQS_PRODUCTION_2026_11_13.md`; rubric-check cost $0.50 (total gateway for the task about $11.70).
