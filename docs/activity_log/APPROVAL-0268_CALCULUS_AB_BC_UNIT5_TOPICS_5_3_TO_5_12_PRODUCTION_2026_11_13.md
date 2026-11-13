@@ -1,0 +1,12 @@
+# APPROVAL-0268 — Calculus AB and BC Unit 5 topics 5.3–5.12, topic-by-topic (granted; topic 5.3 executed 2026-11-13)
+
+David explicitly directed authoring and Production publication of identical new AB and BC Unit 5 content as each topic passes checks, without waiting for the full unit or another permission request. This instruction supersedes the handoff prompt's original stop-before-Production step and its per-batch reapproval rule for this named scope. His one-time exception allows the handoff prompt's two-model blind solve and tier audit instead of the standing four-checker/planted-control gate for these Unit 5 batches. This record covers only Calculus AB and BC topics 5.3–5.12; each topic's concrete package and before/after counts must be entered in the cumulative status document before its write, and its execution evidence appended afterward.
+
+Production project `pcntajvbdfqhbeewmdry`. AB pack `826c8cf1-bc1b-4f2a-bd33-61a758e1487d`; BC pack `3778d753-273a-403d-8f02-55dc64ec6a27`. The pinned executor verifies that project ref. No Physics or other subject is covered. Biology follows Calculus under David's separate instruction.
+
+| Topic | Concrete packages and QA | Production state |
+|---|---|---|
+| 5.3 | `apcalcab-harder-seeds-u5-t5_3-2026-11-12`, `apcalcbc-harder-seeds-u5-t5_3-2026-11-12`: 12 identical new items per pack; DeepSeek and Kimi keys 12/12 each in both packs; two-model tiers AB 0 R1/8 R2/4 R3, BC 0 R1/10 R2/2 R3; no duplicate or disputed key; no retirements. | Executed 2026-11-13: AB and BC each published 12 with validated labels, 12/12 hashes before and after, rolled-back rehearsals passed, selector returned new items; independent count AB 12/12, BC 13/13 published/valid-serving. |
+| 5.4 | `apcalcab-harder-seeds-u5-t5_4-2026-11-13`, `apcalcbc-harder-seeds-u5-t5_4-2026-11-13`: 12 identical new items per pack; two-model tiers AB 0 R1/10 R2/2 R3, BC 0 R1/11 R2/1 R3; no duplicate or tier-audit key flags; no retirements. One AB DeepSeek blind letter differed, but its reasoning and the other three blind solves support the key; full derivation and the old `apcalcab-mcq-037` key check are in the status document. | Published to both Production packs; 12 new per pack, 12 validated serving labels, 12/12 hashes, 12/12 selector results. Independent query: AB 15/15, BC 14/14 published/valid-serving. |
+
+Full per-topic evidence and the one-time QA limitation are in `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`. No subject-expert review is claimed; tiers are uncalibrated model judgments.

@@ -1,0 +1,69 @@
+{
+  "topics": [
+    {
+      "code": "2.4",
+      "findings": [
+        {
+          "field": "point_attaining_answer",
+          "severity": "defect",
+          "issue": "The table lacks the Markdown delimiter row after its header, so it will not render as a standard Markdown table.",
+          "evidence": "The header '| Alloy | Radius comparison | Type | Second atom |' is immediately followed by the Steel row. Insert '| --- | --- | --- | --- |' between them."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "2.5",
+      "findings": [
+        {
+          "field": "point_attaining_answer",
+          "severity": "defect",
+          "issue": "The table lacks the Markdown delimiter row after its header.",
+          "evidence": "The header '| Source | Electrons |' is immediately followed by '| Carbon | 4 |'. Insert '| --- | --- |' between them."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "2.6",
+      "findings": [
+        {
+          "field": "point_attaining_answer",
+          "severity": "defect",
+          "issue": "The table lacks the Markdown delimiter row after its header.",
+          "evidence": "The header '| N-O bond | Length (pm) |' is immediately followed by the typical double-bond row. Insert '| --- | --- |' between them."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "2.7",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "3.1",
+      "findings": [
+        {
+          "field": "core_idea",
+          "severity": "defect",
+          "issue": "Removing 'roughly' turns a qualified force-strength ranking into an unqualified one, changing its meaning.",
+          "evidence": "CURRENT says 'The forces rank, roughly weakest to strongest'; PROPOSED says 'Weak to strong'. Preserve the qualification rather than implying a universal ordering."
+        },
+        {
+          "field": "core_idea",
+          "severity": "defect",
+          "issue": "The explanation of which particles participate in ion-dipole interactions has been lost.",
+          "evidence": "CURRENT specifies 'ion-dipole (ions with polar molecules)'; PROPOSED lists only 'ion-dipole', with no equivalent definition elsewhere."
+        },
+        {
+          "field": "point_attaining_answer",
+          "severity": "defect",
+          "issue": "The table lacks the Markdown delimiter row after its header.",
+          "evidence": "The header '| Molecule (molar mass) | Structural evidence | Strongest IMF |' is immediately followed by the CH4 row. Insert '| --- | --- | --- |' between them."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

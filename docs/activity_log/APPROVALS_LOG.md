@@ -4,6 +4,10 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0268 — Calculus AB and BC Unit 5 topics 5.3–5.12, topic-by-topic (5.3 executed 2026-11-13)](APPROVAL-0268_CALCULUS_AB_BC_UNIT5_TOPICS_5_3_TO_5_12_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0267 — Calculus AB and BC Unit 5 topic 5.2 (granted and executed 2026-11-12; renumbered 2026-11-13)](APPROVAL-0267_CALCULUS_AB_BC_UNIT5_TOPIC_5_2_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0260 — Calculus AB and BC Unit 5 topic 5.1 (granted and executed 2026-11-12)](APPROVAL-0260_CALCULUS_AB_BC_UNIT5_TOPIC_5_1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0259 — AP Statistics Unit 5 re-leveling (granted and executed 2026-11-12)](APPROVAL-0259_STATS_UNIT5_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0258 — TASK-0050: publish 14 reviewed AP Statistics successors with labels (authorized 2026-11-12 ET; execution pending)](APPROVAL-0258_TASK0050_STATISTICS_14_SUCCESSORS_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0236 — TASK-0050 AP Statistics Phase B: 390 provisional skill cells added to Production (granted and executed 2026-11-11 ET)](APPROVAL-0236_TASK0050_STATISTICS_PHASE_B_PROVISIONAL_SKILLS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0218 — AP Chemistry topics 3.1 to 3.3 harder seeds: 24 items published, 12 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0218_AP_CHEMISTRY_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
@@ -204,6 +208,11 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 - [APPROVAL-0257 — AP Statistics Units 4-5 FRQs round 2: 30 FRQs published as content only, labels out (granted 2026-11-12)](APPROVAL-0257_STATS_UNITS_4_5_FRQS_CONTENT_ONLY_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0265 — Label gap fill, Units 1-5: validated topic cells and serving labels (granted 2026-11-13)](APPROVAL-0265_LABEL_GAP_FILL_UNITS_1_5_SERVING_AND_TOPIC_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0266 — Label gap fill, Units 1-5, round 2: CED-text rulings on the residue (granted 2026-11-13)](APPROVAL-0266_LABEL_GAP_FILL_UNITS_1_5_ROUND2_CED_RULINGS_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0261 — AP Chemistry 1.5 explainer reshaped into bullets, steps and a table, applied to Production (granted 2026-11-12)](APPROVAL-0261_AP_CHEMISTRY_1_5_STRUCTURED_EXPLAINER_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0262 — AP Statistics units 1-5 explainers reshaped into bullets, steps and tables, applied to Production (granted 2026-11-12)](APPROVAL-0262_AP_STATISTICS_UNITS_1_5_STRUCTURED_EXPLAINERS_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0263 — AP Biology units 1-5 explainers reshaped into bullets, steps and tables, applied to Production (granted 2026-11-12)](APPROVAL-0263_AP_BIOLOGY_UNITS_1_5_STRUCTURED_EXPLAINERS_PRODUCTION_2026_11_13.md)
 <!-- INDEX_END -->
 
 

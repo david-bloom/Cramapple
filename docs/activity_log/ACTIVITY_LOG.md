@@ -4,6 +4,16 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Calculus AB and BC Unit 5 topic 5.4 prepared under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack, zero R1 or tier-audit key flags; one AB blind letter disagreed while its reasoning supported the correct key, documented in the status. No Production write yet for this topic.
+- Calculus AB and BC Unit 5 topic 5.3 published under the owner-directed per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack published with validated serving labels; hashes and selector passed, with zero R1, disputed keys, or duplicates in the approved two-model checks. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
+- Calculus AB and BC Unit 5 topic 5.2 published to Production (`APPROVAL-0267`, 2026-11-12): 12 identical new MCQs per pack with validated serving labels, selector checks passed, zero R1, disputed keys, or duplicate flags under the approved two-model checks. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
+
+- Label gap fill, Units 1-5, all ten AP subjects (`APPROVAL-0265`, `APPROVAL-0266`, 2026-11-13): 595 items given validated topic cells and serving labels (serving gaps 373 to 24); live selector 595/595 with topic match; 24 residue listed; measured gateway cost $11.20. Report: `docs/qa/LABEL_GAP_AUDIT_UNITS_1_5_FINAL_REPORT_2026_11_13.md`.
+- AP Biology units 1-5 explainers (33 topics) reshaped into bullets, steps and tables and applied to Production (`APPROVAL-0263`, 2026-11-12): four fields per topic, no schema change; Chemistry still Development-only; app PR 60 must be published for students to see it rendered.
+- AP Statistics units 1-5 explainers (55 topics) reshaped into bullets, steps and tables and applied to Production (`APPROVAL-0262`, 2026-11-12): four fields per topic, no schema change; Biology and Chemistry still Development-only; app PR 60 must be published for students to see it rendered.
+- AP Chemistry 1.5 explainer reshaped into bullets, numbered steps and a table, applied to Development then Production (`APPROVAL-0261`, 2026-11-12): one row, four fields, no schema change; two checker families passed; renderer is app PR 60, publish to Lovable still needed before students see it correctly.
+- Calculus AB and BC Unit 5 topic 5.1 published to Production (`APPROVAL-0260`, 2026-11-12): 12 identical new MCQs per served pack with validated serving labels, selector checks passed, zero R1 or key disputes in the approved two-model checks. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
+- AP Statistics Unit 5 re-leveling published (`APPROVAL-0259`, 2026-11-12): 60 new MCQs with validated serving labels, 15 served-pack R1 items retired, and selector checks passed under David's one-time quality-gate exception. Status: `docs/product/STATS_UNIT5_RELEVELING_STATUS_2026_11_12.md`.
 - AP Statistics Units 4-5 round-2 FRQs published to Production, content only (`APPROVAL-0257`, 2026-11-12): 30 FRQs (10 seeds, 20 variants), labels out for a separate labeling task; 30/30 verified.
 - AP Statistics Unit 5 + Unit 4 (stand-in for the nonexistent Unit 6) FRQ cost-measured authoring run (2026-11-12, no approval: nothing published): 15 seeds + 15 variants accepted; gateway $5.75 measured at token level (seed $0.3191 avg, variant $0.0507 avg; Unit 5 $0.1465/$0.0279, Unit 4 $0.4054/$0.0620); 49-pattern rubric library, diff-style variant check. Record: `scripts/content-seed/frq-stats-u5-2026-11-12/README.md`. **Round 2 (2026-11-12, difficulty target added; David: Easy is too easy for AP level): 9 of 10 Easy seeds and 9 variants rewritten and accepted with no checker rating them Easy; 5.3 held; 5 split-rated r1 items not yet re-rated; r2 gateway $4.47.**
 - /question two-pane rebuild from David's MCQ/FRQ result mockups (2026-11-12): app PR `david-bloom/ap-prep-blueprint#57` implements the two-pane layout already approved as `DECISION-0133` (no new decision), per David's "approve the two-pane layout and go ahead" (the three-pane design "is getting poor reviews"). Not published to Lovable, nothing in Production.
@@ -323,6 +333,15 @@ Most recent entries (full reverse-chronological list follows below):
 
 <!-- INDEX_END -->
 
+## 2026-11-13 — Label gap audit and fill, Units 1-5, all ten AP subjects (APPROVAL-0265, APPROVAL-0266)
+
+Read-only audit of Production found 373 in-scope published items not served and 525 without a validated topic cell. On the owner's direction (serving and topic only) 595 items were labeled in two rehearsed, per-subject transactions (six-vote probe, deterministic provenance, inherited variants, then owner-approved CED-text rulings and release of held labels). Independent read-back 513/513 and 82/82; live selector 595/595 with topic match. 24 items remain unserved and are listed. Measured gateway $11.20. Handoff: `docs/handoffs/SESSION_CLOSE_2026_11_13_LABEL_GAP_UNITS_1_5.md`.
+
+
+
+## 2026-11-13 — Session close: Statistics Units 4-5 FRQ authoring, cost and publish
+
+Session-close handoff `docs/handoffs/SESSION_CLOSE_2026_11_12_STATS_UNITS_4_5_FRQ_AUTHORING_AND_PUBLISH.md` and the fresh-context labeling prompt `docs/handoffs/PROMPT_LABEL_GAP_AUDIT_AND_PUBLISH_UNITS_1_5_2026_11_13.md`. PR #638 merged. The 30 published FRQs still need labels.
 
 ## 2026-11-12 — AP Statistics Units 4-5 round-2 FRQs published to Production, content only (APPROVAL-0257)
 
