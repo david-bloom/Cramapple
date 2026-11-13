@@ -56,6 +56,9 @@ pvalue = math.erfc(z/math.sqrt(2))/2
 assert .0365 < pvalue < .0375
 assert '248 completed' in by_key['APSTATS-MCQ-012']['stimulus']
 assert '0.037' in by_key['APSTATS-MCQ-012']['stimulus']
+assert '0.038' not in json.dumps(by_key['APSTATS-MCQ-012'])
+assert all('0.037' in c['choice_text'] for c in by_key['APSTATS-MCQ-012']['choices'])
+assert 'fifth power' in by_key['APSTATS-MCQ-007']['choices'][3]['choice_text']
 assert 'H0:' not in by_key['APSTATS-MCQ-017']['stimulus']
 assert 'standard error' not in by_key['APSTATS-MCQ-017']['stem'].lower()
 
