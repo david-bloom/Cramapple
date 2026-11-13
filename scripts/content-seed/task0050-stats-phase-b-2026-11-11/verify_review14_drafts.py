@@ -60,6 +60,7 @@ assert '0.038' not in json.dumps(by_key['APSTATS-MCQ-012'])
 assert all('0.037' in c['choice_text'] for c in by_key['APSTATS-MCQ-012']['choices'])
 assert 'fifth power' in by_key['APSTATS-MCQ-007']['choices'][3]['choice_text']
 assert 'fifth power' in by_key['APSTATS-MCQ-007-CAL']['choices'][3]['choice_text']
+assert by_key['APSTATS-MCQ-007-CAL']['prompt_json']['modules'] == ['2']
 assert 'H0:' not in by_key['APSTATS-MCQ-017']['stimulus']
 assert 'standard error' not in by_key['APSTATS-MCQ-017']['stem'].lower()
 
