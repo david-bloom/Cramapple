@@ -2,18 +2,18 @@ begin;
 select pg_advisory_xact_lock(hashtext('cramapple-apcalcab-u5-t5-2-2026-11-12-publish-20261112'));
 create temporary table lab (content_key text primary key, topic text, exp_hash text) on commit drop;
 insert into lab values
-('apcalcab-mcq-b8-h-5.2-a','5.2','c1e8ed2757ce7270e98a308a1456f8b9'),
-('apcalcab-mcq-b8-sv-h-5.2-a-v1','5.2','af03c2d363b3c21a5f1f98b371393b80'),
-('apcalcab-mcq-b8-sv-h-5.2-a-v2','5.2','4b26a2434320c0c4c4e4531f1ff79cda'),
-('apcalcab-mcq-b8-sv-h-5.2-a-v3','5.2','e581edb9fcf2b04aba732c59f827afa7'),
-('apcalcab-mcq-b8-h-5.2-b','5.2','15d3eb2347cd32df8c45f3af24052b54'),
-('apcalcab-mcq-b8-sv-h-5.2-b-v1','5.2','699813aebbf6a4efd6e33a379cb73ff7'),
-('apcalcab-mcq-b8-sv-h-5.2-b-v2','5.2','7bab60f73a96414672ff55f5550542e2'),
-('apcalcab-mcq-b8-sv-h-5.2-b-v3','5.2','0d1e8f5057c702daee954738671b36b7'),
-('apcalcab-mcq-b8-h-5.2-c','5.2','45c14f51e26c6dc979491886b68386b3'),
-('apcalcab-mcq-b8-sv-h-5.2-c-v1','5.2','4c22de51926f77445c423f506d48d4f2'),
-('apcalcab-mcq-b8-sv-h-5.2-c-v2','5.2','90a4d4e0107bb55bb90f399d46f552a8'),
-('apcalcab-mcq-b8-sv-h-5.2-c-v3','5.2','55394ad1519a8e84f0d96dc75a9f5f35');
+('apcalcab-mcq-b9-h-5.2-a','5.2','c1e8ed2757ce7270e98a308a1456f8b9'),
+('apcalcab-mcq-b9-sv-h-5.2-a-v1','5.2','af03c2d363b3c21a5f1f98b371393b80'),
+('apcalcab-mcq-b9-sv-h-5.2-a-v2','5.2','4b26a2434320c0c4c4e4531f1ff79cda'),
+('apcalcab-mcq-b9-sv-h-5.2-a-v3','5.2','e581edb9fcf2b04aba732c59f827afa7'),
+('apcalcab-mcq-b9-h-5.2-b','5.2','15d3eb2347cd32df8c45f3af24052b54'),
+('apcalcab-mcq-b9-sv-h-5.2-b-v1','5.2','699813aebbf6a4efd6e33a379cb73ff7'),
+('apcalcab-mcq-b9-sv-h-5.2-b-v2','5.2','7bab60f73a96414672ff55f5550542e2'),
+('apcalcab-mcq-b9-sv-h-5.2-b-v3','5.2','0d1e8f5057c702daee954738671b36b7'),
+('apcalcab-mcq-b9-h-5.2-c','5.2','45c14f51e26c6dc979491886b68386b3'),
+('apcalcab-mcq-b9-sv-h-5.2-c-v1','5.2','4c22de51926f77445c423f506d48d4f2'),
+('apcalcab-mcq-b9-sv-h-5.2-c-v2','5.2','90a4d4e0107bb55bb90f399d46f552a8'),
+('apcalcab-mcq-b9-sv-h-5.2-c-v3','5.2','55394ad1519a8e84f0d96dc75a9f5f35');
 create temporary table tgt on commit drop as
 select l.*, ci.id item_id, civ.id version_id, gen_random_uuid() assignment_id, gen_random_uuid() label_id, gen_random_uuid() vd_id,
  '33b4408b-0ecc-4c7a-b0b1-612db81164a1'::uuid tsv, (case topic when '5.1' then array[5] when '5.2' then array[5] when '5.3' then array[5] when '5.4' then array[5] when '5.5' then array[5] when '5.6' then array[5] when '5.7' then array[5] when '5.8' then array[5] when '5.9' then array[5] when '5.10' then array[5] when '5.11' then array[5] when '5.12' then array[5] end)::int[] req, 5 pu

@@ -32,6 +32,8 @@ The read-only 2026-11-12 Unit 5 audit found one published AB topic 5.2 MCQ, rate
 
 The AB new family counts are one R2 seed, nine R2 variants, and two R3 seeds; including the old item, two R2 seeds remain published. BC has two R2 seeds, nine R2 variants, and one R3 seed. Tiers are uncalibrated model judgments. A cross-family and retained-old difflib comparison found zero stem pairs above 0.80.
 
+A first AB execution attempt stopped during preflight, before any Production write, because the reused `b8` key prefix was already present for topic 5.1. Both topic 5.2 packages were rebuilt under the Production-verified unused `b9` prefixes and all checks were rerun with the same results. The per-topic prefix must be unique for later releases.
+
 The format validator passed for both packs; each built two load chunks. DeepSeek and Kimi blind checks independently agreed with all 12 keys in each course. Both tier models returned all 12 tiers: AB 0 R1, 10 R2, 2 R3; BC 0 R1, 11 R2, 1 R3, with no duplicate or disputed-key flags. The author checked every example's domain, interval, derivative definition, and monotonic segment against the stated endpoint values. The wrong-choice rationales were checked against their own question premises. No subject-expert review is claimed. The one-time approved quality-gate exception applies.
 
 **Execution state:** Prepared and approved under `APPROVAL-0259`; update after Production execution.

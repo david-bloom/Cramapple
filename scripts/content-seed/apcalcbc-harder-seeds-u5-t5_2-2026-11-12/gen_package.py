@@ -57,7 +57,7 @@ got as (select ci.content_key k, ci.status item_status, civ.status version_statu
   md5(civ.stem||'|'||string_agg(c.choice_key||':'||c.choice_text||':'||c.is_correct::text||':'||c.rationale,'|' order by c.choice_key)) h
   from app.content_items ci join app.content_item_versions civ on civ.content_item_id=ci.id and civ.version_num=1
   join app.mcq_choices c on c.content_item_version_id=civ.id
-  where ci.exam_pack_version_id='{PACK}' and (ci.content_key like 'apcalcbc-mcq-b8-h-5.%' or ci.content_key like 'apcalcbc-mcq-b8-sv-h-5.%')
+  where ci.exam_pack_version_id='{PACK}' and (ci.content_key like 'apcalcbc-mcq-b9-h-5.%' or ci.content_key like 'apcalcbc-mcq-b9-sv-h-5.%')
   group by ci.content_key, ci.status, civ.status, civ.stem)
 select e.k, g.item_status, g.version_status, (g.h=e.h) ok from exp e left join got g on g.k=e.k order by e.k;
 """)
@@ -144,7 +144,7 @@ from app.content_items ci join app.content_item_versions civ on civ.content_item
 where ci.exam_pack_version_id='{PACK}' and ci.item_type='mcq' and ci.status='published' and ci.content_key in ({ol});
 do $$ begin
  if (select count(*) from old)<>{NOLD} then raise exception 'expected {NOLD} published superseded items, got %', (select count(*) from old); end if;
- if (select count(*) from app.content_items where exam_pack_version_id='{PACK}' and status='published' and (content_key like 'apcalcbc-mcq-b8-h-5.%' or content_key like 'apcalcbc-mcq-b8-sv-h-5.%'))<>{N} then raise exception 'the {N} new items are not all published; publish first'; end if;
+ if (select count(*) from app.content_items where exam_pack_version_id='{PACK}' and status='published' and (content_key like 'apcalcbc-mcq-b9-h-5.%' or content_key like 'apcalcbc-mcq-b9-sv-h-5.%'))<>{N} then raise exception 'the {N} new items are not all published; publish first'; end if;
 end $$;
 update app.content_review_assignments set status='skipped' where content_item_version_id in (select version_id from old) and assignment_purpose='subject_review' and status in ('pending','in_progress');
 update app.content_item_versions set status='retired', updated_at=now() where id in (select version_id from old);
