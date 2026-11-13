@@ -62,6 +62,14 @@ R=[("c9ca46b2-b529-4ed3-9741-dddea455ab9b",cfg["pack"]),("cbe3116f-6ef5-410c-b53
  ("AP Chemistry harder seeds and variants)",f"{cfg['subject']} harder seeds and variants)"),
  ("scripts/content-seed/apchem-harder-seeds-u3-2026-11-11","scripts/content-seed/"+os.path.basename(folder))]
 for a,b in R: g=g.replace(a,b)
+# The template's prose is not covered by its identifier substitutions. Keep the
+# generated review note and taxonomy provenance truthful for every unit.
+g=re.sub(r'^NOTE=.*$',
+         'NOTE="'+cfg['subject']+f' Unit {U} harder seeds and variants (batch {tag}); owner-authorized production content release after the batch checks recorded in the status document. No subject-expert review is claimed."',
+         g,flags=re.M)
+g=g.replace(f"topics {U}.x belong to unit 3; required_units set per topic from existing Unit 3 labels",
+            f"topics {U}.x belong to unit {U}; required_units set per topic from verified serving labels and taxonomy mapping")
+g=g.replace("scripts/content-seed/apchem-harder-seeds-u3-2026-11-12", "scripts/content-seed/"+os.path.basename(folder))
 i=g.index("OLD=["); j=g.index("assert len(OLD)"); k=g.index("\n",j)
 g=g[:i]+"OLD=json.load(open('superseded_keys.json'))\nNOLD=len(OLD)\nassert NOLD==len(set(OLD))"+g[k:]
 # the topic guard must test the taxonomy itself, not existing content cells (a brand-new topic has no cells yet)
@@ -70,8 +78,12 @@ gj=g.index("end if;",gi)+len("end if;")
 g=g[:gi]+"if exists (select 1 from tgt t where not exists (select 1 from app.taxonomy_topics tt where tt.taxonomy_source_version=t.tsv and tt.topic_code=t.topic)) then raise exception 'a topic code is not present in the taxonomy source version'; end if;"+g[gj:]
 g=g.replace("<>12","<>{NOLD}").replace("expected 12 published","expected {NOLD} published")
 g=g.replace("assert N==24","assert N==%d"%N).replace("<>24","<>{N}").replace("expected 24 draft","expected {N} draft")
+g="\n".join(line.rstrip() for line in g.splitlines())+"\n"
 open(f"{folder}/gen_package.py","w").write(g)
 os.chdir(folder); os.system("python3 gen_package.py | head -2")
+for path in ("publish.sql","publish_rehearsal.sql","retire_old.sql","retire_old_rehearsal.sql","verify_hashes.sql"):
+    if os.path.exists(path):
+        s=open(path).read(); open(path,"w").write("\n".join(line.rstrip() for line in s.splitlines())+"\n")
 if not retire:
     for f in ("retire_old.sql","retire_old_rehearsal.sql"):
         if os.path.exists(f): os.remove(f)
