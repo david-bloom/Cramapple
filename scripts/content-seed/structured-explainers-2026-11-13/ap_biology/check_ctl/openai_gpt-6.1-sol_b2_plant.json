@@ -1,0 +1,56 @@
+{
+  "topics": [
+    {
+      "code": "2.4",
+      "findings": [
+        {
+          "field": "point_attaining_answer",
+          "severity": "defect",
+          "issue": "The table lacks a Markdown header separator row, so it will not render as a standard Markdown table.",
+          "evidence": "The header '| Molecule | Properties | How it crosses |' is followed immediately by the CO2 row. Insert '| --- | --- | --- |' after the header."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "2.5",
+      "findings": [
+        {
+          "field": "what_students_need_to_understand",
+          "severity": "defect",
+          "issue": "The proposed text omits that bulk transport moves large molecules or particles.",
+          "evidence": "CURRENT explicitly says 'Bulk transport of large molecules or particles'; PROPOSED says only 'Bulk transport differs' before describing endocytosis and exocytosis."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "2.6",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "2.7",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "2.8",
+      "findings": [
+        {
+          "field": "point_attaining_answer",
+          "severity": "defect",
+          "issue": "The number of positive charges exported is incorrectly changed from 3 to 10, contradicting both CURRENT and the mini example question.",
+          "evidence": "CURRENT states 'exports 3 positive charges for every 2 it imports'; PROPOSED states 'exports 10 positive charges for every 2 it imports'. Restore 3."
+        },
+        {
+          "field": "point_attaining_answer",
+          "severity": "defect",
+          "issue": "The table lacks a Markdown header separator row, so it will not render as a standard Markdown table.",
+          "evidence": "The header '| Ion | Moves from | Moves to |' is followed immediately by the Na+ row. Insert '| --- | --- | --- |' after the header."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

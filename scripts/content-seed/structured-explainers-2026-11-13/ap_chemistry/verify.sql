@@ -1,0 +1,2 @@
+select json_agg(json_build_object('c',topic_code,'h',md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer),'n',(source_note like '%Structured 2026-11-13 (recommendation #3, AP Chemistry units 1-5%'))) as j
+from app.topic_explainers where subject_key='ap_chemistry' and status='published' and unit_number between 1 and 5 and topic_code<>'1.5';
