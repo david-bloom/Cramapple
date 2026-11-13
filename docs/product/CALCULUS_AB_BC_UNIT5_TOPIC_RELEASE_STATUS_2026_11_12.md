@@ -39,3 +39,16 @@ The format validator passed for both packs; each built two load chunks. DeepSeek
 **Execution state:** Published to both Production packs under `APPROVAL-0267` on 2026-11-12. Each executor preflight found zero old retire keys and zero new existing keys; two load chunks per course, 12/12 draft hashes, successful rolled-back publish rehearsal, 12 published/12 topic cells/12 validated labels, 12/12 post-publish hashes, and new items returned by the student selector. Independent read-only Production verification found AB 13 published topic 5.2 MCQs with 12 valid serving labels (all 12 new), and BC 12 published with 12 valid serving labels (all 12 new).
 
 **Post-release inventory note (2026-11-13):** A separate label-gap release changed the broader Unit 5 inventory after the two topic releases. A fresh read-only count found topic 5.1 AB 14 published/14 valid-serving and BC 13/13; topic 5.2 AB 13/13 and BC 12/12. The original per-release counts above remain the execution-time evidence.
+
+## Topic 5.3 — Increasing and decreasing intervals
+
+Before write, a 2026-11-13 read-only Production query found no published AB topic 5.3 MCQ and one published/servable BC MCQ (`apcalcbc-mcq-029`, rated R2 in the prior Unit 5 audit). No R1 retirement applies. The shared CED identifies FUN-4.A.1 and derivative sign reasoning. Three new seed families with three variants each cover factored derivatives, derivative sign representations, and rational derivatives with domain gaps. The AB and BC package stems, choices, keyed positions, and rationales match 12/12.
+
+| Pack | Existing published / servable | New seeds / variants | New R1 / R2 / R3 | Retire | After published / servable |
+|---|---:|---:|---:|---:|---:|
+| AB | 0 / 0 | 3 / 9 | 0 / 8 / 4 | 0 | 12 / 12 |
+| BC | 1 / 1 | 3 / 9 | 0 / 10 / 2 | 0 | 13 / 13 |
+
+AB new tiers split into one R2 seed, seven R2 variants, two R3 seeds, and two R3 variants. BC new tiers split into two R2 seeds, eight R2 variants, one R3 seed, and one R3 variant; the existing BC R2 seed remains. Tiers are uncalibrated. Cross-family and retained-old stem similarity over 0.80: zero. Both drafts validated and built two load chunks each. DeepSeek and Kimi blind solves agreed 12/12 in each course; both tier models returned a tier for all 12, with zero R1, duplicate, disputed-key, or missing-model flags. The author checked every derivative sign interval, even-multiplicity zero, domain break, and function-value inference, and the rationale for each wrong choice. No subject-expert review is claimed. The one-time QA exception applies.
+
+**Execution state:** Prepared for per-topic Production release under `APPROVAL-0268`; update after write.
