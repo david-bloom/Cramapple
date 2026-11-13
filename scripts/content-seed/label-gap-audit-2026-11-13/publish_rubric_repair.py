@@ -10,7 +10,7 @@ pmb = importlib.util.module_from_spec(spec); spec.loader.exec_module(pmb)
 REF = pmb.ENVS['prod']; assert REF == 'pcntajvbdfqhbeewmdry'
 OWNER = pmb.DEFAULT_OWNER; SRC = 'rubric_preflight_repair_2026_11_13'
 SUBJ = lambda k: {'apcalcab':'ap_calculus_ab','apcalcbc':'ap_calculus_bc','apphy1':'ap_physics_1','apphy2':'ap_physics_2','apphycem':'ap_physics_c_em','apphycm':'ap_physics_c_mechanics','apprecalc':'ap_precalculus'}[k.split('-')[0]]
-PLAN = json.load(open(os.path.join(HERE, 'stage6', 'plan.json')))
+PLAN = json.load(open(os.path.join(HERE, os.environ.get('PLAN_FILE', 'stage6/plan.json'))))
 def chash(crit): return hashlib.md5('\n'.join(f"{c['criterion_key']}|{c['learner_facing_text']}|{c['evidence_requirements']}|{c['minimum_fix']}|{c['points_possible']}" for c in sorted(crit, key=lambda c: c['criterion_key'])).encode()).hexdigest()
 def rows(sub): return sorted([p for p in PLAN if SUBJ(p['content_key']) == sub], key=lambda p: p['content_key'])
 SUBJECTS = sorted({SUBJ(p['content_key']) for p in PLAN})

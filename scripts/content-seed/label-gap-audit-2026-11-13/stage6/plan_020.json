@@ -1,0 +1,161 @@
+[
+ {
+  "content_key": "apcalcbc-frq-u13-020",
+  "old_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f",
+  "old_version_num": 2,
+  "stem": "Second Derivative of an Implicitly Defined Curve: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+  "stimulus": "Consider the curve defined by x^2 + xy + y^2 = 7. The point (1, 2) lies on this curve.",
+  "prompt_json": {
+   "unit": 5,
+   "topic": "5.12 Exploring Behaviors of Implicit Relations",
+   "modules": [
+    "calc-ab-bc-units1-3-frq-2026-08-03"
+   ],
+   "subject": "ap_calculus_bc",
+   "archetype": "Implementing Mathematical Processes and Justification",
+   "calculator": "not_permitted",
+   "content_key": "apcalcbc-frq-u13-020",
+   "source_policy": "Original Cramapple authorship; CED structure and scope only.",
+   "content_version": 3,
+   "qa_remediation": "2026-11-13 rubric preflight repair (APPROVAL-0270): the item had no prompt parts; parts authored from the surviving rubric criteria",
+   "parts": [
+    {
+     "part_key": "part-a",
+     "points": 2,
+     "prompt": "Show that dy/dx = -(2x + y)/(x + 2y), and find the value of dy/dx at the point (1, 2).",
+     "criteria": [
+      {
+       "criterion_key": "part-a-criterion-01",
+       "points": 1
+      },
+      {
+       "criterion_key": "part-a-criterion-04",
+       "points": 1
+      }
+     ]
+    },
+    {
+     "part_key": "part-b",
+     "points": 3,
+     "prompt": "Find d^2y/dx^2 at the point (1, 2).",
+     "criteria": [
+      {
+       "criterion_key": "part-b-criterion-01",
+       "points": 1
+      },
+      {
+       "criterion_key": "part-b-criterion-02",
+       "points": 1
+      },
+      {
+       "criterion_key": "part-b-criterion-03",
+       "points": 1
+      }
+     ]
+    },
+    {
+     "part_key": "part-c",
+     "points": 2,
+     "prompt": "Is the curve concave up or concave down near the point (1, 2)? Justify your answer using your result from part (b).",
+     "criteria": [
+      {
+       "criterion_key": "part-c-criterion-01",
+       "points": 1
+      },
+      {
+       "criterion_key": "part-c-criterion-02",
+       "points": 1
+      }
+     ]
+    }
+   ]
+  },
+  "criteria": [
+   {
+    "id": "5e3335ca-c60a-4713-965c-a2bae0f2df89",
+    "minimum_fix": "Show every term's derivative before collecting y' terms and solving; this is scored as one all-or-nothing step.",
+    "criterion_key": "part-a-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly and fully differentiates the entire equation implicitly and algebraically isolates dy/dx to match the given form.",
+    "evidence_requirements": "Response differentiates x^2 to 2x, applies the product rule to xy (giving y+xy'), applies the chain rule to y^2 (giving 2yy'), sets the sum equal to 0, and correctly isolates y' = -(2x+y)/(x+2y). This step is scored as a single unit -- a partially correct differentiation does not earn partial credit here.",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   },
+   {
+    "id": "750e6d4c-01ce-46ef-a47b-d16609ac4e81",
+    "minimum_fix": "If wrong, recheck substitution of x=1, y=2 into the derivative formula.",
+    "criterion_key": "part-a-criterion-04",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly evaluates dy/dx at (1,2).",
+    "evidence_requirements": "Response substitutes to get y' = −(2+2)/(1+4) = −4/5.",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   },
+   {
+    "id": "9d7ad5fa-ade4-42b2-9927-73e50bffdbb4",
+    "minimum_fix": "If missing, require the second implicit differentiation step to be shown explicitly, including product rule on y'(x+2y).",
+    "criterion_key": "part-b-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly differentiates the first-derivative equation again with respect to x.",
+    "evidence_requirements": "Response differentiates y'(x+2y) = −(2x+y) to obtain y''(x+2y) + y'(1+2y') = −(2+y').",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   },
+   {
+    "id": "1b34cec5-f373-4b81-afb2-945ef7e73a2c",
+    "minimum_fix": "If missing, require all three known values to be substituted before isolating y''.",
+    "criterion_key": "part-b-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly substitutes x=1, y=2, y'=−4/5 into the resulting equation.",
+    "evidence_requirements": "Response substitutes these values into the equation from the previous step before solving for y''.",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   },
+   {
+    "id": "cb54795e-486f-4ea3-990c-97e7ed968594",
+    "minimum_fix": "If wrong, recheck the algebra solving for y'' after substitution, e.g. by recomputing −2 −2y' −2(y')^2 over (x+2y).",
+    "criterion_key": "part-b-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly solves for y'' and states the final value.",
+    "evidence_requirements": "Response computes y'' = −42/125 at (1,2).",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   },
+   {
+    "id": "fa92e69b-8825-467f-845e-3daa1988fdf2",
+    "minimum_fix": "If wrong, recheck the sign of the value found in part B.",
+    "criterion_key": "part-c-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly identifies the sign and resulting concavity.",
+    "evidence_requirements": "Response notes y'' = −42/125 < 0 at (1,2), so the curve is concave down near this point.",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   },
+   {
+    "id": "e94ceca5-92a9-48ee-a95a-1678794510d1",
+    "minimum_fix": "If missing, require the explanation to connect the sign of y'' to the definition of concavity and note it applies locally near (1,2).",
+    "criterion_key": "part-c-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Justifies the interpretation using the definition of concavity.",
+    "evidence_requirements": "Response explains that a negative second derivative indicates the local branch of the curve near (1,2) bends downward (is concave down), noting this describes the local behavior of the curve near this point rather than a global property.",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   }
+  ],
+  "old_total": 7,
+  "new_total": 7,
+  "ops": [
+   [
+    "author_parts",
+    "prompt_json"
+   ]
+  ]
+ }
+]
