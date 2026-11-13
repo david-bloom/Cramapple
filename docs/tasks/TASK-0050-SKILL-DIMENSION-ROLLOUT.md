@@ -165,8 +165,23 @@ parent/version mismatch requires a separate Production lifecycle decision before
 version joins the Phase B label pass.
 
 The 14 `modification_reserved` versions were then reviewed individually against their tutor
-decisions and stored question content. Eleven draft successor repairs and a deterministic checker
+decisions and stored question content. Twelve successor repairs and a deterministic checker
 are in `scripts/content-seed/task0050-stats-phase-b-2026-11-11/review14_remedy_2026_11_12.md`;
-three need no content edit. The drafts do not clear review statuses, restore the retired versions,
-or authorize student publication. MCQ-012 had an independently found p-value/key contradiction;
-the draft corrects the counts and reported p-value together.
+two needed no substantive content edit. MCQ-012 had an independently found p-value/key contradiction;
+the successor corrects the counts and reported p-value together.
+
+## 2026-11-13: the 14 reviewed Statistics successors published
+
+Under `APPROVAL-0258`, Production pack `548f06be` received one published v2 for each of these 14
+items, with all retired v1 histories preserved. Twelve v2 contents were revised; two copied v1
+content. The three-family skill pass reached 9 unanimous and 2 majority decisions, with 3 more
+single-candidate decisions. Two-family CED checks on the corrected drafts passed the final
+scope gate; the graph FRQs were explicitly marked supplemental hand-drawn targeted drills.
+The guarded SQL, model evidence, QA, and exact execution receipt are in
+`scripts/content-seed/task0050-stats-publish14-2026-11-12/` and
+`docs/activity_log/APPROVAL-0258_TASK0050_STATISTICS_14_SUCCESSORS_PRODUCTION_2026_11_12.md`.
+Independent read-back found 14/14 published v2, validated hash-current serving labels,
+topic/skill pairs, difficulty rows, and topic resolutions. The student selector returned all 14
+v2 and all 14 intended topic matches. The separate TASK-0069 student photo rollout remains a
+product gate for the eight photo-required graph drills. Nine of the original 23 stranded items
+remain outside this 14-item release and still need their own lifecycle decision.
