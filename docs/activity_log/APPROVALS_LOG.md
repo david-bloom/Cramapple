@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0269 — AP Biology Unit 5 topic-by-topic Production publication (owner directed 2026-11-13)](APPROVAL-0269_BIOLOGY_UNIT5_TOPIC_RELEASE_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0268 — Calculus AB and BC Unit 5 topics 5.3–5.12, topic-by-topic (5.3 executed 2026-11-13)](APPROVAL-0268_CALCULUS_AB_BC_UNIT5_TOPICS_5_3_TO_5_12_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0267 — Calculus AB and BC Unit 5 topic 5.2 (granted and executed 2026-11-12; renumbered 2026-11-13)](APPROVAL-0267_CALCULUS_AB_BC_UNIT5_TOPIC_5_2_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0260 — Calculus AB and BC Unit 5 topic 5.1 (granted and executed 2026-11-12)](APPROVAL-0260_CALCULUS_AB_BC_UNIT5_TOPIC_5_1_PRODUCTION_2026_11_12.md)
