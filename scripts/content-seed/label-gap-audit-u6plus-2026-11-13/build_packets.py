@@ -6,9 +6,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 spec = importlib.util.spec_from_file_location('pmb', os.path.join(HERE, '..', 'publish_mcq_batch.py'))
 pmb = importlib.util.module_from_spec(spec); spec.loader.exec_module(pmb)
 REF = pmb.ENVS['prod']
-d = json.load(open(os.path.join(HERE, '../../../docs/qa/LABEL_GAP_AUDIT_UNITS_1_5_2026_11_13_ITEMS.json')))
+d = json.load(open(os.path.join(HERE, '../../../docs/qa/LABEL_GAP_AUDIT_UNITS_6PLUS_2026_11_13_ITEMS.json')))
 G = [i for i in d['items'] if i['f']['vstatus'] == 'published' and i['in_scope'] and (not i['f']['topic_validated'] or i['f']['serving'] != 'ok')
-     and not i['content_key'].startswith('apstats-frq-u45r2')]
+     and i['f']['kind']=='seed']
 print(len(G), 'items to vote')
 by = collections.defaultdict(list)
 for i in G: by[i['subject']].append(i)
@@ -21,11 +21,14 @@ for sub, items in by.items():
            'topics': [{'code': t['topic_code'], 'title': t['topic_title']} for t in ts if t['subject_key'] == sub], 'skills': []}
     json.dump(tax, open(os.path.join(HERE, 'stage3', f'taxonomy_{sub}.json'), 'w'), indent=0)
     vids = ','.join("'%s'" % i['vid'] for i in items)
-    rows = pmb.query(REF, f"""select ci.content_key, ci.item_type, civ.id::text vid, civ.stem, civ.stimulus,
+    rows = pmb.query(REF, f"""select ci.content_key, ci.item_type, civ.id::text vid, civ.stem, civ.stimulus, civ.prompt_json->'parts' parts,
        coalesce((select string_agg(mc.choice_key||'. '||mc.choice_text, E'\\n' order by mc.choice_key) from app.mcq_choices mc where mc.content_item_version_id=civ.id),'') choices
        from app.content_item_versions civ join app.content_items ci on ci.id=civ.content_item_id where civ.id in ({vids})""")
     pk = []
     for r in rows:
+        parts = r.get('parts') or []
+        ptxt = '\n'.join(f"{p.get('label','')} {p.get('prompt','')}".strip() for p in parts if isinstance(p, dict) and p.get('prompt'))
+        r['stem'] = r['stem'] + ('\n\nParts:\n' + ptxt if ptxt and ptxt[:40] not in (r['stem'] + (r['stimulus'] or '')) else '')
         body = 'Question stem:\n' + r['stem'] + ('\n\nStimulus:\n' + r['stimulus'] if r['stimulus'] else '') + ('\n\nChoices:\n' + r['choices'] if r['choices'] else '')
         pk.append({'content_key': r['content_key'], 'vid': r['vid'], 'item_type': r['item_type'], 'body': body})
     assert len(pk) == len(items), (sub, len(pk), len(items))
