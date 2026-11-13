@@ -1,7 +1,7 @@
 # Cramapple Docs — Canonical Source-of-Truth Index
 
 STATUS: CURRENT
-DATE: 2026-10-12
+DATE: 2026-11-11
 CANONICAL REPOSITORY: `david-bloom/Cramapple`
 
 **Purpose.** One hop from "what's the current answer on X?" to the doc that actually holds it —
@@ -118,6 +118,7 @@ decision that was on record.
 | **Landing pages follow-up prompt (2026-11-01)** | `handoffs/LOVABLE_PROMPT_LANDING_PAGES_FOLLOWUP_2026_11_01.md` | Second Lovable round on the landing pages: Prev/Next above and below the demos, Calculus/Physics course coverage made explicit, per-subject FRQ demos (authored against published rubrics, provenance stated), per-subject product screenshots captured from Production (`handoffs/landing_product_shots_2026_11_01/`) with a home-page slideshow. 2026-11-08: the four non-biology FRQ demos now carry captured grader output (evidence in `handoffs/landing_frq_grader_run_2026_11_08/`). |
 | **Conversion review: home + subject landing pages (2026-10-31)** | `handoffs/CONVERSION_REVIEW_HOME_AND_SUBJECT_LANDING_PAGES_2026_10_31.md` | Six days of Reddit spend, zero trials: 415 Reddit visitors, 5 reached checkout, 0 started. Findings F1–F6 (checkout first paint says "$39.99 due today" before email; STEM page → bare 10-checkbox checkout; 50% campaign lands full price, ad URLs carry no UTMs/promo; no proof above the fold; 1.5 MB hero). Five fixes per page, five Lovable prompts A–E, ops checklist. |
 | **FRQs for zero-FRQ Biology and Statistics Units 1-4 topics (authored 2026-10-25; published to Production 2026-10-29 under `APPROVAL-0201`)** | `handoffs/SESSION_CLOSE_2026_10_30_FRQ_ZERO_TOPICS_BIOLOGY_STATISTICS_U1_4.md`, `../scripts/content-seed/frq-u4-zero-topics-2026-10-25/README.md` | 16 FRQs (2 per topic) accepted by both checkers and published (16/16 verified, session close written before the publish; the approval record has the result); Biology 4.2 versus 4.3 ruling open; five unservable FRQs undiagnosed. |
+| **Parent-first brand and purchase plan (draft proposal, 2026-11-11)** | `marketing/PARENT_FIRST_BRAND_AND_PURCHASE_PLAN_2026_11_11.md` | Parent as buyer, student as learner; messaging, ten observed gaps, parent-initiated pay-now flow, trial invitation option, QA and approval gates. Strategy only; no Production change approved. |
 | **Marketing session close (2026-10-29)** | `handoffs/SESSION_CLOSE_2026_10_29_MARKETING_ATTRIBUTION_AND_REFERRAL.md` | Attribution live in Production (`APPROVAL-0203`), referral decided; open: one tagged production trial, Lovable `a29a07f0` publish, vendor demos. |
 | **Ad attribution (paid channels; Prod backend live 2026-10-26)** | `marketing/AD_ATTRIBUTION_DECISIONS_AND_ACTIONS.md` | Decisions (M1–M6) and actions log for knowing which channel, source and ad produced trials and conversions; design at `product/AD_ATTRIBUTION_DESIGN_2026_10_26.md`; Lovable prompts in `handoffs/`. |
 | **App accessibility + colour pass (merged to App `main` 2026-10-11; not Lovable-published)** | `handoffs/SESSION_CLOSE_2026_10_11_ACCESSIBILITY_AND_COLOUR_PASS.md` | axe audit and fixes for every app.cramapple.com page (marketing out of scope); one orange top bar app-wide; AA contrast tokens; colour rules (tints carry colour, text stays ink-700/900 or a hue's 700 shade) enforced by App design-rule tests; colour pass without subject accents. App PRs #7–#9. |
