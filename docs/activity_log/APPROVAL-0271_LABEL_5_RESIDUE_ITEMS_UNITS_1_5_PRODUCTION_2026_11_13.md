@@ -19,3 +19,8 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs and all remote branches was 0270 (mine); this record takes 0271.
 - **Rehearsal:** four `REHEARSAL OK` (rolled back, constraints forced immediate).
 - **Result:** see the execution record appended below.
+
+## Execution record (2026-11-13)
+- Four transactions (chemistry, physics 1, physics C mechanics, statistics) COMMITTED; read-back MATCH 5/5 (validated topic cell + fresh validated serving label as planned). The two Statistics validated cells (1.13, 5.2) read back unchanged.
+- Live selector: `apphy1-mcq-022` (6.6), `apphycm-frq-003` (7.2), `apchem-frq-l-017` (8.5) returned with `topic_match = true`; MOD4 returned for 1.13 and MOD5 for 5.2 with `topic_match = true` (they return with `topic_match = false` for the voted topics 4.10 and 1.13, which is expected because the existing cells were kept). Regression selector over the 16 items of APPROVAL-0269: 16/16 still returned with topic_match.
+- Residue is now 2 unserved items: `apcalcbc-frq-u13-014`, `apprecalc-frq-np2-010`.

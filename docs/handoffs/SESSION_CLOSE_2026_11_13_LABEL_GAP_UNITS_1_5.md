@@ -29,3 +29,6 @@ Rubric-side edits, new item versions, validated topic cells and serving labels; 
 
 ## Update 2026-11-13 (APPROVAL-0270): `apcalcbc-frq-u13-020` authored, published and labeled
 Prompt parts authored from the surviving criteria; probe put it at topic 5.12 (Unit 5), units [2, 3, 5]. Residue is now **7 unserved**: the 4 unit-move items, the 2 validated-cell conflicts and `apprecalc-frq-np2-010`. All 17 rubric-held FRQs are done.
+
+## Update 3 (APPROVAL-0271): residue 7 to 2
+Five of the seven residue items were labeled: `apphy1-mcq-022` (6.6, Unit 6), `apphycm-frq-003` (7.2, Unit 7), `apchem-frq-l-017` (8.5, Unit 8), and the two Statistics `-INV` items, which keep their existing validated cells (1.13 and 5.2) and gained a matching validated serving label. None was served before, so no served item moved; verified by read-back and the live selector. Still unlabeled, with reasons: `apcalcbc-frq-u13-014` (re-voted with its parts: 4.1 x2, 5.1, 2.3, no single topic) and `apprecalc-frq-np2-010` (three unrelated sub-skills). Owner decisions open: whether the Statistics cells 1.13 (MOD4; votes say 4.10) and 5.2 (MOD5; all six votes say 1.13) should change; whether to retire or split the two unlabeled items. Scripts: `scripts/content-seed/label-gap-audit-2026-11-13/stage7/`, `publish_labels_r5.py`. Measured gateway cost this round $0.08.
