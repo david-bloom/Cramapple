@@ -1,0 +1,297 @@
+{
+ "id": "ap_statistics__5.3__v1",
+ "parent": "ap_statistics__5.3__1",
+ "parent_status": "accepted",
+ "topic_code": "5.3",
+ "item": {
+  "title": "Predicting Laptop Resale Value From Age",
+  "calculator": "permitted",
+  "stimulus": "An electronics reseller fit a least-squares regression line to the resale values of 15 laptops of the same model. The laptops were between 1 and 8 years old. The regression equation, found using technology, is ŷ = 640 − 85x, where x is the age of the laptop in years and ŷ is the predicted resale value in dollars.",
+  "parts": [
+   {
+    "prompt": "Use the model to predict the resale value of a laptop that is 3 years old. Is this prediction an interpolation or an extrapolation? Explain.",
+    "criteria": [
+     {
+      "text": "Substitutes x = 3 into ŷ = 640 − 85x and gets a predicted value of 385 dollars.",
+      "evidence": "Response replaces x with 3 in the regression equation and reports 385 dollars.",
+      "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+      "accepted_variants": [
+       "385",
+       "$385"
+      ]
+     },
+     {
+      "text": "Classifies the prediction at 3 years as interpolation because 3 is within the interval of age values (1 to 4 years) used to fit the line.",
+      "evidence": "Response says interpolation and compares 3 with the fitted interval of 1 to 4 years.",
+      "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Use the model to predict the resale value of a laptop that is 7 years old. Is this prediction an interpolation or an extrapolation? Explain.",
+    "criteria": [
+     {
+      "text": "Substitutes x = 7 into ŷ = 640 − 85x and gets a predicted value of 45 dollars.",
+      "evidence": "Response replaces x with 7 in the regression equation and reports 45 dollars.",
+      "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+      "accepted_variants": [
+       "45",
+       "$45"
+      ]
+     },
+     {
+      "text": "Classifies the prediction at 7 years as extrapolation because 7 is beyond the interval of age values (1 to 4 years) used to fit the line.",
+      "evidence": "Response says extrapolation and compares 7 with the fitted interval of 1 to 4 years.",
+      "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Which of your two predictions is more reliable? Explain.",
+    "criteria": [
+     {
+      "text": "States that the prediction at 3 years is more reliable than the prediction at 7 years, because 7 is extrapolation and predictions get less reliable the further age is beyond the data.",
+      "evidence": "Response chooses the interpolated prediction as more reliable and gives extrapolation beyond the observed values as the reason.",
+      "fix": "Say which prediction is inside the data range, and explain that extrapolated predictions become less reliable the farther they go beyond it.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) ŷ = 640 − 85x with x = 3 gives ŷ = 385 dollars. This is interpolation, because 3 years is within the interval of age values, 1 to 4 years, used to fit the line.\n\n(b) With x = 7, ŷ = 45 dollars. This is extrapolation, because 7 years is beyond the interval of age values, 1 to 4 years, used to fit the line.\n\n(c) The prediction at 3 years is more reliable. The prediction at 7 years is extrapolation, and predictions become less reliable the further age is beyond the data.",
+  "verification_python": "a = 640\nb = -85\nlo, hi = 1, 4\nxn, xf = 3, 7\nyn = a + b * xn\nyf = a + b * xf\nassert abs(yn - 385) < 1e-9\nassert abs(yf - 45) < 1e-9\nassert lo <= xn <= hi\nassert xf > hi\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:29:45.612Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"PREDICT\",\"EXTRAP_CLASS\"],[\"PREDICT\",\"EXTRAP_CLASS\"],[\"RELIABILITY\"]]",
+  "child_order": "[[\"PREDICT\",\"EXTRAP_CLASS\"],[\"PREDICT\",\"EXTRAP_CLASS\"],[\"RELIABILITY\"]]",
+  "child_pattern": [
+   [
+    "PREDICT",
+    "EXTRAP_CLASS"
+   ],
+   [
+    "PREDICT",
+    "EXTRAP_CLASS"
+   ],
+   [
+    "RELIABILITY"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [2,2,1], variant [2,2,1]. Points: parent 5, variant 5.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"PREDICT\",\"EXTRAP_CLASS\"],[\"PREDICT\",\"EXTRAP_CLASS\"],[\"RELIABILITY\"]]\nPart a prompt changed.\nCriterion a1 (PREDICT): wording and values changed; accepted variants changed\nCriterion a2 (EXTRAP_CLASS): wording and values changed\nPart b prompt changed.\nCriterion b1 (PREDICT): wording and values changed; accepted variants changed\nCriterion b2 (EXTRAP_CLASS): wording and values changed\nCriterion c1 (RELIABILITY): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": false,
+   "first": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "numbers: For a1, 640 − 85(3) = 640 − 255 = $385, matching the criterion and equivalent forms. For b1, 640 − 85(7) = 640 − 595 = $45, matching the criterion and equivalent forms. For a2 and b2, the fitted interval stated in the setup is 1–8 years, not 1–4 years. Both 3 and 7 fall within 1–8, so both predictions are interpolation. The classification at 3 matches, but its stated interval does not; the classification at 7 does not match. Consequently, c1's claim that 7 years is outside the fitted range is false.",
+     "criterion a2: Interpolation is correct, but the criterion and evidence incorrectly identify the fitted interval as 1–4 years rather than 1–8 years. A correct explanation would compare 3 with 1–8.",
+     "criterion b2: Seven years is within the stated 1–8-year fitted interval, so this prediction is interpolation, not extrapolation. The criterion cannot be earned by a correct response.",
+     "criterion c1: Both predictions are interpolation. The claim that the 3-year prediction is more reliable because the 7-year prediction is extrapolation is false, and the supplied information does not establish the requested reliability ranking.",
+     "conditions: The parent's contrast between an interpolated prediction and an extrapolated prediction no longer holds: both requested ages lie within the variant's observed range. The rubric also contradicts the setup about that range.",
+     "new issue: The setup gives an observed age range of 1–8 years, while a2 and b2 use 1–4 years. This inconsistency makes b2 incorrect and removes the extrapolation-based justification required by c1."
+    ],
+    "out": {
+     "changes_listed": "The context changes from used-car asking prices to laptop resale values, with 15 laptops instead of 20 cars. The observed age range changes from 2–9 to 1–8 years, the equation becomes ŷ = 640 − 85x in dollars, and the prediction ages become 3 and 7 years. However, the classification criteria incorrectly use a 1–4-year fitted range.",
+     "numbers_recomputed": "For a1, 640 − 85(3) = 640 − 255 = $385, matching the criterion and equivalent forms. For b1, 640 − 85(7) = 640 − 595 = $45, matching the criterion and equivalent forms. For a2 and b2, the fitted interval stated in the setup is 1–8 years, not 1–4 years. Both 3 and 7 fall within 1–8, so both predictions are interpolation. The classification at 3 matches, but its stated interval does not; the classification at 7 does not match. Consequently, c1's claim that 7 years is outside the fitted range is false.",
+     "numbers_ok": false,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": false,
+       "issue": "Interpolation is correct, but the criterion and evidence incorrectly identify the fitted interval as 1–4 years rather than 1–8 years. A correct explanation would compare 3 with 1–8."
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": false,
+       "issue": "Seven years is within the stated 1–8-year fitted interval, so this prediction is interpolation, not extrapolation. The criterion cannot be earned by a correct response."
+      },
+      {
+       "criterion": "c1",
+       "holds": false,
+       "issue": "Both predictions are interpolation. The claim that the 3-year prediction is more reliable because the 7-year prediction is extrapolation is false, and the supplied information does not establish the requested reliability ranking."
+      }
+     ],
+     "conditions_still_hold": false,
+     "conditions_issue": "The parent's contrast between an interpolated prediction and an extrapolated prediction no longer holds: both requested ages lie within the variant's observed range. The rubric also contradicts the setup about that range.",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "The setup gives an observed age range of 1–8 years, while a2 and b2 use 1–4 years. This inconsistency makes b2 incorrect and removes the extrapolation-based justification required by c1."
+    }
+   },
+   "second": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "numbers: For a1, 640 − 85(3) = 640 − 255 = $385, matching the criterion and equivalent forms. For b1, 640 − 85(7) = 640 − 595 = $45, matching the criterion and equivalent forms. The fitted interval stated in the setup is 1–8 years, not the 1–4 years stated in a2 and b2. Both 3 and 7 lie within 1–8, so both predictions are interpolations; the extrapolation claim for age 7 does not match the givens.",
+     "criterion a2: The interpolation classification is correct, but the criterion and evidence incorrectly require the fitted interval to be 1–4 years rather than the stated 1–8 years.",
+     "criterion b2: Age 7 is within the stated 1–8-year fitted interval, so the correct classification is interpolation, not extrapolation.",
+     "criterion c1: Both predictions are interpolations. The stated extrapolation-based reason for preferring the age-3 prediction is false, and the supplied information does not establish which prediction is more reliable.",
+     "conditions: The parent relied on one prediction being inside the observed age range and the other being outside it. In the variant, both prediction ages are inside the stated range, invalidating b2 and the reliability comparison in c1. The classification criteria also contradict the setup's fitted interval.",
+     "new issue: The setup gives an observed age range of 1–8 years, while a2 and b2 use 1–4 years. Consequently, the rubric misclassifies the age-7 prediction and part (c) lacks support for its required reliability ranking."
+    ],
+    "out": {
+     "changes_listed": "The context changes from used-car asking prices to laptop resale values, with 15 laptops instead of 20 cars. The observed age range changes from 2–9 to 1–8 years, the regression equation becomes ŷ = 640 − 85x in dollars, and the prediction ages change from 6 and 13 to 3 and 7 years. The classification criteria instead refer to a conflicting range of 1–4 years.",
+     "numbers_recomputed": "For a1, 640 − 85(3) = 640 − 255 = $385, matching the criterion and equivalent forms. For b1, 640 − 85(7) = 640 − 595 = $45, matching the criterion and equivalent forms. The fitted interval stated in the setup is 1–8 years, not the 1–4 years stated in a2 and b2. Both 3 and 7 lie within 1–8, so both predictions are interpolations; the extrapolation claim for age 7 does not match the givens.",
+     "numbers_ok": false,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": false,
+       "issue": "The interpolation classification is correct, but the criterion and evidence incorrectly require the fitted interval to be 1–4 years rather than the stated 1–8 years."
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": false,
+       "issue": "Age 7 is within the stated 1–8-year fitted interval, so the correct classification is interpolation, not extrapolation."
+      },
+      {
+       "criterion": "c1",
+       "holds": false,
+       "issue": "Both predictions are interpolations. The stated extrapolation-based reason for preferring the age-3 prediction is false, and the supplied information does not establish which prediction is more reliable."
+      }
+     ],
+     "conditions_still_hold": false,
+     "conditions_issue": "The parent relied on one prediction being inside the observed age range and the other being outside it. In the variant, both prediction ages are inside the stated range, invalidating b2 and the reliability comparison in c1. The classification criteria also contradict the setup's fitted interval.",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "The setup gives an observed age range of 1–8 years, while a2 and b2 use 1–4 years. Consequently, the rubric misclassifies the age-7 prediction and part (c) lacks support for its required reliability ranking."
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": false,
+   "first": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "numbers: 640 − 85(3) = 385 dollars; this matches the variant rubric and model answer. 640 − 85(7) = 45 dollars; this matches the variant rubric and model answer. The fitted age range from the setup is 1 to 8 years, but the rubric and model answer state the fitted interval as 1 to 4 years, so that number does not match.",
+     "criterion a2: The classification as interpolation is correct because 3 is within 1 to 8 years, but the criterion says the fitted interval is 1 to 4 years, which contradicts the setup.",
+     "criterion b2: 7 years is within the stated fitted interval of 1 to 8 years, so it is interpolation, not extrapolation. The criterion incorrectly says 7 is beyond 1 to 4 years.",
+     "criterion c1: The justification depends on 7 years being extrapolation, but 7 is inside the stated fitted interval of 1 to 8 years, so the reliability comparison as written is not supported.",
+     "conditions: The parent rubric relied on one prediction being inside the fitted range and the other being outside it. The variant setup says the fitted range is 1 to 8 years, but the rubric and model answer use 1 to 4 years. Therefore 7 years is actually inside the stated data range, so the extrapolation and reliability conditions fail.",
+     "new issue: The setup says the laptops were between 1 and 8 years old, but criteria a2, b2, and the model answer use a fitted interval of 1 to 4 years. This makes the 7-year prediction interpolation rather than extrapolation, and it invalidates the part (c) reliability comparison. The rubric should either change the setup to 1 to 4 years or use the interval 1 to 8 years and ask for an age outside that range in part (b)."
+    ],
+    "out": {
+     "changes_listed": "The context changed from used-car asking prices to laptop resale values. The setup changed from 20 cars aged 2 to 9 years with equation ŷ = 27.4 − 1.9x thousand dollars to 15 laptops aged 1 to 8 years with equation ŷ = 640 − 85x dollars. Part (a) changed the age from 6 to 3 years, with the predicted value changing from 16.0 thousand dollars to 385 dollars. Part (b) changed the age from 13 to 7 years, with the predicted value changing from 2.7 thousand dollars to 45 dollars. Part (c) changed the compared ages from 6 vs 13 to 3 vs 7. Rubric wording was adjusted for the new context and numbers.",
+     "numbers_recomputed": "640 − 85(3) = 385 dollars; this matches the variant rubric and model answer. 640 − 85(7) = 45 dollars; this matches the variant rubric and model answer. The fitted age range from the setup is 1 to 8 years, but the rubric and model answer state the fitted interval as 1 to 4 years, so that number does not match.",
+     "numbers_ok": false,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": false,
+       "issue": "The classification as interpolation is correct because 3 is within 1 to 8 years, but the criterion says the fitted interval is 1 to 4 years, which contradicts the setup."
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": false,
+       "issue": "7 years is within the stated fitted interval of 1 to 8 years, so it is interpolation, not extrapolation. The criterion incorrectly says 7 is beyond 1 to 4 years."
+      },
+      {
+       "criterion": "c1",
+       "holds": false,
+       "issue": "The justification depends on 7 years being extrapolation, but 7 is inside the stated fitted interval of 1 to 8 years, so the reliability comparison as written is not supported."
+      }
+     ],
+     "conditions_still_hold": false,
+     "conditions_issue": "The parent rubric relied on one prediction being inside the fitted range and the other being outside it. The variant setup says the fitted range is 1 to 8 years, but the rubric and model answer use 1 to 4 years. Therefore 7 years is actually inside the stated data range, so the extrapolation and reliability conditions fail.",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "The setup says the laptops were between 1 and 8 years old, but criteria a2, b2, and the model answer use a fitted interval of 1 to 4 years. This makes the 7-year prediction interpolation rather than extrapolation, and it invalidates the part (c) reliability comparison. The rubric should either change the setup to 1 to 4 years or use the interval 1 to 8 years and ask for an age outside that range in part (b)."
+    }
+   },
+   "second": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "numbers: a1: 640−85(3)=385 dollars (matches). b1: 640−85(7)=45 dollars (matches). Fitted interval: setup says 1 to 8, but criteria a2/b2 and model answer say 1 to 4 (does not match). b2 classification: 7 is within 1 to 8, so it is not beyond the fitted data. c1 comparison: both 3 and 7 are inside 1 to 8, so the extrapolation-reliability contrast fails.",
+     "criterion b2: The setup states laptops were between 1 and 8 years old, so x=7 is within the fitted interval. The criterion incorrectly says 7 is beyond the interval 1 to 4 and classifies it as extrapolation; it should be interpolation.",
+     "criterion c1: Both x=3 and x=7 are within the actual interval 1 to 8, so the premise that 7 is extrapolation is false. The reliability comparison cannot be justified by extrapolation.",
+     "conditions: The parent relied on the second prediction being outside the fitted x-range and the first inside. Here the setup gives 1 to 8, so x=7 is inside, not outside. The rubric/model answer's stated interval 1 to 4 contradicts the setup.",
+     "new issue: The fitted age interval is misstated as 1 to 4 in the rubric and model answer; it should be 1 to 8. As a result, part (b) should be interpolation, not extrapolation, and part (c)'s reliability contrast is broken. Additionally, the model predicts a negative resale value at x=8 (640−85·8=−40 dollars), which is unrealistic for a resale value."
+    ],
+    "out": {
+     "changes_listed": "Context changed from used-car asking prices to laptop resale values; sample size changed from 20 to 15; x-range changed from 2-9 to 1-8; regression equation changed from ŷ=27.4−1.9x thousand dollars to ŷ=640−85x dollars; prediction ages changed from 6 and 13 to 3 and 7; rubric structure identical. However, the variant's criteria and model answer state the fitted interval as 1 to 4 instead of the setup's 1 to 8.",
+     "numbers_recomputed": "a1: 640−85(3)=385 dollars (matches). b1: 640−85(7)=45 dollars (matches). Fitted interval: setup says 1 to 8, but criteria a2/b2 and model answer say 1 to 4 (does not match). b2 classification: 7 is within 1 to 8, so it is not beyond the fitted data. c1 comparison: both 3 and 7 are inside 1 to 8, so the extrapolation-reliability contrast fails.",
+     "numbers_ok": false,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": false,
+       "issue": "The setup states laptops were between 1 and 8 years old, so x=7 is within the fitted interval. The criterion incorrectly says 7 is beyond the interval 1 to 4 and classifies it as extrapolation; it should be interpolation."
+      },
+      {
+       "criterion": "c1",
+       "holds": false,
+       "issue": "Both x=3 and x=7 are within the actual interval 1 to 8, so the premise that 7 is extrapolation is false. The reliability comparison cannot be justified by extrapolation."
+      }
+     ],
+     "conditions_still_hold": false,
+     "conditions_issue": "The parent relied on the second prediction being outside the fitted x-range and the first inside. Here the setup gives 1 to 8, so x=7 is inside, not outside. The rubric/model answer's stated interval 1 to 4 contradicts the setup.",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "The fitted age interval is misstated as 1 to 4 in the rubric and model answer; it should be 1 to 8. As a result, part (b) should be interpolation, not extrapolation, and part (c)'s reliability contrast is broken. Additionally, the model predicts a negative resale value at x=8 (640−85·8=−40 dollars), which is unrealistic for a resale value."
+    }
+   }
+  }
+ ],
+ "status": "flagged"
+}

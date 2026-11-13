@@ -1,0 +1,652 @@
+{
+ "ap_statistics__4.10__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 4,
+  "earned": 4,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Calculates the test statistic t = (x̄₁ − x̄₂)/√(s₁²/n₁ + s₂²/n₂) = (82.5 − 76.8)/√(12.1²/30 + 10.7²/34) = 1.98.",
+    "earned": true,
+    "reason": "The response correctly substitutes the sample values into the formula and reports t = 1.98."
+   },
+   {
+    "criterion": "Interprets the p-value 0.0259: assuming tutoring has no effect on the mean exam score (μ₁ − μ₂ = 0), the probability of getting a difference in sample means of 5.7 points or greater (equivalently, a test statistic of about 1.98 or greater) is about 0.0259.",
+    "earned": true,
+    "reason": "The response clearly states the probability of observing a difference in sample means of 5.7 points or greater assuming the null hypothesis is true (tutoring has no effect) is about 0.0259."
+   },
+   {
+    "criterion": "Compares the p-value 0.0259 with α = 0.05: because the p-value is less than α, reject H₀.",
+    "earned": true,
+    "reason": "The response explicitly compares the p-value 0.0259 to α = 0.05 (less than) and makes the decision to reject H₀."
+   },
+   {
+    "criterion": "Concludes in context: there is convincing evidence that the mean exam score with tutoring is greater than the mean exam score without tutoring for the students in this study.",
+    "earned": true,
+    "reason": "The response states there is convincing evidence for Hₐ in context."
+   }
+  ]
+ },
+ "ap_statistics__4.10__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 4,
+  "earned": 4,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Calculates the test statistic t = (x̄₁ − x̄₂)/√(s₁²/n₁ + s₂²/n₂) = (71.4 − 68.9)/√(9.8²/26 + 11.3²/28) = 0.87.",
+    "earned": true,
+    "reason": "The response correctly substitutes the sample values into the formula and computes t = 0.87."
+   },
+   {
+    "criterion": "Interprets the p-value 0.3882: assuming the two treatments have the same mean recovery time (μ₁ − μ₂ = 0), the probability of getting a difference in sample means at least 2.5 minutes away from 0 in either direction (equivalently, a test statistic at least about 0.87 away from 0) is about 0.3882.",
+    "earned": true,
+    "reason": "The response provides a complete and correct interpretation of the p-value in context, including the assumption that the null hypothesis is true and the two-sided probability of observing a difference at least as extreme."
+   },
+   {
+    "criterion": "Compares the p-value 0.3882 with α = 0.05: because the p-value is greater than α, fail to reject H₀.",
+    "earned": true,
+    "reason": "The response explicitly compares the p-value (0.3882) to α (0.05) and states the decision to fail to reject H₀."
+   },
+   {
+    "criterion": "Concludes in context: there is not convincing evidence that the mean recovery time with treatment 1 differs from the mean recovery time with treatment 2 for the patients in this study.",
+    "earned": true,
+    "reason": "The response states a correct conclusion in context, noting that there is not convincing evidence for a difference in mean recovery times between the two treatments."
+   }
+  ]
+ },
+ "ap_statistics__4.3__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 4,
+  "earned": 4,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1",
+    "earned": true,
+    "reason": "The response includes the confidence level (95%), the interval (0.37 to 2.33 minutes), and accurately identifies the parameter in context."
+   },
+   {
+    "criterion": "b1",
+    "earned": true,
+    "reason": "The response correctly notes that 0 is not contained within the interval and concludes that there is convincing evidence against the claim that the mean difference is 0."
+   },
+   {
+    "criterion": "c1",
+    "earned": true,
+    "reason": "The response compares 2.5 to the interval, stating that 2.5 is above the interval (meaning plausible values are below it), and concludes that the interval does not support the claim."
+   },
+   {
+    "criterion": "d1",
+    "earned": true,
+    "reason": "The response correctly states that the 99% interval would be wider and explains that a higher confidence level requires a larger critical value t*, resulting in a larger margin of error."
+   }
+  ]
+ },
+ "ap_statistics__4.1__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 5,
+  "earned": 5,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "States that the mean of the sampling distribution of x̄ is μ = 1000 grams.",
+    "earned": true,
+    "reason": "The response clearly states that the mean of the sampling distribution of x̄ is μ = 1000 grams."
+   },
+   {
+    "criterion": "Calculates the standard deviation of the sampling distribution of x̄ as σ/√n = 24/√16 = 6 grams.",
+    "earned": true,
+    "reason": "The response shows the calculation 24/√16 and reports 6 grams."
+   },
+   {
+    "criterion": "States that the sampling distribution of x̄ is approximately normal because the sample is random and much smaller than 10% of all bags, so the values are independent, and the population of bag weights is normally distributed, so x̄ is normal for any sample size.",
+    "earned": true,
+    "reason": "The response states that the distribution is approximately normal and explicitly addresses randomness, independence via the 10% condition, and the normality of the population distribution."
+   },
+   {
+    "criterion": "Finds the probability that the mean of a random sample of 16 bags is greater than 1005 grams: the probability is about 0.2023, using a normal distribution with mean 1000 and standard deviation 6 (for example, z = (1005 − 1000)/6 = 0.83).",
+    "earned": true,
+    "reason": "The response computes the z-score using mean 1000 and standard deviation 6 to get z = 0.83 and reports the probability of approximately 0.2023."
+   },
+   {
+    "criterion": "States that with n = 64 the standard deviation of the sampling distribution becomes 3 grams, smaller than 6 grams, because σ/√n decreases as n increases.",
+    "earned": true,
+    "reason": "The response correctly gives the new standard deviation of 3 grams and states that it decreases because σ/√n decreases as n increases."
+   }
+  ]
+ },
+ "ap_statistics__4.2__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Checks the randomization condition: the cans were randomly selected.",
+    "earned": true,
+    "reason": "The response clearly states the randomization condition in context: \"the cans were randomly selected.\""
+   },
+   {
+    "criterion": "a2. Checks the 10% condition: 16 cans are less than 10% of the thousands filled in the shift.",
+    "earned": true,
+    "reason": "The response correctly checks that 16 cans are less than 10% of the thousands filled in the shift."
+   },
+   {
+    "criterion": "a3. Checks the sample-data condition: n = 16 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+    "earned": true,
+    "reason": "The response notes that n = 16 is less than 30 and that the dotplot of the sample shows no strong skewness and no outliers."
+   },
+   {
+    "criterion": "b1. Calculates the standard error s/√n = 2.6/√16 = 0.65 milliliters.",
+    "earned": true,
+    "reason": "The response correctly computes the standard error as 0.65 milliliters with appropriate work."
+   },
+   {
+    "criterion": "b2. Computes the interval 354.1 ± 2.131(0.65) = 352.71 to 355.49 milliliters, using t* = 2.131.",
+    "earned": true,
+    "reason": "The response shows the calculation using t* = 2.131 and correctly reports the interval as 352.71 to 355.49 milliliters."
+   },
+   {
+    "criterion": "c1. States that t* = 2.131 is larger than the normal critical value z* = 1.96 for 95% confidence, because the t-distribution (with 15 degrees of freedom) has heavier tails than the normal distribution.",
+    "earned": true,
+    "reason": "The response states that t* is larger than z* because the t-distribution with 15 degrees of freedom has heavier tails due to estimating σ with s."
+   }
+  ]
+ },
+ "ap_statistics__4.1__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 5,
+  "earned": 5,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "States that the mean of the sampling distribution of x̄ is μ = 12.4 hours.",
+    "earned": true,
+    "reason": "The response clearly states that the mean of the sampling distribution of x̄ is μ = 12.4 hours."
+   },
+   {
+    "criterion": "Calculates the standard deviation of the sampling distribution of x̄ as σ/√n = 1.8/√36 = 0.3 hours.",
+    "earned": true,
+    "reason": "The response correctly calculates the standard deviation by dividing 1.8 by √36 to get 0.3 hours."
+   },
+   {
+    "criterion": "States that the sampling distribution of x̄ is approximately normal because the sample is random and much smaller than 10% of all laptops, so the values are independent, and the sample size n = 36 is at least 30, so the central limit theorem applies even though the population is skewed.",
+    "earned": true,
+    "reason": "The response states that the distribution is approximately normal and explicitly mentions the random sample, independence (10% condition), and that n = 36 ≥ 30 justifies using the Central Limit Theorem."
+   },
+   {
+    "criterion": "Finds the probability that the mean of a random sample of 36 laptops is less than 12.0 hours: the probability is about 0.0912, using a normal distribution with mean 12.4 and standard deviation 0.3 (for example, z = (12.0 − 12.4)/0.3 = −1.33).",
+    "earned": true,
+    "reason": "The response uses the sampling distribution parameters to find z = (12.0 − 12.4)/0.3 = −1.33 and correctly reports a probability of about 0.0912."
+   },
+   {
+    "criterion": "States that with n = 144 the standard deviation of the sampling distribution becomes 0.15 hours, smaller than 0.3 hours, because σ/√n decreases as n increases.",
+    "earned": true,
+    "reason": "The response states the new value is 0.15 hours, explains that it is smaller than 0.3 hours, and notes that σ/√n decreases as n increases."
+   }
+  ]
+ },
+ "ap_statistics__4.3__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 4,
+  "earned": 4,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Interprets the interval: we are 95% confident that the interval from 2.75 to 10.85 mmHg captures the true mean drop (before minus after) in systolic blood pressure for all patients like these after the new medication.",
+    "earned": true,
+    "reason": "The response correctly states the confidence level (95%), the interval (2.75 to 10.85 mmHg), and accurately specifies the population parameter in context."
+   },
+   {
+    "criterion": "Because 0 is not in the interval (2.75, 10.85), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the medication is associated with a change in mean systolic blood pressure).",
+    "earned": true,
+    "reason": "The response correctly identifies that 0 is not contained within the interval and concludes that there is convincing evidence that the mean difference is not 0."
+   },
+   {
+    "criterion": "Because 12 is above the interval (2.75, 10.85), 12 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim.",
+    "earned": true,
+    "reason": "The response compares 12 to the interval, notes that all plausible values are below 12, and concludes that the interval does not support the claim."
+   },
+   {
+    "criterion": "States that a 99% interval from the same data would be wider, because a higher confidence level needs a larger critical value t* (a larger margin of error) to capture the parameter more often.",
+    "earned": true,
+    "reason": "The response correctly states that the interval would be wider and explains that a higher confidence level requires a larger critical value t*, increasing the margin of error."
+   }
+  ]
+ },
+ "ap_statistics__4.2__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Checks the randomization condition: the checkouts were randomly selected.",
+    "earned": true,
+    "reason": "The student correctly states the randomization condition in context: \"the checkouts were randomly selected.\""
+   },
+   {
+    "criterion": "Checks the 10% condition: 25 checkouts are less than 10% of the thousands completed this month.",
+    "earned": true,
+    "reason": "The student checks that 25 checkouts are less than 10% of the thousands completed this month."
+   },
+   {
+    "criterion": "Checks the sample-data condition: n = 25 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+    "earned": true,
+    "reason": "The student notes that n = 25 is less than 30 and states that the dotplot shows no strong skewness and no outliers."
+   },
+   {
+    "criterion": "Calculates the standard error s/√n = 9.5/√25 = 1.90 seconds.",
+    "earned": true,
+    "reason": "The student correctly computes and reports the standard error as 1.90 seconds."
+   },
+   {
+    "criterion": "Computes the interval 48.2 ± 2.064(1.90) = 44.28 to 52.12 seconds, using t* = 2.064.",
+    "earned": true,
+    "reason": "The student correctly shows the calculation 48.2 ± 2.064(1.90) and reports the interval 44.28 to 52.12 seconds."
+   },
+   {
+    "criterion": "States that t* = 2.064 is larger than the normal critical value z* = 1.96 for 95% confidence, because the t-distribution (with 24 degrees of freedom) has heavier tails than the normal distribution.",
+    "earned": true,
+    "reason": "The student explains that the t-distribution with 24 degrees of freedom has heavier tails than the normal distribution (due to using s to estimate σ), making t* = 2.064 larger than z* = 1.96."
+   }
+  ]
+ },
+ "ap_statistics__4.4__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Defines μ as the true mean lifetime, in hours, of all of this company's light bulbs sold in stores nationwide.",
+    "earned": true,
+    "reason": "The response defines μ in context including the response variable (mean lifetime in hours) and the target population (all of this company's light bulbs sold in stores nationwide)."
+   },
+   {
+    "criterion": "States H₀: μ = 1200 and Hₐ: μ < 1200.",
+    "earned": true,
+    "reason": "The response correctly states H₀: μ = 1200 and Hₐ: μ < 1200."
+   },
+   {
+    "criterion": "Identifies the appropriate procedure as a one-sample t-test for a population mean.",
+    "earned": true,
+    "reason": "The response explicitly names a one-sample t-test for a population mean."
+   },
+   {
+    "criterion": "Checks the randomization condition: the 40 bulbs were randomly selected.",
+    "earned": true,
+    "reason": "The response states that the 40 bulbs were randomly selected."
+   },
+   {
+    "criterion": "Checks the 10% condition: 40 bulbs are less than 10% of all of this company's bulbs in stores.",
+    "earned": true,
+    "reason": "The response verifies that 40 bulbs are less than 10% of all of this company's bulbs in stores."
+   },
+   {
+    "criterion": "Checks the sample-data condition: n = 40 is at least 30, so the sampling distribution of the sample mean is approximately normal.",
+    "earned": true,
+    "reason": "The response correctly notes that n = 40 is at least 30, justifying that the sampling distribution of the sample mean is approximately normal."
+   }
+  ]
+ },
+ "ap_statistics__4.5__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 4,
+  "earned": 4,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Calculates the test statistic t = d̄/(s_d/√n) = 3.4/(4.6/√15) = 2.86.",
+    "earned": true,
+    "reason": "The student shows the correct formula with values substituted and reports t = 2.86."
+   },
+   {
+    "criterion": "Interprets the p-value 0.0063: assuming the mean score gain for all students after mnemonic training is 0, the probability of getting a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater) is about 0.0063.",
+    "earned": true,
+    "reason": "The student correctly interprets the p-value as the probability of getting a sample mean difference of 3.4 points or greater assuming the null hypothesis (mean score gain is 0) is true."
+   },
+   {
+    "criterion": "Compares the p-value 0.0063 with α = 0.05: because the p-value is less than α, reject H₀.",
+    "earned": true,
+    "reason": "The student explicitly states that the p-value 0.0063 is less than α = 0.05 and decides to reject H₀."
+   },
+   {
+    "criterion": "Concludes in context: there is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these.",
+    "earned": true,
+    "reason": "The student states a correct conclusion in context, noting that there is convincing evidence that the mean score gain after mnemonic training is greater than 0 points."
+   }
+  ]
+ },
+ "ap_statistics__4.4__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Defines μ as the true mean waiting time, in minutes, of all patients seen at this clinic this month.",
+    "earned": true,
+    "reason": "The student correctly defines μ as the true mean waiting time, in minutes, of all patients seen at this clinic this month, including the variable, units, and population in context."
+   },
+   {
+    "criterion": "States H₀: μ = 20 and Hₐ: μ > 20.",
+    "earned": true,
+    "reason": "The student states H₀: μ = 20 and Hₐ: μ > 20 with the correct parameter and direction."
+   },
+   {
+    "criterion": "Identifies the appropriate procedure as a one-sample t-test for a population mean.",
+    "earned": true,
+    "reason": "The student identifies the procedure as a one-sample t-test for a population mean."
+   },
+   {
+    "criterion": "Checks the randomization condition: the 18 patients were randomly selected.",
+    "earned": true,
+    "reason": "The student explicitly states that the 18 patients were randomly selected."
+   },
+   {
+    "criterion": "Checks the 10% condition: 18 patients are less than 10% of the hundreds seen this month.",
+    "earned": true,
+    "reason": "The student explicitly checks that 18 patients are less than 10% of the hundreds seen this month."
+   },
+   {
+    "criterion": "Checks the sample-data condition: n = 18 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+    "earned": true,
+    "reason": "The student notes that n = 18 is less than 30, but the condition is met because the dotplot of the sample shows no strong skewness and no outliers."
+   }
+  ]
+ },
+ "ap_statistics__4.5__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 4,
+  "earned": 4,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Calculates the test statistic t = d̄/(s_d/√n) = −2.90/(5.1/√12) = −1.97.",
+    "earned": true,
+    "reason": "The response correctly substitutes the sample values into the formula and calculates t = −1.97."
+   },
+   {
+    "criterion": "Interprets the p-value 0.0746: assuming the mean commute-time difference (route A minus route B) for all drivers is 0, the probability of getting a sample mean difference at least 2.9 minutes away from 0 in either direction (equivalently, a test statistic at least about 1.97 away from 0) is about 0.0746.",
+    "earned": true,
+    "reason": "The response provides a complete and correct interpretation of the p-value in context, including the assumption that the null hypothesis is true and the two-sided nature of the test."
+   },
+   {
+    "criterion": "Compares the p-value 0.0746 with α = 0.05: because the p-value is greater than α, fail to reject H₀.",
+    "earned": true,
+    "reason": "The response explicitly compares 0.0746 to α = 0.05 (stating it is greater) and correctly states the decision to fail to reject H₀."
+   },
+   {
+    "criterion": "Concludes in context: there is not convincing evidence that the mean commute-time difference (route A minus route B) is not 0 minutes for all drivers like these.",
+    "earned": true,
+    "reason": "The response correctly states the conclusion in context and in terms of the alternative hypothesis, noting that there is not convincing evidence."
+   }
+  ]
+ },
+ "ap_statistics__4.6__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 4,
+  "earned": 4,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 4 minutes.",
+    "earned": true,
+    "reason": "The response correctly states that the mean is μ₁ − μ₂ = 34 − 30 = 4 minutes."
+   },
+   {
+    "criterion": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(8²/40 + 6²/45) = 1.549 minutes.",
+    "earned": true,
+    "reason": "The response shows the correct calculation √(8²/40 + 6²/45) and reports 1.549 minutes."
+   },
+   {
+    "criterion": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.",
+    "earned": true,
+    "reason": "The response clearly states that the sampling distribution is approximately normal and notes both that the samples are random and independent and that both sample sizes (40 and 45) are at least 30."
+   },
+   {
+    "criterion": "Finds the probability that x̄₁ − x̄₂ is greater than 6 minutes: the probability is about 0.0984, using a normal distribution with mean 4 and standard deviation 1.549 (for example, z = (6 − 4)/1.549 = 1.29).",
+    "earned": true,
+    "reason": "The response uses the correct mean (4) and standard deviation (1.549) to find z = 1.29 and reports the resulting probability of approximately 0.0984."
+   }
+  ]
+ },
+ "ap_statistics__4.6__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 4,
+  "earned": 4,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 5 minutes.",
+    "earned": true,
+    "reason": "The student correctly calculates and states that the mean of the difference in sample means is 5 minutes."
+   },
+   {
+    "criterion": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(10²/50 + 7²/60) = 1.678 minutes.",
+    "earned": true,
+    "reason": "The student correctly shows the formula setup with the appropriate values and calculates the standard deviation to be 1.678 minutes."
+   },
+   {
+    "criterion": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (50 and 60) are at least 30.",
+    "earned": true,
+    "reason": "The student states that the sampling distribution is approximately normal and justifies this by noting that the samples are independent and random and both sample sizes (50 and 60) are at least 30."
+   },
+   {
+    "criterion": "Finds the probability that x̄₁ − x̄₂ is less than 2 minutes: the probability is about 0.0369, using a normal distribution with mean 5 and standard deviation 1.678 (for example, z = (2 − 5)/1.678 = −1.79).",
+    "earned": true,
+    "reason": "The student calculates the correct z-score of -1.79 using the sampling distribution's mean and standard deviation and reports the correct probability of approximately 0.0369."
+   }
+  ]
+ },
+ "ap_statistics__4.7__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Checks the randomization condition: the seedlings were selected by independent random samples from the two greenhouses.",
+    "earned": true,
+    "reason": "The student states the randomization condition in context, noting that the seedlings were selected by independent random samples from the two greenhouses."
+   },
+   {
+    "criterion": "Checks the 10% condition: each sample is less than 10% of the seedlings in its greenhouse.",
+    "earned": true,
+    "reason": "The student correctly checks that each sample is less than 10% of the seedlings in its greenhouse."
+   },
+   {
+    "criterion": "Checks the sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+    "earned": true,
+    "reason": "The student explicitly notes that both sample sizes are less than 30, but the dotplots show no strong skewness and no outliers."
+   },
+   {
+    "criterion": "Calculates the standard error √(s₁²/n₁ + s₂²/n₂) = √(3.1²/18 + 2.8²/22) = 0.944 centimeters.",
+    "earned": true,
+    "reason": "The student correctly calculates the standard error showing the formula/substitution and reporting 0.944 centimeters."
+   },
+   {
+    "criterion": "Computes the interval (14.6 − 12.9) ± 2.031(0.944) = −0.22 to 3.62 centimeters, using t* = 2.031.",
+    "earned": true,
+    "reason": "The student correctly calculates the confidence interval as −0.22 to 3.62 centimeters using the specified formula and critical value."
+   },
+   {
+    "criterion": "States the point estimate for μ₁ − μ₂ as x̄₁ − x̄₂ = 14.6 − 12.9 = 1.7 centimeters.",
+    "earned": true,
+    "reason": "The student correctly computes and states the point estimate as 1.7 centimeters."
+   }
+  ]
+ },
+ "ap_statistics__4.8__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 4,
+  "earned": 4,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Interprets the interval: we are 95% confident that the interval from 1.53 to 4.87 thousand steps captures the true difference (participant minus non-participant) in mean daily steps, in thousands, for all employees like these.",
+    "earned": true,
+    "reason": "The response clearly states the 95% confidence level, the interval (1.53 to 4.87 thousand steps), and accurately defines the parameter in context."
+   },
+   {
+    "criterion": "Because 0 is not in the interval (1.53, 4.87), 0 is not a plausible value of the difference in population means, so the interval provides convincing evidence that the means differ (participants and non-participants differ in mean daily steps).",
+    "earned": true,
+    "reason": "The response notes that 0 is not in the interval, recognizes that 0 is therefore not a plausible value of the difference in population means, and concludes that there is convincing evidence that the means differ."
+   },
+   {
+    "criterion": "Because 6 is above the interval (1.53, 4.87), 6 is not a plausible value of μ₁ − μ₂ and every plausible value is below it, so the interval does not support the claim.",
+    "earned": true,
+    "reason": "The response compares 6 to the interval (noting it is entirely above the interval), explains that 6 is not plausible and all plausible values are below it, and correctly concludes that the interval does not support the claim."
+   },
+   {
+    "criterion": "States that a 99% interval from the same data would be wider, because a higher confidence level needs a larger critical value t* (a larger margin of error) to capture the parameter more often.",
+    "earned": true,
+    "reason": "The response correctly identifies that the 99% interval would be wider and provides an appropriate explanation referencing the higher confidence level, larger critical value t*, and increased margin of error."
+   }
+  ]
+ },
+ "ap_statistics__4.9__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Defines μ₁ and μ₂ as the μ₁ is the true mean exam score, in points, of all students at the school who study with flashcards, and μ₂ is the true mean exam score of all students at the school who study by rereading notes.",
+    "earned": true,
+    "reason": "The response clearly defines both μ₁ and μ₂ in context, including the population and response variable."
+   },
+   {
+    "criterion": "States H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ > 0.",
+    "earned": true,
+    "reason": "The response correctly states H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ > 0."
+   },
+   {
+    "criterion": "Identifies the appropriate procedure as a two-sample t-test for a difference in population means.",
+    "earned": true,
+    "reason": "The response correctly names the procedure as a two-sample t-test for a difference in population means."
+   },
+   {
+    "criterion": "Checks the randomization condition: the students were selected by independent random samples from the two groups of students.",
+    "earned": true,
+    "reason": "The response states that the students were selected by independent random samples from the two groups of students."
+   },
+   {
+    "criterion": "Checks the 10% condition: each sample is less than 10% of its group of 200 students (14 and 16 are each under 20).",
+    "earned": true,
+    "reason": "The response explicitly verifies the 10% condition by showing 14 and 16 are each less than 10% of 200 (under 20)."
+   },
+   {
+    "criterion": "Checks the sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+    "earned": true,
+    "reason": "The response explicitly states that both sample sizes are less than 30 and that dotplots show no strong skewness and no outliers."
+   }
+  ]
+ },
+ "ap_statistics__4.9__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Defines μ₁ and μ₂ as the μ₁ is the true mean yield, in bushels per acre, of all fields in the region that use the new fertilizer, and μ₂ is the true mean yield of all fields in the region that use the standard fertilizer.",
+    "earned": true,
+    "reason": "The response clearly defines both parameters in context, including units and population."
+   },
+   {
+    "criterion": "States H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ > 0.",
+    "earned": true,
+    "reason": "The hypotheses are correctly stated with the alternative hypothesis in the proper direction."
+   },
+   {
+    "criterion": "Identifies the appropriate procedure as a two-sample t-test for a difference in population means.",
+    "earned": true,
+    "reason": "The response identifies the procedure as a two-sample t-test for a difference in population means."
+   },
+   {
+    "criterion": "Checks the randomization condition: the fields were selected by independent random samples from the two groups of fields.",
+    "earned": true,
+    "reason": "The response states that fields were selected by independent random samples from the two groups of fields."
+   },
+   {
+    "criterion": "Checks the 10% condition: each sample is less than 10% of the thousands of fields that use its fertilizer.",
+    "earned": true,
+    "reason": "The response explicitly states that each sample is less than 10% of the thousands of fields using each fertilizer."
+   },
+   {
+    "criterion": "Checks the sample-data condition: both sample sizes (36 and 40) are at least 30.",
+    "earned": true,
+    "reason": "The response states the sample-data condition and notes that both sample sizes (36 and 40) are at least 30."
+   }
+  ]
+ },
+ "ap_statistics__4.8__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 4,
+  "earned": 4,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Interprets the interval: we are 95% confident that the interval from 0.80 to 9.60 words per minute captures the true difference (program group minus comparison group) in mean reading fluency for all students like these.",
+    "earned": true,
+    "reason": "The response correctly states the confidence level, specifies the interval with units, and correctly identifies the parameter in context."
+   },
+   {
+    "criterion": "b1. Because 0 is not in the interval (0.80, 9.60), 0 is not a plausible value of the difference in population means, so the interval provides convincing evidence that the means differ (the program is associated with a difference in mean reading fluency).",
+    "earned": true,
+    "reason": "The response compares 0 to the interval, states that 0 is not a plausible value of the difference in population means, and concludes there is convincing evidence that the means differ."
+   },
+   {
+    "criterion": "c1. Because 10 is above the interval (0.80, 9.60), 10 is not a plausible value of μ₁ − μ₂ and every plausible value is below it, so the interval does not support the claim.",
+    "earned": true,
+    "reason": "The response correctly notes that 10 is above the interval, not a plausible value, and all plausible values are below it, concluding that the interval does not support the claim."
+   },
+   {
+    "criterion": "d1. States that a 99% interval from the same data would be wider, because a higher confidence level needs a larger critical value t* (a larger margin of error) to capture the parameter more often.",
+    "earned": true,
+    "reason": "The response states that the interval would be wider and explains that a higher confidence level requires a larger critical value t*, which increases the margin of error."
+   }
+  ]
+ },
+ "ap_statistics__4.7__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Checks the randomization condition: the students were selected by independent random samples from the two schools.",
+    "earned": true,
+    "reason": "The response explicitly states that the students were selected by independent random samples from the two schools."
+   },
+   {
+    "criterion": "a2. Checks the 10% condition: each sample is less than 10% of the students at its school.",
+    "earned": true,
+    "reason": "The response correctly states that each sample is less than 10% of the students at its school."
+   },
+   {
+    "criterion": "a3. Checks the sample-data condition: both sample sizes (32 and 35) are at least 30.",
+    "earned": true,
+    "reason": "The response correctly checks the sample-data condition by noting both sample sizes (32 and 35) are at least 30."
+   },
+   {
+    "criterion": "b1. Calculates the standard error √(s₁²/n₁ + s₂²/n₂) = √(11.2²/32 + 9.8²/35) = 2.581 points.",
+    "earned": true,
+    "reason": "The response shows the calculation √(11.2²/32 + 9.8²/35) and states the standard error is 2.581 points."
+   },
+   {
+    "criterion": "b2. Computes the interval (78.4 − 72.1) ± 1.999(2.581) = 1.14 to 11.46 points, using t* = 1.999.",
+    "earned": true,
+    "reason": "The response calculates (78.4 − 72.1) ± 1.999(2.581) and reports the interval 1.14 to 11.46 points."
+   },
+   {
+    "criterion": "c1. States the point estimate for μ₁ − μ₂ as x̄₁ − x̄₂ = 78.4 − 72.1 = 6.3 points.",
+    "earned": true,
+    "reason": "The response states that the point estimate is x̄₁ − x̄₂ = 78.4 − 72.1 = 6.3 points."
+   }
+  ]
+ }
+}

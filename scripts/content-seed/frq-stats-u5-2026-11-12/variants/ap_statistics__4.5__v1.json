@@ -1,0 +1,166 @@
+{
+ "id": "ap_statistics__4.5__v1",
+ "parent": "ap_statistics__4.5__1",
+ "parent_status": "accepted",
+ "topic_code": "4.5",
+ "item": {
+  "title": "Test of Mean Commute Difference Between Two Routes",
+  "calculator": "permitted",
+  "stimulus": "A commuter randomly selected 12 drivers from a large company, and each drove both route A and route B in a random order. For each driver, the difference (route A time minus route B time) in minutes was calculated. The sample of differences has mean −2.9 minutes and standard deviation 5.1 minutes, with no strong skewness and no outliers. The commuter tests H₀: μ_d = 0 versus Hₐ: μ_d ≠ 0 at significance level α = 0.05, where μ_d is the population mean difference (route A minus route B). Technology gives a p-value of 0.0746.",
+  "parts": [
+   {
+    "prompt": "Calculate the test statistic.",
+    "criteria": [
+     {
+      "text": "Calculates the test statistic t = d̄/(s_d/√n) = −2.90/(5.1/√12) = −1.97.",
+      "evidence": "Response substitutes the sample values into the formula and reports t of about −1.97.",
+      "fix": "Subtract the null value from the sample statistic and divide by the standard error computed from the sample standard deviations.",
+      "accepted_variants": [
+       "−1.97",
+       "−1.970"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Interpret the p-value in context.",
+    "criteria": [
+     {
+      "text": "Interprets the p-value 0.0746: assuming the mean commute-time difference (route A minus route B) for all drivers is 0, the probability of getting a sample mean difference at least 2.9 minutes away from 0 in either direction (equivalently, a test statistic at least about 1.97 away from 0) is about 0.0746.",
+      "evidence": "Response says 0.0746 is the probability, computed assuming the mean commute-time difference (route A minus route B) for all drivers is 0, of getting a sample mean difference at least 2.9 minutes away from 0 in either direction (equivalently, a test statistic at least about 1.97 away from 0) (an equivalent statement in terms of the test statistic is also acceptable).",
+      "fix": "Say the p-value is the probability of a result this extreme or more, in the direction of Hₐ, assuming H₀ is true.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Use the p-value and the significance level α = 0.05 to state a conclusion about the claim, in context.",
+    "criteria": [
+     {
+      "text": "Compares the p-value 0.0746 with α = 0.05: because the p-value is greater than α, fail to reject H₀.",
+      "evidence": "Response compares 0.0746 with 0.05, and says fail to reject H₀.",
+      "fix": "Compare the p-value with α: reject H₀ when the p-value is less than or equal to α, otherwise fail to reject.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Concludes in context: there is not convincing evidence that the mean commute-time difference (route A minus route B) is not 0 minutes for all drivers like these.",
+      "evidence": "Response states not convincing evidence for Hₐ, in terms of Hₐ and in context.",
+      "fix": "State the conclusion in terms of Hₐ in context, using 'convincing evidence' or 'not convincing evidence'.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) t = d̄/(s_d/√n) = −2.90/(5.1/√12) = −1.97, with df = 11.\n\n(b) Assuming the mean commute-time difference (route A minus route B) for all drivers is 0, the probability of getting a sample mean difference at least 2.9 minutes away from 0 in either direction (equivalently, a test statistic at least about 1.97 away from 0) is about 0.0746.\n\n(c) The p-value 0.0746 is greater than α = 0.05, so we fail to reject H₀. There is not convincing evidence that the mean commute-time difference (route A minus route B) is not 0 minutes for all drivers like these.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, alpha = 12, -2.9, 5.1, 0.05\nt = d / (s / math.sqrt(n))\nassert round(t, 2) == -1.97\ntail = 1 - tcdf(abs(t), n - 1)\np = 2 * tail\nassert round(p, 4) == 0.0746\nassert (p < alpha) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:57:48.170Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"TEST_STAT\"],[\"P_INTERPRET\"],[\"P_DECISION\",\"CONCLUDE\"]]",
+  "child_order": "[[\"TEST_STAT\"],[\"P_INTERPRET\"],[\"P_DECISION\",\"CONCLUDE\"]]",
+  "child_pattern": [
+   [
+    "TEST_STAT"
+   ],
+   [
+    "P_INTERPRET"
+   ],
+   [
+    "P_DECISION",
+    "CONCLUDE"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [1,1,2], variant [1,1,2]. Points: parent 4, variant 4.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"TEST_STAT\"],[\"P_INTERPRET\"],[\"P_DECISION\",\"CONCLUDE\"]]\nCriterion a1 (TEST_STAT): wording and values changed; accepted variants changed\nCriterion b1 (P_INTERPRET): wording and values changed\nCriterion c1 (P_DECISION): wording and values changed\nCriterion c2 (CONCLUDE): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from paired vocabulary scores to paired commute times on two routes, with route order randomized. The sample size changes from 15 to 12, the mean difference from 3.4 to −2.9, and the standard deviation from 4.6 to 5.1. The alternative changes from greater than zero to two-sided, requiring a two-sided p-value interpretation. The reported p-value changes to 0.0746, and the decision and conclusion change to failing to reject the null and finding insufficient evidence of a difference.",
+     "numbers_recomputed": "The standard error is 5.1/√12 = 1.472243 minutes. The test statistic is (−2.9 − 0)/1.472243 = −1.969783, matching −1.97 and −1.970. With df = 12 − 1 = 11, the two-sided p-value is approximately 0.0746, matching the stated value. The two-sided extremeness thresholds are sample differences ≤ −2.9 or ≥ 2.9 minutes, equivalently |t| ≥ approximately 1.97, matching b1. Since 0.0746 > 0.05, failing to reject H₀ matches c1 and the insufficient-evidence conclusion in c2.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from a pre/post vocabulary quiz after mnemonic training to a paired comparison of commute times for two routes. The sample size changes from 15 to 12, the sample mean difference from 3.4 to −2.9, the sample standard deviation from 4.6 to 5.1, the alternative from one-sided greater to two-sided, the technology p-value from 0.0063 to 0.0746, and the conclusion from reject H0 to fail to reject H0. The rubric wording is updated in parallel.",
+     "numbers_recomputed": "t = (−2.90)/(5.1/√12) ≈ −1.9698, which matches the rubric’s −1.97; df = 12 − 1 = 11. A two-tailed t-test with |t| ≈ 1.97 and df = 11 gives p ≈ 0.0746, matching the supplied p-value. The comparison 0.0746 > 0.05 matches the stated fail-to-reject decision. The absolute sample mean difference is 2.9 minutes, consistent with the p-value interpretation.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

@@ -1,0 +1,550 @@
+{
+ "ap_statistics__5.1__seed": [
+  [
+   {
+    "pattern": "EXPL_RESP",
+    "fills": {
+     "x_name": "daily screen time",
+     "y_name": "nightly sleep"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "SCATTER_FORM",
+    "fills": {
+     "form_phrase": "linear (the points follow a roughly straight-line pattern)"
+    }
+   },
+   {
+    "pattern": "SCATTER_DIR",
+    "fills": {
+     "direction": "negative",
+     "x_name": "daily screen time",
+     "y_name": "nightly sleep",
+     "trend_phrase": "decrease"
+    }
+   },
+   {
+    "pattern": "SCATTER_STRENGTH",
+    "fills": {
+     "strength": "strong",
+     "strength_reason": "all points other than one lie close to a single straight-line pattern"
+    }
+   },
+   {
+    "pattern": "SCATTER_UNUSUAL",
+    "fills": {
+     "unusual_text": "Identifies the point with 60 minutes of screen time and 7.7 hours of sleep as an unusual feature: it does not fit the general pattern because this student sleeps noticeably less than other students with similar screen time.",
+     "unusual_evidence": "Response singles out the observation (60, 7.7) as not fitting the general pattern and says how it differs from the other points."
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "SCATTER_CLAIM",
+    "fills": {
+     "claim_text": "Concludes the claim is supported, because all 4 students with 120 minutes or more of screen time (7.5, 7.4, 7.2, 7.0 hours) sleep fewer than 8 hours.",
+     "claim_evidence": "Response says the claim is supported and cites the 4 students with screen time of 120 minutes or more, all of whom sleep fewer than 8 hours."
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.1__variant": [
+  [
+   {
+    "pattern": "EXPL_RESP",
+    "fills": {
+     "x_name": "weekly practice time",
+     "y_name": "typing speed"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "SCATTER_FORM",
+    "fills": {
+     "form_phrase": "linear (the points follow a roughly straight-line pattern)"
+    }
+   },
+   {
+    "pattern": "SCATTER_DIR",
+    "fills": {
+     "direction": "positive",
+     "x_name": "weekly practice time",
+     "y_name": "typing speed",
+     "trend_phrase": "increase"
+    }
+   },
+   {
+    "pattern": "SCATTER_STRENGTH",
+    "fills": {
+     "strength": "strong",
+     "strength_reason": "all points other than one lie close to a single straight-line pattern"
+    }
+   },
+   {
+    "pattern": "SCATTER_UNUSUAL",
+    "fills": {
+     "unusual_text": "Identifies the point with 7 hours of practice and 45 words per minute of typing speed as an unusual feature: it does not fit the general pattern because this student types much more slowly than other students with similar practice time.",
+     "unusual_evidence": "Response singles out the observation (7, 45) as not fitting the general pattern and says how it differs from the other points."
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "SCATTER_CLAIM",
+    "fills": {
+     "claim_text": "Concludes the claim is supported, because all 4 students with 10 hours or more of practice (72, 76, 80, 88 words per minute) type at least 70 words per minute.",
+     "claim_evidence": "Response says the claim is supported and cites the 4 students with practice of 10 hours or more, all of whom type at least 70 words per minute."
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.2__seed": [
+  [
+   {
+    "pattern": "R_DIR",
+    "fills": {
+     "r_value": "0.91",
+     "direction": "positive",
+     "x_name": "daily high temperature",
+     "y_name": "number of bikes rented",
+     "trend_phrase": "increase"
+    }
+   },
+   {
+    "pattern": "R_STRENGTH",
+    "fills": {
+     "r_value": "0.91",
+     "strength_word": "strong",
+     "near_pole": "1",
+     "x_name": "daily high temperature",
+     "y_name": "number of bikes rented"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "R_NOT_GUARANTEE",
+    "fills": {
+     "r_value": "0.91"
+    }
+   },
+   {
+    "pattern": "R_CHECK_RESIDUAL_PLOT",
+    "fills": {}
+   }
+  ],
+  [
+   {
+    "pattern": "NO_CAUSATION",
+    "fills": {
+     "cause_claim": "warmer temperatures cause more bikes to be rented"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "R_UNIT_FREE",
+    "fills": {
+     "r_value": "0.91",
+     "unit_change": "measuring temperature in degrees Celsius instead of degrees Fahrenheit"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.2__variant": [
+  [
+   {
+    "pattern": "R_DIR",
+    "fills": {
+     "r_value": "−0.88",
+     "direction": "negative",
+     "x_name": "vehicle weight",
+     "y_name": "fuel economy",
+     "trend_phrase": "decrease"
+    }
+   },
+   {
+    "pattern": "R_STRENGTH",
+    "fills": {
+     "r_value": "−0.88",
+     "strength_word": "strong",
+     "near_pole": "-1",
+     "x_name": "vehicle weight",
+     "y_name": "fuel economy"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "R_NOT_GUARANTEE",
+    "fills": {
+     "r_value": "−0.88"
+    }
+   },
+   {
+    "pattern": "R_CHECK_RESIDUAL_PLOT",
+    "fills": {}
+   }
+  ],
+  [
+   {
+    "pattern": "NO_CAUSATION",
+    "fills": {
+     "cause_claim": "heavier vehicles cause lower fuel economy"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "R_UNIT_FREE",
+    "fills": {
+     "r_value": "−0.88",
+     "unit_change": "measuring weight in kilograms instead of pounds"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.3__seed": [
+  [
+   {
+    "pattern": "PREDICT",
+    "fills": {
+     "eq_text": "ŷ = 27.4 − 1.9x",
+     "x0": 6,
+     "yhat_text": "16.0",
+     "y_units": "thousand dollars"
+    }
+   },
+   {
+    "pattern": "EXTRAP_CLASS",
+    "fills": {
+     "x0": 6,
+     "kind": "interpolation",
+     "where": "within",
+     "x_name": "age",
+     "lo": 2,
+     "hi": 9,
+     "x_units": "years"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "PREDICT",
+    "fills": {
+     "eq_text": "ŷ = 27.4 − 1.9x",
+     "x0": 13,
+     "yhat_text": "2.7",
+     "y_units": "thousand dollars"
+    }
+   },
+   {
+    "pattern": "EXTRAP_CLASS",
+    "fills": {
+     "x0": 13,
+     "kind": "extrapolation",
+     "where": "beyond",
+     "x_name": "age",
+     "lo": 2,
+     "hi": 9,
+     "x_units": "years"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "RELIABILITY",
+    "fills": {
+     "x_near": 6,
+     "x_far": 13,
+     "x_units": "years",
+     "x_name": "age"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.3__variant": [
+  [
+   {
+    "pattern": "PREDICT",
+    "fills": {
+     "eq_text": "ŷ = 640 − 85x",
+     "x0": 3,
+     "yhat_text": "385",
+     "y_units": "dollars"
+    }
+   },
+   {
+    "pattern": "EXTRAP_CLASS",
+    "fills": {
+     "x0": 3,
+     "kind": "interpolation",
+     "where": "within",
+     "x_name": "age",
+     "lo": 1,
+     "hi": 4,
+     "x_units": "years"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "PREDICT",
+    "fills": {
+     "eq_text": "ŷ = 640 − 85x",
+     "x0": 7,
+     "yhat_text": "45",
+     "y_units": "dollars"
+    }
+   },
+   {
+    "pattern": "EXTRAP_CLASS",
+    "fills": {
+     "x0": 7,
+     "kind": "extrapolation",
+     "where": "beyond",
+     "x_name": "age",
+     "lo": 1,
+     "hi": 4,
+     "x_units": "years"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "RELIABILITY",
+    "fills": {
+     "x_near": 3,
+     "x_far": 7,
+     "x_units": "years",
+     "x_name": "age"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.4__seed": [
+  [
+   {
+    "pattern": "PREDICT",
+    "fills": {
+     "eq_text": "ŷ = 38.4 + 7.2x",
+     "x0": 5,
+     "yhat_text": "74.4",
+     "y_units": "thousand dollars"
+    }
+   },
+   {
+    "pattern": "RESID_CALC",
+    "fills": {
+     "y_obs": 80.5,
+     "yhat_text": "74.4",
+     "resid_text": "6.1",
+     "y_units": "thousand dollars"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "RESID_SIGN",
+    "fills": {
+     "sign_word": "positive",
+     "model_verb": "underpredicts",
+     "above_below": "above"
+    }
+   },
+   {
+    "pattern": "RESID_MAGNITUDE",
+    "fills": {
+     "case_phrase": "the week with 5 advertisements",
+     "y_name": "weekly sales",
+     "abs_resid": "6.1",
+     "y_units": "thousand dollars",
+     "above_below": "above"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "RESID_PLOT_CURVE",
+    "fills": {
+     "pattern_text": "U-shaped pattern"
+    }
+   },
+   {
+    "pattern": "RESID_PLOT_RANDOM",
+    "fills": {}
+   }
+  ]
+ ],
+ "ap_statistics__5.4__variant": [
+  [
+   {
+    "pattern": "PREDICT",
+    "fills": {
+     "eq_text": "ŷ = 48.6 + 4.1x",
+     "x0": 8,
+     "yhat_text": "81.4",
+     "y_units": "points"
+    }
+   },
+   {
+    "pattern": "RESID_CALC",
+    "fills": {
+     "y_obs": 71.0,
+     "yhat_text": "81.4",
+     "resid_text": "−10.4",
+     "y_units": "points"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "RESID_SIGN",
+    "fills": {
+     "sign_word": "negative",
+     "model_verb": "overpredicts",
+     "above_below": "below"
+    }
+   },
+   {
+    "pattern": "RESID_MAGNITUDE",
+    "fills": {
+     "case_phrase": "the student who studied 8 hours",
+     "y_name": "exam score",
+     "abs_resid": "10.4",
+     "y_units": "points",
+     "above_below": "below"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "RESID_PLOT_CURVE",
+    "fills": {
+     "pattern_text": "arch-shaped pattern"
+    }
+   },
+   {
+    "pattern": "RESID_PLOT_RANDOM",
+    "fills": {}
+   }
+  ]
+ ],
+ "ap_statistics__5.5__seed": [
+  [
+   {
+    "pattern": "SLOPE_INTERP",
+    "fills": {
+     "x_unit_one": "degree Fahrenheit",
+     "y_name": "number of cups sold",
+     "inc_dec": "decreases",
+     "b_abs": "3.8",
+     "y_units": "cups",
+     "x_name": "noon temperature"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "INTERCEPT_DEF",
+    "fills": {
+     "a_text": "312.4",
+     "y_name": "number of cups sold",
+     "x_name": "noon temperature",
+     "y_units": "cups"
+    }
+   },
+   {
+    "pattern": "INTERCEPT_WHY",
+    "fills": {
+     "x_name": "noon temperature",
+     "lo": 30,
+     "hi": 70,
+     "x_units": "degrees Fahrenheit"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "R2_INTERP",
+    "fills": {
+     "r2_text": "0.81",
+     "pct": 81,
+     "y_name": "number of cups sold",
+     "x_name": "noon temperature"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "LSRL_THROUGH_MEANS",
+    "fills": {
+     "eq_text": "ŷ = 312.4 − 3.8x",
+     "xbar": "50",
+     "ybar_text": "122.4",
+     "x_units": "degrees Fahrenheit"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.5__variant": [
+  [
+   {
+    "pattern": "SLOPE_INTERP",
+    "fills": {
+     "x_unit_one": "degree Fahrenheit",
+     "y_name": "number of cones sold",
+     "inc_dec": "increases",
+     "b_abs": "2.1",
+     "y_units": "cones",
+     "x_name": "afternoon temperature"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "INTERCEPT_DEF",
+    "fills": {
+     "a_text": "24.5",
+     "y_name": "number of cones sold",
+     "x_name": "afternoon temperature",
+     "y_units": "cones"
+    }
+   },
+   {
+    "pattern": "INTERCEPT_WHY",
+    "fills": {
+     "x_name": "afternoon temperature",
+     "lo": 62,
+     "hi": 96,
+     "x_units": "degrees Fahrenheit"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "R2_INTERP",
+    "fills": {
+     "r2_text": "0.76",
+     "pct": 76,
+     "y_name": "number of cones sold",
+     "x_name": "afternoon temperature"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "LSRL_THROUGH_MEANS",
+    "fills": {
+     "eq_text": "ŷ = 24.5 + 2.1x",
+     "xbar": "80",
+     "ybar_text": "192.5",
+     "x_units": "degrees Fahrenheit"
+    }
+   }
+  ]
+ ]
+}

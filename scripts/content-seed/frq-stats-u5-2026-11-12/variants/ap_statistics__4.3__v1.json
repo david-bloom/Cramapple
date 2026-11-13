@@ -1,0 +1,170 @@
+{
+ "id": "ap_statistics__4.3__v1",
+ "parent": "ap_statistics__4.3__1",
+ "parent_status": "accepted",
+ "topic_code": "4.3",
+ "item": {
+  "title": "Claims About a Mean Blood Pressure Drop",
+  "calculator": "permitted",
+  "stimulus": "A pharmacist recorded the systolic blood pressure of 24 randomly selected patients before and after four weeks on a new medication. For each patient, the difference (before minus after) in mmHg was calculated; positive differences mean blood pressure dropped. The differences have no strong skewness and no outliers. Using technology, the pharmacist found a 95% confidence interval for the population mean difference μ_d of (2.75, 10.85) mmHg.",
+  "parts": [
+   {
+    "prompt": "Interpret the interval in context.",
+    "criteria": [
+     {
+      "text": "Interprets the interval: we are 95% confident that the interval from 2.75 to 10.85 mmHg captures the true mean drop (before minus after) in systolic blood pressure for all patients like these after the new medication.",
+      "evidence": "Response states the confidence level, the interval from 2.75 to 10.85 mmHg, and the parameter it captures (true mean drop (before minus after) in systolic blood pressure for all patients like these after the new medication).",
+      "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "The pharmacist claims that the medication does not change mean systolic blood pressure, that is, that μ_d = 0. Does the interval provide convincing evidence against this claim? Explain.",
+    "criteria": [
+     {
+      "text": "Because 0 is not in the interval (2.75, 10.85), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the medication is associated with a change in mean systolic blood pressure).",
+      "evidence": "Response compares 0 with the interval and concludes: 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the medication is associated with a change in mean systolic blood pressure).",
+      "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "The pharmacist also claims that the medication lowers mean systolic blood pressure by at least 12 mmHg, that is, that μ_d is at least 12 mmHg. Does the interval support this claim? Explain.",
+    "criteria": [
+     {
+      "text": "Because 12 is above the interval (2.75, 10.85), 12 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim.",
+      "evidence": "Response compares 12 with the interval and concludes: 12 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim.",
+      "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Without recalculating, how would a 99% interval from the same data compare in width with this 95% interval? Explain.",
+    "criteria": [
+     {
+      "text": "States that a 99% interval from the same data would be wider, because a higher confidence level needs a larger critical value t* (a larger margin of error) to capture the parameter more often.",
+      "evidence": "Response says the interval would be wider and gives the higher confidence level (larger t*, larger margin of error, capturing the parameter more often) as the reason.",
+      "fix": "Hold the standard error fixed: higher confidence means a larger t*, so a larger margin of error and a wider interval.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) We are 95% confident that the interval from 2.75 to 10.85 mmHg captures the true mean drop (before minus after) in systolic blood pressure for all patients like these after the new medication.\n\n(b) Yes. Because 0 is not in the interval (2.75, 10.85), it is not a plausible value of μ_d, so the interval provides convincing evidence that the mean difference is not 0 (the medication is associated with a change in mean systolic blood pressure).\n\n(c) No. 12 is above the interval (2.75, 10.85), so it is not a plausible value of μ_d and every plausible value is below it; the interval does not support the claim.\n\n(d) A 99% interval would be wider, because a higher confidence level uses a larger critical value t*, which increases the margin of error.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, conf = 24, 6.8, 9.6, 0.95\nts = tinv(1 - (1 - conf) / 2, n - 1)\nse = s / math.sqrt(n)\nlo, hi = d - ts * se, d + ts * se\nassert round(lo, 2) == 2.75 and round(hi, 2) == 10.85\nassert lo > 0 and hi < 12\nassert tinv(1 - (1 - 0.99) / 2, n - 1) > ts\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:57:48.010Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"CI_INTERPRET\"],[\"CI_CLAIM\"],[\"CI_CLAIM\"],[\"CI_WIDTH\"]]",
+  "child_order": "[[\"CI_INTERPRET\"],[\"CI_CLAIM\"],[\"CI_CLAIM\"],[\"CI_WIDTH\"]]",
+  "child_pattern": [
+   [
+    "CI_INTERPRET"
+   ],
+   [
+    "CI_CLAIM"
+   ],
+   [
+    "CI_CLAIM"
+   ],
+   [
+    "CI_WIDTH"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 4, variant 4. Criteria per part: parent [1,1,1,1], variant [1,1,1,1]. Points: parent 4, variant 4.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"CI_INTERPRET\"],[\"CI_CLAIM\"],[\"CI_CLAIM\"],[\"CI_WIDTH\"]]\nCriterion a1 (CI_INTERPRET): wording and values changed\nPart b prompt changed.\nCriterion b1 (CI_CLAIM): wording and values changed\nPart c prompt changed.\nCriterion c1 (CI_CLAIM): wording and values changed\nCriterion d1 (CI_WIDTH): identical wording",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from 5K training improvements to systolic blood pressure drops after medication. The sample changes from 20 runners to 24 patients, the duration from six weeks to four weeks, the units from minutes to mmHg, the supplied 95% interval from (0.37, 2.33) to (2.75, 10.85), and the claimed minimum improvement from 2.5 minutes to 12 mmHg. The paired before-minus-after definition and all four rubric structures remain unchanged.",
+     "numbers_recomputed": "The interval endpoints are supplied givens, not quantities derivable from the available data; a1 reproduces them correctly as 2.75 and 10.85 mmHg at 95% confidence. For b1, 0 < 2.75, so 0 is outside and below the interval, matching the rubric. For c1, 12 > 10.85 by 1.15 mmHg, so every value in the interval is below 12, matching the rubric. No other changed-dependent numerical calculations are required.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The variant changes the context from 5K running times before/after a 6-week training program for 20 runners to systolic blood pressure before/after four weeks on a medication for 24 patients. Units change from minutes to mmHg. The 95% confidence interval changes from (0.37, 2.33) to (2.75, 10.85). The part (c) claim threshold changes from at least 2.5 minutes to at least 12 mmHg. Parts (a), (b), and (c) wording/model answers are updated accordingly; part (d) and criterion d1 wording are unchanged.",
+     "numbers_recomputed": "New interval center is (2.75+10.85)/2 = 6.8 mmHg; margin of error is 10.85-6.8 = 4.05 mmHg. In part (b), 0 is compared with the interval: 0 < 2.75, so 0 is not plausible; matches the rubric's conclusion. In part (c), 12 is compared with the interval: 12 > 10.85, so 12 is not plausible and all interval values are below 12; matches the rubric's conclusion. Sample size change to 24 is consistent; no recalculation of the given interval is needed.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

@@ -1,0 +1,197 @@
+{
+ "id": "ap_statistics__5.1__v1",
+ "parent": "ap_statistics__5.1__1",
+ "parent_status": "accepted",
+ "topic_code": "5.1",
+ "item": {
+  "title": "Weekly Practice Time and Typing Speed for Twelve Students",
+  "calculator": "not_applicable",
+  "stimulus": "A keyboarding teacher wants to know whether practice time is related to typing speed. For each of 12 randomly chosen students, the teacher recorded the weekly practice time in hours and the typing speed on a timed test in words per minute.\n\nPractice time (hours per week) | Typing speed (words per minute)\n2 | 38\n3 | 43\n4 | 46\n5 | 52\n6 | 55\n7 | 45\n8 | 63\n9 | 68\n10 | 72\n11 | 76\n12 | 80\n14 | 88",
+  "parts": [
+   {
+    "prompt": "If the teacher wants to use weekly practice time to predict typing speed, which variable is the explanatory variable and which is the response variable? State which axis each variable is placed on in a scatterplot.",
+    "criteria": [
+     {
+      "text": "Identifies weekly practice time as the explanatory variable (x-axis) and typing speed as the response variable (y-axis).",
+      "evidence": "Response names weekly practice time as the explanatory variable on the x-axis and typing speed as the response variable on the y-axis; naming both roles without both axes does not earn the point.",
+      "fix": "Ask which variable is used to predict the other: that is explanatory (x-axis); the variable being predicted is the response (y-axis).",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Describe the association between weekly practice time and typing speed that a scatterplot of these data would show. Address form, direction, strength and any unusual feature, in context.",
+    "criteria": [
+     {
+      "text": "Describes the form of the association as linear (the points follow a roughly straight-line pattern).",
+      "evidence": "Response states the form of the association as linear (the points follow a roughly straight-line pattern).",
+      "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+      "accepted_variants": []
+     },
+     {
+      "text": "States the direction is positive: as weekly practice time increases, typing speed tends to increase.",
+      "evidence": "Response states a positive association in context, that is, typing speed tends to increase as weekly practice time increases.",
+      "fix": "State the direction in context: say how the response variable tends to change as the explanatory variable increases.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that the association is strong because all points other than one lie close to a single straight-line pattern.",
+      "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+      "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Identifies the point with 7 hours of practice and 45 words per minute of typing speed as an unusual feature: it does not fit the general pattern because this student types much more slowly than other students with similar practice time.",
+      "evidence": "Response singles out the observation (7, 45) as not fitting the general pattern and says how it differs from the other points.",
+      "fix": "Scan the table for a point that does not fit the general pattern, then identify it by its values and say how it differs.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "The teacher claims that students who practice 10 hours or more per week type at least 70 words per minute. Does the data table support this claim? Justify your answer using the values in the table.",
+    "criteria": [
+     {
+      "text": "Concludes the claim is supported, because all 4 students with 10 hours or more of practice (72, 76, 80, 88 words per minute) type at least 70 words per minute.",
+      "evidence": "Response says the claim is supported and cites the 4 students with practice of 10 hours or more, all of whom type at least 70 words per minute.",
+      "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) The explanatory variable is weekly practice time, placed on the x-axis, because it is the variable used to predict the other. The response variable is typing speed, placed on the y-axis.\n\n(b) Form: the association is linear, because the points follow a roughly straight-line pattern. Direction: it is positive; as weekly practice time increases, typing speed tends to increase. Strength: the association is strong, because all points other than one lie close to a single straight-line pattern. Unusual feature: the point (7, 45), 7 hours of practice and 45 words per minute of typing speed, does not fit the general pattern because this student types much more slowly than other students with similar practice time.\n\n(c) Yes, the data support the claim. All 4 students with 10 hours or more of practice have typing speed of 72, 76, 80, 88 words per minute, and each types at least 70 words per minute.",
+  "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nxs = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14]\nys = [38, 43, 46, 52, 55, 45, 63, 68, 72, 76, 80, 88]\nui = 5\nb, a, r, mx, my = reg(xs, ys)\nassert r > 0.85\nassert (b < 0) == False\nres = [y - (a + b * x) for x, y in zip(xs, ys)]\nothers = sorted(abs(e) for i, e in enumerate(res) if i != ui)\nassert abs(res[ui]) >= 2.5 * others[-1]\nassert max(range(len(res)), key=lambda i: abs(res[i])) == ui\nmeet = [y for x, y in zip(xs, ys) if x >= 10]\nassert len(meet) == 4\nassert all(y >= 70 for y in meet)\nassert meet == [72, 76, 80, 88]\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:29:00.929Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"EXPL_RESP\"],[\"SCATTER_FORM\",\"SCATTER_DIR\",\"SCATTER_STRENGTH\",\"SCATTER_UNUSUAL\"],[\"SCATTER_CLAIM\"]]",
+  "child_order": "[[\"EXPL_RESP\"],[\"SCATTER_FORM\",\"SCATTER_DIR\",\"SCATTER_STRENGTH\",\"SCATTER_UNUSUAL\"],[\"SCATTER_CLAIM\"]]",
+  "child_pattern": [
+   [
+    "EXPL_RESP"
+   ],
+   [
+    "SCATTER_FORM",
+    "SCATTER_DIR",
+    "SCATTER_STRENGTH",
+    "SCATTER_UNUSUAL"
+   ],
+   [
+    "SCATTER_CLAIM"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [1,4,1], variant [1,4,1]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"EXPL_RESP\"],[\"SCATTER_FORM\",\"SCATTER_DIR\",\"SCATTER_STRENGTH\",\"SCATTER_UNUSUAL\"],[\"SCATTER_CLAIM\"]]\nPart a prompt changed.\nCriterion a1 (EXPL_RESP): wording and values changed\nPart b prompt changed.\nCriterion b1 (SCATTER_FORM): identical wording\nCriterion b2 (SCATTER_DIR): wording and values changed\nCriterion b3 (SCATTER_STRENGTH): identical wording\nCriterion b4 (SCATTER_UNUSUAL): wording and values changed\nPart c prompt changed.\nCriterion c1 (SCATTER_CLAIM): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from daily screen time and nightly sleep to weekly typing practice and typing speed, with 12 new data pairs and new units. The association changes from negative to positive; the unusual observation becomes (7, 45). Part (c) now checks whether students practicing at least 10 hours weekly type at least 70 words per minute. The three-part, six-point rubric structure is unchanged.",
+     "numbers_recomputed": "The table contains 12 students. The unusual observation is correctly identified as (7 hours, 45 words per minute): a reference line y = 30 + 4.2x predicts 59.4 words per minute there, placing it 14.4 below the line, while the other 11 observations are within 1 word per minute of that line. Exactly 4 students practice at least 10 hours weekly: their (practice, speed) pairs are (10, 72), (11, 76), (12, 80), and (14, 88). All four speeds are at least 70 words per minute, so the claim is supported. All numerical statements in the variant criteria match the data.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changed from a school counselor studying daily screen time and nightly sleep to a keyboarding teacher studying weekly practice time and typing speed. The variables, units, and all 12 data pairs are new. The direction changed from negative to positive, the unusual point changed from (60, 7.7) to (7, 45), and the part (c) claim changed from 120 or more minutes of screen time predicting sleep below 8 hours to 10 or more hours of practice predicting typing speed at least 70 wpm. Part (a) wording changed to the new variables, and criteria a1, b2, b4, and c1 were updated accordingly.",
+     "numbers_recomputed": "The changed-dependent numbers are: (1) direction is positive because typing speed tends to increase as practice time increases, matching the variant; (2) the unusual point is (7, 45), where 45 wpm is below the linear pattern, matching the variant; (3) students with practice 10 hours or more are 10, 11, 12, and 14 hours, with typing speeds 72, 76, 80, and 88 wpm, all at least 70, matching the variant's stated four students and conclusion of supported. No other changed numbers occur in the rubric or model answer.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

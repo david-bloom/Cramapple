@@ -1,0 +1,543 @@
+{
+ "id": "ap_statistics__5.1__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 5,
+  "unit_title": "Regression Analysis",
+  "topic_code": "5.1",
+  "topic_title": "Graphical Representations Between Two Quantitative Variables",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:26:29.978Z",
+   "source": "given",
+   "item": {
+    "title": "Daily Screen Time and Nightly Sleep for Twelve Students",
+    "calculator": "not_applicable",
+    "stimulus": "A school counselor wants to know whether daily screen time is related to sleep. For each of 12 randomly chosen students, the counselor recorded the typical daily screen time in minutes and the typical nightly sleep in hours.\n\nScreen time (minutes per day) | Sleep (hours per night)\n30 | 9.0\n40 | 8.8\n55 | 8.6\n60 | 7.7\n75 | 8.3\n85 | 8.1\n95 | 7.9\n110 | 7.7\n120 | 7.5\n130 | 7.4\n140 | 7.2\n150 | 7.0",
+    "parts": [
+     {
+      "prompt": "If the counselor wants to use daily screen time to predict nightly sleep, which variable is the explanatory variable and which is the response variable? State which axis each variable is placed on in a scatterplot.",
+      "criteria": [
+       {
+        "text": "Identifies daily screen time as the explanatory variable (x-axis) and nightly sleep as the response variable (y-axis).",
+        "evidence": "Response names daily screen time as the explanatory variable on the x-axis and nightly sleep as the response variable on the y-axis; naming both roles without both axes does not earn the point.",
+        "fix": "Ask which variable is used to predict the other: that is explanatory (x-axis); the variable being predicted is the response (y-axis).",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the association between daily screen time and nightly sleep that a scatterplot of these data would show. Address form, direction, strength and any unusual feature, in context.",
+      "criteria": [
+       {
+        "text": "Describes the form of the association as linear (the points follow a roughly straight-line pattern).",
+        "evidence": "Response states the form of the association as linear (the points follow a roughly straight-line pattern).",
+        "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+        "accepted_variants": []
+       },
+       {
+        "text": "States the direction is negative: as daily screen time increases, nightly sleep tends to decrease.",
+        "evidence": "Response states a negative association in context, that is, nightly sleep tends to decrease as daily screen time increases.",
+        "fix": "State the direction in context: say how the response variable tends to change as the explanatory variable increases.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the association is strong because all points other than one lie close to a single straight-line pattern.",
+        "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+        "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Identifies the point with 60 minutes of screen time and 7.7 hours of sleep as an unusual feature: it does not fit the general pattern because this student sleeps noticeably less than other students with similar screen time.",
+        "evidence": "Response singles out the observation (60, 7.7) as not fitting the general pattern and says how it differs from the other points.",
+        "fix": "Scan the table for a point that does not fit the general pattern, then identify it by its values and say how it differs.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The counselor claims that students who spend 120 minutes or more on screens each day sleep fewer than 8 hours per night. Does the data table support this claim? Justify your answer using the values in the table.",
+      "criteria": [
+       {
+        "text": "Concludes the claim is supported, because all 4 students with 120 minutes or more of screen time (7.5, 7.4, 7.2, 7.0 hours) sleep fewer than 8 hours.",
+        "evidence": "Response says the claim is supported and cites the 4 students with screen time of 120 minutes or more, all of whom sleep fewer than 8 hours.",
+        "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The explanatory variable is daily screen time, placed on the x-axis, because it is the variable used to predict the other. The response variable is nightly sleep, placed on the y-axis.\n\n(b) Form: the association is linear, because the points follow a roughly straight-line pattern. Direction: it is negative; as daily screen time increases, nightly sleep tends to decrease. Strength: the association is strong, because all points other than one lie close to a single straight-line pattern. Unusual feature: the point (60, 7.7), 60 minutes of screen time and 7.7 hours of sleep, does not fit the general pattern because this student sleeps noticeably less than other students with similar screen time.\n\n(c) Yes, the data support the claim. All 4 students with 120 minutes or more of screen time have sleep of 7.5, 7.4, 7.2, 7.0 hours, and each sleeps fewer than 8 hours.",
+    "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nxs = [30, 40, 55, 60, 75, 85, 95, 110, 120, 130, 140, 150]\nys = [9.0, 8.8, 8.6, 7.7, 8.3, 8.1, 7.9, 7.7, 7.5, 7.4, 7.2, 7.0]\nui = 3\nb, a, r, mx, my = reg(xs, ys)\nassert r < -0.85\nassert (b < 0) == True\nres = [y - (a + b * x) for x, y in zip(xs, ys)]\nothers = sorted(abs(e) for i, e in enumerate(res) if i != ui)\nassert abs(res[ui]) >= 2.5 * others[-1]\nassert max(range(len(res)), key=lambda i: abs(res[i])) == ui\nmeet = [y for x, y in zip(xs, ys) if x >= 120]\nassert len(meet) == 4\nassert all(y < 8 for y in meet)\nassert meet == [7.5, 7.4, 7.2, 7.0]\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Daily Screen Time and Nightly Sleep for Twelve Students",
+   "calculator": "not_applicable",
+   "stimulus": "A school counselor wants to know whether daily screen time is related to sleep. For each of 12 randomly chosen students, the counselor recorded the typical daily screen time in minutes and the typical nightly sleep in hours.\n\nScreen time (minutes per day) | Sleep (hours per night)\n30 | 9.0\n40 | 8.8\n55 | 8.6\n60 | 7.7\n75 | 8.3\n85 | 8.1\n95 | 7.9\n110 | 7.7\n120 | 7.5\n130 | 7.4\n140 | 7.2\n150 | 7.0",
+   "parts": [
+    {
+     "prompt": "If the counselor wants to use daily screen time to predict nightly sleep, which variable is the explanatory variable and which is the response variable? State which axis each variable is placed on in a scatterplot.",
+     "criteria": [
+      {
+       "text": "Identifies daily screen time as the explanatory variable (x-axis) and nightly sleep as the response variable (y-axis).",
+       "evidence": "Response names daily screen time as the explanatory variable on the x-axis and nightly sleep as the response variable on the y-axis; naming both roles without both axes does not earn the point.",
+       "fix": "Ask which variable is used to predict the other: that is explanatory (x-axis); the variable being predicted is the response (y-axis).",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Describe the association between daily screen time and nightly sleep that a scatterplot of these data would show. Address form, direction, strength and any unusual feature, in context.",
+     "criteria": [
+      {
+       "text": "Describes the form of the association as linear (the points follow a roughly straight-line pattern).",
+       "evidence": "Response states the form of the association as linear (the points follow a roughly straight-line pattern).",
+       "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+       "accepted_variants": []
+      },
+      {
+       "text": "States the direction is negative: as daily screen time increases, nightly sleep tends to decrease.",
+       "evidence": "Response states a negative association in context, that is, nightly sleep tends to decrease as daily screen time increases.",
+       "fix": "State the direction in context: say how the response variable tends to change as the explanatory variable increases.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the association is strong because all points other than one lie close to a single straight-line pattern.",
+       "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+       "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Identifies the point with 60 minutes of screen time and 7.7 hours of sleep as an unusual feature: it does not fit the general pattern because this student sleeps noticeably less than other students with similar screen time.",
+       "evidence": "Response singles out the observation (60, 7.7) as not fitting the general pattern and says how it differs from the other points.",
+       "fix": "Scan the table for a point that does not fit the general pattern, then identify it by its values and say how it differs.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The counselor claims that students who spend 120 minutes or more on screens each day sleep fewer than 8 hours per night. Does the data table support this claim? Justify your answer using the values in the table.",
+     "criteria": [
+      {
+       "text": "Concludes the claim is supported, because all 4 students with 120 minutes or more of screen time (7.5, 7.4, 7.2, 7.0 hours) sleep fewer than 8 hours.",
+       "evidence": "Response says the claim is supported and cites the 4 students with screen time of 120 minutes or more, all of whom sleep fewer than 8 hours.",
+       "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The explanatory variable is daily screen time, placed on the x-axis, because it is the variable used to predict the other. The response variable is nightly sleep, placed on the y-axis.\n\n(b) Form: the association is linear, because the points follow a roughly straight-line pattern. Direction: it is negative; as daily screen time increases, nightly sleep tends to decrease. Strength: the association is strong, because all points other than one lie close to a single straight-line pattern. Unusual feature: the point (60, 7.7), 60 minutes of screen time and 7.7 hours of sleep, does not fit the general pattern because this student sleeps noticeably less than other students with similar screen time.\n\n(c) Yes, the data support the claim. All 4 students with 120 minutes or more of screen time have sleep of 7.5, 7.4, 7.2, 7.0 hours, and each sleeps fewer than 8 hours.",
+   "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nxs = [30, 40, 55, 60, 75, 85, 95, 110, 120, 130, 140, 150]\nys = [9.0, 8.8, 8.6, 7.7, 8.3, 8.1, 7.9, 7.7, 7.5, 7.4, 7.2, 7.0]\nui = 3\nb, a, r, mx, my = reg(xs, ys)\nassert r < -0.85\nassert (b < 0) == True\nres = [y - (a + b * x) for x, y in zip(xs, ys)]\nothers = sorted(abs(e) for i, e in enumerate(res) if i != ui)\nassert abs(res[ui]) >= 2.5 * others[-1]\nassert max(range(len(res)), key=lambda i: abs(res[i])) == ui\nmeet = [y for x, y in zip(xs, ys) if x >= 120]\nassert len(meet) == 4\nassert all(y < 8 for y in meet)\nassert meet == [7.5, 7.4, 7.2, 7.0]\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items.py, rubric_patterns.json), 2026-11-12",
+  "at": "2026-11-12T21:26:29.550195Z"
+ },
+ "history_before_patch": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:24:17.370Z",
+   "source": "given",
+   "item": {
+    "title": "Daily Screen Time and Nightly Sleep for Twelve Students",
+    "calculator": "not_applicable",
+    "stimulus": "A school counselor wants to know whether daily screen time is related to sleep. For each of 12 randomly chosen students, the counselor recorded the typical daily screen time in minutes and the typical nightly sleep in hours.\n\nScreen time (minutes per day) | Sleep (hours per night)\n30 | 9.0\n40 | 8.8\n55 | 8.6\n60 | 7.7\n75 | 8.3\n85 | 8.1\n95 | 7.9\n110 | 7.7\n120 | 7.5\n130 | 7.4\n140 | 7.2\n150 | 7.0",
+    "parts": [
+     {
+      "prompt": "If the counselor wants to use daily screen time to predict nightly sleep, which variable is the explanatory variable and which is the response variable? State which axis each variable is placed on in a scatterplot.",
+      "criteria": [
+       {
+        "text": "Identifies daily screen time as the explanatory variable (x-axis) and nightly sleep as the response variable (y-axis).",
+        "evidence": "Response names daily screen time as explanatory and nightly sleep as response, or says daily screen time is used to predict nightly sleep.",
+        "fix": "Ask which variable is used to predict the other: that is explanatory (x-axis); the variable being predicted is the response (y-axis).",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the association between daily screen time and nightly sleep that a scatterplot of these data would show. Address form, direction, strength and any unusual feature, in context.",
+      "criteria": [
+       {
+        "text": "Describes the form of the association as linear (the points follow a roughly straight-line pattern).",
+        "evidence": "Response states the form of the association as linear (the points follow a roughly straight-line pattern).",
+        "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+        "accepted_variants": []
+       },
+       {
+        "text": "States the direction is negative: as daily screen time increases, nightly sleep tends to decrease.",
+        "evidence": "Response states a negative association in context, that is, nightly sleep tends to decrease as daily screen time increases.",
+        "fix": "State the direction in context: say how the response variable tends to change as the explanatory variable increases.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the association is strong because all points other than one lie close to a single straight-line pattern.",
+        "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+        "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Identifies the point with 60 minutes of screen time and 7.7 hours of sleep as an unusual feature: it does not fit the general pattern because this student sleeps noticeably less than other students with similar screen time.",
+        "evidence": "Response singles out the observation (60, 7.7) as not fitting the general pattern and says how it differs from the other points.",
+        "fix": "Scan the table for a point that does not fit the general pattern, then identify it by its values and say how it differs.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The counselor claims that students who spend 120 minutes or more on screens each day sleep fewer than 8 hours per night. Does the data table support this claim? Justify your answer using the values in the table.",
+      "criteria": [
+       {
+        "text": "Concludes the claim is supported, because all 4 students with 120 minutes or more of screen time (7.5, 7.4, 7.2, 7.0 hours) sleep fewer than 8 hours.",
+        "evidence": "Response says the claim is supported and cites the 4 students with screen time of 120 minutes or more, all of whom sleep fewer than 8 hours.",
+        "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The explanatory variable is daily screen time, placed on the x-axis, because it is the variable used to predict the other. The response variable is nightly sleep, placed on the y-axis.\n\n(b) Form: the association is linear, because the points follow a roughly straight-line pattern. Direction: it is negative; as daily screen time increases, nightly sleep tends to decrease. Strength: the association is strong, because all points other than one lie close to a single straight-line pattern. Unusual feature: the point (60, 7.7), 60 minutes of screen time and 7.7 hours of sleep, does not fit the general pattern because this student sleeps noticeably less than other students with similar screen time.\n\n(c) Yes, the data support the claim. All 4 students with 120 minutes or more of screen time have sleep of 7.5, 7.4, 7.2, 7.0 hours, and each sleeps fewer than 8 hours.",
+    "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nxs = [30, 40, 55, 60, 75, 85, 95, 110, 120, 130, 140, 150]\nys = [9.0, 8.8, 8.6, 7.7, 8.3, 8.1, 7.9, 7.7, 7.5, 7.4, 7.2, 7.0]\nui = 3\nb, a, r, mx, my = reg(xs, ys)\nassert r < -0.85\nassert (b < 0) == True\nres = [y - (a + b * x) for x, y in zip(xs, ys)]\nothers = sorted(abs(e) for i, e in enumerate(res) if i != ui)\nassert abs(res[ui]) >= 2.5 * others[-1]\nassert max(range(len(res)), key=lambda i: abs(res[i])) == ui\nmeet = [y for x, y in zip(xs, ys) if x >= 120]\nassert len(meet) == 4\nassert all(y < 8 for y in meet)\nassert meet == [7.5, 7.4, 7.2, 7.0]\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b3 requires an explanation of why the association is strong, although part (b) asks students to describe, not justify, its strength. A correct description identifying a strong association should earn the strength point without additional reasoning.",
+       "rubric_evidence: Criterion a1's Evidence permits merely identifying the explanatory and response variables, or stating which predicts which, without specifying their axes. Require explicit placement of screen time on the x-axis and sleep on the y-axis, as part (a) requests."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b3 requires an explanation of why the association is strong, although part (b) asks students to describe, not justify, its strength. A correct description identifying a strong association should earn the strength point without additional reasoning."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Criterion a1's Evidence permits merely identifying the explanatory and response variables, or stating which predicts which, without specifying their axes. Require explicit placement of screen time on the x-axis and sleep on the y-axis, as part (a) requests."
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1: The evidence permits credit for merely saying screen time predicts sleep, without stating either axis placement. This accepts an incomplete answer to the explicit axis-placement request. Require both variable roles and their corresponding axes."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1: The evidence permits credit for merely saying screen time predicts sleep, without stating either axis placement. This accepts an incomplete answer to the explicit axis-placement request. Require both variable roles and their corresponding axes."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "arbitration": {},
+ "accepted_round": 1
+}
