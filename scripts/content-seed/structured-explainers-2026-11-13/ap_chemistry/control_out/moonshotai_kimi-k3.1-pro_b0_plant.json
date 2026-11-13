@@ -1,0 +1,36 @@
+{
+  "topics": [
+    {
+      "code": "1.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "1.3",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "2.2",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "3.4",
+      "findings": [
+        {
+          "field": "point_attaining_answer",
+          "severity": "defect",
+          "issue": "The total-moles worked line changes the N2 amount from 0.50 mol to 7 and contains an arithmetic error. The subsequent total of 0.70 mol is only consistent with the original 0.50 mol N2 plus 0.20 mol O2.",
+          "evidence": "PROPOSED says \"Total moles = 7 + 0.20 = 0.70 mol.\" In fact, 7 + 0.20 = 7.20. CURRENT and the PROPOSED table give 0.50 mol N2, so the line should read \"0.50 + 0.20 = 0.70 mol.\""
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "4.5",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}
