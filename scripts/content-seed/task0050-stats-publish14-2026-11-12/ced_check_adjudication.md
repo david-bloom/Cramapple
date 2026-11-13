@@ -13,4 +13,14 @@ Claude also identified content issues in the graph drafts. The revised draft fil
 - Accepts the roughly symmetric 78–88 cluster or the overall low tail in GRAPH-029's shape criterion, while separately crediting identification of 62 as the outlier.
 - Corrects GRAPH-032's strength from “strong” to “moderately strong” (`r≈0.775864`). GRAPH-032 and GRAPH-036 now ask for a reasonable trend line, avoiding an implied hand calculation of least-squares parameters.
 
-The four-point binary rubrics remain because these are short `targeted_drill` questions, not claims to reproduce the May 2027 exam's four 10-point FRQs. The model's stem/stimulus concerns do not prevent a student from seeing the task: the displayed stimulus carries the full instruction and the v2 stem directs submission. The revised drafts still need final two-family confirmation on the changed items or an explicit owner decision to rely on this source adjudication and deterministic fixes.
+The four-point binary rubrics remain because these are short `targeted_drill` questions, not claims to reproduce the May 2027 exam's four 10-point FRQs. The model's stem/stimulus concerns do not prevent a student from seeing the task: the displayed stimulus carries the full instruction and the v2 stem directs submission.
+
+## Final-draft checker pass
+
+David separately authorized 18 follow-up calls on the nine changed drafts with the same internal fact pack. All 18 returned `fully_in_scope`; see `ced_check_final_pass.json`. Gemini reported zero scope or consistency issues on all nine. Claude reported no issue on six; three had minor notes:
+
+- GRAPH-021: the biking criterion's parenthetical could be read as requiring numerical evidence when the prompt asks only to state which class year is larger. The final criterion now names Freshmen without adding a numeric requirement. Its two comparison criterion texts remain distinct (walking/driving vs. biking), although their internal keys are similar.
+- GRAPH-029: the shape criterion accepts either an overall low tail or a roughly symmetric 78–88 main cluster. Both are defensible descriptions of different aspects of the displayed distribution, and the separate outlier point requires identifying 62; the accepted alternatives are explicit to the scorer.
+- GRAPH-032: the direction, form, and strength description earns one all-or-nothing point. This is a four-point supplemental targeted drill rather than a 10-point exam FRQ; the criterion states all three required characteristics. The full task appears in the displayed stimulus, as on the existing graph-drill format.
+
+The last GRAPH-021/022 criterion wording change removes a stricter reading without adding a concept or changing the key. Source adjudication and deterministic checks cover that final text delta. No unresolved CED-scope or answer/rubric contradiction remains.
