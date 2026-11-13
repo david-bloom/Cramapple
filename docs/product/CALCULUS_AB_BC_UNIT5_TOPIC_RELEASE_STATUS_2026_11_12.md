@@ -66,4 +66,4 @@ AB new tiers: three R2 seeds, seven R2 variants, two R3 variants. BC new tiers: 
 
 The old AB item `apcalcab-mcq-037` was flagged `key_disputed` in the before audit. Its derivative is x³−3.2x²−1.1x+2.4. Numerical roots are -0.909654, 0.796276, 3.313378, with derivative signs −/+, +/−, −/+ around them. Thus only x=0.796 is a local maximum, matching its published B key. No correction or retirement is needed. No subject-expert review is claimed. The one-time QA exception applies.
 
-**Execution state:** Prepared under `APPROVAL-0268`; update after write.
+**Execution state:** Published to both Production packs under `APPROVAL-0268` on 2026-11-13. Each executor found zero existing new keys and zero retire keys, loaded two chunks, matched 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels and 12 topic cells, matched 12/12 post-publish hashes, and returned all 12 new items through the student selector. Independent read-only Production verification found AB 15 published/15 valid-serving, BC 14/14.
