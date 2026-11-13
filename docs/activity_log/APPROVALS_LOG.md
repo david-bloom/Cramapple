@@ -4,13 +4,10 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0267 — Calculus AB and BC Unit 5 topic 5.2 (granted and executed 2026-11-12; renumbered 2026-11-13)](APPROVAL-0267_CALCULUS_AB_BC_UNIT5_TOPIC_5_2_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0260 — Calculus AB and BC Unit 5 topic 5.1 (granted and executed 2026-11-12)](APPROVAL-0260_CALCULUS_AB_BC_UNIT5_TOPIC_5_1_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0259 — AP Statistics Unit 5 re-leveling (granted and executed 2026-11-12)](APPROVAL-0259_STATS_UNIT5_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0258 — TASK-0050: publish 14 reviewed AP Statistics successors with labels (authorized 2026-11-12 ET; execution pending)](APPROVAL-0258_TASK0050_STATISTICS_14_SUCCESSORS_PRODUCTION_2026_11_12.md)
-- [APPROVAL-0259 — Calculus AB and BC Unit 5 topic 5.2 (granted 2026-11-12)](APPROVAL-0259_CALCULUS_AB_BC_UNIT5_TOPIC_5_2_PRODUCTION_2026_11_12.md)
-- [APPROVAL-0259 — Calculus AB and BC Unit 5 topic 5.2 (granted and executed 2026-11-12)](APPROVAL-0259_CALCULUS_AB_BC_UNIT5_TOPIC_5_2_PRODUCTION_2026_11_12.md)
-- [APPROVAL-0258 — Calculus AB and BC Unit 5 topic 5.1 (granted and executed 2026-11-12)](APPROVAL-0258_CALCULUS_AB_BC_UNIT5_TOPIC_5_1_PRODUCTION_2026_11_12.md)
-- [APPROVAL-0257 — AP Statistics Unit 5 re-leveling (granted and executed 2026-11-12)](APPROVAL-0257_STATS_UNIT5_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0236 — TASK-0050 AP Statistics Phase B: 390 provisional skill cells added to Production (granted and executed 2026-11-11 ET)](APPROVAL-0236_TASK0050_STATISTICS_PHASE_B_PROVISIONAL_SKILLS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0218 — AP Chemistry topics 3.1 to 3.3 harder seeds: 24 items published, 12 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0218_AP_CHEMISTRY_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0229 — AP Physics 1 Unit 4 topics 4.1 to 4.4: 32 items published (granted and executed 2026-11-12)](APPROVAL-0229_AP_PHYSICS_1_UNIT4_4_1_TO_4_4_PRODUCTION_2026_11_12.md)
