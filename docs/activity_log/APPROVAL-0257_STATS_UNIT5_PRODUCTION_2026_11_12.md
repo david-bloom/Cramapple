@@ -1,0 +1,10 @@
+# APPROVAL-0257 — AP Statistics Unit 5 re-leveling (granted 2026-11-12)
+
+- **Status:** Granted by David in chat: “execute the prompt starting with unit 5 for statistics, biology, Calc AB, Cal BC ... The goal is to have new questions in production for students.” This record covers the Statistics batch only; separate records will cover the other named packs.
+- **One-time quality-gate exception:** David explicitly approved using the handoff prompt's two-model blind solve and two-model tier audit for these four Unit 5 batches, instead of the approved four independent checker families and planted controls. This exception does not extend to later batches.
+- **Tier:** Production student-facing content write. The handoff prompt's original “stop before Production” step is superseded for the named Unit 5 scope by David's later explicit execution instruction.
+- **Project and pack:** Production `pcntajvbdfqhbeewmdry`, AP Statistics served pack `548f06be-ccf4-426d-b82b-b424137a4438`.
+- **Reviewable package:** `scripts/content-seed/apstats-harder-seeds-u5-2026-11-12/`; 60 new MCQs, three seed families per topic 5.1–5.5, and 15 published R1 retire keys. Status and before/after counts: `docs/product/STATS_UNIT5_RELEVELING_STATUS_2026_11_12.md`.
+- **Prewrite evidence:** Validator passed; DeepSeek 60/60 and Kimi 60/60 blind key agreement; two-model tiers 0 R1, 54 R2, 6 R3; zero duplicate or disputed-key flags in the final audit. Cross-family/retained-old difflib check over 0.80: zero. The package executor pins its Supabase workdir and verifies the linked Production project ref before querying.
+
+**Execution state:** Approved and prepared. Add Production load, rehearsal, publish, retire, hash, serving-label, selector, and per-topic verification results here after the write.

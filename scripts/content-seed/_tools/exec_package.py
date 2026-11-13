@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
-"""Execute one prepared package in PRODUCTION (from ~/supabase, which links Production): preflight, load, hash check, rehearse, publish, rehearse retire, retire, verify, selector check.
-Stops at the first failure. Usage: python3 exec_package.py <folder>"""
+"""Execute one prepared package in linked PRODUCTION: preflight, load, hash check, rehearse, publish, rehearse retire, retire, verify, selector check.
+Stops at the first failure. Usage: python3 exec_package.py <folder> <pinned-supabase-workdir>"""
 import json,os,re,subprocess,sys,tempfile,collections
+if len(sys.argv)!=3: raise SystemExit("usage: exec_package.py <folder> <pinned-supabase-workdir>")
 F=os.path.abspath(sys.argv[1]); cfg=json.load(open(F+"/cfg.json")); items=json.load(open(F+"/items.json")); old=json.load(open(F+"/superseded_keys.json"))
-CWD=os.path.expanduser("~/supabase")
+CWD=os.path.abspath(sys.argv[2])
+if not os.path.isfile(os.path.join(CWD,"supabase",".temp","project-ref")):
+    raise SystemExit("Supabase workdir is not linked; pin and verify the Production project before execution")
+linked_ref=open(os.path.join(CWD,"supabase",".temp","project-ref")).read().strip()
+if linked_ref!="pcntajvbdfqhbeewmdry": raise SystemExit("Refusing non-Production Supabase link: "+linked_ref)
 def q(path_or_sql,is_sql=False,table=False):
     p=path_or_sql
     if is_sql:
         t=tempfile.NamedTemporaryFile("w",suffix=".sql",delete=False); t.write(path_or_sql); t.close(); p=t.name
-    r=subprocess.run(["supabase","db","query","--linked","-f",p,"-o","json"],capture_output=True,text=True,cwd=CWD)
+    r=subprocess.run(["supabase","db","query","--linked","--workdir",CWD,"-f",p,"-o","json"],capture_output=True,text=True,cwd=CWD)
     if is_sql: os.unlink(p)
     out=r.stdout+r.stderr
     m=re.search(r"REHEARSAL OK[^\"\\]*",out)
