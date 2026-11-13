@@ -1,0 +1,62 @@
+{
+ "4.1": {
+  "core_idea": "- x-bar is a random variable with its own distribution across samples, not a fixed number.\n- Center mu-x-bar = mu and spread sigma-x-bar = sigma/sqrt(n) hold regardless of shape.\n- Only the shape claim depends on whether the population is normal or n is large.",
+  "what_students_need_to_understand": "- The Central Limit Theorem is a claim about shape only, and it is conditional on n, not automatic.\n- A skewed population needs a larger n before x-bar's sampling distribution looks normal; a normal population needs no minimum n at all.",
+  "how_this_becomes_points": "1. State the center.\n2. State the spread.\n3. Justify the shape as its own claim, tied to n or to the population's known shape.\n4. Three separate statements, not one blended sentence.",
+  "point_attaining_answer": "No. The population is strongly skewed and n = 25 is below the n >= 30 guideline used for skewed populations.\n\nSo the sampling distribution of x-bar cannot be assumed approximately normal here; a larger sample would be needed."
+ },
+ "4.2": {
+  "core_idea": "- The t-interval has the same structure as a z-interval (statistic +/- critical value times standard error).\n- It swaps in the t-distribution because s replaces the unknown sigma, adding extra uncertainty that the wider, flatter t-curve accounts for.",
+  "what_students_need_to_understand": "- Matched-pairs data is not two-sample data.\n- Subtracting each pair down to one list of differences gives a one-sample t-interval on mu-d, with its condition check applied to the differences, not to the original two columns.",
+  "how_this_becomes_points": "1. Use the correct symbol (t, not z).\n2. State df = n - 1 explicitly.\n3. Check all three conditions in the fixed order.\n4. Compute the interval with the right standard error (s/sqrt(n)).",
+  "point_attaining_answer": "A one-sample t-interval on the ten before/after differences, because each pair comes from the same runner (matched pairs).\n\nReduce to one list of differences and find x-bar-d +/- t*(s-d/sqrt(10)) with df = 9, not comparing the two original samples independently."
+ },
+ "4.3": {
+  "core_idea": "- A confidence interval already contains every decision you need.\n- Justifying a claim from it is a reading exercise, not a new computation; scoring rewards that reading being explicit and stated in context.",
+  "what_students_need_to_understand": "- 'Justify' means point to the interval's endpoints and compare, then translate that comparison into a sentence about the population parameter.\n- Skipping straight to yes or no without showing the comparison loses the justification point even if the calculation was right.",
+  "how_this_becomes_points": "1. Build the interval correctly (scored separately).\n2. Justify the claim from the interval, in a non-definitive, context-specific sentence.\n3. Writing that the claim is simply true loses the second point even with correct arithmetic.",
+  "point_attaining_answer": "85 mg falls inside the interval (78, 94), so the interval is consistent with, not proof of, the claimed mean.\n\nThere is no evidence against a true mean caffeine content of 85 mg for this brand."
+ },
+ "4.4": {
+  "core_idea": "- Setup is where a test lives or dies: hypotheses must be about the unknown parameter, not the known sample statistic.\n- The procedure choice (t here, always) must be justified by sigma being unknown rather than assumed.",
+  "what_students_need_to_understand": "- Ha's direction comes from the research question's wording (greater than, less than, different from) and must be decided before seeing the data.\n- Choosing direction after calculating the test statistic is exactly the kind of reasoning error the rubric checks for.",
+  "how_this_becomes_points": "1. Hypotheses in correct parameter notation.\n2. Procedure identification with justification.\n3. Conditions checked in order.\n4. Each is scored separately: one can be lost even with a perfect final numeric answer.",
+  "point_attaining_answer": "H0: mu = 350, Ha: mu < 350, where mu is the true mean fill weight of all boxes.\n\nA one-sample t-test applies because the population standard deviation is unknown and must be estimated from the sample."
+ },
+ "4.5": {
+  "core_idea": "- The test statistic and p-value are only half the work.\n- The other half is translating a reject or fail-to-reject decision into a sentence about the real-world parameter that never overstates what a p-value can prove.",
+  "what_students_need_to_understand": "- A small p-value means the observed data would be unusual if H0 were true; it does not mean H0 is false with certainty.\n- That is why the conclusion must use hedged, evidence-based language rather than definitive claims.",
+  "how_this_becomes_points": "1. The calculation is checked.\n2. The comparison direction is correct (p-value versus alpha, not the reverse).\n3. The conclusion ties back to the specific parameter and population named in the hypotheses; generic conclusions lose this point even when the math is right.",
+  "point_attaining_answer": "Since p = 0.31 > alpha = 0.05, we fail to reject H0.\n\nThere is not convincing evidence that the true mean battery life differs from 500 hours."
+ },
+ "4.6": {
+  "core_idea": "- x-bar-1 minus x-bar-2 is itself a random variable with a predictable center and spread built from both original samples.\n- Its shape claim requires both samples to satisfy the normality condition, not just the larger or more convenient one.",
+  "what_students_need_to_understand": "- Variances add under subtraction because the two samples are independent, so the spread formula uses a sum inside the square root even though the statistic is a difference.\n- This is a common source of sign confusion.",
+  "how_this_becomes_points": "1. Name both sample sizes or both population shapes explicitly in the shape justification.\n2. Naming only one and asserting the difference is approximately normal is an incomplete justification.",
+  "point_attaining_answer": "Yes, but the justification needs both samples.\n\n| Sample | Basis for approximate normality |\n| A (n1 = 15) | population known normal (any n1 works) |\n| B (n2 = 45) | n2 = 45 >= 30 |\n\nBoth conditions together justify the difference being approximately normal."
+ },
+ "4.7": {
+  "core_idea": "- The interval's structure mirrors every other t-interval in this unit: statistic plus or minus critical value times standard error.\n- Both the standard error and the df calculation are specific to two independent samples and do not simplify to the pooled formula from other statistics courses.",
+  "what_students_need_to_understand": "- This course deliberately does not use the pooled two-sample df = n1 + n2 - 2.\n- The correct df is calculated by technology and falls between n1 + n2 - 2 and the smaller of n1 - 1 and n2 - 1; citing the pooled formula by name is a scoring risk even if the final interval happens to be close.",
+  "how_this_becomes_points": "1. Standard error formula.\n2. Correct non-pooled df sourcing.\n3. Both samples' conditions.\n4. Each earns separate credit: a numerically reasonable interval can still lose the df-specific point.",
+  "point_attaining_answer": "Use SE = sqrt(4-squared/20 + 5-squared/25).\n\nFind t* from technology using the df calculated for unequal variances (not the pooled df = 43), then compute (34 - 31) +/- t* times SE."
+ },
+ "4.8": {
+  "core_idea": "- Whether zero is inside or outside a difference interval is the entire justification; no new hypothesis test is needed.\n- The interval's sign, not just its exclusion of zero, tells you which population has the larger mean.",
+  "what_students_need_to_understand": "- Unequal sample means are expected from random sampling even when the true population means are identical.\n- The confidence interval, not the raw difference in x-bar's, is what tells you whether that difference is convincing.",
+  "how_this_becomes_points": "1. State the zero-check explicitly.\n2. Conclude in context, naming both populations.\n3. When zero is excluded, name the direction of the difference, not just a yes or no about whether the means differ.",
+  "point_attaining_answer": "Because the interval (2.1, 8.4) does not contain zero, there is convincing evidence that the true mean time for Method A is greater than for Method B.\n\nThe difference is somewhere between 2.1 and 8.4 minutes."
+ },
+ "4.9": {
+  "core_idea": "- Setup mirrors the one-sample setup: parameter-based hypotheses, a named and justified procedure, and conditions checked before arithmetic.\n- Every condition now has to be verified twice, once per sample.",
+  "what_students_need_to_understand": "- The two samples are independent, so satisfying a condition for one says nothing about the other.\n- Skipping the second sample's check is treated the same as not checking conditions at all.",
+  "how_this_becomes_points": "1. Hypotheses in correct notation.\n2. Procedure identification with justification.\n3. Conditions checked for both groups.\n4. Missing any one costs a distinct point even with a correct final test statistic.",
+  "point_attaining_answer": "H0: mu-1 minus mu-2 = 0, Ha: mu-1 minus mu-2 > 0, where mu-1 and mu-2 are the true mean study hours for tutored and non-tutored students.\n\nA two-sample t-test applies since both population standard deviations are unknown and the samples are independent."
+ },
+ "4.10": {
+  "core_idea": "- The final step of the unit ties the two-sample calculation to the same evidence-based conclusion language required everywhere else in Unit 4.\n- A correct test statistic with an overclaiming conclusion still loses the conclusion point.",
+  "what_students_need_to_understand": "- A significant result compares two samples, not two populations directly.\n- The conclusion must translate 'the observed gap is unusual if the true means were equal' into a hedged statement about the two population means, never a flat claim that one group is better.",
+  "how_this_becomes_points": "1. Test statistic and df sourcing.\n2. p-value-to-alpha comparison direction.\n3. A final sentence naming both populations and using convincing-evidence language.\n4. A technically correct t and p-value with a definitive conclusion still loses a point.",
+  "point_attaining_answer": "Since p = 0.018 < alpha = 0.05, we reject H0.\n\nThere is convincing evidence that the true mean commute time differs between the two groups, with Group 1's sample mean suggesting it is the longer of the two."
+ }
+}

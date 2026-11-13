@@ -1,0 +1,36 @@
+{
+  "topics": [
+    {
+      "code": "1.6",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "1.7",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "1.8",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "1.9",
+      "findings": [
+        {
+          "field": "point_attaining_answer",
+          "severity": "defect",
+          "issue": "The Markdown table lacks a header separator row and will not render as a table in standard Markdown. Insert '| --- | --- | --- |' after the header.",
+          "evidence": "The header '| Student | Calculation | z-score |' is immediately followed by '| Maria | (80-70)/5 | 2.0 |'."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "1.10",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}
