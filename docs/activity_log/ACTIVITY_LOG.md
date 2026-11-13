@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- AP Chemistry 1.5 explainer reshaped into bullets, numbered steps and a table, applied to Development then Production (`APPROVAL-0261`, 2026-11-12): one row, four fields, no schema change; two checker families passed; renderer is app PR 60, publish to Lovable still needed before students see it correctly.
 - Calculus AB and BC Unit 5 topic 5.1 published to Production (`APPROVAL-0260`, 2026-11-12): 12 identical new MCQs per served pack with validated serving labels, selector checks passed, zero R1 or key disputes in the approved two-model checks. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - AP Statistics Unit 5 re-leveling published (`APPROVAL-0259`, 2026-11-12): 60 new MCQs with validated serving labels, 15 served-pack R1 items retired, and selector checks passed under David's one-time quality-gate exception. Status: `docs/product/STATS_UNIT5_RELEVELING_STATUS_2026_11_12.md`.
 - AP Statistics Units 4-5 round-2 FRQs published to Production, content only (`APPROVAL-0257`, 2026-11-12): 30 FRQs (10 seeds, 20 variants), labels out for a separate labeling task; 30/30 verified.
