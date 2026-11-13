@@ -1,0 +1,16 @@
+# TASK-0050 first CED checker pass and source adjudication
+
+David authorized 24 Gemini 2.5 Pro and Claude Opus 5 CED-scope checks on the 12 revised successors, including the internal AP Statistics CED fact pack. The calls completed on 2026-11-13 UTC; all 24 produced structured or validated JSON. Exact verdicts and findings are in `ced_check_first_pass.json` (usage and draft text omitted).
+
+Both families marked the five revised MCQs fully in scope. This includes MCQ-017, whose retired v1 slope-inference content had been flagged by both older checkers. Claude noted two minor issues: MCQ-010 hedged the fixed `np≥10` threshold as “a common threshold,” and MCQ-007-CAL's “balanced” wheel might be ambiguous beside `P(red)=0.3`. Both were corrected in the successor draft.
+
+For the seven graph FRQs, Gemini marked the *hand-drawn/photo submission format* out of scope; Claude marked their assessed concepts fully in scope. The [fact pack §7](../../../docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md) says hand-drawn graph practice is valuable as **supplemental** work, tagged `supplemental_hand_drawn`, and must not be presented as a digital exam simulation. An independent Production read found all eight target graph parent rows have `practice_format='targeted_drill'` and `response_policy='photo_required'`. The release now puts `practice_modality='supplemental_hand_drawn'` on all eight v2 prompt payloads, including copied GRAPH-001, and its postcondition checks the tag. These are targeted drills, not exam-format claims. The subject-matter scope is supported by fact-pack §§1.5, 1.7, 2.1, 5.1, 5.5; the specific §2.1 correction names segmented bars and mosaic plots. This is a source-based adjudication of the seven format flags, not a claim that both models voted in scope.
+
+Claude also identified content issues in the graph drafts. The revised draft file now:
+
+- Separates walking/driving from biking comparisons in GRAPH-021 and dine-in/takeout from delivery comparisons in GRAPH-022, so their two comparison points assess different evidence. “Construct” replaces “Complete” for the segmented bars.
+- Makes GRAPH-024 and GRAPH-026 explicitly request a count/area justification. Their final tables make the largest *count* differ from the largest *conditional proportion*: Support vs Sales for in-person, East vs South for no-shows.
+- Accepts the roughly symmetric 78–88 cluster or the overall low tail in GRAPH-029's shape criterion, while separately crediting identification of 62 as the outlier.
+- Corrects GRAPH-032's strength from “strong” to “moderately strong” (`r≈0.775864`). GRAPH-032 and GRAPH-036 now ask for a reasonable trend line, avoiding an implied hand calculation of least-squares parameters.
+
+The four-point binary rubrics remain because these are short `targeted_drill` questions, not claims to reproduce the May 2027 exam's four 10-point FRQs. The model's stem/stimulus concerns do not prevent a student from seeing the task: the displayed stimulus carries the full instruction and the v2 stem directs submission. The revised drafts still need final two-family confirmation on the changed items or an explicit owner decision to rely on this source adjudication and deterministic fixes.
