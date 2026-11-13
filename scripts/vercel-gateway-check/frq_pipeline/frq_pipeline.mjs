@@ -310,6 +310,7 @@ async function runSlot(IN, batch, slot, n, checkers, rounds, siblings) {
     if (!c.probe.pass) { c.stage = 'topic_vote'; st.candidates.push(c); writeJson(f, st); continue; }
     c.checks = await Promise.all(checkers.map((m) => checker(IN, slot, it, m, siblings, `${tag}:${m.split('/')[0]}`)));
     if (c.checks.some((x) => !x.pass)) { c.stage = 'checkers'; st.candidates.push(c); writeJson(f, st); continue; }
+    if (arg('min-difficulty') && c.checks.some((x) => x.difficulty === 'Easy')) { c.stage = 'difficulty'; st.candidates.push(c); writeJson(f, st); continue; } // --min-difficulty=Medium: any Easy vote rejects
     const d = c.checks.map((x) => x.difficulty); const cnt = d.reduce((m, x) => ((m[x] = (m[x] || 0) + 1), m), {});
     c.difficulty = Object.entries(cnt).sort((a, b) => b[1] - a[1])[0][1] > d.length / 2 ? Object.entries(cnt).sort((a, b) => b[1] - a[1])[0][0] : 'Medium';
     c.stage = 'accepted'; st.candidates.push(c); st.status = 'accepted'; st.accepted_round = r; writeJson(f, st); return st;

@@ -47,10 +47,12 @@ function diffReport(parent, child, uses) {
   out.push(changed.join('\n'));
   return out.join('\n');
 }
+const FORBID = /\b(open|exec|eval|compile|__import__|input|globals|locals|getattr|setattr|vars|breakpoint)\s*\(|\b(os|sys|subprocess|socket|shutil|pathlib|importlib|ctypes|urllib|requests|http)\b/;
 const ALLOWED = new Set(['sympy', 'math', 'fractions', 'statistics', 'decimal', 'itertools', 'functools', 'mpmath', 'cmath']);
 function runPy(code) {
   const bad = [...code.matchAll(/^\s*(?:from|import)\s+([\w.]+)/gm)].map((m) => m[1].split('.')[0]).filter((m) => !ALLOWED.has(m));
   if (bad.length) return { ok: false, out: `disallowed import ${bad}` };
+  if (FORBID.test(code)) return { ok: false, out: 'disallowed call or module reference' };
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'frqvar-')); fs.writeFileSync(path.join(dir, 'check.py'), code);
   const r = spawnSync('python3', ['-E', 'check.py'], { cwd: dir, timeout: 90_000, encoding: 'utf8', env: { PATH: '/usr/bin:/bin', HOME: os.homedir() } });
   fs.rmSync(dir, { recursive: true, force: true });
@@ -127,7 +129,10 @@ await Promise.all(variants.filter((v) => !only || only.has(v.topic_code)).map(as
   st.structure = { same: JSON.stringify(pu) === JSON.stringify(cu), parent_order: JSON.stringify(pu), child_order: JSON.stringify(cu), child_pattern: cu };
   st.lint = lint(v.item, v.subject_key); st.py = st.lint.length ? { ok: false, out: 'skipped' } : runPy(v.item.verification_python);
   st.diff = diffReport(parent, v.item, st.structure);
-  if (!st.structure.same || st.lint.length || !st.py.ok) { st.status = 'rejected_deterministic'; fs.writeFileSync(f, JSON.stringify(st, null, 1)); console.log(id, st.status); return; }
+  // the sidecar can go stale: also compare the ACTUAL parent and child items with the sidecar's shape
+  const shape = (it) => JSON.stringify(it.parts.map((p) => p.criteria.length));
+  st.structure.actual_matches_sidecar = shape(v.item) === JSON.stringify(cu.map((p) => p.length)) && shape(parent) === JSON.stringify(pu.map((p) => p.length)) && shape(v.item) === shape(parent);
+  if (!st.structure.same || !st.structure.actual_matches_sidecar || st.lint.length || !st.py.ok) { st.status = 'rejected_deterministic'; fs.writeFileSync(f, JSON.stringify(st, null, 1)); console.log(id, st.status); return; }
   const topic = `${slot.slot.topic_code} ${slot.slot.topic_title} (Unit ${slot.slot.unit}: ${slot.slot.unit_title})`;
   st.checks = await Promise.all(checkers.map((m) => checker(m, parent, v.item, st.diff, topic, ced[v.subject_key]?.[v.topic_code], id)));
   st.status = st.checks.every((c) => c.pass) ? 'accepted' : 'flagged';
