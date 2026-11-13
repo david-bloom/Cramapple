@@ -20,3 +20,18 @@ The two preexisting AB items remain published but unserved; they are R2 and are 
 Checks: format validator passed for both packs; each built two load chunks. DeepSeek and Kimi independently selected the keyed answer on all 12 AB items and all 12 BC items. Both tier models returned a tier for every item: AB 0 R1, 8 R2, 4 R3; BC 0 R1, 12 R2, 0 R3. Neither audit flagged a duplicate or disputed key. The author manually checked the MVT hypotheses and endpoint arithmetic: the cubic matching-slope equations, closed/open interval restrictions, continuity and differentiability counterexamples, and signed average rates. Every distractor rationale was checked against its own premise and key. No subject-expert review is claimed.
 
 **Execution state:** Published to both Production packs under `APPROVAL-0260` on 2026-11-12. Each executor preflight found zero old retire keys and zero new existing keys; two load chunks per course, 12/12 draft hashes, successful rolled-back publish rehearsal, 12 published/12 topic cells/12 validated labels, 12/12 post-publish hashes, and new items returned by the student selector. Independent read-only Production verification found AB 14 published topic 5.1 MCQs with 12 valid serving labels (all 12 new), and BC 12 published with 12 valid serving labels (all 12 new).
+
+## Topic 5.2 — Extreme Value Theorem, extrema, and critical points
+
+The read-only 2026-11-12 Unit 5 audit found one published AB topic 5.2 MCQ, rated R2, without a valid serving label. BC had none. The shared CED lists topic 5.2 as FUN-1.C.1–3. The author wrote three families and three variants per family (12 items) covering EVT hypotheses, the distinction between critical points and local extrema, and comparisons of local and absolute extrema. The AB and BC packages use identical stems, choices, keyed positions, and rationales. Required units are `[5]` from the verified Unit 5 taxonomy mapping and validated labels elsewhere in the unit. Neither package retires an old item.
+
+| Pack | Old published | Old valid serving | Old R1/R2/R3 | New seeds/variants | New R1/R2/R3 | Retire | Projected published | Projected valid serving |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| AB | 1 | 0 | 0/1/0 | 3/9 | 0/10/2 | 0 | 13 | 12 |
+| BC | 0 | 0 | 0/0/0 | 3/9 | 0/11/1 | 0 | 12 | 12 |
+
+The AB new family counts are one R2 seed, nine R2 variants, and two R3 seeds; including the old item, two R2 seeds remain published. BC has two R2 seeds, nine R2 variants, and one R3 seed. Tiers are uncalibrated model judgments. A cross-family and retained-old difflib comparison found zero stem pairs above 0.80.
+
+The format validator passed for both packs; each built two load chunks. DeepSeek and Kimi blind checks independently agreed with all 12 keys in each course. Both tier models returned all 12 tiers: AB 0 R1, 10 R2, 2 R3; BC 0 R1, 11 R2, 1 R3, with no duplicate or disputed-key flags. The author checked every example's domain, interval, derivative definition, and monotonic segment against the stated endpoint values. The wrong-choice rationales were checked against their own question premises. No subject-expert review is claimed. The one-time approved quality-gate exception applies.
+
+**Execution state:** Prepared and approved under `APPROVAL-0259`; update after Production execution.
