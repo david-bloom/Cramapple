@@ -4,6 +4,7 @@
 - **Tier and project:** Production student-facing content write on `pcntajvbdfqhbeewmdry`. AB pack `826c8cf1-bc1b-4f2a-bd33-61a758e1487d`; BC pack `3778d753-273a-403d-8f02-55dc64ec6a27`.
 - **Scope:** Publish 12 identical topic 5.2 MCQs to each pack, with distinct course keys and validated serving labels. Zero retirements. The one preexisting AB R2 item remains published and unserved; BC had none.
 - **Reviewable source:** `scripts/content-seed/apcalcab-harder-seeds-u5-t5_2-2026-11-12/`, `scripts/content-seed/apcalcbc-harder-seeds-u5-t5_2-2026-11-12/`, and `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
+- **Prewrite correction:** An initial AB executor attempt stopped at preflight with `new_exist=12` because topic 5.1 already used the `b8` prefix. It made no Production write. The AB and BC packages were rebuilt with verified unused `b9` prefixes and rechecked before publication.
 - **Prewrite QA:** Both drafts validated; DeepSeek and Kimi blind keys 12/12 in each course. Two-model audit: AB 0 R1 / 10 R2 / 2 R3; BC 0 R1 / 11 R2 / 1 R3. No disputed key or duplicate flags. Premises and rationales were hand checked; cross-family/retained-old stem ratio over 0.80: zero. The pinned executor checks the Production project ref.
 
 **Execution state:** Approved and prepared. Record actual Production hash, rehearsal, publish, label, selector, and count results after execution.
