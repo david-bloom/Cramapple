@@ -26,7 +26,7 @@ The draft validator passed 12 items and the builder made two chunks. DeepSeek an
 | State | R1 seed / variant | R2 seed / variant | R3 seed / variant | Published / valid-serving |
 |---|---:|---:|---:|---:|
 | Retained old | 0 / 0 | 1 / 0 | 0 / 0 | 1 / 1 |
-| New package | 0 / 0 | 2 / 9 | 1 / 0 | 12 / 12 expected |
-| After release | 0 / 0 | 3 / 9 | 1 / 0 | 13 / 13 expected |
+| New package | 0 / 0 | 2 / 9 | 1 / 0 | 12 / 12 verified |
+| After release | 0 / 0 | 3 / 9 | 1 / 0 | 13 / 13 verified |
 
-**Execution state:** Prepared under `APPROVAL-0280`; update after Production write.
+**Execution state:** Published under `APPROVAL-0280`. The executor confirmed zero prior batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 13/13 topic 5.1 MCQs published and valid-serving.

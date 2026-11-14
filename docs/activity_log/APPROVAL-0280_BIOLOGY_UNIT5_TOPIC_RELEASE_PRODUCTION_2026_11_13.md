@@ -6,4 +6,4 @@ Production project `pcntajvbdfqhbeewmdry`; Biology served pack `2d88ba5e-a6a3-43
 
 | Topic | Concrete package and QA | Production state |
 |---|---|---|
-| 5.1 | `apbio-harder-seeds-u5-t5_1-2026-11-13`: 12 new, 0 retired; 3 seed families; DeepSeek and Kimi 12/12 keys each; 0 R1/11 R2/1 R3 by two-model tiers; 0 duplicate/disputed-key flags; expected 13 published after release. | Prepared; update after execution. |
+| 5.1 | `apbio-harder-seeds-u5-t5_1-2026-11-13`: 12 new, 0 retired; 3 seed families; DeepSeek and Kimi 12/12 keys each; 0 R1/11 R2/1 R3 by two-model tiers; 0 duplicate/disputed-key flags. | Published. Executor passed hashes, rehearsal, labels, and selector; independent Production query verified 13/13 published and valid-serving. |
