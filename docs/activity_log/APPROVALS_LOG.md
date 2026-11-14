@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- APPROVAL-0278 (2026-11-13): four repaired rubric-held FRQs labeled (Units 6+), 4 topic cells and 4 serving labels to Production — APPROVAL-0278_LABEL_4_REPAIRED_RUBRIC_HELD_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_13.md
 - APPROVAL-0277 (2026-11-13): four rubric-held FRQs repaired (Units 6+), new versions to Production — APPROVAL-0277_RUBRIC_PREFLIGHT_REPAIR_4_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_13.md
 - APPROVAL-0276 (2026-11-13): label gap fill Units 6+ round 2, 13 CED-text rulings (13 topic cells, 11 serving labels) to Production — APPROVAL-0276_LABEL_GAP_FILL_UNITS_6PLUS_ROUND2_CED_RULINGS_PRODUCTION_2026_11_13.md
 - APPROVAL-0275 (2026-11-13): label gap fill Units 6+, 118 topic cells and 66 serving labels to Production — APPROVAL-0275_LABEL_GAP_FILL_UNITS_6PLUS_SERVING_AND_TOPIC_PRODUCTION_2026_11_13.md
