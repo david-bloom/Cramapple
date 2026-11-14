@@ -4,7 +4,15 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0287 — AP Biology Unit 5 topic-by-topic Production publication (owner directed 2026-11-13)](APPROVAL-0287_BIOLOGY_UNIT5_TOPIC_RELEASE_PRODUCTION_2026_11_13.md)
+- APPROVAL-0286 (2026-11-14): apcalcbc-mcq-007 (Newton's method, outside the CED) retired in Production — APPROVAL-0286_RETIRE_APCALCBC_MCQ_007_PRODUCTION_2026_11_14.md
+- APPROVAL-0285 (2026-11-14): 75 previously unit-less items labeled (topic cells and serving labels) to Production — APPROVAL-0285_LABEL_75_UNITLESS_ITEMS_PRODUCTION_2026_11_14.md
+- APPROVAL-0284 (2026-11-14): rubric/prompt repair of 11 held FRQs (unit-less set), new versions to Production — APPROVAL-0284_RUBRIC_PROMPT_REPAIR_11_FRQS_UNITLESS_PRODUCTION_2026_11_14.md
+- APPROVAL-0283 (2026-11-14): two repaired FRQs labeled (apcalcab-frq-035 7.7, apchem-sfrq-035 8.10) to Production — APPROVAL-0283_LABEL_TWO_REPAIRED_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_14.md
+- APPROVAL-0282 (2026-11-14): two FRQs repaired (apcalcab-frq-035, apchem-sfrq-035), new versions to Production — APPROVAL-0282_CONTENT_REPAIR_TWO_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_14.md
+- APPROVAL-0281 (2026-11-14): three held Units 6+ items labeled (Calculus BC 2, Chemistry 1) to Production — APPROVAL-0281_LABEL_THREE_HELD_ITEMS_UNITS_6PLUS_PRODUCTION_2026_11_14.md
 - APPROVAL-0279 (2026-11-14): quick_take for six more subjects (363 rows), Calculus AB structured text (41) and AB source-field primes (4) applied to Production — APPROVAL-0279_QUICK_TAKE_AND_AB_STRUCTURED_REMAINING_PRODUCTION_2026_11_14.md
+- APPROVAL-0280 (2026-11-14): topic cell 14.3 for apphy2-mcq-013 (Physics 2) to Production — APPROVAL-0280_LABEL_APPHY2_MCQ_013_TOPIC_14_3_PRODUCTION_2026_11_14.md
 - APPROVAL-0278 (2026-11-13): four repaired rubric-held FRQs labeled (Units 6+), 4 topic cells and 4 serving labels to Production — APPROVAL-0278_LABEL_4_REPAIRED_RUBRIC_HELD_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_13.md
 - APPROVAL-0277 (2026-11-13): four rubric-held FRQs repaired (Units 6+), new versions to Production — APPROVAL-0277_RUBRIC_PREFLIGHT_REPAIR_4_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_13.md
 - APPROVAL-0276 (2026-11-13): label gap fill Units 6+ round 2, 13 CED-text rulings (13 topic cells, 11 serving labels) to Production — APPROVAL-0276_LABEL_GAP_FILL_UNITS_6PLUS_ROUND2_CED_RULINGS_PRODUCTION_2026_11_13.md

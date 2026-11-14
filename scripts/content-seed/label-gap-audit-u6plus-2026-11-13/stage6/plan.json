@@ -1,0 +1,248 @@
+[
+ {
+  "content_key": "apcalcab-frq-035",
+  "old_version_id": "b318d8fe-1b10-4ab7-a2e5-1cddd9ee8bdd",
+  "old_version_num": 1,
+  "stem": "Answer all parts of the following question.\n\n(a) Write the equation of the tangent line to the solution curve at x=0.\n\n(b) Find d²y/dx² in terms of x and y, and use it to determine whether the solution curve is concave up or concave down at x=0.\n\n(c) Solve the differential equation for the particular solution.\n\n(d) Find y(1) exactly. Then use the tangent line from part (a) to approximate y(1), and state whether this approximation is an underestimate or an overestimate of y(1).",
+  "stimulus": "A function y satisfies dy/dx=2x/(1+y) and y(0)=1.",
+  "canonical_answer_1": "Finds the initial slope is 0 at the point (0,1). | Writes y=1. | Finds d²y/dx² = 2/(1+y) − 4x²/(1+y)³. | At (0,1), d²y/dx² = 1 > 0, so the curve is concave up at x=0. | Separates variables as (1+y)dy=2x dx. | Integrates and applies y(0)=1. | Obtains y=−1+√(2x²+4). | Finds y(1)=√6−1. | The tangent line y=1 gives 1 at x=1, an underestimate since 1 < √6−1 ≈ 1.449.",
+  "prompt_json": {
+   "modules": [
+    "unit-7-differential-equations",
+    "topic-7.6",
+    "practice-1"
+   ],
+   "subject": "ap_calculus_ab",
+   "frq_type": "long",
+   "archetype": "ap-calculus-ab-frq-separable-differential-equation",
+   "item_type": "frq",
+   "difficulty": "Hard",
+   "content_key": "apcalcab-frq-035",
+   "total_points": 9,
+   "calculator_mode": "no-calculator",
+   "scoring_contract": {
+    "part_count": 4,
+    "units_rule": "Units are required only when a criterion or prompt explicitly requests contextual units.",
+    "total_points": 9,
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "ambiguity_rule": "Escalate responses that use a valid but unlisted interpretation rather than forcing a score.",
+    "calculator_mode": "no-calculator",
+    "carry_forward_rule": "A later criterion may earn when the student's earlier arithmetic error is carried forward consistently and the later reasoning remains valid."
+   },
+   "source_school_year": "2026-27",
+   "package_content_sha256": "70bf7fc90ab09c06b808f58f8445cfd89f1215c9f9a6cf758a8f2ff11bc1ca2f",
+   "package_schema_version": "1.0.0",
+   "content_version": 2,
+   "qa_remediation": "2026-11-14 content repair (APPROVAL-0282): prompt parts (b) and (d) rewritten: Euler's method (CED 7.5, BC-only) removed from an AB item; replaced by concavity from the second derivative and a tangent-line comparison"
+  },
+  "criteria": [
+   {
+    "id": "91092429-a442-4a2e-997a-aec4aae53375",
+    "content_item_version_id": "b318d8fe-1b10-4ab7-a2e5-1cddd9ee8bdd",
+    "criterion_key": "part-a-criterion-1",
+    "learner_facing_text": "Finds the initial slope is 0 at the point (0,1).",
+    "points_possible": 1,
+    "evidence_requirements": "Finds the initial slope is 0 at the point (0,1).",
+    "minimum_fix": "Add or correct the evidence needed to establish: Finds the initial slope is 0 at the point (0,1).",
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "created_at": "2026-07-28 19:05:03.435853+00",
+    "judgement_kind": "text"
+   },
+   {
+    "id": "6e6173aa-889e-43f8-8f40-f28cdb8a00bf",
+    "content_item_version_id": "b318d8fe-1b10-4ab7-a2e5-1cddd9ee8bdd",
+    "criterion_key": "part-a-criterion-2",
+    "learner_facing_text": "Writes y=1.",
+    "points_possible": 1,
+    "evidence_requirements": "Writes y=1.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Writes y=1.",
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "created_at": "2026-07-28 19:05:03.435853+00",
+    "judgement_kind": "text"
+   },
+   {
+    "id": "6bac38bb-cacd-4531-aac4-f97d897cdc3e",
+    "content_item_version_id": "b318d8fe-1b10-4ab7-a2e5-1cddd9ee8bdd",
+    "criterion_key": "part-b-criterion-1",
+    "learner_facing_text": "Differentiates dy/dx=2x/(1+y) with respect to x to get d²y/dx² = 2/(1+y) − 4x²/(1+y)³ (any equivalent form, including one that still contains dy/dx, such as [2(1+y) − 2x·dy/dx]/(1+y)²).",
+    "points_possible": 1,
+    "evidence_requirements": "Response shows a correct second derivative, using the quotient rule with the chain rule on y.",
+    "minimum_fix": "Differentiate 2x/(1+y) with the quotient rule, treating y as a function of x, and give d²y/dx².",
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "created_at": "2026-07-28 19:05:03.435853+00",
+    "judgement_kind": "text"
+   },
+   {
+    "id": "a86c503f-4c31-4d3c-8897-468963a8a91f",
+    "content_item_version_id": "b318d8fe-1b10-4ab7-a2e5-1cddd9ee8bdd",
+    "criterion_key": "part-b-criterion-2",
+    "learner_facing_text": "Evaluates d²y/dx² at (0,1) to get 1, which is positive, and concludes the solution curve is concave up at x=0.",
+    "points_possible": 1,
+    "evidence_requirements": "Response substitutes x=0, y=1 into its second derivative and states concave up because the value is positive.",
+    "minimum_fix": "Evaluate d²y/dx² at (0,1) and state that a positive value means concave up.",
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "created_at": "2026-07-28 19:05:03.435853+00",
+    "judgement_kind": "text"
+   },
+   {
+    "id": "beafd784-b374-4af8-85b1-bbc5fcae778b",
+    "content_item_version_id": "b318d8fe-1b10-4ab7-a2e5-1cddd9ee8bdd",
+    "criterion_key": "part-c-criterion-1",
+    "learner_facing_text": "Separates variables as (1+y)dy=2x dx.",
+    "points_possible": 1,
+    "evidence_requirements": "Separates variables as (1+y)dy=2x dx.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Separates variables as (1+y)dy=2x dx.",
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "created_at": "2026-07-28 19:05:03.435853+00",
+    "judgement_kind": "text"
+   },
+   {
+    "id": "8009f300-8ed2-430c-ab76-680c09cebe16",
+    "content_item_version_id": "b318d8fe-1b10-4ab7-a2e5-1cddd9ee8bdd",
+    "criterion_key": "part-c-criterion-2",
+    "learner_facing_text": "Integrates and applies y(0)=1.",
+    "points_possible": 1,
+    "evidence_requirements": "Integrates and applies y(0)=1.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Integrates and applies y(0)=1.",
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "created_at": "2026-07-28 19:05:03.435853+00",
+    "judgement_kind": "text"
+   },
+   {
+    "id": "7a1a5c36-1303-4a74-bd3c-b2079549c931",
+    "content_item_version_id": "b318d8fe-1b10-4ab7-a2e5-1cddd9ee8bdd",
+    "criterion_key": "part-c-criterion-3",
+    "learner_facing_text": "Obtains y=−1+√(2x²+4).",
+    "points_possible": 1,
+    "evidence_requirements": "Obtains y=−1+√(2x²+4).",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains y=−1+√(2x²+4).",
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "created_at": "2026-07-28 19:05:03.435853+00",
+    "judgement_kind": "text"
+   },
+   {
+    "id": "7747def9-89e6-4285-b2d4-30976cdba3df",
+    "content_item_version_id": "b318d8fe-1b10-4ab7-a2e5-1cddd9ee8bdd",
+    "criterion_key": "part-d-criterion-1",
+    "learner_facing_text": "Finds y(1)=√6−1.",
+    "points_possible": 1,
+    "evidence_requirements": "Finds y(1)=√6−1.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Finds y(1)=√6−1.",
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "created_at": "2026-07-28 19:05:03.435853+00",
+    "judgement_kind": "text"
+   },
+   {
+    "id": "7593d7a4-023c-4d29-99a0-3a66b33e16bd",
+    "content_item_version_id": "b318d8fe-1b10-4ab7-a2e5-1cddd9ee8bdd",
+    "criterion_key": "part-d-criterion-2",
+    "learner_facing_text": "Uses the tangent line y=1 from part (a) to get the approximation 1 at x=1, and concludes it is an underestimate because 1 < √6−1 ≈ 1.449 (consistent with the curve being concave up near x=0).",
+    "points_possible": 1,
+    "evidence_requirements": "Response gives the tangent-line value 1 at x=1, compares it with y(1)=√6−1≈1.449, and says underestimate.",
+    "minimum_fix": "Evaluate the tangent line at x=1, compare it with the exact y(1), and say underestimate.",
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "created_at": "2026-07-28 19:05:03.435853+00",
+    "judgement_kind": "text"
+   }
+  ],
+  "old_total": 9,
+  "new_total": 9,
+  "stem_changed": true
+ },
+ {
+  "content_key": "apchem-sfrq-035",
+  "old_version_id": "6045a967-8c06-4d1a-8ce7-41a3927901c6",
+  "old_version_num": 3,
+  "stem": "Two acetate buffers are prepared, both with a 1:1 ratio of CH3COOH to CH3COO- (pKa = 4.74), but at different total concentrations:\n\nBuffer A: 0.10 M CH3COOH and 0.10 M CH3COO-\nBuffer B: 1.0 M CH3COOH and 1.0 M CH3COO-\n\n0.010 mol of HCl is added to 1.00 L of each buffer (assume no volume change).\n\n(a) Calculate the initial pH of Buffer A and Buffer B. Explain why these values are the same despite the different concentrations.\n(b) Without calculating a new pH, determine the amounts of CH3COOH and CH3COO- in Buffer A after the HCl is added, and use the new CH3COO-/CH3COOH ratio to predict whether the pH rises or falls.\n(c) Do the same for Buffer B: determine the new amounts of CH3COOH and CH3COO-, and use the new ratio to predict whether the pH rises or falls.\n(d) Based on your results in parts (b) and (c), identify which buffer has the greater buffer capacity, and explain why in terms of the amount of conjugate acid/base reserve available to react with added H+.",
+  "stimulus": null,
+  "canonical_answer_1": "(a) Both buffers have an initial pH of 4.74. Using the Henderson-Hasselbalch equation, pH = pKa + log([A-]/[HA]); since both buffers have a 1:1 ratio of CH3COOH to CH3COO- regardless of total concentration, log(1) = 0, so pH = pKa = 4.74 for both Buffer A and Buffer B -- the total concentration does not affect pH as long as the ratio stays 1:1.\n(b) Buffer A: initial mol CH3COOH = mol CH3COO- = 0.10 mol (in 1.00 L). Adding 0.010 mol HCl converts 0.010 mol CH3COO- to CH3COOH: new mol CH3COOH = 0.11 mol, new mol CH3COO- = 0.09 mol. The CH3COO-/CH3COOH ratio falls from 1.00 to 0.09/0.11, about 0.82, so the pH falls (by a noticeable amount).\n(c) Buffer B: initial mol CH3COOH = mol CH3COO- = 1.0 mol. Adding 0.010 mol HCl: new mol CH3COOH = 1.01 mol, new mol CH3COO- = 0.99 mol. The ratio falls only from 1.00 to 0.99/1.01, about 0.98, so the pH falls only very slightly.\n(d) Buffer B has the greater buffer capacity. Because Buffer B contains much larger absolute amounts of CH3COOH and CH3COO- (1.0 mol each versus 0.10 mol each) available to consume added H+ or OH-, the same 0.010 mol addition changes the [HA]/[A-] ratio, and therefore the pH, much less in Buffer B than in the more dilute Buffer A (ratio about 0.98 for B versus about 0.82 for A).",
+  "prompt_json": {
+   "topic": "8.10",
+   "modules": [
+    "unit-8-acids-and-bases",
+    "practice-8"
+   ],
+   "subject": "ap_chemistry",
+   "frq_type": "short",
+   "archetype": "ap-chemistry-frq-short",
+   "difficulty": "Medium",
+   "content_key": "apchem-sfrq-035",
+   "total_points": 4,
+   "qa_remediation": "2026-11-14 content repair (APPROVAL-0282): prompt parts (b) and (c) rewritten as qualitative reasoning from the new amounts and ratio, because CED 8.9 excludes computing the change in pH on adding an acid or base to a buffer",
+   "content_version": 4,
+   "qa_source_version_id": "c4199fee-f5cb-4661-adbb-95a7834f8f2a",
+   "qa_source_decision_id": "e8025a4b-c96b-4cf1-8e26-22e142f7a207"
+  },
+  "criteria": [
+   {
+    "id": "29bc9ba5-c17d-44ee-b74d-71b626795632",
+    "content_item_version_id": "6045a967-8c06-4d1a-8ce7-41a3927901c6",
+    "criterion_key": "part-a",
+    "learner_facing_text": "Correctly calculates that both buffers have an initial pH of 4.74, since with equal concentrations of CH3COOH and CH3COO- the ratio is 1:1 in both cases.",
+    "points_possible": 1,
+    "evidence_requirements": "Correctly calculates that both buffers have an initial pH of 4.74, since with equal concentrations of CH3COOH and CH3COO- the ratio is 1:1 in both cases.",
+    "minimum_fix": "To earn this point, explicitly show: Correctly calculates that both buffers have an initial pH of 4.74, since with equal concentrations of CH3COOH and CH3COO- the ratio is 1:1 in both cases.",
+    "accepted_variants": [],
+    "created_at": "2026-08-12 20:05:29.415361+00",
+    "judgement_kind": "text"
+   },
+   {
+    "id": "d0c183a8-0c22-4aa5-b1ed-fae4188905e5",
+    "content_item_version_id": "6045a967-8c06-4d1a-8ce7-41a3927901c6",
+    "criterion_key": "part-b",
+    "learner_facing_text": "Correctly updates Buffer A's amounts (0.090 mol CH3COO- and 0.11 mol CH3COOH), finds the CH3COO-/CH3COOH ratio falls from 1.0 to about 0.82, and predicts the pH falls.",
+    "points_possible": 1,
+    "evidence_requirements": "Response gives 0.090 mol CH3COO- and 0.11 mol CH3COOH, a ratio of about 0.82, and says the pH decreases; no pH value is required.",
+    "minimum_fix": "Subtract 0.010 mol from CH3COO- and add it to CH3COOH, find the new ratio, and say the pH falls.",
+    "accepted_variants": [],
+    "created_at": "2026-08-12 20:05:29.415361+00",
+    "judgement_kind": "text"
+   },
+   {
+    "id": "f1209bae-8deb-4124-b3c5-737100bf8624",
+    "content_item_version_id": "6045a967-8c06-4d1a-8ce7-41a3927901c6",
+    "criterion_key": "part-c",
+    "learner_facing_text": "Correctly updates Buffer B's amounts (0.99 mol CH3COO- and 1.01 mol CH3COOH), finds the ratio falls only from 1.0 to about 0.98, and predicts the pH falls only very slightly.",
+    "points_possible": 1,
+    "evidence_requirements": "Response gives 0.99 mol CH3COO- and 1.01 mol CH3COOH, a ratio of about 0.98, and says the pH decreases very slightly; no pH value is required.",
+    "minimum_fix": "Subtract 0.010 mol from CH3COO- and add it to CH3COOH, find the new ratio, and say the pH falls only very slightly.",
+    "accepted_variants": [],
+    "created_at": "2026-08-12 20:05:29.415361+00",
+    "judgement_kind": "text"
+   },
+   {
+    "id": "d186d59d-7502-406b-82c5-458f59c2d847",
+    "content_item_version_id": "6045a967-8c06-4d1a-8ce7-41a3927901c6",
+    "criterion_key": "part-d",
+    "learner_facing_text": "Correctly identifies Buffer B as having the greater buffer capacity, explaining that because it holds much larger amounts of CH3COO- (which reacts with the added H+) and of CH3COOH (which reacts with any added base), the same 0.010 mol addition changes the CH3COO-/CH3COOH ratio, and therefore the pH, much less than it does in the more dilute Buffer A.",
+    "points_possible": 1,
+    "evidence_requirements": "Response identifies Buffer B and links the larger reserve of conjugate base (which reacts with the added H+) and conjugate acid to a smaller ratio change (about 0.98 versus 0.82) and so a smaller pH change.",
+    "minimum_fix": "Name Buffer B and explain that its larger reserve of CH3COO-, which reacts with the added H+, changes the ratio, and so the pH, less.",
+    "accepted_variants": [],
+    "created_at": "2026-08-12 20:05:29.415361+00",
+    "judgement_kind": "text"
+   }
+  ],
+  "old_total": 4,
+  "new_total": 4,
+  "stem_changed": true
+ }
+]
