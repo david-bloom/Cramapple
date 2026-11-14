@@ -121,6 +121,7 @@ The first audit flagged two AB variants R1, and the next BC audit flagged one mo
 | BC | 0 / 0 | 3 / 9 | 0 / 5 / 7 | 0 | 12 / 12 expected |
 
 **Execution state:** Published to both Production packs under `APPROVAL-0268` on 2026-11-13. Each executor found zero old or new keys, loaded two chunks, matched 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels and 12 topic cells, matched 12/12 post-publish hashes, and returned all 12 new items through the student selector. Independent read-only Production verification found AB 12 published/12 valid-serving and BC 12/12.
+
 ## Topic 5.9 — Connecting f, f', and f''
 
 Before write, a 2026-11-13 read-only Production count found zero published/valid-serving topic 5.9 MCQs in AB and BC. Packages `apcalcab-harder-seeds-u5-t5_9-2026-11-13` and `apcalcbc-harder-seeds-u5-t5_9-2026-11-13` contain three seeds and nine variants each with identical stems, choices, keys, and rationales. They connect f inflections to extrema of f', use f'' and f' values to locate f extrema, and match trigonometric landmarks across the three graphs. CED FUN-4.A.11 and required units `[5]` apply. No old R1 family exists to retire.
@@ -133,3 +134,16 @@ Before write, a 2026-11-13 read-only Production count found zero published/valid
 Both draft validators passed, both packages built two load chunks, and DeepSeek and Kimi each agreed 12/12 keys in each pack. Both tier models returned all 12 ratings per pack, with zero R1, duplicates, disputed keys, or missing-model flags. Cross-family stem similarity over 0.80: zero. The author checked all derivative formulas, f' endpoint-value consistency, sign changes, trig phases, keys and distractor rationales. Tiers are uncalibrated; no subject-expert review is claimed. The one-time QA exception applies.
 
 **Execution state:** Published to both Production packs under `APPROVAL-0268` on 2026-11-13. Each executor found zero old or new keys, loaded two chunks, matched 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels and 12 topic cells, matched 12/12 post-publish hashes, and returned all 12 new items through the student selector. Independent read-only Production verification found AB 12 published/12 valid-serving and BC 12/12.
+
+## Topic 5.10 — Introduction to Optimization Problems
+
+Before write, a 2026-11-13 read-only Production count found zero published/valid-serving topic 5.10 MCQs in AB and BC. Packages `apcalcab-harder-seeds-u5-t5_10-2026-11-13` and `apcalcbc-harder-seeds-u5-t5_10-2026-11-13` contain three seeds and nine variants each with identical stems, choices, keys, and rationales. They cover the objective and physical domain for three-sided fencing, an open-top box, and a cost-weighted cylinder. One box variant was revised after a BC R1 rating to require full maximum-volume calculation, then rechecked in both packs. CED FUN-4.B.1 and required units `[5]` apply. There are no old R1 items to retire.
+
+| Pack | Before published / valid-serving | New R1 / R2 / R3 | New R2 seed / variant | New R3 seed / variant | Retire | After published / valid-serving |
+|---|---:|---:|---:|---:|---:|---:|
+| AB | 0 / 0 | 0 / 11 / 1 | 3 / 8 | 0 / 1 | 0 | 12 / 12 expected |
+| BC | 0 / 0 | 0 / 11 / 1 | 3 / 8 | 0 / 1 | 0 | 12 / 12 expected |
+
+Both final validators passed and both packages built two load chunks. DeepSeek and Kimi each agreed 12/12 keys in each final pack; both tier models returned all 12 ratings, with zero R1, duplicates, disputed keys, or missing-model flags. Cross-family stem similarity over 0.80: zero. The author checked each constraint, expression, unit, domain, derivative, cut-size volume, choice, and rationale. The R3 seed target was not met; all new items met the owner's R2-or-R3 floor. Tiers are uncalibrated; no subject-expert review is claimed. The one-time QA exception applies.
+
+**Execution state:** Prepared under `APPROVAL-0268`; update after write.
