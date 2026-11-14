@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- APPROVAL-0283 (2026-11-14): two repaired FRQs labeled (apcalcab-frq-035 7.7, apchem-sfrq-035 8.10) to Production — APPROVAL-0283_LABEL_TWO_REPAIRED_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_14.md
 - APPROVAL-0282 (2026-11-14): two FRQs repaired (apcalcab-frq-035, apchem-sfrq-035), new versions to Production — APPROVAL-0282_CONTENT_REPAIR_TWO_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_14.md
 - APPROVAL-0281 (2026-11-14): three held Units 6+ items labeled (Calculus BC 2, Chemistry 1) to Production — APPROVAL-0281_LABEL_THREE_HELD_ITEMS_UNITS_6PLUS_PRODUCTION_2026_11_14.md
 - APPROVAL-0279 (2026-11-14): quick_take for six more subjects (363 rows), Calculus AB structured text (41) and AB source-field primes (4) applied to Production — APPROVAL-0279_QUICK_TAKE_AND_AB_STRUCTURED_REMAINING_PRODUCTION_2026_11_14.md

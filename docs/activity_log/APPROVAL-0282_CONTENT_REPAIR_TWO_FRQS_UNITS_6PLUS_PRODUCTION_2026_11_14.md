@@ -12,3 +12,6 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs and remote branches was 0281; this record takes 0282.
 - **Rehearsal:** two `REHEARSAL OK` (rolled back, constraints forced immediate).
 - **Result:** see the execution record below.
+
+## Execution record (2026-11-14)
+- Two transactions COMMITTED; read-back MATCH 1/1 each (new versions published with the planned rubric and stem/answer hash; exactly one published version per item). New versions: `apcalcab-frq-035` v2, `apchem-sfrq-035` v4.
