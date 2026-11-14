@@ -24,3 +24,9 @@ Round 2 labeled 13 more items; the four rubric_preflight_failure items were then
 
 ## Update: rubric repairs (APPROVAL-0277/0278)
 `apcalcab-frq-017`, `-036`, `apchem-frq-l-023` rubric-side repairs and `apchem-frq-l-026` prompt repair published as new versions and labeled; scripts `stage5/` and `stage5v/`, `publish_rubric_repair_u6plus.py`, `publish_labels_u6plus_r3.py`. Do not touch the new versions' rubrics without a fresh check. A subject specialist should eventually review the 026 prompt wording.
+
+## Update 2026-11-14: residue is 0 (APPROVAL-0280 to 0283)
+All six remaining items are now labeled: `apphy2-mcq-013` (14.3), `apcalcbc-mcq-mv045` (7.5), `apcalcbc-mcq-mv050` (8.13), `apchem-frq-l-021` (6.9), and the two repaired FRQs `apcalcab-frq-035` (v2, 7.7) and `apchem-sfrq-035` (v4, 8.10). Scripts: `publish_labels_u6plus_r4/r5/r6.py`, `publish_content_repair_u6plus_r6.py`, `stage6/`, `stage6v/`.
+- **Exact next step:** none required for labels. Optional: a subject specialist reads the repaired items (`apcalcab-frq-035`, `apchem-sfrq-035` and the four from 0277); the 74 unit-less held items and the 200 missing skill cells are separate work.
+- **Do not touch:** the validated cells and labels written under 0275 to 0283; do not re-run the r4/r5/r6 publishers (their plan hashes would fail, nothing to add).
+- **Trap:** other sessions took APPROVAL-0279; check open PRs and remote branches for the highest number before numbering.
