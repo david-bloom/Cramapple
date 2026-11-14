@@ -30,3 +30,17 @@ The draft validator passed 12 items and the builder made two chunks. DeepSeek an
 | After release | 0 / 0 | 3 / 9 | 1 / 0 | 13 / 13 verified |
 
 **Execution state:** Published under `APPROVAL-0280`. The executor confirmed zero prior batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 13/13 topic 5.1 MCQs published and valid-serving.
+
+## Topic 5.2 — Meiosis and Genetic Diversity
+
+Before write, Production had zero published/valid-serving 5.2 MCQs. Concrete package `scripts/content-seed/apbio-harder-seeds-u5-t5_2-2026-11-14/` contains three new seeds and nine variants, with no retirements. The Unit 5 batch keys (`apbio-mcq-b2-*-5.2-*`) were absent from Production before publication. Families cover the probability and mechanism of independent assortment, recombinant linked-marker gametes, and chromosome-count patterns of nondisjunction. A duplicate-flagged nondisjunction variant was rewritten to include the zygote chromosome counts after fertilization, then the entire final package was rechecked. CED 5.2.A.1–3 and required units `[5]` apply.
+
+| State | R1 seed / variant | R2 seed / variant | R3 seed / variant | Published / valid-serving |
+|---|---:|---:|---:|---:|
+| Retained old | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
+| New package | 0 / 0 | 2 / 7 | 1 / 2 | 12 / 12 expected |
+| After release | 0 / 0 | 2 / 7 | 1 / 2 | 12 / 12 expected |
+
+The final validator passed and the package built two load chunks. DeepSeek and Kimi each agreed with 12/12 keys. Both tier models returned all 12 ratings: zero R1, nine R2, three R3; zero duplicate, disputed-key, or missing-model flags. Four items had R2/R3 model disagreement and are counted conservatively as R2. Cross-family stem similarity over 0.80: zero. The author checked the probability calculation, meiotic stage and mechanism, recombinant classes, gamete/zygote chromosome arithmetic, choices, and rationales. The R3 seed target was missed; every new item met the R2-or-R3 floor. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
+
+**Execution state:** Prepared under `APPROVAL-0280`; update after Production write.
