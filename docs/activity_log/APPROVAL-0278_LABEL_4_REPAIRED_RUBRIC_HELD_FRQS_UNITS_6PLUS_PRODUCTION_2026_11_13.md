@@ -14,3 +14,7 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs and all remote branches was 0277; this record takes 0278.
 - **Rehearsal:** two `REHEARSAL OK` (rolled back, constraints forced immediate).
 - **Result:** see the execution record appended below.
+
+## Execution record (2026-11-13)
+- Two transactions COMMITTED; read-back MATCH 4/4. Live selector: 4/4 returned with `topic_match = true`; regression sample of 48 previously served items 48/48 returned with `topic_match`.
+- Fresh export: units 6+ gap is now **6** (5 held, 1 owner call). Cost of the repair and labeling: rubric checks $0.24, topic votes $0.15; task total about $3.69.

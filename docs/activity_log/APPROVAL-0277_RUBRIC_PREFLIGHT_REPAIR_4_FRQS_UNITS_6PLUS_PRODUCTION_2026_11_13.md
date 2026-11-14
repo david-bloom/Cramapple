@@ -13,3 +13,6 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs (#652, #654) and all remote branches was 0276; this record takes 0277.
 - **Rehearsal:** two `REHEARSAL OK` (rolled back, constraints forced immediate).
 - **Result:** see the execution record appended below.
+
+## Execution record (2026-11-13)
+- Two transactions COMMITTED (Calculus AB 2, Chemistry 2); independent read-back MATCH 4/4 (new version published, planned rubric hash and stem/model-answer hash, exactly one published version per item). Labels followed under `APPROVAL-0278`.
