@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- AP Biology Unit 5 completed under `APPROVAL-0280` (2026-11-14): 60 new R2/R3 MCQs published topic by topic, zero R1 retired, 65/65 total published/valid-serving across topics 5.1–5.5; all student selector checks passed. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
 - AP Biology Unit 5 topic 5.4 published under `APPROVAL-0280` (2026-11-14): 12 new R2/R3 MCQs, one initial weak seed rewritten and rechecked, zero final R1 or duplicate flags, 16/16 published/valid-serving and selector checked. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
 - AP Biology Unit 5 topic 5.3 published under `APPROVAL-0280` (2026-11-14): 12 new R2/R3 MCQs, zero R1 or duplicate flags, 12/12 published/valid-serving and selector checked. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
 - AP Biology Unit 5 topic 5.2 published under `APPROVAL-0280` (2026-11-14): 12 new R2/R3 MCQs, zero R1 or duplicate flags after revision, 12/12 published/valid-serving and selector checked. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.

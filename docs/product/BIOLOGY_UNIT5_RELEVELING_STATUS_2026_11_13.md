@@ -80,9 +80,13 @@ Before write, Production had zero published/valid-serving 5.5 MCQs. Concrete pac
 | State | R1 seed / variant | R2 seed / variant | R3 seed / variant | Published / valid-serving |
 |---|---:|---:|---:|---:|
 | Retained old | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
-| New package | 0 / 0 | 3 / 7 | 0 / 2 | 12 / 12 expected |
-| After release | 0 / 0 | 3 / 7 | 0 / 2 | 12 / 12 expected |
+| New package | 0 / 0 | 3 / 7 | 0 / 2 | 12 / 12 verified |
+| After release | 0 / 0 | 3 / 7 | 0 / 2 | 12 / 12 verified |
 
 The validator passed and the package built two load chunks. DeepSeek and Kimi each agreed with 12/12 keys. Both tier models returned all 12 ratings: zero R1, ten R2, two R3; zero duplicate, disputed-key, or missing-model flags. Four items had R2/R3 model disagreement and are counted conservatively as R2. Cross-family stem similarity over 0.80: zero. The author checked experimental controls, reaction-norm changes, the scope of inheritance claims, cue and expression mechanisms, choices, and rationales. The R3 seed target was missed; every new item met the R2-or-R3 floor. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
 
-**Execution state:** Prepared under `APPROVAL-0280`; update after Production write.
+**Execution state:** Published under `APPROVAL-0280`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 12/12 topic 5.5 MCQs published and valid-serving.
+
+## Unit 5 Production outcome
+
+All five topics were published topic by topic under `APPROVAL-0280`. Sixty new R2/R3 MCQs were published, 12 per topic, with zero R1 retirements because the before audit found none. The five retained old R2/R3 MCQs remain published. Each new package passed two blind answer solvers, two tier models, structural validation, draft and published payload hashes, rolled-back publish rehearsal, validated serving labels, and a student-selector check. An independent final Production count found 65/65 published and valid-serving MCQs: topic 5.1 13/13, 5.2 12/12, 5.3 12/12, 5.4 16/16, and 5.5 12/12. No subject-expert review is claimed; the owner-authorized one-time QA exception applies to these Unit 5 batches.
