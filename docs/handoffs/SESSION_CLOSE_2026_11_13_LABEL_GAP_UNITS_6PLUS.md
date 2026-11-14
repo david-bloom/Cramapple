@@ -30,3 +30,8 @@ All six remaining items are now labeled: `apphy2-mcq-013` (14.3), `apcalcbc-mcq-
 - **Exact next step:** none required for labels. Optional: a subject specialist reads the repaired items (`apcalcab-frq-035`, `apchem-sfrq-035` and the four from 0277); the 74 unit-less held items and the 200 missing skill cells are separate work.
 - **Do not touch:** the validated cells and labels written under 0275 to 0283; do not re-run the r4/r5/r6 publishers (their plan hashes would fail, nothing to add).
 - **Trap:** other sessions took APPROVAL-0279; check open PRs and remote branches for the highest number before numbering.
+
+## Update 2026-11-14 (later): the 76 unit-less items (APPROVAL-0284, 0285)
+Triage, then 11 rubric/prompt repairs (0284) and 75 labels (0285) in Production. One item left unlabeled on purpose: `apcalcbc-mcq-007` (Newton's method, zero hits in the CED PDF text) - owner call, retire or keep unserved. Scripts: `resolve_unitless.py`, `rulings_unitless.py`, `build_loads_unitless.py`, `publish_content_repair_u6plus_r7.py`, `publish_labels_unitless_r8.py`; evidence `stage7/` to `stage11/`.
+- **Exact next step:** optional specialist review of the 17 CED rulings (7 judgment calls are listed in the approval) and the 17 repaired items (0277, 0282, 0284). Skill cells and difficulty rows remain out of scope (2,767 published items have no difficulty row).
+- **Do not touch:** validated cells and labels written under 0275 to 0285; do not re-run the r4 to r8 publishers.

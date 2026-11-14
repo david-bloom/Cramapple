@@ -14,5 +14,9 @@
 - **Rollback:** delete cells, labels and validation decisions with source `label_gap_fill_unitless_r8_2026_11_14`; clear `superseded_by` on the labels they superseded.
 - **Numbering check:** highest APPROVAL on origin/main, open PRs and remote branches was 0284; this record takes 0285.
 - **Rehearsal:** eight `REHEARSAL OK` (rolled back, constraints forced immediate).
-- **Cost:** gateway votes about $2.0 and rubric rechecks about $0.3, measured from the ledgers in `stage8/`, `stage10/`, `stage9/`.
+- **Cost (measured from the ledgers):** votes $2.00 (`stage8/` $1.67, `stage10/` $0.33); rubric checks $0.72 (`stage7/` triage check $0.41, `stage9/` recheck $0.31). Total for the unit-less set $2.72, under the $3 cap.
 - **Result:** see the execution record below.
+
+## Execution record (2026-11-14)
+- Eight transactions COMMITTED; read-back MATCH 75/75. Live selector: 75 of 75 returned with `topic_match = true`; regression sample of 48 previously served items 48/48.
+- Fresh export of all ten subjects afterwards (4,837 published items): 0 missing a topic cell or serving label except `apcalcbc-mcq-007` (Newton's method, deliberately unlabeled) and 176 Statistics MCQs that carry topic-by-skill cells instead of a topic-only cell and are served by the live selector (176/176 `topic_match`).

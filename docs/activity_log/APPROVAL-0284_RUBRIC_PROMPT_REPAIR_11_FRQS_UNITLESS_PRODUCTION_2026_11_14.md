@@ -14,3 +14,6 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs and remote branches was 0283; this record takes 0284.
 - **Rehearsal:** four `REHEARSAL OK` (rolled back, constraints forced immediate).
 - **Result:** see the execution record below.
+
+## Execution record (2026-11-14)
+- Four transactions COMMITTED; read-back MATCH 5/5 (Calculus BC), 3/3 (Chemistry), 2/2 (Physics 2), 1/1 (Precalculus): new versions published with the planned rubric, stem, stimulus and answer hash; exactly one published version each.
