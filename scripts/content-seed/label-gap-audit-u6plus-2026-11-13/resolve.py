@@ -10,8 +10,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 spec = importlib.util.spec_from_file_location('pmb', os.path.join(HERE, '..', 'publish_mcq_batch.py'))
 pmb = importlib.util.module_from_spec(spec); spec.loader.exec_module(pmb)
 REF = pmb.ENVS['prod']
-d = json.load(open(os.path.join(HERE, '../../../docs/qa/LABEL_GAP_AUDIT_UNITS_1_5_2026_11_13_ITEMS.json')))
-G = [i for i in d['items'] if i['f']['vstatus'] == 'published' and i['in_scope'] and (not i['f']['topic_validated'] or i['f']['serving'] != 'ok') and not i['content_key'].startswith('apstats-frq-u45r2')]
+d = json.load(open(os.path.join(HERE, '../../../docs/qa/LABEL_GAP_AUDIT_UNITS_6PLUS_2026_11_13_ITEMS.json')))
+G = [i for i in d['items'] if i['f']['vstatus'] == 'published' and i['in_scope'] and (not i['f']['topic_validated'] or i['f']['serving'] != 'ok') ]
 tax = json.load(open(os.path.join(HERE, 'raw', '_taxonomy_topics.json')))
 tunit = {(t['subject_key'], t['topic_code']): t['unit_number'] for t in tax}
 tsv = {t['subject_key']: t['tsv'] for t in tax}
@@ -42,6 +42,7 @@ def decide(i):
     if not ru or pu not in ru: return None, dict(base, reason='required_units_unusable', topic=top, units=dict(uc))
     return dict(base, topic=top, primary_unit=pu, required_units=ru, max_required_unit=max(ru), method='model_vote_6', topic_votes=dict(tally), unit_votes={str(k): v for k, v in uc.items()}), None
 for i in G:
+    if i['f']['kind'] == 'variant': continue
     f = i['f']; dec, res = decide(i)
     if res: residue.append(res); continue
     c = cells.get(i['vid']); ls = labs.get(i['item_id'], [])
@@ -62,19 +63,30 @@ for i in G:
         dec['supersedes'] = [l['lid'] for l in ls]; dec['prior_label_status'] = ls[-1]['st'] if ls else 'none'
         dec['hold_reason'] = held[-1]['why'] if held else None
     out.append(dec)
-# deterministic u45r2 seeds + variants
-SLOTS = os.path.join(HERE, '../frq-stats-u5-2026-11-12/r2/slots')
-allk = {i['content_key']: i for i in d['items']}
-for fpath in sorted(glob.glob(os.path.join(SLOTS, '*.json'))):
-    s = json.load(open(fpath)); code = s['slot']['topic_code']; p = s['candidates'][-1]['probe']; ov = p.get('overridden_by')
-    topic = ov['topic'] if ov else code; ru = sorted(ov['required_units'] if ov else p['required_units'])
-    for suf, kind in (('s', 'seed'), ('v1', 'variant'), ('v2', 'variant')):
-        key = f"apstats-frq-u45r2-{code.replace('.', '-')}-{suf}"; i = allk[key]
-        out.append({'content_key': key, 'subject': 'ap_statistics', 'item_id': i['item_id'], 'vid': i['vid'], 'item_type': 'frq', 'kind': kind, 'unit_before': i['f']['unit'], 'topic': topic,
-                    'primary_unit': tunit[('ap_statistics', topic)], 'required_units': ru, 'max_required_unit': max(ru), 'method': 'deterministic_provenance' if kind == 'seed' else 'inherit_from_seed',
-                    'topic_votes': p.get('votes'), 'basis_note': ('ced_text_tiebreak: ' + ov['reason'][:200]) if ov else None, 'cell_action': 'insert', 'label_action': 'insert_validated', 'label_version': 1, 'supersedes': [], 'prior_label_status': 'none', 'hold_reason': None})
+# variants inherit from their seed's decision
+seedmap = {o['content_key']: o for o in out}
+for i in [x for x in G if x['f']['kind'] == 'variant']:
+    import re as _re
+    sk = _re.sub(r'-sv-', '-', _re.sub(r'-v\d+$', '', i['content_key']))
+    sd = seedmap.get(sk)
+    if not sd: residue.append({'content_key': i['content_key'], 'subject': i['subject'], 'reason': 'seed_not_resolved', 'seed': sk}); continue
+    f = i['f']; dec = dict(sd, content_key=i['content_key'], item_id=i['item_id'], vid=i['vid'], kind='variant', method='inherit_from_seed', unit_before=f['unit'])
+    c = cells.get(i['vid']); ls = labs.get(i['item_id'], [])
+    dec['cell_action'] = None if f['topic_validated'] else ('insert' if c is None else ('promote_in_place' if c['t'] == dec['topic'] else 'CONFLICT'))
+    if c: dec['cell_id'] = c['cid']; dec['cell_status_before'] = c['st']
+    if dec['cell_action'] == 'CONFLICT': residue.append(dict(dec, reason='vote_disagrees_with_existing_cell', cell_topic=c['t'])); continue
+    if f['serving'] == 'ok': dec['label_action'] = None
+    else: dec['label_action'] = 'insert_validated'; dec['label_version'] = maxlv.get(i['item_id'], 0) + 1; dec['supersedes'] = [l['lid'] for l in ls]; dec['prior_label_status'] = ls[-1]['st'] if ls else 'none'; dec['hold_reason'] = None
+    out.append(dec)
+# owner-call guard: a new cell must not contradict an existing VALIDATED serving label's unit (item is served today)
+_keep = []
+for o in out:
+    if o['label_action'] is None and o['unit_before'] is not None and o['primary_unit'] != o['unit_before']:
+        residue.append(dict(o, reason='vote_unit_differs_from_validated_label_unit_owner_call'))
+    else: _keep.append(o)
+out = _keep
 json.dump(out, open(os.path.join(HERE, 'stage3/resolved.json'), 'w'), indent=0)
 json.dump(residue, open(os.path.join(HERE, 'stage3/residue.json'), 'w'), indent=0)
-print(len(G) + 30, 'items;', len(out), 'resolved;', len(residue), 'residue')
+print(len(G), 'items;', len(out), 'resolved;', len(residue), 'residue')
 print(collections.Counter(r['reason'] for r in residue))
 print('cell actions', collections.Counter(o['cell_action'] for o in out), 'label actions', collections.Counter(o['label_action'] for o in out))
