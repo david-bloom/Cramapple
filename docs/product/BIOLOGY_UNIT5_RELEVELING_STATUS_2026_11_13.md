@@ -66,9 +66,9 @@ Before write, Production had four published/valid-serving 5.4 MCQs: three R2 and
 | State | R1 seed / variant | R2 seed / variant | R3 seed / variant | Published / valid-serving |
 |---|---:|---:|---:|---:|
 | Retained old | 0 / 0 | 3 / 0 | 1 / 0 | 4 / 4 |
-| New package | 0 / 0 | 3 / 7 | 0 / 2 | 12 / 12 expected |
-| After release | 0 / 0 | 6 / 7 | 1 / 2 | 16 / 16 expected |
+| New package | 0 / 0 | 3 / 7 | 0 / 2 | 12 / 12 verified |
+| After release | 0 / 0 | 6 / 7 | 1 / 2 | 16 / 16 verified |
 
 The final validator passed and the package built two load chunks. DeepSeek and Kimi each agreed with 12/12 keys. Both tier models returned all 12 ratings: zero R1, ten R2, two R3; zero duplicate, disputed-key, or missing-model flags. Three items had R2/R3 model disagreement and are counted conservatively as R2. The author checked recombinant/parental class counts, map distances, genotype ratios, organelle transmission assumptions, choices, and rationales. The R3 seed target was missed; every new item met the R2-or-R3 floor. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
 
-**Execution state:** Prepared under `APPROVAL-0280`; update after Production write.
+**Execution state:** Published under `APPROVAL-0280`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 16/16 topic 5.4 MCQs published and valid-serving.
