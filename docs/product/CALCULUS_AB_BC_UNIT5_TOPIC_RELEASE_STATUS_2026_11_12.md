@@ -108,3 +108,16 @@ Before write, a 2026-11-13 read-only Production check found zero published topic
 Tiers are uncalibrated. Both draft validators passed and both packages built two load chunks. DeepSeek and Kimi blind solves each agreed 12/12 keys in each pack; both tier models returned all 12 ratings per pack, with zero R1, duplicate, disputed-key, or missing-model flags. Cross-family stem similarity over 0.80: zero. The one-time QA exception applies.
 
 **Execution state:** Published to both Production packs under `APPROVAL-0268` on 2026-11-13. Each executor found zero old or new keys, loaded two chunks, matched 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels and 12 topic cells, matched 12/12 post-publish hashes, and returned all 12 new items through the student selector. Independent read-only Production verification found AB 12 published/12 valid-serving and BC 12/12.
+
+## Topic 5.8 — Sketching graphs of functions and derivatives
+
+Before write, a 2026-11-13 read-only Production count found zero published/valid-serving topic 5.8 MCQs in AB and BC. Packages `apcalcab-harder-seeds-u5-t5_8-2026-11-13` and `apcalcbc-harder-seeds-u5-t5_8-2026-11-13` contain three seeds and nine variants each with identical stem/choice/key/rationale content. They cover combining f' zeros with f'' signs in a sketch, translating derivative data into slope and tangent placement, and distinguishing a stationary inflection from an extremum. CED FUN-4.A.9–10 and required units `[5]` apply. There are no old R1 items to retire.
+
+The first audit flagged two AB variants R1, and the next BC audit flagged one more. The author rewrote all three as two-concept tangent slope and tangent-placement items, regenerated both packs, and reran both blind solves and tier audits after the final change. The final drafts each passed validation and built two load chunks. DeepSeek and Kimi each agreed 12/12 keys in each pack. Both tier models rated all 12 final items in each pack: zero R1, five R2, seven R3; zero duplicate, disputed-key, or missing-model flags. Two R3 seeds and five R3 variants, one R2 seed and four R2 variants remain in each package. Cross-family stem similarity over 0.80: zero. The author checked first- and second-derivative signs, stationary inflections, local tangent placement, keys, and rationales by hand. Tiers are uncalibrated; no subject-expert review is claimed. The one-time QA exception applies.
+
+| Pack | Before published / valid-serving | New seeds / variants | New R1 / R2 / R3 | Retire | After published / valid-serving |
+|---|---:|---:|---:|---:|---:|
+| AB | 0 / 0 | 3 / 9 | 0 / 5 / 7 | 0 | 12 / 12 expected |
+| BC | 0 / 0 | 3 / 9 | 0 / 5 / 7 | 0 | 12 / 12 expected |
+
+**Execution state:** Prepared under `APPROVAL-0268`; update after write.
