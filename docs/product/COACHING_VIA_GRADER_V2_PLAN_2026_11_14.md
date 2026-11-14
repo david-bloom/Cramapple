@@ -72,11 +72,13 @@ MCQ has one point and no rubric, so coaching ties the *chosen* answer's error to
 
 **Decision (owner, 2026-11-14): MCQ coaching never names the correct answer.** If it does, the student cannot meaningfully retry, and it matches the shipped rule (the MCQ feedback withholds the correct choice's rationale and hands back a question, `composeMcqFeedback` comment in `evaluate-attempt/index.ts`).
 
-**Prompt: three rules, not a rule list (owner read: preferred over the longer prompt).** Rules live in code and checks, not in the prompt:
+**Prompt: three rules, not a rule list (provisional: see owner read below).** Rules live in code and checks, not in the prompt:
 1. Explain the error using only the reason supplied; add no facts.
 2. End with one question the student can answer to try the problem again.
 3. If a DIRECTIVE is given, follow it (code supplies it; see history above).
 Plain words, about 80 words, no praise filler, no headings. Prohibitions (naming the answer, partial credit, claims about the student's state, miscounts) are enforced by the post-checks, not stated in the prompt.
+
+**Owner read (2026-11-14, blind, 10 missed questions, current prompt against three-rule prompt with retry): both work; the longer texts (about 130 words against about 80) were more helpful.** This overrides the earlier note in this plan that the three-rule prompt was preferred. The measurable gains of the three-rule prompt (ends with a question 20 of 20, faster, shorter, fewer rules) are real, but helpfulness favoured the longer text. Caution: in those 10 items the longer text was flagged as naming the answer in 5 and the three-rule text in 3 (model-judged), so some of the longer text's helpfulness may come from saying more about the right concept. Open until a follow-up test separates structure and length from answer-naming: keep the rules out of the prompt but keep the four-part structure and a roughly 120-word target, with the same checks and one retry.
 
 **Check, retry once, then fall back.** A failed post-check triggers one regeneration that names the failed check; a second failure drops to today's text (tier 2, section 6). In a 20-item test of missed MCQs (Stats and Biology, synthetic, two-model leak judge, union of flags): the longer prompt had 5 of 20 texts pass all checks; the three-rule prompt had 6 of 20 on the first try, and 14 of 20 after one retry (70% coverage). The three-rule prompt ended with a question in 20 of 20 texts (3 of 20 for the longer prompt), ran 78 words against 126, and generated in a median 1.4 s against 2.0 s. The prompt alone did not reduce answer-naming (14 of 20 flagged versus 15); the retry did (6 of 20).
 
