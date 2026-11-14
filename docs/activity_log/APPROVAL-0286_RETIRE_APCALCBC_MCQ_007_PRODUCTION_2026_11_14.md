@@ -10,3 +10,6 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs and remote branches was 0285; this record takes 0286.
 - **Rehearsal:** one `REHEARSAL OK` (rolled back, constraints forced immediate).
 - **Result:** see the execution record below.
+
+## Execution record (2026-11-14)
+- Transaction COMMITTED; read-back MATCH (item and version both `retired`). Fresh export of all ten subjects afterwards: the only published items missing a topic cell or serving label are the 176 Statistics MCQs that carry topic-by-skill cells and are served by the live selector (176/176 `topic_match` when checked earlier today).

@@ -35,3 +35,6 @@ All six remaining items are now labeled: `apphy2-mcq-013` (14.3), `apcalcbc-mcq-
 Triage, then 11 rubric/prompt repairs (0284) and 75 labels (0285) in Production. One item left unlabeled on purpose: `apcalcbc-mcq-007` (Newton's method, zero hits in the CED PDF text) - owner call, retire or keep unserved. Scripts: `resolve_unitless.py`, `rulings_unitless.py`, `build_loads_unitless.py`, `publish_content_repair_u6plus_r7.py`, `publish_labels_unitless_r8.py`; evidence `stage7/` to `stage11/`.
 - **Exact next step:** optional specialist review of the 17 CED rulings (7 judgment calls are listed in the approval) and the 17 repaired items (0277, 0282, 0284). Skill cells and difficulty rows remain out of scope (2,767 published items have no difficulty row).
 - **Do not touch:** validated cells and labels written under 0275 to 0285; do not re-run the r4 to r8 publishers.
+
+## Update 2026-11-14 (last): `apcalcbc-mcq-007` retired (APPROVAL-0286)
+The one item left unlabeled (Newton's method, outside the CED) was retired at the owner's direction. Every published item in all ten subjects now has a servable label; the 176 Statistics MCQs without a topic-only cell are served through topic-by-skill cells. Script: `retire_apcalcbc_mcq_007.py`.
