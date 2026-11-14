@@ -40,3 +40,11 @@ Votes on 64 seeds plus about 11 repaired: roughly $1.0 to $1.3 at the measured r
 
 ## Not verified
 The bucket A items have not been read for content defects, and the bucket B flags come from three models (consistent, but not read by a subject specialist).
+
+## Update (APPROVAL-0284 and 0285): the 75 are labeled
+- **Repairs (0284):** the 11 bucket B items got rubric edits (and, for `apcalcbc-frq-022`, `apcalcbc-frq-033` and `apprecalc-frq-np2-008`, one prompt line) so the rubric scores what the prompt asks; `apchem-frq-l-005` now totals 10 points to match its prompt. All 11 pass the three-model check 3 of 3 (two criteria tightened after a first recheck); numbers recomputed independently.
+- **Labels (0285):** 75 topic cells and 75 serving labels (64 bucket A including `apcalcbc-frq-002`, plus the 11 repaired items): 58 by a six-vote probe (at least 5 votes on one topic), 17 by CED-text rulings on vote splits (`rulings_unitless.py`; 7 are judgment calls, listed in the approval).
+- **Verification:** each of 8 transactions rehearsed and read back 75/75; live selector 75/75 `topic_match`; regression sample 48/48.
+- **Recount (fresh export, 4,837 published items, all ten subjects):** missing a topic cell or serving label: `apcalcbc-mcq-007` only (Newton's method, not in the CED PDF text; owner call). The 176 Statistics MCQs without a topic-only cell are served through their topic-by-skill cells.
+- **Cost:** $2.72 measured (votes $2.00, rubric checks $0.72).
+- **Not verified:** no human subject specialist has read the repaired items or the 17 rulings; the out-of-course screen of the 64 was limited to the exclusion statements recorded in the fact packs plus the Euler, rolling and photoelectric items read by hand.
