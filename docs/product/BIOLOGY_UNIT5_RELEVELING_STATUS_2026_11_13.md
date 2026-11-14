@@ -38,9 +38,9 @@ Before write, Production had zero published/valid-serving 5.2 MCQs. Concrete pac
 | State | R1 seed / variant | R2 seed / variant | R3 seed / variant | Published / valid-serving |
 |---|---:|---:|---:|---:|
 | Retained old | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
-| New package | 0 / 0 | 2 / 7 | 1 / 2 | 12 / 12 expected |
-| After release | 0 / 0 | 2 / 7 | 1 / 2 | 12 / 12 expected |
+| New package | 0 / 0 | 2 / 7 | 1 / 2 | 12 / 12 verified |
+| After release | 0 / 0 | 2 / 7 | 1 / 2 | 12 / 12 verified |
 
 The final validator passed and the package built two load chunks. DeepSeek and Kimi each agreed with 12/12 keys. Both tier models returned all 12 ratings: zero R1, nine R2, three R3; zero duplicate, disputed-key, or missing-model flags. Four items had R2/R3 model disagreement and are counted conservatively as R2. Cross-family stem similarity over 0.80: zero. The author checked the probability calculation, meiotic stage and mechanism, recombinant classes, gamete/zygote chromosome arithmetic, choices, and rationales. The R3 seed target was missed; every new item met the R2-or-R3 floor. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
 
-**Execution state:** Prepared under `APPROVAL-0280`; update after Production write.
+**Execution state:** Published under `APPROVAL-0280`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 12/12 topic 5.2 MCQs published and valid-serving.
