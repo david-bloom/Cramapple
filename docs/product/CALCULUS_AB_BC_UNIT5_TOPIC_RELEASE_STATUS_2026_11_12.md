@@ -80,3 +80,18 @@ Before write, a 2026-11-13 read-only Production count found AB one published/val
 After release, AB will have four R2 seed families and nine R2 variants; BC will have three R2 seed families and nine R2 variants. There are no R1 or R3 items in this batch. The R3 authoring target was not achieved; all new items met the owner's R2-or-R3 replacement floor. Tiers remain uncalibrated. Both draft validators passed and both packages built two load chunks. DeepSeek and Kimi blind solves agreed 12/12 keys in each pack; both tier models rated all 12 in each pack, with no R1, duplicates, disputed keys, or missing answers. The author checked each endpoint/critical-point value, tie, corner premise, choice, and rationale by hand. Cross-family and retained-old stem similarity over 0.80: zero. No subject-expert review is claimed. The one-time QA exception applies.
 
 **Execution state:** Published to both Production packs under `APPROVAL-0268` on 2026-11-13. Each executor found zero existing new or retirement keys, loaded two chunks, matched 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels and 12 topic cells, matched 12/12 post-publish hashes, and returned all 12 new items through the student selector. Independent read-only Production verification found AB 13 published/13 valid-serving and BC 12/12.
+
+## Topic 5.6 — Concavity over domains
+
+Before write, a 2026-11-13 read-only Production count found AB 4 published/valid-serving topic 5.6 MCQs and BC 1/1. Two-model old-item audits used `python3 -u scripts/difficulty-audit/audit.py --subject 'AP Calculus AB' --topics 5.6 --workers 4 --out /private/tmp/cramapple-calcab-u5-t5_6-before --workdir /private/tmp/cramapple-unit5-calculus` and the same command for BC with its subject and `/private/tmp/cramapple-calcbc-u5-t5_6-before`. AB's `apcalcab-mcq-038` family (seed plus `-sv-038-v1`, `-sv-038-v2`) rated R1 and is proposed for retirement. AB `apcalcab-mcq-np2-009` rated R2 and remains. BC `apcalcbc-mcq-006` rated R2 and remains. There are no R1 exceptions retained. The two R1 variants inherit the retired seed family and were also individually rated R1. All three retirement keys are published in the served AB pack; 4 old − 3 retired + 12 new = 13.
+
+Packages `apcalcab-harder-seeds-u5-t5_6-2026-11-13` and `apcalcbc-harder-seeds-u5-t5_6-2026-11-13` each contain three seeds and nine variants with identical stem/choice/key/rationale content. They cover multiplicity in f'', trends in f', and a rational f'' with an excluded domain point. CED FUN-4.A.4–6 and required units `[5]` apply. The author checked every second-derivative sign, monotonicity/concavity inference, domain gap, choice and rationale. No subject-expert review is claimed.
+
+| Pack | Old R1 family/items retired | Retained old R2 seed / variant | New R1 / R2 / R3 | After R2 seed / variant | After R3 seed / variant | After published / valid-serving |
+|---|---:|---:|---:|---:|---:|---:|
+| AB | 1 / 3 | 1 / 0 | 0 / 5 / 7 | 2 / 4 | 2 / 5 | 13 / 13 expected |
+| BC | 0 / 0 | 1 / 0 | 0 / 5 / 7 | 3 / 3 | 1 / 6 | 13 / 13 expected |
+
+Tiers are uncalibrated. Both draft validators passed, both packages built two load chunks, and DeepSeek and Kimi blind solves each agreed 12/12 keys in each pack. Both tier models returned all 12 ratings per pack, with zero R1, duplicate, disputed-key, or missing-model flags. Cross-family and retained-old stem similarity over 0.80: zero. The one-time QA exception applies.
+
+**Execution state:** Prepared under `APPROVAL-0268`; update after write.
