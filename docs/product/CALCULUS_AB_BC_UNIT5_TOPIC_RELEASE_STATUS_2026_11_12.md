@@ -120,4 +120,4 @@ The first audit flagged two AB variants R1, and the next BC audit flagged one mo
 | AB | 0 / 0 | 3 / 9 | 0 / 5 / 7 | 0 | 12 / 12 expected |
 | BC | 0 / 0 | 3 / 9 | 0 / 5 / 7 | 0 | 12 / 12 expected |
 
-**Execution state:** Prepared under `APPROVAL-0268`; update after write.
+**Execution state:** Published to both Production packs under `APPROVAL-0268` on 2026-11-13. Each executor found zero old or new keys, loaded two chunks, matched 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels and 12 topic cells, matched 12/12 post-publish hashes, and returned all 12 new items through the student selector. Independent read-only Production verification found AB 12 published/12 valid-serving and BC 12/12.
