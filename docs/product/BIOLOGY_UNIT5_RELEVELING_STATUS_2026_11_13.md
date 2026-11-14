@@ -72,3 +72,17 @@ Before write, Production had four published/valid-serving 5.4 MCQs: three R2 and
 The final validator passed and the package built two load chunks. DeepSeek and Kimi each agreed with 12/12 keys. Both tier models returned all 12 ratings: zero R1, ten R2, two R3; zero duplicate, disputed-key, or missing-model flags. Three items had R2/R3 model disagreement and are counted conservatively as R2. The author checked recombinant/parental class counts, map distances, genotype ratios, organelle transmission assumptions, choices, and rationales. The R3 seed target was missed; every new item met the R2-or-R3 floor. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
 
 **Execution state:** Published under `APPROVAL-0280`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 16/16 topic 5.4 MCQs published and valid-serving.
+
+## Topic 5.5 — Environmental Effects on Phenotype
+
+Before write, Production had zero published/valid-serving 5.5 MCQs. Concrete package `scripts/content-seed/apbio-harder-seeds-u5-t5_5-2026-11-14/` contains three new seeds and nine variants, with no retirements. The Unit 5 batch keys (`apbio-mcq-b5-*-5.5-*`) were absent from Production. Families cover controlled evidence for phenotypic plasticity in a constant genotype, numerical reaction norms and genotype-by-environment interactions, and environmental cues affecting expression and phenotype. CED 5.5.A.1 and required units `[5]` apply.
+
+| State | R1 seed / variant | R2 seed / variant | R3 seed / variant | Published / valid-serving |
+|---|---:|---:|---:|---:|
+| Retained old | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
+| New package | 0 / 0 | 3 / 7 | 0 / 2 | 12 / 12 expected |
+| After release | 0 / 0 | 3 / 7 | 0 / 2 | 12 / 12 expected |
+
+The validator passed and the package built two load chunks. DeepSeek and Kimi each agreed with 12/12 keys. Both tier models returned all 12 ratings: zero R1, ten R2, two R3; zero duplicate, disputed-key, or missing-model flags. Four items had R2/R3 model disagreement and are counted conservatively as R2. Cross-family stem similarity over 0.80: zero. The author checked experimental controls, reaction-norm changes, the scope of inheritance claims, cue and expression mechanisms, choices, and rationales. The R3 seed target was missed; every new item met the R2-or-R3 floor. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
+
+**Execution state:** Prepared under `APPROVAL-0280`; update after Production write.
