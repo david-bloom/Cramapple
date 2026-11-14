@@ -147,3 +147,29 @@ Before write, a 2026-11-13 read-only Production count found zero published/valid
 Both final validators passed and both packages built two load chunks. DeepSeek and Kimi each agreed 12/12 keys in each final pack; both tier models returned all 12 ratings, with zero R1, duplicates, disputed keys, or missing-model flags. Cross-family stem similarity over 0.80: zero. The author checked each constraint, expression, unit, domain, derivative, cut-size volume, choice, and rationale. The R3 seed target was not met; all new items met the owner's R2-or-R3 floor. Tiers are uncalibrated; no subject-expert review is claimed. The one-time QA exception applies.
 
 **Execution state:** Published under `APPROVAL-0268`. Both executors loaded two chunks, verified 12/12 draft hashes, passed rolled-back publish rehearsals, published and validated 12/12 labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 12/12 published and valid-serving in AB and BC.
+
+## Topic 5.11 — Solving Optimization Problems
+
+Before write, Production had one published/valid-serving AB question and zero BC questions. The AB item `apcalcab-mcq-039` asks only for the greatest area of a rectangle with perimeter 20; it is an R1 question and this batch retires it after replacement. Packages `apcalcab-harder-seeds-u5-t5_11-2026-11-14` and `apcalcbc-harder-seeds-u5-t5_11-2026-11-14` contain identical text, choices, keys, and rationales for three seeds and nine variants per pack. They solve and interpret an open-top tank's least material area, a divided field's greatest area, and a shop's greatest profit. CED FUN-4.C.1 and required units `[5]` apply.
+
+| Pack | Before published / valid-serving | New R1 / R2 / R3 | New R2 seed / variant | New R3 seed / variant | Retire | After published / valid-serving |
+|---|---:|---:|---:|---:|---:|---:|
+| AB | 1 / 1 | 0 / 1 / 11 | 0 / 1 | 3 / 8 | 1 | 12 / 12 expected |
+| BC | 0 / 0 | 0 / 3 / 9 | 1 / 2 | 2 / 7 | 0 | 12 / 12 expected |
+
+Both validators passed and both packages built two load chunks. DeepSeek and Kimi each agreed 12/12 keys in each pack. Two-model tiers returned no R1 items, duplicate flags, disputed keys, or missing-model flags; 1 AB and 2 BC variant tier ratings had R2/R3 model disagreement, conservatively counted as R2. Cross-family stem similarity over 0.80: zero. The author checked each physical constraint, objective, derivative, critical point, maximum/minimum interpretation, choice, and rationale. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
+
+**Execution state:** Prepared under `APPROVAL-0268`; update after write.
+
+## Topic 5.12 — Exploring Behaviors of Implicit Relations
+
+Before write, Production had zero published/valid-serving topic 5.12 MCQs in both packs. Packages `apcalcab-harder-seeds-u5-t5_12-2026-11-14` and `apcalcbc-harder-seeds-u5-t5_12-2026-11-14` contain identical text, choices, keys, and rationales for three seeds and nine variants per pack. They identify horizontal critical points on an implicit conic, differentiate a circle twice to infer concavity, and classify an ellipse branch's local extremum from its implicit second derivative. CED FUN-4.D.1 and FUN-4.E.1–2 and required units `[5]` apply. There are no old items to retire.
+
+| Pack | Before published / valid-serving | New R1 / R2 / R3 | New R2 seed / variant | New R3 seed / variant | Retire | After published / valid-serving |
+|---|---:|---:|---:|---:|---:|---:|
+| AB | 0 / 0 | 0 / 4 / 8 | 2 / 2 | 1 / 7 | 0 | 12 / 12 expected |
+| BC | 0 / 0 | 0 / 7 / 5 | 2 / 5 | 1 / 4 | 0 | 12 / 12 expected |
+
+Both validators passed and both packages built two load chunks. DeepSeek and Kimi each agreed 12/12 keys in each pack. Two-model tiers returned no R1 items, duplicate flags, disputed keys, or missing-model flags; 4 AB and 6 BC items had R2/R3 tier model disagreement, conservatively counted as R2. Cross-family stem similarity over 0.80: zero. The author checked implicit derivatives, relation membership, tangent classification, curvature, all choices, and rationales. The R3 seed target was missed; all new items met the owner's R2-or-R3 floor. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
+
+**Execution state:** Prepared under `APPROVAL-0268`; update after write.
