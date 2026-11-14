@@ -13,3 +13,7 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs (#652, #654) and all remote branches was 0275; this record takes 0276.
 - **Rehearsal:** six `REHEARSAL OK` (rolled back, constraints forced immediate).
 - **Result:** see the execution record appended below.
+
+## Execution record (2026-11-13)
+- Six transactions COMMITTED (13 items); independent read-back MATCH 13/13. Live selector: 13/13 returned with `topic_match = true`; regression sample of 48 previously served items 48/48 returned with `topic_match`.
+- Fresh export: units 6+ gap is now **10** items (9 held, 1 owner call). `apchem-sfrq-031` is now labeled at 4.8 (Unit 4), so it leaves the units 6+ scope: in scope 241, not 242.

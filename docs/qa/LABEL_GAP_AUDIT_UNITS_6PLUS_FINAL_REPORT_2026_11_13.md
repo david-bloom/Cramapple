@@ -28,3 +28,9 @@ Also: 74 unit-less held items remain out of scope (Stage 1 question, owner kept 
 
 ## Not verified / limits
 No CED arbitration yet on the 14 splits; the 20 released holds relied on the vote alone (>= 5 of 6), not a separate soundness check of the item; `apchem-sfrq-026` moved from unit 6 on record to 9.6 (unserved before).
+
+## Update (APPROVAL-0276): round 2, CED-text rulings on the vote splits
+Owner said "Yes, arbitrate". 13 of the 14 split items were ruled against the CED text and labeled (13 validated topic cells, 11 new validated serving labels; 2 items already had validated labels and got a cell only). Rulings: `LABEL_GAP_AUDIT_UNITS_6PLUS_ROUND2_CED_RULINGS_2026_11_13.md`. Read-back 13/13; live selector 13/13 with `topic_match`; regression sample 48/48. **No new gateway spend** (total stays $3.31).
+
+**Residue is now 10** (recounted from a fresh export): 9 held items (3 rubric_preflight_failure `apcalcab-frq-017`, `-036`, `apchem-frq-l-023`; 3 ab_bc_only_content; 2 other) and `apphy2-mcq-013` (owner call). **Correction to the first report:** `apchem-frq-l-026` is held for `rubric_preflight_failure` (I had it as a vote tie); its CED reading is 8.9, but it stays held. So the 9 held are: rubric `apcalcab-frq-017`, `apcalcab-frq-036`, `apchem-frq-l-023`, `apchem-frq-l-026`; AB/BC-only `apcalcab-frq-035`, `apcalcbc-mcq-mv045`, `apcalcbc-mcq-mv050`; other `apchem-frq-l-021`, `apchem-sfrq-035`.
+In-scope count is 241: `apchem-sfrq-031` is a Unit 4 topic (4.8) by the CED, so it is no longer in units 6+.

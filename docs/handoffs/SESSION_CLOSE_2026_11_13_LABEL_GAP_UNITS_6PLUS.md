@@ -2,12 +2,14 @@
 
 Read first: `docs/qa/LABEL_GAP_AUDIT_UNITS_6PLUS_FINAL_REPORT_2026_11_13.md`. Approval `APPROVAL-0275`. Scripts: `scripts/content-seed/label-gap-audit-u6plus-2026-11-13/` (`publish_labels_u6plus.py` is one-shot per plan; its guards refuse a re-run).
 
-## State
+## State (updated after round 2, APPROVAL-0276)
+Round 2 labeled 13 more items; **10 remain unlabeled** (9 held incl. 4 rubric_preflight_failure, 1 owner call). Everything below about 23 residue is superseded by `residue_after.json`.
+
 242 in-scope published items in units 6+ (mapping in the Stage 1 report; Precalculus and Statistics have none). 118 labeled and verified; 23 remain unlabeled and are listed in `residue_after.json`. Gateway $3.31.
 
 ## Exact next step
-1. **Round 2 arbitration (recommended, cheap):** read the 14 tie / sub-majority items against the CED text (`subject packs/`, `docs/product/*_CED_FACT_PACK.md`), rule per item, label what the text settles via a new plan, approval and a copy of `publish_labels_u6plus.py`. Check APPROVAL numbers first (last was 0275).
-2. **Owner decisions:** the 8 held items (per class: rubric repair, AB/BC-only content, other); `apphy2-mcq-013` (served at Unit 14, votes say 13.3, check against the CED before changing anything); whether to vote the 74 unit-less held items.
+1. Round 2 is DONE (APPROVAL-0276). Next approval number is 0277 or higher; check main, open PRs and remote branches first.
+2. **Owner decisions:** the 9 held items (rubric repair for `apcalcab-frq-017`, `-036`, `apchem-frq-l-023`, `apchem-frq-l-026` (CED reading 8.9); AB/BC-only content `apcalcab-frq-035`, `apcalcbc-mcq-mv045`, `-mv050`; other `apchem-frq-l-021`, `apchem-sfrq-035`); `apphy2-mcq-013` (served at Unit 14, votes say 13.3, check against the CED before changing anything); whether to vote the 74 unit-less held items.
 3. Skill cells (200 missing in scope), Units 1-5 residue from the earlier round, and the other open items in the Units 1-5 handoff are unchanged.
 
 ## Do not touch
