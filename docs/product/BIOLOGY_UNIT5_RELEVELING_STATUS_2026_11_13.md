@@ -29,7 +29,7 @@ The draft validator passed 12 items and the builder made two chunks. DeepSeek an
 | New package | 0 / 0 | 2 / 9 | 1 / 0 | 12 / 12 verified |
 | After release | 0 / 0 | 3 / 9 | 1 / 0 | 13 / 13 verified |
 
-**Execution state:** Published under `APPROVAL-0280`. The executor confirmed zero prior batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 13/13 topic 5.1 MCQs published and valid-serving.
+**Execution state:** Published under `APPROVAL-0287`. The executor confirmed zero prior batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 13/13 topic 5.1 MCQs published and valid-serving.
 
 ## Topic 5.2 — Meiosis and Genetic Diversity
 
@@ -43,7 +43,7 @@ Before write, Production had zero published/valid-serving 5.2 MCQs. Concrete pac
 
 The final validator passed and the package built two load chunks. DeepSeek and Kimi each agreed with 12/12 keys. Both tier models returned all 12 ratings: zero R1, nine R2, three R3; zero duplicate, disputed-key, or missing-model flags. Four items had R2/R3 model disagreement and are counted conservatively as R2. Cross-family stem similarity over 0.80: zero. The author checked the probability calculation, meiotic stage and mechanism, recombinant classes, gamete/zygote chromosome arithmetic, choices, and rationales. The R3 seed target was missed; every new item met the R2-or-R3 floor. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
 
-**Execution state:** Published under `APPROVAL-0280`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 12/12 topic 5.2 MCQs published and valid-serving.
+**Execution state:** Published under `APPROVAL-0287`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 12/12 topic 5.2 MCQs published and valid-serving.
 
 ## Topic 5.3 — Mendelian Genetics
 
@@ -57,7 +57,7 @@ Before write, Production had zero published/valid-serving 5.3 MCQs. Concrete pac
 
 The validator passed and the package built two load chunks. DeepSeek and Kimi each agreed with 12/12 keys. Both tier models returned all 12 ratings: zero R1, six R2, six R3; zero duplicate, disputed-key, or missing-model flags. Three items had R2/R3 model disagreement and are counted conservatively as R2. Cross-family stem similarity over 0.80: zero. The author checked Punnett probabilities and conditioning, all four chi-square calculations and threshold decisions, two-child probabilities, choices, and rationales. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
 
-**Execution state:** Published under `APPROVAL-0280`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 12/12 topic 5.3 MCQs published and valid-serving.
+**Execution state:** Published under `APPROVAL-0287`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 12/12 topic 5.3 MCQs published and valid-serving.
 
 ## Topic 5.4 — Non-Mendelian Genetics
 
@@ -71,7 +71,7 @@ Before write, Production had four published/valid-serving 5.4 MCQs: three R2 and
 
 The final validator passed and the package built two load chunks. DeepSeek and Kimi each agreed with 12/12 keys. Both tier models returned all 12 ratings: zero R1, ten R2, two R3; zero duplicate, disputed-key, or missing-model flags. Three items had R2/R3 model disagreement and are counted conservatively as R2. The author checked recombinant/parental class counts, map distances, genotype ratios, organelle transmission assumptions, choices, and rationales. The R3 seed target was missed; every new item met the R2-or-R3 floor. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
 
-**Execution state:** Published under `APPROVAL-0280`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 16/16 topic 5.4 MCQs published and valid-serving.
+**Execution state:** Published under `APPROVAL-0287`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 16/16 topic 5.4 MCQs published and valid-serving.
 
 ## Topic 5.5 — Environmental Effects on Phenotype
 
@@ -85,8 +85,8 @@ Before write, Production had zero published/valid-serving 5.5 MCQs. Concrete pac
 
 The validator passed and the package built two load chunks. DeepSeek and Kimi each agreed with 12/12 keys. Both tier models returned all 12 ratings: zero R1, ten R2, two R3; zero duplicate, disputed-key, or missing-model flags. Four items had R2/R3 model disagreement and are counted conservatively as R2. Cross-family stem similarity over 0.80: zero. The author checked experimental controls, reaction-norm changes, the scope of inheritance claims, cue and expression mechanisms, choices, and rationales. The R3 seed target was missed; every new item met the R2-or-R3 floor. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
 
-**Execution state:** Published under `APPROVAL-0280`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 12/12 topic 5.5 MCQs published and valid-serving.
+**Execution state:** Published under `APPROVAL-0287`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 12/12 topic 5.5 MCQs published and valid-serving.
 
 ## Unit 5 Production outcome
 
-All five topics were published topic by topic under `APPROVAL-0280`. Sixty new R2/R3 MCQs were published, 12 per topic, with zero R1 retirements because the before audit found none. The five retained old R2/R3 MCQs remain published. Each new package passed two blind answer solvers, two tier models, structural validation, draft and published payload hashes, rolled-back publish rehearsal, validated serving labels, and a student-selector check. An independent final Production count found 65/65 published and valid-serving MCQs: topic 5.1 13/13, 5.2 12/12, 5.3 12/12, 5.4 16/16, and 5.5 12/12. No subject-expert review is claimed; the owner-authorized one-time QA exception applies to these Unit 5 batches.
+All five topics were published topic by topic under `APPROVAL-0287`. Sixty new R2/R3 MCQs were published, 12 per topic, with zero R1 retirements because the before audit found none. The five retained old R2/R3 MCQs remain published. Each new package passed two blind answer solvers, two tier models, structural validation, draft and published payload hashes, rolled-back publish rehearsal, validated serving labels, and a student-selector check. An independent final Production count found 65/65 published and valid-serving MCQs: topic 5.1 13/13, 5.2 12/12, 5.3 12/12, 5.4 16/16, and 5.5 12/12. No subject-expert review is claimed; the owner-authorized one-time QA exception applies to these Unit 5 batches.

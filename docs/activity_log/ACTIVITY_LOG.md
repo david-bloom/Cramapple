@@ -4,13 +4,18 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
-- AP Biology Unit 5 completed under `APPROVAL-0280` (2026-11-14): 60 new R2/R3 MCQs published topic by topic, zero R1 retired, 65/65 total published/valid-serving across topics 5.1–5.5; all student selector checks passed. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
-- AP Biology Unit 5 topic 5.4 published under `APPROVAL-0280` (2026-11-14): 12 new R2/R3 MCQs, one initial weak seed rewritten and rechecked, zero final R1 or duplicate flags, 16/16 published/valid-serving and selector checked. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
-- AP Biology Unit 5 topic 5.3 published under `APPROVAL-0280` (2026-11-14): 12 new R2/R3 MCQs, zero R1 or duplicate flags, 12/12 published/valid-serving and selector checked. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
-- AP Biology Unit 5 topic 5.2 published under `APPROVAL-0280` (2026-11-14): 12 new R2/R3 MCQs, zero R1 or duplicate flags after revision, 12/12 published/valid-serving and selector checked. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
-- AP Biology Unit 5 topic 5.1 published under David's topic-by-topic Production direction (`APPROVAL-0280`, 2026-11-14): 12 new MCQs, zero R1 or disputed keys, zero retirements; 13/13 published/valid-serving with selector check. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
+- AP Biology Unit 5 completed under `APPROVAL-0287` (2026-11-14): 60 new R2/R3 MCQs published topic by topic, zero R1 retired, 65/65 total published/valid-serving across topics 5.1–5.5; all student selector checks passed. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
+- AP Biology Unit 5 topic 5.4 published under `APPROVAL-0287` (2026-11-14): 12 new R2/R3 MCQs, one initial weak seed rewritten and rechecked, zero final R1 or duplicate flags, 16/16 published/valid-serving and selector checked. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
+- AP Biology Unit 5 topic 5.3 published under `APPROVAL-0287` (2026-11-14): 12 new R2/R3 MCQs, zero R1 or duplicate flags, 12/12 published/valid-serving and selector checked. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
+- AP Biology Unit 5 topic 5.2 published under `APPROVAL-0287` (2026-11-14): 12 new R2/R3 MCQs, zero R1 or duplicate flags after revision, 12/12 published/valid-serving and selector checked. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
+- AP Biology Unit 5 topic 5.1 published under David's topic-by-topic Production direction (`APPROVAL-0287`, 2026-11-14): 12 new MCQs, zero R1 or disputed keys, zero retirements; 13/13 published/valid-serving with selector check. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
 - Calculus AB and BC Unit 5 completed (`APPROVAL-0268`, 2026-11-14): all 12 topics in both packs have at least 12 published/valid-serving MCQs. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - 2026-11-14: Cheat Sheet digestibility session closed; handoff `handoffs/SESSION_CLOSE_2026_11_14_CHEAT_SHEET_DIGESTIBILITY.md` (quick_take and structured text live; open: human review, source mismatches).
+- 2026-11-14: apcalcbc-mcq-007 retired (APPROVAL-0286); no published item is left without a servable label.
+- 2026-11-14: rubric/prompt repair of 11 FRQs (APPROVAL-0284) and 75 previously unit-less items labeled (APPROVAL-0285); only apcalcbc-mcq-007 (outside the CED) left unlabeled.
+- 2026-11-14: triage of the 76 unit-less unlabeled items (read-only): 64 vote-then-label, 11 need rubric repair, 1 out of the CED (docs/qa/LABEL_UNITLESS_76_TRIAGE_2026_11_14.md).
+- 2026-11-14: two FRQs repaired (APPROVAL-0282) and labeled (APPROVAL-0283); units 6+ residue now 0.
+- 2026-11-14: three held Units 6+ items labeled (APPROVAL-0281); residue now 2, both needing a content repair.
 - Calculus AB and BC Unit 5 topic 5.10 prepared under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack; one weak variant rewritten and rechecked; final zero R1 or key flags. No Production write yet for this topic. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - Calculus AB and BC Unit 5 topic 5.9 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack with validated serving labels, zero R1 or key flags, and no retirements. AB and BC each have 12/12 published/valid-serving topic MCQs. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - Calculus AB and BC Unit 5 topic 5.8 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack with validated serving labels; three weak variants rewritten and fully rechecked, with final zero R1 or key flags. AB and BC each have 12/12 published/valid-serving topic MCQs. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
@@ -20,6 +25,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 - Calculus AB and BC Unit 5 topic 5.4 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack with validated serving labels; one AB blind letter disagreed while its reasoning supported the correct key, documented in the status.
 - 2026-11-14: quick_take for 363 topics, Calculus AB structured text and AB source primes applied to Production (APPROVAL-0279).
 - 2026-11-13: Four rubric-held FRQs repaired (APPROVAL-0277) and labeled (APPROVAL-0278) in Production; units 6+ residue now 6.
+- 2026-11-14: apphy2-mcq-013 given topic cell 14.3 (APPROVAL-0280); units 6+ residue now 5.
 - 2026-11-13: Label gap fill Units 6+ round 2 (APPROVAL-0276): 13 CED-text rulings applied to Production (13 topic cells, 11 serving labels), read back 13/13; residue now 10.
 - 2026-11-13: Label gap fill Units 6+ (APPROVAL-0275): 118 topic cells and 66 serving labels applied to Production, verified 118/118 by read-back and the live selector; 23 residue listed.
 - 2026-11-13: Calculus AB 5.6-5.9, 5.11 second-derivative primes restored in Production (APPROVAL-0274).

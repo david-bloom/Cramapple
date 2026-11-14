@@ -1,4 +1,6 @@
-# APPROVAL-0280 — AP Biology Unit 5 topic-by-topic Production publication (owner directed)
+# APPROVAL-0287 — AP Biology Unit 5 topic-by-topic Production publication (owner directed)
+
+Record ID assigned on PR #659 merge reconciliation: the branch originally used APPROVAL-0280, which `main` had independently assigned to the Physics 2 topic-cell action. The owner direction and Production execution described here are unchanged.
 
 David directed authoring and publishing Biology Unit 5 after the Calculus work, with each completed topic published without waiting for the full unit or another permission request. His explicit instruction supersedes the old releveling handoff's stop-before-Production step and per-batch reapproval rule for this named scope. His one-time exception permits the two-model blind solve and two-model tier audit for these Unit 5 batches instead of the standing four-checker/planted-control gate. This record covers Biology Unit 5 topics 5.1–5.5 only. Each concrete package and before/after counts must be recorded in `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md` before execution, with observed results appended afterward.
 

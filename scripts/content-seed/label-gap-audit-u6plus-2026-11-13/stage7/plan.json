@@ -1,0 +1,1149 @@
+[
+ {
+  "content_key": "apcalcbc-frq-002",
+  "old_version_id": "8ab6d2be-7e8a-406f-8c2f-967b078b766d",
+  "old_version_num": 1,
+  "stem": "(a) Use logarithmic differentiation to find y\u2032.\n\n(b) Find the critical point of y and classify it.\n\n(c) Find the minimum value.",
+  "stimulus": "For x>0 define y=x^x.",
+  "prompt_json": {
+   "parts": [
+    {
+     "label": "(a)",
+     "points": 1,
+     "prompt": "Use logarithmic differentiation to find y\u2032.",
+     "ordinal": 1,
+     "criteria": [
+      {
+       "points": 1,
+       "description": "y\u2032=x^x(ln x+1).",
+       "criterion_key": "part-a-criterion-1",
+       "accepted_variants": [
+        "Any algebraically equivalent form with correct reasoning."
+       ],
+       "required_evidence": [
+        "ln y=x ln x",
+        "x^x",
+        "ln x+1"
+       ],
+       "deterministic_checks": [
+        {
+         "check_type": "keyword-evidence",
+         "parameters": {
+          "keywords": [
+           "ln y=x ln x",
+           "x^x",
+           "ln x+1"
+          ]
+         }
+        }
+       ]
+      }
+     ],
+     "part_key": "part-a",
+     "stimulus_refs": [
+      "scenario"
+     ],
+     "response_modalities": [
+      "typed-text",
+      "typed-math"
+     ]
+    },
+    {
+     "label": "(b)",
+     "points": 1,
+     "prompt": "Find the critical point of y and classify it.",
+     "ordinal": 2,
+     "criteria": [
+      {
+       "points": 1,
+       "description": "The critical point is x=e^(\u22121), and it is a minimum.",
+       "criterion_key": "part-b-criterion-1",
+       "accepted_variants": [
+        "Any algebraically equivalent form with correct reasoning."
+       ],
+       "required_evidence": [
+        "x=e^(\u22121)",
+        "minimum"
+       ],
+       "deterministic_checks": [
+        {
+         "check_type": "keyword-evidence",
+         "parameters": {
+          "keywords": [
+           "x=e^(\u22121)",
+           "minimum"
+          ]
+         }
+        }
+       ]
+      }
+     ],
+     "part_key": "part-b",
+     "stimulus_refs": [
+      "scenario"
+     ],
+     "response_modalities": [
+      "typed-text",
+      "typed-math"
+     ]
+    },
+    {
+     "label": "(c)",
+     "points": 1,
+     "prompt": "Find the minimum value.",
+     "ordinal": 3,
+     "criteria": [
+      {
+       "points": 1,
+       "description": "The minimum value is e^(\u22121/e).",
+       "criterion_key": "part-c-criterion-1",
+       "accepted_variants": [
+        "Any algebraically equivalent form with correct reasoning."
+       ],
+       "required_evidence": [
+        "e^(\u22121/e)"
+       ],
+       "deterministic_checks": [
+        {
+         "check_type": "keyword-evidence",
+         "parameters": {
+          "keywords": [
+           "e^(\u22121/e)"
+          ]
+         }
+        }
+       ]
+      }
+     ],
+     "part_key": "part-c",
+     "stimulus_refs": [
+      "scenario"
+     ],
+     "response_modalities": [
+      "typed-text",
+      "typed-math"
+     ]
+    }
+   ],
+   "stimuli": [
+    {
+     "kind": "text",
+     "ordinal": 1,
+     "payload": {
+      "text": "For x>0 define y=x^x.",
+      "calculator_mode": "not-permitted"
+     },
+     "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+     ],
+     "stimulus_key": "scenario"
+    }
+   ],
+   "frq_form": "short",
+   "item_type": "frq",
+   "difficulty": "Medium",
+   "package_id": "apcalcbc-frq-002",
+   "provenance": {
+    "source_refs": [
+     "ap-calculus-bc-public-fact-pack"
+    ],
+    "generated_at": "2026-07-17T00:00:00Z",
+    "generated_by": "codex",
+    "content_sha256": "8ba57ebff2e1414597a97decad2628d00e8150270052997413cdafc67594c88c",
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17"
+   },
+   "content_key": "apcalcbc-frq-002",
+   "review_notes": {
+    "expected_reasoning": "y\u2032=x^x(ln x+1). | The critical point is x=e^(\u22121), and it is a minimum. | The minimum value is e^(\u22121/e).",
+    "known_boundary_cases": [
+     "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+     "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+   },
+   "accessibility": {
+    "language": "en",
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review.",
+    "screen_reader_review_required": false
+   },
+   "archetype_ref": {
+    "version": "1.0.0",
+    "archetype_key": "ap-calculus-bc-frq-procedural"
+   },
+   "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+   },
+   "taxonomy_refs": [
+    {
+     "node_key": "unit-2-differentiation-definition-and-fundamental-properties",
+     "scheme_key": "ap-calculus-bc-2025-26",
+     "scheme_version": "1.0.0"
+    },
+    {
+     "node_key": "practice-1",
+     "scheme_key": "ap-calculus-bc-2025-26",
+     "scheme_version": "1.0.0"
+    }
+   ],
+   "schema_version": "1.0.0",
+   "content_version": 1,
+   "canonical_answers": [
+    "y\u2032=x^x(ln x+1). | The critical point is x=e^(\u22121), and it is a minimum. | The minimum value is e^(\u22121/e)."
+   ]
+  },
+  "criteria": [
+   {
+    "criterion_key": "part-a-criterion-1",
+    "learner_facing_text": "y\u2032=x^x(ln x+1).",
+    "evidence_requirements": "1pt: takes ln of both sides: ln y = x ln x. 1pt: differentiates implicitly to y'/y=ln x+1. 1pt: solves y'=x^x(ln x+1).",
+    "minimum_fix": "Provide the missing mathematical evidence: ln y=x ln x, x^x, ln x+1",
+    "points_possible": 3
+   },
+   {
+    "criterion_key": "part-b-criterion-1",
+    "learner_facing_text": "The critical point is x=e^(\u22121), and it is a minimum.",
+    "evidence_requirements": "1pt: sets y'=0. 1pt: solves ln x+1=0 for x=e^(-1). 1pt: classifies it as a minimum via sign change or second derivative.",
+    "minimum_fix": "Provide the missing mathematical evidence: x=e^(\u22121), minimum",
+    "points_possible": 3
+   },
+   {
+    "criterion_key": "part-c-criterion-1",
+    "learner_facing_text": "The minimum value is e^(\u22121/e).",
+    "evidence_requirements": "1pt: substitutes x=e^(-1) into y=x^x. 1pt: simplifies the exponent correctly. 1pt: states the minimum value e^(-1/e).",
+    "minimum_fix": "Provide the missing mathematical evidence: e^(\u22121/e)",
+    "points_possible": 3
+   }
+  ],
+  "canonical_answer_1": ""
+ },
+ {
+  "content_key": "apchem-frq-l-005",
+  "old_version_id": "8c1286d2-9402-427c-a8f5-d75ff31cfdb7",
+  "old_version_num": 4,
+  "stem": "Answer all parts of the following question.\n\n(a) Determine the rate law from the initial-rate relationships and state the overall reaction order.\n\n(b) Explain how independently varying [A] and [B] establishes the order with respect to each reactant.\n\n(c) Design a set of initial-rate trials that would test both exponents in the proposed rate law. Identify the measured variable and the controlled variables.\n\n(d) At a later time, products have accumulated and the reverse reaction is significant. Compare the measured net reaction rate with the forward-reaction rate predicted by k[A][B]\u00b2 and justify the comparison.\n\nAssume temperature and other experimental conditions remain constant and initial rates are measured before product accumulation is significant.",
+  "stimulus": "For a reaction involving reactants A and B, initial-rate data show that the rate doubles when [A] is doubled while [B] is held constant. The rate quadruples when [B] is doubled while [A] is held constant.",
+  "prompt_json": {
+   "modules": [
+    "unit-5-kinetics",
+    "practice-5"
+   ],
+   "subject": "ap_chemistry",
+   "frq_type": "long",
+   "archetype": "ap-chemistry-frq-long",
+   "difficulty": "Medium",
+   "content_key": "apchem-frq-l-005",
+   "total_points": 10,
+   "qa_remediation": "2026-08-05 AP Chemistry FRQ AWE repair",
+   "content_version": 4,
+   "qa_source_decision_id": "a93fba3c-b245-42ec-8b81-c487a258e0d8"
+  },
+  "criteria": [
+   {
+    "criterion_key": "a1",
+    "learner_facing_text": "States the reaction is first order in A because doubling [A] at constant [B] doubles the rate.",
+    "evidence_requirements": "Links the doubling observation to an exponent of 1 for A.",
+    "minimum_fix": "Convert the doubling observation into the exponent for A.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "a2",
+    "learner_facing_text": "States the reaction is second order in B because doubling [B] at constant [A] quadruples the rate.",
+    "evidence_requirements": "Links the quadrupling observation to an exponent of 2 for B.",
+    "minimum_fix": "Convert the quadrupling observation into the exponent for B.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "a3",
+    "learner_facing_text": "Writes the complete rate law rate = k[A][B]\u00b2 and states the overall order as 3.",
+    "evidence_requirements": "Gives both the full rate law and the overall order.",
+    "minimum_fix": "Write the complete rate law and sum the exponents.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "b1",
+    "learner_facing_text": "Explains that varying one reactant concentration while holding the other constant isolates the exponent for that reactant.",
+    "evidence_requirements": "States the one-variable-at-a-time principle explicitly.",
+    "minimum_fix": "Explain why only one concentration may change per comparison.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "c1",
+    "learner_facing_text": "States that the trial design must keep temperature and all non-varied conditions constant while measuring initial rates.",
+    "evidence_requirements": "Requires constant temperature/conditions and initial-rate data taken before product accumulation significantly affects the rate.",
+    "minimum_fix": "Specify constant temperature and initial-rate measurement conditions.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "c2",
+    "learner_facing_text": "Identifies the initial reaction rate as the measured (dependent) variable.",
+    "evidence_requirements": "Names initial rate as what is measured.",
+    "minimum_fix": "Name the measured variable explicitly.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "c3",
+    "learner_facing_text": "Identifies the controlled variables: temperature, catalyst, total volume, mixing procedure, and the concentration of the reactant not being varied.",
+    "evidence_requirements": "Lists at least three controlled variables including temperature.",
+    "minimum_fix": "List the variables held constant across trials.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "d2",
+    "learner_facing_text": "Clarifies that k[A][B]\u00b2 is the gross forward rate, and that at equilibrium the net rate is zero while forward and reverse rates remain nonzero and equal.",
+    "evidence_requirements": "Distinguishes gross forward rate from observed net rate and describes equilibrium correctly.",
+    "minimum_fix": "Explain that a zero net rate does not mean the reaction has stopped.",
+    "points_possible": 1
+   }
+  ],
+  "canonical_answer_1": ""
+ },
+ {
+  "content_key": "apcalcbc-frq-016",
+  "old_version_id": "c77ef499-cd6f-4763-9170-149421a452fa",
+  "old_version_num": 1,
+  "stem": "(a) Write the first four nonzero Maclaurin terms.\n\n(b) Use these terms to approximate ln(1.2).\n\n(c) Give a valid error bound for this approximation.",
+  "stimulus": "Let f(x)=ln(1+x) for \u22121<x\u22641.",
+  "prompt_json": {
+   "parts": [
+    {
+     "label": "(a)",
+     "points": 1,
+     "prompt": "Write the first four nonzero Maclaurin terms.",
+     "ordinal": 1,
+     "criteria": [
+      {
+       "points": 1,
+       "description": "f(x)=x\u2212x\u00b2/2+x\u00b3/3\u2212x\u2074/4+\u2026",
+       "criterion_key": "part-a-criterion-1",
+       "accepted_variants": [
+        "Any algebraically equivalent form with correct reasoning."
+       ],
+       "required_evidence": [
+        "x",
+        "\u2212x\u00b2/2",
+        "x\u00b3/3",
+        "\u2212x\u2074/4"
+       ],
+       "deterministic_checks": [
+        {
+         "check_type": "keyword-evidence",
+         "parameters": {
+          "keywords": [
+           "x",
+           "\u2212x\u00b2/2",
+           "x\u00b3/3",
+           "\u2212x\u2074/4"
+          ]
+         }
+        }
+       ]
+      }
+     ],
+     "part_key": "part-a",
+     "stimulus_refs": [
+      "scenario"
+     ],
+     "response_modalities": [
+      "typed-text",
+      "typed-math"
+     ]
+    },
+    {
+     "label": "(b)",
+     "points": 1,
+     "prompt": "Use these terms to approximate ln(1.2).",
+     "ordinal": 2,
+     "criteria": [
+      {
+       "points": 1,
+       "description": "At x=0.2 the approximation is 0.1822667.",
+       "criterion_key": "part-b-criterion-1",
+       "accepted_variants": [
+        "Any algebraically equivalent form with correct reasoning."
+       ],
+       "required_evidence": [
+        "x=0.2",
+        "0.1822667"
+       ],
+       "deterministic_checks": [
+        {
+         "check_type": "numeric-tolerance",
+         "parameters": {
+          "tolerance": 1e-06,
+          "expected_value": 0.1822667
+         }
+        }
+       ]
+      }
+     ],
+     "part_key": "part-b",
+     "stimulus_refs": [
+      "scenario"
+     ],
+     "response_modalities": [
+      "typed-text",
+      "typed-math"
+     ]
+    },
+    {
+     "label": "(c)",
+     "points": 1,
+     "prompt": "Give a valid error bound for this approximation.",
+     "ordinal": 3,
+     "criteria": [
+      {
+       "points": 1,
+       "description": "The alternating bound is at most 0.2\u2075/5=0.000064.",
+       "criterion_key": "part-c-criterion-1",
+       "accepted_variants": [
+        "Any algebraically equivalent form with correct reasoning."
+       ],
+       "required_evidence": [
+        "0.2^5/5",
+        "0.000064"
+       ],
+       "deterministic_checks": [
+        {
+         "check_type": "keyword-evidence",
+         "parameters": {
+          "keywords": [
+           "0.2^5/5",
+           "0.000064"
+          ]
+         }
+        }
+       ]
+      }
+     ],
+     "part_key": "part-c",
+     "stimulus_refs": [
+      "scenario"
+     ],
+     "response_modalities": [
+      "typed-text",
+      "typed-math"
+     ]
+    }
+   ],
+   "stimuli": [
+    {
+     "kind": "text",
+     "ordinal": 1,
+     "payload": {
+      "text": "Let f(x)=ln(1+x) for \u22121<x\u22641.",
+      "calculator_mode": "not-permitted"
+     },
+     "source_refs": [
+      "ap-calculus-bc-public-fact-pack"
+     ],
+     "stimulus_key": "scenario"
+    }
+   ],
+   "frq_form": "short",
+   "item_type": "frq",
+   "difficulty": "Very Hard",
+   "package_id": "apcalcbc-frq-016",
+   "provenance": {
+    "source_refs": [
+     "ap-calculus-bc-public-fact-pack"
+    ],
+    "generated_at": "2026-07-17T00:00:00Z",
+    "generated_by": "codex",
+    "content_sha256": "7fd0651c432bb4f8ea786c784151626bc5ab61d3cc5a35befe06e53ae49d90f6",
+    "fact_pack_version": "2026-07-17",
+    "authoring_prompt_version": "CODEX_CALCULUS_THREE_SUBJECT_SEED_2026_07_17"
+   },
+   "content_key": "apcalcbc-frq-016",
+   "review_notes": {
+    "expected_reasoning": "f(x)=x\u2212x\u00b2/2+x\u00b3/3\u2212x\u2074/4+\u2026 | At x=0.2 the approximation is 0.1822667. | The alternating bound is at most 0.2\u2075/5=0.000064.",
+    "known_boundary_cases": [
+     "Award a criterion only when the conclusion is supported by the stated mathematical evidence.",
+     "Carry-forward arithmetic may earn later reasoning credit when the method remains valid."
+    ],
+    "originality_statement": "Independently authored Cramapple draft for Tutor review; no released or secure question or scoring language was used."
+   },
+   "accessibility": {
+    "language": "en",
+    "accommodation_notes": "The prompt is complete in text; graph responses may be described with labeled features during accessibility review.",
+    "screen_reader_review_required": false
+   },
+   "archetype_ref": {
+    "version": "1.0.0",
+    "archetype_key": "ap-calculus-bc-frq-representation"
+   },
+   "exam_pack_ref": {
+    "exam_code": "ap_calculus_bc",
+    "school_year": "2025-26",
+    "exam_pack_version": "1.0.0"
+   },
+   "taxonomy_refs": [
+    {
+     "node_key": "unit-10-infinite-sequences-and-series",
+     "scheme_key": "ap-calculus-bc-2025-26",
+     "scheme_version": "1.0.0"
+    },
+    {
+     "node_key": "practice-1",
+     "scheme_key": "ap-calculus-bc-2025-26",
+     "scheme_version": "1.0.0"
+    }
+   ],
+   "schema_version": "1.0.0",
+   "content_version": 1,
+   "canonical_answers": [
+    "f(x)=x\u2212x\u00b2/2+x\u00b3/3\u2212x\u2074/4+\u2026 | At x=0.2 the approximation is 0.1822667. | The alternating bound is at most 0.2\u2075/5=0.000064."
+   ]
+  },
+  "criteria": [
+   {
+    "criterion_key": "part-a-criterion-1",
+    "learner_facing_text": "f(x)=x\u2212x\u00b2/2+x\u00b3/3\u2212x\u2074/4+\u2026",
+    "evidence_requirements": "1pt: derives the Maclaurin series for ln(1+x) via term-by-term integration of 1/(1+x). 1pt: writes out the correct coefficients. 1pt: states the series x-x^2/2+x^3/3-x^4/4.",
+    "minimum_fix": "Provide the missing mathematical evidence: x, \u2212x\u00b2/2, x\u00b3/3, \u2212x\u2074/4",
+    "points_possible": 3
+   },
+   {
+    "criterion_key": "part-b-criterion-1",
+    "learner_facing_text": "At x=0.2 the approximation is 0.1822667.",
+    "evidence_requirements": "1pt: substitutes x=0.2 into the four-term polynomial. 1pt: computes each term's numeric value correctly. 1pt: sums the terms to 0.1822667.",
+    "minimum_fix": "Provide the missing mathematical evidence: x=0.2, 0.1822667",
+    "points_possible": 3
+   },
+   {
+    "criterion_key": "part-c-criterion-1",
+    "learner_facing_text": "The alternating bound is at most 0.2\u2075/5=0.000064.",
+    "evidence_requirements": "1pt: recognizes the alternating-series error bound applies since the terms decrease and alternate. 1pt: identifies the first omitted term x^5/5. 1pt: evaluates the bound at x=0.2 to 0.000064.",
+    "minimum_fix": "Provide the missing mathematical evidence: 0.2^5/5, 0.000064",
+    "points_possible": 3
+   }
+  ],
+  "canonical_answer_1": ""
+ },
+ {
+  "content_key": "apprecalc-frq-np2-008",
+  "old_version_id": "0c6f5ac1-a8a6-4ab4-bd2c-fd380150114f",
+  "old_version_num": 1,
+  "stem": "A calculator is permitted.\n\n(a) Find the zeros of p and their multiplicities, and describe the end behavior of p using limit notation.\n\n(b) Is x=-3 a local extremum of p? Justify your answer using the multiplicity of the zero, and contrast with the behavior at x=1.\n\n(c) Using technology, approximate the y-coordinate of the local maximum of p.",
+  "stimulus": "Let p(x) = -2(x-1)(x+3)^2.",
+  "prompt_json": {},
+  "criteria": [
+   {
+    "criterion_key": "part-a-criterion-01",
+    "learner_facing_text": "Correctly identifies the zeros as x=1 (multiplicity 1) and x=-3 (multiplicity 2).",
+    "evidence_requirements": "Response identifies both zeros and their multiplicities.",
+    "minimum_fix": "State both multiplicities explicitly.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-a-criterion-02",
+    "learner_facing_text": "Correctly describes the end behavior: the limit as x approaches infinity of p(x) is negative infinity, and the limit as x approaches negative infinity of p(x) is positive infinity.",
+    "evidence_requirements": "Response uses correct limit notation for both directions, consistent with an odd-degree polynomial with a negative leading coefficient.",
+    "minimum_fix": "Show both limit statements using proper notation.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b-criterion-01",
+    "learner_facing_text": "Correctly concludes x=-3 is a local extremum, because the even multiplicity means the graph does not change sign there (it is tangent to the x-axis and turns around).",
+    "evidence_requirements": "Response connects the even multiplicity to the tangent/turning-point behavior.",
+    "minimum_fix": "Explain the connection between even multiplicity and the graph turning around.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b-criterion-02",
+    "learner_facing_text": "Correctly contrasts this with x=1, where the odd multiplicity means the graph crosses the x-axis rather than turning around.",
+    "evidence_requirements": "Response explicitly contrasts the two zeros' behaviors.",
+    "minimum_fix": "State the contrast explicitly.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c-criterion-01",
+    "learner_facing_text": "Correctly identifies the local maximum occurs near x=-1/3 using technology.",
+    "evidence_requirements": "Response reports the x-location of the local maximum found graphically or numerically.",
+    "minimum_fix": "State the x-location.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c-criterion-02",
+    "learner_facing_text": "Correctly approximates the y-coordinate as approximately 18.963.",
+    "evidence_requirements": "Response reports a decimal value accurate to three places matching 512/27.",
+    "minimum_fix": "Report the value to three decimal places.",
+    "points_possible": 1
+   }
+  ],
+  "canonical_answer_1": ""
+ },
+ {
+  "content_key": "apchem-sfrq-005",
+  "old_version_id": "b7547d80-5927-44c4-beb0-3b49e92a3ad9",
+  "old_version_num": 4,
+  "stem": "Answer all parts of the following question.\n\n(a) Describe a precise endpoint procedure and predict the effect of overshooting.\n\n(b) Explain how stoichiometric equivalence -- relating moles of titrant to moles of analyte through the mole ratio in the balanced equation -- supports the titration calculation, and state the assumption that the indicator endpoint approximates the true equivalence point.\n\n(c) Explain why recording the buret volume to the nearest 0.01 mL, rather than the nearest 0.1 mL, matters for the reliability of the calculated molarity.\n\n(d) A replicate trial reaches equivalence at 18.55 mL. Calculate the percent difference between the two trials and state whether the data indicate good precision (percent difference under 1%).",
+  "stimulus": "A titration reaches equivalence after 18.60 mL titrant is delivered.",
+  "prompt_json": {
+   "modules": [
+    "unit-4-chemical-reactions",
+    "practice-5"
+   ],
+   "subject": "ap_chemistry",
+   "frq_type": "short",
+   "archetype": "ap-chemistry-frq-short",
+   "difficulty": "Hard",
+   "content_key": "apchem-sfrq-005",
+   "repair_class": "substantive_rewrite",
+   "total_points": 4,
+   "qa_remediation": "2026-08-06 owner-adjudicated remediation batch",
+   "content_version": 4,
+   "source_version_id": "c88b50a9-8398-4199-9d20-5b5d9ea7313d"
+  },
+  "criteria": [
+   {
+    "criterion_key": "part-a",
+    "learner_facing_text": "Approach dropwise with mixing; overshoot makes calculated analyte amount too large.",
+    "evidence_requirements": "Response describes a precise endpoint technique and correctly predicts the direction of error from overshooting.",
+    "minimum_fix": "To earn this point, describe approaching the endpoint dropwise with mixing, and state overshooting makes the calculated analyte amount too large.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b",
+    "learner_facing_text": "Use the balanced-equation stoichiometric ratio to relate titrant moles to analyte moles at equivalence.",
+    "evidence_requirements": "Moles of titrant are stoichiometrically equivalent to moles of analyte according to the coefficients in the balanced reaction; equality is only for a 1:1 reaction.",
+    "minimum_fix": "State that the balanced equation, not a universal one-to-one rule, determines the mole conversion.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c",
+    "learner_facing_text": "Recording to the nearest 0.01 mL (vs. 0.1 mL) reduces the relative uncertainty in the delivered volume, which propagates into a more reliable calculated molarity.",
+    "evidence_requirements": "Response explains that finer volume readings reduce propagated uncertainty in the final molarity.",
+    "minimum_fix": "To earn this point, explain that 0.01 mL precision reduces relative uncertainty compared to 0.1 mL, improving the reliability of the calculated molarity.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-d",
+    "learner_facing_text": "Percent difference = |18.60-18.55|/18.575 x 100% ~= 0.27%, well under 1%, indicating good precision.",
+    "evidence_requirements": "Response correctly calculates percent difference (~0.27%) and correctly concludes the data are precise.",
+    "minimum_fix": "To earn this point, compute percent difference = |18.60-18.55|/avg x 100% ~= 0.27% and state this indicates good precision.",
+    "points_possible": 1
+   }
+  ],
+  "canonical_answer_1": ""
+ },
+ {
+  "content_key": "apphy2-frq-011",
+  "old_version_id": "57ffba8b-d120-43ef-b943-7451060d3832",
+  "old_version_num": 2,
+  "stem": "Answer all parts of the following question.\n\n(a) Design a feasible measurement that tests the relation between magnetic force and centripetal motion (qvB = mv\u00b2/r); identify the independent variable, dependent variable, and one control.\n\n(b) Explain why assuming non-relativistic speeds and a uniform field lets you use qvB = mv\u00b2/r to solve for the radius, rather than needing relativistic corrections.",
+  "stimulus": "A singly charged positive ion moves at 3.00\u00d710\u2075 m/s perpendicular to a uniform 0.200 T magnetic field.",
+  "prompt_json": {},
+  "criteria": [
+   {
+    "criterion_key": "part-a",
+    "learner_facing_text": "A feasible measurement design using the same ion species (so charge and mass stay fixed) in every trial: vary the ion's speed and measure the resulting radius of its circular path, keeping the magnetic field strength fixed. Requires comparing the measured radius with the radius predicted by qvB=mv\u00b2/r. Independent variable = ion speed v; dependent variable = measured radius r; control = magnetic field strength and ion species (charge and mass) held fixed.",
+    "evidence_requirements": "Same ion species held fixed across trials; design includes comparing measured vs. predicted radius.",
+    "minimum_fix": "State explicitly that the same ion species is used throughout, and that measured radius is compared to the value predicted by qvB=mv\u00b2/r.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b",
+    "learner_facing_text": "Explains that the ion moves perpendicular to a uniform magnetic field with other forces negligible, that at the stated speed (3.00\u00d710\u2075 m/s, well under c) relativistic effects are negligible so qvB=mv\u00b2/r applies without correction, and notes that a numeric radius cannot be computed here because the ion's mass is not given.",
+    "evidence_requirements": "References perpendicular/uniform-field and negligible-other-forces assumptions, non-relativistic justification at this specific speed, and the missing-mass limitation.",
+    "minimum_fix": "State why 3.00\u00d710\u2075 m/s justifies neglecting relativistic corrections, and note mass is not provided so no numeric radius can be found.",
+    "points_possible": 1
+   }
+  ],
+  "canonical_answer_1": ""
+ },
+ {
+  "content_key": "apchem-sfrq-007",
+  "old_version_id": "172f65ac-3c24-4e2e-874c-3a909f1d4bbf",
+  "old_version_num": 4,
+  "stem": "Answer all parts of the following question.\n\n(a) Find the temperature above which it is favorable.\n\n(b) Explain how the Gibbs free energy equation Delta G standard=Delta H standard\u2212TDelta S standard supports the calculated crossover temperature, and state the assumption that Delta H standard and Delta S standard do not change significantly over that temperature range.\n\n(c) Calculate DeltaG at T=310. K and confirm this is consistent with your answer to part (a).\n\n(d) Calculate DeltaG at T=280. K and confirm this is consistent with your answer to part (a).\n\nUse consistent units by converting kJ to J before calculating the crossover temperature; at the crossover Delta G standard = 0.",
+  "stimulus": "A reaction has \u0394H=+35 kJ mol\u207b\u00b9 and \u0394S=+120 J mol\u207b\u00b9 K\u207b\u00b9.",
+  "prompt_json": {
+   "modules": [
+    "unit-6-thermochemistry",
+    "practice-1"
+   ],
+   "subject": "ap_chemistry",
+   "frq_type": "short",
+   "archetype": "ap-chemistry-frq-short",
+   "difficulty": "Hard",
+   "content_key": "apchem-sfrq-007",
+   "total_points": 4,
+   "qa_remediation": "2026-08-07 AP Chemistry defect-scan rubric-criterion correction",
+   "content_version": 4,
+   "qa_source_decision_id": "a42af79b-ee99-46fe-8c67-62c626271cd6"
+  },
+  "criteria": [
+   {
+    "criterion_key": "part-a",
+    "learner_facing_text": "Converts Delta H from kJ to J before using T = Delta H / Delta S.",
+    "evidence_requirements": "Requires unit conversion to consistent J units.",
+    "minimum_fix": "Show kJ-to-J conversion before calculating the crossover temperature.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b",
+    "learner_facing_text": "Setting DeltaG=DeltaH-TDeltaS equal to zero gives the crossover temperature, assuming DeltaH and DeltaS are approximately temperature-independent over that range.",
+    "evidence_requirements": "Response cites DeltaG=DeltaH-TDeltaS=0 and the temperature-independence assumption.",
+    "minimum_fix": "To earn this point, cite DeltaG=DeltaH-TDeltaS=0 and the constant DeltaH/DeltaS assumption.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c",
+    "learner_facing_text": "Calculates DeltaG at T=310. K: DeltaG = DeltaH - TDeltaS = 35000 - (310)(120) = -2200 J/mol, negative, confirming this is consistent with part (a): the reaction is favorable above the crossover temperature (~292 K), and 310 K is above that crossover.",
+    "evidence_requirements": "Response correctly calculates DeltaG at 310 K as negative (approximately -2200 J/mol) and explicitly connects the negative sign to favorability above the crossover temperature found in part (a).",
+    "minimum_fix": "Calculate DeltaG at T=310 K using DeltaG=DeltaH-TDeltaS and show it is negative (approximately -2200 J/mol).",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-d",
+    "learner_facing_text": "At T=280 K: DeltaG=35000-(280)(120)=+1400 J/mol, positive, confirming nonspontaneity below 292 K.",
+    "evidence_requirements": "Response correctly calculates DeltaG at 280 K as positive (~+1400 J/mol) and connects it to nonspontaneity below the crossover.",
+    "minimum_fix": "To earn this point, compute DeltaG=35000-(280)(120)=+1400 J/mol and state this confirms nonspontaneity below 292 K.",
+    "points_possible": 1
+   }
+  ],
+  "canonical_answer_1": ""
+ },
+ {
+  "content_key": "apcalcbc-frq-030",
+  "old_version_id": "bd17238a-84e4-4ed0-9a85-fd53b7d2b90e",
+  "old_version_num": 1,
+  "stem": "Answer all parts of the following question.\n\n(a) Find the velocity and speed at t=\u03c0/4.\n\n(b) Find the acceleration and its magnitude at t=\u03c0/4.\n\n(c) Find the displacement vector and its magnitude from t=0 to t=\u03c0/2.\n\n(d) Find the total distance traveled from t=0 to t=\u03c0/2.",
+  "stimulus": "A particle has position r(t)=\u27e82cos t,2sin t\u27e9 for 0\u2264t\u2264\u03c0/2.",
+  "prompt_json": {
+   "modules": [
+    "unit-9-parametric-polar-vector-valued-functions",
+    "topic-9.6",
+    "practice-2"
+   ],
+   "subject": "ap_calculus_bc",
+   "frq_type": "long",
+   "archetype": "ap-calculus-bc-frq-vector-motion",
+   "item_type": "frq",
+   "difficulty": "Medium",
+   "content_key": "apcalcbc-frq-030",
+   "total_points": 9,
+   "calculator_mode": "no-calculator",
+   "scoring_contract": {
+    "part_count": 4,
+    "units_rule": "Units are required only when a criterion or prompt explicitly requests contextual units.",
+    "total_points": 9,
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "ambiguity_rule": "Escalate responses that use a valid but unlisted interpretation rather than forcing a score.",
+    "calculator_mode": "no-calculator",
+    "carry_forward_rule": "A later criterion may earn when the student's earlier arithmetic error is carried forward consistently and the later reasoning remains valid."
+   },
+   "source_school_year": "2026-27",
+   "package_content_sha256": "70c88b89bea6017ef7b40ad74ebc77f983e1031ff58b53c9428ae16780f18c5b",
+   "package_schema_version": "1.0.0"
+  },
+  "criteria": [
+   {
+    "criterion_key": "part-a-criterion-1",
+    "learner_facing_text": "Finds v(t)=\u27e8\u22122sin t,2cos t\u27e9.",
+    "evidence_requirements": "Finds v(t)=\u27e8\u22122sin t,2cos t\u27e9.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Finds v(t)=\u27e8\u22122sin t,2cos t\u27e9.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-a-criterion-2",
+    "learner_facing_text": "Obtains speed 2.",
+    "evidence_requirements": "Obtains speed 2.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains speed 2.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b-criterion-1",
+    "learner_facing_text": "Finds a(t)=\u27e8\u22122cos t,\u22122sin t\u27e9.",
+    "evidence_requirements": "Finds a(t)=\u27e8\u22122cos t,\u22122sin t\u27e9.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Finds a(t)=\u27e8\u22122cos t,\u22122sin t\u27e9.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b-criterion-2",
+    "learner_facing_text": "Obtains acceleration magnitude 2.",
+    "evidence_requirements": "Obtains acceleration magnitude 2.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains acceleration magnitude 2.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c-criterion-1",
+    "learner_facing_text": "Finds displacement \u27e8\u22122,2\u27e9.",
+    "evidence_requirements": "Finds displacement \u27e8\u22122,2\u27e9.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Finds displacement \u27e8\u22122,2\u27e9.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c-criterion-2",
+    "learner_facing_text": "Obtains magnitude 2\u221a2.",
+    "evidence_requirements": "Obtains magnitude 2\u221a2.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains magnitude 2\u221a2.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-d-criterion-1",
+    "learner_facing_text": "Uses \u222b\u2080^(\u03c0/2)|v(t)|dt.",
+    "evidence_requirements": "Uses \u222b\u2080^(\u03c0/2)|v(t)|dt.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses \u222b\u2080^(\u03c0/2)|v(t)|dt.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-d-criterion-2",
+    "learner_facing_text": "Uses the constant speed 2.",
+    "evidence_requirements": "Uses the constant speed 2.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses the constant speed 2.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-d-criterion-3",
+    "learner_facing_text": "Obtains total distance \u03c0.",
+    "evidence_requirements": "Obtains total distance \u03c0.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains total distance \u03c0.",
+    "points_possible": 1
+   }
+  ],
+  "canonical_answer_1": ""
+ },
+ {
+  "content_key": "apcalcbc-frq-022",
+  "old_version_id": "3a306af9-cb30-4f35-9b4e-ed3eb77f39c4",
+  "old_version_num": 1,
+  "stem": "Answer all parts of the following question.\n\n(a) Find all critical numbers of f.\n\n(b) Determine the intervals on which f is increasing and decreasing, and classify the critical numbers.\n\n(c) Determine the intervals of concavity.\n\n(d) Find the absolute maximum and absolute minimum values of f on [\u22123,3].",
+  "stimulus": "A differentiable function f satisfies f(0)=4 and f\u2032(x)=(x+1)(x\u22122)\u00b2 on \u22123\u2264x\u22643.",
+  "prompt_json": {
+   "modules": [
+    "unit-5-analytical-applications-of-differentiation",
+    "topic-5.9",
+    "practice-3"
+   ],
+   "subject": "ap_calculus_bc",
+   "frq_type": "long",
+   "archetype": "ap-calculus-bc-frq-derivative-sign-analysis",
+   "item_type": "frq",
+   "difficulty": "Medium",
+   "content_key": "apcalcbc-frq-022",
+   "total_points": 9,
+   "calculator_mode": "no-calculator",
+   "scoring_contract": {
+    "part_count": 4,
+    "units_rule": "Units are required only when a criterion or prompt explicitly requests contextual units.",
+    "total_points": 9,
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "ambiguity_rule": "Escalate responses that use a valid but unlisted interpretation rather than forcing a score.",
+    "calculator_mode": "no-calculator",
+    "carry_forward_rule": "A later criterion may earn when the student's earlier arithmetic error is carried forward consistently and the later reasoning remains valid."
+   },
+   "source_school_year": "2026-27",
+   "package_content_sha256": "f620406e987b24d5f16f86aca3b25225599d820cc0678f02e9adf81f6d3648ef",
+   "package_schema_version": "1.0.0"
+  },
+  "criteria": [
+   {
+    "criterion_key": "part-a-criterion-1",
+    "learner_facing_text": "Identifies x=\u22121.",
+    "evidence_requirements": "Identifies x=\u22121.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Identifies x=\u22121.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-a-criterion-2",
+    "learner_facing_text": "Identifies x=2.",
+    "evidence_requirements": "Identifies x=2.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Identifies x=2.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b-criterion-1",
+    "learner_facing_text": "Finds f decreases on (\u22123,\u22121).",
+    "evidence_requirements": "Finds f decreases on (\u22123,\u22121).",
+    "minimum_fix": "Add or correct the evidence needed to establish: Finds f decreases on (\u22123,\u22121).",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b-criterion-2",
+    "learner_facing_text": "Finds f increases on (\u22121,2) and (2,3).",
+    "evidence_requirements": "Finds f increases on (\u22121,2) and (2,3).",
+    "minimum_fix": "Add or correct the evidence needed to establish: Finds f increases on (\u22121,2) and (2,3).",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b-criterion-3",
+    "learner_facing_text": "Classifies x=\u22121 as a local minimum and x=2 as neither a maximum nor a minimum.",
+    "evidence_requirements": "Classifies x=\u22121 as a local minimum and x=2 as neither a maximum nor a minimum.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Classifies x=\u22121 as a local minimum and x=2 as neither a maximum nor a minimum.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c-criterion-1",
+    "learner_facing_text": "Finds f\u2033(x)=3x(x\u22122).",
+    "evidence_requirements": "Finds f\u2033(x)=3x(x\u22122).",
+    "minimum_fix": "Add or correct the evidence needed to establish: Finds f\u2033(x)=3x(x\u22122).",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c-criterion-2",
+    "learner_facing_text": "Concludes concave up on (\u22123,0) and (2,3), and concave down on (0,2).",
+    "evidence_requirements": "Concludes concave up on (\u22123,0) and (2,3), and concave down on (0,2).",
+    "minimum_fix": "Add or correct the evidence needed to establish: Concludes concave up on (\u22123,0) and (2,3), and concave down on (0,2).",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-d-criterion-1",
+    "learner_facing_text": "Compares f at endpoints and critical numbers to obtain an absolute maximum f(\u22123)=157/4 and an absolute minimum f(\u22121)=5/4.",
+    "evidence_requirements": "Compares f at endpoints and critical numbers to obtain an absolute maximum f(\u22123)=157/4 and an absolute minimum f(\u22121)=5/4.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Compares f at endpoints and critical numbers to obtain an absolute maximum f(\u22123)=157/4 and an absolute minimum f(\u22121)=5/4.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-d-criterion-2",
+    "learner_facing_text": "States the corresponding input values x=\u22123 and x=\u22121.",
+    "evidence_requirements": "States the corresponding input values x=\u22123 and x=\u22121.",
+    "minimum_fix": "Add or correct the evidence needed to establish: States the corresponding input values x=\u22123 and x=\u22121.",
+    "points_possible": 1
+   }
+  ],
+  "canonical_answer_1": ""
+ },
+ {
+  "content_key": "apphy2-frq-002",
+  "old_version_id": "d37c7ee1-3df3-4279-a270-6777ce18a8a1",
+  "old_version_num": 2,
+  "stem": "Answer all parts of the following question.\n\n(a) Derive the net electric field and net electric potential at the midpoint between the two charges, and evaluate the result.\n\n(b) Explain how the superposition principle for vector electric fields, combined with the symmetry of two equal point charges, explains why the fields cancel while the (scalar) potentials add.",
+  "stimulus": "Two +2.00 \u03bcC point charges are 0.400 m apart; consider their midpoint.",
+  "prompt_json": {
+   "modules": [
+    "unit-10-electric-force-field-and-potential",
+    "practice-2"
+   ],
+   "subject": "ap_physics_2",
+   "frq_type": "short",
+   "archetype": "ap-physics-2-frq-math",
+   "difficulty": "Easy",
+   "content_key": "apphy2-frq-002",
+   "total_points": 2,
+   "qa_remediation": "2026-08-10 pasted-prompt-rubric FRQ repair (protocol \u00a79.3 follow-up)",
+   "content_version": 2,
+   "qa_source_version_id": "2234b05c-0997-4b16-ac21-a4dec7748209"
+  },
+  "criteria": [
+   {
+    "criterion_key": "part-a",
+    "learner_facing_text": "The equal electric fields cancel at the midpoint while electric potential is positive and adds.",
+    "evidence_requirements": "field cancels; potential adds; positive",
+    "minimum_fix": "To earn this point, explicitly show field cancels; potential adds; positive.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b",
+    "learner_facing_text": "Superposition applied vectorially to the two electric-field vectors makes them cancel at the midpoint, since the charges are equal in magnitude and equidistant from it; superposition applied algebraically to the two scalar potentials makes them add, since both are positive and at equal distance.",
+    "evidence_requirements": "superposition principle applied vectorially to E and algebraically to V; symmetry of equal point charges at equal distance from the midpoint",
+    "minimum_fix": "To earn this point, explicitly show superposition principle applied vectorially to E and algebraically to V; symmetry of equal point charges at equal distance from the midpoint.",
+    "points_possible": 1
+   }
+  ],
+  "canonical_answer_1": ""
+ },
+ {
+  "content_key": "apcalcbc-frq-031",
+  "old_version_id": "5acbaf4b-4203-4ee7-a287-020fffb675c0",
+  "old_version_num": 1,
+  "stem": "Answer all parts of the following question.\n\n(a) Find the Cartesian coordinates at \u03b8=\u03c0/4.\n\n(b) Find dy/dx at \u03b8=\u03c0/4.\n\n(c) Find the area swept out by the radius from \u03b8=0 to \u03b8=\u03c0/2.\n\n(d) Find dA/d\u03b8 at \u03b8=\u03c0/4 and interpret the value.",
+  "stimulus": "A polar curve is given by r=2+sin(\u03b8\u00b2) for 0\u2264\u03b8\u2264\u03c0/2.",
+  "prompt_json": {
+   "modules": [
+    "unit-9-parametric-polar-vector-valued-functions",
+    "topic-9.8",
+    "practice-2"
+   ],
+   "subject": "ap_calculus_bc",
+   "frq_type": "long",
+   "archetype": "ap-calculus-bc-frq-polar-numerical-analysis",
+   "item_type": "frq",
+   "difficulty": "Hard",
+   "content_key": "apcalcbc-frq-031",
+   "total_points": 9,
+   "calculator_mode": "calculator",
+   "scoring_contract": {
+    "part_count": 4,
+    "units_rule": "Units are required only when a criterion or prompt explicitly requests contextual units.",
+    "total_points": 9,
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "ambiguity_rule": "Escalate responses that use a valid but unlisted interpretation rather than forcing a score.",
+    "calculator_mode": "calculator",
+    "carry_forward_rule": "A later criterion may earn when the student's earlier arithmetic error is carried forward consistently and the later reasoning remains valid."
+   },
+   "source_school_year": "2026-27",
+   "package_content_sha256": "a068702fcce3ce1946237486c572300e074b4d3206df106e56648bcd6d3d81b7",
+   "package_schema_version": "1.0.0"
+  },
+  "criteria": [
+   {
+    "criterion_key": "part-a-criterion-1",
+    "learner_facing_text": "Evaluates r=2+sin(\u03c0\u00b2/16).",
+    "evidence_requirements": "Evaluates r=2+sin(\u03c0\u00b2/16).",
+    "minimum_fix": "Add or correct the evidence needed to establish: Evaluates r=2+sin(\u03c0\u00b2/16).",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-a-criterion-2",
+    "learner_facing_text": "Obtains approximately (1.823,1.823).",
+    "evidence_requirements": "Obtains approximately (1.823,1.823).",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains approximately (1.823,1.823).",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b-criterion-1",
+    "learner_facing_text": "Finds dr/d\u03b8=2\u03b8cos(\u03b8\u00b2).",
+    "evidence_requirements": "Finds dr/d\u03b8=2\u03b8cos(\u03b8\u00b2).",
+    "minimum_fix": "Add or correct the evidence needed to establish: Finds dr/d\u03b8=2\u03b8cos(\u03b8\u00b2).",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b-criterion-2",
+    "learner_facing_text": "Uses dy/dx=[(dr/d\u03b8)sin\u03b8+r cos\u03b8]/[(dr/d\u03b8)cos\u03b8\u2212r sin\u03b8].",
+    "evidence_requirements": "Uses dy/dx=[(dr/d\u03b8)sin\u03b8+r cos\u03b8]/[(dr/d\u03b8)cos\u03b8\u2212r sin\u03b8].",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses dy/dx=[(dr/d\u03b8)sin\u03b8+r cos\u03b8]/[(dr/d\u03b8)cos\u03b8\u2212r sin\u03b8].",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b-criterion-3",
+    "learner_facing_text": "Obtains the slope approximately \u22122.976.",
+    "evidence_requirements": "Obtains the slope approximately \u22122.976.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains the slope approximately \u22122.976.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c-criterion-1",
+    "learner_facing_text": "Uses (1/2)\u222b\u2080^(\u03c0/2)[2+sin(\u03b8\u00b2)]\u00b2d\u03b8.",
+    "evidence_requirements": "Uses (1/2)\u222b\u2080^(\u03c0/2)[2+sin(\u03b8\u00b2)]\u00b2d\u03b8.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses (1/2)\u222b\u2080^(\u03c0/2)[2+sin(\u03b8\u00b2)]\u00b2d\u03b8.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c-criterion-2",
+    "learner_facing_text": "Obtains approximately 5.118 square units.",
+    "evidence_requirements": "Obtains approximately 5.118 square units.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains approximately 5.118 square units.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-d-criterion-1",
+    "learner_facing_text": "Uses dA/d\u03b8=(1/2)r\u00b2.",
+    "evidence_requirements": "Uses dA/d\u03b8=(1/2)r\u00b2.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses dA/d\u03b8=(1/2)r\u00b2.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-d-criterion-2",
+    "learner_facing_text": "Obtains approximately 3.324 square units per radian.",
+    "evidence_requirements": "Obtains approximately 3.324 square units per radian.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains approximately 3.324 square units per radian.",
+    "points_possible": 1
+   }
+  ],
+  "canonical_answer_1": ""
+ },
+ {
+  "content_key": "apcalcbc-frq-033",
+  "old_version_id": "7f67db08-4dbb-4aaf-88d4-272fc4743d31",
+  "old_version_num": 1,
+  "stem": "Answer all parts of the following question.\n\n(a) \u03a3[n=1 to \u221e]1/(n\u00b2+1)\n\n(b) \u03a3[n=1 to \u221e](\u22121)^n n/(n+1)\n\n(c) \u03a3[n=1 to \u221e](\u22121)^(n+1)/n\n\n(d) \u03a3[n=1 to \u221e]3^n/n!",
+  "stimulus": "For each series, state whether it converges or diverges and justify with a named test.",
+  "prompt_json": {
+   "modules": [
+    "unit-10-infinite-sequences-and-series",
+    "topic-10.9",
+    "practice-3"
+   ],
+   "subject": "ap_calculus_bc",
+   "frq_type": "long",
+   "archetype": "ap-calculus-bc-frq-convergence-tests",
+   "item_type": "frq",
+   "difficulty": "Medium",
+   "content_key": "apcalcbc-frq-033",
+   "total_points": 9,
+   "calculator_mode": "no-calculator",
+   "scoring_contract": {
+    "part_count": 4,
+    "units_rule": "Units are required only when a criterion or prompt explicitly requests contextual units.",
+    "total_points": 9,
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "ambiguity_rule": "Escalate responses that use a valid but unlisted interpretation rather than forcing a score.",
+    "calculator_mode": "no-calculator",
+    "carry_forward_rule": "A later criterion may earn when the student's earlier arithmetic error is carried forward consistently and the later reasoning remains valid."
+   },
+   "source_school_year": "2026-27",
+   "package_content_sha256": "8374757c1a3b2097c66b2a28b911ad509c84185e9ee543e9ac07bc43139e38c2",
+   "package_schema_version": "1.0.0"
+  },
+  "criteria": [
+   {
+    "criterion_key": "part-a-criterion-1",
+    "learner_facing_text": "Compares with 1/n\u00b2.",
+    "evidence_requirements": "Compares with 1/n\u00b2.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Compares with 1/n\u00b2.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-a-criterion-2",
+    "learner_facing_text": "Concludes the series converges.",
+    "evidence_requirements": "Concludes the series converges.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Concludes the series converges.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b-criterion-1",
+    "learner_facing_text": "Notes that the terms do not approach zero.",
+    "evidence_requirements": "Notes that the terms do not approach zero.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Notes that the terms do not approach zero.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-b-criterion-2",
+    "learner_facing_text": "Concludes divergence by the nth-term test.",
+    "evidence_requirements": "Concludes divergence by the nth-term test.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Concludes divergence by the nth-term test.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c-criterion-1",
+    "learner_facing_text": "Uses the Alternating Series Test to establish convergence.",
+    "evidence_requirements": "Uses the Alternating Series Test to establish convergence.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses the Alternating Series Test to establish convergence.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c-criterion-2",
+    "learner_facing_text": "Notes that \u03a31/n diverges.",
+    "evidence_requirements": "Notes that \u03a31/n diverges.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Notes that \u03a31/n diverges.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-c-criterion-3",
+    "learner_facing_text": "Classifies the convergence as conditional.",
+    "evidence_requirements": "Classifies the convergence as conditional.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Classifies the convergence as conditional.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-d-criterion-1",
+    "learner_facing_text": "Uses the Ratio Test.",
+    "evidence_requirements": "Uses the Ratio Test.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses the Ratio Test.",
+    "points_possible": 1
+   },
+   {
+    "criterion_key": "part-d-criterion-2",
+    "learner_facing_text": "Obtains ratio limit 0 and concludes absolute convergence.",
+    "evidence_requirements": "Obtains ratio limit 0 and concludes absolute convergence.",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains ratio limit 0 and concludes absolute convergence.",
+    "points_possible": 1
+   }
+  ],
+  "canonical_answer_1": ""
+ }
+]
