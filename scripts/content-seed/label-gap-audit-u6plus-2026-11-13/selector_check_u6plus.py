@@ -9,7 +9,7 @@ REF = pmb.ENVS['prod']; USER = str(uuid.uuid4())
 epv = {}
 for f in glob.glob(os.path.join(HERE, 'raw', 'ap_*.json')):
     for r in json.load(open(f)): epv[r['content_key']] = r['epv']
-rows = [dict(r, rnd=rn) for rn, pat in (('r3', 'stage6/r3/load_*.json'),) for f in glob.glob(os.path.join(HERE, pat)) for r in json.load(open(f))]
+rows = [dict(r, rnd=rn) for rn, pat in (('u6', 'stage4/load/load_*.json'),) for f in glob.glob(os.path.join(HERE, pat)) for r in json.load(open(f))]
 allowed = {r['exam_pack_version_id']: max(r['allowed_unit_numbers']) for r in pmb.query(REF, 'select exam_pack_version_id::text, allowed_unit_numbers from app.home_release_manifest')}
 groups = C.defaultdict(list)
 for r in rows: groups[(epv[r['content_key']], r['topic'], r['item_type'])].append(r)
@@ -27,6 +27,27 @@ for (e, t, ty), rs in groups.items():
         else: missing.append(k)
 print(f'newly labeled items {len(rows)} in {len(groups)} topic/type groups: returned {found}, returned with topic_match=true {topic_ok}, not returned {len(missing)}, query errors {errs}')
 print('not returned:', missing[:40])
-u45 = [r for r in rows if r['content_key'].startswith('apstats-frq-u45r2')]
-print('apstats-frq-u45r2:', len(u45), 'of which returned with topic_match', sum(1 for r in u45 if r['content_key'] not in missing))
-json.dump({'returned': found, 'topic_match': topic_ok, 'missing': missing, 'total': len(rows)}, open(os.path.join(HERE, 'stage6', 'selector_check_r3.json'), 'w'))
+# regression sample: in-scope items fully served BEFORE (validated cell + fresh validated label per Stage 1 export), 6 per subject
+import random; random.seed(20261113)
+d = json.load(open(os.path.join(HERE, 'gap_items_u6plus.json'))); new = {r['content_key'] for r in rows}
+cells = {}
+for sub in {i['subject'] for i in d['items']}:
+    for r in json.load(open(os.path.join(HERE, 'raw', sub + '.json'))):
+        pc = [c['t'] for c in r['cells'] if c['p'] and c['st'] == 'validated' and not c['s']]
+        if pc: cells[r['content_key']] = pc[0]
+base = [i for i in d['items'] if i['in_scope'] and i['f']['topic_validated'] and i['f']['serving'] == 'ok' and i['content_key'] not in new]
+bysub = C.defaultdict(list)
+for i in base: bysub[i['subject']].append(i)
+rg = [i for s_, v in bysub.items() for i in random.sample(v, min(6, len(v)))]
+rfound = rtm = 0; rmiss = []
+for i in rg:
+    k = i['content_key']; e = epv[k]; t = cells[k]; got = {}; off = 0
+    for _ in range(40):
+        page = pmb.query(REF, f"select content_key, topic_match from public.select_student_practice_items('{e}'::uuid, {allowed[e]}, '{USER}'::uuid, null, '{i['item_type']}', '{t}', 51, {off})")
+        for p in page: got[p['content_key']] = p['topic_match']
+        off += 51
+        if len(page) < 51 or k in got: break
+    if k in got: rfound += 1; rtm += bool(got[k])
+    else: rmiss.append(k)
+print(f'regression sample {len(rg)} previously served items: returned {rfound}, topic_match {rtm}, missing {rmiss}')
+json.dump({'returned': found, 'topic_match': topic_ok, 'missing': missing, 'total': len(rows), 'regression': {'n': len(rg), 'returned': rfound, 'topic_match': rtm, 'missing': rmiss}}, open(os.path.join(HERE, 'stage4', 'selector_check.json'), 'w'))

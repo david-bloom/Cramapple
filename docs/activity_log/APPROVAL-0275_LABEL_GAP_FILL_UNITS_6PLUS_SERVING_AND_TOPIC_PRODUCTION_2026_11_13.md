@@ -14,3 +14,8 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs (#652) and all remote branches was 0274; this record takes 0275.
 - **Rehearsal:** eight `REHEARSAL OK` (rolled back, constraints forced immediate).
 - **Result:** see the execution record appended below.
+
+## Execution record (2026-11-13)
+- Eight transactions COMMITTED (Biology 1, Calculus AB 35, Calculus BC 19, Chemistry 11, Physics 1 19, Physics 2 11, E&M 10, Mechanics 12). Independent read-back MATCH 118/118.
+- Live selector: 118/118 returned with `topic_match = true`; regression sample 20/20 previously served items still returned with `topic_match`. Fresh export: gap 141 -> 23 (the listed residue); 0 previously servable labels or validated cells lost.
+- Report: `docs/qa/LABEL_GAP_AUDIT_UNITS_6PLUS_FINAL_REPORT_2026_11_13.md`.
