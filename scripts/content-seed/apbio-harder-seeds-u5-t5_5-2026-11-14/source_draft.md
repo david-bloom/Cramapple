@@ -1,0 +1,261 @@
+# AP Biology Unit 5 topic 5.5 — Environmental Effects on Phenotype
+
+DRAFT. Author-in-session 2026-11-14. CED 5.5.A.1.
+
+---
+
+## Seed N-5.5-A (new) — Topic 5.5 Environmental Effects on Phenotype
+
+**Skill:** interpret controlled genotype-by-environment experiments and plasticity
+
+
+
+Researchers propagate genetically identical clones of one flowering plant. Plants in acidic soil make blue flowers, and plants in alkaline soil make pink flowers. When clones are moved to the opposite soil before new buds form, the new flowers match the new soil. Which conclusion is best supported, and what control isolates the environmental cause?
+
+
+
+- **A. The same genotype has a plastic flower-color phenotype; grow randomized clones in both soils while holding light, water, and age constant.**
+
+- B. The pH treatment permanently changed the allele sequence in every clone; compare only blue plants with unrelated pink plants.
+
+- C. The color shift proves blue is a dominant allele; cross two blue plants without controlling soil.
+
+- D. The plants have different genotypes because their flowers differ; no environmental control is needed.
+
+
+
+Check: Clonal genotype is held constant while soil pH changes, and new flowers reverse with transfer. That supports an environmentally responsive phenotype rather than an inherited sequence change. Replicated randomized clones with other conditions controlled isolate pH.
+
+Rationales: B: A reversible new-flower response in clones does not establish a permanent allele change, and unrelated plants confound genotype. C: A cross without a controlled environment does not identify the cause of this reversible response. D: Phenotypic differences among clones need not imply different DNA sequences.
+
+
+
+**N-5.5-A-v1.** Genetically identical insect larvae are randomly assigned to two diets. Adults on diet X have dark wings, and adults on diet Y have light wings; an assay finds the same pigment-gene DNA sequence in both groups. Which follow-up most directly tests whether diet changes expression of that gene rather than selecting a preexisting genotype?
+
+
+
+- **A. Raise new clonal larvae on each diet and compare pigment-gene RNA levels in wing tissue at the same developmental stage.**
+
+- B. Sequence only the dark-winged adults again and assume any RNA difference is inherited.
+
+- C. Mate one dark adult with one light adult and ignore the diets of their offspring.
+
+- D. Measure only body mass in the two diet groups because wing expression cannot vary without DNA changes.
+
+
+
+Check: Random assignment of clones holds genotype constant. Measuring pigment-gene RNA in the relevant tissue and stage under each diet tests environment-dependent expression associated with the wing phenotype.
+
+Rationales: B: Repeating DNA sequencing alone does not test transcription, and one phenotype group cannot reveal a diet contrast. C: Uncontrolled offspring diets cannot separate parental genotype from environmental exposure. D: The same DNA sequence can be expressed at different levels in different environments.
+
+
+
+**N-5.5-A-v2.** Two identical plant cuttings grow in full sun or shade. Sun-grown leaves are small and thick; shade-grown leaves are large and thin. New leaves produced after the cuttings exchange light treatments follow the new treatment. Which inference is justified, and which is not?
+
+
+
+- **A. Leaf form is plastic within this genotype; the observations do not show that the cuttings acquired different heritable alleles.**
+
+- B. Sunlight must have rewritten the DNA of every leaf, and the new alleles are inherited by seeds.
+
+- C. The cuttings originally carried different alleles because their mature leaves differed.
+
+- D. Because the first leaves remain unchanged, the later leaves cannot be environmentally influenced.
+
+
+
+Check: The genotype is held constant and newly formed leaves respond to the current light environment after a switch. Existing leaves need not remodel. The data support phenotypic plasticity, not a demonstrated change in inherited sequence.
+
+Rationales: B: A phenotype shift in new leaves does not establish germline DNA change or inheritance. C: Identical cuttings from one clone share the same starting genotype. D: Developmental timing explains why old leaves persist while new leaves respond to changed light.
+
+
+
+**N-5.5-A-v3.** A clonal fish line develops darker coloration in cool water than in warm water. Fish from both treatments are bred, and their offspring are all reared at the same temperature; the offspring color distributions overlap. Which explanation best fits both generations, and what design feature supports it?
+
+
+
+- **A. Temperature alters phenotype within the parental genotype; the common offspring temperature removes the parental environmental difference when comparing offspring.**
+
+- B. Cool water permanently mutates the pigment allele in every parent, so all their offspring must remain darker in common water.
+
+- C. The parental groups must have different genotypes because the parents have different colors.
+
+- D. Offspring overlap proves that temperature never affected the parents.
+
+
+
+Check: The clonal parents share a genotype but differ with rearing temperature. A common environment for offspring removes their environmental contrast, and overlapping distributions do not support a fixed inherited color difference.
+
+Rationales: B: An induced permanent mutation is neither shown nor consistent with the stated common-environment result. C: Different parental phenotypes do not require different genotypes in a clonal line. D: The parental treatment contrast is direct evidence of an environmental effect despite overlap in their offspring.
+
+---
+
+## Seed N-5.5-B (new) — Topic 5.5 Environmental Effects on Phenotype
+
+**Skill:** compare reaction norms to infer genotype-by-environment interaction
+
+
+
+Clones of genotype A average 10 pigment units in cool water and 20 in warm water. Genotype B averages 12 in cool water and 12 in warm water. Which comparison identifies a genotype-by-environment interaction?
+
+
+
+- **A. Warming changes A by +10 units but B by 0, so the environmental effect depends on genotype.**
+
+- B. A and B differ in cool water, so only genotype matters and temperature has no effect.
+
+- C. Both genotypes were tested twice, so their reaction norms must be parallel.
+
+- D. The average pigment level of both groups is 12, proving no interaction.
+
+
+
+Check: A responds to warming by 20−10=10 units; B responds by 12−12=0. Unequal environmental responses are a genotype-by-environment interaction.
+
+Rationales: B: A changes by 10 units, so temperature clearly matters for at least that genotype. C: Reaction norms are parallel only when their environmental changes are equal. D: An aggregate average cannot replace comparing the two genotype-specific changes.
+
+
+
+**N-5.5-B-v1.** A plant height experiment grows two genotypes under low and high nutrients. Genotype A averages 10 cm then 20 cm; genotype B averages 15 cm then 25 cm. Which interpretation of these reaction norms is supported?
+
+
+
+- **A. Both genotypes gain 10 cm, so there are genotype and nutrient effects but no interaction in these mean responses.**
+
+- B. The 5-cm difference at low nutrients proves the nutrient effect differs between genotypes.
+
+- C. The high-nutrient environment changes the A genotype into the B genotype.
+
+- D. A and B have identical phenotypes in both environments, so neither genotype nor nutrients matter.
+
+
+
+Check: The nutrient change is +10 cm for A and +10 cm for B, giving parallel reaction norms. B is consistently 5 cm taller and both grow taller with nutrients, but the measured environment effect does not differ by genotype.
+
+Rationales: B: A genotype difference at one environment is not an interaction when the environmental changes are equal. C: Nutrient treatment can change growth without changing allele identity. D: The stated means differ by genotype and by nutrient level.
+
+
+
+**N-5.5-B-v2.** For a pigment trait, genotype A averages 20 units in low light and 10 in high light; genotype B averages 10 in low light and 20 in high light. What does the reversal of genotype ranking imply?
+
+
+
+- **A. The response to light depends on genotype: A changes −10 and B changes +10, a crossing interaction.**
+
+- B. Light has no effect because the combined mean is 15 units in both environments.
+
+- C. A is intrinsically higher than B in every environment because it is higher in low light.
+
+- D. The genotypes must have exchanged their alleles when moved between light treatments.
+
+
+
+Check: A changes from 20 to 10 (−10) while B changes from 10 to 20 (+10). The opposite slopes and ranking reversal show a genotype-by-environment interaction even though pooled means match.
+
+Rationales: B: Equal pooled means can hide opposite genotype-specific responses. C: The ranking reverses under high light, so A is not higher than B in every environment. D: Phenotypic response need not involve allele exchange.
+
+
+
+**N-5.5-B-v3.** Clonal genotype C makes 8 enzyme units at 18°C and 8 at 28°C. Clonal genotype D makes 8 units at 18°C and 20 at 28°C. Which result best distinguishes plasticity from a genotype difference that is fixed across both temperatures?
+
+
+
+- **A. D changes by +12 units while C changes by 0; D is plastic over this interval and the temperature effect depends on genotype.**
+
+- B. Both genotypes are equally plastic because they match at 18°C.
+
+- C. Only genotype can affect enzyme level, because temperature cannot change DNA sequence.
+
+- D. C and D must be the same genotype because they share an 8-unit phenotype at 18°C.
+
+
+
+Check: Within-genotype comparison shows C has zero response and D gains 12 units. Their reaction norms differ, so D shows plasticity over the tested interval and the environmental effect depends on genotype.
+
+Rationales: B: Matching in one environment does not imply matching responses across environments. C: Temperature may alter expression or activity without changing DNA sequence. D: Equal phenotype under one condition does not establish identical genotype.
+
+---
+
+## Seed N-5.5-C (new) — Topic 5.5 Environmental Effects on Phenotype
+
+**Skill:** infer environmental cues and distinguish phenotype from allele inheritance
+
+
+
+Eggs from one reptile clutch are randomly assigned to two incubation temperatures. All embryos have the same measured alleles at a candidate sex-associated locus. The colder group is mostly one sex, while the warmer group is mostly the other. Which conclusion and follow-up best distinguish an environmental developmental cue from inherited allele differences?
+
+
+
+- **A. Incubation temperature is associated with sex phenotype within this clutch; replicate the split-clutch treatment across more clutches while genotyping parents and offspring.**
+
+- B. Temperature must have replaced the candidate allele in all warm embryos; no replication is needed.
+
+- C. The clutch contains only one genotype, so any sex difference must be random and cannot involve temperature.
+
+- D. Sex of the adult parents alone establishes that the embryo temperature has no developmental effect.
+
+
+
+Check: Randomized incubation temperature within a clutch reduces genetic confounding, and matched measured alleles make a simple allele difference less likely. Repeating across clutches with genotype data tests a temperature-dependent developmental outcome.
+
+Rationales: B: Phenotype association does not prove DNA replacement, and replication is needed. C: Shared measured alleles do not rule out environment-dependent developmental pathways. D: Parental sex does not test the manipulated incubation condition.
+
+
+
+**N-5.5-C-v1.** Genetically similar mice receive either a high or low UV exposure. Skin cells in the high-UV group express more melanin-synthesis RNA and contain more melanin, but germline genotypes are unchanged. Which mechanism and prediction best fit these observations?
+
+
+
+- **A. UV exposure changes skin-cell expression and pigment phenotype; offspring raised without UV need not inherit the darker acquired skin.**
+
+- B. UV rewrites a germline pigment allele in every exposed mouse, so all descendants must be darker.
+
+- C. The measured RNA difference proves the mice had different pigment DNA before exposure.
+
+- D. Melanin concentration cannot change unless the number of chromosomes changes.
+
+
+
+Check: Higher UV is associated with elevated pigment-pathway RNA in skin and more melanin without a stated germline sequence change. A somatic environmental response is not automatically inherited by offspring in a common environment.
+
+Rationales: B: The stem explicitly says germline genotypes are unchanged. C: Expression levels can differ even when the underlying DNA sequence is the same. D: Pigment production can change through regulation without a chromosome-number change.
+
+
+
+**N-5.5-C-v2.** Two groups of genetically identical arctic mammals experience long or short daylight in controlled rooms with equal food and temperature. New coats grow brown in long days and white in short days. After the light schedules switch, newly grown coats match the new schedule. Which mechanism is most consistent?
+
+
+
+- **A. Photoperiod acts as an environmental cue that changes coat-color expression in the same genotype; the reversal argues against fixed new coat-color alleles.**
+
+- B. Each short-day animal acquired a new white-fur allele that disappears when days lengthen.
+
+- C. The two groups necessarily had different inherited coat-color genotypes despite being identical clones.
+
+- D. Food shortage caused the white coat, even though food was held equal between groups.
+
+
+
+Check: Only day length differs initially, and newly grown coats respond to the switched schedule. That supports a reversible, environmentally cued expression program in a shared genotype.
+
+Rationales: B: A reversible response to light does not demonstrate alleles appearing and disappearing. C: The premise fixes genotype across the groups. D: Food is controlled and cannot explain the contrast in this experiment.
+
+
+
+**N-5.5-C-v3.** A yeast clone produces mating pheromone only when it senses cells of the opposite mating type nearby. When those cells are removed, pheromone RNA falls; reintroducing them raises RNA again. What does this reversible result show, and what comparison isolates the cue?
+
+
+
+- **A. One genotype can alter expression with its social environment; compare replicate clone cultures with and without opposite-type cells under otherwise matched conditions.**
+
+- B. The yeast clone switches to a new inherited mating-type allele whenever another cell approaches.
+
+- C. RNA changes prove the cultures had different genotypes before treatment, so environmental controls are unnecessary.
+
+- D. The pheromone is produced constitutively, because a gene cannot be turned on and off by a cue.
+
+
+
+Check: The same clone shows reversible RNA changes with presence of the opposite mating type. Matched replicate cultures differing only in that cue can test environmental regulation of expression.
+
+Rationales: B: A reversible transcriptional response does not require or demonstrate an inherited allele switch. C: The clonal premise and reversible response support a regulated phenotype rather than preexisting genotype differences. D: Genes can be regulated by environmental signals and need not be constitutively expressed.

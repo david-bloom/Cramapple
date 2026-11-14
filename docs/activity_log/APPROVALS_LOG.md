@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0287 — AP Biology Unit 5 topic-by-topic Production publication (owner directed 2026-11-13)](APPROVAL-0287_BIOLOGY_UNIT5_TOPIC_RELEASE_PRODUCTION_2026_11_13.md)
 - APPROVAL-0286 (2026-11-14): apcalcbc-mcq-007 (Newton's method, outside the CED) retired in Production — APPROVAL-0286_RETIRE_APCALCBC_MCQ_007_PRODUCTION_2026_11_14.md
 - APPROVAL-0285 (2026-11-14): 75 previously unit-less items labeled (topic cells and serving labels) to Production — APPROVAL-0285_LABEL_75_UNITLESS_ITEMS_PRODUCTION_2026_11_14.md
 - APPROVAL-0284 (2026-11-14): rubric/prompt repair of 11 held FRQs (unit-less set), new versions to Production — APPROVAL-0284_RUBRIC_PROMPT_REPAIR_11_FRQS_UNITLESS_PRODUCTION_2026_11_14.md
