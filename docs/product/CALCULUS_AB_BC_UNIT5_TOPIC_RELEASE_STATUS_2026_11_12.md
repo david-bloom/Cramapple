@@ -141,9 +141,9 @@ Before write, a 2026-11-13 read-only Production count found zero published/valid
 
 | Pack | Before published / valid-serving | New R1 / R2 / R3 | New R2 seed / variant | New R3 seed / variant | Retire | After published / valid-serving |
 |---|---:|---:|---:|---:|---:|---:|
-| AB | 0 / 0 | 0 / 11 / 1 | 3 / 8 | 0 / 1 | 0 | 12 / 12 expected |
-| BC | 0 / 0 | 0 / 11 / 1 | 3 / 8 | 0 / 1 | 0 | 12 / 12 expected |
+| AB | 0 / 0 | 0 / 11 / 1 | 3 / 8 | 0 / 1 | 0 | 12 / 12 verified |
+| BC | 0 / 0 | 0 / 11 / 1 | 3 / 8 | 0 / 1 | 0 | 12 / 12 verified |
 
 Both final validators passed and both packages built two load chunks. DeepSeek and Kimi each agreed 12/12 keys in each final pack; both tier models returned all 12 ratings, with zero R1, duplicates, disputed keys, or missing-model flags. Cross-family stem similarity over 0.80: zero. The author checked each constraint, expression, unit, domain, derivative, cut-size volume, choice, and rationale. The R3 seed target was not met; all new items met the owner's R2-or-R3 floor. Tiers are uncalibrated; no subject-expert review is claimed. The one-time QA exception applies.
 
-**Execution state:** Prepared under `APPROVAL-0268`; update after write.
+**Execution state:** Published under `APPROVAL-0268`. Both executors loaded two chunks, verified 12/12 draft hashes, passed rolled-back publish rehearsals, published and validated 12/12 labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 12/12 published and valid-serving in AB and BC.
