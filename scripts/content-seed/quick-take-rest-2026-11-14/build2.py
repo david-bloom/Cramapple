@@ -10,6 +10,8 @@ for subj,fs in files.items():
             p=l.split('|'); code=p[0]
             if code.endswith('R'): d[code[:-1]]+="\nRemember it: "+'|'.join(p[1:]); continue
             if len(p)>3: print('PIPE',subj,code)
+            if (subj,code)==('ap_calculus_bc','10.2'):
+                d[code]="The answer move: Find the common ratio first. If |r|<1, use a/(1-r); otherwise state that the infinite series diverges.\nHow points are lost: Using the sum formula when |r| is greater than or equal to 1."; continue
             d[code]=f"The answer move: {p[1]}\nHow points are lost: {'|'.join(p[2:])}" if len(p)==3 else f"The answer move: {'|'.join(p[1:-1])}\nHow points are lost: {p[-1]}"
     want={r['topic_code'] for r in snap if r['subject_key']==subj}
     if set(d)!=want: print(subj,'coverage',sorted(set(d)^want)); bad.append((subj,'coverage'))
@@ -18,6 +20,7 @@ for subj,fs in files.items():
             n=len(ln.split(': ',1)[1].split())
             if n>25: bad.append((subj,c,ln.split(':')[0],n))
         if len(t)>400: bad.append((subj,c,'chars',len(t)))
+    d={c:t.replace('abs(u)','|u|') for c,t in d.items()}  # agent used abs(u) to avoid the pipe delimiter; source has |u|
     out[subj]=d
 json.dump(out,open('proposed.json','w'),indent=1,ensure_ascii=False)
 print({s:len(d) for s,d in out.items()},'problems',len(bad))
