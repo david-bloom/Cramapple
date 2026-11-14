@@ -5,6 +5,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 ## Index
 
 - 2026-11-14: Cheat Sheet digestibility session closed; handoff `handoffs/SESSION_CLOSE_2026_11_14_CHEAT_SHEET_DIGESTIBILITY.md` (quick_take and structured text live; open: human review, source mismatches).
+- 2026-11-14: triage of the 76 unit-less unlabeled items (read-only): 64 vote-then-label, 11 need rubric repair, 1 out of the CED (docs/qa/LABEL_UNITLESS_76_TRIAGE_2026_11_14.md).
 - 2026-11-14: two FRQs repaired (APPROVAL-0282) and labeled (APPROVAL-0283); units 6+ residue now 0.
 - 2026-11-14: three held Units 6+ items labeled (APPROVAL-0281); residue now 2, both needing a content repair.
 - Calculus AB and BC Unit 5 topic 5.10 prepared under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack; one weak variant rewritten and rechecked; final zero R1 or key flags. No Production write yet for this topic. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
