@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Calculus AB and BC Unit 5 topic 5.7 prepared under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack, zero R1 or key flags, no old items to retire. No Production write yet for this topic. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - Calculus AB and BC Unit 5 topic 5.6 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack with validated serving labels and three old AB R1 family items retired. AB and BC each have 13/13 published/valid-serving topic MCQs. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - Calculus AB and BC Unit 5 topic 5.5 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack, zero R1 or key flags; all rated R2. AB 13/13 and BC 12/12 published/valid-serving after the release. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - Calculus AB and BC Unit 5 topic 5.4 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack with validated serving labels; one AB blind letter disagreed while its reasoning supported the correct key, documented in the status.

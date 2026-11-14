@@ -95,3 +95,16 @@ Packages `apcalcab-harder-seeds-u5-t5_6-2026-11-13` and `apcalcbc-harder-seeds-u
 Tiers are uncalibrated. Both draft validators passed, both packages built two load chunks, and DeepSeek and Kimi blind solves each agreed 12/12 keys in each pack. Both tier models returned all 12 ratings per pack, with zero R1, duplicate, disputed-key, or missing-model flags. Cross-family and retained-old stem similarity over 0.80: zero. The one-time QA exception applies.
 
 **Execution state:** Published to both Production packs under `APPROVAL-0268` on 2026-11-13. AB preflight found the expected three old published keys and zero new keys; BC found zero/zero. Both executors loaded two chunks, matched 12/12 draft hashes, passed rolled-back publish rehearsals, published 12 items with 12 validated serving labels and 12 topic cells, matched 12/12 post-publish hashes, and returned all 12 new items through the student selector. AB's three old R1 family items passed retirement rehearsal and were retired. Independent read-only Production verification found AB 13 published/13 valid-serving and BC 13/13; the three retirement keys have status `retired`.
+
+## Topic 5.7 — Second Derivative Test
+
+Before write, a 2026-11-13 read-only Production check found zero published topic 5.7 MCQs in both AB and BC. There is no old R1 family to retire. Packages `apcalcab-harder-seeds-u5-t5_7-2026-11-13` and `apcalcbc-harder-seeds-u5-t5_7-2026-11-13` contain three seeds and nine variants each, with identical stems, choices, keys and rationales. They cover two critical points classified by f'', the inconclusive f''=0 case resolved with independent evidence, and a unique critical point whose local extremum is absolute. CED FUN-4.A.7–8 and required units `[5]` apply. The author derived every f'' sign, power-function behavior, and unique-zero claim and checked every rationale; no subject-expert review is claimed.
+
+| Pack | Before published / valid-serving | New R1 / R2 / R3 | New R2 seed / variant | New R3 seed / variant | Retire | After published / valid-serving |
+|---|---:|---:|---:|---:|---:|---:|
+| AB | 0 / 0 | 0 / 6 / 6 | 2 / 4 | 1 / 5 | 0 | 12 / 12 expected |
+| BC | 0 / 0 | 0 / 5 / 7 | 1 / 4 | 2 / 5 | 0 | 12 / 12 expected |
+
+Tiers are uncalibrated. Both draft validators passed and both packages built two load chunks. DeepSeek and Kimi blind solves each agreed 12/12 keys in each pack; both tier models returned all 12 ratings per pack, with zero R1, duplicate, disputed-key, or missing-model flags. Cross-family stem similarity over 0.80: zero. The one-time QA exception applies.
+
+**Execution state:** Prepared under `APPROVAL-0268`; update after write.
