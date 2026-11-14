@@ -15,3 +15,7 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs and remote branches was 0280; this record takes 0281.
 - **Rehearsal:** two `REHEARSAL OK` (rolled back, constraints forced immediate). No gateway spend.
 - **Result:** see the execution record below.
+
+## Execution record (2026-11-14)
+- Two transactions COMMITTED; read-back MATCH 2/2 (Calculus BC) and 1/1 (Chemistry). Live selector: 3/3 returned with `topic_match = true`; regression sample of 48 previously served items 48/48.
+- Units 6+ unlabeled residue is now **2**: `apcalcab-frq-035` (Euler parts, BC-only) and `apchem-sfrq-035` (excluded buffer pH-change computation). Both need a content repair first.
