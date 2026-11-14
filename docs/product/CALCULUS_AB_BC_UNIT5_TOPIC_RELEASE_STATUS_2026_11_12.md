@@ -167,9 +167,9 @@ Before write, Production had zero published/valid-serving topic 5.12 MCQs in bot
 
 | Pack | Before published / valid-serving | New R1 / R2 / R3 | New R2 seed / variant | New R3 seed / variant | Retire | After published / valid-serving |
 |---|---:|---:|---:|---:|---:|---:|
-| AB | 0 / 0 | 0 / 4 / 8 | 2 / 2 | 1 / 7 | 0 | 12 / 12 expected |
-| BC | 0 / 0 | 0 / 7 / 5 | 2 / 5 | 1 / 4 | 0 | 12 / 12 expected |
+| AB | 0 / 0 | 0 / 4 / 8 | 2 / 2 | 1 / 7 | 0 | 12 / 12 verified |
+| BC | 0 / 0 | 0 / 7 / 5 | 2 / 5 | 1 / 4 | 0 | 12 / 12 verified |
 
 Both validators passed and both packages built two load chunks. DeepSeek and Kimi each agreed 12/12 keys in each pack. Two-model tiers returned no R1 items, duplicate flags, disputed keys, or missing-model flags; 4 AB and 6 BC items had R2/R3 tier model disagreement, conservatively counted as R2. Cross-family stem similarity over 0.80: zero. The author checked implicit derivatives, relation membership, tangent classification, curvature, all choices, and rationales. The R3 seed target was missed; all new items met the owner's R2-or-R3 floor. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
 
-**Execution state:** Prepared under `APPROVAL-0268`; update after write.
+**Execution state:** Published under `APPROVAL-0268`. Both executors passed preflight, loaded two chunks, verified 12/12 draft hashes, passed rolled-back publish rehearsals, published with 12/12 validated labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 12/12 published/valid-serving for topic 5.12 in each pack and at least 12/12 published/valid-serving in every Calculus Unit 5 topic in both packs.
