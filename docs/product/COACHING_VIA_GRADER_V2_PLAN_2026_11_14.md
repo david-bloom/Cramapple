@@ -16,6 +16,11 @@ Goal is unchanged: *show students how to earn points.* Name what the question re
 - **Integrity already enforced:** evidence quotes must be found in the student's response or the criterion is zeroed (`evidenceIsGrounded`, `grading-feedback.ts`); integrity failures force the whole grading to `uncertain`; Statistics deterministic checks can mark criteria unresolved (`overrideCriteriaAsUnresolved`). The summary is composed from the verdicts so it cannot contradict them (`grading-contract.ts`).
 - **MCQ today:** `composeMcqFeedback` (`evaluate-attempt/index.ts:418`) builds deterministic, template-varied text from the *chosen choice's* authored `rationale`, optional skill labels and unit number. It does not receive the correct choice's rationale, so it cannot leak the answer.
 - **Reuse seam:** More help already has an allowlisted grounding boundary and a second-family verifier (`more-help/grounding.ts`, `more-help/verify.ts`); `MORE_HELP_DECISIONS_AND_DESIGN.md` names the grading engines as the reuse point.
+- **Past student activity is already recorded across sessions, by the engines themselves.** (This corrects an earlier draft of this plan, which said the grader had no history input; that came from a search of one file.)
+  - *Student memory:* `_shared/grading-memory.ts` and `_shared/student-memory.ts` record a per-attempt memory event and keep a snapshot per student (last result, latest gap criteria, repair prompts, `preferred_help_style`, `preferred_feedback_density`). Development has 44 snapshot rows.
+  - *Course Mode cell state:* `_shared/cell-state.ts` is a deterministic, no-model rule engine (its header says pure functions, INV-4) that moves a student's tier on each topic-and-skill cell through unseen / exposed / supported / independent / confirmed, with decay dates, a direct-miss recheck and an "uncertain grading never advances a tier" rule. `persistCellState` writes it to `app.student_cell_state` after each grade for cell-tagged items. Development has 14 rows for 3 users, last updated 2026-08-26.
+  - *Who reads it today:* the Home start queue (`20260927211624_home_start_queue_rpc.sql`) reads cell state to decide what to practise next (decay, direct miss).
+  - *Who does not:* the **feedback text**. `evaluate-attempt` calls `loadLearningRuntimeContext`, which returns student memory, recent attempts and recent gap criteria, but the function reads only the subject key from it. `composeMcqFeedback` takes no history input. A search of the functions found no other consumer of `preferred_help_style`, `recent_gap_criteria` or `recent_attempts`. So history is recorded and used for scheduling, and is not yet used to adapt the words the student reads. This is a static read of the code on `main`; it has not been confirmed by running the deployed grader.
 - **Coverage gap:** `_shared/verification-profiles.ts` covers Statistics, Calculus and Chemistry. **Biology has no verification profile**, so Biology coaching rests on the LLM grader plus the sanitizer alone.
 
 ## 3. Principles
@@ -33,6 +38,8 @@ Goal is unchanged: *show students how to earn points.* Name what the question re
 **Generate only on a trustworthy grade.** Full coaching requires `graded`; abstention-only uncertain gets tier 1 partial coaching; every other non-graded outcome and every coaching failure follows the tiers in section 6.
 
 **What coaching adds over the composed summary:** a short teacher-voice passage that (a) names the part's requirement in plain words, (b) says what the student's quoted words did or did not do against that criterion, (c) gives the "why this earns the point" reason, taken from `evidence_requirements`, and (d) one next move from `minimum_fix`. Highest-value gap first.
+
+**History for FRQ.** Same rule as MCQ: only computed facts and directives from persisted state (for example, the same criterion appearing in the student's recent gap criteria again), never earlier response wording, never on an uncertain grading. Not yet tested for FRQ.
 
 **Verb glossary (replaces layer 1).** About 10 rows in the prompt covering identify / describe / explain / justify / compare etc., drawn from the CED task-verb definitions *if* both CEDs define them (to confirm), else marked claude-authored for subject check. The item rubric always governs; the glossary only explains the word.
 
@@ -52,11 +59,18 @@ MCQ has one point and no rubric, so coaching ties the *chosen* answer's error to
 
 **Correct answer.** Brief confirmation tied to the skill label and what made the choice right *in general terms from the stem*, never by quoting a distractor's rationale (avoids teaching to eliminate by pattern). Praise copy stays prototype-only until the design-rules decision on praise exists.
 
-**Repeat miss.** Same item or same skill missed again: pass only the *count and skill label*, never earlier response text. Synthetic fixtures only in testing.
+**History-aware coaching (repeat misses and recovery).** Adaptation uses the history the engines already persist, and **code, not the model, computes it**.
+- *Source:* topic-level miss and correct counts from the student's attempts (the same data `recent_attempts` carries), plus the student's cell tier and `due_reason` from `student_cell_state` where the item is cell-tagged. Never earlier response wording.
+- *Code computes the facts and picks the directive.* Example: "COMPUTED FACT: this is the student's third miss on this topic. DIRECTIVE: say so plainly and recommend stepping back to the topic's key idea before another attempt." The model only writes the sentence around it. Directives by situation: first miss, no history language; second same-topic miss, name it and tie it to the requirement; third or later, step back to the key idea; correct after earlier misses, one factual sentence on the recovery, no gushing; anything on a different topic, never mentioned.
+- *Why not let the model do it:* in a scripted 5-question sequence (section 9), when the model was handed the history and asked to apply the rules, it miscounted every time it mentioned the count (said "first miss" on the second, "second" on the third, "third miss" on a correct answer) and did not escalate on the third miss. With facts and directives computed in code, it got every count right and escalated correctly.
+- *Cross-session:* because the source is persisted state, it carries across sessions. Tier changes follow the cell-state rules, including that an uncertain grading never advances a tier; coaching must not treat an uncertain attempt as a miss or a success.
+- *Boundaries:* only on the same topic; no inference about the student's state or feelings ("the distinction is now clicking" is an unsupported claim and fails the check); never "you keep" or "you always".
 
 **Thin or missing rationale.** Fall back to today's `composeMcqFeedback` output and log the item to a gaps list. Do not let a model invent the reason. Step 0 sizes this share.
 
-**Post-checks:** no correct-choice text or letter; no content absent from the chosen rationale/stem/skill; no claim of partial credit; choice reference matches the chosen key even if option order is shuffled.
+**Post-checks:** no correct-choice text or letter; no content absent from the chosen rationale/stem/skill; no claim of partial credit; choice reference matches the chosen key even if option order is shuffled. **New:** (a) a deterministic ordinal check: any "first/second/third miss" or "after N misses" claim must equal the code-computed count (it caught all four miscounts in the sequence test); (b) a semantic answer-naming check, since the exact-text check missed it (see below); (c) no claims about the student's state or feelings; (d) history language only when the computed directive calls for it.
+
+**Open design conflict: naming the correct answer.** The shipped MCQ feedback deliberately never states the correct choice's rationale, because the item may be re-served, and it hands back a question rather than a correction (`evaluate-attempt/index.ts`, `composeMcqFeedback` comment). The coaching prompt used in testing explained why the chosen answer was wrong and, in a model-judged check, stated the correct method in 7 of 12 wrong-answer texts (not human-verified), including texts with no history. Either coaching follows the shipped rule (explain the error and return a question, never name the answer; the check then fails closed) or the owner decides that post-submit practice coaching may name the correct answer (the Answer Key is already visible after submit). This is a product decision, listed in section 14.
 
 **Distractor labels (old layer 3): dropped.** They would paraphrase a field the runtime already reads, and their `requirement_lost` derives from the correct choice's rationale, which the runtime deliberately withholds. Revisit only if the test below shows a structured `error_type` or `fix_kind` improves coaching; then add them as authored columns on `mcq_choices`, not a parallel file.
 
@@ -114,6 +128,11 @@ Recommendation: use option 1 for the offline replay and the pilot, and take opti
 
 ## 9. Test and go/no-go
 
+**Evidence so far (2026-11-14, Development data, synthetic students, nothing written).**
+- *20 items (10 MCQ, 10 FRQ), coaching only:* median 1.9 s to generate, about $0.00015 per MCQ and $0.00026 per FRQ; the deployed grade adds about 1.1 s (MCQ) and 7.3 s (FRQ). Render is 16 to 50 ms. 2 of 10 FRQ texts quoted words the student never wrote.
+- *Why gradings end uncertain (Development):* 54 of 64 uncertain FRQ gradings were OpenAI billing exhaustion; the rest were malformed output (4), abstention (3), a one-off request bug (2) and an integrity failure (1). Latest run: 13 of 15 non-billing gradings graded.
+- *5 MCQs in sequence, one student, one topic:* adaptation works only when code computes the history (section 5). Model-judged quality comparisons were mixed and are not relied on. Single scripted sequence, one generation per cell, so this is a feasibility signal, not a rate.
+
 **Offline replay, no Production touch.** Run the coaching prompt over stored or gold-set grading payloads and synthetic responses (no real student text sent to any provider without owner approval). 60 cases: 15 MCQ and 15 FRQ per subject, including planted faults (wrong points, fabricated quote, leaked correct answer, claim not in rationale) and a negative control.
 
 David reads all 60 blind against today's text (about 90 minutes). A subject reviewer checks every factual flag.
@@ -138,8 +157,9 @@ Even a pass is a pilot result: 60 cases cannot certify a near-zero error rate; r
 
 0. Read-only counts: MCQ rationale quality and thin-rationale share; FRQ part verb inventory; whether both CEDs define task verbs; Biology grader accuracy baseline (no verification profile).
 1. Draft coaching prompt, glossary and exemplars; owner approves exemplars.
+1b. Define the history inputs: topic miss counts from attempts and, for cell-tagged items, tier and `due_reason` from `student_cell_state`; write the directive table and its tests.
 2. Build the post-check module and its planted-fault tests as pure functions with unit tests (no deployment). Add the tier resolver (grade outcome and coaching outcome in, tier and reason code out) with a unit test for every row of the section 6 table and every code in section 7.
-3. Offline replay of the 60 cases, plus at least 30 FRQ attempts through the real Development grader for the coverage gate; owner read; go/no-go.
+3. Offline replay of the 60 cases (including a cross-session history set: at least 3 synthetic students, 2 sessions each, with a gap between sessions), plus at least 30 FRQ attempts through the real Development grader for the coverage gate; owner read; go/no-go.
 4. If go: design the release as its own plan (below). If no-go: stop.
 
 ## 11. Placement if it ships (separate approval)
@@ -152,6 +172,7 @@ Lowest-risk shape: a **separate post-grade call** that leaves grading latency an
 - A new stored field or migration (including the optional `reason_code` and `coaching_tier` columns, section 7).
 - Reason-code tagging, the one retry on malformed output, and raw-output logging in `evaluate-attempt`.
 - Creating a synthetic student account in Development for the replay.
+- Reading student memory or `student_cell_state` into a coaching call (a read path that does not exist for feedback today). The offline replay uses synthetic students only.
 - Sending student response text to a coaching model, and which provider.
 - Raising the daily spend cap (`OPENAI_DAILY_CAP_USD`, `evaluate-attempt/index.ts:102`) or adding per-attempt model cost.
 - The unresolved praise/encouragement design-rule decision.
@@ -179,3 +200,5 @@ Lowest-risk shape: a **separate post-grade call** that leaves grading latency an
 6. Set the coverage floors (starting: FRQ 90%, MCQ 99%) and the coaching latency ceiling (starting: 4 s after the grade renders).
 7. Reason-code storage: prefix in `uncertainty_reason` for now (option 1), or take the column migration (option 2) to the release design?
 8. Approve a Development synthetic student account for the real-grader replay.
+9. May post-submit MCQ coaching name the correct answer, or must it follow the shipped rule (explain the error, return a question, never name the answer)?
+10. Confirm the history sources: attempt-derived topic counts plus cell tier and `due_reason`, with student memory fields (`preferred_help_style` etc.) left out of v0.
