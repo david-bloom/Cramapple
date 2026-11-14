@@ -9,3 +9,7 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs and remote branches was 0279; this record takes 0280.
 - **Rehearsal:** one `REHEARSAL OK` (rolled back, constraints forced immediate).
 - **Result:** see the execution record below.
+
+## Execution record (2026-11-14)
+- Transaction COMMITTED; read-back MATCH 1/1 (validated cell 14.3 plus the existing fresh validated serving label). Live selector: returned with `topic_match = true`; regression sample 48/48 returned with `topic_match`.
+- Units 6+ unlabeled residue is now **5** (4 held, 0 owner calls other than these): `apcalcab-frq-035`, `apcalcbc-mcq-mv045`, `apcalcbc-mcq-mv050`, `apchem-frq-l-021`, `apchem-sfrq-035`. No gateway spend.
