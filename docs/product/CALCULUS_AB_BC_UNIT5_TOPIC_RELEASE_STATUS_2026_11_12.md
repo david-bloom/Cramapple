@@ -154,12 +154,12 @@ Before write, Production had one published/valid-serving AB question and zero BC
 
 | Pack | Before published / valid-serving | New R1 / R2 / R3 | New R2 seed / variant | New R3 seed / variant | Retire | After published / valid-serving |
 |---|---:|---:|---:|---:|---:|---:|
-| AB | 1 / 1 | 0 / 1 / 11 | 0 / 1 | 3 / 8 | 1 | 12 / 12 expected |
-| BC | 0 / 0 | 0 / 3 / 9 | 1 / 2 | 2 / 7 | 0 | 12 / 12 expected |
+| AB | 1 / 1 | 0 / 1 / 11 | 0 / 1 | 3 / 8 | 1 | 12 / 12 verified |
+| BC | 0 / 0 | 0 / 3 / 9 | 1 / 2 | 2 / 7 | 0 | 12 / 12 verified |
 
 Both validators passed and both packages built two load chunks. DeepSeek and Kimi each agreed 12/12 keys in each pack. Two-model tiers returned no R1 items, duplicate flags, disputed keys, or missing-model flags; 1 AB and 2 BC variant tier ratings had R2/R3 model disagreement, conservatively counted as R2. Cross-family stem similarity over 0.80: zero. The author checked each physical constraint, objective, derivative, critical point, maximum/minimum interpretation, choice, and rationale. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
 
-**Execution state:** Prepared under `APPROVAL-0268`; update after write.
+**Execution state:** Published under `APPROVAL-0268`. Both executors passed preflight, loaded two chunks, verified 12/12 draft hashes, passed rolled-back publish rehearsals, published with 12/12 validated labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. AB retired `apcalcab-mcq-039`; an independent Production query confirmed its retired status and 12/12 published/valid-serving in both AB and BC.
 
 ## Topic 5.12 — Exploring Behaviors of Implicit Relations
 
