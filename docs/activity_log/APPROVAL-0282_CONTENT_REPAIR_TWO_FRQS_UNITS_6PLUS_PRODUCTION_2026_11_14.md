@@ -1,0 +1,14 @@
+# APPROVAL-0282 — Repair `apcalcab-frq-035` and `apchem-sfrq-035` (new published versions), 2026-11-14
+
+- **Date:** 2026-11-14.
+- **Authorization:** David Bloom (Product Owner), in chat: "Repair both and label them", after the APPROVAL-0281 report that labeling either item as written would serve out-of-course content. Labels follow under APPROVAL-0283.
+- **What is written (Production `pcntajvbdfqhbeewmdry`), one transaction per subject (Calculus AB 1, Chemistry 1):** a new published version of each item (the old version is retired; difficulty rows carried over; draft, assigned, reviewed_approved, published). Same mechanism as APPROVAL-0277. Total points unchanged (9 and 4).
+  - `apcalcab-frq-035` (v1 to v2): Euler's method (CED 7.5, BC-only; the fact pack says not to approve an `apcalcab-*` item on it) is removed. Part (b) now asks for d²y/dx² and the concavity at x=0 (answer: d²y/dx² = 2/(1+y) − 4x²/(1+y)³, equal to 1 at (0,1), concave up). Part (d) now asks for the exact y(1) = √6 − 1 ≈ 1.449 and whether the tangent line from (a), which gives 1, underestimates (it does). Parts (a) and (c) and the stimulus are unchanged. Rubric criteria part-b-1, part-b-2 and part-d-2 and the model answer were rewritten to match.
+  - `apchem-sfrq-035` (v3 to v4): parts (b) and (c) no longer ask for a new pH after adding HCl to a buffer (CED 8.9 excludes it). They now ask for the new amounts of CH3COOH and CH3COO-, the new CH3COO-/CH3COOH ratio (about 0.82 for Buffer A, 0.98 for Buffer B) and whether the pH rises or falls; (d) refers to those results. Rubric criteria part-b, part-c and part-d and the model answer were rewritten to match. Part (a) is unchanged.
+- **Checks:** my own recomputation (y(1), y''(0) by finite difference, the ODE residual, the ratios); then a three-model rubric check (gemini-3.8-flash, deepseek-v4-pro, gpt-6.1-sol), 6 of 6 pass. GPT first flagged one `apchem-sfrq-035` criterion (it said both buffer components consume added H+); I reworded it and GPT then passed. The Gemini and DeepSeek passes on that item predate the rewording. Measured gateway cost $0.056. Evidence in `scripts/content-seed/label-gap-audit-u6plus-2026-11-13/stage6/`.
+- **NOT reviewed:** no human subject specialist has read the repaired wording.
+- **NOT changed:** any other item, any validated cell or label, schema, functions, frontends. Neither item had a validated serving label (the transaction asserts it).
+- **Rollback:** retire the new versions and republish the old ones (version_num 1 and 3), delete the new criteria, restore the carried difficulty rows if needed.
+- **Numbering check:** highest APPROVAL on origin/main, open PRs and remote branches was 0281; this record takes 0282.
+- **Rehearsal:** two `REHEARSAL OK` (rolled back, constraints forced immediate).
+- **Result:** see the execution record below.
