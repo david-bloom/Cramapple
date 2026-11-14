@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage 4: write the Stage 3 labels (validated primary topic cells + validated serving labels) to Production, one transaction per subject.
+"""Stage 4 (Units 6+): write the Stage 3 labels (validated primary topic cells + validated serving labels) to Production, one transaction per subject.
 Labels only: no item text, version, status, difficulty or skill is touched. Additive for validated rows: only non-validated rows are changed
 (provisional_model/authored primary cells are promoted in place; non-validated serving labels get superseded_by).
   python3 -I publish_labels.py preflight  [--subject S]        read-only: pre-state snapshot (stage4/pre_state.json) and drift checks
@@ -12,9 +12,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 spec = importlib.util.spec_from_file_location('pmb', os.path.join(HERE, '..', 'publish_mcq_batch.py'))
 pmb = importlib.util.module_from_spec(spec); spec.loader.exec_module(pmb)
 REF = pmb.ENVS['prod']; assert REF == 'pcntajvbdfqhbeewmdry'
-OWNER = pmb.DEFAULT_OWNER; SRC = 'label_gap_fill_u1_5_r3_2026_11_13'
-def load(sub): return sorted(json.load(open(os.path.join(HERE, os.environ.get('LOAD_DIR', 'stage6/r3'), f'load_{sub}.json'))), key=lambda r: r['content_key'])
-SUBJECTS = sorted(os.path.basename(f)[5:-5] for f in glob.glob(os.path.join(HERE, os.environ.get('LOAD_DIR', 'stage6/r3'), 'load_*.json')))
+OWNER = pmb.DEFAULT_OWNER; SRC = 'label_gap_fill_u6plus_2026_11_13'
+def load(sub): return sorted(json.load(open(os.path.join(HERE, os.environ.get('LOAD_DIR', 'stage4/load'), f'load_{sub}.json'))), key=lambda r: r['content_key'])
+SUBJECTS = sorted(os.path.basename(f)[5:-5] for f in glob.glob(os.path.join(HERE, os.environ.get('LOAD_DIR', 'stage4/load'), 'load_*.json')))
 def ph(rs): return hashlib.md5('\n'.join(f"{r['content_key']}:{r['topic']}:{r['max_required_unit']}:{r['cell_action']}:{r['label_action']}" for r in rs).encode()).hexdigest()
 def payload(rs):
     return [{'k': r['content_key'], 'vid': r['vid'], 'topic': r['topic'], 'pu': r['primary_unit'], 'ru': r['required_units'], 'mx': r['max_required_unit'],
@@ -48,15 +48,15 @@ do $g$ declare n int; begin
 end $g$;
 update app.content_item_cells c set is_primary=false from w where w.ca='replace_nonvalidated' and c.content_item_cell_id=w.cid;
 insert into app.content_item_cells (content_item_cell_id, content_item_version_id, content_item_id, taxonomy_source_version, topic_code, skill_code, is_primary, assignment_status, source, model_run_id, validated_by, validated_at, validation_decision_id)
-select ncid, version_id, item_id, tsv, topic, null, true, 'validated', src||':'||method, 'label gap fill U1-5 six-vote topic probe (gemini-3.8-flash + deepseek-v4-pro + gpt-6.1-sol; topic agreement >= 5 of 6) [{approval}]', null, now(), gen_random_uuid() from w where ca in ('insert','replace_nonvalidated');
+select ncid, version_id, item_id, tsv, topic, null, true, 'validated', src||':'||method, 'label gap fill U6+ six-vote topic probe (gemini-3.8-flash + deepseek-v4-pro + gpt-6.1-sol; topic agreement >= 5 of 6) [{approval}]', null, now(), gen_random_uuid() from w where ca in ('insert','replace_nonvalidated');
 update app.content_item_cells c set superseded_by=w.ncid from w where w.ca='replace_nonvalidated' and c.content_item_cell_id=w.cid;
 update app.content_item_cells c set assignment_status='validated', validated_at=now(), validation_decision_id=gen_random_uuid(),
-  source=src||':'||w.method||':promoted_from_'||c.assignment_status, model_run_id='label gap fill U1-5 six-vote topic probe agrees with the existing '||c.assignment_status||' cell; promoted in place [{approval}]; previously '||coalesce(c.source,'')
+  source=src||':'||w.method||':promoted_from_'||c.assignment_status, model_run_id='label gap fill U6+ six-vote topic probe agrees with the existing '||c.assignment_status||' cell; promoted in place [{approval}]; previously '||coalesce(c.source,'')
 from w where w.ca='promote_in_place' and c.content_item_cell_id=w.cid;
 insert into app.content_taxonomy_labels (content_taxonomy_label_id, content_item_id, label_version, label_scope, required_units, max_required_unit, primary_unit, assessed_topics, taxonomy_source_version, taxonomy_confidence, label_status, source, source_payload, model_run_id, created_by)
 select label_id, item_id, lv, 'serving', ru, mx, pu, array[]::text[], tsv, 'provisional', 'provisional_model', src,
  jsonb_build_object('topic', topic, 'method', method, 'topic_votes', votes, 'unit_votes', uv, 'basis_note', basis, 'released_from_hold', hold, 'units_source','units named by >= 4 of 6 votes','approval','{approval}'),
- 'label gap fill U1-5 ('||method||') [{approval}]', {pmb.lit(OWNER)}::uuid from w where la='insert_validated';
+ 'label gap fill U6+ ('||method||') [{approval}]', {pmb.lit(OWNER)}::uuid from w where la='insert_validated';
 update app.content_taxonomy_labels l set superseded_by=w.label_id from w, unnest(w.sup) s where w.la='insert_validated' and l.content_taxonomy_label_id=s;
 insert into app.content_taxonomy_validation_decisions (validation_decision_id, content_taxonomy_label_id, decided_by, decision, decision_source, reviewed_primary_unit, reviewed_required_units, notes)
 select vd_id, label_id, {pmb.lit(OWNER)}::uuid, 'confirmed', 'automated_spot_check', pu, ru, 'Hard-Gate approval {approval}. Topic at >= 5 of 6 votes (or recorded provenance); required units named by >= 4 of 6.' from w where la='insert_validated';
@@ -98,7 +98,7 @@ def main():
         rs = load(sub)
         if a.cmd == 'preflight':
             pre = preflight(sub, rs); os.makedirs(os.path.join(HERE, 'stage4'), exist_ok=True)
-            json.dump(pre, open(os.path.join(HERE, 'stage4', f'r3_pre_state_{sub}.json'), 'w'), indent=0); print(sub, len(rs), 'items; pre-state cells', len(pre['cells']), 'labels', len(pre['labels']))
+            json.dump(pre, open(os.path.join(HERE, 'stage4', f'u6plus_pre_state_{sub}.json'), 'w'), indent=0); print(sub, len(rs), 'items; pre-state cells', len(pre['cells']), 'labels', len(pre['labels']))
         elif a.cmd == 'verify': rc |= 0 if verify(sub, rs) else 1
         elif a.cmd == 'rehearse':
             msg = pmb.query(REF, sql(sub, rs, a.approval or 'REHEARSAL', 'rehearse'), expect_error=True)
