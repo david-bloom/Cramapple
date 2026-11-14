@@ -4,6 +4,9 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- 2026-11-13: Four rubric-held FRQs repaired (APPROVAL-0277) and labeled (APPROVAL-0278) in Production; units 6+ residue now 6.
+- 2026-11-13: Label gap fill Units 6+ round 2 (APPROVAL-0276): 13 CED-text rulings applied to Production (13 topic cells, 11 serving labels), read back 13/13; residue now 10.
+- 2026-11-13: Label gap fill Units 6+ (APPROVAL-0275): 118 topic cells and 66 serving labels applied to Production, verified 118/118 by read-back and the live selector; 23 residue listed.
 - 2026-11-13: Calculus AB 5.6-5.9, 5.11 second-derivative primes restored in Production (APPROVAL-0274).
 - 2026-11-13: Recommendation #3 structured text applied to Production for six more subjects (317 rows, APPROVAL-0273).
 - quick_take ("In 30 seconds") text for 136 Chemistry, Biology and Statistics units 1-5 topics applied to Production (`APPROVAL-0272`, 2026-11-13): schema, RPC key and data live, read back 136/136; students see it after app PR 61 is merged and published
