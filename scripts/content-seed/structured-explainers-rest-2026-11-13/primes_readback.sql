@@ -1,0 +1,1 @@
+select topic_code, md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer) h, md5(weak_answer) w from app.topic_explainers where subject_key='ap_calculus_ab' and status='published' and topic_code in ('5.6','5.7','5.8','5.9','5.11');
