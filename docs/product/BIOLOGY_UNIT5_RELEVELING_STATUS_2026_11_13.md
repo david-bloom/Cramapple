@@ -44,3 +44,17 @@ Before write, Production had zero published/valid-serving 5.2 MCQs. Concrete pac
 The final validator passed and the package built two load chunks. DeepSeek and Kimi each agreed with 12/12 keys. Both tier models returned all 12 ratings: zero R1, nine R2, three R3; zero duplicate, disputed-key, or missing-model flags. Four items had R2/R3 model disagreement and are counted conservatively as R2. Cross-family stem similarity over 0.80: zero. The author checked the probability calculation, meiotic stage and mechanism, recombinant classes, gamete/zygote chromosome arithmetic, choices, and rationales. The R3 seed target was missed; every new item met the R2-or-R3 floor. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
 
 **Execution state:** Published under `APPROVAL-0280`. The executor confirmed zero prior Unit 5 batch keys, loaded two chunks, verified 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels, checked 12/12 published hashes, and returned all 12 new items from the student selector. An independent Production query confirmed 12/12 topic 5.2 MCQs published and valid-serving.
+
+## Topic 5.3 — Mendelian Genetics
+
+Before write, Production had zero published/valid-serving 5.3 MCQs. Concrete package `scripts/content-seed/apbio-harder-seeds-u5-t5_3-2026-11-14/` contains three new seeds and nine variants, with no retirements. The Unit 5 batch keys (`apbio-mcq-b3-*-5.3-*`) were absent from Production. Families cover conditional genotype probability at two independently assorting loci, a chi-square decision for dihybrid testcross counts, and two-child probability inferred from an autosomal recessive pedigree. CED 5.3.A.1–2 and required units `[5]` apply.
+
+| State | R1 seed / variant | R2 seed / variant | R3 seed / variant | Published / valid-serving |
+|---|---:|---:|---:|---:|
+| Retained old | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
+| New package | 0 / 0 | 1 / 5 | 2 / 4 | 12 / 12 expected |
+| After release | 0 / 0 | 1 / 5 | 2 / 4 | 12 / 12 expected |
+
+The validator passed and the package built two load chunks. DeepSeek and Kimi each agreed with 12/12 keys. Both tier models returned all 12 ratings: zero R1, six R2, six R3; zero duplicate, disputed-key, or missing-model flags. Three items had R2/R3 model disagreement and are counted conservatively as R2. Cross-family stem similarity over 0.80: zero. The author checked Punnett probabilities and conditioning, all four chi-square calculations and threshold decisions, two-child probabilities, choices, and rationales. Tiers are uncalibrated and the one-time QA exception applies; no subject-expert review is claimed.
+
+**Execution state:** Prepared under `APPROVAL-0280`; update after Production write.
