@@ -70,7 +70,17 @@ MCQ has one point and no rubric, so coaching ties the *chosen* answer's error to
 
 **Post-checks:** no correct-choice text or letter; no content absent from the chosen rationale/stem/skill; no claim of partial credit; choice reference matches the chosen key even if option order is shuffled. **New:** (a) a deterministic ordinal check: any "first/second/third miss" or "after N misses" claim must equal the code-computed count (it caught all four miscounts in the sequence test); (b) a semantic answer-naming check, since the exact-text check missed it (see below); (c) no claims about the student's state or feelings; (d) history language only when the computed directive calls for it.
 
-**Open design conflict: naming the correct answer.** The shipped MCQ feedback deliberately never states the correct choice's rationale, because the item may be re-served, and it hands back a question rather than a correction (`evaluate-attempt/index.ts`, `composeMcqFeedback` comment). The coaching prompt used in testing explained why the chosen answer was wrong and, in a model-judged check, stated the correct method in 7 of 12 wrong-answer texts (not human-verified), including texts with no history. Either coaching follows the shipped rule (explain the error and return a question, never name the answer; the check then fails closed) or the owner decides that post-submit practice coaching may name the correct answer (the Answer Key is already visible after submit). This is a product decision, listed in section 14.
+**Decision (owner, 2026-11-14): MCQ coaching never names the correct answer.** If it does, the student cannot meaningfully retry, and it matches the shipped rule (the MCQ feedback withholds the correct choice's rationale and hands back a question, `composeMcqFeedback` comment in `evaluate-attempt/index.ts`).
+
+**Prompt: three rules, not a rule list (owner read: preferred over the longer prompt).** Rules live in code and checks, not in the prompt:
+1. Explain the error using only the reason supplied; add no facts.
+2. End with one question the student can answer to try the problem again.
+3. If a DIRECTIVE is given, follow it (code supplies it; see history above).
+Plain words, about 80 words, no praise filler, no headings. Prohibitions (naming the answer, partial credit, claims about the student's state, miscounts) are enforced by the post-checks, not stated in the prompt.
+
+**Check, retry once, then fall back.** A failed post-check triggers one regeneration that names the failed check; a second failure drops to today's text (tier 2, section 6). In a 20-item test of missed MCQs (Stats and Biology, synthetic, two-model leak judge, union of flags): the longer prompt had 5 of 20 texts pass all checks; the three-rule prompt had 6 of 20 on the first try, and 14 of 20 after one retry (70% coverage). The three-rule prompt ended with a question in 20 of 20 texts (3 of 20 for the longer prompt), ran 78 words against 126, and generated in a median 1.4 s against 2.0 s. The prompt alone did not reduce answer-naming (14 of 20 flagged versus 15); the retry did (6 of 20).
+
+**The source can leak.** The authored distractor rationales, which the shipped feedback shows verbatim, were themselves flagged as naming the correct answer in 5 of 20 cases (same two-judge check, not human-verified). When the source leaks, the retry arm still leaked 2 of 5 times; when the source was clean, 4 of 15. Part of the leak rate is therefore a content problem, not a prompt problem: audit the authored rationales for answer-naming (section 10, step 0) and rewrite or flag the ones that do.
 
 **Distractor labels (old layer 3): dropped.** They would paraphrase a field the runtime already reads, and their `requirement_lost` derives from the correct choice's rationale, which the runtime deliberately withholds. Revisit only if the test below shows a structured `error_type` or `fix_kind` improves coaching; then add them as authored columns on `mcq_choices`, not a parallel file.
 
@@ -87,7 +97,7 @@ Coaching is an enhancement. Every failure path ends in a complete, honest result
 
 Rules that hold at every tier:
 - **Grade first, coaching second.** The verdict and score render as soon as grading returns. Coaching is a separate post-grade call that fills the card when ready. If it has not arrived by the latency ceiling (starting point: 4 s after the grade renders, owner to set), the card stays at tier 2 and the late result is discarded, not inserted afterward.
-- **Fail closed, silently.** A failed post-check (points mismatch, quote not in response, correct choice leaked, claim not in source fields, length or banned phrase) drops to tier 2 and records the reason code. The student sees no error.
+- **Fail closed, silently, after one retry.** A failed post-check triggers one regeneration that names the failed check; if it fails again, (points mismatch, quote not in response, correct choice leaked, claim not in source fields, length or banned phrase) drops to tier 2 and records the reason code. The student sees no error. Retries add about 1 s and a fraction of a cent.
 - **Never coach through an integrity or provider failure.** Tiers 1 and 0 require a trustworthy grade; tier 1 applies only to abstention, never to integrity or provider failures.
 - **The tier is recorded** with the reason code on every attempt (section 7) so coverage can be measured.
 - **Fixture rule:** the tier 2 card must render identically to today's card for the same grading row. The offline test (section 9) includes a regression check that coaching-off output is byte-for-byte unchanged.
@@ -131,6 +141,7 @@ Recommendation: use option 1 for the offline replay and the pilot, and take opti
 **Evidence so far (2026-11-14, Development data, synthetic students, nothing written).**
 - *20 items (10 MCQ, 10 FRQ), coaching only:* median 1.9 s to generate, about $0.00015 per MCQ and $0.00026 per FRQ; the deployed grade adds about 1.1 s (MCQ) and 7.3 s (FRQ). Render is 16 to 50 ms. 2 of 10 FRQ texts quoted words the student never wrote.
 - *Why gradings end uncertain (Development):* 54 of 64 uncertain FRQ gradings were OpenAI billing exhaustion; the rest were malformed output (4), abstention (3), a one-off request bug (2) and an integrity failure (1). Latest run: 13 of 15 non-billing gradings graded.
+- *Lean prompt, computed history, check-and-retry (20 missed MCQs plus 3 scripted 5-question sequences):* the three-rule prompt passed checks on 14 of 20 after one retry (6 of 20 without), was shorter and faster, and always ended with a question. Computing history in code gave 0 wrong counts in 15 steps against 6 when the model counted, and escalated on the third miss 3 of 3 times against 1 of 3. Authored rationales alone were flagged as naming the answer in 5 of 20 cases.
 - *5 MCQs in sequence, one student, one topic:* adaptation works only when code computes the history (section 5). Model-judged quality comparisons were mixed and are not relied on. Single scripted sequence, one generation per cell, so this is a feasibility signal, not a rate.
 
 **Offline replay, no Production touch.** Run the coaching prompt over stored or gold-set grading payloads and synthetic responses (no real student text sent to any provider without owner approval). 60 cases: 15 MCQ and 15 FRQ per subject, including planted faults (wrong points, fabricated quote, leaked correct answer, claim not in rationale) and a negative control.
@@ -181,6 +192,7 @@ Lowest-risk shape: a **separate post-grade call** that leaves grading latency an
 ## 13. Risks
 
 - **Coverage may be the binding constraint.** On Development only 63% of non-billing FRQ model gradings were `graded` (87% on the latest run); Production has no FRQ model gradings since September, so the current uncertain rate there is unmeasured. Until the replay shows otherwise, expect coaching on a minority of FRQs, not all.
+- **Authored rationales may name the answer** (5 of 20 sampled, model-judged). This limits how clean MCQ coaching can be and also affects today's shipped feedback. It is a content fix, independent of coaching.
 - **Provider billing failures are invisible today** and look like grader doubt; the reason codes and alert address this.
 - **Grader error becomes confident prose.** Coaching amplifies a wrong verdict; Biology has no deterministic verifier. Measure grader accuracy on the replay items, not just coaching accuracy.
 - **Answer-key and rationale errors** pass through faithfully. Add a student "this seems wrong" route that feeds a gaps list (`report-question` function exists; check fit).
@@ -200,5 +212,6 @@ Lowest-risk shape: a **separate post-grade call** that leaves grading latency an
 6. Set the coverage floors (starting: FRQ 90%, MCQ 99%) and the coaching latency ceiling (starting: 4 s after the grade renders).
 7. Reason-code storage: prefix in `uncertainty_reason` for now (option 1), or take the column migration (option 2) to the release design?
 8. Approve a Development synthetic student account for the real-grader replay.
-9. May post-submit MCQ coaching name the correct answer, or must it follow the shipped rule (explain the error, return a question, never name the answer)?
+9. ~~May post-submit MCQ coaching name the correct answer?~~ **Settled 2026-11-14 (owner): no.** Coaching explains the error and returns a question.
 10. Confirm the history sources: attempt-derived topic counts plus cell tier and `due_reason`, with student memory fields (`preferred_help_style` etc.) left out of v0.
+11. Approve an audit of authored MCQ distractor rationales for answer-naming (5 of 20 sampled were flagged), and who rewrites the ones that fail.
