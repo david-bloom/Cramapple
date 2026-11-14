@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- 2026-11-14: Unit 5 question-release session closed. Calculus AB/BC all 12 topics have at least 12 published/valid-serving MCQs per pack; Biology has 65/65 across topics 5.1–5.5; PRs #658 and #659 merged. Fresh Production census: 4,836/4,836 published student-eligible items across ten subjects have valid serving labels, so no subject/unit label gap remains. Handoff: `docs/handoffs/SESSION_CLOSE_2026_11_14_UNIT5_QUESTION_RELEASE_AND_LABEL_CENSUS.md`.
 - AP Biology Unit 5 completed under `APPROVAL-0287` (2026-11-14): 60 new R2/R3 MCQs published topic by topic, zero R1 retired, 65/65 total published/valid-serving across topics 5.1–5.5; all student selector checks passed. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
 - AP Biology Unit 5 topic 5.4 published under `APPROVAL-0287` (2026-11-14): 12 new R2/R3 MCQs, one initial weak seed rewritten and rechecked, zero final R1 or duplicate flags, 16/16 published/valid-serving and selector checked. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
 - AP Biology Unit 5 topic 5.3 published under `APPROVAL-0287` (2026-11-14): 12 new R2/R3 MCQs, zero R1 or duplicate flags, 12/12 published/valid-serving and selector checked. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
