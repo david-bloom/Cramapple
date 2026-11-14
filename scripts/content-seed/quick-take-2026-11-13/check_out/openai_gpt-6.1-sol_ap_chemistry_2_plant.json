@@ -1,0 +1,87 @@
+{
+  "topics": [
+    {
+      "code": "3.10",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "3.11",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "3.12",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "The answer move drops the condition that the equations should be chained only as needed, making both equations sound mandatory.",
+          "evidence": "SOURCE says 'chain c = lambda nu into E = h nu only as needed'; PROPOSED says 'then chain c = lambda nu into E = h nu.'"
+        },
+        {
+          "severity": "defect",
+          "issue": "The point-loss line omits the inverse relationship between wavelength and frequency, a scoring-relevant part of the source warning.",
+          "evidence": "SOURCE warns about forgetting that shorter wavelength means 'higher frequency and higher photon energy'; PROPOSED retains only 'higher photon energy.'"
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "3.13",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "The point-loss line drops the independent warning against assuming the spectrophotometer wavelength is arbitrary.",
+          "evidence": "SOURCE includes 'or assuming the spectrophotometer wavelength is arbitrary'; PROPOSED omits this warning entirely."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "4.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.2",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.3",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.4",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.5",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.6",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.7",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "The answer move omits the specific products that identify the combustion signature, replacing actionable evidence with a generic label.",
+          "evidence": "SOURCE specifies 'CO2/H2O combustion products'; PROPOSED says only 'combustion products.'"
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "4.8",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}

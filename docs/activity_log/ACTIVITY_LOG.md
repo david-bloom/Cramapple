@@ -4,6 +4,10 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- 2026-11-14: Cheat Sheet digestibility session closed; handoff `handoffs/SESSION_CLOSE_2026_11_14_CHEAT_SHEET_DIGESTIBILITY.md` (quick_take and structured text live; open: human review, source mismatches).
+- 2026-11-14: triage of the 76 unit-less unlabeled items (read-only): 64 vote-then-label, 11 need rubric repair, 1 out of the CED (docs/qa/LABEL_UNITLESS_76_TRIAGE_2026_11_14.md).
+- 2026-11-14: two FRQs repaired (APPROVAL-0282) and labeled (APPROVAL-0283); units 6+ residue now 0.
+- 2026-11-14: three held Units 6+ items labeled (APPROVAL-0281); residue now 2, both needing a content repair.
 - Calculus AB and BC Unit 5 topic 5.10 prepared under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack; one weak variant rewritten and rechecked; final zero R1 or key flags. No Production write yet for this topic. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - Calculus AB and BC Unit 5 topic 5.9 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack with validated serving labels, zero R1 or key flags, and no retirements. AB and BC each have 12/12 published/valid-serving topic MCQs. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - Calculus AB and BC Unit 5 topic 5.8 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack with validated serving labels; three weak variants rewritten and fully rechecked, with final zero R1 or key flags. AB and BC each have 12/12 published/valid-serving topic MCQs. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
@@ -11,6 +15,15 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 - Calculus AB and BC Unit 5 topic 5.6 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack with validated serving labels and three old AB R1 family items retired. AB and BC each have 13/13 published/valid-serving topic MCQs. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - Calculus AB and BC Unit 5 topic 5.5 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack, zero R1 or key flags; all rated R2. AB 13/13 and BC 12/12 published/valid-serving after the release. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - Calculus AB and BC Unit 5 topic 5.4 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack with validated serving labels; one AB blind letter disagreed while its reasoning supported the correct key, documented in the status.
+- 2026-11-14: quick_take for 363 topics, Calculus AB structured text and AB source primes applied to Production (APPROVAL-0279).
+- 2026-11-13: Four rubric-held FRQs repaired (APPROVAL-0277) and labeled (APPROVAL-0278) in Production; units 6+ residue now 6.
+- 2026-11-14: apphy2-mcq-013 given topic cell 14.3 (APPROVAL-0280); units 6+ residue now 5.
+- 2026-11-13: Label gap fill Units 6+ round 2 (APPROVAL-0276): 13 CED-text rulings applied to Production (13 topic cells, 11 serving labels), read back 13/13; residue now 10.
+- 2026-11-13: Label gap fill Units 6+ (APPROVAL-0275): 118 topic cells and 66 serving labels applied to Production, verified 118/118 by read-back and the live selector; 23 residue listed.
+- 2026-11-13: Calculus AB 5.6-5.9, 5.11 second-derivative primes restored in Production (APPROVAL-0274).
+- 2026-11-13: Recommendation #3 structured text applied to Production for six more subjects (317 rows, APPROVAL-0273).
+- quick_take ("In 30 seconds") text for 136 Chemistry, Biology and Statistics units 1-5 topics applied to Production (`APPROVAL-0272`, 2026-11-13): schema, RPC key and data live, read back 136/136; students see it after app PR 61 is merged and published
+- Calculus AB and BC Unit 5 topic 5.4 prepared under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack, zero R1 or tier-audit key flags; one AB blind letter disagreed while its reasoning supported the correct key, documented in the status. No Production write yet for this topic.
 - Calculus AB and BC Unit 5 topic 5.3 published under the owner-directed per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack published with validated serving labels; hashes and selector passed, with zero R1, disputed keys, or duplicates in the approved two-model checks. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - Calculus AB and BC Unit 5 topic 5.2 published to Production (`APPROVAL-0267`, 2026-11-12): 12 identical new MCQs per pack with validated serving labels, selector checks passed, zero R1, disputed keys, or duplicate flags under the approved two-model checks. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 

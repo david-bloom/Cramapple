@@ -1,0 +1,52 @@
+{
+  "topics": [
+    {
+      "code": "5.6",
+      "findings": [
+        {
+          "field": "point_attaining_answer",
+          "issue": "The Markdown table is missing its header separator row. All derivative primes and worked computations are correct.",
+          "evidence": "The header '| Interval | h is |' must be followed by a separator such as '| --- | --- |' before the data rows."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "5.7",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "5.8",
+      "findings": [
+        {
+          "field": "point_attaining_answer",
+          "issue": "Step 3 still labels the second derivative as the first derivative. Replace m'(x) with m''(x).",
+          "evidence": "For m(x)=-x^3+3x, m'(x)=-3x^2+3 and m''(x)=-6x. The proposed text incorrectly says \"m'(x)=-6x\"."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "5.9",
+      "findings": [
+        {
+          "field": "core_idea",
+          "issue": "The general claim that peaks and valleys of f' are points where f''=0 omits the possibility that f'' does not exist there. The restored prime count itself is correct.",
+          "evidence": "\"They are the points where f''=0\" is not universally true: f'(x)=|x| has a valley at x=0, where f''(0) is undefined."
+        },
+        {
+          "field": "what_students_need_to_understand",
+          "issue": "The parenthetical repeats the incorrect claim that the slope of f' must equal zero at every peak or valley; that slope may instead be undefined.",
+          "evidence": "\"since that is where f'', the slope of f', equals zero\" requires a differentiability qualification. The worked example f'(x)=4-x^2 and all its computations are correct."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "5.11",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}
