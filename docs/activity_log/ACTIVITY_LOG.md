@@ -4,7 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
-- AP Biology Unit 5 topic 5.1 prepared under David's topic-by-topic Production direction (`APPROVAL-0272`, 2026-11-13): 12 new MCQs, zero R1 or disputed keys, zero retirements; Production execution pending. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
+- AP Biology Unit 5 topic 5.1 prepared under David's topic-by-topic Production direction (`APPROVAL-0280`, 2026-11-13): 12 new MCQs, zero R1 or disputed keys, zero retirements; Production execution pending. Status: `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md`.
 - 2026-11-14: Cheat Sheet digestibility session closed; handoff `handoffs/SESSION_CLOSE_2026_11_14_CHEAT_SHEET_DIGESTIBILITY.md` (quick_take and structured text live; open: human review, source mismatches).
 - Calculus AB and BC Unit 5 topic 5.10 prepared under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack; one weak variant rewritten and rechecked; final zero R1 or key flags. No Production write yet for this topic. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - Calculus AB and BC Unit 5 topic 5.9 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack with validated serving labels, zero R1 or key flags, and no retirements. AB and BC each have 12/12 published/valid-serving topic MCQs. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.

@@ -4,7 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
-- [APPROVAL-0272 — AP Biology Unit 5 topic-by-topic Production publication (owner directed 2026-11-13)](APPROVAL-0272_BIOLOGY_UNIT5_TOPIC_RELEASE_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0280 — AP Biology Unit 5 topic-by-topic Production publication (owner directed 2026-11-13)](APPROVAL-0280_BIOLOGY_UNIT5_TOPIC_RELEASE_PRODUCTION_2026_11_13.md)
 - APPROVAL-0279 (2026-11-14): quick_take for six more subjects (363 rows), Calculus AB structured text (41) and AB source-field primes (4) applied to Production — APPROVAL-0279_QUICK_TAKE_AND_AB_STRUCTURED_REMAINING_PRODUCTION_2026_11_14.md
 - APPROVAL-0278 (2026-11-13): four repaired rubric-held FRQs labeled (Units 6+), 4 topic cells and 4 serving labels to Production — APPROVAL-0278_LABEL_4_REPAIRED_RUBRIC_HELD_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_13.md
 - APPROVAL-0277 (2026-11-13): four rubric-held FRQs repaired (Units 6+), new versions to Production — APPROVAL-0277_RUBRIC_PREFLIGHT_REPAIR_4_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_13.md
