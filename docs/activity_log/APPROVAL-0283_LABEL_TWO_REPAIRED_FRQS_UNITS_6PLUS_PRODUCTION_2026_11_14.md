@@ -11,3 +11,7 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs and remote branches was 0282; this record takes 0283.
 - **Rehearsal:** two `REHEARSAL OK` (rolled back, constraints forced immediate).
 - **Result:** see the execution record below.
+
+## Execution record (2026-11-14)
+- Two transactions COMMITTED; read-back MATCH 1/1 each. Live selector: 2/2 returned with `topic_match = true`; regression sample of 48 previously served items 48/48.
+- Units 6+ unlabeled residue is now **0**. Total labeled in units 6+: 141 topic cells and 86 serving labels (APPROVAL-0275 to 0278, 0280, 0281, 0283). Gateway total about $3.84.
