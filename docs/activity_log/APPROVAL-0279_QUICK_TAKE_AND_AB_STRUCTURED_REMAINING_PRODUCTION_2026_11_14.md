@@ -1,4 +1,4 @@
-# APPROVAL-0276 — quick_take for six more subjects, Calculus AB structured text and AB source-field primes, applied to Production
+# APPROVAL-0279 — quick_take for six more subjects, Calculus AB structured text and AB source-field primes, applied to Production
 
 - **Date:** 2026-11-14 (UTC).
 - **Authorization:** David, in chat: "do #2 for every unit which is derived only; do #3 for calculus AB", then "move all updated cheat sheets to prod".
@@ -11,4 +11,4 @@
 - **Read-back:** independent Production query: quick_take 363/363 equal proposed text; AB structured 41/41; AB answer_move/common_point_loss 4/4.
 - **Known limits:** no human review; not seen rendered; checkers compare against the same source fields, so source mismatches carry through (e.g. BC 1.16, 5.2, 8.2, 8.3, 10.5; Chemistry 7.3, 7.8, 8.1; Calculus AB hook line from the "Times the derivative of what's inside" hook on 3.1 only); about 55 quick_take lines have a label line over 25 words in total (sentences each within the limit); primes scanned only on concavity / second-derivative AB topics.
 - **Rollback:** `update app.topic_explainers set quick_take = null` for the 363 rows; restore AB text and source fields from `fetch_ab.json` and `src_ap_calculus_ab.json`.
-- **Numbering check:** 0275 is claimed by open PR 654 (label gap audit); this record uses 0276.
+- **Numbering check:** 0275 and 0276 were claimed by the label-gap-audit work (PR 654 and its follow-up) and 0277-0278 by later records, so this record uses 0279.
