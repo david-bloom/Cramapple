@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- APPROVAL-0276 (2026-11-13): label gap fill Units 6+ round 2, 13 CED-text rulings (13 topic cells, 11 serving labels) to Production — APPROVAL-0276_LABEL_GAP_FILL_UNITS_6PLUS_ROUND2_CED_RULINGS_PRODUCTION_2026_11_13.md
 - APPROVAL-0275 (2026-11-13): label gap fill Units 6+, 118 topic cells and 66 serving labels to Production — APPROVAL-0275_LABEL_GAP_FILL_UNITS_6PLUS_SERVING_AND_TOPIC_PRODUCTION_2026_11_13.md
 - APPROVAL-0274 (2026-11-13): Calculus AB lost second-derivative primes restored in Production (5 topics) — APPROVAL-0274_CALC_AB_LOST_PRIMES_REPAIR_PRODUCTION_2026_11_13.md
 - APPROVAL-0273 (2026-11-13): structured explainer text for Biology 6-8, Chemistry 6-9, Calculus AB/BC, Physics 1, Precalculus applied to Production (317 rows) — APPROVAL-0273_STRUCTURED_EXPLAINERS_REMAINING_SUBJECTS_PRODUCTION_2026_11_13.md

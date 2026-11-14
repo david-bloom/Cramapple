@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- 2026-11-13: Label gap fill Units 6+ round 2 (APPROVAL-0276): 13 CED-text rulings, in progress.
 - 2026-11-13: Label gap fill Units 6+ (APPROVAL-0275): 118 topic cells and 66 serving labels applied to Production, verified 118/118 by read-back and the live selector; 23 residue listed.
 - 2026-11-13: Calculus AB 5.6-5.9, 5.11 second-derivative primes restored in Production (APPROVAL-0274).
 - 2026-11-13: Recommendation #3 structured text applied to Production for six more subjects (317 rows, APPROVAL-0273).
