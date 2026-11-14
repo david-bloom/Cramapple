@@ -5,6 +5,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 ## Index
 
 - 2026-11-14: Cheat Sheet digestibility session closed; handoff `handoffs/SESSION_CLOSE_2026_11_14_CHEAT_SHEET_DIGESTIBILITY.md` (quick_take and structured text live; open: human review, source mismatches).
+- 2026-11-14: apcalcbc-mcq-007 retired (APPROVAL-0286); no published item is left without a servable label.
 - 2026-11-14: rubric/prompt repair of 11 FRQs (APPROVAL-0284) and 75 previously unit-less items labeled (APPROVAL-0285); only apcalcbc-mcq-007 (outside the CED) left unlabeled.
 - 2026-11-14: triage of the 76 unit-less unlabeled items (read-only): 64 vote-then-label, 11 need rubric repair, 1 out of the CED (docs/qa/LABEL_UNITLESS_76_TRIAGE_2026_11_14.md).
 - 2026-11-14: two FRQs repaired (APPROVAL-0282) and labeled (APPROVAL-0283); units 6+ residue now 0.
