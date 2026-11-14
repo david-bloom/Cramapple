@@ -107,4 +107,4 @@ Before write, a 2026-11-13 read-only Production check found zero published topic
 
 Tiers are uncalibrated. Both draft validators passed and both packages built two load chunks. DeepSeek and Kimi blind solves each agreed 12/12 keys in each pack; both tier models returned all 12 ratings per pack, with zero R1, duplicate, disputed-key, or missing-model flags. Cross-family stem similarity over 0.80: zero. The one-time QA exception applies.
 
-**Execution state:** Prepared under `APPROVAL-0268`; update after write.
+**Execution state:** Published to both Production packs under `APPROVAL-0268` on 2026-11-13. Each executor found zero old or new keys, loaded two chunks, matched 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels and 12 topic cells, matched 12/12 post-publish hashes, and returned all 12 new items through the student selector. Independent read-only Production verification found AB 12 published/12 valid-serving and BC 12/12.
