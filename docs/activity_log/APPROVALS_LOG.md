@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- APPROVAL-0286 (2026-11-14): apcalcbc-mcq-007 (Newton's method, outside the CED) retired in Production — APPROVAL-0286_RETIRE_APCALCBC_MCQ_007_PRODUCTION_2026_11_14.md
 - APPROVAL-0285 (2026-11-14): 75 previously unit-less items labeled (topic cells and serving labels) to Production — APPROVAL-0285_LABEL_75_UNITLESS_ITEMS_PRODUCTION_2026_11_14.md
 - APPROVAL-0284 (2026-11-14): rubric/prompt repair of 11 held FRQs (unit-less set), new versions to Production — APPROVAL-0284_RUBRIC_PROMPT_REPAIR_11_FRQS_UNITLESS_PRODUCTION_2026_11_14.md
 - APPROVAL-0283 (2026-11-14): two repaired FRQs labeled (apcalcab-frq-035 7.7, apchem-sfrq-035 8.10) to Production — APPROVAL-0283_LABEL_TWO_REPAIRED_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_14.md
