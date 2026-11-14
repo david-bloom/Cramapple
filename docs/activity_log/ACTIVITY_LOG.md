@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- 2026-11-14: quick_take for 363 topics, Calculus AB structured text and AB source primes applied to Production (APPROVAL-0276).
 - 2026-11-13: Calculus AB 5.6-5.9, 5.11 second-derivative primes restored in Production (APPROVAL-0274).
 - 2026-11-13: Recommendation #3 structured text applied to Production for six more subjects (317 rows, APPROVAL-0273).
 - quick_take ("In 30 seconds") text for 136 Chemistry, Biology and Statistics units 1-5 topics applied to Production (`APPROVAL-0272`, 2026-11-13): schema, RPC key and data live, read back 136/136; students see it after app PR 61 is merged and published

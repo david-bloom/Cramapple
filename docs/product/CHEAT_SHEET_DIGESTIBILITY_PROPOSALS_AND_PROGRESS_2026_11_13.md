@@ -144,3 +144,7 @@ Questions for David
 
 ### Update: Calculus AB lost primes repaired in Production (APPROVAL-0274, 2026-11-13)
 - AB 5.6, 5.7, 5.8, 5.9, 5.11 restored and read back 5/5 (weak_answer 3/3). Only concavity/second-derivative topics were scanned.
+
+### Update: #2 authored quick_take and #3 for Calculus AB, LIVE in Production (APPROVAL-0276, 2026-11-14)
+- quick_take now authored for every subject except Physics 2 and Physics C (excluded): 363 more rows (Bio 6-8, Chem 6-9, Calc AB/BC, Physics 1, Precalc), read back 363/363. Calculus AB structured text for units 1 and 6-8: 41 of 46 topics (5 single-idea topics left as prose). AB 5.6-5.9 answer_move/common_point_loss primes restored.
+- Still open: no human review, no rendered check; source-field mismatches carry through into some quick_take lines.

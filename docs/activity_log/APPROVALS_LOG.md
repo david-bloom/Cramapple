@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- APPROVAL-0276 (2026-11-14): quick_take for six more subjects (363 rows), Calculus AB structured text (41) and AB source-field primes (4) applied to Production — APPROVAL-0276_QUICK_TAKE_AND_AB_STRUCTURED_REMAINING_PRODUCTION_2026_11_14.md
 - APPROVAL-0274 (2026-11-13): Calculus AB lost second-derivative primes restored in Production (5 topics) — APPROVAL-0274_CALC_AB_LOST_PRIMES_REPAIR_PRODUCTION_2026_11_13.md
 - APPROVAL-0273 (2026-11-13): structured explainer text for Biology 6-8, Chemistry 6-9, Calculus AB/BC, Physics 1, Precalculus applied to Production (317 rows) — APPROVAL-0273_STRUCTURED_EXPLAINERS_REMAINING_SUBJECTS_PRODUCTION_2026_11_13.md
 - [APPROVAL-0272 — quick_take "In 30 seconds" text for AP Chemistry, Biology and Statistics units 1-5 applied to Production (granted 2026-11-13)](APPROVAL-0272_QUICK_TAKE_CHEM_BIO_STATS_UNITS_1_5_PRODUCTION_2026_11_13.md)
