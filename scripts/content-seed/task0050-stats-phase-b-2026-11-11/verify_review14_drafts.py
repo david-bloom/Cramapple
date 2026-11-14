@@ -16,6 +16,7 @@ for d in drafts:
     if d['content_key'].startswith('APSTATS-HDG-'):
         assert j['parts'][0]['prompt_text'] == p['stimulus']
         assert sum(c['points_possible'] for c in j['criteria']) == j['parts'][0]['points_possible'] == 4
+        assert j['practice_modality'] == 'supplemental_hand_drawn'
     else:
         assert p['stem'] == j['stem']
         assert [{k: c[k] for k in ('choice_key', 'choice_text', 'is_correct', 'rationale')}
@@ -26,12 +27,16 @@ tables = {k: by_key['APSTATS-HDG-2026-GRAPH-' + k]['prompt_json']['stimulus_tabl
           for k in ('021', '022', '024', '026')}
 assert [sum(v for v in row.values() if isinstance(v, int)) for row in tables['021']] == [80, 60]
 assert 24/80 > 9/60
+assert 48/80 > 18/60 and 33/60 > 8/80
 assert [sum(v for v in row.values() if isinstance(v, int)) for row in tables['022']] == [120, 80]
 assert 44/80 > 30/120
+assert 54/120 > 16/80 and 36/120 > 20/80
 assert [sum(v for v in row.values() if isinstance(v, int)) for row in tables['024']] == [70, 90, 115]
-assert [row['In-person'] for row in tables['024']] == [50, 15, 40]
-assert [sum(v for v in row.values() if isinstance(v, int)) for row in tables['026']] == [70, 100, 85]
-assert [row['No-show'] for row in tables['026']] == [10, 35, 20]
+assert [row['In-person'] for row in tables['024']] == [50, 15, 55]
+assert 50/70 > 55/115 and 55 > 50
+assert [sum(v for v in row.values() if isinstance(v, int)) for row in tables['026']] == [70, 100, 125]
+assert [row['No-show'] for row in tables['026']] == [10, 35, 40]
+assert 35/100 > 40/125 and 40 > 35
 
 scores = [row['Test score'] for row in by_key['APSTATS-HDG-2026-GRAPH-029']['prompt_json']['stimulus_table']]
 assert len(scores) == 12 and scores == sorted(scores)
@@ -50,6 +55,14 @@ r = sxy / math.sqrt(sxx*syy)
 slope = sxy/sxx
 assert abs(r + .7650940154) < 1e-8 and abs(slope + 4.6) < 1e-8
 assert '37.06 - 4.60' in by_key['APSTATS-HDG-2026-GRAPH-036']['canonical_answer_1']
+
+xs = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+ys = [27, 33, 60, 45, 53, 41, 49, 66, 72]
+mean_x, mean_y = sum(xs)/len(xs), sum(ys)/len(ys)
+correlation_032 = sum((a-mean_x)*(b-mean_y) for a,b in zip(xs,ys)) / math.sqrt(
+    sum((a-mean_x)**2 for a in xs) * sum((b-mean_y)**2 for b in ys))
+assert abs(correlation_032 - .7758643678) < 1e-8
+assert 'moderately strong positive' in by_key['APSTATS-HDG-2026-GRAPH-032']['canonical_answer_1']
 
 z = ((248/620)-(203/580)) / math.sqrt((451/1200)*(749/1200)*(1/620+1/580))
 pvalue = math.erfc(z/math.sqrt(2))/2

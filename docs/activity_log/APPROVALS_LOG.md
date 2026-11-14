@@ -5,11 +5,19 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 ## Index
 
 - [APPROVAL-0272 — AP Biology Unit 5 topic-by-topic Production publication (owner directed 2026-11-13)](APPROVAL-0272_BIOLOGY_UNIT5_TOPIC_RELEASE_PRODUCTION_2026_11_13.md)
+- APPROVAL-0279 (2026-11-14): quick_take for six more subjects (363 rows), Calculus AB structured text (41) and AB source-field primes (4) applied to Production — APPROVAL-0279_QUICK_TAKE_AND_AB_STRUCTURED_REMAINING_PRODUCTION_2026_11_14.md
+- APPROVAL-0278 (2026-11-13): four repaired rubric-held FRQs labeled (Units 6+), 4 topic cells and 4 serving labels to Production — APPROVAL-0278_LABEL_4_REPAIRED_RUBRIC_HELD_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_13.md
+- APPROVAL-0277 (2026-11-13): four rubric-held FRQs repaired (Units 6+), new versions to Production — APPROVAL-0277_RUBRIC_PREFLIGHT_REPAIR_4_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_13.md
+- APPROVAL-0276 (2026-11-13): label gap fill Units 6+ round 2, 13 CED-text rulings (13 topic cells, 11 serving labels) to Production — APPROVAL-0276_LABEL_GAP_FILL_UNITS_6PLUS_ROUND2_CED_RULINGS_PRODUCTION_2026_11_13.md
+- APPROVAL-0275 (2026-11-13): label gap fill Units 6+, 118 topic cells and 66 serving labels to Production — APPROVAL-0275_LABEL_GAP_FILL_UNITS_6PLUS_SERVING_AND_TOPIC_PRODUCTION_2026_11_13.md
+- APPROVAL-0274 (2026-11-13): Calculus AB lost second-derivative primes restored in Production (5 topics) — APPROVAL-0274_CALC_AB_LOST_PRIMES_REPAIR_PRODUCTION_2026_11_13.md
+- APPROVAL-0273 (2026-11-13): structured explainer text for Biology 6-8, Chemistry 6-9, Calculus AB/BC, Physics 1, Precalculus applied to Production (317 rows) — APPROVAL-0273_STRUCTURED_EXPLAINERS_REMAINING_SUBJECTS_PRODUCTION_2026_11_13.md
+- [APPROVAL-0272 — quick_take "In 30 seconds" text for AP Chemistry, Biology and Statistics units 1-5 applied to Production (granted 2026-11-13)](APPROVAL-0272_QUICK_TAKE_CHEM_BIO_STATS_UNITS_1_5_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0268 — Calculus AB and BC Unit 5 topics 5.3–5.12, topic-by-topic (5.3 executed 2026-11-13)](APPROVAL-0268_CALCULUS_AB_BC_UNIT5_TOPICS_5_3_TO_5_12_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0267 — Calculus AB and BC Unit 5 topic 5.2 (granted and executed 2026-11-12; renumbered 2026-11-13)](APPROVAL-0267_CALCULUS_AB_BC_UNIT5_TOPIC_5_2_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0260 — Calculus AB and BC Unit 5 topic 5.1 (granted and executed 2026-11-12)](APPROVAL-0260_CALCULUS_AB_BC_UNIT5_TOPIC_5_1_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0259 — AP Statistics Unit 5 re-leveling (granted and executed 2026-11-12)](APPROVAL-0259_STATS_UNIT5_PRODUCTION_2026_11_12.md)
-- [APPROVAL-0258 — TASK-0050: publish 14 reviewed AP Statistics successors with labels (authorized 2026-11-12 ET; execution pending)](APPROVAL-0258_TASK0050_STATISTICS_14_SUCCESSORS_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0258 — TASK-0050: 14 reviewed AP Statistics successors published with labels (executed 2026-11-13 ET)](APPROVAL-0258_TASK0050_STATISTICS_14_SUCCESSORS_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0236 — TASK-0050 AP Statistics Phase B: 390 provisional skill cells added to Production (granted and executed 2026-11-11 ET)](APPROVAL-0236_TASK0050_STATISTICS_PHASE_B_PROVISIONAL_SKILLS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0218 — AP Chemistry topics 3.1 to 3.3 harder seeds: 24 items published, 12 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0218_AP_CHEMISTRY_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0229 — AP Physics 1 Unit 4 topics 4.1 to 4.4: 32 items published (granted and executed 2026-11-12)](APPROVAL-0229_AP_PHYSICS_1_UNIT4_4_1_TO_4_4_PRODUCTION_2026_11_12.md)
@@ -214,6 +222,9 @@ Most recent entries (full chronological list follows below):
 - [APPROVAL-0261 — AP Chemistry 1.5 explainer reshaped into bullets, steps and a table, applied to Production (granted 2026-11-12)](APPROVAL-0261_AP_CHEMISTRY_1_5_STRUCTURED_EXPLAINER_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0262 — AP Statistics units 1-5 explainers reshaped into bullets, steps and tables, applied to Production (granted 2026-11-12)](APPROVAL-0262_AP_STATISTICS_UNITS_1_5_STRUCTURED_EXPLAINERS_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0263 — AP Biology units 1-5 explainers reshaped into bullets, steps and tables, applied to Production (granted 2026-11-12)](APPROVAL-0263_AP_BIOLOGY_UNITS_1_5_STRUCTURED_EXPLAINERS_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0269 — Rubric repair and labeling of 16 rubric-held FRQs, Units 1-5 (granted 2026-11-13)](APPROVAL-0269_RUBRIC_PREFLIGHT_REPAIR_AND_LABEL_16_FRQS_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0270 — Author the missing prompt parts of apcalcbc-frq-u13-020, publish and label (granted 2026-11-13)](APPROVAL-0270_AUTHOR_PROMPT_PARTS_APCALCBC_FRQ_U13_020_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0271 — Label five of the seven residue items, Units 1-5 label-gap audit (granted 2026-11-13)](APPROVAL-0271_LABEL_5_RESIDUE_ITEMS_UNITS_1_5_PRODUCTION_2026_11_13.md)
 <!-- INDEX_END -->
 
 
