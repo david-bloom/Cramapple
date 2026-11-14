@@ -72,13 +72,13 @@ MCQ has one point and no rubric, so coaching ties the *chosen* answer's error to
 
 **Decision (owner, 2026-11-14): MCQ coaching never names the correct answer.** If it does, the student cannot meaningfully retry, and it matches the shipped rule (the MCQ feedback withholds the correct choice's rationale and hands back a question, `composeMcqFeedback` comment in `evaluate-attempt/index.ts`).
 
-**Prompt: three rules, not a rule list (provisional: see owner read below).** Rules live in code and checks, not in the prompt:
+**Prompt: three rules, not a rule list (decided for v0, see below).** Rules live in code and checks, not in the prompt:
 1. Explain the error using only the reason supplied; add no facts.
 2. End with one question the student can answer to try the problem again.
 3. If a DIRECTIVE is given, follow it (code supplies it; see history above).
 Plain words, about 80 words, no praise filler, no headings. Prohibitions (naming the answer, partial credit, claims about the student's state, miscounts) are enforced by the post-checks, not stated in the prompt.
 
-**Owner read (2026-11-14, blind, 10 missed questions, current prompt against three-rule prompt with retry): both work; the longer texts (about 130 words against about 80) were more helpful.** This overrides the earlier note in this plan that the three-rule prompt was preferred. The measurable gains of the three-rule prompt (ends with a question 20 of 20, faster, shorter, fewer rules) are real, but helpfulness favoured the longer text. Caution: in those 10 items the longer text was flagged as naming the answer in 5 and the three-rule text in 3 (model-judged), so some of the longer text's helpfulness may come from saying more about the right concept. Open until a follow-up test separates structure and length from answer-naming: keep the rules out of the prompt but keep the four-part structure and a roughly 120-word target, with the same checks and one retry.
+**Decision (owner, 2026-11-14): go with the three-rule prompt for v0, to keep it simple.** In a blind read of 10 missed questions (current prompt against the three-rule prompt with retry) the owner found both worked and the longer texts (about 130 words against about 80) more helpful, but is not the target audience, so that read is weak evidence. Caution: in those 10 items the longer text was flagged as naming the answer in 5 and the three-rule text in 3 (model-judged), so some of its helpfulness may come from saying more about the right concept. The student rating below is now the quality signal; a longer structured variant (four-part structure, about 120 words, same checks and retry) stays a candidate to test against the three-rule prompt on real ratings.
 
 **Check, retry once, then fall back.** A failed post-check triggers one regeneration that names the failed check; a second failure drops to today's text (tier 2, section 6). In a 20-item test of missed MCQs (Stats and Biology, synthetic, two-model leak judge, union of flags): the longer prompt had 5 of 20 texts pass all checks; the three-rule prompt had 6 of 20 on the first try, and 14 of 20 after one retry (70% coverage). The three-rule prompt ended with a question in 20 of 20 texts (3 of 20 for the longer prompt), ran 78 words against 126, and generated in a median 1.4 s against 2.0 s. The prompt alone did not reduce answer-naming (14 of 20 flagged versus 15); the retry did (6 of 20).
 
@@ -138,6 +138,15 @@ Recommendation: use option 1 for the offline replay and the pilot, and take opti
 
 6 to 8 owner-approved example texts: MCQ miss, MCQ correct, FRQ partial, FRQ zero on a part, FRQ full credit. Two in the prompt at a time, rotated; the rest held out as regression fixtures. Encouragement and progress framing are excluded until real history and the design-rule decision exist. Seed from the 22 texts in `HUMAN_READ_PACKET.md` that David explicitly approves or revises; nothing is approved by inference.
 
+## 8b. Student interface: coaching slot and feedback rating
+
+Built and verified in the web app 2026-11-14 (not wired to a backend).
+- **One slot, grade first.** The card shows the grade and the composed feedback instantly. Model coaching, when it arrives, replaces the composed text in the same space so nothing moves; while pending, a quiet "Coaching on its way" line shows (no spinner, the system has no motion); if it never arrives, or fails a check, the card stays as it was with no error. This is tier 2 in section 6 made visible. The plate never scrolls, so the slot must fit: the card, with an 80-word coaching text and the rating row, fits in every practice state checked (`npm run verify:panes`, 0 panes overflowing).
+- **Rating.** A quiet "Helpful? Not at all 1 2 3 4 5 Very" at chrome scale, digits only (the design system has no stars, faces or emoji), shown when there is feedback to rate, final once chosen ("Thanks · 4 of 5"). Stored locally on the attempt with `source` = `coaching` or `composed`, so the two can be compared. It is not shown for ungradable results.
+- **What it is for.** The owner is not the target audience, so the rating is how the team learns whether coaching helps students: rating by source, by prompt version, by subject and item type, and by tier. It replaces opinion in choosing between the three-rule prompt and a longer variant.
+- **Needs approval before it leaves the browser:** capturing the rating server-side (a new field or event, with the prompt version, source and tier) is a schema and function change and is not done. Also decide response-rate expectations: a subtle prompt will be skipped by most students, so ratings are a sample, not a census, and are biased toward students who feel strongly.
+- **Demo:** open a practice question with `?coachdemo=1` to see the pending and ready states with fixed demo text.
+
 ## 9. Test and go/no-go
 
 **Evidence so far (2026-11-14, Development data, synthetic students, nothing written).**
@@ -187,6 +196,7 @@ Lowest-risk shape: a **separate post-grade call** that leaves grading latency an
 - Creating a synthetic student account in Development for the replay.
 - Reading student memory or `student_cell_state` into a coaching call (a read path that does not exist for feedback today). The offline replay uses synthetic students only.
 - Sending student response text to a coaching model, and which provider.
+- Server-side capture of the feedback rating (new field or event, plus prompt version, source and tier).
 - Raising the daily spend cap (`OPENAI_DAILY_CAP_USD`, `evaluate-attempt/index.ts:102`) or adding per-attempt model cost.
 - The unresolved praise/encouragement design-rule decision.
 - Replaying real student attempts offline.
@@ -217,3 +227,4 @@ Lowest-risk shape: a **separate post-grade call** that leaves grading latency an
 9. ~~May post-submit MCQ coaching name the correct answer?~~ **Settled 2026-11-14 (owner): no.** Coaching explains the error and returns a question.
 10. Confirm the history sources: attempt-derived topic counts plus cell tier and `due_reason`, with student memory fields (`preferred_help_style` etc.) left out of v0.
 11. Approve an audit of authored MCQ distractor rationales for answer-naming (5 of 20 sampled were flagged), and who rewrites the ones that fail.
+12. Rating capture: approve storing the rating server-side with prompt version, source and tier, and set the minimum number of ratings before comparing prompts.

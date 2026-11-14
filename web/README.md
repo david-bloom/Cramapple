@@ -197,3 +197,9 @@ fonts, four panes overflowed the frame.
   is AP Biology, whose FRQs are longer and carry diagrammatic stimulus; the
   fixed no-scroll plate is exactly where that will bite. See the open question
   in `docs/new_design/README.md`.
+
+## Coaching slot and feedback rating (added 2026-11-14)
+
+The feedback card has one text slot. It always shows the grader's composed feedback (`coaching` prop) with the grade, instantly. When model-written coaching exists it arrives as `coach` (`{ status: 'pending' | 'ready' | 'none', text }`) and replaces the composed text in the same slot; while pending, a quiet "Coaching on its way" line shows, and if coaching never arrives the card stays as it was, with no error or apology. A one-to-five "Helpful?" control (`FeedbackRating`) sits at the bottom of the card; the rating is stored on the attempt as `feedbackRating { value, source, at }` where `source` is `coaching` or `composed`, so ratings of the two can be compared. Ratings are local only until a backend capture is approved.
+
+There is no coaching backend yet. Open any practice question with `?coachdemo=1` (for example `/#/practice/apstats-2-3-mcq-001?coachdemo=1`) to see the pending and ready states with fixed demo text (`src/session/coachStub.js`, delete when the real call exists).
