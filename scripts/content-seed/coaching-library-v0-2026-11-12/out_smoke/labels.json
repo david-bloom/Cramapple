@@ -1,0 +1,964 @@
+[
+ {
+  "item": "APSTATS-MCQ-SV-H-4.1-B-v1",
+  "family": "apstats-mcq-sv-h-4.1-b",
+  "version": 1,
+  "subject": "ap-statistics",
+  "target": "C",
+  "bucket": "short",
+  "held_out": false,
+  "fingerprint": "e5f49e323bed167d",
+  "generator": "openai/gpt-6-luna",
+  "status": "checked",
+  "label": {
+   "insufficient_source": false,
+   "error_summary": "The choice triples the sample size, but that does not halve the standard deviation because spread falls with the square root of n.",
+   "error_type": "wrong_sample_size_scaling",
+   "requirement_lost": "A correct answer must give a sample size of 100, four times the original sample size, to halve the standard deviation.",
+   "fix_kind": "learn_first",
+   "support_error": "the spread falls with the square root of n",
+   "support_requirement": "Halving the standard deviation requires four times the sample size."
+  },
+  "attempts": 1,
+  "history": [
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "The choice triples the sample size, but that does not halve the standard deviation because spread falls with the square root of n.",
+     "error_type": "wrong_sample_size_scaling",
+     "requirement_lost": "A correct answer must give a sample size of 100, four times the original sample size, to halve the standard deviation.",
+     "fix_kind": "learn_first",
+     "support_error": "the spread falls with the square root of n",
+     "support_requirement": "Halving the standard deviation requires four times the sample size."
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 4,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   }
+  ],
+  "source_suspect": false,
+  "soft": []
+ },
+ {
+  "item": "APSTATS-MCQ-085",
+  "family": "apstats-mcq-085",
+  "version": 1,
+  "subject": "ap-statistics",
+  "target": "D",
+  "bucket": "short",
+  "held_out": true,
+  "fingerprint": "2ad31f97d9a937ed",
+  "generator": "openai/gpt-6-luna",
+  "status": "checked",
+  "label": {
+   "insufficient_source": false,
+   "error_summary": "It claims the sign cannot be determined, but the point is above the line, so its residual is positive.",
+   "error_type": "missed_given_condition",
+   "requirement_lost": "To earn the point, identify that a point above the line has a positive residual.",
+   "fix_kind": "answer_differently",
+   "support_error": "The sign is determined by whether the point is above or below the line.",
+   "support_requirement": "a point above the line has a positive residual"
+  },
+  "attempts": 1,
+  "history": [
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "It claims the sign cannot be determined, but the point is above the line, so its residual is positive.",
+     "error_type": "missed_given_condition",
+     "requirement_lost": "To earn the point, identify that a point above the line has a positive residual.",
+     "fix_kind": "answer_differently",
+     "support_error": "The sign is determined by whether the point is above or below the line.",
+     "support_requirement": "a point above the line has a positive residual"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 4,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   }
+  ],
+  "source_suspect": false,
+  "soft": []
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-2.6-B-v3",
+  "family": "apstats-mcq-sv-h-2.6-b",
+  "version": 1,
+  "subject": "ap-statistics",
+  "target": "D",
+  "bucket": "short",
+  "held_out": false,
+  "fingerprint": "e9c5756525247651",
+  "generator": "openai/gpt-6-luna",
+  "status": "blocked",
+  "label": {
+   "insufficient_source": false,
+   "error_summary": "The choice treats the three colors as equally likely, but the colors have different numbers of marbles.",
+   "error_type": "assumes_equal_likelihood",
+   "requirement_lost": "A correct answer must add the probabilities of drawing two marbles of each color using the stated counts and without-replacement draws.",
+   "fix_kind": "learn_first",
+   "support_error": "treats the three colors as equally likely",
+   "support_requirement": "(3/8)(2/7) + (3/8)(2/7) + (2/8)(1/7)"
+  },
+  "attempts": 2,
+  "reasons": [
+   "alibaba/qwen3.8-flash: blocked"
+  ],
+  "history": [
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "The choice treats the three colors as equally likely, but they have different numbers of marbles.",
+     "error_type": "equal_likelihood",
+     "requirement_lost": "A correct answer must add the probabilities of red-red, blue-blue, and green-green draws without replacement.",
+     "fix_kind": "learn_first",
+     "support_error": "treats the three colors as equally likely",
+     "support_requirement": "(3/8)(2/7) + (3/8)(2/7) + (2/8)(1/7)"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": true,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 4,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   },
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "The choice treats the three colors as equally likely, but the colors have different numbers of marbles.",
+     "error_type": "assumes_equal_likelihood",
+     "requirement_lost": "A correct answer must add the probabilities of drawing two marbles of each color using the stated counts and without-replacement draws.",
+     "fix_kind": "learn_first",
+     "support_error": "treats the three colors as equally likely",
+     "support_requirement": "(3/8)(2/7) + (3/8)(2/7) + (2/8)(1/7)"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": true,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 4,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   }
+  ],
+  "source_suspect": false
+ },
+ {
+  "item": "APSTATS-MCQ-SV-006-v1",
+  "family": "apstats-mcq-sv-006",
+  "version": 1,
+  "subject": "ap-statistics",
+  "target": "C",
+  "bucket": "mid",
+  "held_out": false,
+  "fingerprint": "4edc61b5d48c7da3",
+  "generator": "openai/gpt-6-luna",
+  "status": "checked",
+  "label": {
+   "insufficient_source": false,
+   "error_summary": "It claims blocking eliminates every lurking variable, but blocks control only sex; protection against unmeasured variables comes from random assignment.",
+   "error_type": "overstates_blocking",
+   "requirement_lost": "A correct answer must show that comparing drug and placebo within each sex keeps sex-related variation from blurring the treatment difference, which raises power.",
+   "fix_kind": "learn_first",
+   "support_error": "Blocking only controls the blocked variable (sex)",
+   "support_requirement": "keeps that variation from blurring the treatment difference"
+  },
+  "attempts": 1,
+  "history": [
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "It claims blocking eliminates every lurking variable, but blocks control only sex; protection against unmeasured variables comes from random assignment.",
+     "error_type": "overstates_blocking",
+     "requirement_lost": "A correct answer must show that comparing drug and placebo within each sex keeps sex-related variation from blurring the treatment difference, which raises power.",
+     "fix_kind": "learn_first",
+     "support_error": "Blocking only controls the blocked variable (sex)",
+     "support_requirement": "keeps that variation from blurring the treatment difference"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 4,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   }
+  ],
+  "source_suspect": false,
+  "soft": []
+ },
+ {
+  "item": "APSTATS-MCQ-009",
+  "family": "apstats-mcq-009",
+  "version": 1,
+  "subject": "ap-statistics",
+  "target": "D",
+  "bucket": "mid",
+  "held_out": false,
+  "fingerprint": "bb3a1c35d45decfe",
+  "generator": "openai/gpt-6-luna",
+  "status": "checked",
+  "label": {
+   "insufficient_source": false,
+   "error_summary": "D says the shape becomes more normal but variability stays the same; this fails because the standard error decreases as n increases.",
+   "error_type": "wrong_variability",
+   "requirement_lost": "A correct answer must show that as n increases, the sampling distribution becomes more approximately normal and its standard error decreases.",
+   "fix_kind": "learn_first",
+   "support_error": "the standard error is unaffected by sample size",
+   "support_requirement": "its standard error (population SD divided by the square root of n) decreases as n increases"
+  },
+  "attempts": 1,
+  "history": [
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "D says the shape becomes more normal but variability stays the same; this fails because the standard error decreases as n increases.",
+     "error_type": "wrong_variability",
+     "requirement_lost": "A correct answer must show that as n increases, the sampling distribution becomes more approximately normal and its standard error decreases.",
+     "fix_kind": "learn_first",
+     "support_error": "the standard error is unaffected by sample size",
+     "support_requirement": "its standard error (population SD divided by the square root of n) decreases as n increases"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 4,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   }
+  ],
+  "source_suspect": false,
+  "soft": []
+ },
+ {
+  "item": "APSTATS-MCQ-013",
+  "family": "apstats-mcq-013",
+  "version": 1,
+  "subject": "ap-statistics",
+  "target": "D",
+  "bucket": "long",
+  "held_out": false,
+  "fingerprint": "e27ee86b765f8142",
+  "generator": "openai/gpt-6-luna",
+  "status": "checked",
+  "label": {
+   "insufficient_source": false,
+   "error_summary": "The choice claims t-intervals can never be used with samples smaller than 30, but small samples can support one when there is good reason to believe the population is approximately normal.",
+   "error_type": "absolute_rule",
+   "requirement_lost": "Show that with this small, clearly skewed sample and an outlier, there is no basis for assuming the population or sampling distribution of the mean is approximately normal, so the t-interval's normality condition is not satisfied.",
+   "fix_kind": "learn_first",
+   "support_error": "small samples can still support a t-interval",
+   "support_requirement": "the t-interval's normality condition is not satisfied"
+  },
+  "attempts": 2,
+  "history": [
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "D claims t-intervals can never be used with samples smaller than 30, but small samples can support one when there is good reason to believe the population is approximately normal.",
+     "error_type": "overgeneralized_rule",
+     "requirement_lost": "With this small sample and clear skewness, there is no basis for assuming the population or sampling distribution is approximately normal, so the t-interval’s normality condition is not satisfied.",
+     "fix_kind": "learn_first",
+     "support_error": "small samples can still support a t-interval",
+     "support_requirement": "there is no basis for assuming the population"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": true,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   },
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "The choice claims t-intervals can never be used with samples smaller than 30, but small samples can support one when there is good reason to believe the population is approximately normal.",
+     "error_type": "absolute_rule",
+     "requirement_lost": "Show that with this small, clearly skewed sample and an outlier, there is no basis for assuming the population or sampling distribution of the mean is approximately normal, so the t-interval's normality condition is not satisfied.",
+     "fix_kind": "learn_first",
+     "support_error": "small samples can still support a t-interval",
+     "support_requirement": "the t-interval's normality condition is not satisfied"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 4,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   }
+  ],
+  "source_suspect": false,
+  "soft": []
+ },
+ {
+  "item": "APSTATS-MCQ-SV-047-v1",
+  "family": "apstats-mcq-sv-047",
+  "version": 1,
+  "subject": "ap-statistics",
+  "target": "D",
+  "bucket": "short",
+  "held_out": false,
+  "fingerprint": "73d4ad31c004d5d8",
+  "generator": "openai/gpt-6-luna",
+  "status": "checked",
+  "label": {
+   "insufficient_source": false,
+   "error_summary": "The choice says C and J are independent because their joint probability is smaller than each single probability, but that condition does not test independence.",
+   "error_type": "wrong_independence_test",
+   "requirement_lost": "To show independence, the answer must show that P(C and J) = P(C)P(J).",
+   "fix_kind": "learn_first",
+   "support_error": "that does not test independence",
+   "support_requirement": "Independence requires P(C and J) = P(C)P(J)"
+  },
+  "attempts": 2,
+  "history": [
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "D claims C and J are independent because their joint probability is smaller than both individual probabilities, but that condition does not test independence.",
+     "error_type": "wrong_independence_test",
+     "requirement_lost": "A correct answer must show that independence requires P(C and J) = P(C)P(J) and compare those probabilities.",
+     "fix_kind": "learn_first",
+     "support_error": "that does not test independence",
+     "support_requirement": "Independence requires P(C and J) = P(C)P(J)"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": true,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   },
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "The choice says C and J are independent because their joint probability is smaller than each single probability, but that condition does not test independence.",
+     "error_type": "wrong_independence_test",
+     "requirement_lost": "To show independence, the answer must show that P(C and J) = P(C)P(J).",
+     "fix_kind": "learn_first",
+     "support_error": "that does not test independence",
+     "support_requirement": "Independence requires P(C and J) = P(C)P(J)"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   }
+  ],
+  "source_suspect": false,
+  "soft": []
+ },
+ {
+  "item": "APSTATS-MCQ-SV-043-v2",
+  "family": "apstats-mcq-sv-043",
+  "version": 1,
+  "subject": "ap-statistics",
+  "target": "C",
+  "bucket": "short",
+  "held_out": true,
+  "fingerprint": "f3ca58df40be7dd9",
+  "generator": "openai/gpt-6-luna",
+  "status": "checked",
+  "label": {
+   "insufficient_source": false,
+   "error_summary": "Choice C claims that callers’ belief their vote matters causes a placebo effect, but placebo effects concern inactive treatments in experiments, not opinion polls.",
+   "error_type": "confuses_two_concepts",
+   "requirement_lost": "A correct answer must identify that callers choose themselves and people with strong feelings are more likely to respond, so they do not represent the city.",
+   "fix_kind": "learn_first",
+   "support_error": "not to opinion polls",
+   "support_requirement": "people with strong feelings are more likely to respond"
+  },
+  "attempts": 1,
+  "history": [
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "Choice C claims that callers’ belief their vote matters causes a placebo effect, but placebo effects concern inactive treatments in experiments, not opinion polls.",
+     "error_type": "confuses_two_concepts",
+     "requirement_lost": "A correct answer must identify that callers choose themselves and people with strong feelings are more likely to respond, so they do not represent the city.",
+     "fix_kind": "learn_first",
+     "support_error": "not to opinion polls",
+     "support_requirement": "people with strong feelings are more likely to respond"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   }
+  ],
+  "source_suspect": false,
+  "soft": []
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-2.2-A-v1",
+  "family": "apstats-mcq-sv-h-2.2-a",
+  "version": 1,
+  "subject": "ap-statistics",
+  "target": "D",
+  "bucket": "short",
+  "held_out": false,
+  "fingerprint": "65aa976b8762935a",
+  "generator": "openai/gpt-6-luna",
+  "status": "checked",
+  "label": {
+   "insufficient_source": false,
+   "error_summary": "The choice claims there is no association because the counts are close, but close counts do not mean close rates when the groups have different sizes.",
+   "error_type": "compares_counts",
+   "requirement_lost": "A correct answer must compare the pass rates, which are 70% for tutored students and 50% for the others, and identify the association.",
+   "fix_kind": "answer_differently",
+   "support_error": "Close counts (105 and 125) do not mean close rates",
+   "support_requirement": "105/150 = 70% of tutored students passed versus 125/250 = 50% of the others."
+  },
+  "attempts": 1,
+  "history": [
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "The choice claims there is no association because the counts are close, but close counts do not mean close rates when the groups have different sizes.",
+     "error_type": "compares_counts",
+     "requirement_lost": "A correct answer must compare the pass rates, which are 70% for tutored students and 50% for the others, and identify the association.",
+     "fix_kind": "answer_differently",
+     "support_error": "Close counts (105 and 125) do not mean close rates",
+     "support_requirement": "105/150 = 70% of tutored students passed versus 125/250 = 50% of the others."
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   }
+  ],
+  "source_suspect": false,
+  "soft": []
+ },
+ {
+  "item": "apstats-mcq-b6-sv-h-1.9-b-v2",
+  "family": "apstats-mcq-b6-sv-h-1.9-b",
+  "version": 1,
+  "subject": "ap-statistics",
+  "target": "D",
+  "bucket": "short",
+  "held_out": true,
+  "fingerprint": "c45bea2f7d514f36",
+  "generator": "openai/gpt-6-luna",
+  "status": "blocked",
+  "label": {
+   "insufficient_source": false,
+   "error_summary": "D claims Group 2 is more variable because its Q1 is higher, but a higher quartile is a shift in location, not more spread.",
+   "error_type": "confuses_location_spread",
+   "requirement_lost": "A correct answer must identify Group 2’s higher median and less variability, supported by its smaller IQR and range.",
+   "fix_kind": "learn_first",
+   "support_error": "A higher quartile is a shift in location, not more spread",
+   "support_requirement": "IQR1 = 26 − 18 = 8, IQR2 = 27 − 21 = 6; range1 = 26, range2 = 16; medians 22 and 25"
+  },
+  "attempts": 2,
+  "reasons": [
+   "alibaba/qwen3.8-flash: blocked"
+  ],
+  "history": [
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "Choice D claims Group 2 is more variable because its Q1 is higher, but a higher quartile indicates a shift in location, not more spread; Group 2 has the smaller IQR.",
+     "error_type": "confuses_location_spread",
+     "requirement_lost": "A correct answer must show that Group 2 has the higher median and smaller IQR and range than Group 1.",
+     "fix_kind": "learn_first",
+     "support_error": "A higher quartile is a shift in location, not more spread",
+     "support_requirement": "IQR1 = 26 − 18 = 8, IQR2 = 27 − 21 = 6; range1 = 26, range2 = 16; medians 22 and 25"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": true,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   },
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "D claims Group 2 is more variable because its Q1 is higher, but a higher quartile is a shift in location, not more spread.",
+     "error_type": "confuses_location_spread",
+     "requirement_lost": "A correct answer must identify Group 2’s higher median and less variability, supported by its smaller IQR and range.",
+     "fix_kind": "learn_first",
+     "support_error": "A higher quartile is a shift in location, not more spread",
+     "support_requirement": "IQR1 = 26 − 18 = 8, IQR2 = 27 − 21 = 6; range1 = 26, range2 = 16; medians 22 and 25"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": true,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   }
+  ],
+  "source_suspect": false
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-2.6-A-v2",
+  "family": "apstats-mcq-sv-h-2.6-a",
+  "version": 1,
+  "subject": "ap-statistics",
+  "target": "C",
+  "bucket": "short",
+  "held_out": false,
+  "fingerprint": "8250a2a1a1fbe287",
+  "generator": "openai/gpt-6-luna",
+  "status": "checked",
+  "label": {
+   "insufficient_source": false,
+   "error_summary": "Choice C claims the variables are independent because the joint probability is smaller than both marginal probabilities, but that does not show independence.",
+   "error_type": "misapplied_probability",
+   "requirement_lost": "A correct answer must show that P(AP | senior) equals P(AP), as both are 0.40.",
+   "fix_kind": "learn_first",
+   "support_error": "this does not show independence",
+   "support_requirement": "P(AP | senior) = 48/120 = 0.40 equals P(AP) = 120/300 = 0.40"
+  },
+  "attempts": 1,
+  "history": [
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "Choice C claims the variables are independent because the joint probability is smaller than both marginal probabilities, but that does not show independence.",
+     "error_type": "misapplied_probability",
+     "requirement_lost": "A correct answer must show that P(AP | senior) equals P(AP), as both are 0.40.",
+     "fix_kind": "learn_first",
+     "support_error": "this does not show independence",
+     "support_requirement": "P(AP | senior) = 48/120 = 0.40 equals P(AP) = 120/300 = 0.40"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   }
+  ],
+  "source_suspect": false,
+  "soft": []
+ },
+ {
+  "item": "apstats-mcq-b7-sv-h-1.5-a-v3",
+  "family": "apstats-mcq-b7-sv-h-1.5-a",
+  "version": 1,
+  "subject": "ap-statistics",
+  "target": "A",
+  "bucket": "mid",
+  "held_out": false,
+  "fingerprint": "a97f1e5354020a8a",
+  "generator": "openai/gpt-6-luna",
+  "status": "checked",
+  "label": {
+   "insufficient_source": false,
+   "error_summary": "Choice A claims the median is in 85–90 because that bar has the most scores, but 72 students score below 85, so the 50th and 51st scores are lower.",
+   "error_type": "confuses_frequency_with_median",
+   "requirement_lost": "A correct answer must use the 50th and 51st scores to locate the median; both are in 75–80.",
+   "fix_kind": "learn_first",
+   "support_error": "The tallest bar shows where the most scores are",
+   "support_requirement": "so both are in 75–80"
+  },
+  "attempts": 2,
+  "history": [
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "A treats the tallest bar as the median’s location, but 72 students score below 85 and the 50th and 51st scores are lower than that.",
+     "error_type": "confuses_frequency_median",
+     "requirement_lost": "A correct answer must use the cumulative counts to show that both the 50th and 51st scores are in 75–80.",
+     "fix_kind": "answer_differently",
+     "support_error": "72 students score below 85",
+     "support_requirement": "both are in 75–80"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": true,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     }
+    ]
+   },
+   {
+    "label": {
+     "insufficient_source": false,
+     "error_summary": "Choice A claims the median is in 85–90 because that bar has the most scores, but 72 students score below 85, so the 50th and 51st scores are lower.",
+     "error_type": "confuses_frequency_with_median",
+     "requirement_lost": "A correct answer must use the 50th and 51st scores to locate the median; both are in 75–80.",
+     "fix_kind": "learn_first",
+     "support_error": "The tallest bar shows where the most scores are",
+     "support_requirement": "so both are in 75–80"
+    },
+    "det": [],
+    "judges": [
+     {
+      "judge": "google/gemini-3.8-flash",
+      "supported": true,
+      "unsupported_claim": "none",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "none"
+     },
+     {
+      "judge": "alibaba/qwen3.8-flash",
+      "supported": true,
+      "unsupported_claim": "None",
+      "consistent_with_key": true,
+      "accurate_to_choice": true,
+      "motive_claim": false,
+      "fix_kind_reasonable": true,
+      "useful_to_coach": 5,
+      "source_rationale_suspect": false,
+      "source_note": "The 100th percentile is the median of the 50th and 51st scores, both of which are 75, so the median is in the 75-80 interval. Choice A is wrong because it uses the tallest bar (80-85) instead of the median."
+     }
+    ]
+   }
+  ],
+  "source_suspect": false,
+  "soft": []
+ }
+]

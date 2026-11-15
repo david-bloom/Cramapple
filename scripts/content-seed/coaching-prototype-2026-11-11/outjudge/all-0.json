@@ -1,0 +1,2637 @@
+[
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-OHT-3.11",
+  "pick": "D",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You treat the 95% as a probability that p₁ − p₂ lands in the interval, but the parameter is fixed; 95% describes the method, not this interval. That costs the point because the claim must be judged by whether 0 is inside. Next time, check 0 first: it is inside, so say there is not convincing evidence of a difference.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.00226725
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None. The interval (−0.02, 0.14) does contain 0, so the coaching text's conclusion — 'not convincing evidence of a difference' — is correct. The explanation of the 95% misinterpretation is also accurate: the parameter p₁ − p₂ is fixed, and 95% describes the long-run capture rate of the method, not a probability for this interval.",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "uses_history": 1,
+    "cost": 0.00023875
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.00060896
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-H-3.7-A-v3",
+  "pick": "A",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You left n out of the standard error, dividing by sqrt[p0(1-p0)] only. That drops the sample size from the denominator, inflating z. Write the full formula first—sqrt(p0(1-p0)/n)—then plug in 0.50 and 100 before doing arithmetic. Showing that setup is the rubric habit that earns the point.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": false,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 2,
+    "actionable_move": 3,
+    "specific_to_pick": 4,
+    "names_exam_point": 4,
+    "uses_history": 4,
+    "cost": 0.00038554999999999997
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": false,
+    "contradiction": "Leaving n out of the denominator makes the standard error larger (0.50 instead of 0.05), which deflates z to 0.24 rather than inflating it.",
+    "tone_ok": true,
+    "would_help_student": 3,
+    "actionable_move": 4,
+    "specific_to_pick": 4,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.003267
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": false,
+   "contradiction": "The coaching text incorrectly says that leaving n out of the standard error inflates z. Using sqrt[p0(1-p0)] instead of sqrt[p0(1-p0)/n] makes the denominator larger, so z is smaller: 0.12/0.5 = 0.24, not an inflated value relative to the correct 2.40.",
+   "tone_ok": true,
+   "would_help_student": 2,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.00107945
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-045-v3",
+  "pick": "A",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You pick \"random sample,\" but a sample selects only some members by chance. Here the vet weighed all 15 giraffes, the entire population of interest, which makes it a census. The trap: you saw data collection and reached for a sampling term without checking whether every member was measured. Next time, first ask if all members of the population are included; if yes, it's a census, not a sample.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 3,
+    "uses_history": 5,
+    "cost": 0.00022485000000000002
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.00311625
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 3,
+   "uses_history": 1,
+   "cost": 0.00201574
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-H-3.7-A-v3",
+  "pick": "D",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "You divided √[p0(1 − p0)] by n, which gives 0.5/100 = 0.005 and z = 24. The n belongs inside the radical: the standard error is √[p0(1 − p0)/n] = √(0.25/100) = 0.05. Next time, write this p0-based standard error with n under the radical before any arithmetic. Then divide 0.12 by 0.05 to get z = 2.40. The z-statistic point depends on this setup.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 0.9,
+    "actionable_move": 0.9,
+    "specific_to_pick": 0.9,
+    "names_exam_point": 0.9,
+    "uses_history": 0.8,
+    "cost": 0.00017631
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.00336525
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None.",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.00147607
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-045-v3",
+  "pick": "A",
+  "gen": "openai/gpt-6-luna",
+  "text": "You treat “measured” as enough to make this a sample; the key distinction is whether you measure everyone or select some by chance. Since the vet weighs all 15 giraffes, this is a census and an observational study—no treatment is imposed. For the classification point, first check for an imposed treatment, then check whether the data cover the whole population or only a subset.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.0023220000000000003
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "specific_to_pick": 4,
+    "names_exam_point": 4,
+    "uses_history": 4,
+    "cost": 0.00040879999999999996
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": false,
+   "contradiction": "The point brief’s classification point is observational/experimental and, if observational, prospective/retrospective; the coaching text instead says the second classification check is whether the data cover the whole population or a subset.",
+   "tone_ok": true,
+   "would_help_student": 3,
+   "actionable_move": 3,
+   "specific_to_pick": 5,
+   "names_exam_point": 2,
+   "uses_history": 0,
+   "cost": 0.00186194
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-H-3.2-A-v3",
+  "pick": "A",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "The correct answer is B: the SD is √(0.45 × 0.55 / 100) ≈ 0.0497, so 0.50 is about 1.01 SDs above 0.45. You chose A, which divides √(p(1−p)) by n. That puts n outside the square root and shrinks the SD to 0.005, which is why it looks like 10 SDs. Before doing any arithmetic, write μ_p̂ = 0.45 and σ_p̂ = √(p(1−p)/n) with n inside the root. Then check np ≥ 10 and n(1−p) ≥ 10 using the true p = 0.45.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.0033900000000000002
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 3,
+    "uses_history": 5,
+    "cost": 0.00056835
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.0013361599999999999
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apstats-mcq-b6-sv-h-1.12-b-v2",
+  "pick": "C",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "C still samples only gym-goers, who exercise more than typical residents—varying the time doesn’t fix who’s left out. The bias is in the sampling frame, not the wording. Next time, ask who has zero chance of being selected. A random sample from the full resident list is the only plan that gives everyone a chance.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 2,
+    "uses_history": 5,
+    "cost": 0.00017669999999999999
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 2,
+    "uses_history": 0,
+    "cost": 0.00340425
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 3,
+   "actionable_move": 3,
+   "specific_to_pick": 5,
+   "names_exam_point": 2,
+   "uses_history": 2,
+   "cost": 0.00149322
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-H-2.6-B-v1",
+  "pick": "A",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You treated the second draw as if the first marble were replaced, keeping the denominator at 10. That is the independence trap: without replacement, the second branch's probabilities must shrink to 5/9 and 3/9. The point brief's answer move is to build the tree before computing. Next time, sketch both same-color branches and update the counts after the first draw; that earns the multiplication-rule point.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text misattributes the point brief's answer move. The brief's actual answer move is about translating the conditioning phrase ('given that' / 'of the') into the denominator and noting that reversing conditioning changes the answer. Building a tree before computing is not the stated answer move; the tree diagram is only mentioned as one way to earn the conditional-probability point. The rest of the diagnosis is sound: A (13/25) does correspond to with-replacement arithmetic, (6/10)(6/10) + (4/10)(4/10) = 52/100, and the correct answer C = (6/10)(5/9) + (4/10)(3/9) = 42/90 = 7/15 does require the second-draw denominators to drop to 9. The claim that sketching the branches and updating counts earns the multiplication-rule point is consistent with the brief.",
+    "tone_ok": true,
+    "would_help_student": 3,
+    "actionable_move": 3,
+    "specific_to_pick": 4,
+    "names_exam_point": 4,
+    "uses_history": 4,
+    "cost": 0.00049975
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text states that the point brief's answer move is to build the tree before computing, which directly contradicts the authored point brief's stated answer move.",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.0039555
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": false,
+   "contradiction": "The coaching text says the point brief's answer move is to build the tree before computing, but the point brief's answer move is to translate the condition or named group into the denominator before computing; tree/table construction is mentioned as a way to earn points, not as the stated answer move.",
+   "tone_ok": true,
+   "would_help_student": 3,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.00069135
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-H-2.7-A-v3",
+  "pick": "D",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You assumed independence means P(B) equals P(A), but independence is about no influence, not equal probabilities. That gap cost you the union-rule point. Next time, start by writing P(A or B) = P(A) + P(B) − P(A∩B), substitute P(A∩B) = P(A)·P(B), then solve for P(B) with the given numbers.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 5,
+    "specific_to_pick": 4,
+    "names_exam_point": 4,
+    "uses_history": 5,
+    "cost": 0.00029949999999999996
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.002526
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 0,
+   "cost": 0.00116555
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apstats-mcq-b7-h-1.6-a",
+  "pick": "D",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "D is incorrect because the stem already states the distribution has a single peak, and two isolated values near 140 and 155 cannot form a second peak. They are outliers. On this kind of question, earn the shape point by naming the skew and attributing it to the outliers. Next time, check any modality claim against the given features before choosing it. Choice C does this: it names right skew, identifies the two outliers, and gives the typical salary (median 57) and spread (IQR 14) in context.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.0029430000000000003
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.000446
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 3,
+   "uses_history": 1,
+   "cost": 0.002182484
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-H-3.2-A-v3",
+  "pick": "D",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "D skips the square root. The standard deviation of p-hat is √(p(1−p)/n), so with p = 0.45 and n = 100 it is √(0.2475/100) ≈ 0.0497, not 0.0025. That gives z ≈ 1.01, so B is correct: 0.50 is about one SD above 0.45, which is ordinary variation. For the free-response habit, write μ = 0.45 and the SD formula first, check np = 45 and n(1 − p) = 55 using the true p, then compute z and state the conclusion in context.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00022554999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.00350625
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.001704914
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apstats-mcq-b2-sv-h-3.12-b-v1",
+  "pick": "B",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "B is wrong because large counts checks expected counts, not raw success counts. With the pooled proportion 43/90 ≈ 0.478, sample 1 expects about 19 successes and 21 failures, and sample 2 expects about 24 and 26. All exceed 10, so comparing 18 to 25 doesn't matter. The failing condition is the 10% check: 40 is more than 10% of 300. For each condition, write the check, comparing n to 10% of the population size and computing n·p̂c and n(1−p̂c) for large counts. That written check is what earns the setup point.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00028319999999999994
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.004197
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "error": "AbortError: Delay was aborted"
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apstats-mcq-b7-h-1.6-a",
+  "pick": "A",
+  "gen": "openai/gpt-6-luna",
+  "text": "The two high salaries pull the mean and standard deviation upward, so they don’t support a roughly symmetric description. The distribution is right-skewed, with outliers near $140,000 and $155,000; the median is $57,000 and the IQR is $14,000. For the exam’s point for describing a distribution in context, name its shape, center, and spread. When outliers are present, use the median and IQR to describe typical salary and spread.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00037085
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.0030787500000000003
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "error": "AbortError: Delay was aborted"
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-H-2.9-B-v1",
+  "pick": "A",
+  "gen": "openai/gpt-6-luna",
+  "text": "You find the expected prize but treat it as the net gain, leaving out the ticket’s cost. For the context point, define the quantity as net gain per ticket: subtract $4 from the $1.60 expected prize to get −$2.40. Next time, label your result “prize” or “net gain” before calculating.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.0001995
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.001947
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.0009062100000000001
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apstats-mcq-b7-sv-h-1.2-b-v3",
+  "pick": "B",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You hit the classic trap: calling number of passengers categorical just because it’s a whole-number count. A count is quantitative; categorical variables name groups, like airline. The rubric point is the classification step: decide categorical-vs-quantitative before any graph or statistic. Next time, ask yourself, “Can I average this value across flights?” If yes, it’s quantitative.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.0002911
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.0029647500000000004
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "No contradiction.",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.00100321
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.3-A",
+  "pick": "C",
+  "gen": "openai/gpt-6-luna",
+  "text": "You confuse the chance a single box has a prize with the chance the first prize takes at least 4 boxes. C estimates the first quantity. Choose B: each trial continues until the first prize, and you record the number of boxes. To earn the simulation-design point, state where each trial stops and what you record, then estimate the probability from the proportion of trials needing at least 4 boxes.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00020135
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.0028185
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 5,
+   "uses_history": 1,
+   "cost": 0.00108507
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-H-2.9-B-v1",
+  "pick": "D",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "D treats the $4 as a sure loss, but the prizes pay some buyers back. Find the expected prize first by multiplying each prize by its probability of 1/500: (600 + 100 + 100)/500 = $1.60. Then subtract the $4 cost: $1.60 − $4 = −$2.40, which is B. Earn the credit by keeping the probability on every term and subtracting the cost last. Before choosing, write the probability-weighted sum for the prizes.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.0028252499999999996
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "uses_history": 1,
+    "cost": 0.00020889999999999998
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None",
+   "tone_ok": true,
+   "would_help_student": 5,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 5,
+   "uses_history": 0,
+   "cost": 0.00169017
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.3-A",
+  "pick": "D",
+  "gen": "openai/gpt-6-luna",
+  "text": "You treat “at least 4 boxes” as “no prize in the first 4,” which instead means needing 5 or more. Use B: read two-digit numbers until the first prize, record the box count, and count trials with 4 or more boxes. Divide by the total number of trials for an estimated probability. This earns the complete-design point: state where each trial ends and what you record.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.0028964999999999998
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.0002208
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "No contradiction.",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.00109257
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-H-3.6-B-v1",
+  "pick": "B",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "Choice B treats the gap between 52.5% and 40% as proof of a difference. But the p-value of about 0.11 is greater than α = 0.05, so the result is not statistically significant. With only 40 students, a 12.5-point gap can arise by chance when H0 is true. On the rubric, the point comes from comparing the p-value to α before concluding, then stating the decision in context as \"not convincing evidence of a difference.\" Choice D does this: p ≈ 0.11 > 0.05, so you fail to reject H0.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.0021997500000000003
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.0002803
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None.",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 3,
+   "uses_history": 1,
+   "cost": 0.001680734
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APBIO-MCQ-SV-109-v1",
+  "pick": "A",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "Your answer treats dehydration synthesis as water-consuming, but it releases one water molecule for each bond it forms. Hydrolysis consumes water. So the five cleavages consume five waters, the two joinings release two, and the net is 5 − 2 = 3 water consumed. Cleavage raises the molecule count from two to seven, and the two joinings bring it to five. On this kind of item, label each reaction as building (water released) or breaking (water consumed) before you total anything.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.004542
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00018035
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 5,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 5,
+   "uses_history": 1,
+   "cost": 0.0006515339999999999
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-H-4.9-A-v3",
+  "pick": "C",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "Choice C builds the null hypothesis from the observed difference (182 − 191 = −9). H0 always states \"no difference,\" so it must be μV − μN = 0. The research question asks whether the means differ, which calls for a two-sided alternative, Ha: μV − μN ≠ 0. That is choice D. On the exam, write H0 as μ₁ − μ₂ = 0, set Ha's direction from the question wording, name the two-sample t-test, and check conditions for both samples separately before calculating.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00016405
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.0029385
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": false,
+   "contradiction": "The coaching says Choice C builds the null hypothesis from the observed difference 182 − 191 = −9, but Choice C actually states μV − μN = 9 (positive), so the sign is inconsistent.",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 5,
+   "specific_to_pick": 4,
+   "names_exam_point": 4,
+   "uses_history": 0,
+   "cost": 0.00122808
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apstats-mcq-b6-sv-h-1.9-b-v2",
+  "pick": "A",
+  "gen": "openai/gpt-6-luna",
+  "text": "You use Group 1’s larger maximum to infer its median, but an endpoint does not determine the center. Group 2’s median is higher (25 vs. 22), and its IQR and range are smaller. To compare distributions, read the median for center and the IQR or range for spread.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 3,
+    "uses_history": 5,
+    "cost": 0.00024454999999999995
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 3,
+    "uses_history": 0,
+    "cost": 0.004521000000000001
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "error": "AbortError: Delay was aborted"
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APSTATS-MCQ-SV-H-2.7-A-v3",
+  "pick": "B",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You treated P(A or B) − P(A) as the answer, but that ignores the overlap between A and B. The union rule requires subtracting the intersection once: P(A or B) = P(A) + P(B) − P(A and B). Because A and B are independent, replace P(A and B) with 0.50·P(B), then solve. That earns the independence-and-union point.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.0029985000000000003
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "The coaching text's math is right: the student's error (P(A or B) − P(A) = 0.15) does ignore the overlap, the union rule is stated correctly, and substituting P(A and B) = 0.50·P(B) does yield 0.50 + P(B) − 0.50·P(B) = 0.65 → 0.50·P(B) = 0.15 → P(B) = 0.30, matching choice A's rationale.",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 3,
+    "specific_to_pick": 5,
+    "names_exam_point": 2,
+    "uses_history": 5,
+    "cost": 0.00052105
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.0015462100000000001
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apstats-mcq-b6-sv-h-1.9-b-v2",
+  "pick": "D",
+  "gen": "openai/gpt-6-luna",
+  "text": "You treat Group 2’s higher Q1 as greater spread, but Q1 indicates location, not variability. Compare the IQRs and ranges instead: Group 1’s are 8 and 26; Group 2’s are 6 and 16. So C is supported: Group 2 has the higher median and less variability. On the next comparison, calculate a spread measure before judging variability.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 3,
+    "uses_history": 5,
+    "cost": 0.00028389999999999996
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.003393
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "error": "AbortError: Delay was aborted"
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APBIO-MCQ-SV-121-v3",
+  "pick": "A",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You treated the peptide bonds as the primary structure, but primary structure is the amino acid sequence itself. Replacing one amino acid changes that sequence, even though the chain stays intact. That change can alter R-group interactions, folding, and shape, which determines adhesion. Next time, trace the full chain: sequence to interactions to shape to function.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.00232275
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00026964999999999997
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None.",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.000520794
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APBIO-MCQ-SV-135-v2",
+  "pick": "D",
+  "gen": "openai/gpt-6-luna",
+  "text": "D treats the plasma membrane as mechanical support equivalent to the cell wall. The wall resists expansion, so stronger walls mean fewer treated bacteria rupture (B). For the membrane-permeability point, classify water by size and polarity and consider whether a transport protein is needed; then separately identify what resists cell expansion.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 5,
+    "cost": 0.00023374999999999996
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.0035685
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 3,
+   "actionable_move": 3,
+   "specific_to_pick": 4,
+   "names_exam_point": 3,
+   "uses_history": 1,
+   "cost": 0.0014773
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APBIO-MCQ-SV-109-v1",
+  "pick": "A",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You treat dehydration synthesis as water-consuming, but joining fragments releases water. Each cleavage consumes one water; each joining releases one. Track direction before summing: five consumed minus two released gives three consumed. The point cost is the water-direction habit from the point brief. Next time, label each reaction as build (release water) or break (consume water) before calculating.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.0034575
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00045319999999999996
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 5,
+   "uses_history": 1,
+   "cost": 0.0010181839999999999
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APBIO-OHT-1.6",
+  "pick": "A",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "Your base pairing is right: A pairs with T and C with G. The miss is direction. The partner strand runs antiparallel, so its bases written left to right under the original are 3'-TACGGC-5', not 5'-TACGGC-3'. Choice A keeps the right bases but labels the strand with the wrong orientation, and strand direction is the point this question tests. Next time, write the partner beneath the original, label its ends, then read it from its 5' end. The correct answer is D, 5'-CGGCAT-3'.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.0026325000000000003
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "uses_history": 0,
+    "cost": 0.00018619999999999997
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None",
+   "tone_ok": true,
+   "would_help_student": 5,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 5,
+   "uses_history": 1,
+   "cost": 0.00071759
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b5-sv-h-2.3-a-v2",
+  "pick": "C",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You picked C because lateral spreading seemed fast, but that speed applies only within a layer. The hours-long delay to the inner layer shows transverse flipping is rare, which is what lets the two layers differ. Next, separate lateral mobility from flip-flop and use time-scale cues to explain selective permeability.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "uses_history": 1,
+    "cost": 0.00017485
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.00302775
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.0011998800000000002
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b2-sv-h-3.3-b-v3",
+  "pick": "C",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "Choice C is incorrect. The stem says AMP-PNP binds the pump like ATP, so nothing points to a damaged pump. The only difference between the two conditions is that AMP-PNP cannot be hydrolyzed. Hydrolysis of ATP's terminal phosphate releases energy that is coupled to moving calcium against its gradient, which is the point being tested. Next time, compare the two conditions and name what the analog lacks, then explain how that missing step breaks the coupling.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00020435
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.00329325
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 5,
+   "uses_history": 1,
+   "cost": 0.00098894
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b5-h-2.5-b",
+  "pick": "A",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "You picked A, which ties the label's entry to a stop in movement at equilibrium. That is the trap: equilibrium is dynamic, not static. Molecules keep crossing both ways at equal rates, so a labeled molecule can enter while an unlabeled one leaves, and total S stays at 5 mM. Endocytosis isn't needed because S is permeable. On the rubric, you earn points by stating the gradient and direction; here the gradient is zero, so no net movement occurs. Next time, check whether the question gives a net gradient before reaching for a mechanism. The correct answer is D.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.0022890000000000002
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "uses_history": 1,
+    "cost": 0.00038784999999999997
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 3,
+   "cost": 0.00101416
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b5-sv-h-2.10-a-v1",
+  "pick": "D",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "Incorrect. The student picked D, which reverses the logic. The cytosolic ribosomes are unaffected by chloramphenicol, so they behave unlike bacterial ribosomes. The drug-sensitive mitochondrial ribosomes are the ones that match bacteria, which is the endosymbiotic evidence the point brief asks for.\n\nNext move: on an origins question, say which organelle matches which lineage, then name the endosymbiotic link (free-living prokaryote engulfed by a host). Review the endosymbiotic theory explainer and its evidence list.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00022324999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.00257625
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None.",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 4,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.0009973
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b5-sv-h-2.10-a-v1",
+  "pick": "B",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "Incorrect. You chose B, which says mitochondria are made in the nucleus. Where an organelle is built does not explain why its ribosomes respond to a bacterial-targeting drug. The drug result points to ribosomes that resemble bacterial ribosomes, which is the endosymbiotic evidence. Next time, ask which feature of the experiment the choice must explain, then check for the bacterial link. For AP points, state that mitochondria evolved from free-living prokaryotes by endosymbiosis and cite evidence like their own ribosomes.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.0001868
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.003432
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None.",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.0008669799999999999
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APBIO-MCQ-SV-121-v3",
+  "pick": "D",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "D misses because this adhesive protein is a single polypeptide chain, so there are no separate subunits to pull apart and quaternary structure does not apply. The R-group hydrogen bond links two regions of the same chain and stabilizes tertiary folding. Choice C follows the chain: the new nonpolar R group disrupts that bond, the 3D shape shifts, and adhesion weakens. Next time, count the polypeptides before predicting any quaternary effect, then trace sequence to interaction to shape to function.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None. The coaching text accurately explains why D is wrong (single polypeptide chain means no separate subunits exist, so quaternary structure does not apply) and correctly restates the authored rationale for C (the substituted nonpolar R group disrupts the R-group hydrogen bond, altering tertiary folding and weakening adhesion). It also aligns with the point brief's required chain: sequence -> interaction -> shape -> function, and follows the no-praise/no-encouragement instruction for a first miss with no history.",
+    "tone_ok": true,
+    "would_help_student": 0.9,
+    "actionable_move": 1,
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "uses_history": 1,
+    "cost": 0.00024284999999999997
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.002286
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 5,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 5,
+   "uses_history": 5,
+   "cost": 0.001594804
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APBIO-OHT-2.6",
+  "pick": "D",
+  "gen": "openai/gpt-6-luna",
+  "text": "You treat the bilayer’s barrier to charged ions as absolute, overlooking the open sodium channels. Na⁺ moves from its higher concentration outside to lower concentration inside through the channels, passively and without direct ATP use. For the point, name the channel and compare concentrations to state the direction and that movement is down the gradient.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.000198
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.002079
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None",
+   "tone_ok": true,
+   "would_help_student": 5,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 5,
+   "uses_history": 1,
+   "cost": 0.00043756000000000003
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b6-h-1.5-a",
+  "pick": "A",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You picked density because the triglyceride floats, but that observes the symptom, not the cause. The exam point is distinguishing lipid classes by structure, not lumping them together. Your move: before comparing physical behavior, check polarity—does it have a polar head? The triglyceride is entirely nonpolar, whereas the phospholipid is amphipathic.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.0002645
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": false,
+    "contradiction": "Choice A states that the triglyceride 'sinks', but the coaching text incorrectly states 'You picked density because the triglyceride floats'.",
+    "tone_ok": true,
+    "would_help_student": 3,
+    "actionable_move": 4,
+    "specific_to_pick": 2,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.003558
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 4,
+   "names_exam_point": 5,
+   "uses_history": 1,
+   "cost": 0.00049299
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b4-sv-h-4.5-b-v3",
+  "pick": "C",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "Cells between 3.0 and 6.0 pg are not damaged. They hold more DNA than the 3.0 pg G1 cells, so they are mid-S, copying their DNA. Serum allowed replication rather than blocking it. Read DNA content as a phase marker: 3.0 pg is G1, intermediate values are S (replication), and 6.0 pg is G2 or mitosis. Next time, name the phase from the DNA amount, then state the key event. A is correct: the starved cells sat at 3.0 pg in G1 or G0, and serum restarted replication.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.00256425
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None. The coaching text correctly identifies that cells with intermediate DNA content (3.0–6.0 pg) are in S phase actively replicating DNA, not damaged. The DNA-content-to-phase mapping given (3.0 pg = G1, intermediate = S, 6.0 pg = G2/M) is accurate, and the conclusion that serum allowed re-entry into the cycle (choice A) matches the data: starved cells at 3.0 pg, then 20 hours after serum, 60% of cells have replicated or are replicating DNA.",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "uses_history": 1,
+    "cost": 0.00023929999999999996
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 5,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 0,
+   "cost": 0.000704214
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APBIO-MCQ-SV-135-v2",
+  "pick": "A",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You picked A because you treated the plasma membrane's flexibility as the protection. But a membrane cannot stretch indefinitely; rupture happens when expansion exceeds what the wall can resist. The strengthened wall adds mechanical support, so fewer treated bacteria rupture. Next time, first identify which structure limits expansion, then predict the rupture risk. That matches the exam's move of explaining outcomes from structure, not from assumptions about flexibility.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 5,
+    "cost": 0.00023329999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.00283425
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "error": "AbortError: Delay was aborted"
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b5-sv-h-2.7-a-v2",
+  "pick": "D",
+  "gen": "openai/gpt-6-luna",
+  "text": "You leave out \\(R\\), which makes your calculated concentration too high. In the open beaker, \\(\\Psi_p=0\\), so use \\(-4.0=-iCRT\\); this gives \\(0.16\\text{ M}\\) (B). For the exam point on comparing solute concentrations, include every term in the equation, then check that the solution matches the tissue’s water potential so there is no net water movement.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text states that leaving out R makes the calculated concentration 'too high,' but the arithmetic shows the opposite. Omitting R gives C = 4.0 / (1 × 293) ≈ 0.014 M, which is far too LOW compared to the correct 0.164 M (since R = 0.0831 sits in the denominator, dropping it shrinks the denominator and shrinks the result). The student's wrong answer (D, 0.014 M) is an underestimate, not an overestimate.",
+    "tone_ok": true,
+    "would_help_student": 3,
+    "actionable_move": 4,
+    "specific_to_pick": 4,
+    "names_exam_point": 4,
+    "uses_history": 4,
+    "cost": 0.00026341
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text states that leaving out R makes the calculated concentration too high, but leaving out R (0.0831) in the denominator divides by 293 instead of 24.35, resulting in 0.014 M, which is too low compared to the correct value of 0.16 M.",
+    "tone_ok": true,
+    "would_help_student": 3,
+    "actionable_move": 3,
+    "specific_to_pick": 4,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.0031230000000000003
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": false,
+   "contradiction": "The coaching text says leaving out R makes the calculated concentration too high, but omitting R gives C = 4.0 / 293 ≈ 0.014 M, which is lower than the correct 0.164 M.",
+   "tone_ok": true,
+   "would_help_student": 2,
+   "actionable_move": 3,
+   "specific_to_pick": 4,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.00094431
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b4-sv-h-4.2-b-v2",
+  "pick": "D",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You treat receptor count as the whole output, so you skip the transduction stage where each kinase multiplies the signal by 5. That miss costs the point for tracing reception to response. Next, calculate each transduction step separately: 100 × 5 × 5 gives 2,500, not 100.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.0030802499999999997
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None. The coaching text's diagnosis matches the student's wrong answer (D) and the authored rationale for D: the student treated receptor count as setting the output, ignoring the amplification in the transduction stage. The arithmetic is correct: pathway X yields 100 transcription factors; pathway Y yields 100 × 5 × 5 = 2,500, which is 25 times pathway X, matching the correct choice C and its authored rationale. The coaching text's numbers (2,500, not 100) are accurate. The text also aligns with the point brief: it identifies the common point loss of skipping from reception to response without tracing the intracellular transduction stage, and it directs the student to place the kinase step in transduction. No praise or encouragement is present, consistent with the student state.",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "uses_history": 1,
+    "cost": 0.00028155
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 5,
+   "uses_history": 1,
+   "cost": 0.00196219
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T2",
+  "item": "APSTATS-MCQ-SV-H-3.7-A-v3",
+  "pick": "A",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You keep trying, and that persistence will fix this slip. You used p0 correctly, but you left n=100 out of the standard error, dividing by sqrt(0.5*0.5) only. That's the sampling-distribution trap: a proportion's spread shrinks as n grows; without n you're treating one voter as the whole sample. It costs the compute-z point. Next move: write sqrt(p0(1-p0)/n) with n inside the radical before any arithmetic.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.0023985
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00023344999999999998
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None",
+   "tone_ok": true,
+   "would_help_student": 5,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 5,
+   "uses_history": 5,
+   "cost": 0.0011622899999999999
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b4-sv-h-4.5-b-v3",
+  "pick": "B",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "Incorrect. Choice B reads the DNA axis wrong. 6.0 pg means DNA has already doubled, but the starved cells sat at 3.0 pg, so they were not held in G2. The 93% at 3.0 pg points to G1 or G0, and the cells between 3.0 and 6.0 pg show DNA being copied in S phase. This costs you the DNA replication point, which the point brief flags as a common loss. Next time, before choosing, label each pg value with its phase (3.0 = G1, between = S, 6.0 = G2/M) and check which label the starved group carries.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "specific_to_pick": 4,
+    "names_exam_point": 4,
+    "uses_history": 4,
+    "cost": 0.0003909
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.00377625
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "error": "AbortError: Delay was aborted"
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b5-sv-h-2.7-a-v2",
+  "pick": "C",
+  "gen": "openai/gpt-6-luna",
+  "text": "You treat sucrose as if it dissociates, so you use \\(i=2\\); here, \\(i=1\\). Since the beaker is open, pressure potential is zero, so set \\(-4.0=-CRT\\) to get \\(C\\approx0.16\\text{ M}\\). For the solute-concentration comparison point, next check the solute’s \\(i\\) before calculating.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "uses_history": 1,
+    "cost": 0.0001893
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.002673
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 3,
+   "uses_history": 0,
+   "cost": 0.00189031
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b5-sv-h-2.10-a-v1",
+  "pick": "C",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "Your conclusion ignores the observed inhibition. The drug stops mitochondrial protein synthesis, so mitochondria do carry it out, and their ribosomes share the bacterial drug target, unlike cytosolic ribosomes. That is evidence for endosymbiosis: mitochondria descended from a bacterium. Next, treat a drug effect as evidence about the structure affected, not as absence of function.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 5,
+    "cost": 0.00026674999999999995
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.003057
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.000555484
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "APBIO-OHT-3.5",
+  "pick": "C",
+  "gen": "openai/gpt-6-luna",
+  "text": "You treat oxygen as the source of the protons, confusing what builds the gradient with what accepts electrons. That costs the point for connecting oxygen to ATP production through electron transport. Choose D: trace electrons from NADH to oxygen; without oxygen, electron flow and proton pumping stop, so ATP synthase loses the gradient that drives ATP production.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 5,
+    "cost": 0.00032015
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.00296025
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "error": "AbortError: Delay was aborted"
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "FRQ",
+  "item": "apstats-frq-u13g-3-14",
+  "pick": "part-c-criterion-02+part-d-criterion-01",
+  "gen": "openai/gpt-6-luna",
+  "text": "Your 10% check is correct, but it does not verify the expected-count condition, which costs that condition point. Add that every expected count exceeds 5; the smallest is 19.3. In part (d), you explain what a large statistic means, but leave out the distribution-shape comparison, costing that point. State that the 4-df distribution is skewed right and the 10-df distribution is less skewed.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "targets_missed_criteria": 5,
+    "faithful_to_response": true,
+    "label_consistent": true,
+    "cost": 0.00307875
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "targets_missed_criteria": 5,
+    "faithful_to_response": true,
+    "label_consistent": true,
+    "cost": 0.0003413
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 5,
+   "actionable_move": 5,
+   "targets_missed_criteria": 5,
+   "faithful_to_response": true,
+   "cost": 0.000652964
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b5-h-2.5-b",
+  "pick": "A",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You treated equal concentrations as a stop sign, but equilibrium is dynamic: molecules keep crossing both ways at equal rates. That cost you the point for identifying gradient direction and passive transport. Next time, when total concentration stays constant but label moves, say high-to-low and low-to-high are both happening with no net change.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 5,
+    "cost": 0.0003612
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 0,
+    "cost": 0.0041505
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "error": "AbortError: Delay was aborted"
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "FRQ",
+  "item": "apstats-frq-u13g-3-14",
+  "pick": "part-c-criterion-02+part-d-criterion-01",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "In (c) you verified the 10% condition but never checked the expected counts condition. Inspect the parenthetical expected counts, not the observed ones: the smallest is 19.3, so all exceed 5. Name that when you state the condition. In (d) you explained the statistic’s meaning but skipped the distribution’s shape. A chi-square with 4 df is skewed right; with 10 df it is less skewed. State both the skew direction and the comparison to earn the point.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "targets_missed_criteria": 1,
+    "faithful_to_response": true,
+    "label_consistent": true,
+    "cost": 0.0003212
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "targets_missed_criteria": 5,
+    "faithful_to_response": true,
+    "label_consistent": true,
+    "cost": 0.00339075
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 5,
+   "actionable_move": 5,
+   "targets_missed_criteria": 5,
+   "faithful_to_response": true,
+   "cost": 0.000953814
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T2",
+  "item": "apstats-mcq-b6-sv-h-1.12-b-v2",
+  "pick": "B",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "Picking a bigger gym sample still leaves out non-gym-goers, so the bias stays. The exam point is the sampling frame: it must cover every resident, not just raise the sample size. You are persisting, which is the right move; next time, check the frame before the size. Choose A.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00022229999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 4,
+    "cost": 0.00432
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 2,
+   "actionable_move": 3,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 3,
+   "cost": 0.00205909
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "CONTROL",
+  "item": "apstats-frq-u13g-3-11",
+  "pick": "part-c-criterion-02",
+  "gen": "planted",
+  "text": "You left out this idea, so you lost the point: States that we are 95% confident that the interval from 0.046 to 0.174 captures the difference (Riverton minus Lakeside) between the proportions of all adult residents of each town who used a public library in the past month.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text tells the student they lost the point for part-a-criterion-01 (interpreting the interval in context), but the grading labels mark part-a-criterion-01 as EARNED. The student's part (a) does fully state the interval, the parameter (difference in proportions of all adults, Riverton minus Lakeside), and the confidence level, so the label is correct and the coaching text is wrong. The only MISSED criterion is part-c-criterion-02: the student claimed the second board member's claim (difference more than 20 percentage points) was 'roughly consistent' with the interval, when in fact every plausible value in (0.046, 0.174) is less than 0.20, so the interval does not support that claim. The coaching text should address that error, not part (a).",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "targets_missed_criteria": 0,
+    "faithful_to_response": false,
+    "label_consistent": false,
+    "cost": 0.0003771
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text claims the student lost credit on part (a) for failing to interpret the confidence interval, but the student earned that point. The only missed criterion was part-c-criterion-02.",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "targets_missed_criteria": 1,
+    "faithful_to_response": false,
+    "label_consistent": true,
+    "cost": 0.00324375
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": false,
+   "contradiction": "The coaching text says the student left out the part (a) confidence-interval interpretation and lost that point, but the student response includes that interpretation and the grading labels mark part-a-criterion-01 as EARNED. The actual missed point is part-c-criterion-02, where the student incorrectly says the second claim is roughly consistent with the interval.",
+   "tone_ok": true,
+   "would_help_student": 1,
+   "actionable_move": 1,
+   "targets_missed_criteria": 1,
+   "faithful_to_response": false,
+   "cost": 0.000746604
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "FRQ",
+  "item": "APBIO-FRQ-S-095",
+  "pick": "b1",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "You earned a1, a2, and b2. Your regulatory-region explanation is clear. The missed point is b1, because your response only traces the regulatory case and never considers a transposon inserting into the toxin gene's coding sequence. Add a sentence for that case: insertion into the coding region can disrupt the gene sequence by shifting the reading frame or changing codons, which can alter amino acids and make the toxin nonfunctional. Follow the chain from DNA insertion to codon change, amino acid change, and protein function. Then state each insertion site (coding and regulatory) separately so the rubric sees both.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": ":none",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "targets_missed_criteria": 1,
+    "faithful_to_response": true,
+    "label_consistent": true,
+    "cost": 0.00025435
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "targets_missed_criteria": 5,
+    "faithful_to_response": true,
+    "label_consistent": true,
+    "cost": 0.002742
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None",
+   "tone_ok": false,
+   "would_help_student": 5,
+   "actionable_move": 5,
+   "targets_missed_criteria": 5,
+   "faithful_to_response": true,
+   "cost": 0.00190847
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T2",
+  "item": "apstats-mcq-b7-h-1.6-a",
+  "pick": "A",
+  "gen": "openai/gpt-6-luna",
+  "text": "You’re making progress: this is a new slip, not the earlier one. A treats the mean and standard deviation as typical, but the two unusually high salaries pull them upward and make the distribution skew right. For the exam point, describe shape, center, and spread in context: call out the high outliers, then use the median ($57 thousand) and IQR ($14 thousand) for a typical salary and spread.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00027575
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "uses_history": 5,
+    "cost": 0.00341025
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 3,
+   "cost": 0.000960874
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "CONTROL",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "B",
+  "gen": "planted",
+  "text": "Your 0.3 is P(X ≥ 3). Add k + 2k to get it: the probabilities for the larger values are the smaller ones, so 0.3 is right and the key is wrong.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text claims that 0.3 is P(X >= 3) and that the answer key is wrong, which directly contradicts the question, key (A is correct), and authored rationales.",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "specific_to_pick": 2,
+    "names_exam_point": 1,
+    "uses_history": 0,
+    "cost": 0.0022215
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text tells the student their 0.3 is correct and that the answer key is wrong. This is false. Recomputing: k + 2k + 3k + 4k = 10k = 1, so k = 0.1. Then P(X ≥ 3) = P(X = 3) + P(X = 4) = 3k + 4k = 0.3 + 0.4 = 0.7, which matches the authored rationale for choice A. The student's 0.3 is actually P(X ≤ 2) = k + 2k = 0.1 + 0.2 — exactly the complement error the authored rationale for B describes. The coaching text's instruction to 'add k + 2k' computes the wrong tail (the lower tail, not the upper), and its claim that 'the probabilities for the larger values are the smaller ones' is backwards: since P(X = x) = kx with k > 0, larger values get larger probabilities (0.3 and 0.4, not 0.1 and 0.2). The text also asserts the key is wrong, which is false and would actively mislead the student.",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "uses_history": 1,
+    "cost": 0.00031715
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": false,
+   "contradiction": "The coaching text is incorrect. Since P(X=x)=kx, the probabilities sum to k+2k+3k+4k=10k=1, so k=0.1. Then P(X>=3)=P(X=3)+P(X=4)=0.3+0.4=0.7, not 0.3. The value 0.3 comes from k+2k=0.3, which is P(X<=2), not P(X>=3). The answer key is not wrong.",
+   "tone_ok": true,
+   "would_help_student": 1,
+   "actionable_move": 1,
+   "specific_to_pick": 2,
+   "names_exam_point": 1,
+   "uses_history": 1,
+   "cost": 0.0018264800000000001
+  }
+ },
+ {
+  "src": "p3",
+  "item": "apstats-frq-u4z-4-6-1",
+  "pick": "part-a-criterion-01",
+  "gen": "openai/gpt-6-luna",
+  "text": "Part (a) asks for the mean of the sampling distribution: you earned 0/1 point. You added the machine means, writing “502 + 500 = 1002,” instead of finding the difference in the order \\( \\mu_1-\\mu_2 \\). The part asks for the center of \\( \\bar{x}_1-\\bar{x}_2 \\), so the means must be subtracted in that same order. **Fix: answer it differently** by writing \\(502-500=2\\) g.\n\nYou earned 1/1 point in part (b), both points in part (c) (2/2), and both points in part (d) (2/2).",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "no_unsupported_claim_about_student": true,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5,
+    "faithful_to_response": true
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "no_unsupported_claim_about_student": true,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5,
+    "faithful_to_response": true
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 5,
+   "targets_missed_criteria": 5,
+   "faithful_to_response": true,
+   "cost": 0.000786494
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T1",
+  "item": "apbio-mcq-b4-sv-h-4.2-b-v2",
+  "pick": "B",
+  "gen": "openai/gpt-6-luna",
+  "text": "You add the two 5s instead of tracking the output at each step: pathway Y activates 100 × 5 × 5 = 2,500 transcription factors. This misses the rubric point for explaining intracellular transduction. Next time, map reception → transduction → response, and multiply the output at each transduction step before identifying the response.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 5,
+    "cost": 0.00037125
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "uses_history": 0,
+    "cost": 0.00219075
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "error": "AbortError: Delay was aborted"
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "FRQ",
+  "item": "APBIO-FRQ-L-015",
+  "pick": "a+b",
+  "gen": "anthropic/claude-haiku-5.5",
+  "text": "Your answer places all CO₂ release and all electron-carrier production in the Krebs cycle, but pyruvate oxidation is also a CO₂-releasing stage and also makes NADH. Track the carbons: glucose has 6, 2 leave during pyruvate oxidation, and 4 leave across the two Krebs turns, for 6 CO₂ total. For Part B, list each stage with its carrier count: glycolysis gives 2 NADH, pyruvate oxidation gives 2 NADH, and the Krebs cycle gives 6 NADH and 2 FADH₂. Then state that NADH delivers electrons to Complex I and FADH₂ to Complex II, which pass them along the chain to drive proton pumping. Rewrite Parts A and B with this accounting.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "targets_missed_criteria": 5,
+    "faithful_to_response": true,
+    "label_consistent": true,
+    "cost": 0.0004683
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "targets_missed_criteria": 5,
+    "faithful_to_response": true,
+    "label_consistent": true,
+    "cost": 0.003894
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None.",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 5,
+   "targets_missed_criteria": 5,
+   "faithful_to_response": true,
+   "cost": 0.001619494
+  }
+ },
+ {
+  "src": "p3",
+  "item": "APSTATS-MCQ-SV-H-2.9-B-v1",
+  "pick": "C",
+  "gen": "openai/gpt-6-luna",
+  "text": "The question asks for the expected net gain after accounting for all prizes and the $4 ticket cost. Choice C counts only the $600 prize, leaving out both $100 prizes. That omission makes the expected prize too low. **Defect:** one outcome is missing. **Fix—learn this first:** include every prize in the probability-weighted expected prize: \\((600+100+100)/500=\\$1.60\\), then subtract $4. The expected net gain is **−$2.40**.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "no_unsupported_claim_about_student": true,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 4
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "no_unsupported_claim_about_student": true,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 5,
+   "specific_to_pick": 5,
+   "names_exam_point": 4,
+   "uses_history": 1,
+   "cost": 0.0018715899999999998
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "T2",
+  "item": "apstats-mcq-b6-sv-h-1.9-b-v2",
+  "pick": "A",
+  "gen": "openai/gpt-6-luna",
+  "text": "You’re treating an extreme value as evidence about the center. The maximum affects the range, not the median. For a distribution comparison, keep location and spread separate: compare medians for center, then compare IQRs or ranges for variability. Group 2 has the higher median (25 vs. 22) and smaller IQR and range.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "specific_to_pick": 4,
+    "names_exam_point": 3,
+    "uses_history": 4,
+    "cost": 0.00013246
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 4,
+    "actionable_move": 3,
+    "specific_to_pick": 5,
+    "names_exam_point": 3,
+    "uses_history": 3,
+    "cost": 0.0023887500000000002
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "error": "AbortError: Delay was aborted"
+  }
+ },
+ {
+  "src": "p2",
+  "tier": "FRQ",
+  "item": "APSTAT-MOD7-H002-INV",
+  "pick": "chi_square_test+contextual_interpretation",
+  "gen": "deepseek/deepseek-v4-flash",
+  "text": "You earned the table and conditional probabilities, but the missed points cost you. In (b), you left out the chi-square calculation entirely, so no statistic, df = 2, p-value, or conclusion at α = 0.05 exists. Saying the percentages \"probably\" differ is not a test. Next, compute expected counts from the marginal totals, then each (observed − expected)²/expected. In (d), you wrote that anxiety \"causes\" avoidance; the data are observational, so claim association only and name a limitation such as self-report bias or limited generalizability.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "targets_missed_criteria": 5,
+    "faithful_to_response": true,
+    "label_consistent": true,
+    "cost": 0.003471
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "tone_ok": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "targets_missed_criteria": 5,
+    "faithful_to_response": true,
+    "label_consistent": true,
+    "cost": 0.00045919999999999994
+   }
+  ],
+  "newj": {
+   "judge": "alibaba/qwen3.8-flash",
+   "factually_correct": true,
+   "contradiction": "None",
+   "tone_ok": true,
+   "would_help_student": 4,
+   "actionable_move": 4,
+   "targets_missed_criteria": 4,
+   "faithful_to_response": true,
+   "cost": 0.001223654
+  }
+ }
+]

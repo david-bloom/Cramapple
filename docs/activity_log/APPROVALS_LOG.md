@@ -4,6 +4,9 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- APPROVAL-0274 (2026-11-13): Calculus AB lost second-derivative primes restored in Production (5 topics) — APPROVAL-0274_CALC_AB_LOST_PRIMES_REPAIR_PRODUCTION_2026_11_13.md
+- APPROVAL-0273 (2026-11-13): structured explainer text for Biology 6-8, Chemistry 6-9, Calculus AB/BC, Physics 1, Precalculus applied to Production (317 rows) — APPROVAL-0273_STRUCTURED_EXPLAINERS_REMAINING_SUBJECTS_PRODUCTION_2026_11_13.md
+- [APPROVAL-0272 — quick_take "In 30 seconds" text for AP Chemistry, Biology and Statistics units 1-5 applied to Production (granted 2026-11-13)](APPROVAL-0272_QUICK_TAKE_CHEM_BIO_STATS_UNITS_1_5_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0287 — AP Biology Unit 5 topic-by-topic Production publication (owner directed 2026-11-13)](APPROVAL-0287_BIOLOGY_UNIT5_TOPIC_RELEASE_PRODUCTION_2026_11_13.md)
 - APPROVAL-0286 (2026-11-14): apcalcbc-mcq-007 (Newton's method, outside the CED) retired in Production — APPROVAL-0286_RETIRE_APCALCBC_MCQ_007_PRODUCTION_2026_11_14.md
 - APPROVAL-0285 (2026-11-14): 75 previously unit-less items labeled (topic cells and serving labels) to Production — APPROVAL-0285_LABEL_75_UNITLESS_ITEMS_PRODUCTION_2026_11_14.md

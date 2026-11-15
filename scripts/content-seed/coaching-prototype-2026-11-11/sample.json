@@ -1,0 +1,130 @@
+[
+  {
+    "id": "APSTATS-MCQ-H-2.8-A", "subject": "AP Statistics", "topic": "2.8 Introduction to Random Variables and Probability Distributions",
+    "stem": "A random variable X takes the values 1, 2, 3 and 4 with P(X = x) = kx. What is P(X ≥ 3)?",
+    "choices": [
+      {"k": "A", "t": "0.7", "ok": true, "r": "Correct: k + 2k + 3k + 4k = 10k = 1, so k = 0.1; P(X ≥ 3) = 0.3 + 0.4 = 0.7."},
+      {"k": "B", "t": "0.3", "ok": false, "r": "This is P(X ≤ 2) = 0.1 + 0.2 = 0.3; the question asks for P(X ≥ 3)."},
+      {"k": "C", "t": "0.4", "ok": false, "r": "This is P(X = 4) = 0.4 only; P(X ≥ 3) also includes P(X = 3) = 0.3."},
+      {"k": "D", "t": "0.5", "ok": false, "r": "This treats the four values as equally likely, but P(X = x) = kx gives larger values larger probabilities."}
+    ],
+    "brief": {
+      "earned": "You earn credit for defining the random variable in words as a numeric quantity, for verifying or completing a distribution so the probabilities sum to 1, for finding a missing probability by subtraction, and for reading probabilities off either the distribution or its cumulative version, including at-most versus strictly-less-than boundaries.",
+      "move": "Whenever a distribution is presented as a table, sum the probabilities and confirm they total 1 before answering -- if a value is missing, that sum-to-1 requirement is how you recover it, and if they do not total 1 the given distribution is not valid.",
+      "loss": "Confusing a cumulative value with an individual probability, and using the accumulated total as one value's probability."
+    },
+    "core": "For a discrete random variable, P(X < x) and P(X ≤ x) differ by exactly P(X = x) -- the single probability of landing exactly on the boundary value -- so reading a cumulative distribution correctly means deciding whether that boundary value itself belongs in your answer before you add or subtract anything."
+  },
+  {
+    "id": "APSTATS-MCQ-H-4.5-A", "subject": "AP Statistics", "topic": "4.5 Carrying Out a Test for a Population Mean or Mean Difference",
+    "stem": "A cereal box states that the mean sodium per serving is 250 mg. An inspector tests H0: μ = 250 versus Ha: μ > 250 using a random sample of 25 servings, which has mean 262 mg and standard deviation 30 mg. The sampling distribution is approximately normal. Which is the correct result and conclusion at the 5% level?",
+    "choices": [
+      {"k": "A", "t": "t = 0.40 and p ≈ 0.35, so there is not convincing evidence that the mean exceeds 250 mg.", "ok": false, "r": "Divided by s instead of the standard error, giving a t statistic far too small."},
+      {"k": "B", "t": "t = 2.00 and p ≈ 0.06, so there is not convincing evidence that the mean exceeds 250 mg.", "ok": false, "r": "Doubled the p-value for a two-sided test even though the alternative is one-sided."},
+      {"k": "C", "t": "t = 2.00 and p ≈ 0.03, so there is convincing evidence that the mean exceeds 250 mg.", "ok": true, "r": "Correct: SE = 30/√25 = 6; t = 12/6 = 2.00; df = 24; one-sided p = 0.0285 < 0.05, so reject H0."},
+      {"k": "D", "t": "t = 2.00 and p ≈ 0.03, so there is about a 3% chance that the mean is 250 mg.", "ok": false, "r": "A p-value is the probability of data this extreme if H0 is true, not the probability that H0 is true."}
+    ],
+    "brief": {
+      "earned": "You earn points by computing the test statistic and df correctly, comparing the p-value to a stated significance level, and writing a conclusion that names the parameter and population using non-definitive language such as convincing evidence to suggest, never prove or is.",
+      "move": "Compute t = (x-bar - mu-0)/(s/sqrt(n)), df = n - 1; compare the resulting p-value to alpha; then conclude in context: reject or fail to reject H0, and phrase the real-world conclusion as evidence for or against Ha, never as certainty.",
+      "loss": "Concluding we have proven or stating the parameter is a certain value, instead of phrasing the conclusion as convincing evidence in the direction of Ha."
+    },
+    "core": "The test statistic and p-value are only half the work; the other half is translating a reject or fail-to-reject decision into a sentence about the real-world parameter that never overstates what a p-value can prove."
+  },
+  {
+    "id": "APSTATS-MCQ-H-2.5-A", "subject": "AP Statistics", "topic": "2.5 Mutually Exclusive Events",
+    "stem": "For two events A and B, P(A) = 0.50, P(B) = 0.30, and P(A or B) = 0.65. Which statement is correct?",
+    "choices": [
+      {"k": "A", "t": "A and B are not mutually exclusive, because P(A and B) = 0.15 > 0, but they are independent, because 0.15 = (0.50)(0.30).", "ok": true, "r": "Correct: P(A and B) = 0.50 + 0.30 − 0.65 = 0.15 > 0, so the events are not mutually exclusive; 0.15 = (0.50)(0.30), so they are independent."},
+      {"k": "B", "t": "A and B are mutually exclusive, because P(A or B) = 0.65 is less than 1.", "ok": false, "r": "A union below 1 says nothing about whether the events overlap; here P(A and B) = 0.15 > 0, so they are not mutually exclusive."},
+      {"k": "C", "t": "A and B are both mutually exclusive and independent, because P(A and B) equals P(A)P(B).", "ok": false, "r": "Mutually exclusive events with positive probabilities can never be independent, and these events are not mutually exclusive anyway because P(A and B) = 0.15."},
+      {"k": "D", "t": "A and B are neither mutually exclusive nor independent, because P(A or B) ≠ P(A) + P(B).", "ok": false, "r": "P(A or B) ≠ P(A) + P(B) shows the events overlap, not that they are dependent; independence requires P(A and B) = P(A)P(B), which holds here."}
+    ],
+    "brief": {
+      "earned": "You earn credit for deciding whether two described events can occur on the same trial, for supporting that decision with a zero overlap or with a nonzero overlap you can point to in a table or Venn diagram, and for recognizing when disjointness lets you add probabilities directly.",
+      "move": "Test mutual exclusivity by asking one question -- could a single individual or a single trial land in both events at once? -- and answer it about the overlap only; do not compare the plain and conditional probabilities, which is the independence test in 2.7, not this one.",
+      "loss": "Assuming mutually exclusive means independent; disjoint events with nonzero probability are actually dependent, since one occurring rules the other out."
+    },
+    "core": "Mutually exclusive events being unable to happen together is a much narrower claim than 'unrelated' -- two events built from overlapping conditions on the very same trial can share an outcome and therefore not be disjoint."
+  },
+  {
+    "id": "apstats-mcq-b6-h-1.12-a", "subject": "AP Statistics", "topic": "1.12 Potential Problems with Sampling",
+    "stem": "A college estimates the mean number of hours its students work at paid jobs each week. It emails a survey to a random sample of 500 students and 90 respond. Students who work long hours often say they were too busy to respond. Which statement best describes the bias and its likely direction?",
+    "choices": [
+      {"k": "A", "t": "Nonresponse bias; the sample mean likely overestimates the true mean.", "ok": false, "r": "The students who are missing work the most hours, so removing them lowers the mean, not raises it."},
+      {"k": "B", "t": "Undercoverage; the sample mean likely underestimates the true mean.", "ok": false, "r": "The sample was selected randomly from the students, so there is no group left out of the sampling frame; the issue is that selected students did not respond."},
+      {"k": "C", "t": "Voluntary response bias; the sample mean likely overestimates the true mean.", "ok": false, "r": "The students did not volunteer to be in the sample; they were selected and then some did not respond."},
+      {"k": "D", "t": "Nonresponse bias; the sample mean likely underestimates the true mean.", "ok": true, "r": "Correct: Nonresponse bias arises when selected individuals do not respond; if heavy workers respond less, the average hours among respondents is too low."}
+    ],
+    "brief": {
+      "earned": "Full credit on a describe-how-you-would-select-a-random-sample free-response prompt requires specifying: the exact range of random numbers to use, what happens if a number repeats, and precisely how a generated number maps back to a specific individual on the population list.",
+      "move": "When asked to describe a sampling procedure, write out the concrete implementation details as a numbered process: label every individual, state the exact number range you'll generate from, state what happens on a repeat number, and state exactly how a number selects a specific individual.",
+      "loss": "Describing a sampling procedure as just generate random numbers without specifying the number range, how repeats are handled, or how numbers map to individuals."
+    },
+    "core": "A sampling procedure described only as generate random numbers is incomplete for full credit -- an exam-worthy response must specify the exact number range used, what happens when a number repeats, and precisely how each generated number maps back to one specific individual."
+  },
+  {
+    "id": "apbio-mcq-b4-h-4.4-a", "subject": "AP Biology", "topic": "4.4 Feedback",
+    "stem": "In healthy people, the pituitary hormone ACTH stimulates the adrenal cortex to release cortisol, and cortisol acts on the hypothalamus and pituitary to reduce ACTH release. A patient takes a drug that blocks an enzyme the adrenal cortex needs to make cortisol. The adrenal cortex and pituitary otherwise work normally. Which pattern of blood hormone levels is expected after two weeks?",
+    "choices": [
+      {"k": "A", "t": "Cortisol low and ACTH high, because less cortisol means less inhibition of ACTH release.", "ok": true, "r": "Correct: the drug lowers cortisol; with less negative feedback on the pituitary, ACTH release rises and stays high because the adrenal cortex cannot make cortisol to turn it off."},
+      {"k": "B", "t": "Cortisol low and ACTH low, because low cortisol reduces the stimulus for ACTH release.", "ok": false, "r": "This treats the loop as positive feedback, but cortisol inhibits ACTH release, so a drop in cortisol raises ACTH."},
+      {"k": "C", "t": "Cortisol low and ACTH normal, because cortisol does not regulate ACTH release.", "ok": false, "r": "The stem states that cortisol acts on the hypothalamus and pituitary to reduce ACTH, so ACTH release is regulated by cortisol."},
+      {"k": "D", "t": "Cortisol normal and ACTH normal, because negative feedback always returns hormone levels to normal whatever the drug.", "ok": false, "r": "Feedback can correct a variable only if the components work, and the drug blocks cortisol synthesis so the loop cannot restore cortisol."}
+    ],
+    "brief": {
+      "earned": "You earn points by identifying the variable, stimulus, response, and whether the loop reduces or amplifies the original change.",
+      "move": "Ask whether the response reverses the change or strengthens it, then name negative or positive feedback.",
+      "loss": "Calling every control system negative feedback without explaining the direction of the response."
+    },
+    "core": "Feedback loops regulate biological systems by using outputs to influence earlier steps, and the direction of that influence defines the loop: negative feedback reduces a stimulus back toward a set point to maintain homeostasis, while positive feedback amplifies the original stimulus until a decisive endpoint is reached."
+  },
+  {
+    "id": "APBIO-MCQ-136", "subject": "AP Biology", "topic": "2.5 Membrane Transport",
+    "stem": "An uncharged solute initially has a concentration of 10 mmol/L outside a cell and 2 mmol/L inside. A membrane protein allows net movement of the solute into the cell without energy input. Which statement correctly explains this transport?",
+    "choices": [
+      {"k": "A", "t": "The transport is active because movement through any membrane protein requires energy input.", "ok": false, "r": "Protein–energy confusion: a membrane protein can allow passive transport without energy input. Protein involvement alone does not distinguish active from passive transport. Fix: Check gradient direction and energy input before classifying protein-mediated transport."},
+      {"k": "B", "t": "The transport is active because inward movement takes the solute from lower to higher concentration.", "ok": false, "r": "Gradient reversal: the outside concentration is higher, so inward movement carries this solute from higher to lower concentration. Entering a cell does not necessarily mean moving against a gradient. Fix: Label the starting and destination concentrations before identifying the gradient direction."},
+      {"k": "C", "t": "The transport is passive because the solute moves down its concentration gradient without energy input.", "ok": true, "r": "The solute moves from higher concentration outside to lower concentration inside without energy input, which describes passive transport. Involvement of a membrane protein does not by itself make transport active."},
+      {"k": "D", "t": "The transport is passive, so solute molecules will stop moving once the concentrations become equal.", "ok": false, "r": "Equilibrium-as-stillness misconception: equal concentrations eliminate net movement, not molecular motion. Molecules continue crossing in both directions at equal average rates. Fix: Distinguish movement of individual molecules from net movement across the membrane."}
+    ],
+    "brief": {
+      "earned": "You earn points by identifying the gradient, direction of movement, energy requirement, and protein involvement.",
+      "move": "State high-to-low or low-to-high relative to the gradient, then name passive or active transport.",
+      "loss": "Ignoring gradient direction or claiming all protein transport requires ATP."
+    },
+    "core": "Membrane transport includes passive movement down gradients and active movement requiring energy to move against gradients -- passive transport is net movement from high to low concentration with no direct energy input, while active transport uses energy (typically ATP) to move a substance from low to high concentration."
+  },
+  {
+    "id": "apbio-mcq-b4-h-4.2-a", "subject": "AP Biology", "topic": "4.2 Introduction to Signal Transduction",
+    "stem": "Ligand M is a 30-kDa protein. When M is added to the medium around liver cells, glycogen breakdown begins within 20 seconds. When M is microinjected directly into the cytoplasm of a liver cell, there is no response. The protein-synthesis inhibitor cycloheximide does not change the response to M added outside the cell, but a PKA inhibitor abolishes the response. Which conclusion is best supported?",
+    "choices": [
+      {"k": "A", "t": "M binds a receptor on the cell surface, and the response is relayed by proteins already in the cytoplasm, such as PKA, without new protein synthesis.", "ok": true, "r": "Correct: a response to outside M but not to injected M places the receptor at the plasma membrane; cycloheximide has no effect, so no new proteins are needed; the PKA inhibitor blocks the response, so PKA relays the signal."},
+      {"k": "B", "t": "M enters the cell, binds an intracellular receptor, and acts as a transcription factor that produces new proteins within seconds.", "ok": false, "r": "Injecting M into the cytoplasm gave no response, which an intracellular receptor would not predict, and the response needs no new protein synthesis."},
+      {"k": "C", "t": "M binds a membrane receptor, but the response needs newly synthesized proteins, and cycloheximide did not block them because it acts too slowly.", "ok": false, "r": "The response arises within 20 seconds and cycloheximide had no effect on it, so no newly made proteins are needed."},
+      {"k": "D", "t": "M enters the cell through a channel and directly activates PKA, which then breaks down glycogen.", "ok": false, "r": "If M acted directly on PKA inside the cell, injecting it would have caused a response, and it did not."}
+    ],
+    "brief": {
+      "earned": "You earn points by explaining the sequence reception -> transduction -> response.",
+      "move": "Use the three-stage chain and place each molecule or event in the correct stage.",
+      "loss": "Skipping from signal to response without describing intracellular transduction."
+    },
+    "core": "Signal transduction converts an external or internal signal into intracellular molecular changes through three stages -- reception, transduction, and response -- and it begins when a ligand binds a receptor with a highly specific binding domain."
+  },
+  {
+    "id": "APBIO-MCQ-128", "subject": "AP Biology", "topic": "3.4 Photosynthesis",
+    "stem": "Researchers measure photosynthesis in intact chloroplasts at three light intensities while keeping CO2 availability and temperature constant. Rates are measured after they stabilize and are reported in relative units per minute.\n\nLight intensity | Oxygen production rate | Carbohydrate production rate\nLow | 2 | 1\nMedium | 4 | 2\nHigh | 6 | 3\n\nWhich statement accurately describes the pattern and connects it to the roles of the two stages of photosynthesis?",
+    "choices": [
+      {"k": "A", "t": "Both production rates increase with light intensity; the light reactions directly produce carbohydrates in the thylakoids.", "ok": false, "r": "Stage-and-location confusion: This assigns carbohydrate production to the light reactions. Carbohydrates are produced through the Calvin cycle in the stroma, using ATP and NADPH from the light reactions. Fix: Assign each measured product to its photosynthetic stage and location before interpreting the trend."},
+      {"k": "B", "t": "Both production rates increase with light intensity; the light reactions supply ATP and NADPH for carbohydrate production in the stroma.", "ok": true, "r": "Oxygen production rises from 2 to 6, while carbohydrate production rises from 1 to 3. The light reactions release oxygen and produce ATP and NADPH, which support carbohydrate production by the Calvin cycle in the stroma."},
+      {"k": "C", "t": "Both production rates increase with light intensity; the oxygen is released when CO2 is split during the Calvin cycle.", "ok": false, "r": "Oxygen-source confusion: This treats CO2 as the source of released oxygen. Photosynthetic oxygen comes from water splitting during the light reactions, not from CO2 during the Calvin cycle. Fix: Trace released oxygen to water splitting before linking it to a photosynthetic stage."},
+      {"k": "D", "t": "Both production rates increase with light intensity; the Calvin cycle supplies ATP and NADPH to power the light reactions.", "ok": false, "r": "Energy-transfer reversal: This reverses the dependency between the two stages. The light reactions produce ATP and NADPH, and the Calvin cycle uses them to support carbohydrate production. Fix: Draw an arrow from the stage producing ATP and NADPH to the stage using them."}
+    ],
+    "brief": {
+      "earned": "You earn points by linking inputs, locations, products, and energy transformations across the two major stages.",
+      "move": "Separate light reactions from the Calvin cycle, then connect their products and dependencies.",
+      "loss": "Mixing up where oxygen, ATP, NADPH, or sugar are produced."
+    },
+    "core": "Photosynthesis converts light energy into chemical energy stored in sugars through linked light reactions and carbon fixation. In the light reactions, chlorophyll absorbs light to boost electrons in photosystems II and I, and splitting water replaces the electrons lost at photosystem II while releasing oxygen as a byproduct. The light reactions take place in the thylakoid membranes while the Calvin cycle takes place in the stroma."
+  }
+]
