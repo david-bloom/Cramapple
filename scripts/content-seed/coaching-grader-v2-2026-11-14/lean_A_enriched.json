@@ -1,0 +1,1039 @@
+[
+ {
+  "key": "APBIO-OHT-2.2",
+  "subject": "bio",
+  "chosen": "D",
+  "arms": {
+   "BASE": {
+    "text": "What the question required: a comparison of surface area-to-volume ratios, meaning surface area divided by volume, for two cells of different sizes.\n\nWhat you did: You compared the raw growth factors, saying volume rose 8-fold and surface area 4-fold, then concluded the ratio was higher because 8 is larger than 4. That treats volume as the top of the fraction. It is the bottom.\n\nWhy this matters: The ratio is surface area over volume. For Cell Q, that is 4 over 8, which is smaller than Cell P's ratio. Volume grows faster than surface area as a cell gets bigger, so the larger cell has less surface per unit of volume.\n\nNext move: Before reading the answer choices, write the ratio as a fraction, surface area on top and volume on the bottom, and compute it for each cell.",
+    "coach_s": 2.3202001280000104,
+    "cost": 0.0001704,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.001015
+   },
+   "LEAN": {
+    "text": "Choice D is wrong because it compares the two changes as if they were the ratio itself. Surface area-to-volume ratio means surface area divided by volume, so you divide 4 by 8, giving 0.5, which is smaller than the ratio for the smaller cell. Put surface area on top and volume on the bottom, then compare the two fractions.\n\nTry this: for Cell P, what is its surface area divided by its volume?",
+    "coach_s": 1.0786308910000457,
+    "cost": 0.00010290000000000001,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0008395
+   },
+   "LEAN_RETRY": {
+    "text": "You chose D because you compared the 8-fold volume increase against the 4-fold surface area increase and treated the bigger number as the ratio. That mixes up the two quantities. A surface area-to-volume ratio is surface area divided by volume, with surface area on top and volume on the bottom. Check the division for Cell Q: if surface area grows 4-fold and volume grows 8-fold, what does dividing one by the other give you?",
+    "coach_s": 2.3486912860000757,
+    "cost": 0.0002127,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0006952499999999999
+   }
+  },
+  "source_leaks": true,
+  "rationale": "Tempting if you read the larger number as the ratio. But surface area-to-volume is surface area divided by volume, 4 over 8, which is smaller. Fix: put surface area on top and volume on the bottom.",
+  "stem": "Two cube-shaped cells are compared. Cell P has sides of 2 micrometers and Cell Q has sides of 4 micrometers. Which statement correctly compares their surface area-to-volume ratios?",
+  "chosen_text": "Cell Q's surface area increases 4-fold and volume 8-fold, so its ratio is higher because 8 is greater than 4.",
+  "correct_text": "Cell Q's surface area is 4 times greater and its volume is 8 times greater, so its ratio is half that of Cell P."
+ },
+ {
+  "key": "APBIO-OHT-1.2",
+  "subject": "bio",
+  "chosen": "B",
+  "arms": {
+   "BASE": {
+    "text": "(1) The question asked you to match a molecule to an exact elemental fingerprint: carbon, hydrogen, oxygen, nitrogen, and phosphorus present, sulfur absent. Every element on the list had to be accounted for.\n\n(2) You chose B, a triglyceride, based on carbon and hydrogen content and energy storage. That reasoning fits fats in general but never tests the nitrogen and phosphorus.\n\n(3) Those two elements are the deciding evidence. A triglyceride contains only C, H and O, so it cannot produce this composition no matter how well it fits the energy-storage idea.\n\n(4) Next move: before selecting any answer, write down every element named in the question and check each option against all of them, not just the dominant ones.",
+    "coach_s": 2.22068428099999,
+    "cost": 0.0001589,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.0007617500000000001
+   },
+   "LEAN": {
+    "text": "Choice B is wrong because a triglyceride contains only carbon, hydrogen, and oxygen. The unknown polymer contains nitrogen and phosphorus, which a triglyceride does not have. Carbon and hydrogen being abundant in fats is a tempting clue, but it doesn't rule out the nitrogen and phosphorus. Before choosing a lipid, check whether the composition includes N or P.\n\nTry this: which molecule in the answer choices contains nitrogen and phosphorus?",
+    "coach_s": 1.4159023710000156,
+    "cost": 0.0001164,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.00068375
+   },
+   "LEAN_RETRY": {
+    "text": "Choosing a triglyceride is tempting because fats are built mostly from carbon, hydrogen, and oxygen, which matches part of the data. But this analysis also found nitrogen and phosphorus, and a triglyceride contains neither. Any molecule you pick must account for every element detected, not just the most common ones. Before choosing a lipid, check whether it can contain N and P. Which element on the list rules out a triglyceride?",
+    "coach_s": 2.721173289000035,
+    "cost": 0.0002257,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.00061525
+   }
+  },
+  "source_leaks": true,
+  "rationale": "Tempting because C, H and O dominate fats. But a triglyceride has no nitrogen or phosphorus. Fix: check for N and P before you choose a lipid; triglycerides contain only C, H and O.",
+  "stem": "A chemical analysis of an unknown biological polymer finds carbon, hydrogen, oxygen, nitrogen, and phosphorus, but no sulfur. Which molecule is most consistent with this composition?",
+  "chosen_text": "A triglyceride, because fats are rich in carbon and hydrogen and store energy.",
+  "correct_text": "A DNA strand, because nitrogen is in its nucleotide bases and phosphorus is in the phosphate groups of its backbone."
+ },
+ {
+  "key": "APBIO-OHT-2.10-r2",
+  "subject": "bio",
+  "chosen": "B",
+  "arms": {
+   "BASE": {
+    "text": "**What the question required:** An explanation of two things: how compartmentalization arose (the endosymbiotic origin of organelles) and how prokaryotes and eukaryotes differ in internal organization.\n\n**What your answer did:** You correctly identified the origin: mitochondria and chloroplasts came from engulfed free-living prokaryotes. But you then claimed prokaryotes have no internal organization at all, so their molecules mix freely.\n\n**Why that matters:** The point being tested is the difference in membrane-bound organelles, not a total absence of structure. Prokaryotes typically lack membrane-bound organelles, yet they still have specialized internal regions where particular functions occur. A claim that denies all organization is inaccurate, so it cannot earn the point even with a correct origin.\n\n**Next move:** Rewrite the difference as \"prokaryotes lack membrane-bound organelles, while eukaryotes partition the cell with them,\" and check that every clause is limited to membranes, not to all structure.",
+    "coach_s": 2.599946139999986,
+    "cost": 0.0002082,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.00104925
+   },
+   "LEAN": {
+    "text": "Your choice got the origin right: mitochondria and chloroplasts came from engulfed free-living prokaryotes. The error is in the contrast. Prokaryotes lack membrane-bound organelles, but they are not unorganized. They have specialized internal regions where particular functions happen. Look for the answer that says prokaryotes lack membrane-bound organelles, not that they lack all internal organization.\n\nTry this: Which part of option B makes a claim that is too broad?",
+    "coach_s": 1.4542492290000268,
+    "cost": 0.0001182,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0009172500000000001
+   },
+   "LEAN_RETRY": {
+    "text": "You chose B, and the origin part is right: mitochondria and chloroplasts came from engulfed free-living prokaryotes. The error is the claim that prokaryotes have no internal organization. Prokaryotes usually lack membrane-bound organelles, but they still have specialized internal regions where particular functions happen. Look again at the difference you described. Does \"no internal organization\" match \"no membrane-bound organelles,\" or is it broader than that?",
+    "coach_s": 2.678880998000068,
+    "cost": 0.0002368,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0008995
+   }
+  },
+  "source_leaks": false,
+  "rationale": "The origin is correct, but this makes the common error of treating prokaryotes as unorganized bags of molecules. Prokaryotes typically lack membrane-bound organelles, yet they still have specialized internal regions where particular functions occur. Fix: Check that the claim says prokaryotes lack membrane-bound organelles rather than lacking all internal organization.",
+  "stem": "A student is asked to explain how cell compartmentalization arose and how it differs between prokaryotes and eukaryotes. Which statement gives the most accurate explanation?",
+  "chosen_text": "Mitochondria and chloroplasts descended from engulfed free-living prokaryotes. Prokaryotes have no internal organization, so all of their molecules and reactions mix freely, while eukaryotes partition the cell with internal membranes.",
+  "correct_text": "Mitochondria and chloroplasts descended from once free-living prokaryotes that were engulfed by a host cell, which fits their double membranes. Prokaryotes typically lack membrane-bound organelles but still have specialized internal regions, while eukaryotes use internal membranes to partition the cell."
+ },
+ {
+  "key": "APBIO-OHT-1.3",
+  "subject": "bio",
+  "chosen": "D",
+  "arms": {
+   "BASE": {
+    "text": "**What the question required:** You had to identify what happens to water when amino acids link into a chain. The key idea is dehydration synthesis: each peptide bond forms as a water molecule is removed from the two amino acids involved.\n\n**What you did:** You chose D, claiming no water is involved because the amino acids simply join directly. That reasoning skipped the chemistry of the bond itself.\n\n**Why it matters:** Each peptide bond releases one water molecule, formed from an H and an OH taken from the monomers. The word \"dehydration\" in the name tells you water is lost, not absent.\n\n**Next move:** When you see a monomer-linking reaction, ask which atoms leave. Write the rule on your card: \"dehydration synthesis = water removed.\" Then check any answer that claims no water is involved against that rule before selecting it.",
+    "coach_s": 2.5295088979999605,
+    "cost": 0.00016839999999999997,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.00083825
+   },
+   "LEAN": {
+    "text": "Choice D is tempting because a peptide bond looks like a simple connection between two amino acids. But each bond forms by removing an H from one monomer and an OH from the other, and those pieces combine as water. The word \"dehydration\" in dehydration synthesis is the clue: water is removed during the reaction.\n\nTry again: If each peptide bond releases one water molecule, how many water molecules are released when 50 amino acids form one chain?",
+    "coach_s": 1.2397630739999954,
+    "cost": 0.0001019,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0007245000000000001
+   },
+   "LEAN_RETRY": {
+    "text": "Your choice of D is tempting because the peptide bond looks like a simple connection between two amino acids. But forming it removes water: each bond releases an H and an OH, which combine as water. The term \"dehydration\" in dehydration synthesis signals that water is lost during the reaction. Keep that clue in mind as you reread the answer options.\n\nWhich word in \"dehydration synthesis\" tells you whether water is removed or added?",
+    "coach_s": 2.596181945000012,
+    "cost": 0.0002072,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0006850000000000001
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Tempting because the bond seems to just connect two molecules. But each covalent bond formed between monomers releases an H and an OH as water. Fix: remember 'dehydration' means water is removed.",
+  "stem": "A cell links 50 amino acids into one polypeptide chain by forming peptide bonds. Which statement correctly describes the water involved?",
+  "chosen_text": "No water is involved, because peptide bonds form by simply joining two monomers directly, which makes dehydration synthesis seem to be a simple joining reaction.",
+  "correct_text": "Forty-nine water molecules are released, one for each peptide bond formed by dehydration synthesis."
+ },
+ {
+  "key": "APBIO-OHT-2.6",
+  "subject": "bio",
+  "chosen": "C",
+  "arms": {
+   "BASE": {
+    "text": "**What the question required:** You had to decide the direction of sodium movement from the concentration gradient (145 mM outside, 12 mM inside) and whether any energy input was needed, then pick the statement that matched.\n\n**What you did:** Your answer assumed the channel needed ATP because a protein was involved. That treats the presence of a protein as the test for active transport, which it is not.\n\n**Why it matters:** Whether movement is passive or active depends on whether it runs down or against the gradient. Sodium moves from high to low concentration here, so the gradient itself drives the flow. Channels are passive; ATP is not spent.\n\n**Next move:** Before reading the answer choices, state the gradient direction and ask whether the ion moves with or against it. Then check each option for an energy claim that conflicts with that answer.",
+    "coach_s": 2.105054936999977,
+    "cost": 0.00016669999999999999,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.00091075
+   },
+   "LEAN": {
+    "text": "Choice C is wrong because a channel does not use ATP. Sodium channels are passive: sodium moves down its concentration gradient from the higher outside concentration (145 mM) into the lower inside concentration (12 mM), and that gradient supplies the energy. Having a protein involved does not make transport active. To classify it, check the gradient direction and whether energy is spent, not whether a protein is present.\n\nTry this: If sodium moves from 145 mM outside into 12 mM inside, does it need ATP, and why or why not?",
+    "coach_s": 1.4765041099999507,
+    "cost": 0.00011869999999999998,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0009145000000000001
+   },
+   "LEAN_RETRY": {
+    "text": "You picked C because you assumed that a protein helping ions move means ATP is involved. That is the trap here. A channel is a protein, but it does not spend ATP; ions simply move down their concentration gradient. So the question is not whether a protein is present but which direction the ions are going relative to their gradient. Look at the concentrations and ask yourself: does movement down the gradient require energy input or not?",
+    "coach_s": 2.982128141999908,
+    "cost": 0.0002203,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.000684
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Tempting if you call any protein-assisted movement active transport. But a channel does not use ATP; diffusion down the gradient supplies the energy. Fix: decide active or passive from the gradient direction, not from whether a protein is involved.",
+  "stem": "Sodium ion concentration is 145 mM outside a neuron and 12 mM inside. Sodium channels in the membrane open. Which statement correctly describes what happens?",
+  "chosen_text": "Sodium ions flow in, but only because ATP is used to power the channel, since a protein is involved.",
+  "correct_text": "Sodium ions flow into the cell through the channels down their concentration gradient, with no direct ATP use."
+ },
+ {
+  "key": "APBIO-OHT-2.5",
+  "subject": "bio",
+  "chosen": "A",
+  "arms": {
+   "BASE": {
+    "text": "The question asked you to classify the movement by checking which way the ion travels relative to its concentration gradient. Here the ion is 140 mM inside and 4 mM outside, so it is being moved from low to high concentration. Your answer relied on the presence of a membrane protein, but a protein alone does not decide the category. Passive transport moves substances down their gradient without energy input; moving an ion against its gradient requires energy, even when a protein carries it. Those two facts together decide the answer, and you did not check the direction. Next move: before choosing, write the concentration on each side, circle the direction of travel, and ask whether the ion moves downhill or uphill.",
+    "coach_s": 1.6731575800000087,
+    "cost": 0.00013989999999999999,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.00082925
+   },
+   "LEAN": {
+    "text": "Choosing A mistakes the protein for the whole story. A membrane protein helping transport does not by itself make it passive. What decides this is direction: the ion moves from 4 mM outside to 140 mM inside, so it goes against its concentration gradient. Moving against a gradient requires energy, whichever protein is involved. Start by finding which way the gradient points.\n\nTry this: Which side of the membrane has the higher concentration, and which way does the ion move relative to it?",
+    "coach_s": 1.424991733000013,
+    "cost": 0.0001069,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.000794
+   },
+   "LEAN_RETRY": {
+    "text": "Your choice assumed that any membrane protein makes transport passive. The protein's presence doesn't decide it. Direction does. Check which way the ion is moving relative to its concentration difference: from 4 mM outside to 140 mM inside, it is going from low to high concentration. Moving an ion against its gradient requires energy, whichever protein is involved. So ask yourself: is the ion moving down its concentration gradient or up it, and what does that imply about energy input?",
+    "coach_s": 2.8419086780000384,
+    "cost": 0.0002187,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0008465
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Tempting if you assume any protein makes transport passive. But direction matters: moving up a gradient costs energy no matter which protein helps. Fix: first find the gradient direction.",
+  "stem": "The concentration of an ion is 140 mM inside a cell and 4 mM outside. A membrane protein moves the ion into the cell. Which statement best describes this movement?",
+  "chosen_text": "It is passive transport, because a membrane protein is involved and proteins lower the energy needed.",
+  "correct_text": "It is active transport, because the ion moves from low to high concentration, which requires energy input, typically from ATP."
+ },
+ {
+  "key": "APBIO-OHT-3.4",
+  "subject": "bio",
+  "chosen": "D",
+  "arms": {
+   "BASE": {
+    "text": "Question asked: which pair of light-reaction products is used in the stroma to build sugar. That means you need the two products of the light reactions that the Calvin cycle consumes, and nothing from cellular respiration. Your answer, D (NADH and FADH2), names two electron carriers, but both belong to cellular respiration, not to the light reactions. Their presence in the answer is why the point was lost.\n\nWhy this matters: the light reactions produce ATP and NADPH, and the stroma uses both to fix carbon into sugar. Matching the carrier to its pathway is what earns the point here. Electron carriers look alike, so the pathway they belong to decides the answer.\n\nNext move: for every carrier on your list, write the pathway it belongs to. NADPH goes with photosynthesis; NADH and FADH2 go with cellular respiration. Then reread the question and ask which pair fits the light reactions.",
+    "coach_s": 2.4351821709999513,
+    "cost": 0.0001794,
+    "checks_failed": [
+     "quotes_correct_text",
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.00072125
+   },
+   "LEAN": {
+    "text": "Choice D is tempting because NADH and FADH2 are electron carriers, but they come from cellular respiration, not the light reactions. The light reactions produce NADPH, not NADH, and that is the carrier the stroma uses to build sugar. Look for the pair that includes NADPH and check which other product the light reactions make for the Calvin cycle.\n\nTry again: Which two light-reaction products does the Calvin cycle need, and which of the answer choices lists both?",
+    "coach_s": 1.2978454479999755,
+    "cost": 0.00010539999999999999,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0007362499999999999
+   },
+   "LEAN_RETRY": {
+    "text": "Your choice, NADH and FADH2, are electron carriers, which makes them tempting. However, these two carriers are produced during cellular respiration, not in the light reactions of photosynthesis. Look again at which electron carriers the light reactions produce, and remember that the Calvin cycle uses the energy-carrying molecules made in the thylakoids. Which carrier from the light reactions, along with ATP, supplies the energy and electrons the stroma needs to build sugar?",
+    "coach_s": 2.6148122870000066,
+    "cost": 0.00021769999999999998,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.00081775
+   }
+  },
+  "source_leaks": true,
+  "rationale": "Tempting because these are electron carriers. But NADH and FADH2 are produced in cellular respiration. Fix: look for NADPH in photosynthesis, and save NADH and FADH2 for cellular respiration.",
+  "stem": "Light strikes the thylakoid membranes of a chloroplast. Which pair of products of the light reactions is used in the stroma to build sugar?",
+  "chosen_text": "NADH and FADH2",
+  "correct_text": "ATP and NADPH"
+ },
+ {
+  "key": "APBIO-OHT-1.6",
+  "subject": "bio",
+  "chosen": "C",
+  "arms": {
+   "BASE": {
+    "text": "The question asked for the complementary strand written 5' to 3', which means you must do two things: pair each base with its complement (A with T, G with C) and then write the result in the correct direction. The student's answer, 5'-GCCGTA-3', is the original strand reversed (CGCCTA read in reverse order is not it, but the letters were rearranged by flipping rather than pairing). Reversing alone does not change A to T or G to C, so the bases were never complemented. Points on this item come from both steps. Next move: write the complement base by base under 5'-ATGCCG-3' first (T A C G G C, written 3' to 5'), then reverse that string to read 5' to 3' and check it against your options.",
+    "coach_s": 1.8981883870000047,
+    "cost": 0.0001446,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     false
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.0009094999999999999
+   },
+   "LEAN": {
+    "text": "Your answer, 5'-GCCGTA-3', comes from reversing the original strand without changing its bases. That mistake is easy to make, but reversing alone doesn't produce the complementary strand. You need to do two things: replace each base with its complement, and also reverse the direction so the new strand reads 5' to 3'. Try again: what do you get when you complement each base of 5'-ATGCCG-3' and then write the result 5' to 3'?",
+    "coach_s": 1.3513833800000157,
+    "cost": 0.00010109999999999999,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.00063025
+   },
+   "LEAN_RETRY": {
+    "text": "Your answer, 5'-GCCGTA-3', comes from reversing the original strand without changing its bases. That mistake is easy to make, but reversing alone doesn't produce the complementary strand. You need to do two things: replace each base with its complement, and also reverse the direction so the new strand reads 5' to 3'. Try again: what do you get when you complement each base of 5'-ATGCCG-3' and then write the result 5' to 3'?",
+    "coach_s": 1.3513833800000157,
+    "cost": 0.00010109999999999999,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.00063025,
+    "retried": false
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Tempting if you only reverse the original strand. But reversing does not substitute complementary bases. Fix: both complement each base and reverse the direction.",
+  "stem": "One strand of a DNA segment is written 5'-ATGCCG-3'. Which is the sequence of the complementary DNA strand, written 5' to 3'?",
+  "chosen_text": "5'-GCCGTA-3'",
+  "correct_text": "5'-CGGCAT-3'"
+ },
+ {
+  "key": "APBIO-OHT-2.4",
+  "subject": "bio",
+  "chosen": "D",
+  "arms": {
+   "BASE": {
+    "text": "(1) This question asked which substance can pass the bilayer on its own, with no transport proteins present. The deciding factor is whether the molecule can dissolve in the hydrophobic lipid tails.\n\n(2) Your answer, K+, reasoned from direction of movement. Direction does not decide whether a substance crosses. K+ carries a charge, so it cannot pass through the nonpolar tails without a channel.\n\n(3) Small, uncharged, nonpolar molecules pass the bilayer by simple diffusion, and that property is what earns the point here. Charge and polarity are the features to check first.\n\n(4) Next time, before considering concentration gradients, ask: is this molecule charged or polar? If yes, it needs a protein. Then identify which option is small and nonpolar.",
+    "coach_s": 1.998876666000001,
+    "cost": 0.0001614,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.00088275
+   },
+   "LEAN": {
+    "text": "Choosing K+ mixes up direction with permeability. Direction of movement does not decide whether a substance can cross the bilayer. K+ is charged, so it cannot dissolve in the hydrophobic tails of the phospholipids, and without a transport protein it cannot cross in any direction. Charged substances need proteins to get through the membrane.\n\nTry this: which of the four substances is nonpolar and small enough to pass directly through the lipid tails?",
+    "coach_s": 1.3860663130000148,
+    "cost": 0.0001049,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.000781
+   },
+   "LEAN_RETRY": {
+    "text": "Choosing K+ because it moves toward a region where potassium is abundant assumes that direction determines whether a substance can cross. Direction doesn't decide it. K+ is charged and cannot dissolve in the hydrophobic tails of the bilayer, so it needs a channel no matter which way it is headed. Charged substances need proteins to cross the membrane. Reconsider which of the four substances is not charged. Which one could pass through the lipid tails without any help?",
+    "coach_s": 2.8581446219999975,
+    "cost": 0.0002172,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0006522499999999999
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Tempting if you assume direction decides crossing. But K+ is charged and cannot dissolve in the tails, so it needs a channel in any direction. Fix: charged substances need proteins.",
+  "stem": "A cell is in a solution containing equal amounts of four substances, and no transport proteins for any of them are present in the membrane. Which substance would cross the phospholipid bilayer most readily?",
+  "chosen_text": "K+, because it is moving toward a region of the cell where potassium is abundant.",
+  "correct_text": "N2, because it is small and nonpolar and can dissolve in the hydrophobic interior of the bilayer."
+ },
+ {
+  "key": "APBIO-OHT-2.1",
+  "subject": "bio",
+  "chosen": "B",
+  "arms": {
+   "BASE": {
+    "text": "What the question required: You had to name the organelle that directly destroys the engulfed material, not the one that makes the proteins involved. The key word is \"destruction,\" which points to the organelle that digests what the vesicle holds.\n\nWhat you did: You chose Rough ER because you reasoned that its ribosomes make proteins that attack the bacterium. That reasoning links the ER to the outcome but skips the step that matters.\n\nWhy this matters: Making a protein and carrying out a breakdown are separate jobs. Rough ER builds proteins; it does not digest the vesicle's contents. Points go to the organelle doing the digesting.\n\nNext move: For each answer option, write one sentence stating what that organelle does, then ask whether that action directly breaks down material inside a vesicle. Keep \"builds\" and \"breaks down\" as two separate columns.",
+    "coach_s": 2.173855988000014,
+    "cost": 0.0001689,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.0008845000000000001
+   },
+   "LEAN": {
+    "text": "Rough ER is a tempting choice because enzymes are proteins and rough ER does make proteins. But the rough ER builds proteins; it does not digest what is inside the vesicle. Making proteins and breaking down material are separate jobs. Think about which organelle is the one that breaks down engulfed material.\n\nWhich organelle fuses with the vesicle and contains digestive enzymes?",
+    "coach_s": 1.1641155869999693,
+    "cost": 9.39e-05,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.000614
+   },
+   "LEAN_RETRY": {
+    "text": "Rough ER was tempting because enzymes are proteins and rough ER makes proteins. But the ER builds proteins; it does not digest what is inside the vesicle. Making proteins and breaking down material are separate jobs. Ask yourself which organelle's job is breaking down material, not building it.",
+    "coach_s": 2.1833958569999936,
+    "cost": 0.0001787,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.00063625
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Tempting because enzymes are proteins and rough ER makes proteins. But the ER builds proteins; it does not digest the vesicle's contents. Fix: separate making proteins from breaking down material.",
+  "stem": "A white blood cell engulfs a bacterium into a vesicle and destroys it. Which organelle most directly carries out the destruction of the engulfed material?",
+  "chosen_text": "Rough ER, because its ribosomes make proteins that attack the bacterium.",
+  "correct_text": "Lysosome, because it fuses with the vesicle and its hydrolytic enzymes digest the contents."
+ },
+ {
+  "key": "apstat-u1-2-2a-variables-102000",
+  "subject": "stats",
+  "chosen": "A",
+  "arms": {
+   "BASE": {
+    "text": "The question asked you to classify the variable \"model code\" by type, which means deciding whether its values are numbers that can be measured or labels that sort phones into groups, and if labels, whether they have a natural order. Your answer, categorical ordinal, claims the codes have a built-in order. That order has to come from the data itself, not from a belief that newer codes are better. Quality is not the same as position in a ranking of categories. A model code only earns \"ordinal\" if its categories are ranked by something intrinsic to the code. Check whether the codes are simply names for different phone types. Next move: for each classification, ask whether the categories have a meaningful sequence before picking one, and state that test in your reasoning.",
+    "coach_s": 2.0210317739999937,
+    "cost": 0.00013719999999999997,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.00084675
+   },
+   "LEAN": {
+    "text": "Your choice of A, categorical ordinal, is incorrect because model codes are labels that name categories, and they don't have a meaningful order that counts as ordinal. Treating newer codes as \"better\" is a judgment about quality, not a property of the variable itself. The reason this choice is wrong is that it misclassifies the variable, treating it as counts or ordered categories when it is simply a set of named categories.\n\nTry this: Does the model code have a natural order that the data itself establishes, or is it just a name for each phone's category?",
+    "coach_s": 2.904424715999994,
+    "cost": 0.00010669999999999999,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0006655
+   },
+   "LEAN_RETRY": {
+    "text": "Your choice of A, categorical ordinal, is incorrect because model codes are labels that name categories, and they don't have a meaningful order that counts as ordinal. Treating newer codes as \"better\" is a judgment about quality, not a property of the variable itself. The reason this choice is wrong is that it misclassifies the variable, treating it as counts or ordered categories when it is simply a set of named categories.\n\nTry this: Does the model code have a natural order that the data itself establishes, or is it just a name for each phone's category?",
+    "coach_s": 2.904424715999994,
+    "cost": 0.00010669999999999999,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0006655,
+    "retried": false
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Misclassified counts or ordered categories",
+  "stem": "In a device quality-control study, the variable recorded for each phone is model code. Which choice best classifies this variable?",
+  "chosen_text": "categorical ordinal, because newer model codes are better",
+  "correct_text": "categorical, because the value labels the phone model."
+ },
+ {
+  "key": "apstat-summary_stats-090012",
+  "subject": "stats",
+  "chosen": "D",
+  "arms": {
+   "BASE": {
+    "text": "The question asked for the sample mean: add the seven values and divide by seven. Your answer, 19.88, is the kind of number you get from a standard deviation, not a mean. The mean is a measure of center, so it has to fall within the range of the data, and it is the sum of all values divided by how many there are. Next move: compute the sum of 19, 42, 63, 65, 67, 78, and 79, then divide that total by 7. Check that your result lies between 19 and 79 before you choose.",
+    "coach_s": 1.499931805000017,
+    "cost": 0.000105,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.0007147499999999999
+   },
+   "LEAN": {
+    "text": "Your answer, 19.88, is wrong because it is a standard deviation, not the mean. The mean is found by adding all the values and dividing by how many there are. Your number measures how spread out the data is, which is a different statistic. Make sure you know which formula the question is asking for before you compute.\n\nTry again: what is the sum of the seven values 19, 42, 63, 65, 67, 78, and 79?",
+    "coach_s": 1.3800112719999902,
+    "cost": 8.749999999999999e-05,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0006802500000000001
+   },
+   "LEAN_RETRY": {
+    "text": "Your answer, 19.88, is wrong because it is a standard deviation, not the mean. The mean is found by adding all the values and dividing by how many there are. Your number measures how spread out the data is, which is a different statistic. Make sure you know which formula the question is asking for before you compute.\n\nTry again: what is the sum of the seven values 19, 42, 63, 65, 67, 78, and 79?",
+    "coach_s": 1.3800112719999902,
+    "cost": 8.749999999999999e-05,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0006802500000000001,
+    "retried": false
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Reported a standard deviation instead of the mean",
+  "stem": "Consider the data set: 19, 42, 63, 65, 67, 78, 79. Calculate the sample mean.",
+  "chosen_text": "19.88",
+  "correct_text": "59.00"
+ },
+ {
+  "key": "apstat-compare_stats-090006",
+  "subject": "stats",
+  "chosen": "D",
+  "arms": {
+   "BASE": {
+    "text": "The question asked for a difference between two medians, so the answer needed two steps: find each group's median, then subtract. Your answer, D (56.00), is the median of Group A alone. You stopped after the first step and reported one group's statistic instead of the comparison the question asked for. That final subtraction is the point being scored, so it has to be done even when the individual medians look right. Group A's median is correct as a number, but it is only half of what was requested. Next move: after you find each median, write the subtraction on the page as its own line, then check that your final result uses both medians.",
+    "coach_s": 1.8888633600000162,
+    "cost": 0.0001204,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.00086925
+   },
+   "LEAN": {
+    "text": "Your answer of 56.00 is the median of Group A alone. The question asks for a difference, so you need Group B's median too, then subtract. Group A's median is 56, as you found. Group B's median is the middle value of its seven sorted receipts, and you still have to subtract it from 56. Find Group B's median, then compute 56 minus that value.\n\nWhat is the middle value of Group B's seven receipts, once they are listed in order?",
+    "coach_s": 1.3085127049999983,
+    "cost": 9.79e-05,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0008242500000000001
+   },
+   "LEAN_RETRY": {
+    "text": "Your answer of 56.00 is the median of Group A alone. The question asks for a difference, so you need Group B's median too, then subtract. Group A's median is 56, as you found. Group B's median is the middle value of its seven sorted receipts, and you still have to subtract it from 56. Find Group B's median, then compute 56 minus that value.\n\nWhat is the middle value of Group B's seven receipts, once they are listed in order?",
+    "coach_s": 1.3085127049999983,
+    "cost": 9.79e-05,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0008242500000000001,
+    "retried": false
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Reported one group's statistic instead of the difference",
+  "stem": "A researcher records customer receipt totals for two groups. morning customers (Group A): 47, 54, 55, 56, 56, 57, 64 dollars. evening customers (Group B): 43, 49, 49, 49, 51, 53, 54 dollars. Calculate Group A's median minus Group B's median.",
+  "chosen_text": "56.00",
+  "correct_text": "7.00"
+ },
+ {
+  "key": "apstat-u1-11-2a-sampling-101018",
+  "subject": "stats",
+  "chosen": "B",
+  "arms": {
+   "BASE": {
+    "text": "(1) The question asked you to name the sampling method used. The key features are riders who choose to respond after seeing a QR code poster, so participation depends on self-selection, not on chance.\n\n(2) You chose SRS, reasoning that anyone in the population could have ended up in the group. That describes a possibility, not a method. A simple random sample requires every possible sample of that size to have an equal chance of selection, and the researcher picked nobody. Riders decided whether to respond.\n\n(3) This matters because a random method is what lets results generalize to the whole population. A voluntary-response sample only reflects people motivated enough to answer, so the label must be voluntary response or convenience, not random.\n\n(4) Next move: for each choice, ask \"who selected the sample, and by what chance process?\" If the answer is \"the participants themselves,\" eliminate any random label.",
+    "coach_s": 2.189263492000009,
+    "cost": 0.0001672,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.00084825
+   },
+   "LEAN": {
+    "text": "Your answer, simple random sampling, is wrong. The reason is that this method is a convenience or voluntary-response sample, not a random one. Riders choose whether to respond after seeing the poster, so the group is not selected at random from the population. Being possibly reachable is not the same as being randomly selected.\n\nThink about this: if every rider had an equal chance of being chosen by the researcher, which sampling method would that describe?",
+    "coach_s": 1.4717664760000275,
+    "cost": 9.620000000000001e-05,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0007055
+   },
+   "LEAN_RETRY": {
+    "text": "Your choice of SRS is incorrect because, although the riders could be from any part of the population, the sample is not random. Riders only enter the sample if they see the poster and choose to answer the survey, which makes the group self-selected rather than randomly drawn. Random sampling requires that every member have a known, equal chance of selection, and voluntary participation does not provide that. Think about who is most likely to scan the QR code and what that does to the sample.\n\nWhich feature of a sample must be built in by the researcher, rather than left up to individuals, for it to count as a simple random sample?",
+    "coach_s": 3.1318314600000576,
+    "cost": 0.0002213,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0007852499999999999
+   }
+  },
+  "source_leaks": true,
+  "rationale": "Called a convenience or voluntary-response sample random",
+  "stem": "A researcher wants to study their satisfaction with bus arrival times among weekday bus riders in a city. Sampling plan: The researcher uses responses from riders who choose to answer after seeing a survey QR code on posters inside buses. Which choice best describes the sampling method?",
+  "chosen_text": "SRS, because any member of the population could have ended up in the response group.",
+  "correct_text": "Not a random sample; it is a voluntary-response sample because units choose whether to respond."
+ },
+ {
+  "key": "apstat-u1-13-2a-design-101304",
+  "subject": "stats",
+  "chosen": "B",
+  "arms": {
+   "BASE": {
+    "text": "The question asked you to identify the design element or flaw in a study where screen time and sleep were recorded as they naturally occurred, then compared across groups. You needed to recognize what kind of study this is and whether any assignment was made by the researcher.\n\nYou chose B, which claims randomization is present. Randomization means the researcher assigns participants to groups by chance. Here, students' usual screen time was simply observed, not assigned, so the claim does not hold. Varied natural habits are not randomization.\n\nTo earn this point next time, first ask: did the researcher or chance decide who fell into each group? If not, randomization is absent. Then look for what the study can and cannot conclude from observed differences.",
+    "coach_s": 2.044260492000035,
+    "cost": 0.0001383,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.000772
+   },
+   "LEAN": {
+    "text": "Your answer, B, says randomization is present. That's wrong because the study only records students' usual screen time and sleep. Students' natural schedules vary, but nobody assigns them to high or low screen time by chance. Randomization is the researcher's deliberate random assignment, which is what's missing here. The mix-up was between naturally varying habits and randomized assignment.\n\nTry again: In this study, who decides which students end up in the high-screen-time group, the researcher or chance?",
+    "coach_s": 1.5318491870000344,
+    "cost": 0.0001013,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0007425
+   },
+   "LEAN_RETRY": {
+    "text": "Choice B is wrong because it mixes up randomization with the natural variation in students' schedules. Randomization means researchers assign participants to groups by chance. Here, the researcher only observed students' existing habits and did not assign anyone to a condition, so the term does not describe this study. Review what randomization requires and how it differs from observation.\n\nWhich feature of a study must the researcher control or assign for randomization to exist?",
+    "coach_s": 2.9132000600000083,
+    "cost": 0.0001985,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0007522500000000001
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Confused control, blinding, placebo, and randomization",
+  "stem": "A researcher records students' usual screen time and usual sleep hours, then compares sleep between students with high and low screen time. Which statement best identifies the design element or flaw?",
+  "chosen_text": "Randomization is present because students' usual schedules vary naturally.",
+  "correct_text": "This is an observational study, because the researcher records existing habits and does not assign screen-time treatments."
+ },
+ {
+  "key": "apstat-lsrl_predict-005001",
+  "subject": "stats",
+  "chosen": "B",
+  "arms": {
+   "BASE": {
+    "text": "The question asked for a prediction at age 8, so x must be 8 in y-hat = 29.360 - 2.710x. Your answer of 26.65 matches 29.360 - 2.710(1), which means you substituted x = 1. Substituting the given x-value is required because the regression line only gives an estimate at the value you plug in; a different x produces a different predicted price. Next move: write \"x = 8\" on your scratch paper first, then compute 29.360 - 2.710(8) and check that your result is about 7.7 thousand dollars.",
+    "coach_s": 1.8158504229999721,
+    "cost": 0.0001188,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.0008625
+   },
+   "LEAN": {
+    "text": "You chose 26.65. That answer comes from plugging in x = 1, not the age the question asks for. The question gives age = 8, so x should be 8. Substitute 8 into y-hat = 29.360 - 2.710x and recalculate.\n\nTry it yourself: what is the predicted price when you use x = 8 in the equation?",
+    "coach_s": 1.1151580619999777,
+    "cost": 8.13e-05,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0006745
+   },
+   "LEAN_RETRY": {
+    "text": "You chose 26.65. That answer comes from plugging in x = 1, not the age the question asks for. The question gives age = 8, so x should be 8. Substitute 8 into y-hat = 29.360 - 2.710x and recalculate.\n\nTry it yourself: what is the predicted price when you use x = 8 in the equation?",
+    "coach_s": 1.1151580619999777,
+    "cost": 8.13e-05,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0006745,
+    "retried": false
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Substituted x = 1 instead of the requested x-value",
+  "stem": "A dealership analyst fits a least-squares line predicting price of a used car (thousands of dollars) from age (years). The line is y-hat = 29.360 - 2.710x. Predict price of a used car (thousands of dollars) when age (years) = 8.",
+  "chosen_text": "26.65",
+  "correct_text": "7.68"
+ },
+ {
+  "key": "APSTATS-OHT-1.3",
+  "subject": "stats",
+  "chosen": "C",
+  "arms": {
+   "BASE": {
+    "text": "You picked 6.00, which comes from dividing the cat count by the number of categories (24 \u00f7 4). Relative frequency asks for the part of the whole: the count in one category divided by the total number of students surveyed. Here the whole is 80, not the four categories. Check your answer by confirming that all four relative frequencies add up to 1. Next move: write the formula as cat count \u00f7 total students, plug in 24 and 80, and simplify the fraction before you choose your answer.",
+    "coach_s": 1.4495460519999597,
+    "cost": 0.0001099,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.000811
+   },
+   "LEAN": {
+    "text": "Choice C, 6.00, comes from dividing the cat count by the number of categories, 24 \u00f7 4. That step does not produce a proportion, and the results would not add up to 1. Relative frequency means dividing a category's count by the total number of students, so the cat count of 24 should be divided by 80, not 4.\n\nTry it yourself: if 24 students chose cat out of 80 total, what do you get when you divide 24 by 80?",
+    "coach_s": 1.3272920200000158,
+    "cost": 9.939999999999999e-05,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0007245
+   },
+   "LEAN_RETRY": {
+    "text": "You chose 6.00, which comes from dividing the cat count by the number of categories (24 \u00f7 4). That method doesn't produce a proportion, and the resulting values wouldn't add up to 1. To get a relative frequency, you need to divide by the total number of students. Try this: what should the cat count be divided by, given that the survey includes 80 students in total?",
+    "coach_s": 2.4365049840000097,
+    "cost": 0.0001917,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.000678
+   }
+  },
+  "source_leaks": true,
+  "rationale": "Tempting if you divide the count by the number of categories (24/4) \u2014 but that does not give a proportion and the results would not sum to 1. Fix: divide by the total number of students, 80.",
+  "stem": "A survey of 80 students records each student's favorite pet type: dog 32, cat 24, fish 16, other 8. What is the relative frequency of students who chose cat?",
+  "chosen_text": "6.00",
+  "correct_text": "0.30"
+ },
+ {
+  "key": "APSTATS-OHT-1.4",
+  "subject": "stats",
+  "chosen": "A",
+  "arms": {
+   "BASE": {
+    "text": "The question asked you to compare the two charts only where their measures match. The freshman chart uses counts out of 200 students, while the senior chart uses percent of seniors, so the bar heights are not on the same scale. Your choice compared 60 to 40 directly, which skips that requirement. A comparison is valid only when both quantities are expressed the same way. Next move: convert the freshman pop bar to a percent by dividing 60 by 200, then compare that percent with the senior pop percent of 40%.",
+    "coach_s": 1.5342602220000003,
+    "cost": 0.000118,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     false
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.00076875
+   },
+   "LEAN": {
+    "text": "Choice A is wrong because the two bars use different scales. The freshman chart shows counts, so a height of 60 means 60 students out of 200. The senior chart shows percent, so a height of 40 means 40% of 50 seniors. Comparing 60 to 40 directly ignores these different units. To compare fairly, put both on the same scale first, such as converting the freshman count to a percent of 200.\n\nTry this: What percent of the 200 freshmen does a count of 60 represent?",
+    "coach_s": 1.3472089630000141,
+    "cost": 0.0001125,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0010192500000000002
+   },
+   "LEAN_RETRY": {
+    "text": "The bar heights look comparable, but they measure different things. The freshman chart uses counts, so a height of 60 means 60 students. The senior chart uses percent, so a height of 40 means 40 percent of seniors. You cannot compare these heights directly. To compare shares, first put both on the same scale, then compare. Try this: if 60 of the 200 freshmen chose pop, what percent of freshmen is that?",
+    "coach_s": 2.6911388220000276,
+    "cost": 0.0002194,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.0007977500000000001
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Tempting because the bar heights look comparable \u2014 but one axis is counts and the other is percent. Fix: put both on the same scale before comparing heights.",
+  "stem": "Two bar charts show favorite music genre. For 200 freshmen, the vertical axis is in counts, and the pop bar has height 60. For 50 seniors, the vertical axis is in percent of seniors, and the pop bar has height 40. Which comparison is valid?",
+  "chosen_text": "A larger share of freshmen prefer pop, because the freshman bar (60) is taller than the senior bar (40).",
+  "correct_text": "A larger share of seniors than freshmen prefer pop: 40% of seniors versus 30% of freshmen."
+ },
+ {
+  "key": "APSTATS-OHT-1.5",
+  "subject": "stats",
+  "chosen": "D",
+  "arms": {
+   "BASE": {
+    "text": "(1) The question asks what can be concluded about the claim from a histogram. A histogram groups quantitative data into bins, so exact values inside a bin cannot be read from it.\n\n(2) Your answer, D, says a bar chart would show each exact score. That is the step that fails. Bar charts are for categorical data, and scores are quantitative, so a bar chart is the wrong tool here.\n\n(3) The point is about what the display can show. The tallest bar tells you 11 scores fall between 70 and 90, but not where any score sits within that range. Any conclusion about exactly 85 depends on that missing detail.\n\n(4) Next move: when a question asks about individual values, check whether the display keeps them. For quantitative data, use a dotplot or stemplot, which shows each value.",
+    "coach_s": 1.939467738000019,
+    "cost": 0.0001623,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.00099175
+   },
+   "LEAN": {
+    "text": "Choice D is wrong because you said a bar chart would show each exact score. Bar charts display categorical variables, and exam scores are quantitative, so that choice doesn't fit this data. To see individual quantitative values, a dotplot or stemplot is the tool to use. Remember that a histogram groups scores into bins, so it can't show whether any single score appeared twice.\n\nTry this: Which plot would let you see whether two students scored exactly 85?",
+    "coach_s": 1.3615122620000193,
+    "cost": 0.00010630000000000001,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     true,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.00085725
+   },
+   "LEAN_RETRY": {
+    "text": "You picked D, but a bar chart is the wrong tool here. Bar charts show categorical variables, while exam scores are quantitative. A histogram only groups scores into bins, so it can't reveal exact values. For that, you need a dotplot or stemplot, which displays each individual score.\n\nThink about it this way: which display would let you see whether any single score appears twice?",
+    "coach_s": 2.5478974650000623,
+    "cost": 0.000204,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.000838
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Tempting because bar charts also have bars \u2014 but bar charts display categorical variables, and scores are quantitative. Fix: use a dotplot or stemplot to see individual quantitative values.",
+  "stem": "A histogram of 25 exam scores has bins of width 20 starting at 50. The tallest bar covers scores from 70 up to but not including 90 and has a height of 11. A student claims that at least two students scored exactly 85. What can be concluded?",
+  "chosen_text": "The claim can be checked only by redrawing the data as a bar chart, which shows each exact score.",
+  "correct_text": "The histogram cannot confirm or refute the claim, because it shows only how many scores fall in 70 to 89; a dotplot or stemplot of the same data would show each value."
+ },
+ {
+  "key": "APSTATS-OHT-2.1",
+  "subject": "stats",
+  "chosen": "B",
+  "arms": {
+   "BASE": {
+    "text": "What the question required: a statement that the chart alone supports, which means reading what each bar's height actually measures.\n\nWhat you did: you chose B, reasoning that the bars are the same total height, so the clubs must be the same size. Every segmented bar reaches 100%, but that only means each bar is scaled to its own group. The chart gives percentages, not counts, so it cannot tell you how many members either club has.\n\nWhy this matters: the point is earned by separating what the chart shows (percent within each club) from what it leaves out (group size). Any answer claiming equal membership goes beyond the chart.\n\nNext move: for every bar chart, write \"100% = ___ members\" for each bar before comparing. If that blank cannot be filled from the chart, no size comparison is allowed.",
+    "coach_s": 2.2721467419999613,
+    "cost": 0.0001568,
+    "checks_failed": [
+     "leaks_answer"
+    ],
+    "leak_judges": [
+     false,
+     true
+    ],
+    "ends_with_question": false,
+    "judge_cost": 0.00096075
+   },
+   "LEAN": {
+    "text": "Choice B is wrong because each bar reaches 100%, but that only means each bar shows the full share of its own club. The bars are scaled to their own groups, so equal heights say nothing about how many members each club has. To fix this, read each bar as 100% of its own group, then look for the actual member counts before comparing club sizes.\n\nTry this: If each bar's total height is 100% for its own club, what information would you need from outside the chart to compare the number of members?",
+    "coach_s": 1.5277423690000091,
+    "cost": 0.0001038,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.00075175
+   },
+   "LEAN_RETRY": {
+    "text": "Choice B is wrong because each bar reaches 100%, but that only means each bar shows the full share of its own club. The bars are scaled to their own groups, so equal heights say nothing about how many members each club has. To fix this, read each bar as 100% of its own group, then look for the actual member counts before comparing club sizes.\n\nTry this: If each bar's total height is 100% for its own club, what information would you need from outside the chart to compare the number of members?",
+    "coach_s": 1.5277423690000091,
+    "cost": 0.0001038,
+    "checks_failed": [],
+    "leak_judges": [
+     false,
+     false
+    ],
+    "ends_with_question": true,
+    "judge_cost": 0.00075175,
+    "retried": false
+   }
+  },
+  "source_leaks": false,
+  "rationale": "Tempting because every bar reaches 100% \u2014 but each bar is scaled to its own group. Fix: read each bar as 100% of its own group, and look for the group counts before you compare sizes.",
+  "stem": "A segmented bar chart shows, for each of two clubs, the percent of members who prefer online meetings: 40% of Chess Club members and 75% of Art Club members. Which statement can be made from the chart alone?",
+  "chosen_text": "The two clubs have the same number of members, because each bar is the same total height.",
+  "correct_text": "A greater proportion of Art Club members than Chess Club members prefer online meetings."
+ }
+]

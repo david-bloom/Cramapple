@@ -8,7 +8,8 @@ import React, { createContext, useContext, useCallback, useEffect, useMemo, useS
  *
  * Shape:
  *   attempts: { [packageId]: { mode, response|picked, earned, total, verdict,
- *                              marks, hintsUsed: [receipt], submittedAt } }
+ *                              marks, hintsUsed: [receipt], submittedAt,
+ *                              feedbackRating?: { value: 1-5, source: 'coaching' | 'composed', at } } }
  *   hints:    { [packageId]: { [hintKey]: 'idle' | 'asking' | 'open' } }
  *   read:     { [packageId]: [choiceKey]  }   // Open Hand MCQ, explanations read
  *   last:     { packageId, mode } | null
@@ -49,6 +50,17 @@ export function SessionProvider({ children }) {
     }));
   }, []);
 
+  // One rating per attempt, final once given. `source` records which text the
+  // student was looking at, so ratings of model coaching and of the composed
+  // feedback can be compared. Stored locally until a backend capture is approved.
+  const rateFeedback = useCallback((packageId, value, source) => {
+    setState((s) => {
+      const a = s.attempts[packageId];
+      if (!a || a.feedbackRating) return s;
+      return { ...s, attempts: { ...s.attempts, [packageId]: { ...a, feedbackRating: { value, source, at: Date.now() } } } };
+    });
+  }, []);
+
   const setHintState = useCallback((packageId, hintKey, value) => {
     setState((s) => ({
       ...s,
@@ -75,11 +87,12 @@ export function SessionProvider({ children }) {
   const value = useMemo(() => ({
     ...state,
     recordAttempt,
+    rateFeedback,
     setHintState,
     markRead,
     setLast,
     reset
-  }), [state, recordAttempt, setHintState, markRead, setLast, reset]);
+  }), [state, recordAttempt, rateFeedback, setHintState, markRead, setLast, reset]);
 
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>;
 }
