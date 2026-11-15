@@ -1,0 +1,937 @@
+[
+  {
+    "content_key": "APBIO-FRQ-L-001",
+    "subject": "biology",
+    "synthetic_type": "subtly_wrong",
+    "provisional_labels": {
+      "a_i": "earned",
+      "a_ii": "not_earned",
+      "b": "not_earned",
+      "c": "not_earned",
+      "d": "earned"
+    },
+    "grade": {
+      "status": "graded",
+      "points_earned": 6,
+      "points_available": 10,
+      "criteria": [
+        {
+          "criterion_key": "a_i",
+          "status": "earned",
+          "points_awarded": 2,
+          "evidence_quote": "The compensation point is 75 micromol photons/m^2/s, the light intensity where photosynthesis and respiration are perfectly balanced so there is no net gas exchange.",
+          "decision_explanation": "Correctly identifies the light compensation point and explains that photosynthesis and respiration are balanced there.",
+          "minimum_fix": "Light compensation point = 75 μmol photons/m²/s; at this intensity photosynthesis rate = cellular respiration rate so net O₂ exchange = 0."
+        },
+        {
+          "criterion_key": "a_ii",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "Doubling the CO2 concentration would actually increase the light compensation point.",
+          "decision_explanation": "The predicted direction is opposite the rubric. Doubling CO2 should decrease the light compensation point because more CO2 allows the Calvin cycle to fix carbon faster at lower light.",
+          "minimum_fix": "Compensation point decreases; more CO2 increases Calvin cycle rate at each light level so lower light intensity is needed to offset respiration."
+        },
+        {
+          "criterion_key": "b",
+          "status": "partially_earned",
+          "points_awarded": 1,
+          "evidence_quote": "Light energy absorbed at photosystem II excites electrons that travel down the electron transport chain to photosystem I, and the energy released pumps protons from the thylakoid lumen into the stroma, creating a gradient. The protons then flow back through ATP synthase from the stroma into the lumen, and this flow drives the synthesis of ATP from ADP and inorganic phosphate.",
+          "decision_explanation": "The response correctly includes light excitation at PSII and electron flow through the electron transport chain, but the proton gradient and ATP synthase direction are reversed, so only partial credit is warranted.",
+          "minimum_fix": "Light excites electrons → ETC pumps H⁺ into thylakoid lumen → proton gradient drives H⁺ through ATP synthase → ATP synthesized by chemiosmosis."
+        },
+        {
+          "criterion_key": "c",
+          "status": "partially_earned",
+          "points_awarded": 1,
+          "evidence_quote": "The first labeled organic compound would be 3-phosphoglycerate, since carbon fixation attaches CO2 to RuBP and the unstable intermediate splits into two 3-PGA molecules. When the light is turned off, RuBP concentration would actually increase over the next two minutes, because the Calvin cycle immediately stops running without light, so RuBisCO can no longer consume RuBP and it builds up in the stroma while the ATP and NADPH already present are used up elsewhere.",
+          "decision_explanation": "The first stable labeled compound is correct, but the RuBP prediction is incorrect. The rubric requires RuBP to decrease after the light is turned off because ATP and NADPH are no longer produced to regenerate it.",
+          "minimum_fix": "¹⁴C first appears in 3-PGA (3-phosphoglycerate). RuBP concentration decreases after light turns off because ATP and NADPH needed to regenerate RuBP are no longer produced."
+        },
+        {
+          "criterion_key": "d",
+          "status": "earned",
+          "points_awarded": 2,
+          "evidence_quote": "G3P made in the chloroplast is converted to glucose and broken down by glycolysis into pyruvate, which enters the mitochondria, is converted to acetyl-CoA, and proceeds through the Krebs cycle and electron transport chain to generate ATP by oxidative phosphorylation.",
+          "decision_explanation": "This traces the Calvin cycle product through glucose, pyruvate, acetyl-CoA, Krebs cycle, electron transport chain, and oxidative phosphorylation, which satisfies the pathway requirement.",
+          "minimum_fix": "G3P (chloroplast) → glucose (cytoplasm, via glycolysis in reverse or sugar synthesis) → pyruvate (cytoplasm via glycolysis) → acetyl-CoA (mitochondrial matrix) → Krebs cycle → NADH/FADH₂ → ETC (inner mitochondrial membrane) → oxidative phosphorylation → ATP."
+        }
+      ],
+      "highest_value_gap": {
+        "criterion_key": "a_ii",
+        "minimum_fix": "Compensation point decreases; more CO₂ increases Calvin cycle rate at each light level so lower light intensity is needed to offset respiration.",
+        "repair_prompt": "Compensation point decreases; more CO₂ increases Calvin cycle rate at each light level so lower light intensity is needed to offset respiration."
+      },
+      "predicted_improvement": {
+        "label": "better",
+        "predicted_point_gain": 2
+      },
+      "confidence": "high",
+      "uncertainty_reason": null,
+      "student_facing_summary": "You earned full credit for (a)(i) and (d). In (b), you had the right overall idea, but the proton movement through the thylakoid membrane was reversed. In (c), you correctly named 3-PGA, but RuBP should decrease after the light is turned off. The main fix is (a)(ii): doubling CO2 lowers the light compensation point, not raises it.",
+      "action_hint": "show_scaffold",
+      "repair_hint": "Compensation point decreases; more CO₂ increases Calvin cycle rate at each light level so lower light intensity is needed to offset respiration.",
+      "sanitization_version": "grading-sanitizer-v3",
+      "integrity_issues": [],
+      "normalizations": []
+    },
+    "model": "gpt-5.4-mini",
+    "response_id": "resp_0ac1ce578af397a7016af8bf3e4e0c87d186e0657c665c24ea",
+    "response_status": "completed",
+    "usage": {
+      "inputTokens": 2608,
+      "outputTokens": 7148,
+      "cachedTokens": 0,
+      "reasoningTokens": 6176,
+      "raw": {
+        "input_tokens": 2608,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 7148,
+        "output_tokens_details": {
+          "reasoning_tokens": 6176
+        },
+        "total_tokens": 9756
+      }
+    },
+    "latency_ms": 24251
+  },
+  {
+    "content_key": "APBIO-FRQ-L-009",
+    "subject": "biology",
+    "synthetic_type": "partially_correct",
+    "provisional_labels": {
+      "a": "partially_earned",
+      "b": "not_earned",
+      "c": "partially_earned",
+      "d": "not_earned"
+    },
+    "grade": {
+      "status": "uncertain",
+      "points_earned": 1,
+      "points_available": 8,
+      "criteria": [
+        {
+          "criterion_key": "a",
+          "status": "unable_to_determine",
+          "points_awarded": 0,
+          "evidence_quote": null,
+          "decision_explanation": "One ecological-efficiency calculation is shown correctly, but the zooplankton to small fish efficiency is missing and the tuna biomass calculation is incorrect. The heat-loss explanation is present, but not enough for full credit.",
+          "minimum_fix": "Add the missing zooplankton to small fish efficiency (4.2/42 = 10%) and recalculate tuna biomass as 50/(0.1^3) = 50,000 kg; include at least one energy-loss reason such as respiration heat loss."
+        },
+        {
+          "criterion_key": "b",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "'Nitrogen from the air gets fixed by bacteria and eventually plants use it to grow.'",
+          "decision_explanation": "This is too general to satisfy the pathway requirements. It does not name nitrification, the organisms involved, the plant reduction step, or amino-acid/protein synthesis.",
+          "minimum_fix": "Trace the nitrogen atom step by step: N2 fixed to NH3/NH4+ by nitrogen-fixing bacteria (e.g., Rhizobium), then nitrified to NO2- and NO3- by Nitrosomonas/Nitrobacter, then taken up and reduced in the plant before amino acids and proteins are made."
+        },
+        {
+          "criterion_key": "c",
+          "status": "partially_earned",
+          "points_awarded": 1,
+          "evidence_quote": "'NPP values: 1100, 400, 200, 40.'",
+          "decision_explanation": "All four NPP values are correct, but the explanation for why the tropical rainforest has the highest GPP is omitted.",
+          "minimum_fix": "Add at least three factors: year-round intense sunlight, warm temperatures, high rainfall, and rapid nutrient cycling."
+        },
+        {
+          "criterion_key": "d",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "'Skipped.'",
+          "decision_explanation": "No study design, measurements, controls, result criterion, or limitation is provided.",
+          "minimum_fix": "State a hypothesis, compare shark-removed vs. control reefs with annual diversity surveys for 5 years, and include a limitation such as confounding bleaching or fishing."
+        }
+      ],
+      "highest_value_gap": {
+        "criterion_key": "a",
+        "minimum_fix": "Phytoplankton→zooplankton: 42/500 = 8.4%. Zooplankton→small fish: 4.2/42 = 10%. Energy lost as heat (respiration), feces (not absorbed), organisms not consumed. 50 kg tuna requires 50,000 kg phytoplankton (50 ÷ 0.1³).",
+        "repair_prompt": "Phytoplankton→zooplankton: 42/500 = 8.4%. Zooplankton→small fish: 4.2/42 = 10%. Energy lost as heat (respiration), feces (not absorbed), organisms not consumed. 50 kg tuna requires 50,000 kg phytoplankton (50 ÷ 0.1³)."
+      },
+      "predicted_improvement": {
+        "label": "much_better",
+        "predicted_point_gain": 2
+      },
+      "confidence": "low",
+      "uncertainty_reason": "Grading output failed 1 integrity check. The grader could not reach a decision on 1 criterion.",
+      "student_facing_summary": "You earned credit for the NPP calculations and one correct ecological-efficiency calculation. To improve, add the missing trophic-transfer calculation and correct tuna biomass, give the full nitrogen pathway with organisms and chemical forms, and answer the rainforest explanation or monitoring design parts.",
+      "action_hint": "show_scaffold",
+      "repair_hint": "Phytoplankton→zooplankton: 42/500 = 8.4%. Zooplankton→small fish: 4.2/42 = 10%. Energy lost as heat (respiration), feces (not absorbed), organisms not consumed. 50 kg tuna requires 50,000 kg phytoplankton (50 ÷ 0.1³).",
+      "sanitization_version": "grading-sanitizer-v3",
+      "integrity_issues": [
+        {
+          "code": "evidence_not_found",
+          "criterion_key": "a"
+        }
+      ],
+      "normalizations": []
+    },
+    "model": "gpt-5.4-mini",
+    "response_id": "resp_02d6240a92f83ce7016afa32db0fd487d2966266365f8f6728",
+    "response_status": "completed",
+    "usage": {
+      "inputTokens": 2897,
+      "outputTokens": 11300,
+      "cachedTokens": 0,
+      "reasoningTokens": 10500,
+      "raw": {
+        "input_tokens": 2897,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 11300,
+        "output_tokens_details": {
+          "reasoning_tokens": 10500
+        },
+        "total_tokens": 14197
+      }
+    },
+    "latency_ms": 54075
+  },
+  {
+    "content_key": "APBIO-FRQ-L-017",
+    "subject": "biology",
+    "synthetic_type": "borderline",
+    "provisional_labels": {
+      "a": "earned",
+      "b": "earned",
+      "c": "earned",
+      "d": "earned"
+    },
+    "grade": {
+      "status": "graded",
+      "points_earned": 7,
+      "points_available": 8,
+      "criteria": [
+        {
+          "criterion_key": "a",
+          "status": "earned",
+          "points_awarded": 2,
+          "evidence_quote": "\"Insulin binds its receptor, which activates the receptor's kinase activity and leads to IRS-1 getting phosphorylated. This activates PI3K, which eventually leads to Akt being turned on, and Akt causes GLUT4 to move to the membrane\"",
+          "decision_explanation": "This gives the RTK activation step and the downstream PI3K→Akt→GLUT4 sequence required by the rubric.",
+          "minimum_fix": "Insulin binds receptor → RTK auto-phosphorylation → IRS-1 phosphorylated → PI3K activated → PIP2→PIP3 → Akt (PKB) activated → AS160 phosphorylated → GLUT4 vesicles fuse with plasma membrane → glucose uptake."
+        },
+        {
+          "criterion_key": "b",
+          "status": "earned",
+          "points_awarded": 2,
+          "evidence_quote": "\"Insulin's receptor is a receptor tyrosine kinase, and it works mostly through PIP3 and Akt to increase glucose uptake into cells. Epinephrine's receptor is a GPCR that uses cAMP and PKA, and it causes glycogen to break down for quick energy.\"",
+          "decision_explanation": "Both pathways are identified with the correct receptor class, key intracellular signal, and a correct physiological effect.",
+          "minimum_fix": "RTK (insulin): intrinsic tyrosine kinase, PIP3/Akt amplification, effect = glucose uptake / glycogen synthesis. GPCR (epinephrine): 7-TM receptor, Gα → adenylyl cyclase → cAMP → PKA, effect = glycogenolysis / fight-or-flight response."
+        },
+        {
+          "criterion_key": "c",
+          "status": "partially_earned",
+          "points_awarded": 1,
+          "evidence_quote": "\"keep taking up glucose all the time, which could cause low blood sugar. It might also cause cells to grow and divide more than they should because the growth pathways would always be active.\"",
+          "decision_explanation": "Two distinct consequences are described: increased glucose uptake leading to low blood sugar, and increased cell growth/division. A third consequence, especially a gene-expression effect, is missing.",
+          "minimum_fix": "Add one more distinct consequence, such as constitutive Akt/FOXO effects on gene expression (for example, reduced FOXO-dependent cell-cycle arrest or apoptosis genes)."
+        },
+        {
+          "criterion_key": "d",
+          "status": "earned",
+          "points_awarded": 2,
+          "evidence_quote": "\"Overexpressing HER2 probably makes the receptor more active than normal, and a Ras protein that can't turn off would keep signaling for growth. Losing PTEN would let the PIP3 signal build up more than it should, keeping the pathway on.\"",
+          "decision_explanation": "The response explains all three cancer-related mutations as activating growth signaling: HER2 overexpression, Ras locked on, and PTEN loss allowing PIP3 accumulation and persistent pathway activity.",
+          "minimum_fix": "(i) HER2 overexpression: spontaneous dimerization → constitutive kinase activity → continuous RAS/MAPK and PI3K/Akt signaling without growth factor. (ii) Ras-GTP locked: cannot hydrolyze GTP → always active → constitutive MAPK → proliferation. (iii) PTEN loss: cannot convert PIP3→PIP2 → PIP3 accumulates → Akt always active → mTOR → proliferation (lost tumor suppressor)."
+        }
+      ],
+      "highest_value_gap": {
+        "criterion_key": "c",
+        "minimum_fix": "Three consequences: (1) Metabolism: hypoglycemia, excess glucose uptake, glycogen synthesis, lipogenesis even without food. (2) Proliferation: mTOR and Akt constitutively active → cell growth, reduced apoptosis, tumor-like proliferation. (3) Gene expression: FOXO transcription factors constitutively inhibited → reduced gluconeogenesis genes, reduced apoptosis genes.",
+        "repair_prompt": "Three consequences: (1) Metabolism: hypoglycemia, excess glucose uptake, glycogen synthesis, lipogenesis even without food. (2) Proliferation: mTOR and Akt constitutively active → cell growth, reduced apoptosis, tumor-like proliferation. (3) Gene expression: FOXO transcription factors constitutively inhibited → reduced gluconeogenesis genes, reduced apoptosis genes."
+      },
+      "predicted_improvement": {
+        "label": "better",
+        "predicted_point_gain": 1
+      },
+      "confidence": "high",
+      "uncertainty_reason": null,
+      "student_facing_summary": "You earned full credit on parts (a), (b), and (d). The only missing point is in part (c): you gave two consequences of a constitutively active insulin receptor, but the rubric also wanted a third consequence, especially one about gene expression.",
+      "action_hint": null,
+      "repair_hint": "Three consequences: (1) Metabolism: hypoglycemia, excess glucose uptake, glycogen synthesis, lipogenesis even without food. (2) Proliferation: mTOR and Akt constitutively active → cell growth, reduced apoptosis, tumor-like proliferation. (3) Gene expression: FOXO transcription factors constitutively inhibited → reduced gluconeogenesis genes, reduced apoptosis genes.",
+      "sanitization_version": "grading-sanitizer-v3",
+      "integrity_issues": [],
+      "normalizations": []
+    },
+    "model": "gpt-5.4-mini",
+    "response_id": "resp_09f9d3d41a05d902016afa33108f2c87d2a43834a5fa598378",
+    "response_status": "completed",
+    "usage": {
+      "inputTokens": 2910,
+      "outputTokens": 6206,
+      "cachedTokens": 0,
+      "reasoningTokens": 5513,
+      "raw": {
+        "input_tokens": 2910,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 6206,
+        "output_tokens_details": {
+          "reasoning_tokens": 5513
+        },
+        "total_tokens": 9116
+      }
+    },
+    "latency_ms": 29635
+  },
+  {
+    "content_key": "APBIO-FRQ-L-025",
+    "subject": "biology",
+    "synthetic_type": "partially_correct",
+    "provisional_labels": {
+      "a": "partially_earned",
+      "b": "not_earned",
+      "c": "partially_earned",
+      "d": "partially_earned"
+    },
+    "grade": {
+      "status": "uncertain",
+      "points_earned": 2,
+      "points_available": 8,
+      "criteria": [
+        {
+          "criterion_key": "a",
+          "status": "partially_earned",
+          "points_awarded": 1,
+          "evidence_quote": "\"A synapomorphy is a shared derived trait. Species A is probably the outgroup since it has no derived characters.\"",
+          "decision_explanation": "The definition of synapomorphy is correct, and Species A is correctly identified as the outgroup, but the response does not construct the full cladogram topology or explain parsimony.",
+          "minimum_fix": "Add the cladogram topology: A is the outgroup and the tree is (B,(C,(D,E))). Then explain that parsimony favors the tree with the fewest evolutionary changes."
+        },
+        {
+          "criterion_key": "b",
+          "status": "unable_to_determine",
+          "points_awarded": 0,
+          "evidence_quote": "\"The molecular clock is based on mutations building up over time at a constant rate, but I'm not confident in my Human-Gorilla calculation.\"",
+          "decision_explanation": "This is too brief to determine full understanding of the molecular-clock mechanism, and it gives no Human–Gorilla estimate or two limitations.",
+          "minimum_fix": "Explain that neutral mutations accumulate at a roughly constant rate because they are not affected by selection, then calculate 2.1% × 2 Mya/% ≈ 4.2 Mya and give two limitations such as generation time and selection."
+        },
+        {
+          "criterion_key": "c",
+          "status": "partially_earned",
+          "points_awarded": 1,
+          "evidence_quote": "\"Homoplasy can make unrelated species look related if they evolved similar traits separately.\"",
+          "decision_explanation": "This correctly explains how homoplasy can mislead morphology-based phylogenies, but it does not explain why molecular data are more reliable or give a specific overturned-phylogeny example.",
+          "minimum_fix": "State that DNA provides many more characters and can be analyzed statistically, then give an example such as birds being nested within reptiles or whales being closest to hippos."
+        },
+        {
+          "criterion_key": "d",
+          "status": "unable_to_determine",
+          "points_awarded": 0,
+          "evidence_quote": "\"The researcher could compare their DNA and see if it's different enough to be separate species.\"",
+          "decision_explanation": "The response mentions only one vague genetic comparison and does not provide the three evidence lines or the reasoning needed to distinguish species from subspecies.",
+          "minimum_fix": "Give three evidence types: genetic data (FST/fixed differences/monophyly), morphology (diagnostic fixed traits), and behavioral/reproductive isolation (mate preference or contact-zone interbreeding)."
+        }
+      ],
+      "highest_value_gap": {
+        "criterion_key": "b",
+        "minimum_fix": "Clock mechanism: neutral mutations accumulate by drift at rate = neutral mutation rate; constant per unit time because no selection acts. Human-Gorilla: 2.1% × 2 Mya/% = ~4.2 Mya. Limitations: (1) generation time effect (short-generation organisms run clock faster); (2) purifying selection slows rate in conserved genes; positive selection speeds it locally.",
+        "repair_prompt": "Clock mechanism: neutral mutations accumulate by drift at rate = neutral mutation rate; constant per unit time because no selection acts. Human-Gorilla: 2.1% × 2 Mya/% = ~4.2 Mya. Limitations: (1) generation time effect (short-generation organisms run clock faster); (2) purifying selection slows rate in conserved genes; positive selection speeds it locally."
+      },
+      "predicted_improvement": {
+        "label": "much_better",
+        "predicted_point_gain": 2
+      },
+      "confidence": "low",
+      "uncertainty_reason": "The grader could not reach a decision on 2 criteria.",
+      "student_facing_summary": "You earned credit for the synapomorphy definition and the homoplasy explanation, but the other parts were too incomplete to earn the remaining points. The biggest place to improve is part (b), where you need the neutral-mutation explanation, the divergence calculation, and two limitations.",
+      "action_hint": "show_scaffold",
+      "repair_hint": "Clock mechanism: neutral mutations accumulate by drift at rate = neutral mutation rate; constant per unit time because no selection acts. Human-Gorilla: 2.1% × 2 Mya/% = ~4.2 Mya. Limitations: (1) generation time effect (short-generation organisms run clock faster); (2) purifying selection slows rate in conserved genes; positive selection speeds it locally.",
+      "sanitization_version": "grading-sanitizer-v3",
+      "integrity_issues": [],
+      "normalizations": []
+    },
+    "model": "gpt-5.4-mini",
+    "response_id": "resp_012b39d52e1a0e7f016afa332e394487d2a34c78ed66e82e11",
+    "response_status": "completed",
+    "usage": {
+      "inputTokens": 3248,
+      "outputTokens": 10125,
+      "cachedTokens": 0,
+      "reasoningTokens": 9321,
+      "raw": {
+        "input_tokens": 3248,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 10125,
+        "output_tokens_details": {
+          "reasoning_tokens": 9321
+        },
+        "total_tokens": 13373
+      }
+    },
+    "latency_ms": 47101
+  },
+  {
+    "content_key": "APBIO-FRQ-L-033",
+    "subject": "biology",
+    "synthetic_type": "subtly_wrong",
+    "provisional_labels": {
+      "a_i": "earned",
+      "a_ii": "earned",
+      "b": "not_earned",
+      "c": "not_earned",
+      "d": "not_earned"
+    },
+    "grade": {
+      "status": "graded",
+      "points_earned": 4,
+      "points_available": 10,
+      "criteria": [
+        {
+          "criterion_key": "a_i",
+          "status": "earned",
+          "points_awarded": 2,
+          "evidence_quote": "“CO2 production peaks at 35C, rising from 5C to 35C and then falling off through 45C.”",
+          "decision_explanation": "Correctly identifies 35C as the optimal temperature and describes the overall rise-then-fall trend in CO2 production.",
+          "minimum_fix": "CO2 production peaks at 35C; it increases from 5C to 35C then decreases from 35C to 45C."
+        },
+        {
+          "criterion_key": "a_ii",
+          "status": "earned",
+          "points_awarded": 2,
+          "evidence_quote": "“Above the optimum, heat denatures the enzymes involved in glycolysis and fermentation, reducing their catalytic activity and lowering CO2 output.”",
+          "decision_explanation": "Correctly explains that higher temperature denatures enzymes involved in glycolysis and fermentation, reducing catalytic activity and lowering CO2 production.",
+          "minimum_fix": "High temperatures denature the enzymes involved in glycolysis and fermentation, disrupting their active sites and reducing catalytic activity, so CO2 production falls."
+        },
+        {
+          "criterion_key": "b",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "“Yeast performing anaerobic metabolism use lactic acid fermentation, converting pyruvate directly into lactic acid while regenerating NAD+ for glycolysis to continue; the CO2 measured in this experiment is released as a byproduct of this lactate-forming step.”",
+          "decision_explanation": "The rubric requires glycolysis followed by alcoholic fermentation in yeast, with CO2 released when pyruvate is decarboxylated to acetaldehyde. The response instead names lactic acid fermentation and incorrectly claims CO2 is released in the lactate-forming step, so it does not satisfy the criterion.",
+          "minimum_fix": "Yeast perform glycolysis and alcoholic fermentation; CO2 is released when pyruvate is decarboxylated to acetaldehyde, a step specific to ethanol fermentation that regenerates NAD+ for glycolysis."
+        },
+        {
+          "criterion_key": "c",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "“With oxygen added, the yeast would produce less CO2 overall, because aerobic respiration bypasses the decarboxylation step entirely, relying only on the electron transport chain to generate ATP without releasing carbon dioxide as a byproduct.”",
+          "decision_explanation": "The rubric requires that yeast still produce CO2 under oxygen but shift toward aerobic respiration, with explanation in terms of higher ATP yield per glucose and NADH being oxidized through the ETC rather than being used in fermentation. The response gives an incorrect CO2 prediction and does not provide the required ATP-yield or NADH-shuttling explanation.",
+          "minimum_fix": "With oxygen, yeast would shift to aerobic respiration; more CO2 would be produced per glucose molecule (6 from Krebs cycle vs effectively 2 from fermentation) because aerobic respiration extracts more energy and NADH is oxidized via the ETC instead of fermentation."
+        },
+        {
+          "criterion_key": "d",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "“Since lactic acid fermentation doesn't produce CO2 directly, any CO2 detected in the tubes must be coming from aerobic respiration, so simply measuring CO2 levels alone would be enough to distinguish the two processes without needing any additional test.”",
+          "decision_explanation": "The rubric asks for a modification that distinguishes fermentation CO2 from respiration CO2 if oxygen leaks in. The response does not propose an experimental modification and relies on an incorrect premise about lactic acid fermentation and CO2, so it does not meet the criterion.",
+          "minimum_fix": "Measure ethanol production alongside CO2; CO2 from fermentation should correspond to ethanol produced in roughly 1:1 ratio, while CO2 from aerobic respiration would not, allowing the researcher to distinguish the two sources."
+        }
+      ],
+      "highest_value_gap": {
+        "criterion_key": "b",
+        "minimum_fix": "Yeast perform glycolysis and alcoholic fermentation; CO2 is released when pyruvate is decarboxylated to acetaldehyde, a step specific to ethanol fermentation that regenerates NAD+ for glycolysis.",
+        "repair_prompt": "Yeast perform glycolysis and alcoholic fermentation; CO2 is released when pyruvate is decarboxylated to acetaldehyde, a step specific to ethanol fermentation that regenerates NAD+ for glycolysis."
+      },
+      "predicted_improvement": {
+        "label": "better",
+        "predicted_point_gain": 2
+      },
+      "confidence": "high",
+      "uncertainty_reason": null,
+      "student_facing_summary": "You earned full credit for part (a). The main losses are in parts (b), (c), and (d): yeast use alcoholic fermentation, oxygen changes CO2 production through aerobic respiration, and the setup needs an added measurement (such as ethanol) to separate fermentation CO2 from respiration CO2.",
+      "action_hint": null,
+      "repair_hint": "Yeast perform glycolysis and alcoholic fermentation; CO2 is released when pyruvate is decarboxylated to acetaldehyde, a step specific to ethanol fermentation that regenerates NAD+ for glycolysis.",
+      "sanitization_version": "grading-sanitizer-v3",
+      "integrity_issues": [],
+      "normalizations": []
+    },
+    "model": "gpt-5.4-mini",
+    "response_id": "resp_0e17f64f2d0e611f016afa335d617487d291ebff1f99ecd4ce",
+    "response_status": "completed",
+    "usage": {
+      "inputTokens": 2110,
+      "outputTokens": 3595,
+      "cachedTokens": 0,
+      "reasoningTokens": 2626,
+      "raw": {
+        "input_tokens": 2110,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 3595,
+        "output_tokens_details": {
+          "reasoning_tokens": 2626
+        },
+        "total_tokens": 5705
+      }
+    },
+    "latency_ms": 16602
+  },
+  {
+    "content_key": "APSTAT-MOD3-H001-INV",
+    "subject": "statistics",
+    "synthetic_type": "subtly_wrong",
+    "provisional_labels": {
+      "bias_identification": "not_earned",
+      "improved_sampling_design": "partially_earned",
+      "ci_calculation": "not_earned",
+      "ci_interpretation": "not_earned",
+      "hypothesis_test": "not_earned"
+    },
+    "grade": {
+      "status": "graded",
+      "points_earned": 1,
+      "points_available": 5,
+      "criteria": [
+        {
+          "criterion_key": "bias_identification",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "\"Collecting only Friday-Saturday data introduces selection bias that underestimates average daily sales because weekends have lower traffic than weekdays.\"",
+          "decision_explanation": "The response correctly names selection bias, but the direction of the effect is wrong. Sampling only the highest-traffic days would tend to overestimate average daily sales, not underestimate them.",
+          "minimum_fix": "State that using only Friday and Saturday creates selection bias and that it would likely overestimate the true average daily sales."
+        },
+        {
+          "criterion_key": "improved_sampling_design",
+          "status": "earned",
+          "points_awarded": 1,
+          "evidence_quote": "\"Sample systematically every 3 days over a 3-month period to ensure all types of days are represented. A sample of 20 days is sufficient.\"",
+          "decision_explanation": "This gives a systematic plan across a broader time span, states a sample size, and explicitly addresses representativeness.",
+          "minimum_fix": null
+        },
+        {
+          "criterion_key": "ci_calculation",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "\"SE = 120/30 = 4; CI = 850 ± 1.96(4) = 850 ± 7.84 = (842.16, 857.84)\"",
+          "decision_explanation": "The standard error is computed incorrectly; it should use 120/√30, not 120/30. Because the calculation method is wrong, the confidence interval is incorrect.",
+          "minimum_fix": "Use 850 ± 1.96(120/√30) to compute the 95% confidence interval."
+        },
+        {
+          "criterion_key": "ci_interpretation",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "\"We can be 95% confident the true average is between $842 and $858.\"",
+          "decision_explanation": "This is a basic confidence-interval statement in context, but it does not discuss the variability in daily sales that the rubric asks for, and it does not clearly connect the interval to typical daily sales beyond restating the bounds.",
+          "minimum_fix": "Interpret the interval as the range of plausible values for the true mean daily sales and mention that individual daily sales still vary around that mean."
+        },
+        {
+          "criterion_key": "hypothesis_test",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "\"The test statistic is (850-800)/(120/√20) ≈ 1.86. This is less than 1.96, so we fail to reject H₀ at α=0.05.\"",
+          "decision_explanation": "The response does not set up the correct one-sample t-test, does not report a p-value, and uses a critical-value comparison instead of the required p-value-based conclusion. It also uses the wrong sample size.",
+          "minimum_fix": "Rewrite part (e) as a one-sample t-test with H0: μ = 800 and Ha: μ > 800, use n = 30, calculate the p-value, and state the conclusion in context."
+        }
+      ],
+      "highest_value_gap": {
+        "criterion_key": "bias_identification",
+        "minimum_fix": "State that using only Friday and Saturday creates selection bias and that it would likely overestimate the true average daily sales.",
+        "repair_prompt": "State that using only Friday and Saturday creates selection bias and that it would likely overestimate the true average daily sales."
+      },
+      "predicted_improvement": {
+        "label": "better",
+        "predicted_point_gain": 1
+      },
+      "confidence": "medium",
+      "uncertainty_reason": null,
+      "student_facing_summary": "You earned credit for giving a more representative sampling plan. The main problems are that part (a) reverses the direction of bias, part (c) uses the wrong standard-error formula, part (d) is too incomplete as an interpretation, and part (e) needs a proper one-sample t-test with a p-value.",
+      "action_hint": "show_scaffold",
+      "repair_hint": "State that using only Friday and Saturday creates selection bias and that it would likely overestimate the true average daily sales.",
+      "sanitization_version": "grading-sanitizer-v3",
+      "integrity_issues": [],
+      "normalizations": []
+    },
+    "model": "gpt-5.4-mini",
+    "response_id": "resp_06160982f61eca27016afa336de0f487d293487a10d73cbc5a",
+    "response_status": "completed",
+    "usage": {
+      "inputTokens": 1146,
+      "outputTokens": 6474,
+      "cachedTokens": 0,
+      "reasoningTokens": 5590,
+      "raw": {
+        "input_tokens": 1146,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 6474,
+        "output_tokens_details": {
+          "reasoning_tokens": 5590
+        },
+        "total_tokens": 7620
+      }
+    },
+    "latency_ms": 20983
+  },
+  {
+    "content_key": "APSTAT-MOD4-H001-INV",
+    "subject": "statistics",
+    "synthetic_type": "partially_correct",
+    "provisional_labels": {
+      "experimental_design": "partially_earned",
+      "blocking_decision": "earned",
+      "hypothesis_test_execution": "partially_earned",
+      "significance_interpretation": "partially_earned"
+    },
+    "grade": {
+      "status": "graded",
+      "points_earned": 0,
+      "points_available": 4,
+      "criteria": [
+        {
+          "criterion_key": "experimental_design",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "“Randomly assign students to exercise group and control group. Measure their resting heart rate. Random assignment controls for confounding variables.”",
+          "decision_explanation": "The response names treatment/control groups and random assignment, but it does not address at least two specific confounding variables as required by the rubric.",
+          "minimum_fix": "Add at least two likely confounding variables to control for, such as age, baseline fitness level, sex, diet/caffeine use, or sleep, and state how they would be controlled or balanced."
+        },
+        {
+          "criterion_key": "blocking_decision",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "“Measurement time is probably a confounder and should be blocked.”",
+          "decision_explanation": "The response correctly notes measurement time as a potential factor to block, but it does not explain that blocking would improve precision of the comparison.",
+          "minimum_fix": "Explain that blocking by morning vs. afternoon measurement time would reduce variability within groups and make the treatment comparison more precise."
+        },
+        {
+          "criterion_key": "hypothesis_test_execution",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "“t = (72-68)/√(36/25 + 25/25) ≈ 2.0, p-value < 0.05, so we reject the null.”",
+          "decision_explanation": "The response attempts a two-sample t-test and conclusion, but the t-statistic is not calculated correctly from the given summary statistics, so the criterion is not fully satisfied.",
+          "minimum_fix": "Recompute the two-sample t statistic from the given means and standard deviations, then state the correct conclusion at α = 0.05."
+        },
+        {
+          "criterion_key": "significance_interpretation",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "“The result is statistically significant.”",
+          "decision_explanation": "This mentions statistical significance only. It does not distinguish statistical significance from practical significance or discuss whether a 4 bpm difference is clinically meaningful.",
+          "minimum_fix": "State that p = 0.02 means the result is statistically significant, then explain that a 4 bpm difference may or may not be practically or clinically meaningful."
+        }
+      ],
+      "highest_value_gap": {
+        "criterion_key": "experimental_design",
+        "minimum_fix": "Add at least two likely confounding variables to control for, such as age, baseline fitness level, sex, diet/caffeine use, or sleep, and state how they would be controlled or balanced.",
+        "repair_prompt": "Add at least two likely confounding variables to control for, such as age, baseline fitness level, sex, diet/caffeine use, or sleep, and state how they would be controlled or balanced."
+      },
+      "predicted_improvement": {
+        "label": "better",
+        "predicted_point_gain": 1
+      },
+      "confidence": "high",
+      "uncertainty_reason": null,
+      "student_facing_summary": "You identified the basic group setup and the idea of blocking, but the response is missing key rubric elements: two specific confounders, an explanation of why blocking helps precision, a correct t-test calculation, and a practical-significance discussion.",
+      "action_hint": "show_scaffold",
+      "repair_hint": "Add at least two likely confounding variables to control for, such as age, baseline fitness level, sex, diet/caffeine use, or sleep, and state how they would be controlled or balanced.",
+      "sanitization_version": "grading-sanitizer-v3",
+      "integrity_issues": [],
+      "normalizations": []
+    },
+    "model": "gpt-5.4-mini",
+    "response_id": "resp_0a6f887b26222b80016afa3382df9887d2ba6c15857678758a",
+    "response_status": "completed",
+    "usage": {
+      "inputTokens": 1056,
+      "outputTokens": 2256,
+      "cachedTokens": 0,
+      "reasoningTokens": 1552,
+      "raw": {
+        "input_tokens": 1056,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 2256,
+        "output_tokens_details": {
+          "reasoning_tokens": 1552
+        },
+        "total_tokens": 3312
+      }
+    },
+    "latency_ms": 8016
+  },
+  {
+    "content_key": "APSTAT-MOD5-H001-INV",
+    "subject": "statistics",
+    "synthetic_type": "borderline",
+    "provisional_labels": {
+      "causation_vs_correlation": "earned",
+      "confounding_variables": "earned",
+      "experimental_advantage": "earned",
+      "experimental_conclusion": "partially_earned"
+    },
+    "grade": {
+      "status": "graded",
+      "points_earned": 2,
+      "points_available": 4,
+      "criteria": [
+        {
+          "criterion_key": "causation_vs_correlation",
+          "status": "earned",
+          "points_awarded": 1,
+          "evidence_quote": "\"No, we can't say social media causes anxiety just from correlation. There could be other explanations.\"",
+          "decision_explanation": "The response correctly says correlation does not prove causation and acknowledges that other explanations could account for the relationship, which addresses the confounding-variable idea.",
+          "minimum_fix": null
+        },
+        {
+          "criterion_key": "confounding_variables",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "\"Confounding variables: depression, stress, personality type.\"",
+          "decision_explanation": "Three plausible confounders are named, but no explanation is given for how they might explain the correlation, so the rubric is not fully met.",
+          "minimum_fix": "Add a brief explanation for each confounder showing how it could affect both social media use and anxiety."
+        },
+        {
+          "criterion_key": "experimental_advantage",
+          "status": "earned",
+          "points_awarded": 1,
+          "evidence_quote": "\"An experiment is better than observation because we control who uses social media and who doesn't, so we can isolate the effect of social media on anxiety.\"",
+          "decision_explanation": "This explains that the experiment creates controlled groups and helps isolate the effect of social media, which supports causal inference.",
+          "minimum_fix": null
+        },
+        {
+          "criterion_key": "experimental_conclusion",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "\"With p=0.04, this is statistically significant. So social media restriction reduces anxiety. The assumptions are that the data are normally distributed.\"",
+          "decision_explanation": "The response gives a contextual conclusion and interprets the p-value, but it names only one assumption; the rubric requires at least two assumptions for this conclusion to be valid.",
+          "minimum_fix": "State a conclusion in context and name at least two assumptions, such as independence and approximate normality."
+        }
+      ],
+      "highest_value_gap": {
+        "criterion_key": "confounding_variables",
+        "minimum_fix": "Add a brief explanation for each confounder showing how it could affect both social media use and anxiety.",
+        "repair_prompt": "Add a brief explanation for each confounder showing how it could affect both social media use and anxiety."
+      },
+      "predicted_improvement": {
+        "label": "better",
+        "predicted_point_gain": 1
+      },
+      "confidence": "medium",
+      "uncertainty_reason": null,
+      "student_facing_summary": "You earned credit for saying correlation does not prove causation and for explaining why an experiment is better than an observational study. You lost points because part (b) did not explain the confounders and part (d) named only one assumption.",
+      "action_hint": "review_context",
+      "repair_hint": "Add a brief explanation for each confounder showing how it could affect both social media use and anxiety.",
+      "sanitization_version": "grading-sanitizer-v3",
+      "integrity_issues": [],
+      "normalizations": []
+    },
+    "model": "gpt-5.4-mini",
+    "response_id": "resp_0e504b25244b1c01016afa338ae53c87d2aaf8b5cbd875afc2",
+    "response_status": "completed",
+    "usage": {
+      "inputTokens": 1054,
+      "outputTokens": 5716,
+      "cachedTokens": 0,
+      "reasoningTokens": 5101,
+      "raw": {
+        "input_tokens": 1054,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 5716,
+        "output_tokens_details": {
+          "reasoning_tokens": 5101
+        },
+        "total_tokens": 6770
+      }
+    },
+    "latency_ms": 19053
+  },
+  {
+    "content_key": "APSTAT-MOD6-H001",
+    "subject": "statistics",
+    "synthetic_type": "borderline",
+    "provisional_labels": {
+      "hypotheses_setup": "earned",
+      "test_calculation": "earned",
+      "conclusion": "partially_earned"
+    },
+    "grade": {
+      "status": "graded",
+      "points_earned": 2,
+      "points_available": 3,
+      "criteria": [
+        {
+          "criterion_key": "hypotheses_setup",
+          "status": "earned",
+          "points_awarded": 1,
+          "evidence_quote": "H₀: μ_control = μ_treatment, H₁: μ_control ≠ μ_treatment",
+          "decision_explanation": "States the correct null and alternative hypotheses for a two-sample test of means.",
+          "minimum_fix": null
+        },
+        {
+          "criterion_key": "test_calculation",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "t-statistic: t = (76-72)/sqrt(sum of variances) ≈ 2.0 to 2.1",
+          "decision_explanation": "The t-statistic is approximately correct, but the response does not give the degrees of freedom, so the criterion is not fully satisfied.",
+          "minimum_fix": "State the degrees of freedom used for the two-sample t-test, not just the t-statistic."
+        },
+        {
+          "criterion_key": "conclusion",
+          "status": "earned",
+          "points_awarded": 1,
+          "evidence_quote": "p-value is approximately 0.04-0.05... We can conclude the methods differ, but the evidence is borderline.",
+          "decision_explanation": "At the 0.05 level, concluding that the methods differ is the correct decision because the p-value is at or below the significance cutoff.",
+          "minimum_fix": null
+        }
+      ],
+      "highest_value_gap": {
+        "criterion_key": "test_calculation",
+        "minimum_fix": "State the degrees of freedom used for the two-sample t-test, not just the t-statistic.",
+        "repair_prompt": "State the degrees of freedom used for the two-sample t-test, not just the t-statistic."
+      },
+      "predicted_improvement": {
+        "label": "better",
+        "predicted_point_gain": 1
+      },
+      "confidence": "medium",
+      "uncertainty_reason": "The conclusion is slightly borderline in wording, but it is still consistent with rejecting H0 at α = 0.05.",
+      "student_facing_summary": "You earned credit for the hypotheses and the conclusion. The main thing missing is the degrees of freedom in the test calculation.",
+      "action_hint": "show_scaffold",
+      "repair_hint": "State the degrees of freedom used for the two-sample t-test, not just the t-statistic.",
+      "sanitization_version": "grading-sanitizer-v3",
+      "integrity_issues": [],
+      "normalizations": []
+    },
+    "model": "gpt-5.4-mini",
+    "response_id": "resp_05ba22bfba9ab368016afa339ded2c87d2a16a2fd9783d338e",
+    "response_status": "completed",
+    "usage": {
+      "inputTokens": 880,
+      "outputTokens": 3052,
+      "cachedTokens": 0,
+      "reasoningTokens": 2588,
+      "raw": {
+        "input_tokens": 880,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 3052,
+        "output_tokens_details": {
+          "reasoning_tokens": 2588
+        },
+        "total_tokens": 3932
+      }
+    },
+    "latency_ms": 10105
+  },
+  {
+    "content_key": "APSTAT-MOD7-H001",
+    "subject": "statistics",
+    "synthetic_type": "subtly_wrong",
+    "provisional_labels": {
+      "bayes_theorem_setup": "not_earned",
+      "calculation": "not_earned"
+    },
+    "grade": {
+      "status": "graded",
+      "points_earned": 0,
+      "points_available": 2,
+      "criteria": [
+        {
+          "criterion_key": "bayes_theorem_setup",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "P(B|D) = P(B) × P(D|B)",
+          "decision_explanation": "The response identifies the conditional probability P(B|D), but it does not correctly set up Bayes' theorem because it omits the denominator based on total probability.",
+          "minimum_fix": "Write Bayes' theorem for P(B|D) as P(B|D)=P(B)P(D|B)/P(D), with P(D) found from the total probability of defect."
+        },
+        {
+          "criterion_key": "calculation",
+          "status": "not_yet_earned",
+          "points_awarded": 0,
+          "evidence_quote": "0.50 × 0.03 = 0.015 or 1.5%",
+          "decision_explanation": "The computation gives only the numerator P(B)P(D|B), not the conditional probability after dividing by the total defect probability.",
+          "minimum_fix": "Calculate P(D)=0.30(0.02)+0.50(0.03)+0.20(0.01) and then compute P(B|D)=[0.50(0.03)]/P(D)."
+        }
+      ],
+      "highest_value_gap": {
+        "criterion_key": "bayes_theorem_setup",
+        "minimum_fix": "Write Bayes' theorem for P(B|D) as P(B|D)=P(B)P(D|B)/P(D), with P(D) found from the total probability of defect.",
+        "repair_prompt": "Write Bayes' theorem for P(B|D) as P(B|D)=P(B)P(D|B)/P(D), with P(D) found from the total probability of defect."
+      },
+      "predicted_improvement": {
+        "label": "better",
+        "predicted_point_gain": 1
+      },
+      "confidence": "high",
+      "uncertainty_reason": null,
+      "student_facing_summary": "You identified the right conditional probability, but you stopped at the numerator. Bayes' theorem requires dividing by the total probability of a defect, so the final probability was not fully calculated.",
+      "action_hint": "show_scaffold",
+      "repair_hint": "Write Bayes' theorem for P(B|D) as P(B|D)=P(B)P(D|B)/P(D), with P(D) found from the total probability of defect.",
+      "sanitization_version": "grading-sanitizer-v3",
+      "integrity_issues": [],
+      "normalizations": []
+    },
+    "model": "gpt-5.4-mini",
+    "response_id": "resp_0656fa7a6a3448a7016afa33a8267487d28920397ab9288646",
+    "response_status": "completed",
+    "usage": {
+      "inputTokens": 826,
+      "outputTokens": 1517,
+      "cachedTokens": 0,
+      "reasoningTokens": 1034,
+      "raw": {
+        "input_tokens": 826,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 0
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 1517,
+        "output_tokens_details": {
+          "reasoning_tokens": 1034
+        },
+        "total_tokens": 2343
+      }
+    },
+    "latency_ms": 5343
+  }
+]

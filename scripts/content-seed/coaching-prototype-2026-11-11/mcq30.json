@@ -1,0 +1,1142 @@
+[
+ {
+  "brief": {
+   "earned": "Points are earned when you check conditions with p0, compute the z statistic using p0 in the standard error, and make a contextual conclusion, show the required setup or condition check, and state the result in the language of the prompt.",
+   "loss": "Putting p-hat under the radical in a one-proportion test statistic",
+   "move": "First name the quantity, structure, condition, or representation the prompt is really asking about; then check conditions with p0, compute the z statistic using p0 in the standard error, and make a contextual conclusion before doing arithmetic or writing the final sentence."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Left n out of the standard error, dividing by sqrt[p0(1 - p0)] only.",
+    "t": "z = 0.24"
+   },
+   {
+    "k": "B",
+    "ok": true,
+    "r": "Correct: z = (0.62 - 0.50) / sqrt(0.50 x 0.50 / 100) = 0.12 / 0.05 = 2.40.",
+    "t": "z = 2.40"
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "Used p-hat in the standard error; in a test the standard error uses the hypothesized p0.",
+    "t": "z = 2.47"
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "Divided sqrt[p0(1 - p0)] by n instead of taking the square root of p0(1 - p0)/n.",
+    "t": "z = 24"
+   }
+  ],
+  "core": "The one-proportion test statistic uses the null-hypothesized p0 under the radical, not the sample's phat: z=(phat-p0)/sqrt(p0(1-p0)/n) -- and the large-counts condition for this procedure likewise uses p0 (np0>=10 and n(1-p0)>=10), unlike 3.3's confidence-interval condition, which uses phat because no p0 exists in that context.",
+  "id": "APSTATS-MCQ-SV-H-3.7-A-v3",
+  "stem": "A researcher wants to know whether more than half of the voters in a large state support a ballot measure. In a random sample of 100 voters, 62 support it. For a one-sample z-test of H0: p = 0.50 versus Ha: p > 0.50, which value is the test statistic?",
+  "subject": "AP Statistics",
+  "topic": "3.7 Carrying Out a Test for a Population Proportion"
+ },
+ {
+  "brief": {
+   "earned": "Points are earned when you define both population proportions, write hypotheses for p1 minus p2, and identify the pooled proportion for the null model, show the required setup or condition check, and state the result in the language of the prompt.",
+   "loss": "Forgetting to define which population is p1 and which is p2, making the sign of the alternative unclear",
+   "move": "First name the quantity, structure, condition, or representation the prompt is really asking about; then define both population proportions, write hypotheses for p1 minus p2, and identify the pooled proportion for the null model before doing arithmetic or writing the final sentence."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": true,
+    "r": "Correct: 40/300 = 13.3% > 10%, while 50/600 = 8.3%; pooled p̂c = 43/90 = 0.478, so all counts are far above 10.",
+    "t": "The independence (10%) condition for sample 1, because 40 is more than 10% of 300."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "Large counts uses the pooled proportion with each sample size, and all those counts are well above 10.",
+    "t": "The large counts condition, because 18 is less than 25."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "The plants can have different sizes, and the random condition is about how each sample was selected.",
+    "t": "The random condition, because the plants have different sizes."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "The 10% condition fails for sample 1, so being random is not enough.",
+    "t": "All conditions are met, because both samples are random."
+   }
+  ],
+  "core": "Because H0 assumes p1=p2, the test statistic's standard error uses one pooled estimate phat_c=(n1phat1+n2phat2)/(n1+n2), built from both samples combined, since under H0 there is really only a single common p to estimate -- unlike 3.10's confidence interval, which never pools because it makes no such assumption.",
+  "id": "apstats-mcq-b2-sv-h-3.12-b-v1",
+  "stem": "An analyst takes an independent random sample of 40 workers from a plant of 300 workers and a sample of 50 workers from a plant of 600 workers, and plans a two-proportion z-test of H0: p1 − p2 = 0. In sample 1, 18 workers are satisfied; in sample 2, 25 are satisfied. Which condition is NOT met?",
+  "subject": "AP Statistics",
+  "topic": "3.12 Setting Up a Test for the Difference Between Two Population Proportions"
+ },
+ {
+  "brief": {
+   "earned": "You must name shape features using the graph actually given, and -- critically -- modality (unimodal/bimodal) and normality can never be determined from a boxplot alone; from a boxplot only skew direction is describable, and only by comparing the relative lengths of the box sections and whiskers, not by eyeballing overall lopsidedness.",
+   "loss": "Calling a boxplot's shape symmetric, normal, or unimodal -- modality can never be read off a boxplot, only skew direction can, and only by comparing section lengths.",
+   "move": "If you're given a boxplot, describe only skew direction (by comparing box-section and whisker lengths on each side) and never claim unimodal, bimodal, or symmetric/normal shape from it; if you're given a histogram or dotplot, modality is visible and can be described directly."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "The mean and standard deviation are pulled up by the two high salaries, and the description ignores that outliers make the shape skewed to the right.",
+    "t": "The salaries are roughly symmetric and centered near $63 thousand, and they typically vary from the center by about $22 thousand."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "This gives shape, center and spread but with no units or context and no mention of the two unusually high salaries, so it is not a complete description in context.",
+    "t": "The distribution is skewed right, with a median of 57 and an interquartile range of 14."
+   },
+   {
+    "k": "C",
+    "ok": true,
+    "r": "Correct: IQR = 64 − 50 = 14, and the fence 64 + 1.5(14) = 85 is below 140 and 155, so they are outliers; they pull the mean (63) above the median (57), so median and IQR describe the center and spread.",
+    "t": "The salaries are skewed to the right by two high outliers (about $140 thousand and $155 thousand); the typical salary is about $57 thousand, and the middle 50% span about $14 thousand."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "Two isolated values do not form a second peak; they are unusual values (outliers) in a distribution that has one peak.",
+    "t": "The salaries are bimodal, with one peak near $57 thousand and a second peak near $150 thousand."
+   }
+  ],
+  "core": "Modality (unimodal, bimodal) and normality can never be determined from a boxplot -- only skew direction, inferred from comparing box-section and whisker lengths -- and the 2025 Chief Reader Report names describing boxplot shape as symmetric, normal, or unimodal the single most repeated scoring error across the entire exam.",
+  "id": "apstats-mcq-b7-h-1.6-a",
+  "stem": "The annual salaries, in thousands of dollars, of the 38 employees of a small firm form a distribution with these features: most salaries are between 42 and 78, with a single peak, a median of 57, Q1 = 50 and Q3 = 64; two employees earn about 140 and 155, far above everyone else; the mean is about 63 and the standard deviation about 22. Which is the best description of the distribution of salaries?",
+  "subject": "AP Statistics",
+  "topic": "1.6 Descriptions for One Quantitative Variable Distributions"
+ },
+ {
+  "brief": {
+   "earned": "Points are earned when you use whether zero is inside the interval to support or reject a claim of difference, show the required setup or condition check, and state the result in the language of the prompt.",
+   "loss": "Concluding one group is larger when the interval includes zero",
+   "move": "First name the quantity, structure, condition, or representation the prompt is really asking about; then use whether zero is inside the interval to support or reject a claim of difference before doing arithmetic or writing the final sentence."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Tempting because the interval leans positive — but any interval containing 0 allows equal proportions. Fix: check whether 0 is inside, not which side has more area.",
+    "t": "There is convincing evidence that p₁ is greater than p₂, because most of the interval is positive."
+   },
+   {
+    "k": "B",
+    "ok": true,
+    "r": "This earns the point because an interval that contains 0 leaves 'no difference' plausible. The decision depends on whether 0 is inside the interval, not on how much of the interval is positive.",
+    "t": "There is not convincing evidence of a difference in renewal rates, because 0 is a plausible value for p₁ − p₂."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "Tempting because 0 is a plausible value — but plausible does not mean proven. Fix: say 'not convincing evidence of a difference', never that the proportions are equal.",
+    "t": "There is convincing evidence that the two proportions are equal, because 0 is in the interval."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "Tempting because the interval has a 95% label — but the parameter is fixed, so the 95% describes the method. Fix: say 'we are 95% confident' and then use the interval to answer the claim.",
+    "t": "There is a 95% chance that p₁ − p₂ is between −0.02 and 0.14."
+   }
+  ],
+  "core": "If the interval for p1-p2 excludes 0, that is convincing evidence of a real difference between the two population proportions; if the interval contains 0, that is insufficient evidence of a difference -- because 0 (meaning p1=p2, no difference) remains a plausible value for p1-p2, even when most of the interval sits on one side of 0.",
+  "id": "APSTATS-OHT-3.11",
+  "stem": "A 95% confidence interval for p₁ − p₂, the difference in renewal rates between new app users and old app users, is (−0.02, 0.14). Which conclusion is best supported?",
+  "subject": "AP Statistics",
+  "topic": "3.11 Justifying a Claim Based on a Confidence Interval for the Difference Between Two Population Proportions"
+ },
+ {
+  "brief": {
+   "earned": "Points are earned when you state the mean and standard deviation of p-hat and check randomization, 10 percent, and large-counts conditions, show the required setup or condition check, and state the result in the language of the prompt.",
+   "loss": "Checking large counts with observed p-hat when the sampling distribution is built from the true p",
+   "move": "First name the quantity, structure, condition, or representation the prompt is really asking about; then state the mean and standard deviation of p-hat and check randomization, 10 percent, and large-counts conditions before doing arithmetic or writing the final sentence."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Divided sqrt[p(1 - p)] by n instead of taking the square root of p(1 - p)/n, which makes the standard deviation far too small.",
+    "t": "The sample proportion is about 10 standard deviations above 0.45, since the standard deviation of the sampling distribution is 0.005."
+   },
+   {
+    "k": "B",
+    "ok": true,
+    "r": "Correct: SD = sqrt(0.45 x 0.55 / 100) = 0.0497; z = 0.05 / 0.0497 = 1.01.",
+    "t": "The sample proportion is about 1 standard deviation above 0.45, so a result this large would not be unusual if the true proportion were 0.45."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "With n = 100 the standard deviation is about 0.05, so a gap of 0.05 is ordinary.",
+    "t": "The sample proportion is 0.05 above 0.45, which is too large a gap to be ordinary sampling variability."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "Used p(1 - p)/n as the standard deviation.",
+    "t": "The sample proportion is about 20 standard deviations above 0.45, since the standard deviation of the sampling distribution is 0.0025."
+   }
+  ],
+  "core": "The sampling distribution of phat has mean mu_phat=p and standard deviation sigma_phat=sqrt(p(1-p)/n) (formula sheet), and its large-counts condition for approximate normality -- np>=10 and n(1-p)>=10 -- is defined using the true population proportion p, not the sample's observed phat; later procedures substitute an estimate (phat for confidence intervals, p0 for tests) for p only because the real p is unknown, not because the underlying condition is stated in terms of an estimate.",
+  "id": "APSTATS-MCQ-SV-H-3.2-A-v3",
+  "stem": "A manufacturer reports that 45% of its tablets pass inspection on the first try. A random sample of 100 tablets gives a sample proportion of 0.50. Which statement is correct?",
+  "subject": "AP Statistics",
+  "topic": "3.2 Sampling Distributions for Sample Proportions"
+ },
+ {
+  "brief": {
+   "earned": "You earn credit by correctly classifying a described study as observational or experimental, and observational studies further as prospective or retrospective, based on whether a treatment was imposed and whether data collection looks forward or backward in time.",
+   "loss": "Calling a study an experiment just because researchers measured or tracked subjects over time, without checking whether a treatment was actually imposed.",
+   "move": "When classifying a study, ask first whether the researcher imposed a treatment (experiment) or just measured/recorded existing conditions (observational); only if it's observational, then ask whether data collection moves forward from now (prospective) or looks back at existing records (retrospective)."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "A random sample uses chance to pick only some members of the population; here all 15 were measured.",
+    "t": "A random sample of giraffes"
+   },
+   {
+    "k": "B",
+    "ok": true,
+    "r": "All 15 giraffes in the population of interest were measured, so no sampling was involved.",
+    "t": "A census of the herd"
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "An experiment imposes treatments on subjects; simply weighing animals imposes none, so it is an observational census.",
+    "t": "An experiment"
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "A convenience sample would include only easy-to-reach animals; here every giraffe was weighed.",
+    "t": "A convenience sample"
+   }
+  ],
+  "core": "The defining test for observational versus experimental is whether the researcher imposed a treatment -- tracking or measuring subjects over time, even repeatedly, is still observational unless a treatment was actively assigned, and observational studies split further into prospective (forward-looking) and retrospective (looking back at existing records).",
+  "id": "APSTATS-MCQ-SV-045-v3",
+  "stem": "A zoo veterinarian weighs all 15 giraffes at the zoo to describe the herd. What is this called?",
+  "subject": "AP Statistics",
+  "topic": "1.10 The Investigative Question Revisited and Data Collection"
+ },
+ {
+  "brief": {
+   "earned": "Full credit on a describe-how-you-would-select-a-random-sample free-response prompt requires specifying: the exact range of random numbers to use (matched to how individuals are labeled), what happens if a number repeats or is generated twice (skip it), and precisely how a generated number maps back to a specific individual on the population list.",
+   "loss": "Describing a sampling procedure as just generate random numbers without specifying the number range, how repeats are handled, or how numbers map to individuals.",
+   "move": "When asked to describe a sampling procedure, write out the concrete implementation details as a numbered process: label every individual, state the exact number range you'll generate from, state what happens on a repeat number, and state exactly how a number selects a specific individual -- not just use a random number generator."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": true,
+    "r": "Correct: A random sample from a list covering all residents gives every resident a chance to be chosen; a larger convenience sample does not.",
+    "t": "Select 100 residents at random from the town's list of households and survey each of them."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "A larger sample from the same gym entrance still excludes people who do not go to the gym, so the bias remains.",
+    "t": "Survey 500 people leaving the gym instead of 100."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "This varies the time but still samples only gym members, who tend to exercise more than other residents.",
+    "t": "Survey people leaving the gym at several different times of day, including mornings."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "Wording is not the main problem; the people who were chosen are not representative of the town.",
+    "t": "Ask the exercise question in a more neutral way."
+   }
+  ],
+  "core": "A sampling procedure described only as generate random numbers is incomplete for full credit -- an exam-worthy response must specify the exact number range used, what happens when a number repeats (skip it), and precisely how each generated number maps back to one specific individual on a labeled list.",
+  "id": "apstats-mcq-b6-sv-h-1.12-b-v2",
+  "stem": "A student wants to estimate how many hours per week all residents of her town exercise. She surveys 100 people who are leaving a gym on weekday evenings. Which plan would best reduce the bias?",
+  "subject": "AP Statistics",
+  "topic": "1.12 Potential Problems with Sampling"
+ },
+ {
+  "brief": {
+   "earned": "Points are earned when you interpret the p-value as the chance of a result at least as extreme, assuming the null hypothesis is true, show the required setup or condition check, and state the result in the language of the prompt.",
+   "loss": "Interpreting the p-value as the probability that the null hypothesis is true",
+   "move": "First name the quantity, structure, condition, or representation the prompt is really asking about; then interpret the p-value as the chance of a result at least as extreme, assuming the null hypothesis is true before doing arithmetic or writing the final sentence."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Failing to reject H0 does not show that H0 is true.",
+    "t": "There is convincing evidence that exactly 40% of students walk, because the test failed to reject H0."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "The p-value of 0.11 is above 0.05, and a small sample can produce a large gap by chance.",
+    "t": "There is convincing evidence that the proportion differs from 40%, because 65% is much larger than 40%."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "A p-value is computed assuming H0 is true; it is not the probability that H0 is true.",
+    "t": "There is an 11% chance that the principal is correct."
+   },
+   {
+    "k": "D",
+    "ok": true,
+    "r": "Correct: z = 0.125 / sqrt(0.4 x 0.6 / 40) = 1.61; two-sided p = 0.107; np0 = 16 and n(1 - p0) = 24 so the z-test is valid.",
+    "t": "There is not convincing evidence of a difference at the 0.05 level, but the sample was small and the gap of 12.5 percentage points is sizable, so a larger sample would be informative."
+   }
+  ],
+  "core": "A p-value is the probability, computed assuming H0 is true, of getting a sample result at least as extreme as the one observed -- it is not the probability that H0 itself is true, since H0 is a fixed claim about the population, not a random event with its own probability; a small p-value means the observed result would be unusual if H0 were true, which is evidence against H0, not a probability attached to H0.",
+  "id": "APSTATS-MCQ-SV-H-3.6-B-v1",
+  "stem": "A principal claims that 40% of students walk to school. A researcher tests H0: p = 0.40 versus Ha: p != 0.40 using a random sample of only 40 students, 21 of whom (52.5%) walk. The p-value is about 0.11. Using alpha = 0.05, which conclusion is best?",
+  "subject": "AP Statistics",
+  "topic": "3.6 p-Values"
+ },
+ {
+  "brief": {
+   "earned": "Credit requires computing the z-score correctly with the right mean and standard deviation for the specific distribution in question, and then interpreting its sign and magnitude in context (for example, this value is 1.4 standard deviations above the mean of this group).",
+   "loss": "Comparing raw scores directly across two different distributions instead of converting each to a z-score first using its own group's mean and standard deviation.",
+   "move": "When comparing two individuals from two different distributions, compute a separate z-score for each person using that person's own group's mean and standard deviation, then compare the z-scores directly rather than comparing the raw values."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "The median is the middle value; the median of Group 1 is 22 and that of Group 2 is 25, so a large maximum does not raise it.",
+    "t": "Group 1 has the higher median, because its maximum of 38 is larger."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "Overlapping boxes do not make the medians equal; the medians are 22 and 25.",
+    "t": "The groups have the same center, because the boxes overlap."
+   },
+   {
+    "k": "C",
+    "ok": true,
+    "r": "Correct: IQR1 = 26 − 18 = 8, IQR2 = 27 − 21 = 6; range1 = 26, range2 = 16; medians 22 and 25.",
+    "t": "Group 2 has the higher median and less variability, with both a smaller IQR and a smaller range."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "A higher quartile is a shift in location, not more spread; the IQRs are 8 for Group 1 and 6 for Group 2.",
+    "t": "Group 2 is more variable, because its Q1 of 21 is higher than the Q1 of 18."
+   }
+  ],
+  "core": "The z-score formula z=(x-mean)/SD is reused identically whether population parameters (mu, sigma) or sample statistics (x-bar, s) are available -- the CED gives no separate notation for the sample-statistic version, so the same formula and same interpretation apply either way.",
+  "id": "apstats-mcq-b6-sv-h-1.9-b-v2",
+  "stem": "Heights (cm) of plants in two groups are summarized by five-number summaries. Group 1: 12, 18, 22, 26, 38. Group 2: 14, 21, 25, 27, 30. Which statement is supported?",
+  "subject": "AP Statistics",
+  "topic": "1.9 Comparisons of the Distributions for One Quantitative Variable"
+ },
+ {
+  "brief": {
+   "earned": "You earn credit for testing independence with actual numbers rather than asserting it, for stating the conclusion in context, and for applying the union rule with the overlap subtracted -- including recognizing when that overlap is zero.",
+   "loss": "Shrinking the numerator and denominator each draw, as if sampling without replacement, when the trials are independent and the probability stays constant.",
+   "move": "Before multiplying probabilities across repeated selections, check whether the scenario actually removes items without replacement; if it does not, keep the probability constant on every trial. For an 'or' question, add the two probabilities and subtract the overlap so it is not counted twice."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": true,
+    "r": "Correct: 0.50 + P(B) − 0.50·P(B) = 0.65, so 0.50·P(B) = 0.15 and P(B) = 0.30.",
+    "t": "0.30"
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "This subtracts P(A) from P(A or B), which ignores the overlap; independence gives P(A and B) = 0.50·P(B).",
+    "t": "0.15"
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "This is the complement, 1 − 0.65, not the probability the question asks about.",
+    "t": "0.35"
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "This assumes P(B) = P(A) = 0.50, which does not satisfy 0.50 + P(B) − 0.50·P(B) = 0.65.",
+    "t": "0.50"
+   }
+  ],
+  "core": "A well-documented AP scoring pattern (2025 Chief Reader Report) shows students defaulting to a without-replacement, dependent-events calculation even in scenarios where the events are explicitly independent -- for instance treating two separately-generated selections as if drawing from one shrinking finite population, when the setup actually keeps the probability constant on every selection.",
+  "id": "APSTATS-MCQ-SV-H-2.7-A-v3",
+  "stem": "Events A and B are independent, with P(A) = 0.50 and P(A or B) = 0.65. What is P(B)?",
+  "subject": "AP Statistics",
+  "topic": "2.7 Independent Events and Unions of Events"
+ },
+ {
+  "brief": {
+   "earned": "You earn credit for identifying which event is the condition and using it as the denominator, for computing the conditional probability correctly from a table or tree diagram, for applying the multiplication rule to chained events, and for interpreting the result in context as a probability restricted to the given group.",
+   "loss": "Reversing the condition -- answering 'probability of the disease given a positive test' with the probability of a positive test given the disease.",
+   "move": "Translate the word after 'given that,' or the group named after 'of the,' into your denominator before you compute anything -- and note that the two directions of conditioning are different questions, so reversing them changes the answer even with identical data."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "This treats the draws as if each item were replaced, but the draws are made without replacement, so the second draw has a different composition.",
+    "t": "13/25"
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "This counts only two green marbles, (6/10)(5/9) = 1/3, and misses two yellow marbles.",
+    "t": "1/3"
+   },
+   {
+    "k": "C",
+    "ok": true,
+    "r": "Correct: (6/10)(5/9) + (4/10)(3/9) = 30/90 + 12/90 = 42/90 = 7/15.",
+    "t": "7/15"
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "This is P(green then yellow) = (6/10)(4/9), which is a different-color outcome.",
+    "t": "4/15"
+   }
+  ],
+  "core": "Rearranging the conditional probability definition gives the multiplication rule P(A and B) = P(A|B)·P(B), but the same joint probability can equally be built the other direction as P(B|A)·P(A) -- the joint probability P(A and B) is symmetric in A and B even though the two conditional probabilities P(A|B) and P(B|A) are almost never equal to each other.",
+  "id": "APSTATS-MCQ-SV-H-2.6-B-v1",
+  "stem": "A bag contains 6 green marbles and 4 yellow marbles. Two marbles are drawn at random, one after the other, without replacement. What is the probability that both marbles are the same color?",
+  "subject": "AP Statistics",
+  "topic": "2.6 Conditional Probability"
+ },
+ {
+  "brief": {
+   "earned": "Multiple-choice and free-response items expect you to correctly classify a described variable and to use parameter/statistic and population/sample language precisely when a question asks you to identify what a number represents.",
+   "loss": "Mixing up parameter and statistic, or calling a numeric label (like a zip code) quantitative just because it's written as digits.",
+   "move": "When a question gives you a variable description, decide categorical-vs-quantitative first, then (if quantitative) discrete-vs-continuous, before choosing any graph or statistic -- this classification step is specific to reading the variable, not to analyzing it."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Several flights belong to the same airline, so an airline is a category of the flights and is not the individual described by each row.",
+    "t": "The individuals are the airlines; airline is categorical, and number of passengers and percentage of seats filled are quantitative."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "A passenger count is numerical and can be averaged over flights, so it is quantitative.",
+    "t": "The individuals are the flights; airline and number of passengers are categorical, and only percentage of seats filled is quantitative."
+   },
+   {
+    "k": "C",
+    "ok": true,
+    "r": "Correct: Each row is one flight, so flights are the individuals; an airline name is a category, while a passenger count and a percentage are numerical.",
+    "t": "The individuals are the flights; airline is categorical, and number of passengers and percentage of seats filled are quantitative."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "The value recorded for each flight is a percentage, which is numerical, even though each seat was either filled or empty.",
+    "t": "The individuals are the flights; airline and number of passengers are quantitative, and percentage of seats filled is categorical because each seat was either filled or empty."
+   }
+  ],
+  "core": "Categorical-vs-quantitative and discrete-vs-continuous is pure vocabulary with no formula attached, but the CED treats it as a gate: using a mean or standard deviation on a categorical variable, or a bar chart on a continuous one, is scored as a category error, not partial credit for a numeric mistake.",
+  "id": "apstats-mcq-b7-sv-h-1.2-b-v3",
+  "stem": "An airport analyst records data on 36 flights on one day. For each flight she records the airline, the number of passengers, and the percentage of the scheduled seats that were filled. Which statement correctly describes the data?",
+  "subject": "AP Statistics",
+  "topic": "1.2 Variables"
+ },
+ {
+  "brief": {
+   "earned": "You earn credit for multiplying each value by its own probability and summing, for interpreting the result in context as a long-run average per trial rather than a value you expect on any single trial, for computing the standard deviation with squared deviations weighted by their probabilities, and for handling compound-event boundaries correctly.",
+   "loss": "Averaging the possible values as if equally likely, or reading 'fewer than 3' as 3 or fewer when it means 2 or fewer.",
+   "move": "When you compute an expected value, keep the probability factor attached to every term -- the mean of a random variable is a probability-weighted sum, never the plain average of the listed values, unless those values happen to be equally likely."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "This leaves out the $4 ticket price; the expected prize is $1.60, but the net gain is 1.60 − 4.",
+    "t": "$1.60"
+   },
+   {
+    "k": "B",
+    "ok": true,
+    "r": "Correct: expected prize (600 + 200)/500 = 1.60; net 1.60 − 4 = −2.40.",
+    "t": "−$2.40"
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "This counts only the $600 prize (expected $1.20) and leaves out the two $100 prizes.",
+    "t": "−$2.80"
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "Treats the ticket price as simply lost; the winnings reduce that loss.",
+    "t": "−$4.00"
+   }
+  ],
+  "core": "Expected value is a probability-weighted sum, not a plain average of the listed values -- for a random variable whose outcomes are not equally likely, dropping the P(x_i) factor and just averaging the numbers themselves produces a documented, exam-common wrong answer that looks superficially reasonable but ignores how much more likely the low-probability outcomes are to actually occur.",
+  "id": "APSTATS-MCQ-SV-H-2.9-B-v1",
+  "stem": "A school fair sells 500 tickets at $4 each. There is one prize of $600 and two prizes of $100. What is the expected net gain for a person who buys one ticket?",
+  "subject": "AP Statistics",
+  "topic": "2.9 Parameters of Random Variables"
+ },
+ {
+  "brief": {
+   "earned": "You earn credit for describing a complete simulation design: what device generates the randomness, how digits map to real-world outcomes, what counts as one trial and when a trial stops, what you record each trial, and dividing successful trials by total trials to state an estimated probability.",
+   "loss": "Reporting a simulation estimate as the exact probability, instead of an estimate that gets closer to the truth as trials increase.",
+   "move": "When you describe a simulation, explicitly state where one trial ends and what you write down at that moment; a design that assigns digits but never defines the stopping point and the recorded quantity is incomplete even if your estimate is right."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Three of the ten digits is 30%, not 25%, so the simulated prize rate is wrong.",
+    "t": "Let digits 0, 1 and 2 represent a prize. Read single digits until a prize appears, record the number of digits read, and repeat many times."
+   },
+   {
+    "k": "B",
+    "ok": true,
+    "r": "Correct: 01 to 25 is exactly 25 of the 100 two-digit numbers, and a trial reads numbers until the first prize, so repeating many trials estimates the proportion needing at least 4 boxes.",
+    "t": "Let two-digit numbers 01 to 25 represent a prize. One trial is reading two-digit numbers until a prize appears, recording the number of boxes; repeat many times and find the proportion of trials needing at least 4 boxes."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "This estimates the proportion of boxes with a prize (about 25%), not the probability that it takes at least 4 boxes to get the first one.",
+    "t": "Let two-digit numbers 01 to 25 represent a prize. One trial is a single two-digit number. Do the trial 4 times and record the proportion of prizes."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "Recording \"no prize in four boxes\" estimates the chance of needing at least 5 boxes, not at least 4.",
+    "t": "Let two-digit numbers 01 to 25 represent a prize. One trial is four two-digit numbers; record whether none of them is a prize; repeat many times."
+   }
+  ],
+  "core": "The CED gives simulation only as a qualitative procedure with no formula for how many trials are 'enough' -- the Law of Large Numbers guarantees only that the long-run relative frequency drifts closer to the true probability as trials increase, not that any specific number of trials pins down an exact value, so a simulation-based probability is always reported as an estimate, never as the answer.",
+  "id": "APSTATS-MCQ-H-2.3-A",
+  "stem": "A cereal company puts a prize in 25% of its boxes, randomly and independently. A student plans to use a table of random digits to estimate the probability that it takes at least 4 boxes to get the first prize. Which simulation design is valid?",
+  "subject": "AP Statistics",
+  "topic": "2.3 Estimating Probabilities Using Simulation"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by writing H0 and Ha in terms of mu-1 minus mu-2 with correct direction, naming the two-sample t-test, and checking randomization or random assignment, the 10% condition, and the shape condition for both samples.",
+   "loss": "Writing hypotheses about x-bar-1 minus x-bar-2 instead of mu-1 minus mu-2, or checking conditions for only one of the two independent samples.",
+   "move": "Write H0: mu-1 minus mu-2 = 0, Ha with direction from the research question, name the procedure as a two-sample t-test, then check both samples' conditions separately before calculating."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Hypotheses concern the population means, not the sample means.",
+    "t": "H0: x-bar_V = x-bar_N and Ha: x-bar_V ≠ x-bar_N"
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "The sample direction should not decide the alternative; the question asks only whether the means differ.",
+    "t": "H0: μV - μN = 0 and Ha: μV - μN < 0"
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "The null value is 0, the no-difference value, not the observed sample difference.",
+    "t": "H0: μV - μN = 9 and Ha: μV - μN ≠ 9"
+   },
+   {
+    "k": "D",
+    "ok": true,
+    "r": "Correct: the question asks whether the means differ, so the alternative is two-sided and the null difference is 0.",
+    "t": "H0: μV - μN = 0 and Ha: μV - μN ≠ 0"
+   }
+  ],
+  "core": "The setup for comparing two means mirrors the one-sample setup in structure -- parameter-based hypotheses, a named and justified procedure, and conditions checked before arithmetic -- but every condition now has to be verified twice, once per sample.",
+  "id": "APSTATS-MCQ-SV-H-4.9-A-v3",
+  "stem": "Random samples of 40 vegetarians and 40 non-vegetarians have mean cholesterol levels of 182 and 191 mg/dL. A researcher wants to know whether mean cholesterol differs between the two populations. Which hypotheses should be tested, where μV and μN are the population mean cholesterol levels?",
+  "subject": "AP Statistics",
+  "topic": "4.9 Setting Up a Test for the Difference Between Two Population Means"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by explaining movement based on molecular properties and membrane composition.",
+   "loss": "Saying molecules cross because the cell needs them instead of because their properties allow it.",
+   "move": "Ask whether the molecule is small/nonpolar, polar, charged, or large, then decide if a protein is needed."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "The flexibility-as-protection error treats unrestricted expansion as protective. A plasma membrane cannot stretch indefinitely; resistance from the wall helps prevent rupture rather than causing it. Fix: Identify which structure limits expansion before predicting the risk of rupture.",
+    "t": "More treated bacteria will rupture because stronger walls prevent the unrestricted membrane expansion needed for protection."
+   },
+   {
+    "k": "B",
+    "ok": true,
+    "r": "A cell wall mechanically opposes expansion caused by water entry. Strengthening this support increases protection against rupture even though the plasma membrane itself is unchanged.",
+    "t": "Fewer treated bacteria will rupture because stronger walls provide greater resistance to expansion as water enters."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "The wall–membrane confusion assigns the plasma membrane’s selective function to the wall. Strengthening the wall does not change the unchanged membrane’s hydrophobic barrier or its molecular selectivity. Fix: Locate the selective barrier and check whether the treatment changes it.",
+    "t": "Treated bacteria will gain different plasma-membrane selectivity because the strengthened walls determine which molecules cross the membrane."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "The structural-equivalence misconception treats walls and plasma membranes as interchangeable mechanical supports. Plasma membranes do not supply the rigid resistance to expansion provided by cell walls. Fix: Compare the mechanical roles of the wall and membrane before predicting rupture.",
+    "t": "Treated bacteria will have the same rupture risk because their plasma membranes already provide structural support equivalent to the walls."
+   }
+  ],
+  "core": "Membrane permeability depends on molecule size, polarity, charge, and whether transport proteins are available -- small nonpolar molecules such as O2, CO2, and N2 dissolve through the hydrophobic bilayer interior and cross freely, small polar uncharged molecules such as H2O and NH3 pass through in smaller amounts, and hydrophilic or charged substances are blocked by the hydrocarbon tails and require a channel or transport protein.",
+  "id": "APBIO-MCQ-SV-135-v2",
+  "stem": "A laboratory develops a treatment that strengthens bacterial cell walls without changing the plasma membranes. Treated and untreated bacteria are exposed to conditions that drive water into the cells, causing some untreated bacteria to rupture. Which prediction about the treated bacteria is best supported?",
+  "subject": "AP Biology",
+  "topic": "2.4 Membrane Permeability"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by tracing pathway order and explaining how changes to one component affect downstream response.",
+   "loss": "Describing every component as simply on or off without linking upstream changes to downstream effects.",
+   "move": "Follow the pathway arrow by arrow and state whether each step activates, inhibits, or amplifies the next."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "If KC acted first, blocking KC would stop KB and KA, but KA and KB were phosphorylated with KC blocked.",
+    "t": "KC, then KB, then KA."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "If KB acted before KA, blocking KB would stop KA, and KA was still phosphorylated.",
+    "t": "KB, then KA, then KC."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "In a parallel pathway, blocking one kinase would leave the others active, and blocking KA stopped all three.",
+    "t": "The three kinases act in parallel, each one switched on directly by the receptor."
+   },
+   {
+    "k": "D",
+    "ok": true,
+    "r": "Correct: blocking a kinase prevents activation of the kinases downstream of it but not those upstream; blocking KA stops all three, blocking KB stops KB and KC, and blocking KC stops only KC.",
+    "t": "KA, then KB, then KC."
+   }
+  ],
+  "core": "Signal transduction pathways often use cascades, phosphorylation, second messengers, and amplification, and changing any single component -- through mutation or a chemical that activates or inhibits it -- can alter every downstream step, ultimately changing gene expression, cell phenotype, or even triggering apoptosis.",
+  "id": "apbio-mcq-b4-sv-h-4.3-b-v1",
+  "stem": "A pathway in a cell has three kinases, KA, KB and KC. After the ligand is added, the researchers add a drug that blocks one kinase at a time and measure which kinases become phosphorylated (active).\nDrug target | KA phosphorylated | KB phosphorylated | KC phosphorylated\nKA blocked | no | no | no\nKB blocked | yes | no | no\nKC blocked | yes | yes | no\nWhich order of action fits the data?",
+  "subject": "AP Biology",
+  "topic": "4.3 Signal Transduction Pathways"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by identifying whether a system is building or breaking a polymer and by connecting the reaction to water use or release and bond formation or cleavage.",
+   "loss": "Mixing up dehydration synthesis and hydrolysis, especially the direction of water movement.",
+   "move": "Ask: is the cell building a larger molecule or breaking one apart? Then name dehydration synthesis or hydrolysis and state what happens to water."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Water-total addition error: This treats both cleavage and joining as water-consuming reactions. Hydrolysis consumes five water molecules, but dehydration synthesis releases two, so their water changes oppose each other. Fix: Subtract the water released during joining from the water consumed during cleavage.",
+    "t": "Five polymer-derived molecules remain; seven water molecules are consumed overall."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "Water-direction reversal: This gives the net water change the wrong direction. The five cleavage reactions consume more water than the two joining reactions release. Fix: Mark water as consumed for each cleavage and released for each joining before calculating.",
+    "t": "Five polymer-derived molecules remain; three water molecules are released overall."
+   },
+   {
+    "k": "C",
+    "ok": true,
+    "r": "Five hydrolysis reactions increase the molecule count from two to seven and consume five water molecules. Two joining reactions reduce the count to five and release two water molecules, leaving a net consumption of 5 − 2 = 3 water molecules.",
+    "t": "Five polymer-derived molecules remain; three water molecules are consumed overall."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "Bond-count versus fragment-count error: This starts with five fragments because five bonds were broken, then subtracts two for joining. Cleavage adds fragments to the two chains already present, producing seven fragments before joining. Fix: Begin with the initial chain count, add each cleavage, and subtract each joining.",
+    "t": "Three polymer-derived molecules remain; three water molecules are consumed overall."
+   }
+  ],
+  "core": "Macromolecules are polymers built from monomer subunits. Dehydration synthesis forms a covalent bond between two monomers by removing a water molecule, and repeating this reaction chains monomers into a polymer; hydrolysis reverses this exactly by adding a water molecule across the bond, attaching an H to one monomer and an OH to the other as the bond breaks.",
+  "id": "APBIO-MCQ-SV-109-v1",
+  "stem": "A laboratory sample initially contains two linear polymer chains, each composed of five monomers. One treatment hydrolyzes exactly five bonds connecting monomers in these chains. A second treatment then causes exactly two dehydration synthesis reactions, each joining two separate fragments. No other bonds form or break. Relative to the initial sample, how many separate polymer-derived molecules remain, and what is the net change in water molecules?",
+  "subject": "AP Biology",
+  "topic": "1.3 Introduction to Macromolecules"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by placing events in the correct phase and explaining why ordering matters for accurate division.",
+   "loss": "Mixing up DNA replication with chromosome separation.",
+   "move": "Name the phase and the key event: growth, DNA replication, chromosome separation, or cytokinesis."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": true,
+    "r": "Correct: starved cells hold only 3.0 pg, so they are in G1 or G0; after serum, many cells hold intermediate or 6.0 pg amounts, which means DNA replication occurred.",
+    "t": "The starved cells were arrested before DNA replication (in G1 or G0), and serum let them re-enter the cycle, replicate DNA and move on."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "Cells arrested in G2 would hold 6.0 pg, and the starved cells held 3.0 pg.",
+    "t": "The starved cells were arrested in G2, and serum made them divide and enter G1."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "Cells between 3.0 and 6.0 pg are copying their DNA, which shows replication happened and was not blocked.",
+    "t": "Serum blocks DNA replication, so the cells between 3.0 and 6.0 pg are damaged."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "Cells that skip S would not gain DNA, and many cells now have more than 3.0 pg.",
+    "t": "Serum makes cells skip S phase and go directly into mitosis."
+   }
+  ],
+  "core": "The cell cycle coordinates growth, DNA replication, and division through ordered phases, and interphase itself has three distinct sub-phases -- G1 (organelle and cytosolic growth), S (DNA replicates into sister chromatids), and G2 (further protein synthesis, ATP production, and centrosome replication) -- before the cell enters mitosis.",
+  "id": "apbio-mcq-b4-sv-h-4.5-b-v3",
+  "stem": "Cells are kept in medium without serum for 4 days. Flow cytometry shows 93% of the cells at 3.0 pg of DNA (the amount in G1 before replication). Twenty hours after serum is added, 40% of the cells are at 3.0 pg, 35% are between 3.0 and 6.0 pg, and 25% are at 6.0 pg. Which conclusion is best supported?",
+  "subject": "AP Biology",
+  "topic": "4.5 Cell Cycle"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by tracing the structure-function chain: amino acid sequence affects interactions, interactions affect folding and shape, and shape affects protein function.",
+   "loss": "Saying a protein is denatured or changed without connecting the structural change to a functional consequence.",
+   "move": "Use the chain: sequence -> folding/shape -> function. If a mutation or environmental change appears, explain how it could alter that chain."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Bond-integrity trap: Preserving peptide-bond connectivity does not preserve amino acid sequence when an amino acid is replaced. The changed primary structure can affect folding even though chain length stays constant. Fix: Check amino acid identities when deciding whether primary structure has changed.",
+    "t": "Unchanged peptide-bond connectivity means the primary structure is unchanged, so the protein must retain its adhesive function."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "Secondary–tertiary confusion: Secondary structure involves hydrogen bonds between backbone atoms, whereas the specified bond connects R groups. Disrupting this R-group interaction can affect tertiary structure and adhesive function. Fix: Locate the hydrogen-bond partners before assigning a structural level.",
+    "t": "Loss of the R-group hydrogen bond directly changes secondary structure, because secondary structure is defined by hydrogen bonds between R groups."
+   },
+   {
+    "k": "C",
+    "ok": true,
+    "r": "The substituted R group can disrupt a hydrogen bond that helps maintain the protein’s three-dimensional shape. Because adhesion requires that shape, altered folding could weaken the adhesive.",
+    "t": "The replacement may disrupt an R-group interaction, altering tertiary folding and weakening the protein’s adhesive function."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "Quaternary-structure trap: A protein with only one polypeptide has no separate polypeptide subunits to pull apart. Interactions between different regions of that chain help stabilize tertiary structure instead. Fix: Determine how many polypeptides are present before predicting subunit separation.",
+    "t": "Loss of the R-group hydrogen bond separates polypeptide subunits, disrupting quaternary structure and weakening adhesion."
+   }
+  ],
+  "core": "Protein structure builds in four levels, each driven by a different kind of interaction: primary structure is just the amino acid sequence; secondary structure (alpha-helices and beta-sheets) forms from hydrogen bonds between backbone atoms; tertiary structure is the overall 3D shape, driven by R-group interactions -- hydrogen bonds, hydrophobic interactions, ionic interactions, and disulfide bridges; and quaternary structure arises only in proteins built from multiple polypeptide chains interacting with each other.",
+  "id": "APBIO-MCQ-SV-121-v3",
+  "stem": "An experimental adhesive contains a protein made of one polypeptide chain. The protein must retain a particular folded shape for the adhesive to hold surfaces together. A polar R group forms a hydrogen bond with another R group elsewhere in the chain. Researchers replace the first amino acid with one having a nonpolar R group, without changing the number of amino acids or their peptide-bond connectivity. Which prediction best explains a possible effect on adhesion?",
+  "subject": "AP Biology",
+  "topic": "1.7 Proteins"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by connecting molecule breakdown, electron carriers, proton gradients, oxygen, and ATP production.",
+   "loss": "Saying oxygen makes ATP directly instead of explaining its role as final electron acceptor.",
+   "move": "Track carbon, electrons, and ATP through the process instead of memorizing a list of stages."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Tempting because oxygen is linked with energy release. But oxygen does not make ATP directly; ATP synthase does. Fix: trace oxygen to the end of the electron transport chain, where it accepts electrons, not to ATP synthase.",
+    "t": "Oxygen binds directly to ADP and phosphate to form ATP."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "Tempting because oxygen is called a respiration requirement. But glycolysis occurs in the cytosol and does not need oxygen. Fix: place glycolysis in the cytosol, where it runs without oxygen, before you link oxygen to ATP production.",
+    "t": "Oxygen is required to split glucose during glycolysis in the mitochondria in order to feed the later steps."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "Tempting because the gradient is made of protons. But the pumped protons come from the matrix side, and oxygen instead accepts electrons. Fix: give oxygen the job of accepting electrons at the end of the chain, and look elsewhere for the pumped protons.",
+    "t": "Oxygen supplies the protons that are pumped across the inner mitochondrial membrane."
+   },
+   {
+    "k": "D",
+    "ok": true,
+    "r": "Electrons from NADH pass along the electron transport chain to oxygen, which forms water. Without oxygen the chain backs up, protons are no longer pumped, and chemiosmosis cannot drive ATP synthase.",
+    "t": "Oxygen is the final electron acceptor, so without it electron flow stops and the proton gradient used by ATP synthase is no longer maintained."
+   }
+  ],
+  "core": "Cellular respiration transfers energy from organic molecules to ATP through glycolysis, oxidation steps, and electron transport, and this same core process -- along with fermentation, which lets glycolysis continue without oxygen by producing alcohol or lactic acid -- occurs in some form across all living organisms, not only in organisms with mitochondria.",
+  "id": "APBIO-OHT-3.5",
+  "stem": "When oxygen is removed from isolated mitochondria that are supplied with NADH, ATP production by ATP synthase quickly falls. Which statement best explains this result?",
+  "subject": "AP Biology",
+  "topic": "3.5 Cellular Respiration"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by connecting phospholipid amphipathic structure and membrane proteins to selective movement or communication.",
+   "loss": "Calling the membrane a barrier without explaining selective permeability.",
+   "move": "Start with bilayer structure, then identify the protein or lipid feature responsible for the observed function."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": true,
+    "r": "Correct: Rapid spreading within the outer layer shows lateral mobility; hours to reach the inner layer shows that flipping between layers is rare, so the layers can remain different.",
+    "t": "Phospholipids move quickly sideways within a layer but only rarely change layers, so the two layers can keep different compositions."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "The tag spread across the outer layer in seconds, so the phospholipids are not fixed.",
+    "t": "Phospholipids in a bilayer are fixed in place, which is why the tag takes hours to spread."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "Movement between layers takes hours, so it is not rapid in that direction.",
+    "t": "Phospholipids move rapidly in both directions, so each layer quickly acquires the same composition."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "Lateral movement was seen within seconds without any transport protein being mentioned, so the lipids move freely sideways.",
+    "t": "Phospholipids cannot move laterally unless transport proteins carry them."
+   }
+  ],
+  "core": "The plasma membrane is a phospholipid bilayer with embedded proteins that separates internal and external environments -- each phospholipid is amphipathic, so its hydrophilic phosphate head faces the watery cytoplasm or extracellular fluid while its hydrophobic fatty-acid tails face inward, and embedded proteins orient themselves so any hydrophilic regions face water while hydrophobic regions stay buried in the bilayer's interior.",
+  "id": "apbio-mcq-b5-sv-h-2.3-a-v2",
+  "stem": "A fluorescent tag is attached to a phospholipid in the outer layer of a membrane. Researchers find that tagged phospholipids spread laterally across the outer layer within a few seconds but take several hours to appear in the inner layer. Which conclusion is best supported?",
+  "subject": "AP Biology",
+  "topic": "2.3 Plasma Membrane"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by connecting nucleotide structure and sequence to information storage, directionality, complementary base pairing, or differences between DNA and RNA.",
+   "loss": "Describing nucleic acids only as genetic material without explaining how sequence, base pairing, or strand structure supports the function.",
+   "move": "When asked about DNA or RNA, connect structure to information: sequence stores instructions, base pairing supports copying, and strand direction affects synthesis."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Tempting if you pair the bases correctly but write them in the same left-to-right order. But the strands run antiparallel, so that reads 3' to 5'. Fix: reverse the complement to read 5' to 3'.",
+    "t": "5'-TACGGC-3'"
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "Tempting if you swap in uracil as the partner for adenine. But U pairs with A only in RNA, and this is a DNA strand, which uses thymine. Fix: pair A with T, never U, when you write a DNA strand.",
+    "t": "5'-UACGGC-3'"
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "Tempting if you only reverse the original strand. But reversing does not substitute complementary bases. Fix: both complement each base and reverse the direction.",
+    "t": "5'-GCCGTA-3'"
+   },
+   {
+    "k": "D",
+    "ok": true,
+    "r": "Pairing A-T and C-G gives 3'-TACGGC-5', because the strands are antiparallel. Reading that strand in its own 5' to 3' direction gives 5'-CGGCAT-3'.",
+    "t": "5'-CGGCAT-3'"
+   }
+  ],
+  "core": "DNA is an antiparallel double helix held together by hydrogen bonds between complementary bases -- adenine pairs with thymine, and cytosine pairs with guanine -- while RNA is typically single-stranded and pairs adenine with uracil instead of thymine; DNA uses deoxyribose sugar and RNA uses ribose. Each strand also has directionality, with new nucleotides added only to the 3' end during synthesis.",
+  "id": "APBIO-OHT-1.6",
+  "stem": "One strand of a DNA segment is written 5'-ATGCCG-3'. Which is the sequence of the complementary DNA strand, written 5' to 3'?",
+  "subject": "AP Biology",
+  "topic": "1.6 Nucleic Acids"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by identifying the gradient, direction of movement, energy requirement, and protein involvement.",
+   "loss": "Ignoring gradient direction or claiming all protein transport requires ATP.",
+   "move": "State high-to-low or low-to-high relative to the gradient, then name passive or active transport."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Molecular movement does not stop at equilibrium, and endocytosis is not needed to explain label crossing a permeable membrane.",
+    "t": "Solute movement stopped when the concentrations became equal, so the radioactivity must have entered by endocytosis."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "Pumping S* in against its gradient would steadily raise the total concentration of S above 5 mM, but the total stayed at 5 mM.",
+    "t": "The cell used ATP to pump S* in against its concentration gradient."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "A leaky membrane would allow the total concentration to change, but the cell concentrations remained unchanged.",
+    "t": "The membrane became leaky when the radioactive solute was added."
+   },
+   {
+    "k": "D",
+    "ok": true,
+    "r": "Correct: Radioactivity appears inside while total S stays at 5 mM, which means molecules continue to cross both ways at equal rates; equilibrium is dynamic, with no net movement.",
+    "t": "At equilibrium, S still crosses the membrane in both directions at equal rates, so labeled molecules enter while unlabeled molecules leave and there is no net change."
+   }
+  ],
+  "core": "Membrane transport includes passive movement down gradients and active movement requiring energy to move against gradients -- passive transport is net movement from high to low concentration with no direct energy input, while active transport uses energy (typically ATP) to move a substance from low to high concentration, against its gradient.",
+  "id": "apbio-mcq-b5-h-2.5-b",
+  "stem": "A cell is bathed in a solution with the same concentration of a permeable, nonmetabolized solute S as the cytoplasm, 5 mM inside and 5 mM outside, and the concentrations stay constant. A researcher adds a small amount of radioactive S* to the outside. Within 10 minutes, radioactivity is detected inside the cell, but the total concentration of S inside remains 5 mM. Which explanation is best supported?",
+  "subject": "AP Biology",
+  "topic": "2.5 Membrane Transport"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by explaining how ATP hydrolysis or coupled reactions make an unfavorable process possible.",
+   "loss": "Saying ATP is energy without explaining how phosphate transfer or coupling supports the process.",
+   "move": "Identify the energy-requiring process and connect ATP or coupling to the work being done."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "The analog binds the pump yet produces no transport, so binding by itself is not the energy source.",
+    "t": "Binding of a nucleotide to the pump supplies the energy for transport."
+   },
+   {
+    "k": "B",
+    "ok": true,
+    "r": "Correct: the analog binds but is not hydrolyzed and gives no transport, so the energy for transport comes from the hydrolysis step.",
+    "t": "Transport needs the energy released when the terminal phosphate bond of ATP is hydrolyzed, and not only the binding of a nucleotide."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "The stem says the analog binds the pump like ATP, and nothing suggests denaturation, so the lack of hydrolysis is the key difference.",
+    "t": "AMP-PNP denatures the pump before transport can occur."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "ATP is a substrate and energy carrier, and the pump is the enzyme, so ATP does not act as an enzyme here.",
+    "t": "ATP acts as an enzyme that lowers the activation energy for calcium movement."
+   }
+  ],
+  "core": "Cells use energy coupling and ATP to drive processes that require energy input, and because living systems are highly ordered, they must continually take in more energy than they lose to maintain that order, consistent with the first and second laws of thermodynamics; ATP hydrolysis releases energy in a stepwise sequence where each pathway's product typically becomes the next step's reactant.",
+  "id": "apbio-mcq-b2-sv-h-3.3-b-v3",
+  "stem": "Vesicles containing a calcium pump are placed in a solution with calcium. With ATP, calcium accumulates inside the vesicles. With AMP-PNP, an analog that binds the pump like ATP but cannot be hydrolyzed, no calcium accumulates. Which conclusion is best supported?",
+  "subject": "AP Biology",
+  "topic": "3.3 Cellular Energy"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by explaining that mitochondria and chloroplasts evolved from once free-living prokaryotic cells by endosymbiosis, supporting it with evidence such as their double membranes, and contrasting how prokaryotic and eukaryotic cells compartmentalize.",
+   "loss": "Naming mitochondria and chloroplasts without saying they came from free-living prokaryotes, or claiming prokaryotes have no internal organization at all.",
+   "move": "State the endosymbiotic origin, then compare: prokaryotes have specialized internal regions without membrane-bound organelles, while eukaryotes partition the cell with internal membranes."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": true,
+    "r": "Correct: Mitochondrial ribosomes share the drug sensitivity of bacterial ribosomes but not of the cell's cytosolic ribosomes, supporting a bacterial origin for mitochondria.",
+    "t": "Mitochondrial ribosomes are similar to bacterial ribosomes, which is consistent with a bacterial ancestor."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "Where mitochondria are made does not explain why their ribosomes are drug sensitive, and a nuclear origin would predict the same behavior as cytosolic ribosomes.",
+    "t": "Mitochondria are made in the nucleus, which is why they respond to the antibiotic."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "The experiment measures protein synthesis in mitochondria and shows that they carry it out, because it is blocked by the drug.",
+    "t": "Mitochondria do not carry out protein synthesis, so the observed change must be due to ATP depletion."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "The cytosolic ribosomes are unaffected, which shows they differ from bacterial ribosomes rather than resembling them.",
+    "t": "Cytosolic ribosomes of the rat cells are bacterial in origin, since they are unaffected."
+   }
+  ],
+  "core": "Endosymbiotic theory explains the origin of mitochondria and chloroplasts from ancestral prokaryotes -- the evidence includes their double membranes (consistent with one membrane from the engulfed prokaryote and one from the host cell's engulfing vesicle), their own circular DNA similar to bacterial chromosomes, their own ribosomes distinct from the cell's cytoplasmic ribosomes, and their ability to divide independently by a process resembling bacterial binary fission.",
+  "id": "apbio-mcq-b5-sv-h-2.10-a-v1",
+  "stem": "The antibiotic chloramphenicol blocks protein synthesis by bacterial ribosomes but does not block protein synthesis by the cytosolic ribosomes of eukaryotic cells. When added to isolated mitochondria from rat liver, it stops mitochondrial protein synthesis, while protein synthesis in the cytosol of the same cells is unaffected. Which conclusion is best supported?",
+  "subject": "AP Biology",
+  "topic": "2.10 Origins of Cell Compartmentalization"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by explaining that a specific channel or carrier allows movement down the gradient.",
+   "loss": "Calling facilitated diffusion active transport because a protein is involved.",
+   "move": "Name the transport protein type and make clear the movement is passive and down gradient."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "Tempting if you picture the channel as a pump. But a channel only provides a path, and ions follow the gradient, which here points inward. Fix: find the side with the higher concentration and predict flow through the open channel toward the lower side.",
+    "t": "Sodium ions flow out of the cell, because open channels pump ions out to keep the inside low."
+   },
+   {
+    "k": "B",
+    "ok": true,
+    "r": "Open channels give a path through the hydrophobic bilayer, and the gradient provides the driving force. Because this is facilitated diffusion, movement is from high to low and needs no ATP.",
+    "t": "Sodium ions flow into the cell through the channels down their concentration gradient, with no direct ATP use."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "Tempting if you call any protein-assisted movement active transport. But a channel does not use ATP; diffusion down the gradient supplies the energy. Fix: decide active or passive from the gradient direction, not from whether a protein is involved.",
+    "t": "Sodium ions flow in, but only because ATP is used to power the channel, since a protein is involved."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "Tempting because the bilayer blocks charged ions on its own. But channel proteins provide a route for specific ions. Fix: when an ion crosses a membrane, look for the channel or carrier protein that lets it through.",
+    "t": "Sodium ions cannot cross at all, because charged ions are blocked by the membrane."
+   }
+  ],
+  "core": "Facilitated diffusion uses membrane proteins to move substances down their concentration gradients without direct energy input -- charged ions like Na+ and K+ require specific channel proteins to cross the hydrophobic bilayer, and aquaporins are specialized channel proteins that allow large quantities of water to cross the membrane far faster than water could pass through the lipid bilayer alone.",
+  "id": "APBIO-OHT-2.6",
+  "stem": "Sodium ion concentration is 145 mM outside a neuron and 12 mM inside. Sodium channels in the membrane open. Which statement correctly describes what happens?",
+  "subject": "AP Biology",
+  "topic": "2.6 Facilitated Diffusion"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by explaining the sequence reception -> transduction -> response.",
+   "loss": "Skipping from signal to response without describing intracellular transduction.",
+   "move": "Use the three-stage chain and place each molecule or event in the correct stage."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "100 × 5 = 500 counts only the first step and leaves out the 5 transcription factors activated by each kinase.",
+    "t": "Pathway Y activates 500 transcription factors, because each receptor activates 5 molecules."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "The amplification at the steps is multiplied (5 × 5 = 25 per receptor), not added (5 + 5 = 10).",
+    "t": "Pathway Y activates 1,000 transcription factors, because the 5 and 5 are added at each receptor."
+   },
+   {
+    "k": "C",
+    "ok": true,
+    "r": "Correct: pathway X gives 100; pathway Y gives 100 × 5 × 5 = 2,500, which is 25 times as large.",
+    "t": "Pathway Y activates 2,500 transcription factors, which is 25 times as many as pathway X, because each step multiplies the signal."
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "The number of receptors is the same, but extra steps with several targets per enzyme give a larger output in Y.",
+    "t": "Pathway X and Y activate the same number, because the number of receptors sets the number of active transcription factors."
+   }
+  ],
+  "core": "Signal transduction converts an external or internal signal into intracellular molecular changes through three stages -- reception, transduction, and response -- and it begins when a ligand binds a receptor with a highly specific binding domain, such as a G-protein-coupled receptor (GPCR) on the cell surface.",
+  "id": "apbio-mcq-b4-sv-h-4.2-b-v2",
+  "stem": "Two hypothetical pathways are compared. In pathway X, each of 100 ligand-bound receptors directly activates one transcription factor. In pathway Y, each of 100 ligand-bound receptors activates 5 kinase molecules, and each kinase activates 5 transcription factors. Which statement is correct?",
+  "subject": "AP Biology",
+  "topic": "4.2 Introduction to Signal Transduction"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by connecting nonpolar or amphipathic structure to function. For example, phospholipid structure explains membrane formation, while fats support long-term energy storage.",
+   "loss": "Treating all lipids as the same instead of distinguishing fats, phospholipids, and steroids by structure and function.",
+   "move": "Start with polarity: hydrophobic or amphipathic? Then connect that property to membrane behavior, storage, insulation, or signaling."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "The triglyceride floats on top, which shows it is less dense than water, so mass is not the cause.",
+    "t": "The triglyceride has a larger mass than the phospholipid, so it sinks."
+   },
+   {
+    "k": "B",
+    "ok": false,
+    "r": "A triglyceride has three fatty acid tails and a phospholipid has two, so the triglyceride does not have fewer.",
+    "t": "The triglyceride has fewer fatty acid tails than the phospholipid, so it cannot form droplets."
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "If the triglyceride were hydrophilic it would dissolve, but the observed layer of merged droplets shows it is hydrophobic.",
+    "t": "The triglyceride is hydrophilic, so it dissolves completely in water."
+   },
+   {
+    "k": "D",
+    "ok": true,
+    "r": "Correct: A triglyceride is entirely nonpolar, so it separates from water as a layer, but a phospholipid is amphipathic and its polar head faces water while tails face each other.",
+    "t": "The triglyceride has no polar head group, so the whole molecule is nonpolar and is excluded from water, whereas the phospholipid has a polar phosphate-containing head and nonpolar tails."
+   }
+  ],
+  "core": "Fatty acids are saturated (only single carbon-carbon bonds, allowing tight, straight packing) or unsaturated (containing one or more carbon-carbon double bonds that introduce a kink in the chain); more double bonds mean more kinks, looser packing, and a fat that stays liquid at room temperature, which is why plant oils (more unsaturated) are liquid while animal fats (more saturated) are solid.",
+  "id": "apbio-mcq-b6-h-1.5-a",
+  "stem": "Equal amounts of three lipids are added to separate tubes of water and shaken. Phospholipid: forms a cloudy mixture of tiny sacs, each enclosing a droplet of water. Triglyceride: forms oily droplets that merge into a layer on top and shows no ordered structure. Which statement best explains why the triglyceride does not assemble like the phospholipid?",
+  "subject": "AP Biology",
+  "topic": "1.5 Lipids"
+ },
+ {
+  "brief": {
+   "earned": "You earn points by identifying the relative solute concentrations, predicting water movement, and explaining the effect on the cell.",
+   "loss": "Moving solute instead of water when answering an osmosis question.",
+   "move": "Compare solute inside and outside, then move water toward the higher solute concentration."
+  },
+  "choices": [
+   {
+    "k": "A",
+    "ok": false,
+    "r": "2.4 M results from using 20 for the temperature instead of converting to 293 K.",
+    "t": "2.4 M"
+   },
+   {
+    "k": "B",
+    "ok": true,
+    "r": "Correct: In an open beaker pressure potential is 0, so the solution must have a solute potential of -4.0 bar: C = 4.0 / (0.0831 × 293) = 4.0 / 24.35 = 0.164 M.",
+    "t": "0.16 M"
+   },
+   {
+    "k": "C",
+    "ok": false,
+    "r": "0.082 M results from treating sucrose as if it dissociated into two particles, using i = 2.",
+    "t": "0.082 M"
+   },
+   {
+    "k": "D",
+    "ok": false,
+    "r": "0.014 M results from leaving out the gas constant R in the calculation.",
+    "t": "0.014 M"
+   }
+  ],
+  "core": "Tonicity describes how surrounding solute concentration affects water movement across membranes -- water potential (Psi) combines pressure potential (Psi_p) and solute potential (Psi_s), so Psi = Psi_p + Psi_s, and solute potential can be calculated as Psi_s = -iCRT, where water always moves from the solution with the higher (less negative) water potential to the one with the lower (more negative) water potential.",
+  "id": "apbio-mcq-b5-sv-h-2.7-a-v2",
+  "stem": "A plant tissue has a water potential of -4.0 bar. A researcher wants a sucrose solution in an open beaker at 20°C (293 K) that produces no net water movement. Use solute potential = -iCRT, with i = 1 for sucrose and R = 0.0831 liter bar per mole kelvin. Which concentration is needed?",
+  "subject": "AP Biology",
+  "topic": "2.7 Tonicity and Osmoregulation"
+ }
+]

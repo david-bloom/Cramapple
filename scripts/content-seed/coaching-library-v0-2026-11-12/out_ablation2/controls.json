@@ -1,0 +1,90 @@
+[
+ {
+  "item": "apstats-mcq-b6-sv-h-1.9-b-v2",
+  "target": "D",
+  "kind": "wrong_key",
+  "text": "The question asks which statement the summaries support, so each claim must match a median or a spread measure (IQR or range).\n\nOption D says Group 2 is more variable because its Q1 is higher. That fails because Q1 locates the lower quartile; it does not measure spread. Spread is the IQR, Q3 − Q1: Group 1 gives 26 − 18 = 8, and Group 2 gives 27 − 21 = 6, so Group 2 is less variable.\n\nNext time, test each claim against the matching measure, and reject any reason that relies on a single quartile. Learn this first: IQR = Q3 − Q1 measures spread. C is correct: medians 25 vs 22, IQRs 6 vs 8, ranges 16 vs 26.\n\nIn fact, choice D is the correct answer, so you should have kept it.",
+  "caught": [
+   true,
+   true
+  ],
+  "judges_ok": true
+ },
+ {
+  "item": "apstats-mcq-b6-sv-h-1.9-b-v2",
+  "target": "D",
+  "kind": "unsupported",
+  "text": "The question requires you to compare the groups’ centers and variability. D says Group 2 is more variable because its first quartile is higher. That confuses location with spread: Group 2’s IQR is 6 and range is 16, both smaller than Group 1’s (8 and 26). The defect is using a quartile’s position to judge variability. Learn this first: compare medians for center and IQR or range for spread. C is supported: Group 2 has the higher median and less variability. The College Board scoring guideline 4.2(b) deducts one point whenever this is omitted.",
+  "caught": [
+   true,
+   true
+  ],
+  "judges_ok": true
+ },
+ {
+  "item": "apstats-mcq-b6-sv-h-1.9-a-v1",
+  "target": "C",
+  "kind": "motive",
+  "text": "You picked C because you rushed and did not read the question. The question asks for the most appropriate comparison of a skewed data set, so you must choose measures that resist outliers: median for center and IQR for spread.\n\nChoice C compares standard deviations (15 and 8) and concludes the middle halves differ. That fails because the very low scores inflate Class 1's standard deviation, while the IQRs (12 and 11) show similar middle halves.\n\nNext time, answer it differently: for a skewed distribution, use the IQR to compare spread instead of the standard deviation. Learn this first: the IQR is Q3 minus Q1, the width of the middle 50% of scores.\n\nThe correct answer is B: the medians (80 versus 77) favor Class 1 for typical score, and the similar IQRs show similar middle spread.",
+  "caught": [
+   true,
+   true
+  ],
+  "judges_ok": true
+ },
+ {
+  "item": "apstats-mcq-b6-sv-h-1.9-a-v1",
+  "target": "C",
+  "kind": "wrong_choice",
+  "text": "Choice C says something different: In a left-skewed distribution the mean is pulled below the typical value, so the medians give the fairer comparison of typical score.",
+  "caught": [
+   true,
+   true
+  ],
+  "judges_ok": true
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-3.8-A-v3",
+  "target": "D",
+  "kind": "wrong_key",
+  "text": "**What the question requires:** the power value (1 − 0.18 = 0.82) and its meaning: the chance the test rejects H0 when p is actually 0.20.\n\n**Choice D:** The power value of 0.82 is correct. The error is the claim that 18% is the chance H0 is true. Power and Type II error are conditional on the alternative being true. Neither gives the probability that H0 is true.\n\n**How the point is lost:** The interpretation is wrong. This is a learn-this-first fix. Power = P(reject H0 | the specific alternative is true) = 1 − P(Type II error). Next time, state power as the probability of rejecting H0 when the specific alternative value is true. Do not attach a probability to H0 or to the parameter.\n\nIn fact, choice D is the correct answer, so you should have kept it.",
+  "caught": [
+   true,
+   true
+  ],
+  "judges_ok": true
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-3.8-A-v3",
+  "target": "D",
+  "kind": "unsupported",
+  "text": "The question asks what the 0.18 chance of failing to reject when \\(p=0.20\\) implies about power. Choice D says power is 0.82 but treats 0.18 as the chance \\(H_0\\) is true. The defect is confusing a test outcome probability with the probability a hypothesis is true. You lose the point for that interpretation. **Learn this first:** power is \\(1-\\beta\\), the chance of rejecting \\(H_0\\) when the alternative is true. Here, power is 0.82, so C is correct. The College Board scoring guideline 4.2(b) deducts one point whenever this is omitted.",
+  "caught": [
+   true,
+   true
+  ],
+  "judges_ok": true
+ },
+ {
+  "item": "apstats-mcq-b6-sv-h-1.10-b-v2",
+  "target": "D",
+  "kind": "motive",
+  "text": "You picked D because you rushed and did not read the question. The question requires a plan that measures the water volume each household uses per day, because that is the variable it asks about.\n\nD says the plan fails because a random sample cannot be used for a mean. This is false. Random samples are the standard way to estimate a population mean. The defect is the variable: the plan records a dollar amount, not water volume.\n\nTo earn this point next time, answer differently: name the variable the question asks about, then check whether the recorded data measure that same variable. Here they do not, which is why C is correct. Learn this first: sampling method judges the design, while the measured variable decides whether the data answer the question.",
+  "caught": [
+   true,
+   true
+  ],
+  "judges_ok": true
+ },
+ {
+  "item": "apstats-mcq-b6-sv-h-1.10-b-v2",
+  "target": "D",
+  "kind": "wrong_choice",
+  "text": "Choice D says something different: Bills include fixed fees and different rates, so the amount owed is not simply proportional to the volume used.",
+  "caught": [
+   true,
+   true
+  ],
+  "judges_ok": true
+ }
+]

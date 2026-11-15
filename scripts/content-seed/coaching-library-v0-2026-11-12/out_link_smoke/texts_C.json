@@ -1,0 +1,100 @@
+[
+ {
+  "item": "APSTATS-MCQ-085",
+  "target": "D",
+  "subject": "ap-statistics",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "What the question requires: the sign of a residual for a point above the line, which means using residual = actual minus predicted and checking that the point is above the line.\n\nChoice D says the sign cannot be determined. That fails because the stimulus already tells you the point is above the line, and the residual's sign follows directly from that position. The sign is fixed by whether the point is above or below the line.\n\nThe point is lost because you did not apply the stimulus information to the definition. Next time, answer it differently: write residual = actual - predicted, then state whether the actual value is higher or lower than the predicted value for this point. Above the line means actual is higher, so the residual is positive. The correct answer is C, Positive.",
+  "cost": 0.0001916,
+  "ms": 1671,
+  "tin": 841,
+  "words": 138,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "a positive residual means the actual value came in higher than predicted",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It shows how being above the line maps to the residual’s sign: actual is higher than predicted, so the residual is positive."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "The coaching text claims that the student lost the point because they did not apply the stimulus information to the definition, but no evidence about the student's reasoning process is provided.",
+    "no_unsupported_claim_about_student": false,
+    "would_help_student": 4,
+    "actionable_move": 5,
+    "defect_and_fix_named": 4,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-085",
+  "target": "D",
+  "subject": "ap-statistics",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks you to identify the residual’s sign when a point is above the regression line. D says the sign cannot be determined, but the point’s position does determine it: above the line means actual is greater than predicted, so the residual is positive. The defect is missing this relationship. You lose the point by giving the wrong sign; learn this first: residual = actual − predicted. Next time, use the point’s position to determine the sign.",
+  "cost": 0.0001593,
+  "ms": 3122,
+  "tin": 573,
+  "words": 78,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "a positive residual means the actual value came in higher than predicted",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It shows how being above the line maps to the residual’s sign: actual is higher than predicted, so the residual is positive."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text says the student lost the point by giving the wrong sign, but the student's answer was D, 'Cannot be determined,' which is not a sign.",
+    "unsupported_claim": "The coaching text asserts that the defect is missing the relationship between above/below the line and residual sign; that knowledge state is not directly supported by the shown answer alone.",
+    "no_unsupported_claim_about_student": false,
+    "would_help_student": 72,
+    "actionable_move": 85,
+    "defect_and_fix_named": 78,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 88,
+    "explains_why_required": 85
+   }
+  ]
+ }
+]

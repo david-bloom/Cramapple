@@ -1,0 +1,1668 @@
+[
+ {
+  "item": "APSTATS-MCQ-SV-095-v2",
+  "target": "B",
+  "subject": "ap-statistics",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "**What the question requires:** A change that makes the test more likely to reject H₀ when the true proportion is 0.60.\n\n**What B says:** A smaller sample has fewer chances for error. That fails because n = 25 increases the standard error of p̂, so a true difference is harder to detect and power falls.\n\n**How the point is lost:** This is a \"learn this first\" gap. Power increases with a larger sample size, a bigger gap between the null and true values, or a larger α. Next time, check each option against these three factors and keep only the one that improves them. Here, that is the larger sample, which shrinks the standard error.",
+  "cost": 0.0004363,
+  "ms": 3833,
+  "tin": 1043,
+  "words": 115,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "power increases with larger sample size, a bigger true-vs-null gap, or a larger alpha.",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It also identifies effect size and significance level as factors that affect power."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "The coaching text calls the student's error a \"learn this first\" gap, which is not directly supported by the question, rationales, or topic passage.",
+    "no_unsupported_claim_about_student": false,
+    "would_help_student": 4,
+    "actionable_move": 5,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": false,
+    "links_to_requirement": 5,
+    "explains_why_required": 5
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-SV-095-v2",
+  "target": "B",
+  "subject": "ap-statistics",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "To answer correctly, identify a change that makes it more likely to reject a false null when the true proportion is 0.60. B says a smaller sample means fewer chances for error, but reducing the sample size increases standard error and lowers power. **Defect:** it treats a smaller sample as reducing error. **Fix (learn this first):** power increases with larger sample size. Choose A: increasing the sample to 400 reduces standard error and makes the true difference easier to detect.",
+  "cost": 0.0002211,
+  "ms": 3757,
+  "tin": 716,
+  "words": 80,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "power increases with larger sample size, a bigger true-vs-null gap, or a larger alpha.",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It also identifies effect size and significance level as factors that affect power."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "None",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-3.8-A-v3",
+  "target": "D",
+  "subject": "ap-statistics",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "What the question requires: the power of the test against p = 0.20, which is the probability of rejecting H0 when the true proportion is 0.20. Since the given probability of failing to reject is 0.18, power is 1 minus that.\n\nOption D says power is 0.82 (correct), but then claims there is an 18% chance H0 is true. That is the defect: it turns a statement about the test's behavior under p = 0.20 into a probability about whether H0 is true. Power is conditional on H0 being false, and it says nothing about the probability that H0 is true.\n\nNext time, answer it differently: after computing power, state what it means in terms of rejecting H0 when the alternative is true. Do not attach a probability to H0. The fix is to read each claim and check it against what power measures. Learn this first: power = P(reject H0 | Ha is true at a specific value) = 1 − P(Type II error).",
+  "cost": 0.00024139999999999999,
+  "ms": 1949,
+  "tin": 989,
+  "words": 165,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "A Type II error is the mirror case: H0 is actually false, AND the test fails to reject it; its probability is 1 minus the test's power",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It identifies what the 0.18 represents: the probability of failing to reject when H₀ is false, not the probability that H₀ is true."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "unsupported_claim": "none",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None.",
+    "unsupported_claim": "None.",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-3.8-A-v3",
+  "target": "D",
+  "subject": "ap-statistics",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks for the chance the test rejects \\(H_0\\) when the true proportion is 0.20. Choice D says power gives an 18% chance that \\(H_0\\) is true, but power does not tell you the probability that \\(H_0\\) is true. **Defect:** it treats power as a probability about the hypothesis. **Fix—learn this first:** power is the chance of rejecting \\(H_0\\) when it is false. Since the chance of failing to reject is 0.18, power is \\(1-0.18=0.82\\), as in C.",
+  "cost": 0.0002053,
+  "ms": 3674,
+  "tin": 708,
+  "words": 79,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "A Type II error is the mirror case: H0 is actually false, AND the test fails to reject it; its probability is 1 minus the test's power",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It identifies what the 0.18 represents: the probability of failing to reject when H₀ is false, not the probability that H₀ is true."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text states that the question asks for the chance the test rejects H0 when the true proportion is 0.20, but the question actually asks 'Which statement is correct?'.",
+    "unsupported_claim": "The coaching text claims the question asks for the chance the test rejects H0 when the true proportion is 0.20.",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 3,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": false,
+    "contradiction": "None",
+    "unsupported_claim": "The coaching text says, “The question asks for the chance the test rejects H0 when the true proportion is 0.20.” The question stem actually asks which statement is correct; it does not directly ask for that rejection chance.",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-2.2-B-v1",
+  "target": "C",
+  "subject": "ap-statistics",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "**What the question requires:** The proportion who exercise among only the adults who sleep 8 or more hours. The denominator must be the sleep 8+ group total.\n\n**What C says:** 0.40 is the overall share of adults who exercise. It ignores the sleep condition, so it answers a different question.\n\n**The fix:** Answer it differently. Next time, restrict to the sleep 8+ column, then divide the exercise cell by that column total: 0.24/0.45 ≈ 0.53 (choice D).\n\n**Learn this first:** A conditional relative frequency is a cell divided by its own row or column total. A marginal relative frequency is a row or column total divided by the table total.",
+  "cost": 0.00045279999999999995,
+  "ms": 3489,
+  "tin": 1088,
+  "words": 110,
+  "passage": {
+   "supporting_field": "brief.what_it_is",
+   "quote": "a marginal relative frequency is a whole row or column total divided by the table total; a conditional relative frequency is a cell divided by its own row or column total.",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It identifies the denominator distinction: the overall exercise proportion uses the table total, while the requested conditional proportion uses the total for adults who sleep 8 or more hours."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-2.2-B-v1",
+  "target": "C",
+  "subject": "ap-statistics",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks for the proportion who exercise among adults who sleep 8 or more hours. Choice C, 0.40, is the overall proportion who exercise, not that conditional proportion. The defect is using the whole group as the denominator. You lose the point because the denominator doesn’t match the group named in the question. To earn it next time, answer it differently: divide the joint proportion, 0.24, by the 8+ hours column total, 0.24 + 0.21 = 0.45. The answer is about 0.53.",
+  "cost": 0.000178,
+  "ms": 2766,
+  "tin": 740,
+  "words": 83,
+  "passage": {
+   "supporting_field": "brief.what_it_is",
+   "quote": "a marginal relative frequency is a whole row or column total divided by the table total; a conditional relative frequency is a cell divided by its own row or column total.",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It identifies the denominator distinction: the overall exercise proportion uses the table total, while the requested conditional proportion uses the total for adults who sleep 8 or more hours."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "unsupported_claim": "none",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": false,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-H-3.15-A",
+  "target": "D",
+  "subject": "ap-statistics",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "What the question requires: decide whether the expected-counts condition holds by computing the expected counts and checking each one against 5.\n\nOption D claims the condition fails because Group 2 is larger. That is not a violation, since group sizes may differ. The condition concerns expected counts, so D gives a wrong reason and earns no point.\n\nNext time, answer differently: compute each expected count (row total × column total ÷ 100) before judging. Group 1 and \"no\" gives 20×10/100 = 2, which fails. Learn this first: every expected count must be at least 5.\n\nCorrect answer: A.",
+  "cost": 0.0006314,
+  "ms": 5470,
+  "tin": 1054,
+  "words": 98,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "its expected-counts condition requires every expected count to exceed 5",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It gives the specific threshold for checking expected counts: every expected count must exceed 5."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "unsupported_claim": "none",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching says every expected count must be at least 5, but the approved passage says every expected count must exceed 5.",
+    "unsupported_claim": "The rule that every expected count must be at least 5 is not stated in the approved passage and conflicts with its exceed-5 wording.",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-H-3.15-A",
+  "target": "D",
+  "subject": "ap-statistics",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks whether the chi-square conditions are met. D says the unequal group sizes violate a condition, but unequal sizes alone are not a violation. The defect is using group size instead of expected counts. You lose the point because Group 1’s expected count for “no” is 2, below 5. To earn it next time, **learn this first**: calculate expected counts and check that every one exceeds 5. A is correct.",
+  "cost": 0.00019289999999999997,
+  "ms": 3418,
+  "tin": 734,
+  "words": 72,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "its expected-counts condition requires every expected count to exceed 5",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It gives the specific threshold for checking expected counts: every expected count must exceed 5."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 1
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "unsupported_claim": "none",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-005-CAL",
+  "target": "B",
+  "subject": "ap-statistics",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "**What the question requires:** State what this design supports (an association) and whether it supports a cause-and-effect claim.\n\n**What B says:** It claims meditation causes lower blood pressure. The study was observational: people chose whether to meditate and reported their own habits. Confounding variables, such as exercise or diet, could explain the difference, so B overstates what the design shows.\n\n**How to earn the point:** Answer differently. Describe the association and state that causation cannot be concluded without random assignment. Learn this first: only random assignment of treatments, with extraneous variables controlled, supports a causal claim. Option A states this correctly.",
+  "cost": 0.00043419999999999993,
+  "ms": 4105,
+  "tin": 1122,
+  "words": 101,
+  "passage": {
+   "supporting_field": "explainer.understand",
+   "quote": "the four requirements (comparison of treatment groups, random assignment, replication, direct control of extraneous variables) function as the checklist for whether any later causal claim in the course is even valid.",
+   "bears_on": "this_error",
+   "adds_beyond_rationale": "It places random assignment among a broader checklist for supporting a causal claim, including comparison, replication, and control of extraneous variables."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "The coaching text claims that confounding variables 'such as exercise or diet' could explain the difference, but specific confounding variables like exercise or diet are not mentioned in the question, stimulus, rationales, or topic passage.",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "The coaching text states that participants chose whether to meditate and gives exercise or diet as confounding variables; the stimulus, rationales, and topic passage do not explicitly state these specifics.",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-005-CAL",
+  "target": "B",
+  "subject": "ap-statistics",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks what this study design supports. It supports describing an association in the sample, not claiming meditation causes lower blood pressure.\n\nChoice B says meditation causes lower blood pressure. The defect is a causal claim from an observational study without random assignment, so confounding cannot be ruled out.\n\nYou lose the point by claiming causation the design cannot support. **Learn this first:** observational studies can show association; random assignment is needed to support a causal claim. A is correct.",
+  "cost": 0.00016429999999999998,
+  "ms": 2540,
+  "tin": 743,
+  "words": 81,
+  "passage": {
+   "supporting_field": "explainer.understand",
+   "quote": "the four requirements (comparison of treatment groups, random assignment, replication, direct control of extraneous variables) function as the checklist for whether any later causal claim in the course is even valid.",
+   "bears_on": "this_error",
+   "adds_beyond_rationale": "It places random assignment among a broader checklist for supporting a causal claim, including comparison, replication, and control of extraneous variables."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-030",
+  "target": "C",
+  "subject": "ap-statistics",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks for an appropriate prediction, so a correct answer must pick an x-value and justify it by checking it against the range of x-values used to fit the line.\n\nOption C says to use the line only when x equals the mean. This is wrong because predictions are not limited to the mean. The error is restricting the line to one point instead of its whole data range.\n\nNext time, state the range check. The line reliably predicts only within x = 10 to 40. A is correct because x = 25 lies inside that range, while B (x = 100) extrapolates far beyond the data.\n\nFix type: answer differently. Name the observed range and whether the x-value falls inside it.",
+  "cost": 0.0005242,
+  "ms": 4570,
+  "tin": 907,
+  "words": 123,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "The regression equation only reliably predicts within the range of x-values actually used to build it",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It explains that prediction reliability depends on whether x is within the observed range, not on whether x equals the mean."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-030",
+  "target": "C",
+  "subject": "ap-statistics",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks which prediction is most appropriate given that the line was fit using x-values from 10 to 40. Your choice says to predict only at the mean, but predictions are not limited to the mean. The defect is an incorrect restriction. The point is lost because this choice does not use the observed x-range to judge prediction reliability. Next time, answer it differently: choose an x-value within 10 to 40, where the regression line is more reliable.",
+  "cost": 0.0001114,
+  "ms": 1790,
+  "tin": 619,
+  "words": 79,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "The regression equation only reliably predicts within the range of x-values actually used to build it",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It explains that prediction reliability depends on whether x is within the observed range, not on whether x equals the mean."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-H-3.8-A",
+  "target": "A",
+  "subject": "ap-statistics",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "**What the question requires:** A statement about the test's error probabilities when p = 0.60, the stated alternative.\n\n**What A says:** It gives a 70% chance that the true proportion is 0.60. That treats power as a probability about the parameter. Power is not that. It is the chance the test rejects H0 if p = 0.60, a statement about the test's decision.\n\n**How to earn the point:** Learn this first: power = P(reject H0 | assumed true value), and Type II error = P(fail to reject H0 | that value) = 1 − power. Next time, check whether each choice describes the decision or the parameter before selecting.\n\nCorrect answer: **C**. With power 0.70, the Type II error probability is 1 − 0.70 = 0.30.",
+  "cost": 0.00047079999999999995,
+  "ms": 3862,
+  "tin": 1043,
+  "words": 126,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "A Type II error is the mirror case: H0 is actually false, AND the test fails to reject it; its probability is 1 minus the test's power",
+   "bears_on": "correct_requirement",
+   "adds_beyond_rationale": "It specifies the two conditions that make the 30% probability a Type II error: the null is false and the test fails to reject it."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "unsupported_claim": "none",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-H-3.8-A",
+  "target": "A",
+  "subject": "ap-statistics",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks what power 0.70 means when the true proportion is 0.60. Choice A treats 70% as the probability that the parameter equals 0.60, but power describes the test’s decision, not the parameter’s value. **Defect:** A confuses a probability about a test with a probability about the parameter. **Fix: learn this first:** Power is the chance of rejecting \\(H_0\\) when the stated alternative is true. So the chance of failing to reject \\(H_0\\) is \\(1-0.70=0.30\\), a Type II error. That makes C correct.",
+  "cost": 0.00018829999999999997,
+  "ms": 3170,
+  "tin": 743,
+  "words": 84,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "A Type II error is the mirror case: H0 is actually false, AND the test fails to reject it; its probability is 1 minus the test's power",
+   "bears_on": "correct_requirement",
+   "adds_beyond_rationale": "It specifies the two conditions that make the 30% probability a Type II error: the null is false and the test fails to reject it."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "None",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-OHT-2.2",
+  "target": "B",
+  "subject": "ap-statistics",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks for the proportion of seniors who favor the earlier start, so the denominator must be the total number of seniors, 120.\n\nChoice B divides 60 by 200, the whole school. That gives the share of all students who are senior \"yes\" responses, which is a joint relative frequency, not the proportion within seniors. The defect is the denominator.\n\nTo earn the point, answer it differently: name the group in the condition, take its total as the denominator, then divide. Here, 60/120 = 0.50, which is choice A.",
+  "cost": 0.0003595,
+  "ms": 2774,
+  "tin": 1095,
+  "words": 90,
+  "passage": {
+   "supporting_field": "explainer.understand",
+   "quote": "Choosing the right denominator is the entire skill, and because conditional relative frequencies are computed from each group's own total rather than the grand total, they let you compare two groups fairly even when one group is much larger than the other",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It explains why using each group’s own total matters: conditional proportions make fair comparisons between groups of different sizes."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "unsupported_claim": "none",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-OHT-2.2",
+  "target": "B",
+  "subject": "ap-statistics",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks for the proportion of seniors who favor the earlier start, so use seniors as the denominator. Choice B divides 60 by all 200 students, giving a joint proportion rather than the proportion within seniors. The point is lost because the denominator does not match the group named. Fix: **answer it differently** by dividing yes responses among seniors by all seniors: 60/120 = 0.50.",
+  "cost": 0.0001632,
+  "ms": 3070,
+  "tin": 752,
+  "words": 66,
+  "passage": {
+   "supporting_field": "explainer.understand",
+   "quote": "Choosing the right denominator is the entire skill, and because conditional relative frequencies are computed from each group's own total rather than the grand total, they let you compare two groups fairly even when one group is much larger than the other",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It explains why using each group’s own total matters: conditional proportions make fair comparisons between groups of different sizes."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "None",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-3.5-A-v3",
+  "target": "B",
+  "subject": "ap-statistics",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks for hypotheses where the alternative states the claim the campaign wants to support: that support is more than 50%. Choice B reverses the roles. It puts equality in Ha and uses ≥ in H0. The null hypothesis must always contain the equality, and the alternative must never contain it. Learn this first: H0 uses =, and Ha uses >, <, or ≠ to match the claim. Answer it differently by writing Ha from the words \"more than 50%\" first, then setting H0 to p = 0.50. Correct answer: D, H0: p = 0.50, Ha: p > 0.50.",
+  "cost": 0.0005234,
+  "ms": 4333,
+  "tin": 1044,
+  "words": 100,
+  "passage": {
+   "supporting_field": "explainer.understand",
+   "quote": "'more than,' 'greater than,' or 'increased' point to a one-sided Ha: p>p0",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It shows that the question’s “exceeds 50%” wording requires Ha: p > 0.50."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None.",
+    "unsupported_claim": "The coaching adds the general rule that H0 must always contain equality and Ha may use ≠; the provided question, rationales, and topic passage do not explicitly state this.",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 4,
+    "actionable_move": 5,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 4
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-3.5-A-v3",
+  "target": "B",
+  "subject": "ap-statistics",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question requires hypotheses that test whether the population proportion exceeds 50%. Choice B puts equality in the alternative, which is the specific defect: the alternative hypothesis does not contain equality. You lose the point because it does not test “more than 50%.” Learn this first: “more than” gives \\(H_a:p>0.50\\), with \\(H_0:p=0.50\\), as in D.",
+  "cost": 0.00017079999999999998,
+  "ms": 3158,
+  "tin": 723,
+  "words": 55,
+  "passage": {
+   "supporting_field": "explainer.understand",
+   "quote": "'more than,' 'greater than,' or 'increased' point to a one-sided Ha: p>p0",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It shows that the question’s “exceeds 50%” wording requires Ha: p > 0.50."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None.",
+    "unsupported_claim": "None.",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 4,
+    "actionable_move": 4,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 4
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-H-3.9-A",
+  "target": "C",
+  "subject": "ap-statistics",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks for the mean and standard deviation of phat A − phat B.\n\nChoice C gives a mean of 1.6, which comes from dividing 0.40 by 0.25. The difference of two proportions requires subtraction: 0.40 − 0.25 = 0.15. Its standard deviation, 0.0495, is correct, but the wrong mean costs the point. The correct answer is B.\n\nNext time, answer it differently: write the mean as p1 − p2 before comparing choices.\n\nLearn this first: means of differences subtract, and variances of differences add: p1(1−p1)/n1 + p2(1−p2)/n2.",
+  "cost": 0.0007397999999999999,
+  "ms": 6023,
+  "tin": 1113,
+  "words": 89,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "The sampling distribution of phat1-phat2 has mean p1-p2 and standard deviation sqrt(p1(1-p1)/n1 + p2(1-p2)/n2)",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It gives the correct mean and standard deviation formulas, beyond identifying that the proportions should be subtracted."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "unsupported_claim": "none",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "None",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-H-3.9-A",
+  "target": "C",
+  "subject": "ap-statistics",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question requires the mean and standard deviation of the sampling distribution of \\(\\hat p_A-\\hat p_B\\). Choice C gives a mean of 1.6 by dividing the proportions instead of subtracting them. The defect is using the wrong operation, so the mean is incorrect. You lose the point because the mean of a difference is \\(p_A-p_B=0.40-0.25=0.15\\). **Learn this first:** use subtraction for the mean of a difference in sample proportions; the correct standard deviation is 0.0495.",
+  "cost": 0.000203,
+  "ms": 3356,
+  "tin": 770,
+  "words": 75,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "The sampling distribution of phat1-phat2 has mean p1-p2 and standard deviation sqrt(p1(1-p1)/n1 + p2(1-p2)/n2)",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It gives the correct mean and standard deviation formulas, beyond identifying that the proportions should be subtracted."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 4,
+    "actionable_move": 5,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 4
+   }
+  ]
+ },
+ {
+  "item": "apbio-mcq-b6-sv-h-1.1-a-v2",
+  "target": "C",
+  "subject": "biology",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "**What's required:** Explain why sugar dissolves yet produces no ions. Conduction needs free charged particles, so the answer must show dissolving without ion formation.\n\n**Choice C:** Says sugar is nonpolar and sits between water molecules with no attraction. This is wrong on both counts. Sugar has many polar -OH groups, and dissolving requires attraction to water.\n\n**Learn this first:** Water's polar O-H bonds form hydrogen bonds with the polar -OH groups on sugar.\n\n**Answer it differently:** Next time, state that sugar molecules stay intact and uncharged, held in solution by hydrogen bonds, so no free ions form. Correct answer: D.",
+  "cost": 0.0005064,
+  "ms": 3767,
+  "tin": 1184,
+  "words": 100,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "Water's polar covalent O-H bonds let it form hydrogen bonds with other water molecules and with polar or charged solutes",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It explains the molecular basis for sugar’s attraction to water: polar water molecules can hydrogen-bond with polar solutes."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "apbio-mcq-b6-sv-h-1.1-a-v2",
+  "target": "C",
+  "subject": "biology",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question requires explaining why dissolved sugar does not produce electrical conductivity. C says sugar is nonpolar and has no attraction to water. **Defect:** Sugar has many polar –OH groups that form hydrogen bonds with water. The answer also fails to explain that sugar molecules stay intact and uncharged, so they do not produce free ions. **Fix:** Learn this first: conductivity requires free ions; sugar dissolves as intact molecules. D gives that explanation.",
+  "cost": 0.0002047,
+  "ms": 3544,
+  "tin": 757,
+  "words": 73,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "Water's polar covalent O-H bonds let it form hydrogen bonds with other water molecules and with polar or charged solutes",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It explains the molecular basis for sugar’s attraction to water: polar water molecules can hydrogen-bond with polar solutes."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "None",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 4,
+    "actionable_move": 3,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": false,
+    "links_to_requirement": 5,
+    "explains_why_required": 4
+   }
+  ]
+ },
+ {
+  "item": "APBIO-MCQ-SV-139-v1",
+  "target": "B",
+  "subject": "biology",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks which prediction follows from the change in internal membrane area, with enzyme density and reactant supply held constant.\n\nChoice B predicts slower nutrient uptake because the cell's exchange surface shrinks. This treats the internal compartment membrane as the cell's outer boundary. The question states that plasma membrane area is unchanged, so B's reasoning fails.\n\nTo earn this point, answer differently: tie your prediction to the membrane the question describes. The correct answer is C. Halving membrane area at constant enzyme density halves the attached enzymes, so fewer reactions can run at once.",
+  "cost": 0.00043989999999999996,
+  "ms": 3470,
+  "tin": 1444,
+  "words": 95,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "internal membranes minimize competing interactions between reactions that would otherwise interfere with each other if they occurred in the same open space, and they increase the total surface area available for reactions that occur on or across a membrane.",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It identifies internal membrane area as reaction surface, clarifying what the area reduction affects; the choice rationales focus on distinguishing it from the external exchange boundary."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 5,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APBIO-MCQ-SV-139-v1",
+  "target": "B",
+  "subject": "biology",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks how reduced internal membrane area affects reactions carried out by enzymes attached to that membrane. B says nutrient uptake slows because the compartment’s membrane provides exchange with the surroundings. The defect is confusing the internal membrane with the plasma membrane, whose area is unchanged. That loses the point because it predicts an external effect rather than the effect on attached enzymes. To earn the point, answer it differently: distinguish the internal membrane from the cell’s outer boundary, then connect its reduced area to fewer enzymes and fewer simultaneous reactions.",
+  "cost": 0.00021009999999999996,
+  "ms": 3024,
+  "tin": 871,
+  "words": 92,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "internal membranes minimize competing interactions between reactions that would otherwise interfere with each other if they occurred in the same open space, and they increase the total surface area available for reactions that occur on or across a membrane.",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It identifies internal membrane area as reaction surface, clarifying what the area reduction affects; the choice rationales focus on distinguishing it from the external exchange boundary."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "apbio-mcq-b4-sv-h-4.4-b-v2",
+  "target": "A",
+  "subject": "biology",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "You picked A. The claim that feedback requires steady output is the error. A feedback loop only requires that the output affects its own production. Here, ethylene stimulates cells to make more ethylene, so the loop is present, and that is what the question asks you to evaluate.\n\nChoice A fails because it says production \"keeps changing\" means no feedback. Changing output does not rule out feedback; a loop that amplifies change is still feedback.\n\nTo earn this point next time, answer it differently: first state what the scenario shows (output drives more of the same output), then judge the student's claim against that. Also learn this first: positive feedback amplifies the original stimulus until a decisive endpoint, while negative feedback keeps a variable near a set point. The correct answer is D, a positive feedback loop.",
+  "cost": 0.000232,
+  "ms": 1918,
+  "tin": 1085,
+  "words": 137,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "positive feedback amplifies the original stimulus until a decisive endpoint",
+   "bears_on": "this_error",
+   "adds_beyond_rationale": "It clarifies that feedback can amplify a changing variable rather than keep it steady."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5
+   }
+  ]
+ },
+ {
+  "item": "apbio-mcq-b4-sv-h-4.4-b-v2",
+  "target": "A",
+  "subject": "biology",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks whether rising ethylene can still be feedback, based on how the output affects its own production. A says there is no feedback because ethylene production keeps changing. The defect is that feedback is present when an output influences its own production; ethylene stimulates more ethylene. This is positive feedback, which amplifies the original stimulus. The point is lost by treating feedback as requiring a steady variable. Fix: answer it differently by checking whether the output feeds back on production, not whether the variable stays constant. D is correct.",
+  "cost": 0.0002232,
+  "ms": 3454,
+  "tin": 717,
+  "words": 91,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "positive feedback amplifies the original stimulus until a decisive endpoint",
+   "bears_on": "this_error",
+   "adds_beyond_rationale": "It clarifies that feedback can amplify a changing variable rather than keep it steady."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "unsupported_claim": "none",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "None",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APBIO-MCQ-SV-008-v1",
+  "target": "A",
+  "subject": "biology",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "**What the question requires:** Explain why exposing a nonpolar residue on the surface makes separate molecules stick together, and name the interaction that links them.\n\n**What A says:** Leucine side chains form covalent peptide bonds between molecules, creating one large polymer. This fails because peptide bonds form only between the amino and carboxyl groups of backbone residues during translation. Side chains do not form them with other proteins.\n\n**How the point is lost:** The answer names the wrong kind of bond. To earn the point, learn this first: peptide bonds are covalent links within one chain's backbone, while R-group interactions between molecules are noncovalent (hydrophobic, hydrogen, or ionic). Next time, answer differently: start from the substitution (nonpolar leucine exposed to water) and name the hydrophobic interaction that links the molecules.",
+  "cost": 0.0005457,
+  "ms": 4584,
+  "tin": 1212,
+  "words": 130,
+  "passage": {
+   "supporting_field": "explainer.points",
+   "quote": "the specific interaction driving it (peptide bonds, backbone hydrogen bonds, R-group hydrogen/hydrophobic/ionic interactions, disulfide bridges, or inter-chain interactions)",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It frames peptide bonds and hydrophobic R-group interactions as distinct interaction types to identify, rather than treating side chains as forming peptide bonds."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text says R-group interactions between molecules are noncovalent (hydrophobic, hydrogen, or ionic), but the approved topic passage includes disulfide bridges, which are covalent R-group/inter-chain interactions.",
+    "unsupported_claim": "The claim that all R-group interactions between molecules are noncovalent is not stated in the question, rationales, or approved passage.",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "APBIO-MCQ-SV-008-v1",
+  "target": "A",
+  "subject": "biology",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question requires you to identify how replacing surface serine with leucine causes separate enzyme molecules to aggregate in water. Choice A says leucine side chains form peptide bonds between proteins, but peptide bonds form between amino acids during translation, not between R groups. **Defect:** it assigns the wrong interaction. **Point loss and fix—learn this first:** peptide bonds join amino acids; exposed nonpolar leucine side chains cluster away from water through hydrophobic interactions, as in B.",
+  "cost": 0.0001684,
+  "ms": 2820,
+  "tin": 759,
+  "words": 76,
+  "passage": {
+   "supporting_field": "explainer.points",
+   "quote": "the specific interaction driving it (peptide bonds, backbone hydrogen bonds, R-group hydrogen/hydrophobic/ionic interactions, disulfide bridges, or inter-chain interactions)",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It frames peptide bonds and hydrophobic R-group interactions as distinct interaction types to identify, rather than treating side chains as forming peptide bonds."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "unsupported_claim": "none",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 1,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "None",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 4,
+    "actionable_move": 3,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 4
+   }
+  ]
+ },
+ {
+  "item": "APBIO-MCQ-SV-021-v2",
+  "target": "C",
+  "subject": "biology",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "This question asks what happens to digestion when enzymes are made but cannot be packaged into vesicles. A correct answer must say the enzymes are still synthesized, that they fail to reach lysosomes, and that digestion drops so material builds up.\n\nChoice C says the enzymes are made inside the lysosomes. That is wrong: the enzymes are made on the rough ER, and the lysosome only receives them after the Golgi packages them. Choice C also says digestion stays at the normal rate, which ignores the packaging block. The stem states the drug stops packaging, so delivery fails.\n\nNext time, do two things. Trace where each step happens, then state what the drug blocks and what happens downstream. Learn this first: the rough ER makes the enzymes, and the Golgi packages them into lysosome-forming vesicles. Without packaging, lysosomes lack enzymes and digestion falls.",
+  "cost": 0.00025889999999999995,
+  "ms": 1936,
+  "tin": 1144,
+  "words": 143,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "rough ER is ribosome-studded and builds proteins destined for secretion or membranes",
+   "bears_on": "this_error",
+   "adds_beyond_rationale": "It connects the rough ER’s ribosomes to its role in building proteins."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "unsupported_claim": "none",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 5,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": false,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "None",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 3,
+    "actionable_move": 3,
+    "defect_and_fix_named": 3,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 3,
+    "explains_why_required": 3
+   }
+  ]
+ },
+ {
+  "item": "APBIO-MCQ-SV-021-v2",
+  "target": "C",
+  "subject": "biology",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks what happens when Golgi packaging is blocked but enzyme synthesis continues. C says lysosomes make the enzymes, but lysosomes receive enzymes made at the rough ER; they do not make them. The defect is the wrong site of enzyme production, so C misses the effect of blocked delivery. This is a learn this first fix: know that the rough ER makes lysosomal enzymes and the Golgi packages them for lysosomes. Then predict that digestion decreases and worn-out components accumulate (D).",
+  "cost": 0.0002377,
+  "ms": 3965,
+  "tin": 737,
+  "words": 83,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "rough ER is ribosome-studded and builds proteins destined for secretion or membranes",
+   "bears_on": "this_error",
+   "adds_beyond_rationale": "It connects the rough ER’s ribosomes to its role in building proteins."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "unsupported_claim": "none",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "None",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "apbio-mcq-b6-h-1.7-a",
+  "target": "C",
+  "subject": "biology",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks which statement fits data showing an unchanged sequence and mass, but lost helices and activity.\n\nOption C's defect is that it invents a gene change and a new protein. The sample is a purified protein with no DNA, and the unchanged sequence shows the same protein is present, only unfolded.\n\nNext time, answer by linking each result to its cause: unchanged sequence and mass rule out covalent changes, while lost helices and activity show disrupted folding.\n\nLearn this first: heat denatures proteins by breaking weak bonds (hydrogen bonds and similar interactions) and leaves peptide bonds intact.",
+  "cost": 0.0006979,
+  "ms": 6189,
+  "tin": 1139,
+  "words": 99,
+  "passage": {
+   "supporting_field": "explainer.answer_move",
+   "quote": "Use the chain: sequence -> folding/shape -> function. If a mutation or environmental change appears, explain how it could alter that chain.",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It gives a framework for explaining how an environmental change such as heating can affect protein function without changing the gene."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "apbio-mcq-b6-h-1.7-a",
+  "target": "C",
+  "subject": "biology",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question requires you to explain why activity and helix content fell while sequence and mass stayed unchanged. Choice C says heating changed the gene and made a new protein, but the sample contains purified protein, not DNA; heating cannot change its gene. The defect is explaining the result with a gene change instead of altered protein structure. The point is lost because C does not account for the lost helices and activity. Next time, **answer it differently**: connect the unchanged sequence to disrupted folding and reduced function. B gives that explanation.",
+  "cost": 0.00020139999999999996,
+  "ms": 3632,
+  "tin": 739,
+  "words": 92,
+  "passage": {
+   "supporting_field": "explainer.answer_move",
+   "quote": "Use the chain: sequence -> folding/shape -> function. If a mutation or environmental change appears, explain how it could alter that chain.",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It gives a framework for explaining how an environmental change such as heating can affect protein function without changing the gene."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "None",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 1,
+    "actionable_move": 1,
+    "defect_and_fix_named": 1,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 1,
+    "explains_why_required": 1
+   }
+  ]
+ },
+ {
+  "item": "apbio-mcq-b5-h-2.3-b",
+  "target": "C",
+  "subject": "biology",
+  "gen": "anthropic/claude-haiku-5.5",
+  "arm": "C",
+  "ok": true,
+  "text": "**What the question requires:** Identify which side of the membrane each protein's accessible region faces, using which preparation was digested.\n\n**What C says:** P is peripheral because the enzyme digests it from outside. This is wrong because the stem states P is integral. Digestion from outside shows only that P has an exposed outer region, which an integral protein can also have.\n\n**How the point is lost:** The answer misreads what the digestion shows and ignores the stem's classification. Next time, answer differently: state which side each result reveals, and keep the integral classification given in the stem. Learn this first: embedded proteins have hydrophilic regions facing water on each side, so an integral protein can be reached from outside, inside, or both.\n\n**Correct answer, B:** P is digested in intact cells, so an outer domain is exposed. Q is digested only in leaky cells, so its accessible region faces the cytoplasm.",
+  "cost": 0.0005701,
+  "ms": 4366,
+  "tin": 1201,
+  "words": 152,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "embedded proteins orient themselves so any hydrophilic regions face water while hydrophobic regions stay buried in the bilayer's interior.",
+   "bears_on": "this_error",
+   "adds_beyond_rationale": "It explains how an integral protein can have a water-exposed region while still having hydrophobic regions embedded in the bilayer."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "None",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5
+   }
+  ]
+ },
+ {
+  "item": "apbio-mcq-b5-h-2.3-b",
+  "target": "C",
+  "subject": "biology",
+  "gen": "openai/gpt-6-luna",
+  "arm": "C",
+  "ok": true,
+  "text": "The question asks which sides of the membrane expose regions of P and Q to the protease. Choice C says P is peripheral, but the question states both proteins are integral; digestion from outside shows only that P has an exposed outer region. **Defect:** it confuses an exposed domain with a protein’s membrane type. **Fix: answer it differently:** use where digestion occurs to identify the exposed side. P has an outer region; Q has a cytoplasmic region, so B is supported.",
+  "cost": 0.00017460000000000002,
+  "ms": 3455,
+  "tin": 781,
+  "words": 81,
+  "passage": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "embedded proteins orient themselves so any hydrophilic regions face water while hydrophobic regions stay buried in the bilayer's interior.",
+   "bears_on": "this_error",
+   "adds_beyond_rationale": "It explains how an integral protein can have a water-exposed region while still having hydrophobic regions embedded in the bilayer."
+  },
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "unsupported_claim": "",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 2,
+    "actionable_move": 2,
+    "defect_and_fix_named": 2,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 2,
+    "explains_why_required": 2
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "unsupported_claim": "None",
+    "no_unsupported_claim_about_student": true,
+    "would_help_student": 5,
+    "actionable_move": 5,
+    "defect_and_fix_named": 5,
+    "fix_kind_stated": true,
+    "jargon_free": true,
+    "links_to_requirement": 5,
+    "explains_why_required": 5
+   }
+  ]
+ }
+]

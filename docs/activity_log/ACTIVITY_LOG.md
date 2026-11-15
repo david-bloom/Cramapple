@@ -4,6 +4,9 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- 2026-11-13: Calculus AB 5.6-5.9, 5.11 second-derivative primes restored in Production (APPROVAL-0274).
+- 2026-11-13: Recommendation #3 structured text applied to Production for six more subjects (317 rows, APPROVAL-0273).
+- quick_take ("In 30 seconds") text for 136 Chemistry, Biology and Statistics units 1-5 topics applied to Production (`APPROVAL-0272`, 2026-11-13): schema, RPC key and data live, read back 136/136; students see it after app PR 61 is merged and published
 - 2026-11-15: `DECISION-0137` recorded: More help cut from the question page (backend and code kept), plain "Your answer is saved." line removed, report trigger shrunk to a flag icon. Sent to Lovable as a draft (`drft_01m7gm7d5df90rrsm7et32f38z`), not yet reviewed, merged or published. Decision log: `docs/activity_log/DECISIONS_LOG.md`.
 - 2026-11-15: Coaching-via-grader-engines session closed. v2 plan written (`docs/product/COACHING_VIA_GRADER_V2_PLAN_2026_11_14.md`, PR #665); owner decisions: coaching never names the MCQ answer, three-rule lean prompt for v0, 1-5 rating; production app (Lovable commit `9487891`) now has the feedback card and rating live with coaching off (`VITE_COACHING`). No Supabase, migration or Production data change, no approvals used. Open: build `coach-attempt`/`feedback-rating`, reason codes and retry in `evaluate-attempt`, authored-rationale audit, real-grader replay, coverage floors. Handoff: `docs/handoffs/SESSION_CLOSE_2026_11_15_COACHING_VIA_GRADER_V2.md`.
 - 2026-11-14: TASK-0050 Statistics and PR #659 session closed. The 390-cell skill pass and 14 successor publications are recorded; nine retired-version items and `provisional_model` promotion remain for separate decisions. PR #659 merged with the Biology approval record renumbered to `APPROVAL-0287`. Handoff: `docs/handoffs/SESSION_CLOSE_2026_11_14_TASK0050_STATISTICS_AND_PR659.md`.
