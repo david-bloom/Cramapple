@@ -1,6 +1,8 @@
 # Coaching via the Grader Engines: v2 Plan
 
-Status: DRAFT for owner review, 2026-11-14. Supersedes `COACHING_LIBRARY_V0_PLAN_2026_11_12.md` (not in this repo; lives on the owner's machine). No Production change is proposed or approved by this document.
+Status: DRAFT for owner review, 2026-11-14; graceful-failure ruling approved by David Bloom 2026-11-15. Supersedes `COACHING_LIBRARY_V0_PLAN_2026_11_12.md` (not in this repo; lives on the owner's machine). No Production release is approved by this document.
+
+> **OWNER RULING, 2026-11-15 — unchanged grading response when coaching is suppressed.** When an FRQ grading is uncertain, including any `unable_to_determine` criterion, do not generate or render model coaching. Return and display exactly the grading response that the same attempt would have received with coaching off. Do not add a review label, change score handling, hide existing feedback, or introduce a new student message. Apply the same invariant to a graded zero-point FRQ in v0 and to any coaching result that contradicts the grade, fails validation, times out or errors. A missed MCQ is necessarily 0/1, so the zero-point FRQ rule does not suppress MCQ coaching when its deterministic grade is trustworthy and the MCQ checks pass. This ruling supersedes the partial-coaching tier previously proposed in section 6. It approves behavior for the plan, not endpoint, schema, provider, deployment or Production release work.
 Inputs: the v0 plan, an independent model review (Fable 5.2) and a read of the grader code in this checkout.
 Not verified here: the parent plan `COACHING_ARC_PLAN_DRAFT_2026_11_11.md` and the prototype dir `scripts/content-seed/coaching-prototype-2026-11-11/` are not in this checkout. Voice rules, the judging recipe and the "3-4% real-error rate" are taken from the v0 plan and should be re-checked against the originals.
 
@@ -26,7 +28,7 @@ Goal is unchanged: *show students how to earn points.* Name what the question re
 ## 3. Principles
 
 1. **Coaching renders the verdict; it never re-judges.** Points, statuses and criterion keys come from the sanitized grading payload and are not model-authored.
-2. **Fail closed to today's text.** Any failed check or coaching error shows the existing composed feedback (tier 2); grading failures follow tiers 1 and 3 (section 6). Coaching is an enhancement that can disappear without harm.
+2. **Fail closed to the existing grading response.** Whenever coaching is suppressed or fails, the student sees exactly the response that grading would have produced with coaching off. The tier and reason code are internal measurements; they do not change the grade display.
 3. **Source-bound claims.** Every substantive claim must trace to the item, the rubric fields, the chosen rationale, or the student's own quoted words. Unsupported claims are flagged, counted, and block that text.
 4. **Never leak the answer.** MCQ coaching never states or implies the correct choice (existing rule; now an explicit check).
 5. **Simple first.** No library, no label corpus, no snapshot/fingerprint apparatus in v0. Add authored data only where a test shows it earns its place.
@@ -35,7 +37,7 @@ Goal is unchanged: *show students how to earn points.* Name what the question re
 
 **Input** (already available post-grade): sanitized `criteria[]` with status, points, evidence quote, decision explanation, `minimum_fix`; `highest_value_gap`; the item part text; each criterion's `learner_facing_text` and `evidence_requirements`.
 
-**Generate only on a trustworthy grade.** Full coaching requires `graded`; abstention-only uncertain gets tier 1 partial coaching; every other non-graded outcome and every coaching failure follows the tiers in section 6.
+**Generate only on a trustworthy grade.** Full FRQ coaching requires `graded` with at least one awarded point. Any uncertain FRQ grading, including an `unable_to_determine` criterion, and any graded zero-point FRQ skip coaching and display the existing grading response unchanged. Every other non-graded outcome and every coaching failure also displays its existing grading response. MCQ misses follow section 5's separate one-point rule.
 
 **What coaching adds over the composed summary:** a short teacher-voice passage that (a) names the part's requirement in plain words, (b) says what the student's quoted words did or did not do against that criterion, (c) gives the "why this earns the point" reason, taken from `evidence_requirements`, and (d) one next move from `minimum_fix`. Highest-value gap first.
 
@@ -92,17 +94,17 @@ Coaching is an enhancement. Every failure path ends in a complete, honest result
 
 | Tier | When | What the student sees |
 |---|---|---|
-| 0. Full coaching | Grading is `graded`, coaching generated, every post-check passes, within the latency ceiling | Verdicts and score, plus the coaching text |
-| 1. Partial coaching | Grading is uncertain only because the grader abstained on some criteria (`grader_abstained`); the other criteria are resolved and sanitized | Coaching on the resolved criteria only, plus a plain line that the unresolved part could not be scored and is held for review. Never any claim about the unresolved criteria |
-| 2. **Response without coaching** | Grading is `graded` but coaching is skipped, fails a post-check, times out or errors | Today's composed result unchanged: score, per-criterion verdicts, quoted evidence, `minimum_fix` for FRQ; chosen-answer rationale and skill label for MCQ. No placeholder, no "coaching unavailable" apology. The student cannot tell anything was skipped |
-| 3. Result unavailable | Grading itself did not complete (`provider_unavailable`, `provider_timeout`, `output_malformed`, `output_empty`, `integrity_failed`, `request_invalid`) | An honest "we couldn't score this one right now" message, the student's response saved, no score shown, no coaching, and a retry path. This tier is today's behaviour and is not changed by coaching |
+| 0. Full coaching | Grading is `graded`; FRQ score is positive or MCQ grade is trustworthy; coaching generated, every post-check passes, within the latency ceiling | Verdicts and score, plus the coaching text |
+| 1. **Grader abstained; no coaching** | An FRQ grading is uncertain because of `unable_to_determine`, `grader_abstained` or `deterministic_unresolved` | Exactly the grading response for that attempt with coaching off. The tier records why coaching was skipped; it adds no student-facing state or copy. |
+| 2. **Graded response without coaching** | A graded FRQ earns zero points; or a graded result's coaching is skipped, fails a post-check, times out or errors | Exactly the graded response for that attempt with coaching off. A 0/1 MCQ miss may still receive model coaching after its checks pass. |
+| 3. Grading failure; no coaching | Grading itself did not complete (`provider_unavailable`, `provider_timeout`, `output_malformed`, `output_empty`, `integrity_failed`, `request_invalid`) | Exactly the grading failure response for that attempt with coaching off. |
 
 Rules that hold at every tier:
-- **Grade first, coaching second.** The verdict and score render as soon as grading returns. Coaching is a separate post-grade call that fills the card when ready. If it has not arrived by the latency ceiling (starting point: 4 s after the grade renders, owner to set), the card stays at tier 2 and the late result is discarded, not inserted afterward.
+- **Grade first, coaching second.** Render the grader's response as soon as it returns, using the same display path as coaching off. Coaching is a separate post-grade call only for eligible graded results. If it has not arrived by the latency ceiling (starting point: 4 s after the grade renders, owner to set), the card stays at tier 2 and the late result is discarded, not inserted afterward.
 - **Fail closed, silently, after one retry.** A failed post-check triggers one regeneration that names the failed check; if it fails again, (points mismatch, quote not in response, correct choice leaked, claim not in source fields, length or banned phrase) drops to tier 2 and records the reason code. The student sees no error. Retries add about 1 s and a fraction of a cent.
-- **Never coach through an integrity or provider failure.** Tiers 1 and 0 require a trustworthy grade; tier 1 applies only to abstention, never to integrity or provider failures.
+- **Never coach through uncertainty, an integrity failure or a provider failure.** Tier 0 requires a trustworthy grade and, for FRQ, a positive awarded score. A coaching text that says or implies earned points inconsistent with the grade is discarded in favor of tier 2. No coaching skip changes the grading response.
 - **The tier is recorded** with the reason code on every attempt (section 7) so coverage can be measured.
-- **Fixture rule:** the tier 2 card must render identically to today's card for the same grading row. The offline test (section 9) includes a regression check that coaching-off output is byte-for-byte unchanged.
+- **Fixture rule:** tiers 1–3 must render identically to the coaching-off response for the same grading result, including copy, score treatment and criterion detail. The offline test (section 9) includes a regression check that coaching-off output is byte-for-byte unchanged.
 
 ## 7. Reason codes for uncertain grading and skipped coaching
 
@@ -122,7 +124,7 @@ Today every non-graded outcome lands in one `uncertain` status, so a provider bi
 | `routed_human_review` | Spatial, holistic or structured item routed to shadow or human review by design | No | No (out of automated scope) |
 | `deterministic_unresolved` | A deterministic verifier marked criteria unresolved | No | Reported separately |
 
-**Coaching-stage codes (proposed):** `coaching_skipped_uncertain`, `coaching_check_failed` (detail: which check), `coaching_timeout`, `coaching_provider_error`, `coaching_disabled` (flag off or subject not enabled).
+**Coaching-stage codes (proposed):** `coaching_skipped_uncertain`, `coaching_skipped_zero_frq`, `coaching_check_failed` (detail: which check), `coaching_timeout`, `coaching_provider_error`, `coaching_disabled` (flag off or subject not enabled). `coaching_skipped_uncertain` includes any `unable_to_determine` criterion; it does not trigger a partial-coaching call.
 
 **Storage options (owner decision):**
 1. *No-migration option:* prefix the existing `uncertainty_reason` text with the code (`output_malformed: Unterminated string at position 195`) and add a small parser. Lowest risk, usable for the offline replay immediately, but queries need string matching.
@@ -141,6 +143,7 @@ Recommendation: use option 1 for the offline replay and the pilot, and take opti
 ## 8b. Student interface: coaching slot and feedback rating
 
 Built and verified in the web app 2026-11-14 (not wired to a backend).
+- **Approved fallback, not yet implemented in the app:** uncertain FRQs, zero-point FRQs and rejected coaching output show exactly the same grading response as coaching off, without model coaching or a coaching-pending indicator. The 2026-11-14 UI build predates the 2026-11-15 ruling; verify this unchanged-output rule against the actual grader response.
 - **One slot, grade first.** The card shows the grade and the composed feedback instantly. Model coaching, when it arrives, replaces the composed text in the same space so nothing moves; while pending, a quiet "Coaching on its way" line shows (no spinner, the system has no motion); if it never arrives, or fails a check, the card stays as it was with no error. This is tier 2 in section 6 made visible. **Layout:** the card sits in the task pane, which in the two-pane design (DECISION-0133: task pane plus a 440px rail with Rubric and Reference tabs) is wider than the old centre pane, and the plate may scroll when content needs it (DECISION-0132), so coaching is not squeezed. The `web/` prototype still renders three panes (DECISION-0133 left it unchanged), so the build was verified two ways: in the prototype, with an 80-word coaching text and the rating row, `npm run verify:panes` reports 0 panes overflowing in all 14 states; and the card alone, rendered at the two-pane task width (about 880px), the stacked width (about 820px) and a phone width (358px) in all four states (composed only, pending, coaching ready, rated), shows no horizontal overflow, with the end labels staying on the button row on phones. The rating is not placed in the rail.
 - **Rating.** A quiet "Helpful? Not at all 1 2 3 4 5 Very" at chrome scale, digits only (the design system has no stars, faces or emoji), shown when there is feedback to rate, final once chosen ("Thanks · 4 of 5"). Stored locally on the attempt with `source` = `coaching` or `composed`, so the two can be compared. It is not shown for ungradable results.
 - **What it is for.** The owner is not the target audience, so the rating is how the team learns whether coaching helps students: rating by source, by prompt version, by subject and item type, and by tier. It replaces opinion in choosing between the three-rule prompt and a longer variant.
@@ -160,7 +163,7 @@ Built and verified in the web app 2026-11-14 (not wired to a backend).
 
 David reads all 60 blind against today's text (about 90 minutes). A subject reviewer checks every factual flag.
 
-**Coverage gate (new).** Coverage is the share of eligible attempts that reach tier 0 or tier 1, reported with counts. Eligible means every submitted FRQ or MCQ attempt in the replay, excluding `routed_human_review`. Report four numbers separately, split by reason code: *coverage* (tier 0 or 1), *availability* (a trustworthy grade exists), *grader-quality uncertainty* (`output_malformed`, `output_empty`, `integrity_failed`, `grader_abstained`) and *provider failures* (`provider_unavailable`, `provider_timeout`, `request_invalid`). Provider failures count against availability and the alert, not against grader quality. The replay must run through the real Development grader with at least 30 FRQ attempts, so a single run's billing outage cannot decide the result. Treat coverage as a pilot figure with its denominator.
+**Coverage gate (amended by the 2026-11-15 ruling).** Report two denominators: all submitted attempts (student-experience distribution across tiers 0–3), and coaching-eligible attempts (graded, nonzero-point FRQs plus graded MCQs, excluding `routed_human_review`). Coaching coverage is the share of the latter reaching tier 0; tier 1 has no coaching and does not count as coaching. Report the number of uncertain and zero-point FRQs separately, so intentional suppression cannot make coverage appear better by disappearing from the denominator. Also report availability, grader-quality uncertainty (`output_malformed`, `output_empty`, `integrity_failed`, `grader_abstained`) and provider failures (`provider_unavailable`, `provider_timeout`, `request_invalid`) by reason code. Provider failures count against availability and the alert, not grader quality. The replay must run through the real Development grader with at least 30 FRQ attempts, so a single run's billing outage cannot decide the result. Treat coverage as a pilot figure with its denominator; revisit the proposed floors against this amended definition.
 
 **Go only if all hold:**
 - zero texts contradict the grader's points or the answer key;
@@ -170,7 +173,7 @@ David reads all 60 blind against today's text (about 90 minutes). A subject revi
 - post-checks catch every planted fault;
 - cost and latency fit a ceiling David sets first (suggested starting point: about $0.005 and 3 seconds per attempt);
 - FRQ coverage is at least 90% and MCQ coverage at least 99% (starting thresholds for David to set), with every shortfall attributed to a reason code;
-- the tier 2 card is identical to today's card for the same grading row, and tier 3 messages render for every grading-failure code.
+- every no-coaching path (tiers 1–3) renders identically to the coaching-off grading response for the same attempt, including uncertain and grading-failure cases.
 
 Even a pass is a pilot result: 60 cases cannot certify a near-zero error rate; report counts and the specific failures.
 
@@ -216,6 +219,8 @@ Lowest-risk shape: a **separate post-grade call** that leaves grading latency an
 - **Separate urgent item:** verify whether a gateway key was exposed in earlier transcripts and rotate through the approved path. Independent of this plan.
 
 ## 14. Decisions for David
+
+**Settled after this list was drafted (2026-11-15):** David approved the unchanged-grading-response fallback at the top of this plan. It replaces section 6's former partial-coaching tier for abstentions and adds the zero-point FRQ fallback. This is a plan decision; the release gates in section 13 remain open.
 
 1. Approve the grader-first direction and retiring layers 3, 8 and 9 as separate artifacts.
 2. Which of the 22 packet texts are approved exemplars, as marked or after revision?
