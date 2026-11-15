@@ -154,13 +154,18 @@ def part_b(pool):
         for k in items:
             rng.shuffle(items[k])
         out = {}
+        # One script of (item, chosen answer) per step, fixed BEFORE the arms run, so
+        # both arms see identical questions and identical wrong answers and rationales.
+        script, used0 = [], {main: 0, other: 0}
+        for which, want in plan_tpl:
+            tc = main if which == 0 else other
+            sub, it, v, cs, wrong, title = items[tc][used0[tc]]; used0[tc] += 1
+            correct = next(c for c in cs if c["is_correct"])
+            chosen = correct if want else rng.choice(wrong)
+            script.append((tc, v, cs, title, correct, chosen))
         for arm in ("LM", "CODE"):
-            hist, used, steps = [], {main: 0, other: 0}, []
-            for step, (which, want) in enumerate(plan_tpl, 1):
-                tc = main if which == 0 else other
-                sub, it, v, cs, wrong, title = items[tc][used[tc]]; used[tc] += 1
-                correct = next(c for c in cs if c["is_correct"])
-                chosen = correct if want else rng.choice(wrong)
+            hist, steps = [], []
+            for step, (tc, v, cs, title, correct, chosen) in enumerate(script, 1):
                 is_c = chosen["choice_key"] == correct["choice_key"]
                 topic = f"{tc} {title}"
                 same_miss = sum(1 for h in hist if h["topic"] == topic and not h["correct"])
