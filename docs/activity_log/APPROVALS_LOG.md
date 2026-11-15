@@ -4,6 +4,9 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- APPROVAL-0274 (2026-11-13): Calculus AB lost second-derivative primes restored in Production (5 topics) — APPROVAL-0274_CALC_AB_LOST_PRIMES_REPAIR_PRODUCTION_2026_11_13.md
+- APPROVAL-0273 (2026-11-13): structured explainer text for Biology 6-8, Chemistry 6-9, Calculus AB/BC, Physics 1, Precalculus applied to Production (317 rows) — APPROVAL-0273_STRUCTURED_EXPLAINERS_REMAINING_SUBJECTS_PRODUCTION_2026_11_13.md
+- [APPROVAL-0272 — quick_take "In 30 seconds" text for AP Chemistry, Biology and Statistics units 1-5 applied to Production (granted 2026-11-13)](APPROVAL-0272_QUICK_TAKE_CHEM_BIO_STATS_UNITS_1_5_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0204 — Rewrite the AP Chemistry Unit 2 explainers 2.1-2.7 in Production (executed 2026-10-31)](APPROVAL-0204_CHEM_UNIT2_EXPLAINER_REWRITE_PRODUCTION_2026_10_31.md)
 - [APPROVAL-0203 — Ad attribution: apply `ad_attribution` migration and deploy `create-checkout-session`, `create-parent-payment-link` and `stripe-webhook` to Production (executed 2026-10-26; no live tagged trial verified yet)](APPROVAL-0203_AD_ATTRIBUTION_PRODUCTION_MIGRATION_AND_DEPLOY_2026_10_26.md)
 - [APPROVAL-0202 — Scoped QA access for the MCQ investigation (executed; grading and teaching access verified)](APPROVAL-0202_SCOPED_QA_ACCESS_2026_10_29.md)

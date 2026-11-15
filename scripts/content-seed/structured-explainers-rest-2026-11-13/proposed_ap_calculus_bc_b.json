@@ -1,0 +1,362 @@
+{
+ "6.1": {
+  "core_idea": "- An accumulation total is only as trustworthy as the rate-times-interval reasoning behind it.\n- Stating the final number without identifying the rate function and the interval it was integrated over does not show where that number came from.",
+  "what_students_need_to_understand": "- A rate function describes how fast a quantity is changing at an instant.\n- The definite integral of that rate over an interval gives the total accumulated change, a genuinely different quantity from any single instantaneous value.",
+  "how_this_becomes_points": "1. State the rate function explicitly.\n2. State the interval of accumulation explicitly.\n3. Connect the integral notation to the total-change interpretation, not just a number pulled from a calculator.",
+  "point_attaining_answer": "No -- even if 40 is numerically correct, the response never identifies r(t) as the rate being accumulated or states that the integral is taken over [0,5].\n\nFull credit requires writing the definite integral of r(t) from 0 to 5 and interpreting the result as the total gallons that flowed in during that specific interval."
+ },
+ "6.2": {
+  "core_idea": "- A Riemann sum is only as defensible as its subinterval widths and sample-point choice.\n- Reporting a numeric approximation without showing which endpoint (left, right, or midpoint) generated each height, and the width used, does not earn credit even when the arithmetic is right.",
+  "what_students_need_to_understand": "- The CED does not codify universal over/underestimate rules by name; that a right sum overestimates an increasing function, for instance, is standard teaching convention, not required CED text.\n- A response still must show its subinterval structure explicitly, since that structure is what's actually being scored.",
+  "how_this_becomes_points": "1. Show each subinterval's width.\n2. Show the chosen sample height.\n3. Write them as an explicit product before summing, not just a final number.",
+  "point_attaining_answer": "The subinterval breakdown is missing.\n\n- With unequal widths (2, 3, 4), each term needs its own width times the correct right-endpoint height shown explicitly.\n- Assuming equal widths or omitting the individual products is exactly the kind of setup error this topic is scored on, not just the final sum."
+ },
+ "6.3": {
+  "core_idea": "- Definite integral notation is the limit of a Riemann sum: the integral from a to b of f(x)dx equals the limit, as the maximum subinterval width goes to zero, of the sum of sample heights times widths.\n- Reading the symbol as just 'find area' misses what the notation actually asserts.",
+  "what_students_need_to_understand": "- Moving between summation notation, a Riemann sum picture, and definite integral notation is itself a tested skill.\n- Misreading which function is being summed, or which variable the bounds refer to, breaks the translation even when the final area value would have been correct.",
+  "how_this_becomes_points": "1. Identify the integrand.\n2. Identify the variable of integration.\n3. Identify the bounds a and b as matching the Riemann sum's function and interval, not just recognizing that 'integral' means 'area.'",
+  "point_attaining_answer": "- That shortcut is only valid once an antiderivative relationship is established.\n- As written, the notation itself claims the limit of Riemann sums of g(x) from x=2 to x=7, the total accumulated change in the rate g over that interval.\n- Writing g(7) minus g(2) skips past what the notation is actually defining and substitutes a different (later-justified) evaluation shortcut in its place."
+ },
+ "6.4": {
+  "core_idea": "- Stating the final derivative value of an accumulation function without an explicit statement that g'(x) = f(x) (the Fundamental Theorem's own claim) does not earn the FTC-statement point, even if the final numeric answer is fully correct.\n- The answer and the FTC statement are two separate, independently scored requirements.",
+  "what_students_need_to_understand": "- A real documented AP error confuses the derivative of an accumulation function with a difference quotient -- writing g'(8) = f(8) - f(6) instead of the correct g'(8) = f(8).\n- That error can still earn the answer point if numerically consistent, but never the separate FTC-statement point, because it never actually states the theorem's claim.",
+  "how_this_becomes_points": "1. State the explicit general statement g'(x) = f(x) (adjusted by chain rule if the upper bound is not x) as its own step.\n2. Give it separately from, and in addition to, the final numeric answer.",
+  "point_attaining_answer": "- The final value may be numerically fine, but this earns only the answer point, not the FTC-statement point.\n- The FTC's actual claim is g'(x) = f(x), so the correct approach states g'(8) = f(8) explicitly as a general rule before substituting.\n- Writing f(8) - f(6) confuses the derivative of an accumulation function with a difference quotient and never states the theorem being used."
+ },
+ "6.5": {
+  "core_idea": "- Reading an accumulation function's increasing/decreasing or concavity behavior directly off the area picture answers the question using the wrong object's behavior.\n- The integrand should be treated as the accumulation function's own derivative first.",
+  "what_students_need_to_understand": "- The integrand f is literally F' for the accumulation function F(x) = integral from a to x of f(t)dt.\n- Every increasing/decreasing and concavity fact about F must be derived through f's sign and f's own increasing/decreasing behavior, exactly like any other first- and second-derivative analysis.",
+  "how_this_becomes_points": "1. Treat the given integrand as the derivative of the accumulation function.\n2. Apply standard sign-of-derivative reasoning to reach conclusions about the accumulation function itself.",
+  "point_attaining_answer": "- Incorrect -- F's increasing/decreasing behavior depends on the sign of f, not on whether f itself is increasing or decreasing.\n- Since f(x) > 0 on (2,5), F is increasing there.\n- That f is decreasing on (2,5) instead tells you something about F's concavity: F is concave down on (2,5), since F''(x) = f'(x) < 0 there."
+ },
+ "6.6": {
+  "core_idea": "- Combining partial areas from a graph or table using definite integral properties requires explicitly tracking sign and interval direction.\n- Adding magnitudes together without checking whether an interval was traversed backward or whether a piece lies below the axis treats every area as automatically positive, which the properties do not guarantee.",
+  "what_students_need_to_understand": "- Interval additivity, sign reversal on reversed bounds, and constant-multiple scaling are algebraic properties of the integral itself, not just bookkeeping conventions.\n- Misapplying any one of them produces a genuinely wrong total, not just an imprecise one.",
+  "how_this_becomes_points": "1. Rewrite the requested integral explicitly in terms of the given sub-integrals.\n2. Name the specific property invoked (additivity, reversal, or constant multiple).\n3. Do not give a combined number with no visible property-based justification.",
+  "point_attaining_answer": "- The subtraction correctly finds the integral from 4 to 6 (which is 8 - 3 = 5), but the question asked for the integral from 4 to 1, not 4 to 6.\n- Reversing the bounds requires the sign-reversal property, so the integral from 4 to 1 of f(x)dx equals negative the integral from 1 to 4, which is -3, not 5.\n- Two different properties were needed and only additivity was applied."
+ },
+ "6.7": {
+  "core_idea": "- Evaluating a definite integral via the Fundamental Theorem requires subtracting the antiderivative's value at the lower bound from its value at the upper bound in that specific order.\n- Reversing the order changes the sign and, when the integral represents signed change, silently converts a real decrease into a reported increase or vice versa.",
+  "what_students_need_to_understand": "- A definite integral can be negative when the integrand represents a rate that is negative over part or all of the interval.\n- A negative final answer is not automatically a sign of an arithmetic error -- it may be exactly what a decreasing accumulated quantity should produce.",
+  "how_this_becomes_points": "1. Write an explicit antiderivative F.\n2. Evaluate F(b) minus F(a) in that order.\n3. Interpret the result in context, including units when the integral represents a real-world change.",
+  "point_attaining_answer": "- The subtraction order is reversed -- the Fundamental Theorem requires F(6) - F(0), not F(0) - F(6).\n- Computed correctly, F(6) - F(0) = -6 - 0 = -6, meaning the particle's net displacement is negative 6 (it ended up 6 units to the left of where it started).\n- That is a legitimate signed result, not an error to be corrected by flipping the sign after the fact."
+ },
+ "6.8": {
+  "core_idea": "- An indefinite integral names an entire family of antiderivatives, not one specific function.\n- Omitting the constant of integration when no bounds are given reports only one member of that family as if it were the unique answer, which is not what the indefinite integral notation actually represents.",
+  "what_students_need_to_understand": "- Finding an antiderivative is the reverse operation of differentiation.\n- Check it by differentiating the proposed answer and confirming it reproduces the original integrand exactly, not by pattern-matching to a memorized rule alone.",
+  "how_this_becomes_points": "1. Apply the correct reverse-derivative rule.\n2. Include the constant of integration, +C, whenever no bounds are given.",
+  "point_attaining_answer": "- The reverse-derivative rule is applied correctly, but the answer is incomplete.\n- An indefinite integral (no bounds given) represents an entire family of antiderivatives that differ only by a constant, since d/dx of any constant is zero.\n- The complete answer must be written as 2x^3 + C, not just 2x^3, to represent that whole family rather than a single member of it."
+ },
+ "6.9": {
+  "core_idea": "- Substitution requires every instance of the original variable to be rewritten in terms of the new variable u, including the differential.\n- Leaving a mixed expression with both x and u present part way through is not a valid intermediate step; it is an unfinished substitution that cannot be integrated as written.",
+  "what_students_need_to_understand": "- For a definite integral, the bounds themselves must be converted from x-values to the corresponding u-values at the moment of substitution.\n- Integrating in terms of u while still using the original x-bounds evaluates the wrong quantity entirely.",
+  "how_this_becomes_points": "1. Define u and du explicitly.\n2. Rewrite the entire integral purely in terms of u with no x remaining.\n3. For definite integrals, convert the bounds to u-values before evaluating.",
+  "point_attaining_answer": "- The bounds must be converted along with the variable.\n- Since u = x^2+1, the bound x=0 becomes u=1 and the bound x=2 becomes u=5.\n- Evaluating the u-integral from 0 to 2 instead of from 1 to 5 computes a completely different, incorrect quantity, even though every other step of the substitution was done correctly."
+ },
+ "6.10": {
+  "core_idea": "- A rational integrand that does not match a basic antiderivative form must first be rewritten before any technique is applied to it.\n- Use long division when the numerator's degree is at least the denominator's, or completing the square for an irreducible-quadratic denominator.",
+  "what_students_need_to_understand": "- Long division and completing the square are preparation steps, not integration techniques themselves.\n- The actual integration only becomes possible once the rewritten pieces individually match a recognizable antiderivative form, such as a basic power rule term plus an arctangent-form term.",
+  "how_this_becomes_points": "1. Show the algebraic rewrite (long division or completed-square form) as an explicit step.\n2. Only then apply antiderivative rules to the resulting simpler pieces.",
+  "point_attaining_answer": "- Substitution is the wrong first move here -- the numerator's degree equals the denominator's degree, so long division applies first: (x^2+1)/(x^2+4) = 1 - 3/(x^2+4).\n- This splits into a constant term (integrates to x) and a recognizable arctangent-form term (integrates to (3/2)arctan(x/2)).\n- The rewrite must happen before any antiderivative rule is chosen, not as a fallback after substitution fails."
+ },
+ "6.11": {
+  "core_idea": "- Integration by parts is not complete once the remaining integral term v du is written down.\n- That remaining integral still has to be evaluated and combined with the uv term into one final antiderivative.\n- A response that stops at the formula's skeleton has not actually integrated anything.",
+  "what_students_need_to_understand": "- This technique is BC-only content (the CED marks it explicitly BC ONLY, the same tagging pattern used for L'Hospital's other-indeterminate-forms exclusion).\n- Choosing u to be the factor that simplifies upon differentiation is what makes the remaining integral v du solvable rather than more complicated than the original.",
+  "how_this_becomes_points": "1. Identify u, dv, du, and v explicitly.\n2. Write out the formula integral u dv = uv - integral v du.\n3. Fully evaluate the remaining integral v du to reach one final closed-form antiderivative.",
+  "point_attaining_answer": "- The formula's skeleton is correct, but the response stops short -- the remaining integral of e^x dx still must be evaluated.\n- The correct complete antiderivative is x*e^x - e^x + C, not x*e^x - integral of e^x dx.\n- A dangling unevaluated integral term does not count as a finished antiderivative."
+ },
+ "6.12": {
+  "core_idea": "- Linear partial fraction decomposition is scoped by the CED to nonrepeating linear factors only.\n- A denominator with a repeated linear factor or an irreducible quadratic factor falls outside what this technique covers, even though BC students learn it.",
+  "what_students_need_to_understand": "- Before setting up A/(x-a) + B/(x-b), confirm the denominator factors into distinct, not repeated, linear factors.\n- Also confirm the numerator's degree is already less than the denominator's, or long division is needed first.",
+  "how_this_becomes_points": "1. Factor the denominator correctly into distinct linear factors.\n2. Set up the decomposition A/(x-a)+B/(x-b) explicitly.\n3. Solve for the constants.\n4. Integrate each resulting term to a logarithm.",
+  "point_attaining_answer": "- This denominator is out of scope for this technique -- (x+2)^2 is a repeated linear factor, and the CED restricts linear partial fractions to nonrepeating linear factors only.\n- A properly scoped example instead has two distinct linear factors, such as 1/((x-1)(x+2)) = A/(x-1) + B/(x+2).\n- Clear denominators to get 1 = A(x+2) + B(x-1), then substitute x=1 and x=-2 to find A and B separately."
+ },
+ "6.13": {
+  "core_idea": "- An improper integral, with an infinite bound or a discontinuous integrand, is only defined as the limit of a proper definite integral as the problematic bound approaches infinity or the point of discontinuity.\n- A numeric answer without that limit step skips the actual definition.",
+  "what_students_need_to_understand": "- The limit must actually be evaluated and shown to exist as a finite value before the integral can be called convergent.\n- If the limit is infinite or does not exist, the integral diverges, regardless of how the final expression looks.",
+  "how_this_becomes_points": "1. Rewrite the improper integral explicitly as a limit of a proper integral.\n2. Evaluate that limit.\n3. State the convergence conclusion (a finite value) or divergence conclusion based on the limit's actual result.",
+  "point_attaining_answer": "- The final value of 1 happens to be correct here, but the setup skipped the required limit step.\n- The correct approach writes this as lim(b->infinity) of the integral from 1 to b of 1/x^2 dx, and evaluates the antiderivative to get lim(b->infinity) (-1/b + 1) = 0 + 1 = 1.\n- The limit must be shown explicitly, since for other integrands the same substitute-infinity-directly shortcut can produce an incorrect or undefined result instead of quietly working out."
+ },
+ "6.14": {
+  "core_idea": "- Forcing a memorized technique, such as substitution, onto an integrand whose actual structure calls for a different method wastes setup work and often cannot be completed at all.\n- The integrand's structure has to be classified first, before any specific rule is chosen.",
+  "what_students_need_to_understand": "1. Does the integrand match a basic reverse-derivative rule directly?\n2. Does it have a composite structure suited to substitution?\n3. Is it a rational expression needing an algebraic rewrite first?\n4. Is it a product suited to integration by parts?",
+  "how_this_becomes_points": "1. Show an explicit classification step, naming which structural category the integrand fits.\n2. Show it before the chosen technique is applied, not a technique applied first and abandoned if it fails.",
+  "point_attaining_answer": "- The integrand x*cos(x) is a product of two unrelated factors, not a composite function.\n- That structure calls for integration by parts, not substitution, from the start.\n- Classifying the structure correctly first (a product of a polynomial and a trig function, suited to by-parts with u=x) avoids the wasted, unresolvable substitution attempt entirely."
+ },
+ "7.1": {
+  "core_idea": "- A differential equation models a rate relationship, so the equation itself must be written in terms of dy/dx (or dy/dt) equal to an expression.\n- Writing a formula for y directly, without ever expressing the rate, skips past what a differential equation model actually is.",
+  "what_students_need_to_understand": "- The modeling step asks only for the rate relationship as an equation, not yet its solution.\n- Solving that equation is a separate, later step handled by other topics in this unit.",
+  "how_this_becomes_points": "- Write the differential equation explicitly as dy/dx (or dy/dt) equals an expression in the relevant variables.\n- Do not give a solved formula for y.",
+  "point_attaining_answer": "- This is the solution to a differential equation, not the model itself.\n- The modeling step asks for the rate relationship as an equation: dr/dt = -kr, expressing that the rate of change is proportional to the current radius.\n- The exponential formula for r(t) is a later result obtained by solving that differential equation, not the model requested here."
+ },
+ "7.2": {
+  "core_idea": "- Verifying a solution to a differential equation with an initial condition requires checking two separate things.\n- The derivative of the proposed solution must match the equation's right-hand side, and the proposed solution must actually pass through the given initial point.\n- Confirming only one does not verify the whole claim.",
+  "what_students_need_to_understand": "- These are two independent checks.\n- The differentiation-and-substitution check confirms the equation is satisfied everywhere.\n- The initial-condition check confirms this particular member of the solution family is the one asked about.",
+  "how_this_becomes_points": "1. Differentiate and substitute to verify the equation.\n2. Separately substitute the initial x and y values to verify the condition.\n3. Show both checks explicitly when both are part of the claim.",
+  "point_attaining_answer": "- The equation check alone is incomplete -- verifying a particular solution also requires confirming the initial condition.\n- Substituting x=0 gives y = 3e^0 - 1 = 2, which does match y(0)=2, so this specific check also needs to be shown.\n- Verifying only the equation leaves the 'particular' part of the claim (that this is the specific solution satisfying that initial point) unconfirmed."
+ },
+ "7.3": {
+  "core_idea": "- Each segment in a slope field represents only the local slope, computed from dy/dx at that single point.\n- The segment's length or its connection to neighboring segments carries no meaning.\n- A slope field is a grid of independent local directions, not a sketch of any one solution curve.",
+  "what_students_need_to_understand": "- Sketching a field correctly means treating every point as its own independent slope calculation.\n- A segment drawn too long, or drawn to visually connect with the next one, misrepresents what the field is actually showing.",
+  "how_this_becomes_points": "1. Compute the slope correctly at each specified point.\n2. Draw it as a short segment with the correct sign and relative steepness.\n3. Do not draw it as part of a continuous curve.",
+  "point_attaining_answer": "Each point's segment must be computed and drawn independently.\n\n| Point | dy/dx | Segment |\n| (0,0) | 0 | flat |\n| (1,0) | 1 | positive slope |\n| (2,0) | 2 | steeper positive slope |\n\nConnecting these into one smooth line misrepresents the field, since each segment only shows the local slope at that exact point, not a piece of an actual solution curve."
+ },
+ "7.4": {
+  "core_idea": "- A slope field's segments describe directions a solution curve would follow, not the values of y itself.\n- Reading the field as if it were a direct graph of y against x, rather than as instructions for how a solution moves, answers the wrong question about the picture.",
+  "what_students_need_to_understand": "- Qualitative reasoning from a slope field means tracing how a solution curve would move by following the local directions point to point.\n- This includes recognizing where segments flatten toward an equilibrium or where the direction reverses.",
+  "how_this_becomes_points": "1. Describe the behavior (increasing, decreasing, leveling off, or changing direction).\n2. Tie it explicitly to following the field's local slope directions from the given starting point, not just a description of the picture's general appearance.",
+  "point_attaining_answer": "- The conclusion is directionally right but stated as if reading a graph of y directly, rather than reasoning from the field.\n- The correct qualitative statement is that a solution curve starting below y=5 approaches y=5 as its limiting (equilibrium) behavior, since the slope field shows the rate of change itself approaching zero there.\n- The field shows directions a solution follows, not a plotted curve of y-values to read off directly."
+ },
+ "7.5": {
+  "core_idea": "- Euler's Method has no single CED-mandated formula or step-size notation.\n- It is defined conceptually as repeated tangent-line approximation.\n- What actually earns credit is using the current point's own slope for each step, not any particular symbolic convention.",
+  "what_students_need_to_understand": "- This BC-only technique repeats the same tangent-line-approximation idea used in linearization, just applied step by step.\n- At each stage, the slope must come from the point you are currently standing at, not from where you are heading or from an earlier point.",
+  "how_this_becomes_points": "1. Recompute the slope from the current (x,y) point at every single step.\n2. Make each step's change in y equal to that current slope times the step size.\n3. Skip no steps between the start and the target x-value.",
+  "point_attaining_answer": "- Euler's Method requires the slope recomputed at the current point for every single step, not reused from an earlier point.\n- After the first step moves to a new (x,y), the second step's slope must be evaluated at that new point using dy/dx = x + y again.\n- A stale slope value from the previous step breaks the method's defining tangent-line-at-the-current-point idea, even though there is no single CED-mandated formula dictating the notation used to write this out."
+ },
+ "7.6": {
+  "core_idea": "- The CED states directly that failing to separate variables, or omitting the constant of integration, severely limits the points a student can earn.\n- These are not minor stylistic slips; they are treated as substantive breaks in the required solution method.",
+  "what_students_need_to_understand": "- A documented misconception is assuming every differential equation involving fractions has a logarithmic solution.\n- The actual antiderivative depends entirely on the specific separated expression.\n- Forcing a logarithmic form onto the wrong structure produces a genuinely incorrect antiderivative.",
+  "how_this_becomes_points": "1. Fully separate the variables (all y-terms with dy, all x-terms with dx) as an explicit step.\n2. Integrate both sides using the antiderivative rule that actually matches each side's structure.\n3. Include +C.",
+  "point_attaining_answer": "- Not every fraction-form differential equation has a logarithmic solution -- this is a documented misconception.\n- y^2 dy integrates by the power rule to y^3/3 + C, not a logarithmic expression, since the separated left side is a simple power of y, not 1/y.\n- The antiderivative rule must match the actual separated expression's structure, not a default assumption based on the equation merely containing a fraction."
+ },
+ "7.7": {
+  "core_idea": "- A general solution found by separation of variables can be subject to domain restrictions.\n- The algebraic solution formula may only be valid on the connected piece of its domain that actually contains the given initial point, not across its entire algebraic domain.",
+  "what_students_need_to_understand": "- Solving for C using the initial condition determines one specific curve from the general family.\n- That curve's valid domain must also be checked against the initial point, since some particular solutions are legitimately restricted to less than their full algebraic domain.",
+  "how_this_becomes_points": "1. Solve generally.\n2. Substitute the initial condition to determine C.\n3. Present the particular solution.\n4. Check whether the initial point restricts the solution's valid domain.",
+  "point_attaining_answer": "- The equation x^2 + y^2 = 4 is correct, but presenting it as valid for all real x ignores the domain restriction the initial condition implies.\n- Since y(0)=2 is positive, the particular solution must be restricted to y = sqrt(4 - x^2), the upper semicircle, valid only for -2 <= x <= 2, not the full implicit relation or an unrestricted domain.\n- The initial condition determines which branch and which domain are actually valid, not just the value of C."
+ },
+ "7.8": {
+  "core_idea": "- The exponential model dy/dt = ky with solution y = y0*e^(kt) may be used or interpreted directly, without re-deriving it from the differential equation each time.\n- A response is not required to re-solve the differential equation by separation whenever the exponential form is already the appropriate model.",
+  "what_students_need_to_understand": "- Recognizing the dy/dt = ky structure (rate proportional to the current amount) is what identifies this as an exponential model in the first place.\n- The sign of k then determines growth (k>0) versus decay (k<0), which must be interpreted in the context given.",
+  "how_this_becomes_points": "1. Recognize the dy/dt = ky structure explicitly.\n2. Apply the exponential solution form with the correct initial value.\n3. Interpret the sign of k correctly in context.",
+  "point_attaining_answer": "- Re-derivation is not required here -- the CED explicitly permits the exponential model's solution form to be used or interpreted directly once dy/dt = ky is recognized.\n- The correct response applies y = 50*e^(-0.3t) directly, using the negative k to confirm this is decay.\n- It does not need to re-solve the differential equation by separation as if starting from nothing."
+ },
+ "7.9": {
+  "core_idea": "- A logistic model's rate of change depends on both the current population size and its distance from the carrying capacity.\n- Setting the rate expression equal to zero identifies the two equilibrium values (zero and the carrying capacity).\n- Growth is fastest exactly halfway between them, not at either equilibrium.",
+  "what_students_need_to_understand": "- This BC-only model is genuinely different from ordinary exponential growth.\n- The rate factor includes a term that shrinks toward zero as the population approaches carrying capacity, so the growth rate itself changes shape rather than staying proportional to population size alone.",
+  "how_this_becomes_points": "1. Find the equilibrium values by setting the logistic rate expression to zero.\n2. Identify the carrying capacity as the nonzero equilibrium.\n3. Identify the fastest-growth point as half of the carrying capacity, not confused with either equilibrium.",
+  "point_attaining_answer": "- This reverses the actual behavior -- at P = 800 (the carrying capacity), the rate dP/dt equals zero, meaning growth has stopped entirely, not peaked.\n- Setting 0.4P(1-P/800) = 0 gives the two equilibria P=0 and P=800.\n- The logistic model's fastest growth occurs at exactly half the carrying capacity, P=400, where the product P(1-P/800) is maximized, not at either equilibrium value."
+ },
+ "8.1": {
+  "core_idea": "- Average value, (1/(b-a)) times the integral of f from a to b, is a genuinely different quantity from average rate of change, (f(b)-f(a))/(b-a).\n- Computing the second when the first was requested is a documented, real AP scoring error, not just an unfortunate name collision.",
+  "what_students_need_to_understand": "- Average rate of change only needs the two endpoint values of f.\n- Average value needs the entire integral of f across the interval, so a response using only f(a) and f(b) has not actually engaged with what average value asks for.",
+  "how_this_becomes_points": "Full credit requires the average-value formula, with the definite integral explicitly present, not the two-point slope formula between endpoints.",
+  "point_attaining_answer": "- This computes the average rate of change, not the average value -- a real, documented AP scoring error.\n- The average depth requires (1/4) times the integral from 0 to 4 of C(t) dt, which needs the accumulated depth across the whole interval, not just the two endpoint depths C(0) and C(4).\n- This response would score 0 on an average-value part even with correct arithmetic, because it answers a different, related question."
+ },
+ "8.2": {
+  "core_idea": "- When position is recovered from velocity by antidifferentiation, the antiderivative's leading constant must be exactly correct.\n- A wrong constant carried through otherwise-clean arithmetic disqualifies the final position value outright, unlike some other units' more forgiving wrong-value-but-consistent-process credit.",
+  "what_students_need_to_understand": "- This is a stricter rule than the linearization or related-rates follow-through pattern seen elsewhere.\n- A motion problem's antiderivative constant is treated as a correctness gate for the final answer, not just one input that can be wrong and still earn downstream credit.",
+  "how_this_becomes_points": "- Compute the antiderivative's leading constant correctly (matching the actual antiderivative rule applied).\n- An incorrect constant blocks eligibility for the final position or displacement value even if every other step is executed cleanly.",
+  "point_attaining_answer": "- A wrong leading constant on the antiderivative is not a minor slip here.\n- The correct antiderivative of 3t^2 is t^3 + s0, not 2t^3 + s0.\n- Because the leading constant is wrong, the final position or displacement value is not eligible for credit, regardless of how cleanly the rest of the arithmetic is carried out afterward.\n- This is a stricter rule than the wrong-value-but-consistent-process leniency seen in other topics."
+ },
+ "8.3": {
+  "core_idea": "- In a multi-part applied-context question, a later part is explicitly allowed to import a value computed in an earlier part.\n- This holds even for a value that turned out to be numerically wrong, and the later part can still earn full credit as long as it is used consistently.",
+  "what_students_need_to_understand": "- This cross-part consistency rule means the accumulated-change setup in this topic does not need to be recomputed from scratch in a later part.\n- Using the previously established value or expression consistently is what earns credit, not re-deriving a fresh number.",
+  "how_this_becomes_points": "- Use the earlier value or expression consistently with correct accumulated-change logic, even when that earlier value was itself wrong.\n- A later part is not penalized for an error that originated upstream.",
+  "point_attaining_answer": "- Part (c) can still earn full credit -- this is a documented, real AP scoring convention.\n- A later part is permitted to import a value from an earlier part, even a wrong one, and receive credit for using it consistently.\n- 20 + 12 correctly applies the final-amount-equals-initial-plus-accumulated-change logic to the (wrong) value carried in from part (b), so the error in part (b) does not have to cost points again in part (c)."
+ },
+ "8.4": {
+  "core_idea": "- Finding the area between two x-functions requires the actual intersection x-values as the integration bounds, found by solving where the functions are equal.\n- Guessing bounds from a rough sketch, rather than solving for them, risks integrating over the wrong interval entirely.",
+  "what_students_need_to_understand": "- Which function is on top can change partway through the interval.\n- The bounds and the top-minus-bottom order both need to be confirmed by the functions' actual values, not assumed from a quick visual impression.",
+  "how_this_becomes_points": "1. Solve explicitly for the intersection x-values as the bounds.\n2. Confirm the top-minus-bottom subtraction order by checking function values (not just a sketch) before integrating.",
+  "point_attaining_answer": "- The bounds must come from where the curves actually intersect, not just the stated interval endpoints.\n- Solving x^2 = 2x gives x=0 and x=2, so the enclosed region is only between these two intersection points, not across the full [0,3] interval.\n- Using the interval's endpoints instead of the solved intersection points integrates over the wrong region entirely."
+ },
+ "8.5": {
+  "core_idea": "- Area between curves as functions of y requires both curves rewritten with x isolated as a function of y.\n- Then integrate the rightmost x-expression minus the leftmost x-expression with respect to y.\n- Relabeling an x-based setup instead skips the actual rewrite this setup requires.",
+  "what_students_need_to_understand": "- This topic is chosen specifically when solving for x in terms of y is easier or required (such as when a curve is not a function of x, like a sideways parabola).\n- Simply reusing an x-based setup with variable names swapped skips the genuine rewrite needed.",
+  "how_this_becomes_points": "1. Solve each curve explicitly for x as a function of y.\n2. Identify the rightmost minus leftmost x-expression by testing a value.\n3. Take the integral with respect to y over the correct y-bounds.",
+  "point_attaining_answer": "- This region is naturally described by horizontal slices, since x = y^2 is not a function of x for the full curve.\n- Solve each boundary for x in terms of y (x = 4 stays as is, x = y^2 stays as is) and integrate the rightmost expression (x=4) minus the leftmost expression (x=y^2) with respect to y.\n- A vertical top-minus-bottom setup would require splitting the parabola into two separate x-function branches unnecessarily."
+ },
+ "8.6": {
+  "core_idea": "- When two curves cross more than twice, the top-minus-bottom relationship can flip between intersection points.\n- The region has to be split at every intersection point, with the subtraction order re-checked on each resulting sub-interval.\n- A single subtraction order carried across the whole span will be wrong on at least one piece.",
+  "what_students_need_to_understand": "- Finding all the intersection points is itself part of the setup work being tested here, not just a preliminary step.\n- Missing even one intersection point means missing the sub-interval where the top-bottom order changes.",
+  "how_this_becomes_points": "1. Identify every intersection point as a boundary between sub-intervals.\n2. Re-verify the top-minus-bottom order (by testing a point) on each individual sub-interval.\n3. Then add the separate integrals.",
+  "point_attaining_answer": "- All four intersection points must be used as boundaries, not just one of them.\n- The curves cross at x=0, 2, 4, and 6, so there are three sub-intervals, [0,2], [2,4], and [4,6], and the top-bottom order can flip at x=2 as well as at x=4.\n- Using a single subtraction order across the whole span [0,4] misses the possible flip at x=2.\n- Every solved intersection point must define its own sub-interval, each re-verified independently."
+ },
+ "8.7": {
+  "core_idea": "- A cross-sectional slice's area formula must use the actual base length taken from the region at that specific x (or y).\n- The resulting area expression is what gets integrated.\n- The differential itself is not what earns the structural-form point, so its presence or absence in an intermediate expression is not what is being checked at this step.",
+  "what_students_need_to_understand": "- The setup earns its point for producing a genuine area expression: a base length squared for a square cross section or base times height for a rectangle.\n- It must be built from the region's actual boundary functions, not from a memorized formula applied without reference to the specific region.",
+  "how_this_becomes_points": "1. Identify the cross-section's base length explicitly from the region's boundary functions at each x.\n2. Write the area formula (side squared for a square, base times height for a rectangle) using that base length.\n3. Take the integral of that area formula over the correct bounds.",
+  "point_attaining_answer": "- A square cross section's area is the base length squared, not the base length itself.\n- The base length here is (4 - x^2), so the area of the square cross section is (4 - x^2)^2.\n- This squared expression is what gets integrated over the base's x-bounds, not the unsquared base-length expression, which would compute a length, not an area."
+ },
+ "8.8": {
+  "core_idea": "- Triangular and semicircular cross sections require substituting the region's base length into the correct shape-specific area formula.\n- A semicircle's radius is half the base, not the base itself.\n- Applying the wrong formula produces a structurally wrong integrand even with a correct base length.",
+  "what_students_need_to_understand": "- The shape named in the problem (isosceles right triangle, equilateral triangle, semicircle) determines which area formula applies.\n- The base length from the region is only the input to that formula.\n- Substituting it into the wrong formula breaks the setup regardless of how correctly the base length itself was found.",
+  "how_this_becomes_points": "1. Identify the shape-specific area formula correctly for the named cross section.\n2. Substitute the region's base length correctly into that formula (using half the base as the radius for a semicircle).\n3. Take the integral over the correct bounds.",
+  "point_attaining_answer": "- For a semicircle, the radius is half the diameter, not the full base length.\n- Since (6-x) is the diameter, the radius is (6-x)/2, so the correct cross-sectional area is (1/2)*pi*((6-x)/2)^2, not pi*(6-x)^2.\n- Using the full base length as if it were the radius overstates the area by using the wrong input to the semicircle formula."
+ },
+ "8.9": {
+  "core_idea": "- Omitting the constant pi from a disc-method volume integral costs exactly the one point tied to the limits-and-constant structure.\n- It does not disqualify the setup or integrand points, since those are scored on the radius and integrand structure being correct, independent of whether pi was ever written down.",
+  "what_students_need_to_understand": "- Volume setup is scored in separable pieces.\n- Identifying the correct radius (perpendicular to the axis of rotation) is one piece; attaching the constant pi with the correct bounds is a separate piece.\n- A missing pi is a specific, isolated deduction rather than a sign the whole volume computation is wrong.",
+  "how_this_becomes_points": "1. Identify the radius as the perpendicular distance from the axis of rotation to the curve.\n2. Write the integrand as radius squared.\n3. Include the constant pi with the correct bounds as a separate, explicit component of the setup.",
+  "point_attaining_answer": "- The radius and integrand structure here are both correct, and omitting pi costs specifically the constant/limits point, not the whole setup.\n- The correct volume is pi times the integral from a to b of (f(x))^2 dx.\n- A missing pi is treated as an isolated deduction on the constant-and-bounds component of the score, not as evidence the radius or integrand identification was wrong."
+ },
+ "8.10": {
+  "core_idea": "- When a region revolves around a non-coordinate line, the radius must be the distance between the curve and that specific rotation line, not the function value itself.\n- Reusing the function value directly silently assumes the axis is y=0 or x=0.",
+  "what_students_need_to_understand": "- The radius-as-distance idea is the same geometric concept used for a coordinate-axis disc method, just generalized.\n- Subtract (or add) the shift amount to the function value to get the actual distance to the given rotation line before squaring it.",
+  "how_this_becomes_points": "1. Write the radius explicitly as the distance from the curve to the stated rotation line (function value adjusted by the shift, not the function value alone).\n2. Square it inside the integral.",
+  "point_attaining_answer": "- The radius must be the distance to the actual rotation line, y = -3, not just the function value.\n- Every point on the curve is now f(x) - (-3) = f(x) + 3 units from the line y=-3, so the correct radius is f(x) + 3, not f(x) alone.\n- Using f(x) directly silently assumes the axis of rotation is y=0, which is not the case here."
+ },
+ "8.11": {
+  "core_idea": "- A washer's R-squared-minus-r-squared form earns its own structural point, separate from having correct radii.\n- An accidental r-squared-minus-R-squared reversal is self-correcting and still earns full credit once resolved, by a leading negative sign or by flipped bounds.",
+  "what_students_need_to_understand": "- The subtraction order (outer squared minus inner squared) and the specific radius values being correct are scored as genuinely separate components.\n- Getting the radii right but reversing which one is squared-and-subtracted-from-which is a real, distinct error from having the wrong radius values entirely.",
+  "how_this_becomes_points": "1. Include the R-squared-minus-r-squared structural form.\n2. Identify the correct outer and inner radius expressions.\n3. If the subtraction is accidentally reversed, resolve that reversal explicitly by a sign or by the integration bounds, not left as an unresolved negative volume.",
+  "point_attaining_answer": "- A reversed subtraction like this is self-correcting and can still earn full credit.\n- The structural form and the individual radius identifications are both correct here, just written in the reversed order.\n- As long as the negative result is resolved, either by placing a leading negative sign in front of the integral or by flipping the integration bounds, the volume still comes out correctly.\n- The reversal is treated as a resolvable presentation issue, not a disqualifying structural error."
+ },
+ "8.12": {
+  "core_idea": "- Revolving a region around a shifted (non-axis) line requires every radius to include that line's constant shift.\n- Omitting the shift breaks the washer integrand's recognized R-squared-minus-r-squared pattern entirely, which is a documented, real scoring failure distinct from simply computing a wrong final numeric answer.",
+  "what_students_need_to_understand": "- The shift must be applied to both the outer and inner radii consistently.\n- Both distances are being measured from the same shifted rotation line, not from the original coordinate axis the functions were originally defined against.",
+  "how_this_becomes_points": "1. Write both the outer and inner radii as distances to the actual shifted rotation line (each function value adjusted by the same shift).\n2. Preserve the recognized R-squared-minus-r-squared washer form.",
+  "point_attaining_answer": "- This is a documented, real scoring failure -- omitting the required shift breaks the washer integrand's recognized form entirely, not just the final value.\n- Since the axis is y=-2, both radii must be adjusted by that shift: the correct integrand is (f(x)+2)^2 - (g(x)+2)^2, not f(x)^2 - g(x)^2.\n- Every point's actual distance to the line y=-2 includes that +2 shift, and omitting it for even one of the two radii breaks the pattern the setup point is scored on."
+ },
+ "8.13": {
+  "core_idea": "- Arc length is BC-only content, carrying its own dedicated Enduring Understanding separate from the area-and-volume group the rest of this unit belongs to.\n- It is not an AB-eligible topic despite sharing the same unit as area and volume applications.",
+  "what_students_need_to_understand": "- The arc length integral, the integral of the square root of 1 plus the derivative squared, needs the derivative found first and squared inside the square root before integrating over the correct bounds.\n- Treating the base function's own value as part of the formula, rather than its derivative, produces a completely different (and wrong) integrand.",
+  "how_this_becomes_points": "1. Find the derivative explicitly.\n2. Square it inside the square-root expression sqrt(1 + (dy/dx)^2).\n3. Integrate over the correct interval.\n4. Recognize the topic as BC-only content.",
+  "point_attaining_answer": "- The arc length formula requires the derivative squared, not the original function squared.\n- Since dy/dx = 2x for y = x^2, the correct setup is the integral from 0 to 2 of sqrt(1 + (2x)^2) dx, not sqrt(1 + (x^2)^2) dx.\n- Using the function's own value instead of its derivative produces an entirely different, incorrect integrand.\n- This topic itself is BC-only, not shared with AB."
+ },
+ "9.1": {
+  "core_idea": "Parametric differentiation converts component rates into slope with respect to x by comparing y-change per parameter to x-change per parameter.",
+  "what_students_need_to_understand": "- Students need to keep the parameter visible until the end.\n- A slope at a point on the curve is not just y prime of t; it is how y changes relative to x as t changes.",
+  "how_this_becomes_points": "1. Find the component derivatives.\n2. Use the correct quotient order.\n3. State the dx/dt nonzero condition.",
+  "point_attaining_answer": "dx/dt=2t and dy/dt=3t^2, so dy/dx=(3t^2)/(2t)=3t/2 for t not equal to 0."
+ },
+ "9.2": {
+  "core_idea": "Parametric concavity requires one more conversion from parameter-change to x-change after differentiating the slope expression.",
+  "what_students_need_to_understand": "- Students need to avoid the tempting shortcut of treating d/dt(dy/dx) as the final second derivative.\n- The formula has the extra division by dx/dt because the derivative requested is with respect to x.",
+  "how_this_becomes_points": "1. Find the slope.\n2. Take the parameter derivative of the slope.\n3. Divide by dx/dt.\n4. Interpret the sign if asked.",
+  "point_attaining_answer": "It is (6t)/2=3t, because the parameter derivative of dy/dx must still be divided by dx/dt."
+ },
+ "9.3": {
+  "core_idea": "Parametric arc length accumulates tiny pieces of distance along the path, using both horizontal and vertical component rates.",
+  "what_students_need_to_understand": "- Path length is not the same as net displacement.\n- Both x and y component rates contribute to how fast the point moves along the curve.",
+  "how_this_becomes_points": "1. Use correct parameter bounds.\n2. Find the component derivatives.\n3. Form a distance-rate integrand.\n4. Set up a definite integral.",
+  "point_attaining_answer": "- Arc length depends on motion in both directions.\n- The distance-rate expression must include both dx/dt and dy/dt so vertical change is not ignored."
+ },
+ "9.4": {
+  "core_idea": "A vector-valued derivative describes how the whole vector output changes, component by component.",
+  "what_students_need_to_understand": "- Students need to preserve vector structure.\n- The derivative may represent velocity when the vector-valued function is position, but the interpretation depends on context.",
+  "how_this_becomes_points": "1. Differentiate each component.\n2. Use vector notation.\n3. Give a context-specific interpretation.",
+  "point_attaining_answer": "- r prime of t is <2t, cos t>.\n- Both components must be differentiated and kept as a vector."
+ },
+ "9.5": {
+  "core_idea": "A vector-valued integral accumulates each component separately into one vector result.",
+  "what_students_need_to_understand": "- Students need to distinguish vector accumulation from scalar distance.\n- The definite integral of a velocity vector gives net displacement; the integral of speed gives total distance.",
+  "how_this_becomes_points": "1. Integrate each component.\n2. Use the bounds.\n3. Give the correct displacement-versus-distance interpretation.",
+  "point_attaining_answer": "- It is displacement, the net change in position vector.\n- Total distance would require integrating speed, the magnitude of velocity."
+ },
+ "9.6": {
+  "core_idea": "Motion questions are mostly about matching the requested physical quantity to the correct calculus operation.",
+  "what_students_need_to_understand": "- Students need to read wording closely.\n- Position is a vector.\n- Velocity is position derivative.\n- Acceleration is velocity derivative.\n- Displacement is net vector change.\n- Total distance accumulates speed.",
+  "how_this_becomes_points": "1. Choose the right operation.\n2. Interpret the result with units and direction when appropriate.",
+  "point_attaining_answer": "- Its displacement is the zero vector because final position equals initial position.\n- The total distance traveled is the path length, not displacement."
+ },
+ "9.7": {
+  "core_idea": "Polar calculus tracks a curve through radius and angle, but x- and y-behavior often requires translating through cosine and sine.",
+  "what_students_need_to_understand": "- Students need to follow the CED convention r=f(theta) and use theta as the independent variable.\n- Horizontal or vertical distance from an axis usually needs x(theta) or y(theta), not r by itself.",
+  "how_this_becomes_points": "1. Translate correctly from polar to rectangular.\n2. Set up the derivative.\n3. Interpret the derivative information.",
+  "point_attaining_answer": "- x(theta)=r(theta)cos(theta)=2sin(theta)cos(theta).\n- The radius alone is not the x-coordinate."
+ },
+ "9.8": {
+  "core_idea": "A polar area integral accumulates area swept as theta changes, not vertical rectangles or horizontal slices.",
+  "what_students_need_to_understand": "- Students need to choose bounds from the actual tracing of the curve and include the polar area constant.\n- The correct setup can fail if the curve is traced twice or if the constant is missing.",
+  "how_this_becomes_points": "1. Choose correct bounds.\n2. Use the polar-area structure.\n3. Include the one-half factor.\n4. Evaluate.",
+  "point_attaining_answer": "Polar area accumulates sector area, so the setup uses one-half times r(theta)^2 integrated with respect to theta over the region."
+ },
+ "9.9": {
+  "core_idea": "Polar area between curves compares squared radii because sector area depends on radius squared.",
+  "what_students_need_to_understand": "- Students need to solve intersections in theta and test intervals.\n- If the outside curve changes, the integral must be split just like top-bottom switching in rectangular area.",
+  "how_this_becomes_points": "1. Find the intersection bounds.\n2. Set the outer/inner order.\n3. Use squared radii.\n4. Include the one-half constant.\n5. Split when needed.",
+  "point_attaining_answer": "Sector area depends on radius squared, so the polar difference setup uses one-half times (r_outer^2-r_inner^2), with correct theta bounds."
+ },
+ "10.1": {
+  "core_idea": "A series is about accumulated sums, while a sequence is about individual terms.",
+  "what_students_need_to_understand": "- Students need to separate the limit of terms from the limit of partial sums.\n- A term limit that is not zero proves divergence, but a zero term limit does not prove convergence.",
+  "how_this_becomes_points": "1. Use correct partial-sum language.\n2. Avoid overclaiming from term behavior.",
+  "point_attaining_answer": "- No. Terms approaching 0 is necessary but not sufficient.\n- The partial sums must approach a finite value."
+ },
+ "10.2": {
+  "core_idea": "Geometric series convergence is completely controlled by the common ratio.",
+  "what_students_need_to_understand": "- Students need to identify the first term and ratio from the actual series form.\n- The formula is not a general shortcut for every repeated-looking sum.",
+  "how_this_becomes_points": "1. Identify the ratio.\n2. Check the condition.\n3. Use the correct formula.",
+  "point_attaining_answer": "a=5 and r=1/2, since each term is multiplied by 1/2 to get the next term."
+ },
+ "10.3": {
+  "core_idea": "The nth-term test is one-directional: it detects divergence but never proves convergence.",
+  "what_students_need_to_understand": "- Students need to know what the test can and cannot say.\n- A zero term limit simply means another convergence test is needed.",
+  "how_this_becomes_points": "1. Find the correct limit.\n2. State the correct limited conclusion.",
+  "point_attaining_answer": "It proves nothing by itself about convergence; another test is needed."
+ },
+ "10.4": {
+  "core_idea": "The integral test transfers convergence behavior between a series and a related improper integral.",
+  "what_students_need_to_understand": "- Students need to verify the hypotheses before trusting the conclusion.\n- The integral value is usually less important than whether the integral converges.",
+  "how_this_becomes_points": "1. Check the conditions.\n2. Set up the integral.\n3. Make the correct convergence link.",
+  "point_attaining_answer": "The integral test requires a positive decreasing function matching the terms; without those conditions, the conclusion is not justified."
+ },
+ "10.5": {
+  "core_idea": "Harmonic and p-series are benchmark behaviors, not just names to memorize.",
+  "what_students_need_to_understand": "- Students need to distinguish literal identity from comparison or limit comparison.\n- A shifted or scaled harmonic-like series may diverge because it behaves like the harmonic series, not because it is literally the same series.",
+  "how_this_becomes_points": "1. Identify p.\n2. Explain the convergence threshold.",
+  "point_attaining_answer": "- No. It is not literally sum 1/n.\n- It diverges by comparison or limit comparison to the harmonic series."
+ },
+ "10.6": {
+  "core_idea": "Comparison tests are about positive-term size relationships to known series.",
+  "what_students_need_to_understand": "- Students need to match both the benchmark and the inequality direction to the intended conclusion.\n- For mixed signs, consider absolute values if testing absolute convergence.",
+  "how_this_becomes_points": "1. Check positive-term conditions.\n2. Choose the benchmark.\n3. Use a valid direction.",
+  "point_attaining_answer": "- Comparison tests are for positive terms.\n- For mixed signs, use absolute values or another appropriate test."
+ },
+ "10.7": {
+  "core_idea": "Alternation alone does not guarantee convergence; the magnitudes must shrink to zero.",
+  "what_students_need_to_understand": "- Students need to verify all conditions, not just notice a factor like (-1)^n.\n- Missing the zero-limit or decreasing condition breaks the test.",
+  "how_this_becomes_points": "Points come from the three checks and a conclusion tied to them.",
+  "point_attaining_answer": "- No. The magnitudes approach 1, not 0.\n- So the alternating series test conditions are not met."
+ },
+ "10.8": {
+  "core_idea": "The ratio test is powerful for factorials and exponentials but inconclusive at limit 1.",
+  "what_students_need_to_understand": "- Students need to remember both the interpretation and the boundary of assessed methods.\n- If the ratio limit equals 1, the test gives no conclusion.",
+  "how_this_becomes_points": "1. Set up the ratio correctly.\n2. Evaluate the limit.\n3. Use correct inconclusive language when needed.",
+  "point_attaining_answer": "The ratio test is inconclusive at 1, so another assessed test is needed."
+ },
+ "10.9": {
+  "core_idea": "Absolute and conditional convergence are two different strengths of convergence.",
+  "what_students_need_to_understand": "- Students need both parts for conditional convergence.\n- Absolute convergence is stronger and implies ordinary convergence; conditional convergence requires a separate argument for the original series.",
+  "how_this_becomes_points": "1. Test the absolute-value series clearly.\n2. Give a precise final classification.",
+  "point_attaining_answer": "- The original series must converge.\n- The absolute-value series must diverge."
+ },
+ "10.10": {
+  "core_idea": "For qualifying alternating series, the next unused term controls the maximum possible error.",
+  "what_students_need_to_understand": "- Students need to connect the approximation S_n to term n+1, not to term n.\n- The bound is an inequality about error size, not an exact error value.",
+  "how_this_becomes_points": "1. Use the correct omitted term.\n2. Use at most language.",
+  "point_attaining_answer": "- The fifth term bounds the error because it is the first omitted term.\n- Use its magnitude."
+ },
+ "10.11": {
+  "core_idea": "Taylor polynomials are local approximations organized by derivative data at a center.",
+  "what_students_need_to_understand": "- Students need to keep the center in every term.\n- A polynomial centered at a is written in powers of x-a, not automatically powers of x.",
+  "how_this_becomes_points": "1. Use the coefficient formula.\n2. Keep the center.\n3. State the degree.\n4. Substitute.",
+  "point_attaining_answer": "Use powers of x-2 because the polynomial is centered at 2."
+ },
+ "10.12": {
+  "core_idea": "A Lagrange bound is an upper limit on error, not the exact error.",
+  "what_students_need_to_understand": "- Students need to use the next derivative beyond the Taylor polynomial degree and communicate the result as a maximum possible error.\n- The connection point can be lost if the inequality meaning is missing.",
+  "how_this_becomes_points": "1. Use the correct form.\n2. Give the at most conclusion.",
+  "point_attaining_answer": "- The error is at most 0.01, or <= 0.01.\n- The bound is a maximum, not necessarily the exact error."
+ },
+ "10.13": {
+  "core_idea": "- Radius and interval are related but not interchangeable.\n- Radius is a distance; interval is a set of x-values after endpoint testing.",
+  "what_students_need_to_understand": "- Students need to keep the interval centered correctly and test endpoints one at a time.\n- Arithmetic that shifts the center incorrectly changes the whole answer.",
+  "how_this_becomes_points": "1. Set up the ratio.\n2. Take the limit.\n3. Write the open interval.\n4. Consider the endpoints.\n5. State the final interval.",
+  "point_attaining_answer": "The open interval is 1 < x < 7 because the radius extends 3 units from center 4."
+ },
+ "10.14": {
+  "core_idea": "Taylor and Maclaurin series extend polynomial approximation into infinite representation.",
+  "what_students_need_to_understand": "- Students need accurate foundational series before manipulating them.\n- A small sign or factorial error can change every later term.",
+  "how_this_becomes_points": "1. Use the correct base series.\n2. Make a valid transformation into the requested function.",
+  "point_attaining_answer": "- A Maclaurin series is centered at 0.\n- Taylor series is the broader term for center a."
+ },
+ "10.15": {
+  "core_idea": "A power-series representation includes both the series formula and where it converges to the function.",
+  "what_students_need_to_understand": "- Students need to track convergence restrictions through substitutions and transformations.\n- The algebraic match alone is incomplete without the valid x-values.",
+  "how_this_becomes_points": "1. Choose the parent series.\n2. Write the correct transformed terms.\n3. State the convergence interval.",
+  "point_attaining_answer": "Use x replaced by -3x, since 1/(1+3x)=1/(1-(-3x))."
+ }
+}

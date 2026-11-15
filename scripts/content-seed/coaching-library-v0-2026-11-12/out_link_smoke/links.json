@@ -1,0 +1,316 @@
+[
+ {
+  "item": "APSTATS-MCQ-SV-H-4.1-B-v1",
+  "target": "C",
+  "subject": "ap-statistics",
+  "held_out": false,
+  "topic": "4.1",
+  "skill": null,
+  "status": "checked",
+  "link": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "spread sigma-x-bar = sigma/sqrt(n) hold regardless of shape",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It gives the exact formula for the sample mean’s spread, which can be used to determine the required sample size."
+  },
+  "reasons": [],
+  "adds_new": [
+   true,
+   true
+  ],
+  "judges": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "relevant": true,
+    "supported_claim": true,
+    "accurate_to_item": true,
+    "adds_new": true,
+    "note": "The quote directly supports the general formula for the standard deviation of the sample mean, explaining the mathematical relationship governing sample size and spread."
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "relevant": true,
+    "supported_claim": true,
+    "accurate_to_item": true,
+    "adds_new": true,
+    "note": "The quote gives the general formula for the standard deviation of the sample mean, which directly supports why n = 75 would not halve the spread and why n = 100 is required. It also adds the shape-independence detail not present in the rationales."
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-085",
+  "target": "D",
+  "subject": "ap-statistics",
+  "held_out": true,
+  "topic": "5.4",
+  "skill": null,
+  "status": "checked",
+  "link": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "a positive residual means the actual value came in higher than predicted",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It shows how being above the line maps to the residual’s sign: actual is higher than predicted, so the residual is positive."
+  },
+  "reasons": [],
+  "adds_new": [
+   false,
+   false
+  ],
+  "judges": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "relevant": true,
+    "supported_claim": true,
+    "accurate_to_item": true,
+    "adds_new": false,
+    "note": "The quote directly explains why the residual is positive when an actual value is higher than predicted, which directly addresses Choice D. However, this definition and mapping (actual > predicted yielding a positive residual) are already explicitly stated across the rationales for choices A and C, so it adds no new information."
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "relevant": true,
+    "supported_claim": true,
+    "accurate_to_item": true,
+    "adds_new": false,
+    "note": "The passage supports the correct answer and undermines choice D by tying a positive residual to an actual value higher than predicted, which corresponds to a point above the regression line. However, the item rationales already state this relationship, so the passage does not add new information."
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-2.6-B-v3",
+  "target": "D",
+  "subject": "ap-statistics",
+  "held_out": false,
+  "topic": "2.6",
+  "skill": null,
+  "status": "no_link",
+  "link": {
+   "supporting_field": "none",
+   "quote": "",
+   "bears_on": "none",
+   "adds_beyond_rationale": "nothing"
+  }
+ },
+ {
+  "item": "APSTATS-MCQ-SV-006-v1",
+  "target": "C",
+  "subject": "ap-statistics",
+  "held_out": false,
+  "topic": "1.13",
+  "skill": null,
+  "status": "blocked",
+  "link": {
+   "supporting_field": "brief.what_it_is",
+   "quote": "direct control of extraneous variables",
+   "bears_on": "this_error",
+   "adds_beyond_rationale": "It identifies control of extraneous variables as a design requirement, but does not specify how blocking differs from random assignment."
+  },
+  "reasons": [
+   "google/gemini-3.8-flash: The brief snippet 'direct control of extraneous variables' does not explain why choice C fails (which concerns whether blocking can eliminate confounding from unmeasured lurking variables). Furthermore, 'adds_beyond_rationale' is phrased as a critique of what the passage fails to do rather than articulating a useful pedagogical takeaway beyond the authored rationale.",
+   "alibaba/qwen3.8-flash: The quote is topically relevant because blocking involves direct control of known/extraneous variables, which relates to the correct answer’s point about reducing sex-related variability. However, it does not directly address why choice C fails: it does not clarify that unmeasured lurking variables remain protected against by random assignment. The adds_beyond_rationale statement overstates the shown text by calling it a design requirement, and it adds nothing beyond the authored rationale."
+  ],
+  "adds_new": [
+   false,
+   false
+  ],
+  "judges": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "relevant": false,
+    "supported_claim": false,
+    "accurate_to_item": true,
+    "adds_new": false,
+    "note": "The brief snippet 'direct control of extraneous variables' does not explain why choice C fails (which concerns whether blocking can eliminate confounding from unmeasured lurking variables). Furthermore, 'adds_beyond_rationale' is phrased as a critique of what the passage fails to do rather than articulating a useful pedagogical takeaway beyond the authored rationale."
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "relevant": true,
+    "supported_claim": false,
+    "accurate_to_item": true,
+    "adds_new": false,
+    "note": "The quote is topically relevant because blocking involves direct control of known/extraneous variables, which relates to the correct answer’s point about reducing sex-related variability. However, it does not directly address why choice C fails: it does not clarify that unmeasured lurking variables remain protected against by random assignment. The adds_beyond_rationale statement overstates the shown text by calling it a design requirement, and it adds nothing beyond the authored rationale."
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-009",
+  "target": "D",
+  "subject": "ap-statistics",
+  "held_out": false,
+  "topic": "4.1",
+  "skill": null,
+  "status": "checked",
+  "link": {
+   "supporting_field": "explainer.core_idea",
+   "quote": "spread sigma-x-bar = sigma/sqrt(n) hold regardless of shape",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It gives the exact formula for the spread and clarifies that this relationship holds regardless of the population’s shape."
+  },
+  "reasons": [],
+  "adds_new": [
+   true,
+   false
+  ],
+  "judges": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "relevant": true,
+    "supported_claim": true,
+    "accurate_to_item": true,
+    "adds_new": true,
+    "note": "The link connects directly to why Choice D is incorrect regarding variability by providing the explicit standard error formula and confirming that this formula applies regardless of population shape."
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "relevant": true,
+    "supported_claim": true,
+    "accurate_to_item": true,
+    "adds_new": false,
+    "note": "The quote is relevant and accurate: the standard error formula sigma/sqrt(n) shows that variability decreases as n increases, which directly refutes choice D. However, the correct rationale already states the standard error formula and the key CLT idea, so the passage does not add much beyond the rationales; the shape-independence of the standard error formula is at most implicit and not essential for explaining why D fails."
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-013",
+  "target": "D",
+  "subject": "ap-statistics",
+  "held_out": false,
+  "topic": "4.2",
+  "skill": null,
+  "status": "checked",
+  "link": {
+   "supporting_field": "brief.earned",
+   "quote": "checking all three conditions (random, 10%, and normal/large-n/no strong skew or outliers)",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It places the sample-shape check alongside the randomization and 10% conditions."
+  },
+  "reasons": [],
+  "adds_new": [
+   true,
+   true
+  ],
+  "judges": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "relevant": true,
+    "supported_claim": true,
+    "accurate_to_item": true,
+    "adds_new": true,
+    "note": "The quote correctly identifies the alternative criteria for the normality/sample-size condition (no strong skew or outliers when n is small), which helps refute Choice D's absolute cutoff of 30, and it introduces the full three-condition framework."
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "relevant": true,
+    "supported_claim": true,
+    "accurate_to_item": true,
+    "adds_new": true,
+    "note": "The quote bears on why D is wrong by framing the normal/large-n condition as involving no strong skew or outliers rather than an absolute n >= 30 rule. It also adds context that this check sits alongside random and 10% conditions, which the D rationale does not explicitly mention."
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-SV-047-v1",
+  "target": "D",
+  "subject": "ap-statistics",
+  "held_out": false,
+  "topic": "2.7",
+  "skill": null,
+  "status": "checked",
+  "link": {
+   "supporting_field": "brief.what_it_is",
+   "quote": "Two events are independent when knowing one occurred does not change the probability of the other, so the probability of both equals the product of the two probabilities.",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It gives the actual test for independence: compare the joint probability with the product of the individual probabilities."
+  },
+  "reasons": [],
+  "adds_new": [
+   true,
+   true
+  ],
+  "judges": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "relevant": true,
+    "supported_claim": true,
+    "accurate_to_item": true,
+    "adds_new": true,
+    "note": "The passage is relevant because it identifies the correct criterion for independence, explaining why comparing the joint probability to individual probabilities fails. It also provides the conceptual definition of independence (that knowing one event occurred does not alter the probability of the other), which is not stated in the item's rationales."
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "relevant": true,
+    "supported_claim": true,
+    "accurate_to_item": true,
+    "adds_new": true,
+    "note": "The passage states the correct independence test: compare P(C and J) with P(C)P(J). This directly refutes D’s inequality-based reasoning and supports the key. It adds the actual test beyond D’s rationale, which only says the inequality does not test independence."
+   }
+  ]
+ },
+ {
+  "item": "APSTATS-MCQ-SV-043-v2",
+  "target": "C",
+  "subject": "ap-statistics",
+  "held_out": true,
+  "topic": "1.12",
+  "skill": null,
+  "status": "no_link",
+  "link": {
+   "supporting_field": "none",
+   "quote": "",
+   "bears_on": "none",
+   "adds_beyond_rationale": "nothing"
+  }
+ },
+ {
+  "item": "APSTATS-MCQ-SV-H-2.2-A-v1",
+  "target": "D",
+  "subject": "ap-statistics",
+  "held_out": false,
+  "topic": "2.2",
+  "skill": null,
+  "status": "checked",
+  "link": {
+   "supporting_field": "explainer.points",
+   "quote": "using a comparison of conditional distributions across groups (not raw counts) to support an association conclusion.",
+   "bears_on": "both",
+   "adds_beyond_rationale": "It identifies comparing conditional distributions as the basis for drawing an association conclusion."
+  },
+  "reasons": [],
+  "adds_new": [
+   true,
+   true
+  ],
+  "judges": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "relevant": true,
+    "supported_claim": true,
+    "accurate_to_item": true,
+    "adds_new": true,
+    "note": "The quote directly addresses the flaw in Choice D by specifying that association must be assessed using conditional distributions rather than raw counts."
+   },
+   {
+    "judge": "alibaba/qwen3.8-flash",
+    "relevant": true,
+    "supported_claim": true,
+    "accurate_to_item": true,
+    "adds_new": true,
+    "note": "The passage directly addresses why choice D fails: it relies on raw counts rather than comparing conditional distributions, which is the appropriate basis for an association conclusion."
+   }
+  ]
+ },
+ {
+  "item": "apstats-mcq-b6-sv-h-1.9-b-v2",
+  "target": "D",
+  "subject": "ap-statistics",
+  "held_out": true,
+  "topic": "1.9",
+  "skill": null,
+  "status": "no_link",
+  "link": {
+   "supporting_field": "none",
+   "quote": "",
+   "bears_on": "none",
+   "adds_beyond_rationale": "nothing"
+  }
+ }
+]

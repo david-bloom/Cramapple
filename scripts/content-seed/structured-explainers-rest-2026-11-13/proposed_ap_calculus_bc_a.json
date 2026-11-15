@@ -1,0 +1,308 @@
+{
+ "1.1": {
+  "core_idea": "- An instant has zero width, so there is no direct change-over-an-instant to compute.\n- The instantaneous rate is defined as the value that average rates over shrinking intervals containing that instant approach.\n- It is not a ratio you plug an instant directly into.",
+  "what_students_need_to_understand": "Writing (f(a)-f(a))/(a-a) as a way to compute an instantaneous rate is not valid -- the instant case is defined entirely as a limiting value, never a direct quotient with a zero-width interval.",
+  "how_this_becomes_points": "Full credit for an 'at this instant' question requires framing the answer as a limit of average rates, not attempting to divide by a zero-width interval.",
+  "point_attaining_answer": "It means finding the value that the average rates of volume change, computed over intervals containing t = 5, approach as those intervals shrink toward zero width -- not a direct quotient at a single instant."
+ },
+ "1.2": {
+  "core_idea": "- This course never requires or expects an epsilon-delta proof of a limit.\n- Limit notation and approach language are the full expected toolkit.\n- Producing or reasoning from an epsilon-delta argument is outside what this exam assesses.",
+  "what_students_need_to_understand": "Limit notation lim(x approaches c) f(x) = L is read as 'as x approaches c, f(x) approaches L' -- a claim about nearby behavior that never means f(c) = L automatically.",
+  "how_this_becomes_points": "Full credit requires reading and writing notation with approach language kept distinct from equality, and never attempting or citing an epsilon-delta argument, since that content is outside what this exam assesses.",
+  "point_attaining_answer": "- No -- the epsilon-delta definition of a limit is not assessed on this exam.\n- The expected approach is notation and approach language.\n- State that 2x+1 approaches 7 as x approaches 3, not a formal epsilon-delta proof."
+ },
+ "1.3": {
+  "core_idea": "- A graph's plotted point at x = c, filled or open, tells you f(c).\n- The limit as x approaches c is read from the curve's behavior near c from both sides.\n- These two pieces of information can disagree with each other.",
+  "what_students_need_to_understand": "- Tracing from the left and tracing from the right can approach different y-values.\n- When they disagree, the two-sided limit does not exist even if the graph has a single well-defined point at x = c.",
+  "how_this_becomes_points": "Full credit requires checking left-hand and right-hand behavior separately and stating whether they agree before concluding a two-sided limit exists.",
+  "point_attaining_answer": "- No, the limit does not exist.\n- The left-hand limit (2) and right-hand limit (6) disagree.\n- The open circle at (5, 2) is irrelevant to the limit and would only describe f(5) if the function were defined there."
+ },
+ "1.4": {
+  "core_idea": "- A table only ever gives evidence of a trend approaching some value.\n- It cannot prove the limit exactly.\n- No finite table shows every x-value arbitrarily close to the target input.",
+  "what_students_need_to_understand": "- The estimate should come from values on both sides of the target input, read as they get closer.\n- Do not pick whichever single row looks closest to a nice round number.",
+  "how_this_becomes_points": "1. Cite values approaching from both sides of the input.\n2. State the trend those values suggest.\n3. Do not just quote the single closest entry.",
+  "point_attaining_answer": "The limit appears to be 6, since values from both below and above x = 2 approach 6 as x gets closer to 2 from either side."
+ },
+ "1.5": {
+  "core_idea": "- Limit properties for sums, differences, products, quotients, and compositions only combine limits that individually exist.\n- Applying the quotient property when the denominator's limit is zero is not a shortcut.\n- It is an invalid use of the rule.",
+  "what_students_need_to_understand": "- Before applying a limit property, the individual component limits actually have to exist.\n- For the quotient property, the denominator's limit specifically must be nonzero.\n- These are conditions on the property, not optional details.",
+  "how_this_becomes_points": "1. Check that component limits exist.\n2. Check that a quotient's denominator limit is nonzero.\n3. Then cite the corresponding property, not just name a property and compute a value.",
+  "point_attaining_answer": "- This is not a valid use of the quotient property, since that property requires the denominator's limit to be nonzero.\n- With g's limit equal to 0, more information about g's behavior near x = 2 is needed before any conclusion can be drawn."
+ },
+ "1.6": {
+  "core_idea": "- A limit expression that gives 0/0 on direct substitution is not undefined.\n- It is a signal the expression needs to be rewritten, by factoring, rationalizing, or simplifying, into an equivalent form.\n- Substitution then reveals the real limiting value.",
+  "what_students_need_to_understand": "- Canceling a factor is only valid when that factor is a genuine common factor of both numerator and denominator.\n- Canceling terms that merely look similar, without factoring first, produces a wrong result even when the arithmetic looks tidy.",
+  "how_this_becomes_points": "1. Show the rewritten, factored, or rationalized expression as an explicit intermediate step.\n2. Do not just stop at 0/0.\n3. Do not jump straight to a final numeric answer.",
+  "point_attaining_answer": "1. Factoring gives (x-3)(x+3)/(x-3).\n2. This simplifies to x+3 for x not equal to 3.\n3. Substituting x = 3 into the simplified form gives a limit of 6."
+ },
+ "1.7": {
+  "core_idea": "- The real skill being tested is recognizing which cue applies: direct substitution, one-sided checking, algebraic rewriting, or another strategy.\n- Applying the wrong tool wastes the setup even if later arithmetic is correct.",
+  "what_students_need_to_understand": "- A limit problem's form is itself the evidence for which procedure applies.\n- Forms include a nice continuous function, a 0/0 result, a piecewise definition, an absolute value.\n- Reading that form correctly comes before any computation.",
+  "how_this_becomes_points": "- Name the correct strategy cue from the problem's form before computing.\n- Do not just eventually arrive at a numeric answer through trial and error.",
+  "point_attaining_answer": "- The expression involves an absolute value and direct substitution is blocked at x = 0, so one-sided analysis applies.\n- The left-hand limit is -1 and the right-hand limit is 1.\n- They disagree, so the two-sided limit does not exist."
+ },
+ "1.8": {
+  "core_idea": "- The squeeze theorem does not just require naming two bounding functions.\n- It requires showing that both bounding functions actually approach the same limiting value at the target input.\n- The conclusion only follows once that match is demonstrated.",
+  "what_students_need_to_understand": "- Naming 'squeeze theorem' as the topic is not the same as applying it.\n- The specific bounding inequality has to be shown explicitly.\n- The fact that both outside limits equal each other has to be shown explicitly.",
+  "how_this_becomes_points": "1. Write the bounding inequality.\n2. Compute both outside limits and show them equal.\n3. Only then state the concluding statement about the middle function's limit.",
+  "point_attaining_answer": "1. -x^2 <= f(x) <= x^2 for all x.\n2. The limit of -x^2 and the limit of x^2 as x approaches 0 both equal 0 and match.\n3. The squeeze theorem gives that the limit of f(x) as x approaches 0 also equals 0."
+ },
+ "1.9": {
+  "core_idea": "- A limit claim stays the same mathematical fact whether shown as notation, a graph, a table, or a verbal description.\n- The representation changes, but every one is claiming 'as x approaches c, f(x) approaches L'.",
+  "what_students_need_to_understand": "- Matching a table or graph to the function's value at a point, instead of to its approach behavior near that point, is a category error.\n- These representations show approach behavior, not necessarily the function's actual value there.",
+  "how_this_becomes_points": "- Translate every representation into the same underlying approach-behavior claim.\n- Keep that claim consistent across all representations given.",
+  "point_attaining_answer": "- Yes, both representations agree that the limit as x approaches 2 of f(x) equals 4.\n- The hole in the graph just shows that f(2) itself may be undefined or different from 4.\n- That is a separate fact from the limit."
+ },
+ "1.10": {
+  "core_idea": "- Classifying a discontinuity means checking which specific piece fails: the value, the two one-sided limits agreeing, or the function staying bounded.\n- Name the type that matches, rather than describing the graph's general appearance.",
+  "what_students_need_to_understand": "- Removable discontinuity: the limit exists but disagrees with or is missing f(c).\n- Jump discontinuity: the one-sided limits disagree.\n- Infinite discontinuity: unbounded behavior.\n- Each fails a different specific condition, so check left-hand limit, right-hand limit, and f(c) explicitly.",
+  "how_this_becomes_points": "Full credit requires checking left-hand limit, right-hand limit, and f(c) explicitly and naming the discontinuity type tied to which of those failed.",
+  "point_attaining_answer": "- It is a jump discontinuity.\n- The left-hand limit (3) and right-hand limit (7) disagree.\n- So the two-sided limit does not exist at x = 5."
+ },
+ "1.11": {
+  "core_idea": "- Continuity at a point is a three-item checklist: f(c) exists, the limit exists, and the two are equal.\n- A graph merely looking unbroken is not evidence that any one of the three actually holds.",
+  "what_students_need_to_understand": "- Each of the three continuity conditions can fail independently.\n- Checking only one or two of them, such as just confirming f(c) exists, does not establish continuity.",
+  "how_this_becomes_points": "1. Verify f(c) exists.\n2. Verify the limit exists.\n3. Verify the limit equals f(c).\n4. Only then conclude continuity, not from the graph's appearance.",
+  "point_attaining_answer": "- No -- concluding continuity requires explicit checks, not a visually connected graph.\n- Check that the limit as x approaches 4 of f(x) exists.\n- Check that it equals f(4) = 7."
+ },
+ "1.12": {
+  "core_idea": "- Continuity over an interval requires continuity at every single point inside it.\n- A function can look continuous almost everywhere and still fail at one excluded domain value, hole, or piecewise boundary that is easy to overlook.",
+  "what_students_need_to_understand": "- Hunt for holes, asymptotes, piecewise boundary points, and domain restrictions inside the interval.\n- Do not just confirm the function's general formula looks well-behaved.",
+  "how_this_becomes_points": "- Explicitly check special points inside the stated interval: holes, asymptotes, piecewise boundaries, domain exclusions.\n- Do not assert continuity from the function's general type.",
+  "point_attaining_answer": "- No -- f(x) = 1/(x-3) is undefined at x = 3, which lies inside [1, 5].\n- So the function is not continuous over this entire interval.\n- It is continuous everywhere else in that range."
+ },
+ "1.13": {
+  "core_idea": "- Removing a discontinuity means finding the specific value the limit approaches at that point and assigning that exact value to f(c).\n- It is not any nearby-looking number.\n- Do not skip showing the limit was actually computed.",
+  "what_students_need_to_understand": "- At a removable discontinuity the value is uniquely determined by the limit at that point, not a free choice.\n- Compute and show the limit before stating the value.",
+  "how_this_becomes_points": "1. Compute the limit at the discontinuity explicitly.\n2. Show that the chosen value for f(c), or an unknown parameter, equals that computed limit.",
+  "point_attaining_answer": "1. Factoring gives (x-2)(x+2)/(x-2), which equals x+2 for x not equal to 2.\n2. So the limit as x approaches 2 equals 4.\n3. Setting k = 4 removes the discontinuity, since that matches the computed limit."
+ },
+ "1.14": {
+  "core_idea": "- An infinite limit is still a limit statement, not a does-not-exist dead end.\n- Writing that a limit equals infinity communicates specific unbounded behavior.\n- Connect it explicitly to the vertical asymptote when the question asks about the function's behavior or graph.",
+  "what_students_need_to_understand": "- 'Does not exist' is technically true for an infinite limit, but it throws away the more specific and more useful information that the function grows without bound.\n- When a question asks for behavior or an asymptote, infinite-limit notation is the expected answer, not a bare does-not-exist.",
+  "how_this_becomes_points": "- Write the infinite limit notation.\n- Name the vertical asymptote.\n- Do not just state the limit does not exist.",
+  "point_attaining_answer": "- As x approaches 2 from either side, f(x) grows without bound.\n- So the limit as x approaches 2 of f(x) is infinity.\n- x = 2 is a vertical asymptote."
+ },
+ "1.15": {
+  "core_idea": "- End behavior means what happens as the input grows without bound in either direction.\n- That is a completely different question from what happens near input zero.\n- Mixing the two up is a documented, common exam error.",
+  "what_students_need_to_understand": "- The phrase 'end behavior' or 'as t becomes large' always signals a limit as the variable approaches positive or negative infinity.\n- It never signals a limit as the variable approaches zero.\n- These are read from completely different parts of the function's domain.",
+  "how_this_becomes_points": "1. Write the limit with the variable approaching infinity, not zero, when a question asks about end behavior or long-run behavior.\n2. Connect a finite result to a named horizontal asymptote.",
+  "point_attaining_answer": "- This is incorrect notation for the question asked.\n- Long-run or end behavior means the limit as t approaches infinity, so the correct expression is the limit as t approaches infinity of A(t).\n- The limit as t approaches 0 instead asks about behavior near t = 0."
+ },
+ "1.16": {
+  "core_idea": "- A correct IVT conclusion is not one sentence.\n- Real AP scoring data shows the pattern of stating continuity with a reason, showing the target value between the actual endpoint numbers, then concluding existence, as the single lowest-scoring point on the entire exam.\n- Responses skip straight to the conclusion.",
+  "what_students_need_to_understand": "- IVT guarantees a function hits a specific output value somewhere in an interval.\n- MVT guarantees a specific instantaneous rate matches an average rate.\n- Reaching for MVT when a question asks about hitting a target value is a documented, common mistake.",
+  "how_this_becomes_points": "1. State continuity with its reason.\n2. Show the target value numerically between the endpoint values.\n3. Only then give the existence conclusion.\n\nSkipping any one of the three costs the point even with a correct final claim.",
+  "point_attaining_answer": "This response cites the wrong theorem -- the Mean Value Theorem is about matching an instantaneous rate to an average rate, not about hitting a target output value.\n\n1. The correct justification is the Intermediate Value Theorem.\n2. g is continuous on [0, 6].\n3. 0 is strictly between g(0) = -3 and g(6) = 9.\n4. So some c in (0, 6) exists with g(c) = 0."
+ },
+ "2.1": {
+  "core_idea": "- Average rate of change is a secant line's slope over an interval.\n- Instantaneous rate of change is what that secant slope approaches as the interval shrinks to a single point.\n- These are genuinely two different computations, not two names for the same thing.",
+  "what_students_need_to_understand": "- The average rate formula (f(b)-f(a))/(b-a) requires two distinct input values.\n- The instantaneous rate at one point is a limit.\n- Plugging a single point into the average-rate formula produces an undefined 0/0, not an answer.",
+  "how_this_becomes_points": "Full credit requires identifying which type of rate the question actually asks for before choosing a formula, since the average-rate formula and the derivative are structurally different tools.",
+  "point_attaining_answer": "- It's the average rate.\n- It is computed as total distance (180 miles) divided by total time (3 hours) over the whole trip.\n- An instantaneous rate would require information about a single moment, not the whole interval."
+ },
+ "2.2": {
+  "core_idea": "- f'(a) is a rate -- a slope, a speed, a number of units per unit.\n- It is never a y-value of f itself.\n- Treating f'(a) as if it were f evaluated at a produces a completely different, usually wrong, quantity.",
+  "what_students_need_to_understand": "- f(a) answers: what is the function's value here.\n- f'(a) answers: how fast is the function changing here.\n- Confusing them is a category error, not a computational slip.",
+  "how_this_becomes_points": "Full credit requires keeping f(a) and f'(a) as distinct quantities throughout a response, never substituting one for the other.",
+  "point_attaining_answer": "- That's incorrect.\n- f(2)=10 is the function's value at x=2, while f'(2)=3 is the rate of change there.\n- The question asked for the value, so the answer should be 10, not 3."
+ },
+ "2.3": {
+  "core_idea": "- Estimating a derivative from data means computing a secant slope between the two table or graph points closest to the target input, in both directions if possible.\n- Using distant points produces a worse estimate even if the arithmetic is clean.",
+  "what_students_need_to_understand": "- An estimate is not the same as an exact value, and the response should say so.\n- The estimate should be built from the nearest available x-values surrounding the target point, not just any two points in the table.",
+  "how_this_becomes_points": "1. Select the closest surrounding data points, not distant ones.\n2. Label the result as an estimate.\n3. Include units when the context provides them.",
+  "point_attaining_answer": "- Using the closest surrounding values, f(3) and f(7): (38-8)/(7-3) = 7.5.\n- This is an estimate for f'(5), built from the nearest available points rather than the widest-spread ones."
+ },
+ "2.4": {
+  "core_idea": "- Differentiability implies continuity, but continuity does not imply differentiability.\n- A function can be perfectly continuous, no gaps or jumps, and still fail to have a derivative at a sharp corner, a cusp, or a vertical tangent.",
+  "what_students_need_to_understand": "- At a corner, like the graph of |x| at x=0, the function is continuous but the left-hand and right-hand slopes disagree.\n- So no single derivative value exists there.\n- Continuity alone never guarantees a derivative exists.",
+  "how_this_becomes_points": "- Recognize that continuity is necessary but not sufficient for differentiability.\n- Specifically check for corners, cusps, or vertical tangents before claiming a derivative exists.",
+  "point_attaining_answer": "- No -- f is continuous at x=0, but it has a corner there.\n- The left-hand slope is -1 and the right-hand slope is 1, so they disagree.\n- So f'(0) does not exist, even though continuity holds."
+ },
+ "2.5": {
+  "core_idea": "- The power rule applies cleanly to x^n only after negative and fractional exponents are rewritten in that exact form.\n- Differentiating a radical or a reciprocal without first rewriting it as a power is where this topic's arithmetic most often goes wrong.",
+  "what_students_need_to_understand": "- The square root of x is x^(1/2), and 1/x^3 is x^(-3).\n- The power rule does not apply to a radical or a fraction as written, only to the rewritten power form.\n- So that rewriting step has to happen first.",
+  "how_this_becomes_points": "1. Show the explicit rewriting step, radical or reciprocal to a power.\n2. Then apply the power rule.\n\nSkipping the rewriting is where sign and exponent errors happen.",
+  "point_attaining_answer": "1. Rewrite as x^(-2).\n2. The power rule gives f'(x) = -2x^(-3), which is -2/x^3.\n3. The exponent decreases by one to -3, not kept at -2."
+ },
+ "2.6": {
+  "core_idea": "- Differentiating term by term is safe only when every coefficient and sign is carried through with explicit grouping.\n- Writing 2t minus 4 times e to a power without parentheses around (2t-4) changes what the expression actually means, even if the intended derivative was correct.",
+  "what_students_need_to_understand": "- When a derivative produces a binomial coefficient in front of another factor, that coefficient needs parentheses around it.\n- The CED's own scoring notes flag this exact omission as a real, documented point-losing error.",
+  "how_this_becomes_points": "- Put parentheses around any multi-term coefficient produced by these rules.\n- A response with the right numbers but ambiguous or missing grouping can be marked as a different, incorrect expression.",
+  "point_attaining_answer": "- The notation is ambiguous and incorrect as written.\n- The derivative of (2t^2-4t) is (4t-4).\n- It must be grouped in parentheses as (4t-4) times e^t, not written as 4t - 4 times e^t, which changes the meaning of the expression."
+ },
+ "2.7": {
+  "core_idea": "- e^x is its own derivative only when x itself is the variable.\n- When the exponent is a function of x rather than x alone, the chain rule requires multiplying by that inner function's derivative.\n- Skipping this step is a specific, documented, common error.",
+  "what_students_need_to_understand": "- Differentiating e^(x^2) as x^2 times e^(x^2) is a garbled version of the product rule mistakenly applied here.\n- The correct chain-rule derivative is e^(x^2) times the derivative of x^2, which is 2x.\n- This gives 2x times e^(x^2).",
+  "how_this_becomes_points": "1. Recognize when the exponent is not simply x.\n2. Multiply by that inner function's own derivative rather than by the inner function itself.",
+  "point_attaining_answer": "- f'(x) = 2x times e^(x^2), using the chain rule.\n- The derivative of e to an inner power is e to that same inner power times the derivative of the inner expression.\n- The derivative of x^2 is 2x, not x^2 itself."
+ },
+ "2.8": {
+  "core_idea": "- The product rule's two terms are scored as two separate, independent points on this exam.\n- Writing the correct structure, first times derivative of second plus second times derivative of first, earns credit even if a later arithmetic slip changes the final number.",
+  "what_students_need_to_understand": "- The CED's own scoring notes state that failing to present the product-rule structure explicitly costs the setup point even with a correct final numeric answer.\n- The structural step and the final value are graded as two separate things.",
+  "how_this_becomes_points": "Full credit requires showing the explicit structural setup, first factor times derivative of second plus second factor times derivative of first, as its own visible step, separate from the final simplified value.",
+  "point_attaining_answer": "1. (uv)'(3) = u(3)v'(3) + v(3)u'(3)\n2. = (5)(-1) + (4)(2)\n3. = -5 + 8 = 3\n\nBoth structural terms are shown explicitly before combining to the final value."
+ },
+ "2.9": {
+  "core_idea": "- The quotient rule's numerator has a fixed order: denominator times derivative of numerator, minus numerator times derivative of denominator.\n- Reversing that subtraction order produces the exact negative of the correct answer, not just a small error.",
+  "what_students_need_to_understand": "- Unlike the product rule, order matters here.\n- Swapping which term comes first in the numerator's subtraction produces a completely different, negated, result.\n- Subtraction is not commutative the way the product rule's addition is.",
+  "how_this_becomes_points": "- Write the numerator terms in the correct order: denominator times derivative of numerator minus numerator times derivative of denominator.\n- Put it over the denominator squared.\n- A numerically close final answer is not enough.",
+  "point_attaining_answer": "1. (u/v)'(2) = (v(2)u'(2) - u(2)v'(2))/v(2)^2\n2. = (2*4 - 5*1)/4\n3. = 3/4\n\nDenominator times derivative of numerator minus numerator times derivative of denominator, in that order, over denominator squared."
+ },
+ "2.10": {
+  "core_idea": "- sec x and tan x have similar-looking derivatives that are easy to swap.\n- The derivative of tan x is sec^2(x), while the derivative of sec x is sec(x)tan(x).\n- Confusing which one produces which is a common error with these four functions.",
+  "what_students_need_to_understand": "- cot x and csc x both have negative derivatives, -csc^2(x) and -csc(x)cot(x) respectively.\n- tan x and sec x have positive derivatives.\n- Forgetting the negative sign specifically on the cot/csc pair is a well-known, repeated error.",
+  "how_this_becomes_points": "- Cite the exact correct derivative formula for whichever of the four functions is present, including the correct sign.\n- Do not borrow a formula from one of the other three.",
+  "point_attaining_answer": "- f'(x) = -csc^2(x).\n- cot(x)'s derivative carries a negative sign.\n- tan(x)'s derivative sec^2(x) is positive, with no negative sign at all."
+ },
+ "3.1": {
+  "core_idea": "- The chain rule's most common failure mode is misidentifying which piece is the inner function, not the formula itself.\n- This is especially so inside forms like sin squared of x or e to a squared power.\n- There the inner function is not obviously separate from the outer one.",
+  "what_students_need_to_understand": "- sin^2(x) means (sin x)^2, so the outer function is squaring and the inner function is sin x.\n- Differentiating requires both the power rule on the outside and the derivative of sin x on the inside.\n- Stopping after the power rule alone is the single most common way this topic loses points.",
+  "how_this_becomes_points": "- Differentiate the outer function correctly.\n- Explicitly multiply by the inner function's derivative.\n- A response that nails the outer step but omits the inner factor still loses the point.",
+  "point_attaining_answer": "- f'(x) = 2 sin(x) times cos(x).\n- The outer function is squaring (derivative 2 times the inside).\n- The inner function is sin(x), whose own derivative cos(x) must also be multiplied in."
+ },
+ "3.2": {
+  "core_idea": "- Horizontal and vertical tangents are found from opposite parts of dy/dx once it is written as a single fraction.\n- Horizontal tangents come from the numerator equal to zero.\n- Vertical tangents come from the denominator equal to zero.\n- The Chief Reader Report documents swapping these as a real, common error.",
+  "what_students_need_to_understand": "- Once dy/dx is a fraction, a horizontal tangent occurs where the top, the numerator, is zero.\n- A vertical tangent occurs where the bottom, the denominator, is zero.\n- Reaching for the wrong one is the single most reader-documented implicit-differentiation error.",
+  "how_this_becomes_points": "1. Explicitly set the denominator of dy/dx to zero, not the numerator.\n2. Per the Scoring Guidelines, explicitly state which resulting root satisfies the problem's domain restriction if more than one root results.",
+  "point_attaining_answer": "1. Implicit differentiation gives dy/dx = (2-x)/y.\n2. A vertical tangent occurs where the denominator y = 0, not where the numerator is zero.\n3. Substituting y = 0 back into the original equation gives x = 0 or x = 4 as the vertical-tangent locations."
+ },
+ "3.3": {
+  "core_idea": "- The reciprocal-slope relationship works at corresponding points, not the same input value.\n- Finding g'(a) requires first locating the input b on the original function where f(b) = a.\n- Then take the reciprocal of f'(b), never the reciprocal of f' evaluated at a itself.",
+  "what_students_need_to_understand": "- Swapping x and y is the whole trick here.\n- Since g is f's inverse, g(a) = b exactly when f(b) = a.\n- So g'(a) is the reciprocal of the original function's derivative at b, not at a.",
+  "how_this_becomes_points": "1. Explicitly find the corresponding input b, where f(b) equals the value you were given.\n2. Then take the reciprocal.\n\nSkipping straight to 1/f'(a) is the single most common way this topic loses points.",
+  "point_attaining_answer": "1. Since f(3) = 7, g(7) = 3.\n2. Therefore g'(7) = 1/f'(3) = 1/5.\n3. This uses the derivative at the corresponding input 3, not at the input 7 itself."
+ },
+ "3.4": {
+  "core_idea": "- arcsin, arccos, and arctan each have their own derivative formula built from square roots or denominators of 1 plus or minus x squared.\n- These formulas look nothing like the derivatives of sine, cosine, or tangent.\n- Confusing the two produces an answer with the wrong structure entirely, not just a sign error.",
+  "what_students_need_to_understand": "- The derivative of arctan(x) is 1/(1+x^2).\n- That is a completely different algebraic form from the derivative of tan(x), which is sec^2(x).\n- They are structurally unrelated, not formulas that can be confused for partial credit.",
+  "how_this_becomes_points": "1. Cite the specific inverse-trig formula matching the function present.\n2. Chain through correctly if the argument is itself a function of x.\n3. Do not substitute a regular trig derivative in its place.",
+  "point_attaining_answer": "1. Use the arctan derivative formula 1/(1+u^2) with u = 3x.\n2. Multiply by u' = 3 via the chain rule.\n3. f'(x) = 3/(1+(3x)^2), not the tangent derivative formula."
+ },
+ "3.5": {
+  "core_idea": "- The real skill tested here is reading a function's structure correctly.\n- h(x) = (3x+1)^5 looks like it could involve a product, but it is a single composed function.\n- It requires the chain rule, not a product of two separate factors.",
+  "what_students_need_to_understand": "- A product rule applies to two genuinely separate factors multiplied together, like x times sin(x).\n- A chain rule applies to one function raised to a power or nested inside another, like (3x+1)^5.\n- These look superficially similar but require completely different procedures.",
+  "how_this_becomes_points": "- Name the correct procedure from the function's actual structure before differentiating.\n- Do not apply a rule by habit or pattern-matching to the most recently practiced technique.",
+  "point_attaining_answer": "- This is a single composed function, not a product of separate factors, so the chain rule applies.\n- h'(x) = 5(3x+1)^4 times 3.\n- That is the derivative of the outer power function times the derivative of the inner expression."
+ },
+ "3.6": {
+  "core_idea": "- The number of times you differentiate has to match what is actually being asked.\n- Velocity requires one derivative of position, acceleration requires two.\n- Stopping one derivative short answers the wrong question entirely, however carefully computed.",
+  "what_students_need_to_understand": "- A second derivative does not just mean differentiate twice as a mechanical instruction.\n- In context it represents the rate of change of a rate.\n- Examples: acceleration, the rate of change of velocity, or concavity, the rate of change of slope.",
+  "how_this_becomes_points": "1. Differentiate the exact number of times the question requires.\n2. State the resulting value with its correct contextual meaning: acceleration, concavity, or another named second-derivative quantity.\n3. Do not stop at velocity or slope when asked for the rate of the rate.",
+  "point_attaining_answer": "1. Acceleration requires the second derivative: s''(t) = 6t - 12.\n2. So s''(2) = 6(2) - 12 = 0.\n3. The value s'(2) computed above is velocity, not acceleration."
+ },
+ "4.1": {
+  "core_idea": "- A derivative value tied to a real scenario is a rate, not a plain number.\n- Reporting it correctly means naming the changing quantity, the direction, the specific input, and the units all together.\n- Any one missing piece leaves the interpretation incomplete.",
+  "what_students_need_to_understand": "- The number by itself never earns interpretation credit.\n- A grader looks for the full sentence connecting the symbol to the scenario.\n- It must name quantity, direction, input value, and units explicitly.",
+  "how_this_becomes_points": "Full credit requires all four pieces stated together in context, so a technically correct derivative computation with no interpreting sentence still misses the point this topic is testing.",
+  "point_attaining_answer": "- At t = 4 minutes after brewing, the coffee's temperature is decreasing at about 3.2 degrees Celsius per minute.\n- This names the quantity, the time, the direction, and the units together."
+ },
+ "4.2": {
+  "core_idea": "- Whether an object is speeding up or slowing down depends on comparing the signs of velocity and acceleration together.\n- Matching signs mean speeding up, opposite signs mean slowing down.\n- Checking only one of the two gives the wrong answer about half the time.",
+  "what_students_need_to_understand": "- A positive velocity does not by itself mean the object is speeding up.\n- If acceleration is negative at that same moment, the signs disagree and the object is actually slowing down.",
+  "how_this_becomes_points": "Full credit requires comparing both signs explicitly, not concluding from velocity's sign or acceleration's sign alone.",
+  "point_attaining_answer": "- Slowing down.\n- Velocity (positive) and acceleration (negative) have opposite signs at t = 5.\n- Opposite signs mean the speed is decreasing, even though velocity itself is still positive."
+ },
+ "4.3": {
+  "core_idea": "- Outside of motion, dV/dt, dP/dt, or any other rate symbol still means change per unit time.\n- The skill is naming which quantity is changing and attaching the scenario's own units.\n- Do not treat the derivative as an abstract number.",
+  "what_students_need_to_understand": "The same derivative symbol carries a different real meaning in every scenario, so the response has to name the specific quantity and units from that scenario, not a generic 'rate.'",
+  "how_this_becomes_points": "Full credit requires identifying the changing quantity and reporting the rate with the scenario's own units, not a bare number pulled from a derivative computation.",
+  "point_attaining_answer": "- At t = 8 minutes, the tank's volume is decreasing at about 15 gallons per minute.\n- This names the quantity, the time, the direction, and the units together, not the bare derivative value."
+ },
+ "4.4": {
+  "core_idea": "- Citing a chain-rule identity by name is not the same as carrying it through to a computed value.\n- The identity has to end in an actual number using the given rate, not stop at the formula itself.",
+  "what_students_need_to_understand": "- Writing 'dx/dt = dx/dy times dy/dt' and stopping states a true fact but does not earn credit.\n- The identity must be evaluated using the actual given rate to produce a number.",
+  "how_this_becomes_points": "The differentiation point requires the full equation differentiated with respect to t and solved numerically, not a cited identity left unevaluated.",
+  "point_attaining_answer": "- No -- the identity has to be carried through to an actual numeric value for dx/dt using the given dy/dt.\n- Differentiating the full equation with respect to t and solving for dx/dt numerically is what earns the point."
+ },
+ "4.5": {
+  "core_idea": "- Every product term in a related-rates equation produces two separate derivative terms after differentiating, one from each factor.\n- Every function nested inside another produces its own chain-rule factor.\n- Missing either is the most common way this topic's execution point is lost.",
+  "what_students_need_to_understand": "- A term like 3xy^2 is a product of x and y^2, so differentiating it produces two terms, not one.\n- A term like e^y produces a chain-rule factor from differentiating y with respect to t.",
+  "how_this_becomes_points": "1. Include every product-rule and chain-rule term in the differentiated equation.\n2. Evaluate with snapshot values only after differentiation is complete.",
+  "point_attaining_answer": "1. Differentiating gives 3y^2(dx/dt) + 6xy(dy/dt) + e^y(dy/dt) = 0.\n2. Both terms from the product 3xy^2 are present, along with the chain-rule term from e^y.\n3. Substituting x=1, y=2, dx/dt=5 and solving for dy/dt gives the requested rate."
+ },
+ "4.6": {
+  "core_idea": "- The slope value and the mechanics of building and evaluating a linearization are scored independently.\n- A wrong slope carried through consistently to a completed number still earns the mechanics point.\n- The slope point is lost.",
+  "what_students_need_to_understand": "- Only an unresolved expression, missing a final evaluated number, loses the mechanics point.\n- A wrong-but-fully-computed approximation does not.",
+  "how_this_becomes_points": "Full credit for the mechanics point requires a fully evaluated final number built from L(x) = f(a) + f'(a)(x-a), regardless of whether the slope value itself was correct.",
+  "point_attaining_answer": "- Losing the slope point does not cost the mechanics point here.\n- The wrong slope value was used consistently all the way through to one fully evaluated final number.\n- So the linearization-mechanics point is still earned."
+ },
+ "4.7": {
+  "core_idea": "- Confirming the indeterminate form in words, before applying L'Hospital's Rule, is a required step, not a formality.\n- The rule always means differentiating numerator and denominator separately, never the quotient rule.",
+  "what_students_need_to_understand": "- 0/0 and infinity/infinity are labels describing a situation.\n- The correct next step is always to differentiate numerator and denominator on their own.\n- Never reach for the quotient rule.",
+  "how_this_becomes_points": "1. State the indeterminate form as a verified fact before applying the rule.\n2. Differentiate numerator and denominator separately rather than using the quotient rule.",
+  "point_attaining_answer": "1. As x approaches 1, ln(x) approaches 0 and (x-1) approaches 0, so this is the 0/0 indeterminate form.\n2. L'Hospital's Rule applies.\n3. Differentiating numerator and denominator separately gives (1/x)/1, which approaches 1 as x approaches 1."
+ },
+ "5.1": {
+  "core_idea": "- MVT does not just claim some c exists with a matching slope.\n- Both hypotheses, continuity on the closed interval and differentiability on the open interval, have to be checked and stated.\n- The theorem simply does not apply without them.",
+  "what_students_need_to_understand": "- A function can be continuous everywhere on a closed interval and still fail the MVT hypothesis.\n- Even one non-differentiable point, such as a corner, inside the open interval is enough.",
+  "how_this_becomes_points": "1. Explicitly verify both hypotheses.\n2. Then state the conclusion.\n\nDo not cite continuity and assume differentiability follows.",
+  "point_attaining_answer": "- Incorrect -- MVT also requires f to be differentiable on the open interval (0,4).\n- f(x) = |x-2| is not differentiable at x=2, a corner, which lies inside that interval.\n- So MVT's hypotheses are not fully met."
+ },
+ "5.2": {
+  "core_idea": "- Presenting a critical point's x-value alone, with no derivative-setting work shown, does not earn the point.\n- The work step or explicit critical-point language has to be visible, even when the value itself is correct.",
+  "what_students_need_to_understand": "- Critical-point credit is not about reaching the right number.\n- It is about showing the equation f'(x)=0 (or identifying where f' is undefined) as an explicit step before stating the value.",
+  "how_this_becomes_points": "Full credit requires the derivative-setting work shown as its own step, not just the resulting x-value presented on its own.",
+  "point_attaining_answer": "- No -- credit requires showing the derivative-setting work, f'(x) = 2(x-4) = 0.\n- A bare answer without that step does not earn the point even though x=4 is correct."
+ },
+ "5.3": {
+  "core_idea": "- Increasing and decreasing behavior is described using the x-interval where f' is positive or negative.\n- Never name the function's output y-values.\n- They describe two different axes of the same graph.",
+  "what_students_need_to_understand": "An increasing/decreasing conclusion is always stated as an x-interval, such as (2,5), because that is where the sign test was actually performed -- describing it by a range of y-values mixes up input and output.",
+  "how_this_becomes_points": "Full credit requires the conclusion stated as an x-interval matching the sign chart, not a range of function output values.",
+  "point_attaining_answer": "- The conclusion should be stated using the x-interval where f' is positive, (2,5).\n- Do not name output y-values.\n- Increasing and decreasing describe behavior over an x-interval, not a y-range."
+ },
+ "5.4": {
+  "core_idea": "- f'(c)=0 only identifies a critical point.\n- Classifying it as a local maximum or minimum requires checking that f' actually changes sign on both sides of c.\n- It is not enough that f' equals zero there.",
+  "what_students_need_to_understand": "- A critical point where f'(c)=0 could be a local max, a local min, or neither (if the sign does not change at all).\n- So the sign-change check on both sides is not optional evidence, it is the entire justification.",
+  "how_this_becomes_points": "- Show f''s sign on both the left and right of the critical point.\n- Do not just state f'(c)=0 and name an extremum type.",
+  "point_attaining_answer": "- Incorrect as stated -- f'(3)=0 only identifies a critical point.\n- Classifying it as a local maximum requires checking that f' changes from positive to negative on either side of x=3.\n- That check was never shown."
+ },
+ "5.5": {
+  "core_idea": "- Justifying an absolute extremum with a local argument, the First or Second Derivative Test, does not earn the justification point even when the final numeric answer is correct.\n- Only comparing values at every critical point and both endpoints, the Candidates Test, justifies a global claim.",
+  "what_students_need_to_understand": "- A local test can correctly identify a local maximum or minimum.\n- That is a fundamentally different claim from an absolute extremum on a closed interval.\n- The absolute claim requires comparing against every candidate, not just the immediate neighborhood of one point.",
+  "how_this_becomes_points": "- The justification point for an absolute extremum requires the Candidates Test comparison shown explicitly.\n- A correct local-test argument still earns the separate final-answer point.\n- It never earns the justification point for a global claim.",
+  "point_attaining_answer": "- The final value may be correct, but the justification is not.\n- A local argument like the First Derivative Test never justifies an absolute extremum.\n- Only comparing f-values at every critical point and both endpoints earns the justification point.\n- The answer-value point can still be earned separately."
+ },
+ "5.6": {
+  "core_idea": "- Concavity is decided entirely by the sign of f'', the second derivative.\n- Checking f''s own sign answers a different question, whether the function is increasing or decreasing.\n- It does not tell you whether the function curves upward or downward.",
+  "what_students_need_to_understand": "- f' positive or negative tells you increasing or decreasing.\n- f'' positive or negative tells you concave up or concave down.\n- These are two separate sign tests on two different functions, and swapping them answers the wrong question.",
+  "how_this_becomes_points": "Full credit for a concavity question requires the sign chart built from f'', not f'.",
+  "point_attaining_answer": "- This is incorrect -- concavity is determined by the sign of f'', the second derivative, not f'.\n- f' sign determines increasing or decreasing, a separate question from concavity."
+ },
+ "5.7": {
+  "core_idea": "- When f''(c)=0, the second derivative test is inconclusive, not negative.\n- It means this particular test cannot decide, not that no extremum exists.\n- A different method has to be used instead.",
+  "what_students_need_to_understand": "- An inconclusive result is a statement about the test's limits, not about the function.\n- Concluding 'no extremum' from f''(c)=0 replaces an honest 'I need another method' with a claim the test never actually made.",
+  "how_this_becomes_points": "Full credit requires recognizing f''(c)=0 as inconclusive and switching to the First Derivative Test, not treating it as evidence against an extremum.",
+  "point_attaining_answer": "- Incorrect -- f''(2)=0 makes the second derivative test inconclusive, not negative.\n- It says nothing about whether an extremum exists.\n- The First Derivative Test would be needed to actually determine that."
+ },
+ "5.8": {
+  "core_idea": "- A sketch should only show what the derivative evidence actually supports.\n- Gather the sign charts for f' and f'' first.\n- Let those charts, not intuition about what a graph 'should' look like, decide every feature drawn.",
+  "what_students_need_to_understand": "- Each graph feature, an extremum, an inflection point, a concavity change, needs its own piece of derivative evidence before it can be drawn.\n- A feature added from intuition without matching evidence is not supported by the given information.",
+  "how_this_becomes_points": "Full credit requires every sketched feature to be traceable to a specific piece of sign-chart evidence, not added because it looks reasonable.",
+  "point_attaining_answer": "- This is not supported -- an inflection point requires evidence about concavity from f'', which was never given.\n- The sign change in f' alone only supports a local maximum at x=2, not an inflection point."
+ },
+ "5.9": {
+  "core_idea": "- A graph of f' is easy to mistake for a graph of f itself.\n- Extrema and concavity of f are read from where the shown f' graph crosses zero and how it behaves.\n- They are not read from the shape of that f' graph as if it directly were f.",
+  "what_students_need_to_understand": "- If the graph shown is f', then a zero crossing of that graph corresponds to a critical point of f.\n- Whether f' is increasing or decreasing there corresponds to concavity of f.\n- None of this is read the same way you would read a graph of f directly.",
+  "how_this_becomes_points": "Full credit requires correctly identifying which function's graph is shown and translating its features into conclusions about the other function, rather than reading the shown graph as if it directly represented f.",
+  "point_attaining_answer": "- This confuses the two functions -- the graph shown is f', not f.\n- Since f' changes from positive to negative at x=5, f, not the graph shown, has a local maximum at x=5.\n- The shown graph itself simply crosses zero there."
+ },
+ "5.10": {
+  "core_idea": "- An optimization objective has to be reduced to a single variable using the given constraint before any differentiation happens.\n- Differentiating a two-variable expression, treating the other variable as if it were already constant, skips a required setup step.",
+  "what_students_need_to_understand": "- Writing an objective like Area = xy is not yet ready to differentiate.\n- The constraint relating x and y has to be solved and substituted in first.\n- That produces a genuine one-variable function of x alone.",
+  "how_this_becomes_points": "Full credit requires the constraint substitution shown as its own step, producing a one-variable objective function, before any derivative is taken.",
+  "point_attaining_answer": "1. This skips a required step -- the perimeter constraint (2x+2y=40, so y=20-x) must be substituted in first.\n2. That reduces A to the one-variable function A(x) = x(20-x).\n3. Only then differentiate."
+ },
+ "5.11": {
+  "core_idea": "- Finding a critical point is not the end of an optimization problem.\n- The response still has to justify that the critical value is actually the requested maximum or minimum.\n- It must also answer in context with units, not just report the numeric extremum.",
+  "what_students_need_to_understand": "A correct critical point and a correct final number can still be an incomplete response if the justification step, comparing the critical value against endpoints or using a derivative test, is never shown.",
+  "how_this_becomes_points": "1. Show the justification comparison explicitly.\n2. State the final answer in context with the requested variable and units.",
+  "point_attaining_answer": "- The value is correct, but the response is missing the justification step.\n- Comparing A(10)=100 to the endpoint values A(0)=0 and A(20)=0 confirms x=10 gives the maximum.\n- This comparison must be shown, not just the final number."
+ },
+ "5.12": {
+  "core_idea": "- A term like xy inside an implicit relation is a product of two factors that both depend on x.\n- Differentiating it requires the product rule, producing a dy/dx term from the y-factor.\n- Treating y as an ordinary constant drops that required term entirely.",
+  "what_students_need_to_understand": "- Even outside a related-rates or tangent-line problem, any implicit relation involving both x and y needs the same chain-rule treatment on y-terms established in implicit differentiation.\n- Behavior questions about implicit curves are not exempt from that rule.",
+  "how_this_becomes_points": "Full credit requires every product involving both x and y to produce its full product-rule expansion, including the dy/dx factor, not a shortcut that treats y as constant.",
+  "point_attaining_answer": "- This is incomplete -- xy is a product of two factors both depending on x, so the product rule applies.\n- Differentiating xy gives x(dy/dx) + y, not just y.\n- The correct implicit differentiation is 2x + x(dy/dx) + y = 0."
+ }
+}

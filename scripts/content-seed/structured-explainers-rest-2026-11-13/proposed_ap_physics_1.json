@@ -1,0 +1,260 @@
+{
+ "1.1": {
+  "core_idea": "- A scalar carries only magnitude (speed, distance, time); a vector carries magnitude and direction.\n- In one dimension this course does not require vector-arrow notation.\n- A signed value like v_x = -4 m/s fully conveys direction through its sign alone, without ever writing an arrow over the symbol.",
+  "what_students_need_to_understand": "- Every kinematics equation you'll use this unit depends on getting signs right.\n- If you can't tell a scalar from a vector, you'll add speeds when you should be subtracting velocities.\n- Every later unit (forces, momentum, energy) builds on this same signed-quantity habit.",
+  "how_this_becomes_points": "1. Consistently assign and use a sign convention (e.g., positive = rightward or upward) for every vector quantity in a problem.\n2. Correctly identify which given quantities are scalars (speed, distance, time) versus vectors (velocity, displacement, acceleration).",
+  "point_attaining_answer": "1. Total distance traveled is a scalar: 7 m (from +2 to +9) plus 6 m (from +9 to +3) = 13 m.\n2. Net displacement is a vector, found from final minus initial position: x_f - x_i = 3 - 2 = +1 m, i.e. 1 m in the positive direction.\n3. It is not 13 m, because the backward leg subtracts from displacement even though it adds to distance."
+ },
+ "1.2": {
+  "core_idea": "- Average velocity is (delta-x)/(delta-t) and average acceleration is (delta-v)/(delta-t).\n- Instantaneous velocity and acceleration are defined as the limit of that average over a very small time interval.\n- They are never introduced via a derivative, since no derivative notation appears anywhere in this algebra-based course.",
+  "what_students_need_to_understand": "- These three definitions are the vocabulary every other kinematics topic is written in.\n- The constant-acceleration equations, the graph slopes, and the relative-motion rules in this unit all reduce back to these two ratios.",
+  "how_this_becomes_points": "- Correctly compute displacement, change in velocity, average velocity, or average acceleration from given position/velocity/time data.\n- Correctly distinguish an instantaneous value (read at one moment) from an average value (computed over an interval).",
+  "point_attaining_answer": "1. Average velocity = (delta-x)/(delta-t) = (24 m - 4 m)/(5 s - 1 s) = 20 m / 4 s = 5 m/s.\n2. This is not necessarily the instantaneous velocity at t = 3 s: instantaneous velocity is the limit of (delta-x)/(delta-t) as the time interval shrinks toward that single moment.\n3. Unless the car moves at constant velocity throughout, the 4-second average can differ from the instant at t = 3 s."
+ },
+ "1.3": {
+  "core_idea": "- The three constant-acceleration equations (v = v0 + at, x = x0 + v0t + (1/2)at^2, v^2 = v0^2 + 2a(x - x0)) apply only when acceleration is constant.\n- Nonuniform acceleration is analyzed only qualitatively or graphically, never by plugging into these equations.\n- g = 10 m/s^2 is used for numeric problems; 9.8 or 9.81 m/s^2 is not penalized.",
+  "what_students_need_to_understand": "- Most quantitative kinematics problems on the exam are solved by picking the one correct equation from this set or by reading a value off a graph.\n- Fluency here is the single biggest lever for points in this unit.",
+  "how_this_becomes_points": "1. Pick the equation matching the knowns and unknown; substitute correctly.\n2. Graphs: position slope = velocity, velocity slope = acceleration, area under velocity = displacement, area under acceleration = change in velocity.\n3. Nonuniform acceleration is scored on qualitative shape/reasoning, not the three equations.",
+  "point_attaining_answer": "1. v = v0 + at: v = 0 + (4 m/s^2)(5 s) = 20 m/s.\n2. x = x0 + v0t + (1/2)at^2: x = 0 + 0 + (1/2)(4 m/s^2)(5 s)^2 = (1/2)(4)(25) = 50 m.\n3. Check with v^2 = v0^2 + 2a(x - x0): 20^2 = 400, and 2(4)(50) = 400, confirming consistency.\n\nThe distance is not simply final velocity times time, because the car wasn't moving at 20 m/s for the whole interval -- it started from rest and sped up."
+ },
+ "1.4": {
+  "core_idea": "- Acceleration is the same in every inertial reference frame, but velocity is not.\n- Velocity combines the object's velocity in one frame with the relative velocity between frames.\n- Relative-velocity vector addition is restricted to one dimension; two-dimensional problems, such as a boat crossing a river, are outside AP Physics 1's scope.",
+  "what_students_need_to_understand": "- Problems describing motion \"as seen from\" a moving platform (a walkway, a train, another car) only make sense once velocities are combined between frames.\n- Accelerations transfer over unchanged.",
+  "how_this_becomes_points": "- Correctly add or subtract one-dimensional velocities to convert between reference frames.\n- Correctly state that the acceleration of an object is the same as measured in any inertial frame.",
+  "point_attaining_answer": "1. Passenger's velocity relative to the floor = walkway's velocity + passenger's velocity relative to the walkway: 1.5 m/s + 1.2 m/s = 2.7 m/s, both in the same direction.\n2. Simple addition works because both velocities lie along the same one-dimensional line of motion (forward along the walkway).\n3. Only one-dimensional relative velocities are tested; a two-dimensional case such as a boat crossing a river, needing full vector addition, is not."
+ },
+ "1.5": {
+  "core_idea": "- Projectile motion decomposes into two independent 1-D motions: zero acceleration horizontally, constant g vertically, linked only by a shared time.\n- On a 2026 released FRQ, qualitative reasoning about the motion was graded as a separate requirement from the mathematical derivation.\n- It is its own scored piece, not an optional add-on to the math.",
+  "what_students_need_to_understand": "- Projectile motion is the main way the course tests whether you can combine vector resolution with the kinematics equations from the previous topic.\n- Horizontal and vertical motion happen simultaneously but must be solved separately.",
+  "how_this_becomes_points": "1. Resolve the initial velocity into horizontal and vertical components.\n2. Recognize horizontal acceleration is zero and vertical acceleration is constant.\n3. Solve each axis with the appropriate 1-D kinematic equation, then recombine results if needed.",
+  "point_attaining_answer": "1. vx0 = 20cos(30 deg) is approximately 17.3 m/s (constant, since horizontal acceleration is zero); vy0 = 20sin(30 deg) = 10 m/s.\n2. Vertically it slows, stops rising, then falls: time to peak is vy0/g = 10/10 = 1 s; by symmetry (same launch and landing height) total flight time is 2 s.\n3. Horizontal range = vx0 times t = 17.3 times 2, approximately 34.6 m.\n\nIn words: gravity continuously decelerates the upward motion until vertical velocity reverses sign -- a point separate from the calculation."
+ },
+ "2.1": {
+  "core_idea": "- A system boundary tells you what objects are being modeled together.\n- Center of mass is the mass-weighted average position of that system, so it shifts toward larger masses or clusters of mass.",
+  "what_students_need_to_understand": "- AP Physics 1 center-of-mass calculations are limited to systems of five or fewer particles in two dimensions or highly symmetrical systems.\n- The point is not advanced integration; it is choosing the system and weighting positions by mass.",
+  "how_this_becomes_points": "1. Name the system, including only masses in that system.\n2. Write x_cm = sum m_i x_i over sum m_i or the matching y expression.\n\nQualitative answers should say which side has more mass or farther mass.",
+  "point_attaining_answer": "1. It is at x = 4 m.\n2. Use the mass-weighted average: (m(0)+m(6)+m(6))/(3m)=4 m.\n3. The center of mass shifts toward the side with more mass, so the geometric midpoint is not enough."
+ },
+ "2.2": {
+  "core_idea": "- A free-body diagram is a force inventory for one object.\n- It should show each real external force once, as a straight arrow from the dot.\n- Components are saved for the equations.",
+  "what_students_need_to_understand": "- Separate physical forces from mathematical components.\n- Gravity, normal force, friction, tension, spring force, and applied forces can appear.\n- Velocity, acceleration, kinetic energy, momentum, and force components are not separate FBD forces.",
+  "how_this_becomes_points": "1. Choose the object.\n2. Draw each force in its physical direction.\n3. Avoid extra arrows.\n\nA correct FBD often earns credit before any equation is written.",
+  "point_attaining_answer": "No.\n\n- Draw the full weight mg downward, plus normal force and friction if present.\n- The component mg sin(theta) is part of resolving the weight into axes.\n- Drawing it as another arrow double-counts gravity."
+ },
+ "2.3": {
+  "core_idea": "- Newton's third law pairs are two forces from one interaction: A on B and B on A.\n- They are equal in magnitude and opposite in direction.\n- They act on different objects.",
+  "what_students_need_to_understand": "- Avoid using third-law pairs as if they cancel on one object.\n- They cancel only when both objects are inside the chosen system and the pair is internal.\n- For AP Physics 1, massive-string tension is described qualitatively rather than calculated in detail.",
+  "how_this_becomes_points": "1. Name both objects.\n2. Assign each force to the object it acts on.\n3. Use system boundaries to decide whether the pair belongs inside or outside a net-force equation.",
+  "point_attaining_answer": "- The partner is the table pushing up on the book.\n- The book-on-table force and table-on-book force are equal and opposite and act on different objects.\n- The book weight is Earth pulling on the book, a different interaction."
+ },
+ "2.4": {
+  "core_idea": "- Newton's first law says constant velocity requires zero net force in an inertial frame.\n- Zero net force can coexist with real forces if they balance.",
+  "what_students_need_to_understand": "- Think component by component.\n- A block can have vertical force balance while accelerating horizontally, or horizontal force balance while moving at constant horizontal velocity.\n- Rest is just the zero-speed case of constant velocity.",
+  "how_this_becomes_points": "1. Connect zero acceleration to sum F = 0 along the relevant direction.\n2. Explain that balanced forces do not disappear.\n\nIf acceleration is nonzero, first-law equilibrium does not apply in that direction.",
+  "point_attaining_answer": "- The net horizontal force is zero.\n- The pulling force can be balanced by friction, so the sled continues at constant velocity.\n- Constant velocity means balanced forces, not no forces."
+ },
+ "2.5": {
+  "core_idea": "Newton's second law is a system-matched statement: the net external force on the selected object or system equals that object or system mass times its acceleration.",
+  "what_students_need_to_understand": "- Keep force equations organized.\n- A force on block A belongs in block A equation; a force on the two-block system belongs in the system equation.\n- Constraints can connect accelerations, but they do not merge unrelated force lists.",
+  "how_this_becomes_points": "1. Draw the FBD.\n2. Choose axes.\n3. Sum forces by component.\n4. Match the mass and acceleration to the same selected object or system.",
+  "point_attaining_answer": "- The equation mixes objects.\n- If it is for block A, use forces on block A and mass A.\n- If it is for both blocks, use external forces on both blocks and total mass.\n- Shared acceleration is a constraint, not permission to mix force lists."
+ },
+ "2.6": {
+  "core_idea": "- Gravity can be modeled as a force between masses or as a field.\n- Near Earth, weight is mg.\n- Apparent weight is the normal-force magnitude a scale would read.",
+  "what_students_need_to_understand": "- Distinguish mass, weight, gravitational field, and normal force.\n- An object feeling heavier or lighter in an accelerating elevator means the normal force changed, not that its mass changed.",
+  "how_this_becomes_points": "1. Use F_g = Gm1m2/r^2 or mg in the right context.\n2. Use g = F_g/m as field strength.\n3. Explain apparent weight through the normal force.",
+  "point_attaining_answer": "- The m in g = F_g/m is the test object mass, not the planet mass.\n- For a planet, g = GM/r^2, so increasing planet mass M at the same radius increases gravitational field strength.\n- Do not confuse object mass, planet mass, and weight."
+ },
+ "2.7": {
+  "core_idea": "- Kinetic friction has a fixed model during sliding.\n- Static friction adjusts to prevent slipping, up to a maximum.\n- Static friction equals mu_s F_N only at the threshold of slipping.",
+  "what_students_need_to_understand": "- Infer both direction and size from the contact condition.\n- Static friction can be less than its maximum or even zero if no tangential slipping tendency exists.",
+  "how_this_becomes_points": "1. Identify sliding versus non-sliding contact.\n2. Use F_k = mu_k F_N for kinetic friction.\n3. Solve for the needed static friction.\n4. Compare it with F_s,max = mu_s F_N.",
+  "point_attaining_answer": "- It is P, opposite the push.\n- Static friction adjusts to whatever value is needed to prevent slipping, up to the maximum mu_s F_N.\n- The maximum is a limit, not the automatic value."
+ },
+ "2.8": {
+  "core_idea": "- A spring force is a restoring force: it points toward equilibrium.\n- Its magnitude is k times the displacement from equilibrium.",
+  "what_students_need_to_understand": "- Measure stretch or compression relative to equilibrium, not total length.\n- The sign in F_s = -k Delta x means the force opposes displacement from equilibrium.",
+  "how_this_becomes_points": "1. Identify equilibrium.\n2. Find Delta x.\n3. Draw the restoring force in the correct direction.\n4. Use the spring force in a net-force equation when dynamics are involved.",
+  "point_attaining_answer": "- The spring force points left, back toward equilibrium.\n- A spring force is restoring: when displacement is to the right, the force is in the opposite direction."
+ },
+ "2.9": {
+  "core_idea": "- Circular motion needs inward centripetal acceleration v^2/r.\n- The inward net force comes from real forces such as tension, gravity, normal force, or friction.\n- Centripetal force is not an extra force.",
+  "what_students_need_to_understand": "- Draw the FBD before writing mv^2/r.\n- At the top of a vertical loop, both gravity and the normal force can point toward the center, which means the normal force points downward there.",
+  "how_this_becomes_points": "1. Identify the center direction.\n2. Resolve real forces radially.\n3. Write sum F_radial = mv^2/r.\n4. Respect AP Physics 1 limits on banked curves with friction and Kepler laws.",
+  "point_attaining_answer": "- Downward, toward the center of the loop.\n- The normal force is perpendicular to the track surface and points from the track toward the object.\n- At the top, the center is below the object, so the normal force and gravity can both point inward."
+ },
+ "3.1": {
+  "core_idea": "- K = (1/2)mv^2 is a scalar that is always non-negative, because it depends on v^2; velocity direction can never make it negative.\n- Kinetic energy is frame-dependent: observers in different frames can measure different speeds for the same object and compute different values of K.\n- No single frame is the \"correct\" one.",
+  "what_students_need_to_understand": "- Identify which speed to plug in: the object's speed relative to the frame the problem specifies.\n- K itself never carries a sign, since squaring the speed erases any direction information.",
+  "how_this_becomes_points": "1. Compute K = (1/2)mv^2 with the correct speed for the specified reference frame.\n2. Reason that K cannot be negative.\n3. Reason that its value can differ between two valid reference frames for the same object.",
+  "point_attaining_answer": "1. Ground frame: K = (1/2)(2 kg)(6 m/s)^2 = 36 J.\n2. Observer running at 4 m/s in the same direction: the ball's speed is only 6 - 4 = 2 m/s, so K = (1/2)(2 kg)(2 m/s)^2 = 4 J.\n3. The values differ because kinetic energy depends on speed relative to the observer's frame, not on some single absolute speed."
+ },
+ "3.2": {
+  "core_idea": "- Work for a constant force is W = F_parallel d = Fd cos(theta) -- never treated as a dot product or with calculus notation in this course.\n- For a force that changes with position, work equals the area under a graph of F_parallel versus displacement.\n- The constant-force formula no longer applies directly there.",
+  "what_students_need_to_understand": "- The most common way to lose points is using the full force magnitude instead of the component parallel to the displacement.\n- Work only comes from the piece of the force that's doing something in the direction of motion.",
+  "how_this_becomes_points": "1. Isolate F_parallel (via Fcos(theta) or direct identification).\n2. Multiply by displacement with the correct sign.\n3. For a variable force, read area under an F_parallel-vs-displacement graph instead of forcing a single-formula calculation.",
+  "point_attaining_answer": "- Only the horizontal component of the 50 N force does work on the box, since displacement is horizontal.\n- W = Fd cos(theta) = (50 N)(10 m)(0.8) = 400 J.\n- It is not 500 J, because the full 50 N isn't aligned with the direction of motion; part of it points upward and does no work on the horizontal displacement."
+ },
+ "3.3": {
+  "core_idea": "- U = 0 is an observer's choice, not a fixed physical reference: place it anywhere convenient (the ground, a table, a spring's natural length), consistently within one problem.\n- deltaU_g = mg deltay approximates the general inverse-square gravitational form; it is not an independent law.\n- With more than two objects, total potential energy sums every pair.",
+  "what_students_need_to_understand": "- Two students can pick different reference heights and both be correct, as long as they only report changes in U or are explicit about their reference.\n- The physics never depends on where you set U = 0.",
+  "how_this_becomes_points": "1. Compute a change in potential energy (spring: (1/2)k(deltax)^2; near-surface gravitational: mg deltay).\n2. State or use a reference point explicitly, rather than treating U = 0 as a universal, physically fixed location.",
+  "point_attaining_answer": "1. U_s = (1/2)k(deltax)^2 = (1/2)(200 N/m)(0.3 m)^2 = (1/2)(200)(0.09) = 9 J.\n2. The zero of elastic potential energy is set at the spring's natural (uncompressed) length here -- a choice, not a universal rule.\n3. So U_s = 9 J is the energy relative to that chosen reference, not relative to the ground."
+ },
+ "3.4": {
+  "core_idea": "- A single object modeled as a point mass can only possess kinetic energy; potential energy is never a property of one isolated object.\n- Potential energy requires a system with an internal conservative interaction (object-and-Earth, object-and-spring).\n- Only then does the system have both K and U to track through conservation of mechanical energy.",
+  "what_students_need_to_understand": "- On a released FRQ, the single most common error was defaulting to a 50/50 split between kinetic and gravitational potential energy at an intermediate point, regardless of the actual height ratio.\n- This happened despite most students correctly understanding total-energy conservation itself.",
+  "how_this_becomes_points": "1. Write energy conservation as initial energy equals final energy plus any transfer or dissipation term, for a correctly chosen system.\n2. Compute the actual K/U split at an intermediate point from the real height ratio given, not an even split.",
+  "point_attaining_answer": "1. Total mechanical energy at the top: E = mgh = (2 kg)(10 m/s^2)(5 m) = 100 J, all potential, since the block starts at rest.\n2. At height 2 m, U = mgh = (2)(10)(2) = 40 J, so by conservation K = 100 - 40 = 60 J.\n3. The split is 60/40, not 50/50 -- it depends on the actual height ratio (the block has descended 3 of the original 5 m)."
+ },
+ "3.5": {
+  "core_idea": "- Average power is P_avg = deltaE/deltat = W/deltat.\n- Instantaneous power for a constant force is P = F_parallel v = Fv cos(theta), a derived equation obtained from the rate of work, not an independent formula.\n- This algebra-based course gives no treatment of instantaneous power when force or velocity changes with time; no derivative notation is used.",
+  "what_students_need_to_understand": "- Track the time interval correctly: a large amount of work over a long time can be less power than a smaller amount of work done quickly.\n- The point is the rate at which energy is transferred, not the energy transferred.",
+  "how_this_becomes_points": "1. Average power: divide energy transferred (or work done) by the actual elapsed time.\n2. Instantaneous power: identify the force component parallel to velocity.\n3. Do not report work or force alone as if it were power.",
+  "point_attaining_answer": "1. Constant velocity means net force is zero, so the lifting force equals the weight: F = mg = (50 kg)(10 m/s^2) = 500 N, parallel to the velocity (theta = 0).\n2. P = Fv cos(theta) = (500 N)(2 m/s)(1) = 1000 W.\n3. The force alone (500 N) is not power; it must be multiplied by the speed at which it acts."
+ },
+ "4.1": {
+  "core_idea": "- Momentum is mass times velocity, so it inherits velocity direction.\n- A 2 kg cart moving left and a 2 kg cart moving right have equal momentum magnitudes but opposite momentum vectors if right is chosen positive.",
+  "what_students_need_to_understand": "- Treat momentum as a signed or directional quantity from the first line of work.\n- The word momentum means linear momentum unless the prompt explicitly shifts to angular momentum in a later unit.",
+  "how_this_becomes_points": "1. Set a direction convention.\n2. Compute each p = mv with that sign.\n3. Add momenta as vector quantities.\n\nIn collision setups, that signed total is the quantity that may stay constant for the system.",
+  "point_attaining_answer": "1. Cart A: p_A = (2)(+3) = +6 kg m/s.\n2. Cart B: p_B = (1)(-6) = -6 kg m/s because it moves left.\n3. Total system momentum: +6 + (-6) = 0 kg m/s.\n\nThe equal magnitudes cancel because momentum is a vector; adding magnitudes alone gives the wrong system total."
+ },
+ "4.2": {
+  "core_idea": "- Impulse is not a new kind of momentum; it is the transfer that changes momentum.\n- For a constant average net force, J = F_avg delta t.\n- For a changing net force, J is the signed area under the net-force-versus-time graph.",
+  "what_students_need_to_understand": "- Connect three equivalent ideas: impulse, change in momentum, and force-time area.\n- The force direction sets the impulse direction.\n- delta p must be final momentum minus initial momentum.",
+  "how_this_becomes_points": "1. Compute delta p with signs.\n2. Read or estimate area under a force-time graph.\n3. Recognize that Newtons times seconds are the same momentum units as kg m/s.",
+  "point_attaining_answer": "1. Initial momentum: p_i = (0.50)(+4) = +2 kg m/s.\n2. Final momentum: p_f = 0 because the cart stops.\n3. Delta p = p_f - p_i = 0 - 2 = -2 kg m/s, so the impulse is -2 N s.\n\nThe negative sign matters: the impulse is leftward, opposite the cart initial motion."
+ },
+ "4.3": {
+  "core_idea": "- Momentum conservation is a system claim.\n- During a collision, each object can experience a large impulse from the other object, but those impulses are equal and opposite inside the system.\n- If external impulse is negligible, the system total momentum stays constant.",
+  "what_students_need_to_understand": "- Choose the system boundary before writing a conservation equation.\n- One object momentum usually changes; the two-object system momentum can remain constant.\n- Center-of-mass velocity also remains constant when no net external force acts.",
+  "how_this_becomes_points": "1. Identify the conserved system.\n2. Sum initial and final momenta with signs.\n3. Use conservation for immediately-before and immediately-after states of a collision or explosion.",
+  "point_attaining_answer": "1. The claim confuses one object with the system.\n2. Cart A can lose momentum while Cart B gains the same amount from the equal-and-opposite interaction impulse.\n3. If the two carts are the system and external impulse from friction is negligible during the short collision, total system momentum before equals total system momentum after.\n\nMomentum conservation applies to the selected system, not to each object separately."
+ },
+ "4.4": {
+  "core_idea": "- Momentum conservation and kinetic-energy conservation answer different questions.\n- Momentum can be conserved in elastic, inelastic, and perfectly inelastic collisions if external impulse is negligible; kinetic energy is conserved only in elastic collisions.\n- Perfectly inelastic means the objects stick and share one final velocity.",
+  "what_students_need_to_understand": "- Classify collisions after checking energy, not from whether momentum was conserved.\n- The 2024 AP Physics 1 collision evidence highlights this: many students missed that the center-of-mass motion can be identical in elastic and inelastic versions of the same isolated collision.",
+  "how_this_becomes_points": "1. Use momentum conservation to determine final motion.\n2. Compare total kinetic energy before and after.\n3. If objects stick together, one final velocity is required, but the system momentum equation still applies.",
+  "point_attaining_answer": "1. Kinetic energy and momentum are different system quantities.\n2. In a perfectly inelastic collision, some kinetic energy is transformed into other forms, so total kinetic energy decreases.\n3. If the track is nearly frictionless and external impulse is negligible, total system momentum is still conserved.\n4. The stuck-together final velocity is found from momentum conservation, not from kinetic-energy conservation."
+ },
+ "5.1": {
+  "core_idea": "- Rotational kinematics uses angular versions of familiar motion quantities.\n- Angular displacement, angular velocity, and angular acceleration follow the same constant-acceleration structure as linear kinematics once an axis and sign convention are chosen.",
+  "what_students_need_to_understand": "- Treat rotation as motion about a specified axis.\n- A rigid object can be modeled as extended for one rotational question even if it was treated as a point object in a different motion context.\n- AP Physics 1 limits direction descriptions to clockwise and counterclockwise with respect to the chosen axis.",
+  "how_this_becomes_points": "1. Choose CW or CCW positive.\n2. Keep radians in angular equations.\n3. Use omega = omega0 + alpha t or theta = theta0 + omega0 t + 1/2 alpha t^2 with signs that match the convention.",
+  "point_attaining_answer": "- Omega should be positive because the chosen convention says counterclockwise is positive.\n- The sign comes from the stated axis and direction convention, not from a universal rule.\n- If clockwise had been chosen positive, the same motion would have negative omega."
+ },
+ "5.2": {
+  "core_idea": "- Rigid objects share angular motion, not identical linear motion at every point.\n- A point twice as far from the axis travels twice the arc length for the same angle.\n- It has twice the tangential speed for the same omega.",
+  "what_students_need_to_understand": "- Identify which point on the object is being described.\n- Angular velocity and angular acceleration are common to all points in a rigid system.\n- s, v, and tangential acceleration depend on that point distance r from the axis.",
+  "how_this_becomes_points": "1. Select the correct radius.\n2. Use s = r theta, v = r omega, and a_T = r alpha.\n3. Avoid claims about total acceleration when only tangential acceleration is represented by r alpha.",
+  "point_attaining_answer": "- They have the same angular speed, but not the same tangential speed.\n- Using v = r omega, the mark at 2R has speed 2R omega, twice the speed R omega of the inner mark.\n- Shared omega does not mean shared v."
+ },
+ "5.3": {
+  "core_idea": "- Torque depends on force, where the force is applied, and how much of the force is perpendicular to the radius from the axis.\n- A force through the axis creates no torque because its lever arm is zero.",
+  "what_students_need_to_understand": "- Draw rotational force diagrams with both force vectors and application points.\n- AP Physics 1 expects torque magnitude and CW/CCW tendency.\n- Torque direction as a vector is beyond this course scope.",
+  "how_this_becomes_points": "1. Choose the axis.\n2. Draw the line of action.\n3. Find the perpendicular lever arm or F_perp.\n4. Assign CW/CCW signs for a net-torque equation.",
+  "point_attaining_answer": "- The torque is zero.\n- The force line of action passes through the hinge, so the perpendicular lever arm is zero.\n- Equivalently, the perpendicular component of the force relative to the radius is zero, so tau = rF_perp = 0."
+ },
+ "5.4": {
+  "core_idea": "- Rotational inertia depends on both mass and distance from the rotation axis.\n- For point masses, each contribution is m r^2, so moving mass farther from the axis can change I strongly.",
+  "what_students_need_to_understand": "- Locate the axis before calculating.\n- AP Physics 1 asks quantitative rotational inertia for systems of five or fewer point objects in a plane.\n- Extended rigid-body formulas are supplied if needed, but qualitative mass-distribution reasoning is still expected.",
+  "how_this_becomes_points": "1. Measure each radius from the actual axis.\n2. Square that radius.\n3. Sum m_i r_i^2.\n4. Use parallel-axis reasoning only when the provided or known center-of-mass inertia is being shifted.",
+  "point_attaining_answer": "1. The total is mR^2 + m(2R)^2 = 5mR^2.\n2. Each mass uses its own distance from the axis, and the distance is squared.\n3. The farther mass contributes four times as much as the mass at R."
+ },
+ "5.5": {
+  "core_idea": "- Rotational equilibrium is about torque balance, not force balance alone.\n- If net torque is zero, angular velocity is constant; if the object was not rotating, it stays not rotating.",
+  "what_students_need_to_understand": "- Separate translational equilibrium from rotational equilibrium.\n- Net force zero controls center-of-mass acceleration.\n- Net torque zero controls angular acceleration.\n- A system can satisfy one condition without the other, depending on the forces and where they act.",
+  "how_this_becomes_points": "1. Choose an axis.\n2. Sum torques with CW/CCW signs.\n3. Set sum tau = 0 for rotational equilibrium.\n4. Separately write sum F = 0 only if translational equilibrium is required.",
+  "point_attaining_answer": "- Not necessarily.\n- The net force can be zero while the net torque is not zero if the forces have different lever arms or create torques in the same rotational sense.\n- Rotational equilibrium requires sum tau = 0 about the axis, not just sum F = 0."
+ },
+ "5.6": {
+  "core_idea": "- Net torque causes angular acceleration according to alpha = tau_net/I_sys.\n- A larger net torque increases angular acceleration.\n- A larger rotational inertia reduces it for the same torque.",
+  "what_students_need_to_understand": "- Know when rotational analysis is independent from linear analysis.\n- A rigid body can require a free-body diagram for translation and a torque equation about an axis for rotation.\n- The same force may appear in both equations but with different roles.",
+  "how_this_becomes_points": "1. Calculate net torque with signs.\n2. Use the rotational inertia about the same axis.\n3. Solve alpha = tau_net/I_sys.\n4. If linear acceleration is involved, connect it only through valid constraints such as a_T = r alpha.",
+  "point_attaining_answer": "- The angular acceleration is alpha = tau_net/I.\n- With clockwise chosen positive, alpha = +tau/I.\n- Mass alone is not the rotational resistance; the relevant quantity is rotational inertia about the axis."
+ },
+ "6.1": {
+  "core_idea": "- Rotational kinetic energy is energy stored in motion about an axis.\n- For a rigid system, K_rot = 1/2 I omega^2.\n- A system can also have translational kinetic energy of its center of mass.",
+  "what_students_need_to_understand": "- Decide whether the object is translating, rotating, or both.\n- A wheel rolling across a surface has center-of-mass kinetic energy and rotational kinetic energy.\n- A disk spinning in place can have rotational kinetic energy even while its center of mass is at rest.",
+  "how_this_becomes_points": "1. Include all relevant energy terms.\n2. Use rotational inertia about the correct axis.\n3. Do not replace a rotational term with a translational one.\n\nIn energy conservation, missing K_rot usually changes the final speed or height result.",
+  "point_attaining_answer": "- Both terms appear: 1/2 mv_cm^2 for motion of the center of mass and 1/2 I omega^2 for rotation about the center.\n- Rolling without slipping lets v_cm and omega be related, but it does not erase the rotational energy term."
+ },
+ "6.2": {
+  "core_idea": "- A torque transfers energy when it acts through angular displacement.\n- Constant torque gives W = tau Delta theta.\n- A varying torque requires the signed area under a torque-vs-angular-position graph.",
+  "what_students_need_to_understand": "- Keep the rotational variables paired: torque with angular displacement, not force with angular displacement or torque with linear distance.\n- Angular displacement must be in radians when used in W = tau Delta theta.",
+  "how_this_becomes_points": "1. Identify the torque that acts through the stated angle.\n2. Use signs consistently for work that adds or removes rotational energy.\n3. Interpret graph area as work when torque changes with angle.",
+  "point_attaining_answer": "- The work is W = tau Delta theta and is positive if counterclockwise is the positive rotational direction.\n- The torque acts in the same sense as the angular displacement, so it transfers energy into the rotating system."
+ },
+ "6.3": {
+  "core_idea": "- Angular momentum is measured about a selected axis or point.\n- For a rigid rotating system, its magnitude can be L = I omega.\n- For a moving object about a point, its magnitude can be L = rmv sin(theta).",
+  "what_students_need_to_understand": "- Separate reference choice from object identity: the same moving object can have different angular momentum values about different points.\n- Angular impulse is the change in angular momentum caused by torque over time, equal to area under a torque-vs-time graph.",
+  "how_this_becomes_points": "1. Name the reference axis or point.\n2. Choose L = I omega or L = rmv sin(theta) appropriately.\n3. Use angular impulse = Delta L.\n\nAP Physics 1 uses one-dimensional sign conventions here; vector direction of angular momentum is beyond scope.",
+  "point_attaining_answer": "- The angular momentum magnitude about P is L = rmv sin(theta).\n- At closest approach the radius from P to the puck is perpendicular to velocity, so L = dmv.\n- The reference point matters because d is measured from P."
+ },
+ "6.4": {
+  "core_idea": "- A system conserves total angular momentum about an axis when the net external torque about that axis is zero.\n- Angular speed may still change if the system rotational inertia changes.",
+  "what_students_need_to_understand": "- Define the system and distinguish internal interactions from external torques.\n- Internal torques can change how angular momentum is shared among parts, but they cannot change the system total.\n- A nonrigid system can spin faster as mass moves closer to the axis because I decreases while L remains constant.",
+  "how_this_becomes_points": "1. Justify why external torque is zero or negligible.\n2. Write L_initial = L_final for the chosen system.\n3. Solve for a changed angular speed or rotation state without assuming I is constant.",
+  "point_attaining_answer": "- The system angular momentum stays constant, but angular speed increases.\n- Pulling the masses inward reduces rotational inertia, so omega must increase to keep total L = I omega constant for the chosen system."
+ },
+ "6.5": {
+  "core_idea": "- Rolling motion combines center-of-mass translation with rotation about the center.\n- Rolling without slipping creates constraints such as v_cm = r omega.\n- Slipping means those direct quantitative relationships no longer hold.",
+  "what_students_need_to_understand": "- Identify the rolling condition before applying formulas.\n- For ideal rolling without slipping, static friction can enforce the motion without dissipating energy.\n- During slipping, kinetic friction dissipates energy; AP Physics 1 expects qualitative explanation rather than precise slipping kinematics.",
+  "how_this_becomes_points": "1. Include translational and rotational energy.\n2. Apply v_cm = r omega only when rolling without slipping is stated or justified.\n3. Explain qualitatively how slipping changes linear and angular motion.",
+  "point_attaining_answer": "- Use omega = v_cm/R because rolling without slipping links center-of-mass speed and angular speed.\n- The total kinetic energy still includes both 1/2 mv_cm^2 and 1/2 I omega^2."
+ },
+ "6.6": {
+  "core_idea": "- Satellite motion is analyzed as a gravitational system with energy and angular momentum.\n- For a negligible-mass satellite around a massive central object, the central object can be treated as essentially fixed in AP Physics 1 models.",
+  "what_students_need_to_understand": "- Distinguish circular and elliptical orbits.\n- Circular: gravitational potential energy, kinetic energy, total mechanical energy, and angular momentum are constant.\n- Elliptical: total mechanical energy and angular momentum are constant, but speed, kinetic energy, and gravitational potential energy change with position.",
+  "how_this_becomes_points": "1. Choose the satellite-central-object system.\n2. Use U_g = -Gm1m2/r with zero at infinite separation.\n3. Apply conservation to the quantity that is actually constant.\n\nEscape speed follows from setting total mechanical energy equal to zero.",
+  "point_attaining_answer": "- Yes.\n- In an elliptical orbit the total mechanical energy stays constant, but gravitational potential energy becomes more negative at smaller r.\n- The kinetic energy increases so the sum K + U_g remains constant."
+ },
+ "7.1": {
+  "core_idea": "- SHM is not just repeated motion.\n- It is the special case where displacement from equilibrium creates a restoring force back toward equilibrium.\n- The restoring-force magnitude is proportional to how far the object is displaced.",
+  "what_students_need_to_understand": "- A system can repeat without being SHM.\n- To justify SHM, the force or torque must pull toward equilibrium and scale with displacement.\n- For a spring, this leads to ma_x = -k delta x.\n- For a small-angle pendulum, the restoring torque is proportional to angular displacement.",
+  "how_this_becomes_points": "1. Name equilibrium.\n2. Assign displacement from that equilibrium.\n3. Explain the restoring interaction with the correct direction and proportionality.\n\nThe negative sign means acceleration points opposite displacement, not merely that the object is moving left.",
+  "point_attaining_answer": "- The spring force must be a restoring force: when the cart is to the right of equilibrium, the force is to the left.\n- Its magnitude is proportional to the displacement from equilibrium. That is the SHM condition.\n- The back-and-forth motion alone is not enough; the force relationship is what makes the motion simple harmonic."
+ },
+ "7.2": {
+  "core_idea": "- Period and frequency are reciprocals: T = 1/f.\n- The period depends on the system model.\n- Spring-object oscillator: T_s = 2 pi sqrt(m/k).\n- Small-angle pendulum: T_p = 2 pi sqrt(L/g).",
+  "what_students_need_to_understand": "- Choose the formula from the physical oscillator, not from whatever variables appear in the prompt.\n- A heavier spring-object oscillator has a longer period; a stiffer spring has a shorter period.\n- A longer small-angle pendulum has a longer period.\n- Amplitude is not part of either ideal SHM period formula.",
+  "how_this_becomes_points": "1. Identify one full cycle.\n2. Convert between T and f.\n3. Use proportional reasoning from the correct period equation.\n\nIf the question asks what happens when a variable changes, the formula should drive the comparison.",
+  "point_attaining_answer": "1. For a spring-object oscillator, T_s = 2 pi sqrt(m/k).\n2. If m becomes 4m and k is unchanged, the square-root factor becomes sqrt(4m/k) = 2 sqrt(m/k).\n3. The period doubles, not quadruples.\n\nThe square root in the period formula is the scoring detail."
+ },
+ "7.3": {
+  "core_idea": "- SHM graphs carry position, timing, and force information at once.\n- Position varies sinusoidally; amplitude is maximum displacement from equilibrium; period is the time for one full repeat.\n- Velocity and acceleration have predictable zeros and extrema during the cycle.",
+  "what_students_need_to_understand": "- Read the graph as motion, not as decoration.\n- At maximum displacement, velocity is zero and acceleration has maximum magnitude toward equilibrium.\n- At equilibrium, displacement is zero, acceleration is zero for ideal SHM, and speed is maximum.\n- Changing amplitude changes maximum displacement and speed/energy, not the period.",
+  "how_this_becomes_points": "1. Identify amplitude and period from the graph.\n2. Map maxima/minima/zeros to physical states.\n3. Explain signs from displacement relative to equilibrium.\n\nMany wrong answers treat taller waves as slower waves instead of reading the horizontal cycle spacing.",
+  "point_attaining_answer": "- The periods are the same because the horizontal spacing between identical points in the cycle is the same.\n- For ideal SHM of the same spring-object system, changing amplitude does not change the period.\n- The larger-amplitude motion has greater total energy and can have greater maximum speed, but the cycle time is unchanged."
+ },
+ "7.4": {
+  "core_idea": "- Energy in ideal SHM is conserved while changing form.\n- At turning points the oscillator has maximum potential energy and zero kinetic energy.\n- At equilibrium, kinetic energy is maximum and spring potential energy is minimum.",
+  "what_students_need_to_understand": "- Avoid treating momentary rest as energy loss; when speed is zero at a turning point, the energy is stored as potential energy.\n- For a spring-object oscillator, total energy equals 1/2 k A^2.\n- Changing amplitude changes total energy even though it does not change period.",
+  "how_this_becomes_points": "1. Apply total-energy conservation to compare positions in the cycle.\n2. Identify where K and U are maximum or minimum.\n3. Use E_total = 1/2 k A^2 for spring-object amplitude comparisons.",
+  "point_attaining_answer": "1. For a spring-object oscillator, E_total = 1/2 k A^2.\n2. If amplitude becomes 2A, the total energy becomes 1/2 k (2A)^2 = 4(1/2 k A^2).\n3. The energy quadruples.\n\nThe squared amplitude is the key point."
+ },
+ "8.1": {
+  "core_idea": "- Density links matter to volume.\n- The fluid model starts by deciding what shape and compressibility assumptions are allowed.\n- In AP Physics 1, an ideal fluid must be treated as both incompressible and nonviscous.",
+  "what_students_need_to_understand": "- Distinguish a material property from an object size.\n- Density is mass divided by volume, so two samples of the same uniform material can have different masses and volumes but the same density.\n- Ideal-fluid assumptions let later pressure and flow equations ignore volume compression and viscous energy losses.",
+  "how_this_becomes_points": "1. Write rho = m/V with correct units.\n2. Recognize that liquids and gases have no fixed shape.\n3. Explicitly name both ideal-fluid assumptions before using equations that depend on them.",
+  "point_attaining_answer": "- The densities are the same if the liquid is uniform.\n- Density is rho = m/V, so doubling both mass and volume leaves the ratio unchanged.\n- More mass alone is not enough; density compares mass to volume."
+ },
+ "8.2": {
+  "core_idea": "- Pressure is force spread over area, using only the force component perpendicular to the surface.\n- In a fluid at rest, pressure at a point depends on reference pressure plus rho gh below that reference level.\n- Gauge pressure reports only the rho gh part.",
+  "what_students_need_to_understand": "- Treat pressure as a scalar even though it creates forces on surfaces.\n- Larger depth or larger fluid density increases hydrostatic pressure.\n- An incompressible fluid has constant volume and density even when pressure changes, so pressure change does not automatically mean density change.",
+  "how_this_becomes_points": "1. Select F_perp.\n2. Use area in the denominator.\n3. Identify whether absolute or gauge pressure is requested.\n4. Measure depth vertically from the chosen reference level.",
+  "point_attaining_answer": "1. Pressure is force per area, so the force magnitude is F = PA = (P0 + rho gh)A if absolute pressure is acting on that side.\n2. If the question asks only for the extra force due to the water column compared with atmosphere, the gauge part is rho gh A.\n3. The area must be included to convert pressure to force."
+ },
+ "8.3": {
+  "core_idea": "- Fluids exert forces that fit Newton's laws.\n- The buoyant force is an upward net force from pressure differences in the fluid.\n- Its magnitude equals the weight of the displaced fluid: F_b = rho_fluid V_displaced g.",
+  "what_students_need_to_understand": "- Avoid treating buoyancy as a property of the object alone.\n- The surrounding fluid density and displaced fluid volume determine the buoyant force.\n- The object weight still depends on the object mass, so floating, sinking, and accelerating depend on the net force comparison.",
+  "how_this_becomes_points": "1. Draw a force diagram.\n2. Identify the displaced volume.\n3. Use the fluid density in F_b.\n4. Apply Newton's second law to the chosen object or system.\n\nEquilibrium means net force is zero; acceleration means the force difference is not zero.",
+  "point_attaining_answer": "- The buoyant force equals the weight of the displaced water: F_b = rho_water V_displaced g.\n- The block being at rest tells you the net force is zero after including weight and string force.\n- It does not make buoyant force equal to the block weight unless the other forces and densities make that true."
+ },
+ "8.4": {
+  "core_idea": "- For ideal incompressible flow in a filled tube, continuity says volume flow rate is conserved, so A1 v1 = A2 v2.\n- Bernoulli applies conservation of mechanical energy along the flow using pressure, gravitational potential energy per volume, and kinetic energy per volume.",
+  "what_students_need_to_understand": "- Choose which conservation law answers the question.\n- Continuity links area and speed; Bernoulli links pressure, height, and speed.\n- Torricelli's result follows from energy conservation for fluid exiting from a height difference.\n- The CED boundary assumes ideal fluids and completely filled pipes unless the prompt says otherwise.",
+  "how_this_becomes_points": "1. Check assumptions.\n2. Match two points in the same flow.\n3. Keep height references consistent.\n4. Do not use a single shortcut such as faster means lower pressure unless height and energy terms have been accounted for.",
+  "point_attaining_answer": "1. Continuity requires A1 v1 = A2 v2 for incompressible flow.\n2. With A1 = 2A, v1 = v, and A2 = A, the narrow-section speed is v2 = 2v.\n3. The same volume per time must pass through each cross section, so smaller area means larger speed."
+ }
+}

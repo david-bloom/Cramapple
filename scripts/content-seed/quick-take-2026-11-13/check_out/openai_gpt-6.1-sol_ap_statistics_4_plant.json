@@ -1,0 +1,61 @@
+{
+  "topics": [
+    {
+      "code": "4.9",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.10",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "5.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "5.2",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "The answer-move line drops the key instruction not to answer either the causation or linearity question from r alone.",
+          "evidence": "SOURCE says 'rather than answering either from r alone'; PROPOSED merely says 'keep causation and linearity separate,' which does not convey that restriction."
+        },
+        {
+          "severity": "suggestion",
+          "issue": "Shorten the point-loss line to meet the 25-word limit when its label is included.",
+          "evidence": "The full line contains 26 whitespace-separated words. Replacing 'enough evidence of a linear fit' with 'sufficient evidence of linearity' would shorten it."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "5.3",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "5.4",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "5.5",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "The point-loss line assigns the realism check to x = 0 rather than to the resulting y-value.",
+          "evidence": "SOURCE requires checking whether x = 0 'produces a realistic value'; PROPOSED says whether 'x = 0 is in range or realistic.' Retain the distinction between x being in range and the predicted y being realistic."
+        },
+        {
+          "severity": "suggestion",
+          "issue": "Shorten the answer-move line to meet the 25-word limit when its label is included.",
+          "evidence": "The full line contains 27 whitespace-separated tokens, or 26 words if the equals sign is excluded."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

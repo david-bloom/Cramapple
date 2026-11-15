@@ -1,0 +1,24 @@
+with base as (
+  select s.subject_key, case when s.subject_key='biology' then 'ap_biology' else 'ap_statistics' end brief_key,
+         ci.content_key id, v.id vid, v.stem, v.stimulus, c.topic_code
+  from app.content_items ci
+  join app.exam_pack_versions epv on epv.id=ci.exam_pack_version_id and epv.retired_at is null
+  join app.exam_packs ep on ep.id=epv.exam_pack_id
+  join app.subjects s on s.id=ep.subject_id and s.subject_key in ('biology','ap-statistics')
+  join app.content_item_versions v on v.content_item_id=ci.id and v.status='published'
+  join app.content_item_cells c on c.content_item_version_id=v.id and c.is_primary and c.superseded_by is null
+  where ci.item_type='frq' and ci.status='published' and v.stem is not null and length(v.stem) between 80 and 1800
+    and ci.content_key not like '%HDG%' and v.stimulus_image_path is null and length(coalesce(v.stimulus,'')) < 1500
+    and (select count(*) from app.frq_criteria f where f.content_item_version_id=v.id) between 3 and 8
+), pick as (
+  select *, row_number() over (partition by subject_key order by md5(id)) k from base b
+  where exists (select 1 from app.topic_point_briefs bb where bb.subject_key=b.brief_key and bb.topic_code=b.topic_code and bb.status='published')
+)
+select json_agg(json_build_object(
+  'id', p.id, 'subject', case when p.subject_key='biology' then 'AP Biology' else 'AP Statistics' end,
+  'topic', p.topic_code || ' ' || coalesce((select b.title from app.topic_point_briefs b where b.subject_key=p.brief_key and b.topic_code=p.topic_code limit 1),''),
+  'prompt', p.stem, 'stimulus', p.stimulus,
+  'criteria', (select json_agg(json_build_object('key',f.criterion_key,'text',f.learner_facing_text,'points',f.points_possible,'fix',f.minimum_fix) order by f.criterion_key) from app.frq_criteria f where f.content_item_version_id=p.vid),
+  'brief', (select json_build_object('earned',b.how_points_are_earned,'move',b.answer_move,'loss',b.common_point_loss) from app.topic_point_briefs b where b.subject_key=p.brief_key and b.topic_code=p.topic_code limit 1),
+  'core', (select e.core_idea from app.topic_explainers e where e.subject_key=p.brief_key and e.topic_code=p.topic_code limit 1)
+)) as items from pick p where p.k<=5;

@@ -1,0 +1,82 @@
+{
+  "topics": [
+    {
+      "code": "3.10",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "3.11",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "3.12",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "The point-loss line drops the wavelength–frequency relationship, an explicit part of the scoring warning.",
+          "evidence": "SOURCE warns that shorter wavelength means both higher frequency and higher photon energy; PROPOSED retains only higher photon energy."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "3.13",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "The point-loss line omits the separate warning about spectrophotometer wavelength selection.",
+          "evidence": "SOURCE includes 'assuming the spectrophotometer wavelength is arbitrary'; PROPOSED omits this pitfall entirely."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "4.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.2",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.3",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.4",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.5",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.6",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "4.7",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "The answer-move line replaces the concrete combustion signature with a generic label, losing the evidence needed to recognize it.",
+          "evidence": "SOURCE specifies 'CO2/H2O combustion products'; PROPOSED says only 'combustion products.'"
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "4.8",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}

@@ -1,0 +1,731 @@
+[
+ {
+  "core_idea": "Calculus begins with the problem that average rate is easy over an interval, but an instant has no interval width.",
+  "how_this_becomes_points": "Points come from connecting an instant to a limiting process, not from dividing by zero.",
+  "mini_example_question": "A car position is measured near t = 4. What does speed at exactly t = 4 mean?",
+  "point_attaining_answer": "The speed at t = 4 is the limit of average velocities over intervals containing t = 4 as the interval width approaches 0.",
+  "topic_code": "1.1",
+  "weak_answer": "Use position divided by time at t = 4.",
+  "what_students_need_to_understand": "Average rate compares two inputs. Instantaneous rate is the value those average rates approach near one input."
+ },
+ {
+  "core_idea": "A limit names what a function approaches as x gets close to a chosen input.",
+  "how_this_becomes_points": "Points come from translating notation accurately into a mathematical claim.",
+  "mini_example_question": "Explain what it means for f(x) to approach 5 as x approaches 2.",
+  "point_attaining_answer": "As x gets close to 2, f(x) gets close to 5; this does not by itself tell us f(2).",
+  "topic_code": "1.2",
+  "weak_answer": "f(2) = 5.",
+  "what_students_need_to_understand": "Approaches does not mean equals. The limit is about nearby behavior, and one-sided notation adds direction."
+ },
+ {
+  "core_idea": "A graph shows the y-value approached as x moves toward an input.",
+  "how_this_becomes_points": "Points come from naming left- and right-hand behavior before concluding.",
+  "mini_example_question": "A graph approaches y = 4 from both sides at x = 3 but has a filled point at (3,1).",
+  "point_attaining_answer": "The limit is 4 because the graph approaches y = 4 from both sides; the filled point gives f(3).",
+  "topic_code": "1.3",
+  "weak_answer": "The limit is 1 because the filled point is at y = 1.",
+  "what_students_need_to_understand": "The filled point shows f(c); nearby curve behavior shows the limit."
+ },
+ {
+  "core_idea": "A table suggests a limit by showing values near the target input.",
+  "how_this_becomes_points": "Points come from using nearby values on both sides and stating the supported estimate.",
+  "mini_example_question": "Values near x = 2 are 4.9, 4.99, 5.01, and 5.1. Estimate the limit.",
+  "point_attaining_answer": "The limit appears to be 5 because nearby values approach 5 from both sides.",
+  "topic_code": "1.4",
+  "weak_answer": "The limit is 5.1 because that is in the table.",
+  "what_students_need_to_understand": "A table gives evidence of a trend, not automatic proof of an exact value."
+ },
+ {
+  "core_idea": "Limit properties combine simpler limits into limits of larger expressions.",
+  "how_this_becomes_points": "Points come from showing the property setup, not just the final number.",
+  "mini_example_question": "If lim f(x)=3 and lim g(x)=2, determine lim(f(x)+4g(x)).",
+  "point_attaining_answer": "Using limit properties, the limit is lim f(x)+4 lim g(x)=3+4(2)=11.",
+  "topic_code": "1.5",
+  "weak_answer": "It is 7.",
+  "what_students_need_to_understand": "The properties are valid procedures when the component limits meet the needed conditions."
+ },
+ {
+  "core_idea": "Some expressions must be rewritten before their limit behavior is visible.",
+  "how_this_becomes_points": "Points come from the valid rewrite that justifies the final limit.",
+  "mini_example_question": "Determine lim (x^2 - 9)/(x - 3) as x approaches 3.",
+  "point_attaining_answer": "For x near 3, the expression simplifies to x+3, so the limit is 6.",
+  "topic_code": "1.6",
+  "weak_answer": "It is undefined because plugging in 3 gives 0/0.",
+  "what_students_need_to_understand": "A blocked form such as 0/0 may need factoring, rationalizing, simplifying, or an identity."
+ },
+ {
+  "core_idea": "This topic is about deciding which limit method fits the problem.",
+  "how_this_becomes_points": "Points come from choosing a procedure that matches the form before solving.",
+  "mini_example_question": "Direct substitution into a rational expression gives 0/0. What should you consider first?",
+  "point_attaining_answer": "In Unit 1, first look for algebraic simplification such as factoring, a common factor, or a conjugate.",
+  "topic_code": "1.7",
+  "weak_answer": "Use L'Hospital's Rule.",
+  "what_students_need_to_understand": "Different representations and algebraic forms give different cues."
+ },
+ {
+  "core_idea": "The squeeze theorem traps one function between two functions approaching the same value.",
+  "how_this_becomes_points": "Points come from showing the bounds, the matching limits, and the conclusion.",
+  "mini_example_question": "Near x=0, suppose -x^2 <= h(x) <= x^2. Determine the limit of h(x).",
+  "point_attaining_answer": "Since both bounds approach 0 and h(x) is between them, the squeeze theorem gives lim h(x)=0.",
+  "topic_code": "1.8",
+  "weak_answer": "The limit is 0 by the squeeze theorem.",
+  "what_students_need_to_understand": "The theorem is a justification: bounds plus matching outside limits force the middle limit."
+ },
+ {
+  "core_idea": "A formula, table, graph, words, and notation can express the same limit.",
+  "how_this_becomes_points": "Points come from preserving the same mathematical information across forms.",
+  "mini_example_question": "A table suggests f(x) approaches 4 as x approaches 2. What graph feature matches?",
+  "point_attaining_answer": "The graph should approach y=4 as x approaches 2; f(2) may be different.",
+  "topic_code": "1.9",
+  "weak_answer": "The graph should have f(2)=4.",
+  "what_students_need_to_understand": "The underlying sentence stays the same even when the representation changes."
+ },
+ {
+  "core_idea": "A discontinuity occurs where continuity fails, and the type depends on what fails.",
+  "how_this_becomes_points": "Points come from naming the type and tying it to evidence.",
+  "mini_example_question": "At x=1, the left-hand limit is 3 and the right-hand limit is 5.",
+  "point_attaining_answer": "It is a jump discontinuity because the one-sided limits are finite but not equal.",
+  "topic_code": "1.10",
+  "weak_answer": "It is discontinuous.",
+  "what_students_need_to_understand": "Removable, jump, and infinite discontinuities come from different limit and value behavior."
+ },
+ {
+  "core_idea": "Continuity at a point requires f(c), the limit, and equality between them.",
+  "how_this_becomes_points": "Points come from checking all three conditions before drawing the conclusion.",
+  "mini_example_question": "If lim f(x)=7 as x approaches 2 and f(2)=7, is f continuous at x=2?",
+  "point_attaining_answer": "Yes. f(2) exists, the limit exists, and the limit equals f(2).",
+  "topic_code": "1.11",
+  "weak_answer": "Yes, because the graph is connected.",
+  "what_students_need_to_understand": "Continuity is a definition with conditions, not just a visual impression."
+ },
+ {
+  "core_idea": "A function is continuous over an interval if it is continuous at every point in that interval.",
+  "how_this_becomes_points": "Points come from naming the interval and supporting continuity across the whole interval.",
+  "mini_example_question": "Is f(x)=1/(x-2) continuous on [0,4]?",
+  "point_attaining_answer": "No. Rational functions are continuous on their domains, but x=2 is not in the domain and lies in [0,4].",
+  "topic_code": "1.12",
+  "weak_answer": "Yes, rational functions are continuous.",
+  "what_students_need_to_understand": "Students must scan the interval for domain restrictions, holes, jumps, asymptotes, and endpoints."
+ },
+ {
+  "core_idea": "A removable discontinuity can be fixed by making the function value equal the limit.",
+  "how_this_becomes_points": "Points come from finding the limit and matching the value or parameter to it.",
+  "mini_example_question": "lim f(x)=6 as x approaches 3, but f(3)=1. How can the discontinuity be removed?",
+  "point_attaining_answer": "Redefine f(3)=6 because continuity requires f(3) to equal the limit.",
+  "topic_code": "1.13",
+  "weak_answer": "Change the graph so it is connected.",
+  "what_students_need_to_understand": "A discontinuity is removable only when the limiting behavior has one finite target."
+ },
+ {
+  "core_idea": "An infinite limit describes unbounded behavior near a finite input.",
+  "how_this_becomes_points": "Points come from writing one-sided or two-sided infinite limit statements and connecting them to vertical asymptotes.",
+  "mini_example_question": "As x approaches 2 from the right, f(x) increases without bound.",
+  "point_attaining_answer": "The right-hand limit is positive infinity; this supports a vertical asymptote at x=2.",
+  "topic_code": "1.14",
+  "weak_answer": "The limit is DNE.",
+  "what_students_need_to_understand": "Infinity describes behavior, not a regular real-number limit."
+ },
+ {
+  "core_idea": "A limit at infinity describes end behavior as x goes far left or right.",
+  "how_this_becomes_points": "Points come from writing the correct limit at infinity and connecting a finite result to y=L.",
+  "mini_example_question": "If lim f(x)=3 as x approaches infinity, what graph feature is suggested?",
+  "point_attaining_answer": "The graph approaches y=3 as x goes to infinity, so y=3 is a horizontal asymptote to the right.",
+  "topic_code": "1.15",
+  "weak_answer": "There is a vertical asymptote at x=3.",
+  "what_students_need_to_understand": "Horizontal asymptotes describe long-run y-values, not undefined x-values."
+ },
+ {
+  "core_idea": "IVT says a continuous function on a closed interval takes every y-value between its endpoint values.",
+  "how_this_becomes_points": "Points come from verifying continuity, comparing endpoint values, and stating the existence conclusion.",
+  "mini_example_question": "f is continuous on [1,5], f(1)=2, and f(5)=10. Explain why f(c)=7 for some c.",
+  "point_attaining_answer": "Because f is continuous and 7 is between f(1)=2 and f(5)=10, IVT guarantees some c in (1,5).",
+  "topic_code": "1.16",
+  "weak_answer": "Because 7 is between 1 and 5.",
+  "what_students_need_to_understand": "IVT proves existence without locating the exact input."
+ },
+ {
+  "core_idea": "- Instantaneous rate at x=a is the limit of the average rate (secant slope) over shrinking intervals around a.\n- That limit is the difference quotient (f(a+h)-f(a))/h as h->0.\n- It turns a table of change into a single point-value derivative.",
+  "how_this_becomes_points": "1. The scoring checks whether you used the interval endpoints (average) or set up a limiting/tangent argument (instantaneous).\n2. It must match what the question asked.\n3. A numerically plausible answer built from the wrong quantity earns no credit.",
+  "mini_example_question": "For f(x) = x^2 + 3x, find the average rate of change on [1,4] and the instantaneous rate of change at x = 1.",
+  "point_attaining_answer": "| Quantity | Work | Value |\n| Average rate on [1,4] | (f(4)-f(1))/(4-1) = (28-4)/3 | 8 |\n| Instantaneous rate at x=1 | f'(x) = 2x+3, so f'(1) | 5 |\n\nThese are two different numbers because they answer two different questions.",
+  "topic_code": "2.1",
+  "weak_answer": "The rate of change is 8, using (f(4)-f(1))/(4-1).",
+  "what_students_need_to_understand": "- Average rate over [a,b] is a secant-line slope computed from two endpoint values.\n- Instantaneous rate at a is the limiting slope those secants approach as the second point moves toward a.\n- Confusing which is asked costs the whole answer, not partial credit."
+ },
+ {
+  "core_idea": "- A derivative's value at a point is a rate, not a y-value of the original function.\n- Once a derivative expression is written, renaming it later without redefining it (e.g. silently calling x_H'(t) just H'(t)) is a documented, scored notation error even when the calculus is correct.",
+  "how_this_becomes_points": "1. Points require both the correct derivative value and consistent, defined notation throughout.\n2. Introducing a shortened or renamed derivative symbol without stating what it refers to can cost the point even when the underlying computation is right.",
+  "mini_example_question": "A hiker's height above sea level is modeled by x_H(t) = t^3 - 2t. Find the derivative and interpret it at t = 2, keeping notation consistent.",
+  "point_attaining_answer": "1. x_H'(t) = 3t^2 - 2, so x_H'(2) = 3(4) - 2 = 10 feet per unit time.\n2. The notation x_H'(t) is defined once and used consistently.\n3. The value is reported with units and context.",
+  "topic_code": "2.2",
+  "weak_answer": "H'(2) = 10.",
+  "what_students_need_to_understand": "- f'(a) means the instantaneous rate of change or tangent slope at x=a, computed as the limit of the difference quotient.\n- It is a completely different kind of number from f(a).\n- Every new derivative symbol you introduce must be defined before you reuse it."
+ },
+ {
+  "core_idea": "- Estimating a derivative from a table means using the two data points closest to the target input and computing their slope.\n- Symmetric intervals (one point on each side) give a better local estimate than using only points on one side.",
+  "how_this_becomes_points": "1. Choose genuinely nearby data (not the widest or most convenient interval).\n2. Compute the slope correctly.\n3. Label the result as an estimate with correct units when the table has them.",
+  "mini_example_question": "A table gives f(2) = 5 and f(4) = 13, with no data between them. Estimate f'(3).",
+  "point_attaining_answer": "1. Using the closest surrounding values, f'(3) is approximately (f(4) - f(2)) / (4 - 2) = (13 - 5) / 2 = 4.\n2. This is an estimate of the local slope, not an exact derivative.",
+  "topic_code": "2.3",
+  "weak_answer": "f'(3) = 13, using the value at x = 4.",
+  "what_students_need_to_understand": "- A derivative estimate from data is a secant slope between nearby points, not the true instantaneous rate.\n- Select the closest available x-values.\n- Report the estimate with the context's units, never as an exact derivative."
+ },
+ {
+  "core_idea": "- Differentiability implies continuity, but continuity never implies differentiability.\n- A function can be continuous at a point while still failing to have a derivative there because of a corner, cusp, vertical tangent, or a mismatch between left- and right-hand slopes.",
+  "how_this_becomes_points": "1. Show that continuity holds.\n2. Show that the one-sided derivative limits are equal.\n3. Asserting differentiability from a smooth-looking graph or from continuity alone, without checking the slopes on each side, does not earn the point.",
+  "mini_example_question": "Is g(x) = |x - 2| differentiable at x = 2? Justify using both continuity and the one-sided derivatives.",
+  "point_attaining_answer": "1. g is continuous at x = 2.\n2. The left-hand derivative is -1 and the right-hand derivative is +1.\n3. These one-sided limits disagree, so g is not differentiable at x = 2 despite being continuous there.",
+  "topic_code": "2.4",
+  "weak_answer": "Yes, it's differentiable at x = 2 because the graph is continuous there with no gaps.",
+  "what_students_need_to_understand": "- Checking differentiability at a point requires two separate checks.\n- First: is the function continuous there?\n- Second: do the left-hand and right-hand derivative limits agree to one finite value?\n- Passing only the continuity check is not enough to claim a derivative exists."
+ },
+ {
+  "core_idea": "- The power rule, d/dx x^n = n*x^(n-1), applies directly to negative and fractional exponents once a radical or reciprocal is rewritten as a power of x first.\n- Skipping that rewrite step is where most power-rule errors start.",
+  "how_this_becomes_points": "1. Rewrite every non-polynomial term as a power of x.\n2. Apply n*x^(n-1) to each term, preserving every coefficient.\n3. A dropped coefficient or an un-rewritten radical both cost the computation point.",
+  "mini_example_question": "Find the derivative of f(x) = 4x^3 - 1/x^2 + sqrt(x).",
+  "point_attaining_answer": "1. Rewrite as 4x^3 - x^(-2) + x^(1/2).\n2. Differentiate term by term: f'(x) = 12x^2 + 2x^(-3) + (1/2)x^(-1/2).\n3. This can be rewritten back as 12x^2 + 2/x^3 + 1/(2*sqrt(x)).",
+  "topic_code": "2.5",
+  "weak_answer": "f'(x) = 12x^2 - 1/x + 1, leaving the reciprocal and radical terms undifferentiated as if they were constants.",
+  "what_students_need_to_understand": "- Every term must be rewritten in the form (coefficient)*x^n before the power rule is applied.\n- That includes turning 1/x^2 into x^(-2) and sqrt(x) into x^(1/2).\n- The exponent rule works identically once that rewriting is done."
+ },
+ {
+  "core_idea": "- Sum, difference, and constant-multiple rules let you differentiate each term of an expression independently and add the results.\n- This only works because the derivative of a constant term is exactly zero, not because constants can be ignored.",
+  "how_this_becomes_points": "1. Differentiate every term correctly and independently.\n2. Correctly set a lone constant term's derivative to zero.\n3. A sign error introduced while separating terms, or a constant term left un-zeroed, both cost points.",
+  "mini_example_question": "Find the derivative of g(x) = 5x^4 - 7x + 9.",
+  "point_attaining_answer": "Differentiating term by term:\n\n| Term | Derivative |\n| d/dx(5x^4) | 20x^3 |\n| d/dx(-7x) | -7 |\n| d/dx(9) | 0 |\n\nSo g'(x) = 20x^3 - 7.",
+  "topic_code": "2.6",
+  "weak_answer": "g'(x) = 20x^3 - 7x + 9, leaving the constant term unchanged instead of differentiating it to zero.",
+  "what_students_need_to_understand": "- Every additive term in an expression gets its own derivative, computed separately.\n- Any constant multiplier is carried through unchanged.\n- Any standalone constant term differentiates to zero.\n- These are separate facts, not one shortcut."
+ },
+ {
+  "core_idea": "- The four base derivative facts must be recalled exactly: d/dx sin x = cos x, d/dx cos x = -sin x, d/dx e^x = e^x, and d/dx ln x = 1/x.\n- e^x is its own derivative.\n- The trig pair swaps sign only for cosine, not sine.",
+  "how_this_becomes_points": "1. Recall each base derivative fact correctly, including the sign on cos x's derivative.\n2. Do this before combining it with sum, product, or chain-rule structure.\n3. A single sign or function-family error in the base fact invalidates everything built on top of it.",
+  "mini_example_question": "Find the derivative of h(x) = 3 sin x - 2e^x + 5 ln x.",
+  "point_attaining_answer": "Applying each base fact:\n\n| Term | Derivative |\n| d/dx(3 sin x) | 3 cos x |\n| d/dx(-2e^x) | -2e^x |\n| d/dx(5 ln x) | 5/x |\n\nSo h'(x) = 3 cos x - 2e^x + 5/x.",
+  "topic_code": "2.7",
+  "weak_answer": "h'(x) = 3 cos x - 2e^x + 5x, mishandling the logarithmic term as if its derivative were 5x instead of 5/x.",
+  "what_students_need_to_understand": "- These four rules are memorized facts, not derived on the fly.\n- e^x differentiates to itself unchanged, and ln x differentiates to 1/x.\n- sin x differentiates to cos x, and cos x differentiates to -sin x.\n- The negative sign belongs only to cosine's derivative."
+ },
+ {
+  "core_idea": "- The product rule needs both terms shown as an explicit structural step: f'(a) = u(a)v'(a) + v(a)u'(a), written out before any number.\n- AP scoring treats the structure and the final value as two separate points.\n- Skipping the visible structure costs the point even with a correct number.",
+  "how_this_becomes_points": "1. Show the explicit u(a)v'(a) + v(a)u'(a) structure (one point).\n2. Evaluate it correctly (a separate point).\n3. A response with the right final number but no visible structural step loses the structure point even when the arithmetic is flawless.",
+  "mini_example_question": "Given f(x) = x^2 * e^x, find f'(2), showing the product-rule structure explicitly before evaluating.",
+  "point_attaining_answer": "1. With u = x^2, v = e^x: f'(x) = u'(x)v(x) + u(x)v'(x) = 2x*e^x + x^2*e^x.\n2. So f'(2) = u(2)v'(2) + v(2)u'(2) = (4)(e^2) + (e^2)(4) = 8e^2 ≈ 59.112.\n3. The structural step is shown before the number.",
+  "topic_code": "2.8",
+  "weak_answer": "f'(2) = 59.112.",
+  "what_students_need_to_understand": "- Differentiating a product means computing u'v + uv', not multiplying u' by v' or differentiating both factors as if they didn't interact.\n- The structural line itself, not just the final number, is what a reader checks for credit."
+ },
+ {
+  "core_idea": "- The quotient rule's order matters: (u'v - uv')/v^2, never uv' - u'v.\n- The denominator must be squared, not left as v.\n- Both are documented as the most common quotient-rule point losses.",
+  "how_this_becomes_points": "1. Preserve the exact subtraction order in the numerator.\n2. Square the denominator correctly before any simplification.\n3. A numerator with the terms swapped changes the sign of the whole result and loses the point even with correct individual derivatives.",
+  "mini_example_question": "Given f(x) = (3x^2 - 1)/(x + 2), find f'(1).",
+  "point_attaining_answer": "1. With u = 3x^2-1, v = x+2, u'=6x, v'=1: f'(x) = (u'v - uv')/v^2.\n2. At x=1: u(1)=2, v(1)=3, u'(1)=6, v'(1)=1.\n3. So f'(1) = (6*3 - 2*1)/3^2 = (18-2)/9 = 16/9.",
+  "topic_code": "2.9",
+  "weak_answer": "f'(1) = (u*v' - u'*v)/v^2 = (2*1 - 6*3)/9 = -16/9, reversing the numerator's term order.",
+  "what_students_need_to_understand": "- The numerator of a quotient derivative is (derivative of top)(bottom) minus (top)(derivative of bottom), always in that order.\n- It is divided by the bottom squared.\n- Reversing the subtraction order or forgetting to square the denominator both change the answer's sign or value."
+ },
+ {
+  "core_idea": "- Beyond sine and cosine, d/dx tan x = sec^2 x, d/dx cot x = -csc^2 x, d/dx sec x = sec x tan x, and d/dx csc x = -csc x cot x.\n- The two 'squared' derivatives and the two 'product' derivatives are easy to cross, especially confusing sec x tan x with sec^2 x.",
+  "how_this_becomes_points": "1. Recall the exact derivative form for each trig function.\n2. Know which functions get a squared derivative and which get a two-factor product derivative.\n3. Swapping sec x's derivative for a squared form (or vice versa) invalidates the term even if everything else is correct.",
+  "mini_example_question": "Find the derivative of h(x) = 4 tan x - 3 sec x.",
+  "point_attaining_answer": "1. Use d/dx tan x = sec^2 x and d/dx sec x = sec x tan x separately.\n2. h'(x) = 4 sec^2 x - 3 sec x tan x.",
+  "topic_code": "2.10",
+  "weak_answer": "h'(x) = 4 sec^2 x - 3 sec^2 x, treating sec x's derivative as if it were the same squared form as tan x's.",
+  "what_students_need_to_understand": "- Each of these four derivative facts pairs a specific trig function with its own distinct derivative form.\n- tan and cot produce squared-function derivatives.\n- sec and csc produce two-factor product derivatives.\n- Mixing the two families produces a wrong but plausible-looking answer."
+ },
+ {
+  "core_idea": "- The chain rule requires two separate factors: the outer function's derivative evaluated at the inner expression, times the inner expression's own derivative.\n- A documented, reader-quoted error is garbling this into a product-rule-shaped pattern, e.g. differentiating e^u as u*e^u instead of the correct e^u*u'.",
+  "how_this_becomes_points": "1. Differentiate the outer function at the inner expression.\n2. Multiply by the inner function's derivative as a separate, visible factor.\n3. Differentiating only the outer layer, or folding the inner expression into the base instead of multiplying by its derivative, does not earn the point.",
+  "mini_example_question": "Differentiate f(x) = e^(x^2), showing which factor is the inner function before multiplying by its derivative.",
+  "point_attaining_answer": "1. With u = x^2, the outer function is e^u.\n2. f'(x) = e^u * u' = e^(x^2) * 2x = 2x*e^(x^2).\n3. The inner derivative 2x is carried through as a multiplied factor, not folded into the base.",
+  "topic_code": "3.1",
+  "weak_answer": "f'(x) = x^2 * e^(x^2), applying a product-rule-shaped pattern instead of the chain rule.",
+  "what_students_need_to_understand": "- A composite function's derivative is never just the outer rule applied and left alone.\n- Every layer of nesting (sin of something, e raised to something, a power of something) contributes its own multiplied derivative factor.\n- Skipping or misidentifying the inner function is the single most common chain-rule failure mode."
+ },
+ {
+  "core_idea": "- After implicitly differentiating both sides and collecting every dy/dx term, the coefficient multiplying dy/dx must be wrapped in parentheses before dividing.\n- A documented, reader-quoted error is dropping those parentheses (writing x + 3y^2*dy/dx = ... instead of (x + 3y^2)*dy/dx = ...), which changes what the expression actually means.",
+  "how_this_becomes_points": "1. Differentiate every term correctly, with dy/dx attached wherever a y-expression was differentiated.\n2. Factor dy/dx out of the collected terms with the remaining coefficient clearly grouped.\n3. An ambiguous or missing parenthesization is treated as changing the expression, not as a stylistic slip.",
+  "mini_example_question": "For x^2 + xy + y^3 = 7, find dy/dx using implicit differentiation, writing the coefficient of dy/dx in parentheses before solving.",
+  "point_attaining_answer": "1. Differentiating both sides: 2x + (y + x*dy/dx) + 3y^2*dy/dx = 0.\n2. Collecting dy/dx terms: (x + 3y^2)*dy/dx = -(2x + y).\n3. So dy/dx = -(2x+y)/(x+3y^2), with the coefficient of dy/dx parenthesized before dividing.",
+  "topic_code": "3.2",
+  "weak_answer": "2x + y + x*dy/dx + 3y^2*dy/dx = 0, so dy/dx = -(2x+y)/x + 3y^2, without parentheses around the collected coefficient.",
+  "what_students_need_to_understand": "- Implicit differentiation applies d/dx to both sides of an equation relating x and y.\n- Attach dy/dx to every term that differentiates a y-expression.\n- Then isolate dy/dx by factoring it out of every term it appears in.\n- That factoring step is where the parenthesization error happens."
+ },
+ {
+  "core_idea": "- An inverse function's derivative at a point uses the reciprocal of the original function's derivative.\n- It is evaluated at the original x-value that corresponds to the inverse's input, not at the inverse's input value itself.\n- That is the single most common error on this topic.",
+  "how_this_becomes_points": "1. Identify the original x-value that maps to the given inverse input.\n2. Then take the reciprocal derivative.\n3. Evaluating f' at the inverse's input value instead of the corresponding original x-value produces a plausible-looking but wrong number and does not earn the point.",
+  "mini_example_question": "Let f(x) = x^3 + x + 1, and let g = f^{-1}. Given f(1) = 3, find g'(3).",
+  "point_attaining_answer": "1. Since f(1) = 3, g(3) = 1.\n2. g'(3) = 1/f'(1).\n3. f'(x) = 3x^2 + 1, so f'(1) = 4, giving g'(3) = 1/4.",
+  "topic_code": "3.3",
+  "weak_answer": "g'(3) = 1/f'(3) = 1/(3(3)^2+1) = 1/28, evaluating f' at the inverse-input value instead of the corresponding original x-value.",
+  "what_students_need_to_understand": "- Finding (f^-1)'(a) means first finding the x-value b such that f(b) = a.\n- Then compute 1/f'(b).\n- The reciprocal is taken at b, the original input, never at a, the value that was just plugged into the inverse."
+ },
+ {
+  "core_idea": "- Each inverse trig function has its own specific derivative denominator form: arcsin uses sqrt(1-u^2), arctan uses 1+u^2, arcsec uses |u|*sqrt(u^2-1).\n- Swapping one function's denominator form for another's is a documented, common error when the functions are not clearly distinguished before differentiating.",
+  "how_this_becomes_points": "1. Select the exact denominator form that matches the inverse trig function being differentiated.\n2. Multiply by the inner derivative when the argument is not just x.\n3. A correct-looking but wrong function's denominator form does not earn the point even if the chain-rule factor is handled correctly.",
+  "mini_example_question": "Find the derivative of f(x) = arctan(3x).",
+  "point_attaining_answer": "1. Using d/dx arctan(u) = u'/(1+u^2) with u = 3x, u' = 3.\n2. f'(x) = 3/(1+(3x)^2) = 3/(1+9x^2).",
+  "topic_code": "3.4",
+  "weak_answer": "f'(x) = 3/sqrt(1-9x^2), using the arcsine denominator form instead of the arctangent form.",
+  "what_students_need_to_understand": "- Inverse trig derivatives are memorized templates, each paired with a specific algebraic denominator that must not be interchanged.\n- Whenever the argument is not simply x, the chain rule contributes an extra multiplied factor on top of the template."
+ },
+ {
+  "core_idea": "- Many derivative problems combine rules in one structure, e.g. a product of two nonconstant factors where one factor is itself a composite function.\n- A common, specific hybrid error: correctly picking the outer rule (product) while forgetting to apply the inner rule (chain) to the nested factor.",
+  "how_this_becomes_points": "1. Select the correct outer rule for the expression's overall structure.\n2. Apply any further rule required within that structure, such as a chain-rule factor nested inside one term of a product.\n3. Correctly starting a product rule but leaving a nested chain-rule factor out costs that inner factor's point.",
+  "mini_example_question": "Find the derivative of f(x) = x^2 sin(3x), naming which rules apply to which part before differentiating.",
+  "point_attaining_answer": "1. f'(x) = 2x*sin(3x) + x^2*3*cos(3x) = 2x*sin(3x) + 3x^2*cos(3x).\n2. The product rule is applied to the two factors, and the chain rule to sin(3x)'s inner 3x.",
+  "topic_code": "3.5",
+  "weak_answer": "f'(x) = 2x sin(3x) + x^2 cos(3x), applying the product rule correctly but forgetting the chain-rule factor of 3 on cos(3x).",
+  "what_students_need_to_understand": "- Before differentiating, name the expression's outer structure (sum, product, quotient, composition, or implicit relation).\n- Once a rule like product rule is chosen, each factor still needs its own correct treatment.\n- A factor that is itself a composite function still needs the chain rule applied within the product-rule computation."
+ },
+ {
+  "core_idea": "- A higher-order derivative is found by repeating the derivative operation on the previous result, one order at a time.\n- A common, specific error is losing track of which order was actually requested: reporting f' when f'' was asked for, especially after substituting a value too early.",
+  "how_this_becomes_points": "1. Compute the correct order of derivative.\n2. Label or report the specific order the question asked for.\n3. A numerically correct but mislabeled derivative (reporting the first derivative when the second was requested) does not earn the point for the requested quantity.",
+  "mini_example_question": "For f(x) = x^4 - 3x^3 + 2x, find f''(x), the second derivative, not the first.",
+  "point_attaining_answer": "1. f'(x) = 4x^3 - 9x^2 + 2.\n2. Then f''(x) = 12x^2 - 18x.\n3. Each derivative is labeled by order before substituting any value.",
+  "topic_code": "3.6",
+  "weak_answer": "f''(x) = 4x^3 - 9x^2 + 2, reporting the first derivative when the second derivative was requested.",
+  "what_students_need_to_understand": "- Second and higher derivatives are computed by differentiating the immediately preceding derivative, not by differentiating the original function some fixed number of times all at once.\n- Label each intermediate result by its order (f', f'', or the requested notation) before the next step or substituting any value."
+ },
+ {
+  "core_idea": "- Interpreting a derivative in context means translating a symbol like f'(a) into a sentence.\n- The sentence names the changing quantity, the input it is changing with respect to, the specific input value, and the units.\n- The number alone earns nothing without that sentence.",
+  "how_this_becomes_points": "1. The scoring component checks for the four pieces together: quantity, rate, input value, units.\n2. A response can compute f'(4) correctly and still lose the point by reporting just the number.",
+  "mini_example_question": "A tank's water depth is modeled by h(t) in feet, t in minutes. Given h'(6) = -0.4, interpret this value in context.",
+  "point_attaining_answer": "1. At t = 6 minutes, the water depth is decreasing at about 0.4 feet per minute.\n2. This names the quantity, the input value, the direction, and the units together, not just the bare number.",
+  "topic_code": "4.1",
+  "weak_answer": "h'(6) = -0.4.",
+  "what_students_need_to_understand": "- Graders read the sentence, not just the number.\n- 'the derivative is 3' earns no credit on its own.\n- 'the temperature is increasing at about 3 degrees per minute when t = 4' does, because it names quantity, rate direction, input value, and units together."
+ },
+ {
+  "core_idea": "- Speed is the absolute value of velocity, so a negative velocity means motion in the negative direction, not a smaller speed.\n- Whether the object is speeding up or slowing down depends on comparing the signs of velocity and acceleration, not either one alone.",
+  "how_this_becomes_points": "1. A motion question scores separately for computing the correct derivative value and for the sign-comparison reasoning.\n2. That sign comparison answers speeding-up-or-slowing-down.\n3. A correct v(t) and a(t) with no sign comparison still loses the interpretation point.",
+  "mini_example_question": "A particle has velocity v(3) = -5 and acceleration a(3) = -2. Is the particle speeding up or slowing down at t = 3?",
+  "point_attaining_answer": "1. Speeding up, because velocity and acceleration are both negative at t = 3.\n2. Matching signs mean the speed is increasing, even though acceleration alone is negative.",
+  "topic_code": "4.2",
+  "weak_answer": "Slowing down, because acceleration is negative.",
+  "what_students_need_to_understand": "- The object speeds up when velocity and acceleration share the same sign (both positive or both negative).\n- It slows down when they have opposite signs.\n- Checking only acceleration's sign, or only velocity's sign, gives the wrong answer half the time."
+ },
+ {
+  "core_idea": "- Outside of motion, a derivative dy/dx is still a rate.\n- The skill is naming which quantity is the input and which is the output for that specific scenario.\n- The same symbol dV/dt means something different for a filling tank than for a shrinking ice cube.",
+  "how_this_becomes_points": "1. Identify both variables correctly from the word problem.\n2. Report the rate with the problem's own units, not just a bare number pulled from a derivative computation.",
+  "mini_example_question": "A population P(t) of bacteria is measured in thousands, t in hours. Given P'(5) = 12, interpret this value in context.",
+  "point_attaining_answer": "1. At t = 5 hours, the bacteria population is increasing at about 12 thousand bacteria per hour.\n2. This names the changing quantity, the specific time, the direction, and the units together, not the bare derivative value.",
+  "topic_code": "4.3",
+  "weak_answer": "P'(5) = 12 thousand.",
+  "what_students_need_to_understand": "- The independent variable is whatever the problem measures change against (usually time).\n- The dependent variable is whichever quantity is described as changing.\n- Misreading which is which flips the entire rate's meaning."
+ },
+ {
+  "core_idea": "- The relationship equation in a related-rates problem is not always a geometric formula like volume or the Pythagorean theorem.\n- Recent released exams instead give an implicit curve equation and ask you to differentiate it with respect to time.\n- This is exactly like implicit differentiation, but with every variable now also a function of t.",
+  "how_this_becomes_points": "1. The setup point tolerates at most one small error in differentiating the equation with respect to t.\n2. The execution point strictly requires every term differentiated correctly (including any product-rule or chain-rule term).\n3. Carry the work through to a completed computation, not a cited formula.",
+  "mini_example_question": "Given the curve x^2 + 3xy = 28, with dx/dt = 2 at the point (2, 4), a student writes 'dy/dt = dy/dx times dx/dt' and stops. Does this earn the differentiation point?",
+  "point_attaining_answer": "1. No: the identity has to be carried through to an actual numeric value for dy/dt using the given dx/dt, not merely stated.\n2. Differentiating the full equation with respect to t and solving for dy/dt numerically is what earns the point.",
+  "topic_code": "4.4",
+  "weak_answer": "Yes, citing the chain rule relationship is enough to show the method.",
+  "what_students_need_to_understand": "- Citing the chain-rule identity dy/dt = (dy/dx)(dx/dt) by name is not enough to earn the differentiation point.\n- The identity has to be carried through to an actual computed numeric value, not just stated as a formula."
+ },
+ {
+  "core_idea": "- Carrying a related-rates setup through to a solved value means applying the product rule and chain rule correctly to every term of the equation.\n- Substitute the snapshot values only after the derivative equation is fully formed.\n- Substituting early loses the equation you need.",
+  "how_this_becomes_points": "1. Every product-rule and chain-rule term must be present and correctly formed in the differentiated equation.\n2. Evaluate with the snapshot values only after differentiation is complete.\n3. An equation missing one required term loses the execution point even if the final numeric answer happens to look reasonable.",
+  "mini_example_question": "Given the curve 2xy + ln(y) = 8, at a moment where x = 4, y = 1, and dx/dt = 3, set up the differentiated equation to solve for dy/dt.",
+  "point_attaining_answer": "1. Differentiating gives 2x(dy/dt) + 2y(dx/dt) + (1/y)(dy/dt) = 0.\n2. Both terms from the product 2xy and the chain-rule term from ln y are present.\n3. Substituting x=4, y=1, dx/dt=3 and solving for dy/dt gives the requested rate.",
+  "topic_code": "4.5",
+  "weak_answer": "2(dy/dt) + ln(dy/dt) = 0.",
+  "what_students_need_to_understand": "- A product like xy inside the original equation produces two separate d/dt terms after differentiating (one from each factor).\n- A term like ln y produces a chain-rule term (1/y)(dy/dt).\n- Missing either term is a common way to lose the execution point even with a correct overall setup."
+ },
+ {
+  "core_idea": "- The slope value f'(a) and the mechanics of building and evaluating the tangent-line approximation are scored as two separate points.\n- A wrong slope does not cost you the mechanics point if you carry that wrong slope through consistently to a final numeric approximation.",
+  "how_this_becomes_points": "1. Two separate scoring components exist: one for the correct slope value, one for correctly building and evaluating the linearization using whatever slope value you have.\n2. An unresolved expression with a missing closing parenthesis or no boxed final number fails the mechanics point regardless of the slope.",
+  "mini_example_question": "A student believes f'(2) = 5 (the correct value is 3) but correctly builds L(1.9) = f(2) + 5(1.9-2) and evaluates it to a final number. Does this response earn any credit?",
+  "point_attaining_answer": "- The slope point is not earned.\n- The linearization-mechanics point is still earned.\n- The reason: the wrong slope was carried through consistently to a fully evaluated final numeric approximation.",
+  "topic_code": "4.6",
+  "weak_answer": "No credit, since the slope value is wrong.",
+  "what_students_need_to_understand": "- Even if you compute f'(a) incorrectly, using that wrong value correctly inside L(x) = f(a) + f'(a)(x-a) and evaluating it to a concrete number still earns the mechanics point.\n- Only leaving the expression unresolved, with no final numeric value, loses that point."
+ },
+ {
+  "core_idea": "- L'Hospital's Rule only applies to the two indeterminate forms 0/0 and infinity/infinity.\n- Other indeterminate-looking forms like infinity minus infinity or 0 times infinity are outside this course's scope.\n- They require an algebraic rewrite first, not a direct application of the rule.",
+  "how_this_becomes_points": "1. Identify the indeterminate form as a labeled fact before applying the rule.\n2. Differentiate numerator and denominator separately (not with the quotient rule).\n3. Skipping the verification step or misapplying quotient rule both cost points even if a final number is reached.",
+  "mini_example_question": "Evaluate the limit as x approaches infinity of (e^x) / (x^2), and identify whether L'Hospital's Rule applies.",
+  "point_attaining_answer": "1. As x approaches infinity, e^x approaches infinity and x^2 approaches infinity, so this is the infinity/infinity indeterminate form and L'Hospital's Rule applies.\n2. Differentiating numerator and denominator separately (not the quotient rule) gives e^x / (2x), which is still infinity/infinity.\n3. Applying the rule again gives e^x / 2, which approaches infinity.",
+  "topic_code": "4.7",
+  "weak_answer": "lim (e^x)/(x^2) = infinity/infinity, so apply the quotient rule to e^x and x^2.",
+  "what_students_need_to_understand": "- Writing an equals sign between a limit and 0/0 or infinity/infinity is a notation error.\n- 0/0 is a label describing the situation, not a value the limit equals.\n- Verify the form in words, then apply the rule to the derivatives.\n- Never write lim f(x)/g(x) = 0/0 as if it were a computed answer."
+ },
+ {
+  "core_idea": "- The Mean Value Theorem's conclusion is only valid once both hypotheses are stated as explicit sentences: continuity on the closed interval [a,b] and differentiability on the open interval (a,b).\n- Jumping straight to solving f'(c) equal to the secant slope skips the justification step, even if the numeric c-value is correct.",
+  "how_this_becomes_points": "1. State f is continuous on the closed interval and differentiable on the open interval (polynomials and sums/products of familiar differentiable functions justify this in one sentence).\n2. Compute the average rate of change, then solve f'(c) equal to it.\n3. Solving for c without the hypotheses earns no justification point.",
+  "mini_example_question": "Let f(x) = x^3 - 3x on [0,3]. Use the Mean Value Theorem to find all values of c guaranteed by the theorem.",
+  "point_attaining_answer": "1. f is a polynomial, so it is continuous on [0,3] and differentiable on (0,3), satisfying MVT's hypotheses.\n2. f(0)=0, f(3)=18, so the average rate is (18-0)/3=6.\n3. Setting f'(c)=3c^2-3=6 gives c^2=3, so c=sqrt(3), which lies in (0,3).",
+  "topic_code": "5.1",
+  "weak_answer": "The average rate is (18-0)/3 = 6, and solving 3c^2-3=6 gives c = sqrt(3), reported with no mention of continuity or differentiability anywhere in the response.",
+  "what_students_need_to_understand": "- MVT guarantees at least one point c in (a,b) where the instantaneous rate f'(c) equals the average rate of change over [a,b].\n- That holds only under its two named hypotheses.\n- A function can fail to be differentiable at even one interior point and the guaranteed c may not exist.\n- The hypothesis check is graded content, not optional scaffolding."
+ },
+ {
+  "core_idea": "- The Extreme Value Theorem guarantees a global max and min exist on a closed interval, but locating them is not the same step as finding critical points.\n- A documented near-miss: a critical x-value with no equation-setting step or explicit critical-point language.\n- Another common error: comparing only critical-point values, never evaluating the endpoints.",
+  "how_this_becomes_points": "1. Show the equation-setting work that produces each critical x-value (not just stating the value).\n2. Build a complete candidate list that includes both interior critical points and both endpoints.\n3. Then name the global max and min.",
+  "mini_example_question": "Let f(x) = x^3 - 6x^2 + 5 on [-1,5]. Find the absolute maximum and absolute minimum values of f on this interval.",
+  "point_attaining_answer": "f'(x)=3x^2-12x=3x(x-4)=0 gives critical points x=0 and x=4. Evaluating all candidates:\n\n| x | f(x) |\n| -1 | -2 |\n| 0 | 5 |\n| 4 | -27 |\n| 5 | -20 |\n\nThe absolute maximum is 5 at x=0, and the absolute minimum is -27 at x=4.",
+  "topic_code": "5.2",
+  "weak_answer": "f'(x)=3x^2-12x=0 gives critical points x=0 and x=4, and the response calls x=0 the maximum and x=4 the minimum without ever evaluating the endpoints x=-1 or x=5.",
+  "what_students_need_to_understand": "- Critical points occur only where f'(x)=0 or where f' is undefined.\n- On a closed interval, EVT guarantees the global extrema occur either at one of those critical points or at an endpoint.\n- A critical point is not automatically a local or global extremum until sign behavior or a value comparison confirms it."
+ },
+ {
+  "core_idea": "- Increasing and decreasing intervals are determined by the sign of f' on a sign chart.\n- Never determine them by directly comparing two f-values at chosen points.\n- Comparing endpoint function values alone can look like it proves monotonic behavior while missing a dip or rise strictly between them.",
+  "how_this_becomes_points": "1. Test the sign of f' in each interval created by the critical points.\n2. Report increasing/decreasing conclusions by x-interval.\n3. Comparing f-values at two isolated points instead of building the sign chart does not earn the point, even when the comparison happens to point the right direction.",
+  "mini_example_question": "Let f(x) = x^3 - 3x^2. Determine the intervals on which f is increasing and decreasing.",
+  "point_attaining_answer": "f'(x)=3x^2-6x=3x(x-2)=0 gives critical points x=0 and x=2. Testing f'(-1)=9>0, f'(1)=-3<0, f'(3)=9>0 gives the sign chart:\n\n| Interval | f' sign | f is |\n| (-infinity,0) | positive | increasing |\n| (0,2) | negative | decreasing |\n| (2,infinity) | positive | increasing |",
+  "topic_code": "5.3",
+  "weak_answer": "Since f(3)=0 is greater than f(1)=-2, the response concludes f is increasing on [1,3], never checking that f actually dips between x=1 and x=2 before rising again.",
+  "what_students_need_to_understand": "- A sign chart for f' partitions the domain at critical points.\n- The sign of f' on each resulting sub-interval (not the raw value of f) tells you whether f is increasing or decreasing there.\n- Intervals are always reported using x-values, since increasing/decreasing describes behavior over a range of x, not a single y comparison."
+ },
+ {
+  "core_idea": "- The First Derivative Test classifies a critical point only after checking that f' actually changes sign around it.\n- f'(c)=0 alone proves the point is critical, not that it is a maximum or minimum.\n- Treating f'(c)=0 as sufficient on its own is the single most common error on this topic.",
+  "how_this_becomes_points": "1. Test f' on both sides of the critical point.\n2. Show the sign change (or lack of one) explicitly before naming the extremum.\n3. Stating f'(c)=0 and immediately naming a maximum or minimum without the two-sided sign check does not earn the point.",
+  "mini_example_question": "Let f(x) = x^3 - 3x^2 - 9x + 5. Use the First Derivative Test to classify each critical point.",
+  "point_attaining_answer": "f'(x)=3x^2-6x-9=3(x-3)(x+1)=0 gives critical points x=-1 and x=3. Testing f'(-2)=15>0, f'(0)=-9<0, f'(4)=15>0 shows:\n\n| Critical point | f' changes | Result |\n| x=-1 | positive to negative | local max, f(-1)=10 |\n| x=3 | negative to positive | local min, f(3)=-22 |",
+  "topic_code": "5.4",
+  "weak_answer": "f'(-1)=0 and f'(3)=0, so the response reports x=-1 as a local maximum and x=3 as a local minimum without ever testing the sign of f' on either side of those points.",
+  "what_students_need_to_understand": "- A local maximum requires f' to change from positive to negative moving left to right through the critical point.\n- A local minimum requires the reverse (negative to positive).\n- If f' does not change sign there, the point is neither a local max nor a local min, no matter what f'(c) equals."
+ },
+ {
+  "core_idea": "- The Candidates Test is a distinct global-extrema tool from the First and Second Derivative Tests, and real AP scoring treats them as non-interchangeable.\n- A local sign-change argument alone for an absolute extremum earns no justification point even when the final numeric answer is correct.\n- It remains eligible only for the separate answer point.",
+  "how_this_becomes_points": "1. Evaluate f at the complete candidate list (every interior critical point plus both endpoints).\n2. Compare those values directly.\n3. Justifying the global extremum with a local-only argument, such as a First Derivative Test sign change with no endpoint comparison, does not earn the justification point.",
+  "mini_example_question": "Let g(x) = x^4 - 8x^2 on [-1,3]. Use the Candidates Test to find the absolute maximum and absolute minimum values of g.",
+  "point_attaining_answer": "Candidates are x=-1, 0, 2, 3 (critical points 0 and 2, both endpoints):\n\n| x | g(x) |\n| -1 | -7 |\n| 0 | 0 |\n| 2 | -16 |\n| 3 | 9 |\n\nComparing all four values: the absolute maximum is 9 at x=3, and the absolute minimum is -16 at x=2.",
+  "topic_code": "5.5",
+  "weak_answer": "g'(x)=4x(x-2)(x+2)=0 gives x=0 and x=2 as candidates in [-1,3]; testing g' around x=2 shows a sign change from negative to positive, so the response concludes x=2 gives the absolute minimum using only that local sign-change argument, without ever evaluating the endpoints.",
+  "what_students_need_to_understand": "- Absolute extrema on a closed interval are found by evaluating the original function (never the derivative) at every critical point in the domain and at both endpoints.\n- Then compare that full set of function values.\n- A critical point's local behavior, confirmed by a sign change in f', says nothing by itself about how that value compares to the endpoints."
+ },
+ {
+  "core_idea": "- Concavity is governed by the sign of f', never the sign of f'.\n- A response that reuses the increasing/decreasing sign chart from f' to answer a concavity question has tested the wrong derivative.\n- The f' sign describes slope direction, not whether that slope is itself increasing or decreasing.",
+  "how_this_becomes_points": "1. Build the sign chart from f' specifically.\n2. Translate that sign into concave up or concave down by interval.\n3. A sign chart built from f' instead of f' does not earn the point even if the increasing/decreasing conclusions it produces are individually correct.",
+  "mini_example_question": "Let h(x) = x^4 - 6x^2. Determine the intervals on which h is concave up and concave down.",
+  "point_attaining_answer": "h'(x)=12x^2-12=12(x-1)(x+1). Testing h'(0)=-12<0 and h'(2)=36>0 gives:\n\n| Interval | h is |\n| (-1,1) | concave down |\n| (-infinity,-1) and (1,infinity) | concave up |",
+  "topic_code": "5.6",
+  "weak_answer": "h'(x)=4x^3-12x, and the response tests the sign of h' at x=-2,0,2 and reports those as the concavity intervals, never computing h' at all.",
+  "what_students_need_to_understand": "- Concave up means the slope f' is increasing, which happens exactly where f'>0.\n- Concave down means f' is decreasing, exactly where f'<0.\n- Concavity is a statement about the second derivative's sign.\n- Confusing it with the first derivative's sign produces a plausible-looking but structurally wrong sign chart."
+ },
+ {
+  "core_idea": "- The Second Derivative Test only applies when f'(c) is nonzero.\n- If f'(c)=0, the test is explicitly inconclusive.\n- Treating that inconclusive result as if it still classified the point (rather than falling back to the First Derivative Test) is the topic's most common error.",
+  "how_this_becomes_points": "1. Check whether f'(c) is actually nonzero before applying the classification rule.\n2. Switch to the First Derivative Test when f'(c)=0.\n3. Reporting a classification from an inconclusive f'(c)=0 result does not earn the point, regardless of whether the classification is coincidentally correct.",
+  "mini_example_question": "Let k(x) = x^4. Use the Second Derivative Test to classify the critical point at x=0, if the test applies.",
+  "point_attaining_answer": "1. k'(x)=4x^3=0 gives the critical point x=0.\n2. k'(x)=12x^2, so k'(0)=0 and the Second Derivative Test is inconclusive.\n3. Falling back to the First Derivative Test: k'(x)=4x^3 is negative for x<0 and positive for x>0, so x=0 is a local minimum by that test instead.",
+  "topic_code": "5.7",
+  "weak_answer": "k'(0)=12(0)^2=0, and the response states that since f'(0) is not negative, x=0 must be a local minimum, treating the inconclusive result as if it still supported a conclusion.",
+  "what_students_need_to_understand": "- When f'(c)=0 and f'(c)>0, c is a local minimum; when f'(c)<0, c is a local maximum.\n- But when f'(c)=0, the test gives no information at all.\n- The correct response is to abandon it and check the sign change of f' directly instead of forcing a conclusion from an inconclusive result."
+ },
+ {
+  "core_idea": "- A graph sketch of f is only as good as the derivative evidence behind it.\n- Every increasing/decreasing interval, extremum, concavity interval, and inflection point drawn must trace back to an explicit sign chart for f' and f'.\n- It must not come from what the curve intuitively looks like it should do.",
+  "how_this_becomes_points": "1. Annotate the sign charts for f' and f' before drawing.\n2. Produce a sketch whose increasing/decreasing behavior, extrema, concavity, and inflection points all match that annotated evidence.\n3. A sketch produced from intuition, without a derivative sign chart behind each feature, does not earn the point.",
+  "mini_example_question": "Let m(x) = -x^3 + 3x. Sketch the graph, labeling all local extrema and inflection points using derivative evidence.",
+  "point_attaining_answer": "1. m'(x)=-3x^2+3=-3(x-1)(x+1).\n2. Testing m'(-2)=-9, m'(0)=3, m'(2)=-9 gives sign pattern negative-positive-negative, so m has a local min at x=-1 (m(-1)=-2) and a local max at x=1 (m(1)=2).\n3. m'(x)=-6x is positive for x<0 and negative for x>0, giving an inflection point at x=0 (m(0)=0).\n4. The sketch is drawn to match exactly these labeled features.",
+  "topic_code": "5.8",
+  "weak_answer": "The response draws a smooth S-shaped curve through a few plotted points and labels a high point and low point by eye, without computing m'(x) or m'(x) anywhere to justify their locations.",
+  "what_students_need_to_understand": "- Sketching coordinates three separate pieces of derivative evidence at once: the sign of f' locates increasing/decreasing intervals and extrema.\n- The sign of f' locates concavity intervals and inflection points.\n- The two sign charts must agree with each other everywhere the sketch is drawn."
+ },
+ {
+  "core_idea": "- The CED's own guidance for this unit is explicit: refer to f, f', and f' by name, never as \"it\" or \"the function\".\n- When a graph shown is of f' itself, that graph's own peaks and valleys are not the extrema of f.\n- They are the points where f'=0, which locate inflection points of f, not local maxima or minima of f.",
+  "how_this_becomes_points": "1. Identify which graph is actually given (f, f', or f').\n2. Translate its features correctly into statements about f.\n3. Reading an extremum of the f' graph itself as an extremum of f, instead of as an inflection point of f, does not earn the point.",
+  "mini_example_question": "The graph of f'(x) = 4 - x^2 is given. Using this graph of f', identify any local extrema and inflection points of f.",
+  "point_attaining_answer": "1. f'(x)=4-x^2 changes sign from negative to positive at x=-2 (local min of f) and from positive to negative at x=2 (local max of f).\n2. f'(x)=-2x, so f'(0)=0 with f' changing from positive to negative there, giving an inflection point of f at x=0.\n3. The peak of the given f' graph corresponds to an inflection point of f, not an extremum of f.",
+  "topic_code": "5.9",
+  "weak_answer": "Since the graph of f'(x)=4-x^2 has its own maximum at x=0, the response reports x=0 as a local maximum of f, never checking where f' actually changes sign.",
+  "what_students_need_to_understand": "- Extrema of f occur where the graph of f' crosses zero (changes sign).\n- Inflection points of f occur where the graph of f' itself has a peak or valley (since that is where f', the slope of f', equals zero).\n- Confusing a feature of the f' graph for a feature of the f graph produces a specific, predictable, and named misclassification."
+ },
+ {
+  "core_idea": "- An optimization setup is not complete until the quantity to be optimized is written as a function of exactly one variable, with any constraint already substituted in.\n- Differentiating a two-variable expression like A=xy before using the constraint to eliminate one variable is the topic's most common structural error.",
+  "how_this_becomes_points": "1. Define variables.\n2. Write the objective as a function of one variable using the constraint.\n3. State the resulting domain.\n\nDifferentiating an expression that still contains two independent variables, before the constraint has been substituted in, does not earn the setup point.",
+  "mini_example_question": "A rectangular garden uses an existing wall as one side, so only the other three sides need fencing, and exactly 40 feet of fencing is available. Set up the area as a one-variable function before differentiating.",
+  "point_attaining_answer": "1. Let x be the width of each of the two fenced sides perpendicular to the wall and y be the length of the fenced side parallel to the wall.\n2. The fencing constraint is 2x+y=40, so y=40-2x.\n3. Substituting gives A(x)=x(40-2x)=40x-2x^2, with domain 0<x<20.\n4. Only now is the function ready to differentiate.",
+  "topic_code": "5.10",
+  "weak_answer": "The response writes A=xy and immediately sets dA/dx=y+x(dy/dx)=0, differentiating the two-variable area formula directly instead of ever substituting the fencing constraint to eliminate y first.",
+  "what_students_need_to_understand": "- Name every variable.\n- Write the objective quantity's formula (which usually starts with two or more variables).\n- Use the given constraint to substitute and reduce that formula to a single-variable function before any derivative work begins.\n- State the domain that constraint implies."
+ },
+ {
+  "core_idea": "- Finding a critical point of the objective function is not the same as proving it gives the requested maximum or minimum.\n- A response that solves f'(x)=0 and stops has found a candidate, not a justified answer.\n- AP credit for the conclusion requires the extra justification step plus a final answer stated in context with units.",
+  "how_this_becomes_points": "1. Differentiate and solve for critical points.\n2. Justify which candidate gives the requested extremum.\n3. Answer the actual applied question with correct units and variables.\n\nStopping at the critical point without the justification and contextual answer steps does not earn the final answer point.",
+  "mini_example_question": "Using A(x) = 40x - 2x^2 on the domain 0<x<20 from a fencing problem, find the maximum possible area and state it in context.",
+  "point_attaining_answer": "1. A'(x)=40-4x=0 gives x=10.\n2. A'(x)=-4<0 confirms a maximum at x=10 (or comparing A(0)=0, A(20)=0, A(10)=200 confirms it directly).\n3. With x=10, y=40-2(10)=20, so the maximum possible area is 200 square feet, achieved when the fenced sides are 10 ft and 20 ft.",
+  "topic_code": "5.11",
+  "weak_answer": "A'(x)=40-4x=0 gives x=10, and the response reports \"x=10\" as the final answer, never confirming this is a maximum or computing the actual maximum area in square feet.",
+  "what_students_need_to_understand": "- After the objective function and its domain are set up, solving f'(x)=0 gives candidate x-values.\n- A full solution still needs to justify that a specific candidate is the maximum or minimum (via the Second Derivative Test, endpoint comparison, or a sign chart).\n- Then answer the original applied question in its own terms, not just report a bare x-value."
+ },
+ {
+  "core_idea": "- Differentiating an implicit relation requires applying the chain rule to every y-term, attaching a dy/dx factor each time y is differentiated.\n- Treating y as if it were a constant (differentiating y^2 to 0 instead of 2y*dy/dx) drops that factor entirely and produces a derivative that is not even structurally close to correct.",
+  "how_this_becomes_points": "1. Apply the chain rule correctly to each y-term (producing a dy/dx factor every time).\n2. Then solve algebraically for dy/dx.\n3. Differentiating a y-term as if y were a constant, or assuming the relation must first be solved explicitly for y, does not earn the differentiation point.",
+  "mini_example_question": "For the circle x^2 + y^2 = 25, find dy/dx and determine the points where the tangent line is horizontal.",
+  "point_attaining_answer": "1. Differentiating implicitly: 2x + 2y*(dy/dx) = 0, so dy/dx = -x/y.\n2. A horizontal tangent requires dy/dx=0 with y defined, so x=0, giving the points (0,5) and (0,-5) on the circle.",
+  "topic_code": "5.12",
+  "weak_answer": "Differentiating term by term, the response writes d/dx(y^2)=0 (treating y as a constant), giving 2x+0=0 and dy/dx=-2x, with no dy/dx factor ever appearing from the y^2 term.",
+  "what_students_need_to_understand": "- An implicit relation like x^2+y^2=25 defines y as a function of x without ever solving for y explicitly.\n- Differentiating it term by term still requires the chain rule on every y-containing term.\n- The relation's slope, extrema, and concavity all depend on dy/dx being computed this way, not by first trying to isolate y."
+ },
+ {
+  "core_idea": "Accumulation describes how small changes add up over an interval.",
+  "how_this_becomes_points": "You earn points by interpreting a rate over an interval as accumulated change and connecting area under a rate graph to total amount.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Exploring Accumulations of Change. What should your work and sentence make clear?",
+  "point_attaining_answer": "Identify the rate, identify the interval, then describe the accumulation as total change over that interval. Then make the scoring connection explicit: You earn points by interpreting a rate over an interval as accumulated change and connecting area under a rate graph to total amount.",
+  "topic_code": "6.1",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "It introduces the integral as a total-change idea before students focus on symbolic integration."
+ },
+ {
+  "core_idea": "Riemann sums approximate accumulated area using rectangles based on left, right, midpoint, or other sample values.",
+  "how_this_becomes_points": "You earn points by choosing the correct subinterval widths and sample heights, then summing width times height with units.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Approximating Areas with Riemann Sums. What should your work and sentence make clear?",
+  "point_attaining_answer": "For each subinterval, compute base times chosen height, then add the products. Then make the scoring connection explicit: You earn points by choosing the correct subinterval widths and sample heights, then summing width times height with units.",
+  "topic_code": "6.2",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "They are a common table-based way to earn accumulation points without an antiderivative."
+ },
+ {
+  "core_idea": "This topic connects rectangle sums, sigma notation, and definite integrals as representations of accumulated change.",
+  "how_this_becomes_points": "You earn points by matching limits of integration, subinterval structure, and integrand meaning to the accumulation being represented.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Riemann Sums, Summation Notation, and Definite Integral Notation. What should your work and sentence make clear?",
+  "point_attaining_answer": "Translate the notation into total accumulation from a to b of the rate or height function. Then make the scoring connection explicit: You earn points by matching limits of integration, subinterval structure, and integrand meaning to the accumulation being represented.",
+  "topic_code": "6.3",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "Students need to move among numeric, symbolic, and notation forms to read AP prompts accurately."
+ },
+ {
+  "core_idea": "The Fundamental Theorem of Calculus links accumulation functions to derivatives of their integrands.",
+  "how_this_becomes_points": "You earn points by recognizing that the derivative of an accumulation function depends on the integrand and any variable bound behavior.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving The Fundamental Theorem of Calculus and Accumulation Functions. What should your work and sentence make clear?",
+  "point_attaining_answer": "For F(x)=integral from a to x of f(t)dt, write F'(x)=f(x); adjust with chain rule if the bound is not x. Then make the scoring connection explicit: You earn points by recognizing that the derivative of an accumulation function depends on the integrand and any variable bound behavior.",
+  "topic_code": "6.4",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "It is a central bridge between differentiation and integration and appears in many graph/table FRQs."
+ },
+ {
+  "core_idea": "Accumulation functions increase or decrease based on the sign of the rate being accumulated, and their concavity depends on how that rate changes.",
+  "how_this_becomes_points": "You earn points by connecting the integrand to the derivative of the accumulation function and then reasoning about sign or slope.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Interpreting the Behavior of Accumulation Functions. What should your work and sentence make clear?",
+  "point_attaining_answer": "Treat the integrand as F'(x), then use derivative-sign logic to discuss F. Then make the scoring connection explicit: You earn points by connecting the integrand to the derivative of the accumulation function and then reasoning about sign or slope.",
+  "topic_code": "6.5",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "This topic turns integral notation into graph behavior, a frequent AP representation shift."
+ },
+ {
+  "core_idea": "Definite integral properties allow students to split, combine, reverse, and scale accumulated quantities.",
+  "how_this_becomes_points": "You earn points by applying interval additivity, sign reversal, constant multiples, and symmetry when appropriate.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Applying Properties of Definite Integrals. What should your work and sentence make clear?",
+  "point_attaining_answer": "Rewrite the requested integral in terms of known intervals or areas before calculating. Then make the scoring connection explicit: You earn points by applying interval additivity, sign reversal, constant multiples, and symmetry when appropriate.",
+  "topic_code": "6.6",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "These properties are heavily used when graphs or tables provide partial areas instead of formulas."
+ },
+ {
+  "core_idea": "The evaluation part of the Fundamental Theorem of Calculus uses antiderivatives to compute exact definite integrals.",
+  "how_this_becomes_points": "You earn points by finding a valid antiderivative, evaluating it at the bounds, and subtracting upper minus lower.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving The Fundamental Theorem of Calculus and Definite Integrals. What should your work and sentence make clear?",
+  "point_attaining_answer": "Find F, then compute F(b)-F(a) and attach contextual units when the integral represents change. Then make the scoring connection explicit: You earn points by finding a valid antiderivative, evaluating it at the bounds, and subtracting upper minus lower.",
+  "topic_code": "6.7",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "It provides the main exact method for total change and area when an antiderivative is available."
+ },
+ {
+  "core_idea": "An antiderivative reverses differentiation, and an indefinite integral represents a family of functions.",
+  "how_this_becomes_points": "You earn points by using correct reverse derivative rules and including +C for indefinite integrals.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Finding Antiderivatives and Indefinite Integrals. What should your work and sentence make clear?",
+  "point_attaining_answer": "Ask what function would differentiate to this expression, then include the constant of integration when no bounds are present. Then make the scoring connection explicit: You earn points by using correct reverse derivative rules and including +C for indefinite integrals.",
+  "topic_code": "6.8",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "This skill underlies exact accumulation, differential equation solutions, and many applied models."
+ },
+ {
+  "core_idea": "Substitution reverses the chain rule by changing variables so a composite integrand becomes simpler.",
+  "how_this_becomes_points": "You earn points by choosing u, computing du, rewriting the integral consistently, and adjusting bounds for definite integrals when used.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Integrating Using Substitution. What should your work and sentence make clear?",
+  "point_attaining_answer": "Choose the inside expression as u, find du, rewrite everything in u, then integrate. Then make the scoring connection explicit: You earn points by choosing u, computing du, rewriting the integral consistently, and adjusting bounds for definite integrals when used.",
+  "topic_code": "6.9",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "It is one of the most common integration techniques on the AP exam."
+ },
+ {
+  "core_idea": "Some rational expressions must be rewritten by long division or completing the square before integration.",
+  "how_this_becomes_points": "You earn points by rewriting the integrand into an equivalent form and then applying the appropriate antiderivative rule.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Integrating Functions Using Long Division and Completing the Square. What should your work and sentence make clear?",
+  "point_attaining_answer": "When the integral does not match a basic form, rewrite the algebra first, then integrate the simpler pieces. Then make the scoring connection explicit: You earn points by rewriting the integrand into an equivalent form and then applying the appropriate antiderivative rule.",
+  "topic_code": "6.10",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "This topic tests whether students can prepare an expression for a familiar antiderivative form."
+ },
+ {
+  "core_idea": "This topic is about choosing a valid integration method based on the structure of the integrand.",
+  "how_this_becomes_points": "You earn points by matching the integrand structure to an antidifferentiation procedure before calculating.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Selecting Techniques for Antidifferentiation. What should your work and sentence make clear?",
+  "point_attaining_answer": "Classify the integrand first: basic reverse rule, composite needing substitution, rational needing rewrite, or product needing another technique. Then make the scoring connection explicit: You earn points by matching the integrand structure to an antidifferentiation procedure before calculating.",
+  "topic_code": "6.14",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "AP integration questions often reward recognizing whether basic rules, substitution, algebraic rewrite, or another technique is appropriate."
+ },
+ {
+  "core_idea": "Differential equations model situations where a quantity's rate of change depends on variables in the situation.",
+  "how_this_becomes_points": "You earn points by translating verbal rate relationships into equations involving dy/dx or related notation.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Modeling Situations with Differential Equations. What should your work and sentence make clear?",
+  "point_attaining_answer": "Identify the quantity, identify what controls its rate, then write the differential equation with the correct variables. Then make the scoring connection explicit: You earn points by translating verbal rate relationships into equations involving dy/dx or related notation.",
+  "topic_code": "7.1",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "They connect derivatives to prediction, growth, decay, and accumulation-based modeling."
+ },
+ {
+  "core_idea": "A proposed solution satisfies a differential equation if its derivative matches the rate expression after substitution.",
+  "how_this_becomes_points": "You earn points by differentiating the proposed solution and comparing it to the right-hand side of the differential equation.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Verifying Solutions for Differential Equations. What should your work and sentence make clear?",
+  "point_attaining_answer": "Compute dy/dx from the proposed y, substitute y and x into the differential equation, then show they match. Then make the scoring connection explicit: You earn points by differentiating the proposed solution and comparing it to the right-hand side of the differential equation.",
+  "topic_code": "7.2",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "Verification points are often direct if students show both the derivative and substitution check."
+ },
+ {
+  "core_idea": "A slope field shows small line segments whose slopes come from a differential equation at points in the plane.",
+  "how_this_becomes_points": "You earn points by computing slopes at specified points and drawing segments with correct relative direction and steepness.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Sketching Slope Fields. What should your work and sentence make clear?",
+  "point_attaining_answer": "Plug each point into dy/dx, then draw a short segment with that slope at the point. Then make the scoring connection explicit: You earn points by computing slopes at specified points and drawing segments with correct relative direction and steepness.",
+  "topic_code": "7.3",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "It helps students visualize solution behavior without solving the differential equation exactly."
+ },
+ {
+  "core_idea": "Slope fields allow students to infer solution behavior, equilibrium behavior, and approximate paths from local slopes.",
+  "how_this_becomes_points": "You earn points by connecting the displayed segment slopes to whether solutions increase, decrease, level off, or change direction.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Reasoning Using Slope Fields. What should your work and sentence make clear?",
+  "point_attaining_answer": "Follow the local directions of the field and describe the solution curve consistent with nearby slopes. Then make the scoring connection explicit: You earn points by connecting the displayed segment slopes to whether solutions increase, decrease, level off, or change direction.",
+  "topic_code": "7.4",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "AP questions use slope fields to test qualitative reasoning about differential equations."
+ },
+ {
+  "core_idea": "Separation of variables solves certain differential equations by placing y terms with dy and x terms with dx before integrating.",
+  "how_this_becomes_points": "You earn points by separating variables correctly, integrating both sides, and including the constant of integration.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Finding General Solutions Using Separation of Variables. What should your work and sentence make clear?",
+  "point_attaining_answer": "Move all y terms to one side and x terms to the other, integrate, then include +C. Then make the scoring connection explicit: You earn points by separating variables correctly, integrating both sides, and including the constant of integration.",
+  "topic_code": "7.6",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "This is a major exact-solution method and connects differential equations back to antiderivatives."
+ },
+ {
+  "core_idea": "A particular solution uses an initial condition to determine the constant in a general differential equation solution.",
+  "how_this_becomes_points": "You earn points by solving generally, substituting the initial condition, determining C, and presenting the particular solution.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Finding Particular Solutions Using Initial Conditions and Separation of Variables. What should your work and sentence make clear?",
+  "point_attaining_answer": "Do not wait until the end mentally: substitute the given point clearly to solve for C. Then make the scoring connection explicit: You earn points by solving generally, substituting the initial condition, determining C, and presenting the particular solution.",
+  "topic_code": "7.7",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "AP FRQs often award separate points for separation, integration, constant use, and final solution form."
+ },
+ {
+  "core_idea": "Exponential models arise when a quantity changes at a rate proportional to the quantity itself.",
+  "how_this_becomes_points": "You earn points by recognizing dy/dt = ky structure and interpreting the sign and meaning of k in context.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Exponential Models with Differential Equations. What should your work and sentence make clear?",
+  "point_attaining_answer": "Look for rate proportional to amount, then write or use the exponential solution model with the initial value. Then make the scoring connection explicit: You earn points by recognizing dy/dt = ky structure and interpreting the sign and meaning of k in context.",
+  "topic_code": "7.8",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "They appear in growth, decay, and rate-model contexts across AP Calculus."
+ },
+ {
+  "core_idea": "Average value uses a definite integral divided by interval length to find the function's mean height over an interval.",
+  "how_this_becomes_points": "You earn points by setting up 1/(b-a) times the integral from a to b of f(x) dx and interpreting the result with correct units.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Finding the Average Value of a Function on an Interval. What should your work and sentence make clear?",
+  "point_attaining_answer": "Write the formula before evaluating so the interval length and integral are both visible. Then make the scoring connection explicit: You earn points by setting up 1/(b-a) times the integral from a to b of f(x) dx and interpreting the result with correct units.",
+  "topic_code": "8.1",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "It is a common integration interpretation that is distinct from average rate of change."
+ },
+ {
+  "core_idea": "Integrals connect velocity to change in position and acceleration to change in velocity.",
+  "how_this_becomes_points": "You earn points by using definite integrals to compute displacement or change in velocity and by distinguishing displacement from distance traveled.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Connecting Position, Velocity, and Acceleration Using Integrals. What should your work and sentence make clear?",
+  "point_attaining_answer": "Identify whether the integral of velocity gives displacement or whether total distance requires integrating speed. Then make the scoring connection explicit: You earn points by using definite integrals to compute displacement or change in velocity and by distinguishing displacement from distance traveled.",
+  "topic_code": "8.2",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "Motion questions often mix derivative and integral relationships in the same prompt."
+ },
+ {
+  "core_idea": "Definite integrals in context accumulate rates into total change for quantities like volume, population, temperature, or cost.",
+  "how_this_becomes_points": "You earn points by identifying the rate, integrating over the correct interval, and adding an initial value when the question asks for an amount.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Using Accumulation Functions and Definite Integrals in Applied Contexts. What should your work and sentence make clear?",
+  "point_attaining_answer": "Use final amount = initial amount + accumulated change when an initial value is given. Then make the scoring connection explicit: You earn points by identifying the rate, integrating over the correct interval, and adding an initial value when the question asks for an amount.",
+  "topic_code": "8.3",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "This topic is a direct route to FRQ points because the setup, units, and interpretation can each be assessed."
+ },
+ {
+  "core_idea": "Area between x-functions uses vertical slices and integrates top function minus bottom function.",
+  "how_this_becomes_points": "You earn points by finding intersection bounds and integrating upper minus lower over each interval.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Finding the Area Between Curves Expressed as Functions of x. What should your work and sentence make clear?",
+  "point_attaining_answer": "Sketch or compare functions to identify top and bottom, then integrate top minus bottom with respect to x. Then make the scoring connection explicit: You earn points by finding intersection bounds and integrating upper minus lower over each interval.",
+  "topic_code": "8.4",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "It is a core applications-of-integration task and often appears in multi-part FRQs."
+ },
+ {
+  "core_idea": "Area between y-functions uses horizontal slices and integrates right function minus left function with respect to y.",
+  "how_this_becomes_points": "You earn points by using y-bounds and subtracting left from right in the horizontal-slice setup.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Finding the Area Between Curves Expressed as Functions of y. What should your work and sentence make clear?",
+  "point_attaining_answer": "Identify rightmost x and leftmost x as functions of y, then integrate right minus left dy. Then make the scoring connection explicit: You earn points by using y-bounds and subtracting left from right in the horizontal-slice setup.",
+  "topic_code": "8.5",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "This topic extends area reasoning when curves are easier or required to describe as x-functions of y."
+ },
+ {
+  "core_idea": "When curves intersect more than twice, the region may need to be split into intervals with different top-bottom relationships.",
+  "how_this_becomes_points": "You earn points by identifying all relevant intersection points, splitting the region, and using the correct subtraction order on each interval.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Finding the Area Between Curves That Intersect at More Than Two Points. What should your work and sentence make clear?",
+  "point_attaining_answer": "Find every intersection, draw or test each interval, then add the separate area integrals. Then make the scoring connection explicit: You earn points by identifying all relevant intersection points, splitting the region, and using the correct subtraction order on each interval.",
+  "topic_code": "8.6",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "AP tasks often use this to test setup decisions, not just integration skill."
+ },
+ {
+  "core_idea": "Cross-section volume sums areas of slices whose square or rectangular dimensions are based on a region in the base.",
+  "how_this_becomes_points": "You earn points by identifying the slice width, writing the cross-sectional area formula, and integrating that area over the correct bounds.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Volumes with Cross Sections: Squares and Rectangles. What should your work and sentence make clear?",
+  "point_attaining_answer": "Base of slice from the region first, area formula second, integral of area last. Then make the scoring connection explicit: You earn points by identifying the slice width, writing the cross-sectional area formula, and integrating that area over the correct bounds.",
+  "topic_code": "8.7",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "This is a high-value setup topic where geometric interpretation earns points before integration is evaluated."
+ },
+ {
+  "core_idea": "Triangular and semicircular cross sections use geometry formulas to turn base lengths into slice areas.",
+  "how_this_becomes_points": "You earn points by identifying the cross-section shape, substituting the region's base length into the correct area formula, and integrating.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Volumes with Cross Sections: Triangles and Semicircles. What should your work and sentence make clear?",
+  "point_attaining_answer": "Write the shape formula before substituting the base length from the graph or equations. Then make the scoring connection explicit: You earn points by identifying the cross-section shape, substituting the region's base length into the correct area formula, and integrating.",
+  "topic_code": "8.8",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "These questions reward students who connect region geometry to the correct area formula instead of memorizing one volume pattern."
+ },
+ {
+  "core_idea": "The disc method finds volume by integrating circular cross-sectional areas when a region rotates around a coordinate axis without a hole.",
+  "how_this_becomes_points": "You earn points by identifying the radius perpendicular to the axis of rotation and integrating pi times radius squared over the correct bounds.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Volume with Disc Method: Revolving Around the x- or y-Axis. What should your work and sentence make clear?",
+  "point_attaining_answer": "Draw the radius from the axis to the curve, then write pi r^2 for the slice area. Then make the scoring connection explicit: You earn points by identifying the radius perpendicular to the axis of rotation and integrating pi times radius squared over the correct bounds.",
+  "topic_code": "8.9",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "It connects geometry, radius choice, and integration in a common AP applications pattern."
+ },
+ {
+  "core_idea": "Disc method around a non-coordinate axis still uses circular slices, but the radius is a distance to the given line of rotation.",
+  "how_this_becomes_points": "You earn points by expressing the radius as the distance from the curve to the rotation axis and integrating pi r^2.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Volume with Disc Method: Revolving Around Other Axes. What should your work and sentence make clear?",
+  "point_attaining_answer": "Write radius = distance to axis, then square it inside pi r^2. Then make the scoring connection explicit: You earn points by expressing the radius as the distance from the curve to the rotation axis and integrating pi r^2.",
+  "topic_code": "8.10",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "This topic tests whether students understand radius as distance rather than as the function value itself."
+ },
+ {
+  "core_idea": "The washer method finds volume when rotation creates an outer radius and an inner radius.",
+  "how_this_becomes_points": "You earn points by identifying both radii and integrating pi times outer radius squared minus inner radius squared.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Volume with Washer Method: Revolving Around the x- or y-Axis. What should your work and sentence make clear?",
+  "point_attaining_answer": "Draw both distances from the axis, label outer and inner, then write pi(R^2-r^2). Then make the scoring connection explicit: You earn points by identifying both radii and integrating pi times outer radius squared minus inner radius squared.",
+  "topic_code": "8.11",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "It is a common AP setup where the main points come from correct outer-minus-inner structure."
+ },
+ {
+  "core_idea": "Washer method around a shifted axis uses outer and inner radii measured as distances to that axis.",
+  "how_this_becomes_points": "You earn points by defining both shifted-axis distances and preserving the pi(R^2-r^2) structure.",
+  "mini_example_question": "A calculus prompt asks you to justify a conclusion involving Volume with Washer Method: Revolving Around Other Axes. What should your work and sentence make clear?",
+  "point_attaining_answer": "Measure each radius from the rotation line, not from the coordinate axis, then subtract areas. Then make the scoring connection explicit: You earn points by defining both shifted-axis distances and preserving the pi(R^2-r^2) structure.",
+  "topic_code": "8.12",
+  "weak_answer": "I would write the final value or conclusion without showing why it follows.",
+  "what_students_need_to_understand": "It extends washer reasoning and often tests careful setup more than difficult integration."
+ }
+]

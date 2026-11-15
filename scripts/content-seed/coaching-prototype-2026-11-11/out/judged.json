@@ -1,0 +1,4402 @@
+[
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "C",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You chose P(X = 4) alone, which means you read \"≥ 3\" as \"greater than 3\" and dropped the boundary value 3. An inclusive inequality keeps its boundary value, so this is the at-most versus strictly-less-than boundary error that costs points on distribution questions. Before adding anything, list the values that satisfy the condition: here, 3 and 4. Then confirm the probabilities sum to 1 to get k = 0.1, and add P(X = 3) = 0.3 and P(X = 4) = 0.4 for 0.7.",
+  "words": 85,
+  "in": 1145,
+  "out": 613,
+  "cached": 0,
+  "reasoning": 431,
+  "cost": 0.00042099999999999993,
+  "ms": 3239,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00022419999999999997
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00267525
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "C",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You lose the point for reading the probability of an event from the distribution: you treat “X ≥ 3” as “X = 4” and omit the boundary value 3. First use the sum-to-1 rule to find k = 0.1, then include both values 3 and 4: P(X ≥ 3) = 0.3 + 0.4 = 0.7.",
+  "words": 55,
+  "in": 770,
+  "out": 183,
+  "cached": 0,
+  "reasoning": 90,
+  "cost": 0.0001685,
+  "ms": 3300,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.002112
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text says the student 'treats X ≥ 3 as X = 4 and omits the boundary value 3,' but the authored rationale for C says the error is omitting P(X = 3) = 0.3, not the boundary value.",
+    "specific_to_pick": 0.4,
+    "names_exam_point": 0,
+    "actionable_move": 0.7,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0.7,
+    "cost": 0.00185075
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "B",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You lose the probability-reading point by treating the lower tail, \\(P(X \\le 2)\\), as the requested upper tail. That’s an inequality-direction trap: you include values below the boundary instead of values at or above 3. First use \\(\\sum P(X=x)=1\\) to find \\(k\\), then add the probabilities for \\(X=3\\) and \\(X=4\\).",
+  "words": 50,
+  "in": 770,
+  "out": 207,
+  "cached": 0,
+  "reasoning": 116,
+  "cost": 0.0001805,
+  "ms": 3471,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.002184
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 0,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.00134745
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "B",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "Your 0.3 is P(X ≤ 2), the probability of the opposite event. You answered the reverse of the question, which is the at-most versus at-least boundary error the point brief flags. Before computing, write out which values the event includes. For X ≥ 3, that is X = 3 and X = 4. Then sum the probabilities to 1 to get k = 0.1, and add P(X = 3) = 0.3 and P(X = 4) = 0.4 to reach 0.7.",
+  "words": 80,
+  "in": 1145,
+  "out": 701,
+  "cached": 0,
+  "reasoning": 543,
+  "cost": 0.000465,
+  "ms": 3787,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00260325
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text misdiagnoses the student's error and misattributes it to the point brief. It calls the mistake 'the at-most versus at-least boundary error the point brief flags,' but (1) the point brief's flagged common point loss is 'confusing a cumulative value with an individual probability,' and its boundary language is 'at-most versus strictly-less-than' — not at-most versus at-least; (2) the student's actual error is not a boundary-inclusion error at all. The student computed the complement event P(X ≤ 2) instead of P(X ≥ 3), i.e., answered the reverse of the question. The text's own first sentence ('the probability of the opposite event') states this correctly, but then the second sentence contradicts it by labeling it a boundary error the brief flags. The actionable advice and arithmetic are otherwise sound.",
+    "specific_to_pick": 0.7,
+    "names_exam_point": 0.7,
+    "actionable_move": 0.7,
+    "tone_ok": true,
+    "uses_history": 0.7,
+    "would_help_student": 0.7,
+    "cost": 0.00047335
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "D",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You treat the four values as equally likely, but \\(P(X=x)=kx\\) makes larger values more probable. That costs you the distribution-reading point. First use \\(\\sum P(X=x)=1\\) to find \\(k=0.1\\), then add the probabilities for \\(X=3\\) and \\(X=4\\): \\(P(X\\ge3)=0.7\\).",
+  "words": 37,
+  "in": 770,
+  "out": 146,
+  "cached": 0,
+  "reasoning": 56,
+  "cost": 0.00015000000000000001,
+  "ms": 2434,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.00234
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00026645
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "C",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "Choosing C costs you the point for reading a probability off the distribution correctly. You grabbed P(X = 4) = 0.4, which is a single outcome's probability. But \"X ≥ 3\" is a cumulative request that includes both X = 3 and X = 4. The trap is letting the largest individual probability stand in for a sum. Next time, circle the boundary in the inequality and add every probability at or beyond it: after finding k = 0.1, that is 0.3 + 0.4 = 0.7.",
+  "words": 86,
+  "in": 848,
+  "out": 361,
+  "cached": 768,
+  "reasoning": 241,
+  "cost": 0.000125764,
+  "ms": 5749,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00023270000000000002
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.002721
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "D",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You chose 0.5 by treating the four values as equally likely, but P(X = x) = kx makes the probabilities proportional to x, so larger values carry more weight. The sum-to-1 check would have caught this. Summing k + 2k + 3k + 4k = 10k = 1 gives k = 0.1, so P(X = 3) = 0.3 and P(X = 4) = 0.4. Then P(X ≥ 3) = 0.3 + 0.4 = 0.7. Next time, write each probability as kx, sum them to find k, and only then add the values the question asks for.",
+  "words": 96,
+  "in": 1145,
+  "out": 423,
+  "cached": 0,
+  "reasoning": 231,
+  "cost": 0.000326,
+  "ms": 2781,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00012151
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 3,
+    "names_exam_point": 3,
+    "actionable_move": 3,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 3,
+    "cost": 0.002739
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "A",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "Your choice divided 12 by s = 30 instead of by the standard error. That gives t = 0.40, which is the wrong statistic, and the p-value and conclusion followed from it. Test statistic and df are where this question's points are earned, so write SE = s/√n before anything else, then t = (x̄ − μ₀)/SE. Here SE = 30/√25 = 6, so t = 12/6 = 2.00 with df = 24. The one-sided p ≈ 0.03 is below 0.05, so reject H₀ and state that there is convincing evidence the mean sodium exceeds 250 mg.",
+  "words": 97,
+  "in": 1295,
+  "out": 675,
+  "cached": 0,
+  "reasoning": 474,
+  "cost": 0.00046699999999999997,
+  "ms": 3384,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0002013
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.002907
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "B",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "Your t = 2.00 is correct: SE = 30/√25 = 6, so t = (262 − 250)/6. The error came in the p-value. Ha: μ > 250 is one-sided, so the p-value is the single upper-tail area P(t₂₄ ≥ 2.00) ≈ 0.03, not twice that. Doubling is for two-sided Ha with ≠. Since 0.03 < 0.05, reject H0. Next time, match the tail count to the direction in Ha before comparing to α. Your conclusion should then say there is convincing evidence that mean sodium per serving exceeds 250 mg, stated as evidence, not proof.",
+  "words": 95,
+  "in": 1295,
+  "out": 502,
+  "cached": 0,
+  "reasoning": 284,
+  "cost": 0.0003805,
+  "ms": 3061,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00191775
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "Yes",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.0012791999999999999
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "A",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You treat the sample standard deviation as the standard error, ignoring how the sample size reduces uncertainty. That costs the test-statistic point. First compute \\(SE=30/\\sqrt{25}=6\\), then \\(t=12/6=2.00\\) with \\(df=24\\). The one-sided \\(p\\)-value is about 0.03, below 0.05, so you reject \\(H_0\\): you have convincing evidence that the population mean sodium exceeds 250 mg per serving.",
+  "words": 55,
+  "in": 866,
+  "out": 290,
+  "cached": 0,
+  "reasoning": 177,
+  "cost": 0.0002316,
+  "ms": 4159,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00321375
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.0013192999999999998
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "B",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You treat the right-tailed alternative as two-sided and double the p-value, which costs the point for matching the p-value to the stated test. Use the tail specified by \\(H_a\\): with \\(t=2.00\\) and \\(df=24\\), \\(p\\approx0.03<0.05\\). Reject \\(H_0\\); there is convincing evidence that the population mean sodium per serving exceeds 250 mg.",
+  "words": 50,
+  "in": 866,
+  "out": 244,
+  "cached": 0,
+  "reasoning": 146,
+  "cost": 0.00020859999999999997,
+  "ms": 3393,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00273375
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 0,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.00080605
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "D",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You broke the sum-to-1 check. The trap in your choice is assuming the four values are equally likely, but P(X = x) = kx means larger values carry larger weights. Before reading any probability, solve k + 2k + 3k + 4k = 1, so k = 0.1. Then P(X ≥ 3) = P(X = 3) + P(X = 4) = 0.3 + 0.4 = 0.7. Next time, confirm the distribution totals 1 first.",
+  "words": 74,
+  "in": 848,
+  "out": 485,
+  "cached": 768,
+  "reasoning": 366,
+  "cost": 0.000158004,
+  "ms": 7162,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.00340125
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.0016089
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "A",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "Your t came out 0.40 because you divided by the sample standard deviation, not the standard error. That inflates the denominator, shrinks the test statistic, and hides the evidence against H0. This costs the computing-the-test-statistic point. Next, always divide by SE = s/√n. Here SE = 30/5 = 6, so t = 12/6 = 2.00 with df = 24, giving a one-sided p ≈ 0.03. Since p < 0.05, reject H0 and conclude there is convincing evidence that the mean exceeds 250 mg.",
+  "words": 83,
+  "in": 938,
+  "out": 481,
+  "cached": 768,
+  "reasoning": 351,
+  "cost": 0.000168664,
+  "ms": 6598,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00300975
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00021904999999999998
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.5-A",
+  "pick": "B",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You picked B, which reads P(A or B) = 0.65 as proof of no overlap. A union below 1 says nothing about whether the events share outcomes. The overlap test is one question: can a single trial land in both A and B? Here P(A and B) = P(A) + P(B) − P(A or B) = 0.50 + 0.30 − 0.65 = 0.15 > 0, so yes, they overlap and are not mutually exclusive. Next, redo the Venn diagram for this problem and shade the 0.15 intersection before you evaluate any choice.",
+  "words": 92,
+  "in": 1289,
+  "out": 183,
+  "cached": 0,
+  "reasoning": 0,
+  "cost": 0.0002204,
+  "ms": 1264,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00311475
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": ", ",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.0015941999999999998
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "D",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "Your t-statistic and p-value are right: t = 12/6 = 2.00, and the one-sided p ≈ 0.03. The miss is in the conclusion. The 0.03 is the probability of a sample mean this far above 250 if the true mean is 250. It is not the probability that the mean is 250, so D's \"3% chance\" misreads it. The rubric wants you to compare p to α = 0.05, reject H0, and state convincing evidence that mean sodium exceeds 250 mg. Next time, write that sentence before choosing, and check that it names the parameter and uses evidence language, not chance or certainty. Correct answer: C.",
+  "words": 106,
+  "in": 1295,
+  "out": 764,
+  "cached": 0,
+  "reasoning": 554,
+  "cost": 0.0005115,
+  "ms": 3971,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0037920000000000002
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00114055
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "D",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You treat the p-value as the chance that the null hypothesis is true; it actually describes how likely results this extreme are if the null is true. That interpretation costs you the conclusion point. Choose C, then state the result in context: there is convincing evidence that the population mean sodium exceeds 250 mg. Don’t describe a p-value as the probability that a parameter has a particular value.",
+  "words": 68,
+  "in": 866,
+  "out": 258,
+  "cached": 0,
+  "reasoning": 173,
+  "cost": 0.00021559999999999998,
+  "ms": 4075,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0002454
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0025635000000000002
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "B",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You chose 0.3, which is P(X ≤ 2). The trap: you read the inequality backwards and took the lower tail — values 1 and 2 — while X ≥ 3 asks for the upper tail, values 3 and 4. You correctly found k = 0.1, so the miss is the point about reading probabilities with correct boundaries. Next, circle the ≥ symbol and write out “3 or 4” before adding: 0.3 + 0.4 = 0.7.",
+  "words": 75,
+  "in": 848,
+  "out": 1354,
+  "cached": 768,
+  "reasoning": 1243,
+  "cost": 0.000383944,
+  "ms": 16071,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00017585
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0031785
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "B",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "Your t = 2.00 is right, but you doubled the p-value as if the test were two-sided. The trap: treating a directional alternative (μ > 250) like a symmetric two-sided question, which inflates the p-value to 0.06 and flips your decision. That broke the point-earning habit of comparing the correct one-sided p-value to alpha. Next time, check the sign in Ha before finding p; here Ha is >, so p ≈ 0.03, reject H0. Correct answer: C, convincing evidence the mean exceeds 250 mg.",
+  "words": 84,
+  "in": 938,
+  "out": 524,
+  "cached": 768,
+  "reasoning": 401,
+  "cost": 0.00017984400000000002,
+  "ms": 7282,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00020084999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00268725
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.5-A",
+  "pick": "B",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You treat a union below 1 as proof the events cannot overlap, confusing “not covering the whole sample space” with “disjoint.” That costs the point for deciding exclusivity from overlap evidence. Calculate \\(P(A\\cap B)=0.50+0.30-0.65=0.15\\): the nonzero overlap means they are not mutually exclusive. Then compare it with \\(P(A)P(B)=0.15\\); choice A is correct.",
+  "words": 52,
+  "in": 874,
+  "out": 331,
+  "cached": 0,
+  "reasoning": 228,
+  "cost": 0.00025289999999999997,
+  "ms": 4140,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0013256499999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 3,
+    "names_exam_point": 3,
+    "actionable_move": 3,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 3,
+    "cost": 0.00518475
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.5-A",
+  "pick": "C",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "Choice C claims the events are mutually exclusive, which requires zero overlap. The union rule gives P(A and B) = 0.50 + 0.30 − 0.65 = 0.15, so both events can occur on the same trial. Matching 0.15 to (0.50)(0.30) only tests independence and says nothing about disjointness. Also, disjoint events with positive probabilities are never independent, so C's two claims contradict each other. Next time, compute the overlap first and reject \"mutually exclusive\" as soon as it is nonzero. The correct answer is A: not mutually exclusive, but independent.",
+  "words": 90,
+  "in": 1289,
+  "out": 889,
+  "cached": 0,
+  "reasoning": 691,
+  "cost": 0.0005734,
+  "ms": 4146,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00188775
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00019985
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.5-A",
+  "pick": "C",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You use the independence test, \\(P(A)P(B)\\), as if it proves the events cannot overlap. That breaks the exam point for deciding mutual exclusivity from the overlap. First find \\(P(A\\text{ and }B)=0.50+0.30-0.65=0.15\\), then ask whether one trial can be in both events. Since the overlap is nonzero, they are not mutually exclusive; they are independent because \\(0.15=(0.50)(0.30)\\).",
+  "words": 56,
+  "in": 874,
+  "out": 213,
+  "cached": 0,
+  "reasoning": 99,
+  "cost": 0.0001939,
+  "ms": 3364,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00022459999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0027165
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.5-A",
+  "pick": "B",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You treated a union less than 1 as proof of no overlap. That is not the test. The union being smaller than the sum of the probabilities (0.65 < 0.80) signals that the events overlap. Compute P(A and B) = 0.50 + 0.30 − 0.65 = 0.15. Since 0.15 > 0, a trial can land in both, so A and B are not mutually exclusive. Next time, check the overlap directly instead of inferring exclusivity from the size of the union.",
+  "words": 81,
+  "in": 942,
+  "out": 400,
+  "cached": 768,
+  "reasoning": 281,
+  "cost": 0.000148124,
+  "ms": 6212,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00216375
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "}​",
+    "specific_to_pick": 1,
+    "names_exam_point": 0.8,
+    "actionable_move": 0.9,
+    "tone_ok": true,
+    "uses_history": 0.5,
+    "would_help_student": 0.9,
+    "cost": 0.00127695
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.5-A",
+  "pick": "D",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You used the union inequality as a test for independence, but that inequality only detects overlap. The point you missed is separating the mutual-exclusivity test (does a single trial land in both?) from the independence test (does P(A and B) equal P(A)P(B)?). Here P(A and B) = 0.50 + 0.30 − 0.65 = 0.15, so the events overlap and are not mutually exclusive, yet 0.15 = (0.50)(0.30), so they are independent. Answer A.",
+  "words": 73,
+  "in": 864,
+  "out": 568,
+  "cached": 0,
+  "reasoning": 449,
+  "cost": 0.00026,
+  "ms": 2077,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0001851
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00322125
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.5-A",
+  "pick": "D",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "Choice D gets the first half right: the events are not mutually exclusive. It goes wrong by treating that overlap as proof of dependence. The addition rule gives P(A and B) = 0.50 + 0.30 − 0.65 = 0.15 > 0, so some individuals or trials land in both events. Overlap settles mutual exclusivity only. Independence is a separate check, and here 0.15 = (0.50)(0.30), so A and B are independent. Next time, compute P(A and B) first, then ask one question: can a single trial land in both events?",
+  "words": 90,
+  "in": 1289,
+  "out": 901,
+  "cached": 0,
+  "reasoning": 720,
+  "cost": 0.0005794,
+  "ms": 4356,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00024835
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0028919999999999996
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "D",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You chose D, which has the right t and p but breaks the conclusion point: the p-value is not the chance that μ = 250. That is the trap—treating the p-value as a probability about H0, when it is actually the probability of getting a sample mean of 262 or more if H0 is true. The correct move: since p ≈ 0.03 < 0.05, reject H0 and conclude there is convincing evidence that the mean sodium exceeds 250 mg, using non-definitive language. State that next time instead of assigning a probability to the parameter.",
+  "words": 94,
+  "in": 938,
+  "out": 971,
+  "cached": 768,
+  "reasoning": 845,
+  "cost": 0.00029606399999999996,
+  "ms": 11605,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00188775
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.000901
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.5-A",
+  "pick": "D",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You miss the rubric point for identifying overlap separately from independence: you treat \\(P(A\\text{ or }B)\\ne P(A)+P(B)\\) as proof the events are dependent. That difference shows they overlap, but it doesn’t test independence. Find the overlap with the addition rule, then compare it with \\(P(A)P(B)\\). Here both equal 0.15, so the events are not mutually exclusive but are independent.",
+  "words": 59,
+  "in": 874,
+  "out": 309,
+  "cached": 0,
+  "reasoning": 212,
+  "cost": 0.00024189999999999997,
+  "ms": 3928,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None. The coaching text recomputes the overlap correctly: P(A and B) = 0.50 + 0.30 − 0.65 = 0.15, and P(A)P(B) = (0.50)(0.30) = 0.15, so the conclusion 'not mutually exclusive but independent' matches the keyed answer A. It also correctly diagnoses the student's error: choice D's reasoning treats P(A or B) ≠ P(A) + P(B) as evidence of dependence, when that inequality only shows the events overlap; the independence test is P(A and B) = P(A)P(B), which holds here. The advice to find the overlap via the addition rule and then compare to P(A)P(B) is exactly the correct solution path, and the distinction drawn (overlap ≠ dependence) is consistent with the point brief's warning against conflating disjointness with independence.",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.0003142
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0067185000000000005
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "A",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You correctly identified nonresponse bias, but the direction is reversed. The students who did not respond are the heavy workers, so the respondents skew toward lighter workers, and their average hours fall below the true mean. Choice A treats the missing group as if removing it would raise the average. Next time, name the group that did not respond, then ask whether that group sits above or below the overall average on the variable measured. The correct answer is D.",
+  "words": 80,
+  "in": 1178,
+  "out": 687,
+  "cached": 0,
+  "reasoning": 554,
+  "cost": 0.0004613,
+  "ms": 3904,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 1,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0031230000000000003
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 4,
+    "would_help_student": 5,
+    "cost": 0.00034885
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APSTATS-MCQ-H-2.5-A",
+  "pick": "C",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You found P(A and B) = 0.15 and saw 0.15 = (0.50)(0.30), which is the independence check. The trap was letting that product result also count as mutual exclusivity. Mutual exclusivity requires P(A and B) = 0; a positive overlap means A and B can happen together, so they are not disjoint. Test the intersection against zero before labeling disjoint, then apply the product rule separately. The correct choice is A.",
+  "words": 71,
+  "in": 942,
+  "out": 819,
+  "cached": 768,
+  "reasoning": 718,
+  "cost": 0.000257064,
+  "ms": 9982,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 4,
+    "names_exam_point": 3,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 3,
+    "would_help_student": 4,
+    "cost": 0.0002494
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.003033
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "B",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You picked undercoverage, but the bias here came after selection. Undercoverage means the list used to draw the sample left out part of the population. Every student was emailed, so the frame was complete. The problem is that 410 selected students did not respond, and the heavy workers were the ones most likely to skip the survey. That is nonresponse bias. Your direction, underestimating, was correct.\n\nNext time, trace three stages: who could be chosen, who was chosen, and who actually responded. Name the stage where people dropped out.",
+  "words": 89,
+  "in": 1178,
+  "out": 751,
+  "cached": 0,
+  "reasoning": 587,
+  "cost": 0.0004932999999999999,
+  "ms": 4216,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 2,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 3,
+    "would_help_student": 5,
+    "cost": 0.00020465
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text states 'Every student was emailed', but the question states that the college emailed a survey to a random sample of 500 students, not every student.",
+    "specific_to_pick": 4,
+    "names_exam_point": 1,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 3,
+    "cost": 0.00285525
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "A",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You miss the direction point by treating the busy, high-hours students as if their work hours raise the sample mean. They are missing from the responses, so the respondents’ average is likely too low. This is nonresponse bias, not undercoverage or voluntary response bias. On a sampling-procedure FRQ, also specify the number range, repeat rule, and how each number maps to a student.",
+  "words": 63,
+  "in": 770,
+  "out": 657,
+  "cached": 0,
+  "reasoning": 571,
+  "cost": 0.00040549999999999994,
+  "ms": 8665,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0030255
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.0002512
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "C",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "Choice C confuses voluntary response with nonresponse. Voluntary response bias happens when people choose whether to join the sample. Here the college randomly selected 500 students, so the bias comes later, when selected students don't reply. Students who work long hours are the ones most likely to be missing. Without them, the respondents' average hours is too low, so the sample mean underestimates the true mean. Next time, trace the process in order: who was selected, then who dropped out, then which direction that pushes the mean.",
+  "words": 87,
+  "in": 1178,
+  "out": 736,
+  "cached": 0,
+  "reasoning": 577,
+  "cost": 0.0004858,
+  "ms": 4129,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00014311
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 1,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 4,
+    "cost": 0.00239325
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "B",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You picked undercoverage, but the sampling frame is fine—every student had a chance to be selected. That's the trap: seeing \"random sample\" and assuming the frame left someone out. The flaw here is nonresponse, because 410 selected students didn't respond. Since heavy workers are missing, the responding group has fewer hours, so the sample mean underestimates the true mean. The correct answer is D. Next time, ask yourself whether the problem is in who's selected or who actually responds; that distinction is what this question tests.",
+  "words": 86,
+  "in": 848,
+  "out": 429,
+  "cached": 768,
+  "reasoning": 316,
+  "cost": 0.000143444,
+  "ms": 6741,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "}",
+    "specific_to_pick": 0,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.00056485
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0047565
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "B",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You picked B, which treats the loop as positive feedback. Cortisol inhibits ACTH release, so when the drug drops cortisol, the pituitary faces less inhibition and ACTH rises, not falls. Check the direction first: ask whether the response reverses the change or strengthens it. Here the change is a fall in cortisol, and the ACTH response pushes against it, so the loop is negative feedback. The correct answer is A: cortisol low, ACTH high, and ACTH stays high because the blocked enzyme prevents cortisol from ever turning the signal off. Next, redo the prompt and label the variable, stimulus, response, and direction before choosing.",
+  "words": 104,
+  "in": 1240,
+  "out": 218,
+  "cached": 0,
+  "reasoning": 0,
+  "cost": 0.000233,
+  "ms": 1453,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00011226
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00282375
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "C",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You miss the bias-identification point by treating “not everyone answered” as voluntary response. The trap is confusing an optional reply with a sample made up of self-selected volunteers: these students were randomly selected, then some didn’t respond. Classify how people entered the sample first; here, long-hour workers respond less, so the respondent mean is too low.",
+  "words": 56,
+  "in": 770,
+  "out": 392,
+  "cached": 0,
+  "reasoning": 314,
+  "cost": 0.000273,
+  "ms": 5571,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 3,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 3,
+    "cost": 0.003621
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.00117235
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "C",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You picked C, but that conflates nonresponse with voluntary response. Voluntary response bias happens when people self-select into a sample; here, students were randomly selected and then chose not to reply. That is nonresponse bias. The trap is focusing on the act of declining rather than on who is missing. Since heavy workers skip the survey, the respondents skew toward lighter workers, so the sample mean lands too low. Next, name the bias by its source—selected but silent—then check which group is absent to set the direction.",
+  "words": 87,
+  "in": 770,
+  "out": 305,
+  "cached": 0,
+  "reasoning": 196,
+  "cost": 0.0001794,
+  "ms": 2207,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 2,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00397575
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.0001884
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "C",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You picked C, which says cortisol does not regulate ACTH. The stem says the opposite: cortisol acts on the hypothalamus and pituitary to reduce ACTH release. Choice C throws out the loop the question describes, and the point brief's first habit is to identify the variable, stimulus, and response. Redo that step here: the variable is cortisol, the pituitary's ACTH release is the response, and cortisol is the signal that reduces it.\n\nCorrect answer: A. The drug lowers cortisol, so the inhibition on ACTH release weakens and ACTH rises. Because the adrenal cortex cannot make cortisol, the loop cannot switch ACTH off, so the high level persists. Next, write the loop as \"cortisol falls, ACTH rises\" and name it negative feedback before you pick.",
+  "words": 124,
+  "in": 1240,
+  "out": 266,
+  "cached": 0,
+  "reasoning": 0,
+  "cost": 0.000257,
+  "ms": 1745,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00323025
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 4,
+    "would_help_student": 5,
+    "cost": 0.00031715
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "B",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You miss the sampling-process point by treating random selection as proof that respondents represent everyone. B confuses undercoverage—people never had a chance to be selected—with nonresponse—selected people don’t answer. Here, busy heavy workers are less likely to respond, so the respondent mean is too low: D. Next time, locate the gap: missing from the sampling frame, or selected but silent.",
+  "words": 60,
+  "in": 770,
+  "out": 952,
+  "cached": 0,
+  "reasoning": 866,
+  "cost": 0.000553,
+  "ms": 11656,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00018619999999999997
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 3,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0048937500000000005
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "B",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You miss the point for not tracing the stimulus and response: you treat low cortisol as a reason to lower ACTH, as if cortisol stimulated ACTH release. The stem says cortisol inhibits ACTH, so less cortisol removes that inhibition and ACTH rises. The drug keeps cortisol low, so the expected pattern is A. Next time, follow the stated effect of the hormone, then decide whether the response opposes or amplifies the original change.",
+  "words": 73,
+  "in": 738,
+  "out": 353,
+  "cached": 0,
+  "reasoning": 258,
+  "cost": 0.00025029999999999996,
+  "ms": 4806,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00256725
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": ",",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.0006983
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "D",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You picked D, which assumes negative feedback always restores normal levels. That assumption ignores the drug. Negative feedback only corrects a variable if every component of the loop still works, and here the block stops the adrenal cortex from making cortisol, so the loop cannot bring cortisol back.\n\nThe correct answer is A. Cortisol falls, so the inhibition on the pituitary weakens, ACTH release rises, and it stays high because the cortex cannot make cortisol to shut the signal off. Point brief habit: name the variable, the stimulus, the response, and whether the response reverses or strengthens the change. Next move: for this question, trace the loop one arrow at a time and check which arrow the drug breaks.",
+  "words": 119,
+  "in": 1240,
+  "out": 231,
+  "cached": 0,
+  "reasoning": 0,
+  "cost": 0.0002395,
+  "ms": 1473,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00017334999999999999
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0036345
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "C",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You choose C by treating cortisol as irrelevant to ACTH, despite the stem stating that cortisol inhibits ACTH release. This costs the point for identifying the response’s direction: name low cortisol as the change and rising ACTH as the response. Choose A—less cortisol inhibition raises ACTH, but the blocked enzyme keeps cortisol low. That is negative feedback.",
+  "words": 57,
+  "in": 738,
+  "out": 288,
+  "cached": 0,
+  "reasoning": 211,
+  "cost": 0.00021779999999999998,
+  "ms": 3984,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None. The coaching text correctly identifies the student's error (treating cortisol as irrelevant to ACTH regulation, which is exactly the flaw in choice C), correctly names the change (low cortisol) and response (rising ACTH), and correctly directs the student to A. The arithmetic/logic checks out: blocking the cortisol-synthesis enzyme lowers cortisol, removing negative feedback on the pituitary, so ACTH rises and stays high.",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0003059
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0032902499999999998
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "D",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You picked D, which treats negative feedback as a magic reset that restores normal levels no matter what. That breaks the point habit of checking whether the response can actually reverse the change. Here, the drug blocks cortisol synthesis, so the effector cannot act; the loop has nothing to feed back. The trap is assuming the system self-corrects even when a component is broken. Next, trace the variable: cortisol drops, so its inhibition of ACTH falls, leaving ACTH high. The correct pattern is A.",
+  "words": 84,
+  "in": 727,
+  "out": 306,
+  "cached": 0,
+  "reasoning": 200,
+  "cost": 0.00017407000000000002,
+  "ms": 1715,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00019769999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00456975
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-136",
+  "pick": "A",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You chose A, which treats any membrane protein as a sign of active transport. That is the trap the point brief calls out. Protein involvement does not decide the classification. Facilitated diffusion uses a protein and still needs no energy.\n\nCheck the gradient first. Outside is 10 mmol/L and inside is 2 mmol/L, so the solute moves high to low. With no energy input, this is passive transport, which is choice C.\n\nNext time, write the gradient direction and the energy requirement before you look at the protein. Then name passive or active.",
+  "words": 93,
+  "in": 1224,
+  "out": 172,
+  "cached": 0,
+  "reasoning": 0,
+  "cost": 0.00020839999999999997,
+  "ms": 1413,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0001624
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00377025
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "D",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You miss the point for tracing how the response affects the original change: you treat negative feedback as a guarantee that levels return to normal, even when cortisol synthesis is blocked. Next, identify the variable and stimulus, then check whether the response can reverse the change. Here, low cortisol reduces inhibition of ACTH, so ACTH rises while cortisol stays low (A).",
+  "words": 61,
+  "in": 738,
+  "out": 181,
+  "cached": 0,
+  "reasoning": 102,
+  "cost": 0.00016429999999999998,
+  "ms": 2982,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0036105
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "The text tells the student to 'identify the variable and stimulus' but never names them, and it never explicitly names the loop as negative feedback in the answer move, so the student is not shown the full earn-points sequence the brief requires.",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.0009195499999999999
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "C",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "C misses the point on identifying the feedback loop in the stem: the prompt states cortisol reduces ACTH release, so cortisol clearly regulates ACTH—the loop is not absent. The trap is treating an explicitly described inhibition as if it doesn't exist. Next time, when the stem names an output acting on an earlier step, trace that direction and ask whether the response reverses the change. Here, low cortisol removes inhibition, so ACTH rises (negative feedback), making A correct.",
+  "words": 78,
+  "in": 805,
+  "out": 263,
+  "cached": 768,
+  "reasoning": 166,
+  "cost": 0.00009469400000000001,
+  "ms": 4803,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 3,
+    "names_exam_point": 3,
+    "actionable_move": 3,
+    "tone_ok": true,
+    "uses_history": 3,
+    "would_help_student": 3,
+    "cost": 0.00020449999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.00212775
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "B",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You picked B, which treats cortisol as a stimulus for ACTH release. The trap is inverting the relationship: the stem says cortisol reduces ACTH, so it is an inhibitor, not a trigger. Low cortisol therefore means less inhibition, so ACTH rises—negative feedback opposing the original drop. Correct is A: cortisol low, ACTH high. Next time, trace each arrow and ask whether the response reverses or amplifies the initial change.",
+  "words": 69,
+  "in": 805,
+  "out": 465,
+  "cached": 768,
+  "reasoning": 374,
+  "cost": 0.000147214,
+  "ms": 6684,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00016774999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.01544625
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-136",
+  "pick": "A",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You chose A, which breaks the point for identifying the energy requirement: protein involvement alone does not make transport active. The trap is assuming any membrane protein must burn ATP. Here, the outside is 10 mmol/L and inside is 2 mmol/L, so inward movement goes high to low, down the gradient, with no energy input. That is passive transport, answer C. Next, label the starting and destination concentrations before classifying.",
+  "words": 70,
+  "in": 745,
+  "out": 185,
+  "cached": 0,
+  "reasoning": 96,
+  "cost": 0.00014495,
+  "ms": 1278,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.000172
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00373875
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-136",
+  "pick": "B",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You chose B, which says the transport is active because the solute moves inward. Look at the starting concentrations again: 10 mmol/L outside and 2 mmol/L inside. The solute starts high and ends low, so inward movement is high-to-low, which is down the gradient. Entering the cell does not by itself mean moving against the gradient. Next time, write \"outside = 10, inside = 2\" before you name a direction, then classify passive or active from that. The answer is C: the solute moves down its gradient with no energy input, so the transport is passive.",
+  "words": 96,
+  "in": 1224,
+  "out": 174,
+  "cached": 0,
+  "reasoning": 0,
+  "cost": 0.0002094,
+  "ms": 1604,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00017905
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 1,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0069315
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-136",
+  "pick": "A",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You miss the point for identifying the gradient and energy requirement: assuming any membrane protein requires energy confuses protein involvement with active transport. The outside concentration is higher, so inward movement is high to low without energy; this is passive transport (C). Next time, compare the starting and destination concentrations before classifying the transport.",
+  "words": 54,
+  "in": 760,
+  "out": 184,
+  "cached": 0,
+  "reasoning": 114,
+  "cost": 0.000168,
+  "ms": 3065,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00010366
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0018765000000000001
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-136",
+  "pick": "D",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You chose D, which correctly labels the transport as passive but then claims movement stops at equal concentrations. That is the equilibrium-as-stillness trap. Equal concentrations end net movement, not the motion of individual molecules, which keep crossing in both directions. The point brief's gradient-and-direction habit was not the problem here; the miss is on what equilibrium means. The correct answer is C: the solute moves from 10 mmol/L outside to 2 mmol/L inside, down its gradient, with no energy input, so it is passive. Next, write the starting and ending concentrations, then state the direction and energy requirement before reading the choices.",
+  "words": 102,
+  "in": 1224,
+  "out": 208,
+  "cached": 0,
+  "reasoning": 0,
+  "cost": 0.00022639999999999997,
+  "ms": 1577,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0027682500000000003
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00123615
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.2-a",
+  "pick": "B",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You picked B, which places M's receptor inside the cell as a transcription factor. The microinjection result rules that out: M injected into the cytoplasm did nothing, so an intracellular receptor would have responded. The 20-second timing and the cycloheximide result point the same way, since transcription and new protein synthesis would take far longer than 20 seconds.\n\nThe rubric point you lost is the reception stage. Before you name any intracellular step, decide where the receptor sits. Here, the outside-versus-injected contrast places it at the plasma membrane (answer A). Next, check the transduction stage: PKA is a relay protein already in the cytoplasm, and the PKA inhibitor blocking the response confirms it. Write that chain out: reception at the membrane, transduction by PKA, response as glycogen breakdown.",
+  "words": 128,
+  "in": 1210,
+  "out": 265,
+  "cached": 0,
+  "reasoning": 0,
+  "cost": 0.0002535,
+  "ms": 1959,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00409725
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0002696
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-136",
+  "pick": "D",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You miss the movement-direction point by treating equal concentrations as no molecular movement. That’s the equilibrium-as-stillness trap: molecules still cross both ways, but there’s no net movement. The correct choice is C. Next time, identify the high-to-low direction and energy input, then distinguish net movement from individual molecule movement.",
+  "words": 49,
+  "in": 760,
+  "out": 170,
+  "cached": 0,
+  "reasoning": 98,
+  "cost": 0.00016099999999999998,
+  "ms": 3071,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 3,
+    "names_exam_point": 3,
+    "actionable_move": 3,
+    "tone_ok": true,
+    "uses_history": 3,
+    "would_help_student": 3,
+    "cost": 0.0002699
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.004059
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.2-a",
+  "pick": "B",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You treat M as an intracellular transcription factor, but injecting it into the cytoplasm produces no response, and cycloheximide has no effect. That choice skips the reception → transduction → response chain the point rewards. Next, place each event: M binds a surface receptor (reception), PKA relays the signal (transduction), and glycogen breaks down (response).",
+  "words": 55,
+  "in": 781,
+  "out": 225,
+  "cached": 0,
+  "reasoning": 141,
+  "cost": 0.0001906,
+  "ms": 3182,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0032452500000000003
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00023440999999999997
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-136",
+  "pick": "B",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You lose the gradient-direction point by treating movement into the cell as automatically moving against the gradient. Here, the outside concentration is higher (10 mmol/L) than the inside (2 mmol/L), so inward movement is high to low and passive (C). Next time, label the concentrations at the start and destination before classifying transport.",
+  "words": 53,
+  "in": 760,
+  "out": 156,
+  "cached": 0,
+  "reasoning": 83,
+  "cost": 0.000154,
+  "ms": 7989,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00015285
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0034200000000000003
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-136",
+  "pick": "D",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You chose D: it correctly identifies passive transport, but it falls into the equilibrium-as-stillness trap. At equal concentrations, individual molecules still cross both ways; only net movement stops. The point you lost is distinguishing net movement from molecular movement. Next time, when a passive transport question reaches equilibrium, say “no net movement,” not “no movement.” The correct answer is C: the solute moves from higher outside concentration to lower inside concentration without energy input.",
+  "words": 74,
+  "in": 823,
+  "out": 358,
+  "cached": 768,
+  "reasoning": 264,
+  "cost": 0.000121734,
+  "ms": 6194,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00017309999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.015483000000000002
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.2-a",
+  "pick": "C",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You picked C, which puts M at a membrane receptor, the right reception stage. The trap is the cycloheximide result. You read \"cycloheximide had no effect\" as \"the drug was too slow to matter,\" but the 20-second timing already rules out new protein synthesis. The response happens too fast for newly made proteins, so no new proteins are needed.\n\nThe correct answer is A: M binds a surface receptor, and proteins already in the cytoplasm, PKA among them, relay the signal. The PKA inhibitor blocking the response confirms that link.\n\nNext time, when you explain a response, name all three stages: reception (M at the membrane receptor), transduction (PKA relays the signal), and response (glycogen breakdown). Skipping the middle stage is the point you lost here.",
+  "words": 126,
+  "in": 1210,
+  "out": 250,
+  "cached": 0,
+  "reasoning": 0,
+  "cost": 0.000246,
+  "ms": 1831,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00214725
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None. Every claim in the coaching text checks out against the question and authored rationales: (1) Choice C does place M at a membrane receptor, so crediting the student with getting the reception stage right is accurate. (2) The 20-second response time does rule out new protein synthesis, which is exactly why C's 'cycloheximide acts too slowly' excuse fails — the authored rationale for C states the response arises within 20 seconds and cycloheximide had no effect, so no newly made proteins are needed. (3) A is correctly identified as the answer, and its reasoning (surface receptor, pre-existing cytoplasmic proteins like PKA relaying the signal, PKA inhibitor confirming the link) matches the authored rationale. (4) The three-stage framing (reception = M at membrane receptor, transduction = PKA relays signal, response = glycogen breakdown) matches the point brief's instruction to use the reception -> transduction -> response chain, and the closing note about skipping the middle stage aligns with the stated common point loss. No arithmetic or factual errors present.",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00035365
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.2-a",
+  "pick": "C",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You picked C, which breaks the transduction point by treating cycloheximide's lack of effect as a timing flaw. That is the trap: a negative result is evidence, not a delay. Since the response still occurs, no new proteins are needed, so transduction must rely on pre-existing proteins like PKA. Next, place each molecule in the reception-transduction-response chain: M acts at the membrane (injection gives no response), PKA relays inside, and glycogen breakdown is the response. The correct answer is A.",
+  "words": 80,
+  "in": 768,
+  "out": 305,
+  "cached": 0,
+  "reasoning": 197,
+  "cost": 0.00017914,
+  "ms": 1811,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.0019252499999999999
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00018285
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.2-a",
+  "pick": "C",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You lose the signal-transduction point by dismissing the cycloheximide result as a timing flaw. That’s an ad hoc rescue: the rapid response and unchanged effect with the inhibitor support use of proteins already in the cell. Choose A: outside M signals reception at the cell surface, PKA relays the signal (transduction), and glycogen breakdown is the response. Next time, map each observation onto reception → transduction → response before choosing.",
+  "words": 70,
+  "in": 781,
+  "out": 282,
+  "cached": 0,
+  "reasoning": 183,
+  "cost": 0.00021909999999999999,
+  "ms": 3685,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 2,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 2,
+    "would_help_student": 2,
+    "cost": 0.00019549999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0037447500000000002
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-136",
+  "pick": "B",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You picked active because inward movement felt like moving “against” something. That flips the gradient: outside is 10 mmol/L and inside is 2 mmol/L, so entering is high-to-low, a downhill move. That costs the point for identifying gradient direction before classifying the transport. Next time, write both concentrations on a diagram first, then decide passive if high-to-low or active if low-to-high. With no energy input, this is passive, so C is correct.",
+  "words": 72,
+  "in": 823,
+  "out": 514,
+  "cached": 768,
+  "reasoning": 416,
+  "cost": 0.000162294,
+  "ms": 11731,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00016835
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.012918750000000001
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.2-a",
+  "pick": "D",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "Choice D skips the reception stage. It assumes M enters the cell and activates PKA directly, but microinjecting M into the cytoplasm produced no response. M must therefore act from outside the cell, at a membrane receptor. The correct chain is M binds a surface receptor (reception), proteins already in the cytoplasm, including PKA, relay the signal (transduction), and glycogen breakdown follows (response). Next, sort M, the receptor, PKA, and glycogen breakdown into those three stages before you reread the choices.",
+  "words": 81,
+  "in": 1210,
+  "out": 638,
+  "cached": 0,
+  "reasoning": 464,
+  "cost": 0.00044,
+  "ms": 3921,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0001868
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00220425
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.2-a",
+  "pick": "D",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You miss the reception → transduction → response point by jumping from M straight to PKA. Your trap is treating a membrane channel as a route for M to reach and directly activate PKA, even though injecting M inside the cell causes no response. Instead, place M at a cell-surface receptor, PKA in the intracellular transduction step, and glycogen breakdown as the response.",
+  "words": 63,
+  "in": 781,
+  "out": 192,
+  "cached": 0,
+  "reasoning": 108,
+  "cost": 0.0001741,
+  "ms": 3006,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00020754999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.00205725
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-128",
+  "pick": "A",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You picked A, which says the light reactions directly make carbohydrates in the thylakoids. That trap comes from assuming the stage that is lit up must be the one that makes sugar. The data show both rates rising, but the carbohydrate measurement belongs to the Calvin cycle in the stroma, which uses ATP and NADPH from the light reactions. The correct answer is B. Before you read any choice, sort each product by stage and location: oxygen and ATP/NADPH come from the light reactions in the thylakoids, and sugar comes from the Calvin cycle in the stroma. That sorting earns the point this question tests.",
+  "words": 105,
+  "in": 1494,
+  "out": 203,
+  "cached": 0,
+  "reasoning": 0,
+  "cost": 0.00025089999999999997,
+  "ms": 1510,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.000194
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 3,
+    "names_exam_point": 3,
+    "actionable_move": 3,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 3,
+    "cost": 0.00303225
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.2-a",
+  "pick": "B",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You broke the reception→transduction→response chain by placing M inside the cell as a transcription factor. The trap: assuming a response requires new gene expression, when the microinjection control (no response) and cycloheximide (no effect) rule out an intracellular receptor and new proteins. Correct is A: M binds a surface receptor, and PKA relays the signal using proteins already in the cytoplasm. Next, map each piece of evidence to one of the three stages before choosing.",
+  "words": 75,
+  "in": 846,
+  "out": 653,
+  "cached": 768,
+  "reasoning": 553,
+  "cost": 0.000201424,
+  "ms": 9382,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0001868
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0027345
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-128",
+  "pick": "C",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You picked C, which says CO2 is split during the Calvin cycle to release oxygen. That mixes up the oxygen source. Released oxygen comes from splitting water during the light reactions in the thylakoids, not from CO2 in the stroma. This broke the point-earning habit of tracing each product back to its stage and location before interpreting it.\n\nThe correct answer is B. Both rates rise from 2 to 6 for oxygen and 1 to 3 for carbohydrate, and the light reactions supply ATP and NADPH that power carbohydrate production by the Calvin cycle in the stroma.\n\nNext move: draw the two stages side by side, label where water splits and where CO2 is fixed, then add arrows for ATP, NADPH, and oxygen.",
+  "words": 123,
+  "in": 1494,
+  "out": 248,
+  "cached": 0,
+  "reasoning": 0,
+  "cost": 0.00027340000000000003,
+  "ms": 1592,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00019690000000000002
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00169875
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-128",
+  "pick": "A",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You lose the point for linking products to the correct stages and locations: you assign carbohydrate production directly to the light reactions. The trap is treating a rate that rises with light as a direct light-reaction product. Choose B: light reactions provide ATP and NADPH, which the Calvin cycle uses to produce carbohydrates in the stroma. Next time, label each product with its stage and location before interpreting the trend.",
+  "words": 70,
+  "in": 890,
+  "out": 198,
+  "cached": 0,
+  "reasoning": 110,
+  "cost": 0.000188,
+  "ms": 2821,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": ":none",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00020245
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00204075
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "A",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You name nonresponse correctly, but you flip the direction. The missing students are the heaviest workers; removing those high values pulls the responding average down, so the estimate is too low — answer D. That direction step is the precision the bias point rewards: you must trace exactly who is missing and what dropping them does to the statistic. Next time, write that chain — \"missing group = heavy workers, so mean shifts down\" — before you choose.",
+  "words": 78,
+  "in": 848,
+  "out": 2623,
+  "cached": 768,
+  "reasoning": 2530,
+  "cost": 0.000713884,
+  "ms": 32258,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0026467500000000002
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "error": "AI_NoObjectGeneratedError: No object generated: the model did not return a response."
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-128",
+  "pick": "C",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You lose the point for mixing up where oxygen is produced. Your choice treats CO₂ as the oxygen source, but oxygen comes from water splitting in the light reactions. Choose B: both rates rise with light intensity, and the light reactions supply ATP and NADPH for carbohydrate production in the Calvin cycle. Next time, trace each product to its stage before linking the stages.",
+  "words": 64,
+  "in": 890,
+  "out": 177,
+  "cached": 0,
+  "reasoning": 97,
+  "cost": 0.00017749999999999998,
+  "ms": 2853,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00227475
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "}Verdict: **Accurate — coaching text passes audit.** No corrections needed.**Error diagnosis** — Student picked C, whose authored flaw is ",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.0008890999999999999
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-128",
+  "pick": "D",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You picked D, which reverses the dependency. The light reactions make ATP and NADPH, and the Calvin cycle spends them to build sugar. The data fit that direction: oxygen and carbohydrate both rise with light, because more light drives more water splitting and more ATP and NADPH.\n\nThe point you lost is the stage-to-product mapping. Before you judge any choice, sort each product into its stage and location: oxygen from water splitting in the thylakoids, ATP and NADPH from the light reactions, and sugar from the Calvin cycle in the stroma. Then draw one arrow from the producing stage to the consuming stage. For this item, that arrow runs light reactions to Calvin cycle.",
+  "words": 114,
+  "in": 1494,
+  "out": 229,
+  "cached": 0,
+  "reasoning": 0,
+  "cost": 0.00026389999999999996,
+  "ms": 1709,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.0026205
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 3,
+    "names_exam_point": 3,
+    "actionable_move": 3,
+    "tone_ok": true,
+    "uses_history": 3,
+    "would_help_student": 3,
+    "cost": 0.0011343
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-128",
+  "pick": "D",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You reverse the energy handoff, treating the Calvin cycle as the source of ATP and NADPH rather than the stage that uses them. That breaks the point for linking products and energy dependencies across the stages. Choose B: both rates rise with light intensity, and the light reactions supply ATP and NADPH for carbohydrate production in the stroma. Next, draw an arrow from the light reactions to the Calvin cycle labeled ATP and NADPH.",
+  "words": 74,
+  "in": 890,
+  "out": 200,
+  "cached": 0,
+  "reasoning": 107,
+  "cost": 0.00018899999999999999,
+  "ms": 3082,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00263925
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.000181
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-128",
+  "pick": "A",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You mixed up which stage makes which product, and that costs you the point for linking products to their locations. The trap: you assigned carbohydrate production to the light reactions in the thylakoids. The light reactions produce ATP, NADPH, and oxygen; the Calvin cycle in the stroma uses ATP and NADPH to make carbohydrates. Choice B states that correctly. Next, label each product with its stage and location before interpreting the trend.",
+  "words": 72,
+  "in": 960,
+  "out": 402,
+  "cached": 768,
+  "reasoning": 312,
+  "cost": 0.000150984,
+  "ms": 5994,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 4,
+    "would_help_student": 5,
+    "cost": 0.00018564999999999999
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00347775
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-128",
+  "pick": "C",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You picked C, which breaks the exam habit of linking where each product is made. The trap: the oxygen in photosynthesis does not come from splitting CO2 in the Calvin cycle. It is released when water is split during the light reactions in the thylakoids, while the Calvin cycle builds carbohydrates in the stroma. Next, trace each product to its stage before interpreting trends. The correct answer is B: the light reactions supply ATP and NADPH to drive carbohydrate production in the stroma.",
+  "words": 83,
+  "in": 960,
+  "out": 181,
+  "cached": 768,
+  "reasoning": 80,
+  "cost": 0.000093524,
+  "ms": 4229,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0002028
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00269175
+   }
+  ]
+ },
+ {
+  "tier": "T2",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "B",
+  "case": "repeat",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You kept working at this through three misses, and that persistence is what will make the tail check stick. Your t = 2.00 is right. The slip is the p-value: you doubled it to 0.06, which is a two-sided move. Ha: μ > 250 only counts the right tail. Before you use the table, write P(T ≥ 2.00) with df = 24. That gives about 0.03, which is below 0.05, so reject H0 and state there is convincing evidence the mean exceeds 250 mg.",
+  "words": 84,
+  "in": 1391,
+  "out": 813,
+  "cached": 0,
+  "reasoning": 653,
+  "cost": 0.0005455999999999999,
+  "ms": 4451,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 4,
+    "would_help_student": 5,
+    "cost": 0.00026419999999999997
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 1,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 2,
+    "would_help_student": 2,
+    "cost": 0.01567875
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "APBIO-MCQ-128",
+  "pick": "D",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "Your choice reverses the dependency between the two stages, the energy-transfer reversal trap. The Calvin cycle does not supply ATP and NADPH; it consumes them. The light reactions, in the thylakoids, split water to release oxygen and produce ATP and NADPH, which drive carbohydrate production in the stroma. This broke the point for linking inputs, locations, products, and energy transformations across stages. Next, draw the arrow from the stage that produces ATP and NADPH to the stage that uses them. Answer B.",
+  "words": 82,
+  "in": 960,
+  "out": 352,
+  "cached": 768,
+  "reasoning": 246,
+  "cost": 0.000137984,
+  "ms": 5174,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00021085
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 5,
+    "cost": 0.00238725
+   }
+  ]
+ },
+ {
+  "tier": "T2",
+  "item": "APBIO-MCQ-136",
+  "pick": "A",
+  "case": "cross-session",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You picked A, which assumes any membrane protein means active transport. That assumption is the trap this miss keeps catching, and a protein can just as well be a passive channel. Staying with this and retrying is the right move. Choice C is correct: the solute moves from 10 mmol/L outside to 2 mmol/L inside, which is high to low, with no energy input, so it is passive. Next time, state the high-to-low direction first, then check energy input on its own.",
+  "words": 82,
+  "in": 1302,
+  "out": 623,
+  "cached": 0,
+  "reasoning": 477,
+  "cost": 0.00044169999999999995,
+  "ms": 3255,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0034027500000000004
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00050136
+   }
+  ]
+ },
+ {
+  "tier": "T2",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "B",
+  "case": "repeat",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You keep trying, and you can reset by asking what “more extreme” means for this claim: only sample means at least this high count as evidence. B treats equally extreme results in the opposite direction as evidence too, doubling the p-value. That breaks the rubric step of matching the p-value to the stated alternative before comparing it with 0.05. Use the one-sided p-value, about 0.03, then conclude there is convincing evidence that the population mean sodium exceeds 250 mg.",
+  "words": 79,
+  "in": 925,
+  "out": 380,
+  "cached": 0,
+  "reasoning": 273,
+  "cost": 0.0002825,
+  "ms": 5497,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00023349999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0033795
+   }
+  ]
+ },
+ {
+  "tier": "T1",
+  "item": "apbio-mcq-b4-h-4.2-a",
+  "pick": "D",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You pick D because it fits PKA's role—glycogen breakdown—but your choice skips the reception stage. The trap is assuming the ligand must physically reach PKA inside the cell. Yet microinjected M produces no response, so M never acts inside the cytoplasm; it binds a cell-surface receptor. The evidence—outside M works, injected M fails, cycloheximide has no effect—places reception at the membrane, transduction via PKA, response as glycogen breakdown. Next, map each observation onto the three-stage chain before choosing. Correct answer: A.",
+  "words": 81,
+  "in": 846,
+  "out": 1236,
+  "cached": 768,
+  "reasoning": 1118,
+  "cost": 0.00035300399999999997,
+  "ms": 14129,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0019177500000000002
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.000192
+   }
+  ]
+ },
+ {
+  "tier": "T2",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "A",
+  "case": "improving",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "You've made real progress: you now identify nonresponse bias correctly, where earlier you mislabeled the bias type. The direction is the remaining fix. The trap is choosing a direction without tracing which values are missing. The students who are too busy to respond are the heavy workers, so the respondents report fewer hours on average and pull the sample mean below the true mean. The answer is D. Next time, ask which group is missing and whether that group has higher or lower values on the variable being estimated.",
+  "words": 89,
+  "in": 1268,
+  "out": 865,
+  "cached": 0,
+  "reasoning": 712,
+  "cost": 0.0005593,
+  "ms": 4889,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": ":none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00013556
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 3,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0045285
+   }
+  ]
+ },
+ {
+  "tier": "T2",
+  "item": "APBIO-MCQ-136",
+  "pick": "A",
+  "case": "cross-session",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You picked A, which steps into the protein-means-ATP trap again. The point is earned by checking the energy requirement and gradient direction, not by noticing protein involvement. Next move: label outside as high and inside as low before you classify. That makes C correct, since movement is downhill and needs no energy. Your persistence is the right move; keep applying that gradient check and it will stick.",
+  "words": 67,
+  "in": 869,
+  "out": 298,
+  "cached": 768,
+  "reasoning": 216,
+  "cost": 0.00011211399999999999,
+  "ms": 5910,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00267825
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "The coaching text is scientifically accurate — C is correct, the solute moves from 10 mmol/L outside to 2 mmol/L inside (high to low), and no energy input is required. The arithmetic and classification check out. However, the text fails the delivery constraints.",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0.4,
+    "cost": 0.0002917
+   }
+  ]
+ },
+ {
+  "tier": "T2",
+  "item": "APBIO-MCQ-136",
+  "pick": "A",
+  "case": "cross-session",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You keep trying, and that persistence helps you catch this trap: you treat protein involvement as proof of active transport. That breaks the rubric habit of evaluating protein involvement separately from energy use. C is correct: the solute moves down its gradient without energy input. Next time, check for energy input separately from whether a protein is involved.",
+  "words": 58,
+  "in": 805,
+  "out": 361,
+  "cached": 0,
+  "reasoning": 288,
+  "cost": 0.000261,
+  "ms": 8580,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "The coaching text violates the student-state constraints in two ways. First, it repeats the earlier explanation: the history says the student was already told last time that gradient direction decides it, and this text re-teaches exactly that ('the solute moves down its gradient'). Second, the student asked for no extra help, but the text delivers a full mini-explanation plus a strategy tip ('check for energy input separately from whether a protein is involved'). The factual content itself is accurate — C is correct, the solute moves from 10 mmol/L outside to 2 mmol/L inside, down its gradient, with no energy input — but the delivery ignores both the no-repeat instruction and the no-extra-help request.",
+    "specific_to_pick": 0,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0.3,
+    "cost": 0.00035266
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 2,
+    "would_help_student": 2,
+    "cost": 0.007197
+   }
+  ]
+ },
+ {
+  "tier": "T2",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "A",
+  "case": "improving",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "You make progress by identifying nonresponse bias. For the direction, compare respondents with the missing students: the long-hour workers are less likely to respond, so the respondents’ mean is lower and underestimates the true mean. The trap is treating high-hour nonrespondents as if their hours raise the sample average, even though they aren’t included.",
+  "words": 54,
+  "in": 816,
+  "out": 538,
+  "cached": 0,
+  "reasoning": 462,
+  "cost": 0.00035059999999999996,
+  "ms": 6293,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00019805
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 0,
+    "actionable_move": 3,
+    "tone_ok": true,
+    "uses_history": 4,
+    "would_help_student": 4,
+    "cost": 0.0056895
+   }
+  ]
+ },
+ {
+  "tier": "T2",
+  "item": "APBIO-MCQ-128",
+  "pick": "C",
+  "case": "explain-more",
+  "kind": "gen",
+  "model": "anthropic/claude-haiku-5.5",
+  "text": "Choice C puts oxygen release in the Calvin cycle, but the Calvin cycle takes in CO2, ATP, and NADPH and builds sugar in the stroma. It does not use light or water. Sort the two stages by inputs and outputs. The light reactions take in light and water and release O2 while making ATP and NADPH. The Calvin cycle takes in CO2, ATP, and NADPH and makes sugar. Once the stages are sorted this way, B is the only choice where each product comes from the stage that makes it.",
+  "words": 90,
+  "in": 1560,
+  "out": 714,
+  "cached": 0,
+  "reasoning": 541,
+  "cost": 0.000513,
+  "ms": 3799,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0028035
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None. The coaching text's stage-by-stage input/output sorting is accurate: the light reactions take in light and water, release O2, and produce ATP and NADPH; the Calvin cycle takes in CO2, ATP, and NADPH and builds sugar in the stroma. The claim that the Calvin cycle does not use light or water is correct. The conclusion that B is the only choice where each product is attributed to the stage that actually makes it is consistent with the authored rationales (A misassigns carbohydrate production to the light reactions, C misplaces oxygen release in the Calvin cycle, D reverses the ATP/NADPH dependency). No arithmetic appears in the coaching text; the underlying data (O2: 2→4→6; carbohydrate: 1→2→3) supports the 'both increase' premise shared by all choices.",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00041575
+   }
+  ]
+ },
+ {
+  "tier": "T2",
+  "item": "APBIO-MCQ-128",
+  "pick": "C",
+  "case": "explain-more",
+  "kind": "gen",
+  "model": "openai/gpt-6-luna",
+  "text": "Choice C treats the rates rising together as evidence that the Calvin cycle releases oxygen. That breaks the point for linking each product to its stage, rather than inferring a stage from a shared trend. Before interpreting the data, label oxygen as a light-reaction product and carbohydrates as a Calvin-cycle product; then connect ATP and NADPH from the light reactions to carbohydrate production in the stroma. The correct answer is B.",
+  "words": 71,
+  "in": 931,
+  "out": 301,
+  "cached": 0,
+  "reasoning": 211,
+  "cost": 0.0002436,
+  "ms": 3860,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0031545
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00021769999999999998
+   }
+  ]
+ },
+ {
+  "tier": "T2",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "B",
+  "case": "repeat",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "Keep trying—three attempts at this same slip means you are close to locking it in. You computed t and df correctly, but the p-value comparison point slips because you doubled a one-sided p. The trap: with Ha: μ > 250, the lower tail is not evidence against “greater than,” so only the right tail counts. Next time, sketch the Ha arrow and shade only that side before reading the p-value. Correct: t=2.00, p≈0.03, reject H0; there is convincing evidence the mean exceeds 250 mg.",
+  "words": 84,
+  "in": 999,
+  "out": 1229,
+  "cached": 768,
+  "reasoning": 1112,
+  "cost": 0.000371074,
+  "ms": 16156,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0028964999999999998
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None. The coaching text's numbers check out: SE = 30/√25 = 6, t = (262 − 250)/6 = 2.00, df = 24, and the one-sided p-value at df = 24 for t = 2.00 is ≈ 0.0285 ≈ 0.03, which is below α = 0.05, so rejecting H0 and concluding convincing evidence that the mean exceeds 250 mg matches the authored correct choice C. The diagnosis of the student's error is also consistent with choice B's authored rationale (doubling the p-value as if the test were two-sided).",
+    "specific_to_pick": 5,
+    "names_exam_point": 5,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0003151
+   }
+  ]
+ },
+ {
+  "tier": "T2",
+  "item": "APBIO-MCQ-128",
+  "pick": "C",
+  "case": "explain-more",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You chose the option where CO2 gets split to release oxygen. The trap is giving the Calvin cycle a role it doesn't have: it reduces CO2 to sugar in the stroma and has no water-splitting step. Oxygen comes only from water split in the thylakoid, so the correct answer is B: light reactions produce ATP and NADPH, which drive the Calvin cycle's sugar production. This miss broke the point brief’s requirement to link each product to its stage. Next time, before reading the table, tag O2 and ATP/NADPH to the light reactions and sugar to the Calvin cycle.",
+  "words": 98,
+  "in": 1002,
+  "out": 2697,
+  "cached": 768,
+  "reasoning": 2568,
+  "cost": 0.000753144,
+  "ms": 30202,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 2,
+    "would_help_student": 2,
+    "cost": 0.0024555000000000002
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None. The coaching correctly identifies B as the answer, correctly states that photosynthetic O2 comes from water splitting in the thylakoid (not CO2 in the Calvin cycle), correctly assigns carbohydrate production to CO2 reduction in the stroma, and correctly describes the ATP/NADPH dependency running from the light reactions to the Calvin cycle. The data trend cited (both rates rising with light intensity) matches the table: O2 goes 2→4→6 and carbohydrate goes 1→2→3.",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00040585
+   }
+  ]
+ },
+ {
+  "tier": "T2",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "A",
+  "case": "improving",
+  "kind": "gen",
+  "model": "deepseek/deepseek-v4-flash",
+  "text": "You earned the label point by naming nonresponse bias—progress. The precision point you broke is mapping exactly what happens to each case. The trap is stopping at the label and guessing the direction. Trace it: nonrespondents are the heavy workers, so their high hours are absent. Removing high values pulls the sample mean down, so the estimate is too low. Correct: D, underestimates. Next, after naming a bias, trace which group is missing and which way their values pull the mean.",
+  "words": 81,
+  "in": 895,
+  "out": 3282,
+  "cached": 768,
+  "reasoning": 3179,
+  "cost": 0.0008913339999999999,
+  "ms": 38126,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": ":none",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00018440999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 5,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.0045825
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "B",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: This is P(X ≤ 2) = 0.1 + 0.2 = 0.3; the question asks for P(X ≥ 3). How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 4,
+    "cost": 0.0001693
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 3,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0023715000000000003
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "C",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: This is P(X = 4) = 0.4 only; P(X ≥ 3) also includes P(X = 3) = 0.3. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00020145
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.0026542500000000004
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "D",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: This treats the four values as equally likely, but P(X = x) = kx gives larger values larger probabilities. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.0022057500000000002
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 2,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 2,
+    "would_help_student": 2,
+    "cost": 0.0002488
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "A",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: Divided by s instead of the standard error, giving a t statistic far too small. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 0.5,
+    "cost": 0.0002801
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 3,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.0022875
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "B",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: Doubled the p-value for a two-sided test even though the alternative is one-sided. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0030517499999999998
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 0.3,
+    "cost": 0.0003246
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "D",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: A p-value is the probability of data this extreme if H0 is true, not the probability that H0 is true. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 1,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 3,
+    "cost": 0.0028042500000000003
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00035514999999999993
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APSTATS-MCQ-H-2.5-A",
+  "pick": "B",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: A union below 1 says nothing about whether the events overlap; here P(A and B) = 0.15 > 0, so they are not mutually exclusive. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None — the quoted rationale is accurate and the arithmetic checks out (0.50 + 0.30 − 0.65 = 0.15).",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0.2,
+    "cost": 0.0002515
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.0020332500000000003
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APSTATS-MCQ-H-2.5-A",
+  "pick": "C",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: Mutually exclusive events with positive probabilities can never be independent, and these events are not mutually exclusive anyway because P(A and B) = 0.15. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 0,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.00025305
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 3,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0032872500000000002
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APSTATS-MCQ-H-2.5-A",
+  "pick": "D",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: P(A or B) ≠ P(A) + P(B) shows the events overlap, not that they are dependent; independence requires P(A and B) = P(A)P(B), which holds here. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 3,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.00251775
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 0.5,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0.4,
+    "cost": 0.00062355
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "A",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: The students who are missing work the most hours, so removing them lowers the mean, not raises it. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0025597500000000004
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "}Verdict: **PASS** — accurate and appropriately targeted, with minor polish notes only.**Accuracy check (recomputed):** Nonrespondents are disproportionately heavy workers; removing the largest values from the sample pulls the sample mean *below* the population mean, so the sample mean **underestimates**. Choice A claims ",
+    "specific_to_pick": 0,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.00138155
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "B",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: The sample was selected randomly from the students, so there is no group left out of the sampling frame; the issue is that selected students did not respond. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0022935
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 2,
+    "cost": 0.00031969999999999996
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "apstats-mcq-b6-h-1.12-a",
+  "pick": "C",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: The students did not volunteer to be in the sample; they were selected and then some did not respond. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.00296475
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.0004877
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "B",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: This treats the loop as positive feedback, but cortisol inhibits ACTH release, so a drop in cortisol raises ACTH. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 4,
+    "names_exam_point": 1,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0027322500000000003
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "PASS",
+    "specific_to_pick": 0,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 3,
+    "cost": 0.00130855
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "C",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: The stem states that cortisol acts on the hypothalamus and pituitary to reduce ACTH, so ACTH release is regulated by cortisol. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.0032805
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text quotes the *rebuttal* to choice C ('The stem states that cortisol acts on the hypothalamus and pituitary to reduce ACTH, so ACTH release is regulated by cortisol') and presents it as 'the choice you picked.' The student actually picked C: 'Cortisol low and ACTH normal, because cortisol does not regulate ACTH release.' The quoted sentence is the authored rationale explaining why C is wrong, not the choice text. Framed with a colon as apposition, the text tells the student they selected the correct scientific claim — the exact opposite of what they chose. A student who picked C (which asserts cortisol does NOT regulate ACTH) will be confused or may conclude their reasoning was right and only the letter was wrong.",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 0,
+    "cost": 0.00120321
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "D",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: Feedback can correct a variable only if the components work, and the drug blocks cortisol synthesis so the loop cannot restore cortisol. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 0,
+    "cost": 0.00019460999999999998
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.00384225
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APBIO-MCQ-136",
+  "pick": "A",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: a membrane protein can allow passive transport without energy input. Protein involvement alone does not distinguish active from passive transport. Fix: Check gradient direction and energy input before classifying protein-mediated transport. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 1,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.003552
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 3,
+    "names_exam_point": 2,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 3,
+    "would_help_student": 3,
+    "cost": 0.0001884
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APBIO-MCQ-136",
+  "pick": "B",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: the outside concentration is higher, so inward movement carries this solute from higher to lower concentration. Entering a cell does not necessarily mean moving against a gradient. Fix: Label the starting and destination concentrations before identifying the gradient direction. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 5,
+    "cost": 0.00015475
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 1,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0030097500000000003
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APBIO-MCQ-136",
+  "pick": "D",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: equal concentrations eliminate net movement, not molecular motion. Molecules continue crossing in both directions at equal average rates. Fix: Distinguish movement of individual molecules from net movement across the membrane. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 2,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 4,
+    "cost": 0.00261
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 4,
+    "actionable_move": 3,
+    "tone_ok": true,
+    "uses_history": 5,
+    "would_help_student": 4,
+    "cost": 0.00020896
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "apbio-mcq-b4-h-4.2-a",
+  "pick": "B",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: Injecting M into the cytoplasm gave no response, which an intracellular receptor would not predict, and the response needs no new protein synthesis. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 1,
+    "cost": 0.002853
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.0010899
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "apbio-mcq-b4-h-4.2-a",
+  "pick": "C",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: The response arises within 20 seconds and cycloheximide had no effect on it, so no newly made proteins are needed. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 0,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.0001701
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0038205
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "apbio-mcq-b4-h-4.2-a",
+  "pick": "D",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: If M acted directly on PKA inside the cell, injecting it would have caused a response, and it did not. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "none",
+    "specific_to_pick": 0,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0.5,
+    "cost": 0.00021515
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 2,
+    "names_exam_point": 0,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.00274575
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APBIO-MCQ-128",
+  "pick": "A",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: This assigns carbohydrate production to the light reactions. Carbohydrates are produced through the Calvin cycle in the stroma, using ATP and NADPH from the light reactions. Fix: Assign each measured product to its photosynthetic stage and location before interpreting the trend. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 3,
+    "names_exam_point": 1,
+    "actionable_move": 2,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 2,
+    "cost": 0.0028740000000000003
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00056065
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APBIO-MCQ-128",
+  "pick": "C",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: This treats CO2 as the source of released oxygen. Photosynthetic oxygen comes from water splitting during the light reactions, not from CO2 during the Calvin cycle. Fix: Trace released oxygen to water splitting before linking it to a photosynthetic stage. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 2,
+    "actionable_move": 3,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 3,
+    "cost": 0.002469
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": ":none",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.00086535
+   }
+  ]
+ },
+ {
+  "tier": "T0",
+  "item": "APBIO-MCQ-128",
+  "pick": "D",
+  "model": "none",
+  "text": "Not quite. Look again at the choice you picked: This reverses the dependency between the two stages. The light reactions produce ATP and NADPH, and the Calvin cycle uses them to support carbohydrate production. Fix: Draw an arrow from the stage producing ATP and NADPH to the stage using them. How would you answer it now?",
+  "cost": 0,
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": true,
+    "contradiction": "None",
+    "specific_to_pick": 1,
+    "names_exam_point": 1,
+    "actionable_move": 1,
+    "tone_ok": true,
+    "uses_history": 1,
+    "would_help_student": 1,
+    "cost": 0.0001915
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": true,
+    "contradiction": "",
+    "specific_to_pick": 5,
+    "names_exam_point": 1,
+    "actionable_move": 4,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 3,
+    "cost": 0.0026625
+   }
+  ]
+ },
+ {
+  "tier": "CONTROL",
+  "model": "planted",
+  "cost": 0,
+  "item": "APSTATS-MCQ-H-2.8-A",
+  "pick": "B",
+  "text": "Your 0.3 is P(X ≥ 3). Add k + 2k to get it: the probabilities for the larger values are the smaller ones, so 0.3 is right and the key is wrong.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text claims that 0.3 is P(X >= 3), that larger values have smaller probabilities, and that the key is wrong, all of which directly contradict the question, the formula P(X = x) = kx, and the correct key A (0.7).",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.0026242500000000003
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text asserts that 0.3 is P(X ≥ 3) and that the answer key is wrong. This is false. Recomputing: k + 2k + 3k + 4k = 10k = 1, so k = 0.1. Then P(X ≥ 3) = P(X = 3) + P(X = 4) = 3k + 4k = 0.3 + 0.4 = 0.7, matching the authored correct answer A. The student's 0.3 is actually P(X ≤ 2) = k + 2k = 0.1 + 0.2 — the complement of what was asked. The coaching text even instructs the student to 'add k + 2k,' which is precisely the wrong sum (the two smallest values, not the two largest), and it inverts the distribution's logic by claiming 'the probabilities for the larger values are the smaller ones' when P(X = x) = kx makes larger values MORE probable. The text reinforces the student's original error, contradicts the ground-truth rationale for choice B (which correctly identifies 0.3 as P(X ≤ 2)), and falsely accuses the key of being wrong.",
+    "specific_to_pick": 0,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.00024931
+   }
+  ]
+ },
+ {
+  "tier": "CONTROL",
+  "model": "planted",
+  "cost": 0,
+  "item": "apbio-mcq-b4-h-4.4-a",
+  "pick": "B",
+  "text": "You are right that low cortisol lowers ACTH, because cortisol stimulates the pituitary. This is positive feedback, so the loop amplifies the change.",
+  "judgements": [
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text states that cortisol stimulates the pituitary and calls the loop positive feedback. Both claims are wrong and directly contradict the question stem and the authored rationale for choice B: cortisol acts on the hypothalamus and pituitary to REDUCE ACTH release (negative feedback), and the choice B rationale explicitly says treating the loop as positive feedback is the error.",
+    "specific_to_pick": 0,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.00018725
+   },
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text claims the student is right, states that cortisol stimulates the pituitary to lower ACTH, and calls the system positive feedback, which contradicts the question stem, the correct answer A, and the authored rationale.",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": false,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.0029505
+   }
+  ]
+ },
+ {
+  "tier": "CONTROL",
+  "model": "planted",
+  "cost": 0,
+  "item": "APBIO-MCQ-136",
+  "pick": "B",
+  "text": "Moving into a cell always means moving against the gradient, so inward transport is active. The outside concentration being higher does not matter.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text claims that moving into a cell always means moving against the gradient and that outside concentration does not matter, which directly contradicts the question, the rationales, and biological facts.",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.002397
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text asserts 'Moving into a cell always means moving against the gradient, so inward transport is active' and 'The outside concentration being higher does not matter.' Both claims are false and directly contradict the ground truth. Recomputing from the stem: outside = 10 mmol/L, inside = 2 mmol/L, so inward movement goes from HIGHER to LOWER concentration — down the gradient, requiring no energy. The correct answer is C (passive transport). The text instead endorses answer B's exact 'gradient reversal' misconception, which is the error the student just made.",
+    "specific_to_pick": 0,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.00034974999999999996
+   }
+  ]
+ },
+ {
+  "tier": "CONTROL",
+  "model": "planted",
+  "cost": 0,
+  "item": "APSTATS-MCQ-H-4.5-A",
+  "pick": "D",
+  "text": "A p-value of 0.03 does mean there is a 3% chance the mean is 250 mg, so your reading is correct; the key mislabels it.",
+  "judgements": [
+   {
+    "judge": "google/gemini-3.8-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text states that a p-value of 0.03 means there is a 3% chance that the null hypothesis is true and claims the answer key is wrong, which directly contradicts the authored rationale, point brief, and definition of a p-value.",
+    "specific_to_pick": 1,
+    "names_exam_point": 0,
+    "actionable_move": 0,
+    "tone_ok": true,
+    "uses_history": 0,
+    "would_help_student": 0,
+    "cost": 0.0025605
+   },
+   {
+    "judge": "zai/glm-5.3-flash",
+    "factually_correct": false,
+    "contradiction": "The coaching text affirms the exact misconception the question is testing. It tells the student that a p-value of 0.03 means 'a 3% chance the mean is 250 mg' and that the student's reading of choice D is correct. This is false. A p-value is the probability, computed assuming H0 is true, of obtaining a test statistic as extreme as or more extreme than the one observed. It is not the probability that H0 is true, nor the probability that the parameter equals any value. The authored rationale for D states this explicitly, and the point brief flags 'stating the parameter is a certain value' as a common point loss. The coaching text does the opposite of its job: it validates the wrong answer and blames the key.",
+    "specific_to_pick": 0.98,
+    "names_exam_point": 0.1,
+    "actionable_move": 0,
+    "tone_ok": false,
+    "uses_history": 0,
+    "would_help_student": -0.9,
+    "cost": 0.000517
+   }
+  ]
+ }
+]
