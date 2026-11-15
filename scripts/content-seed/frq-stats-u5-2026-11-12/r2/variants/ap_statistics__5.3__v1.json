@@ -1,0 +1,201 @@
+{
+ "id": "ap_statistics__5.3__v1",
+ "parent": "ap_statistics__5.3__1",
+ "parent_status": "given_flagged",
+ "topic_code": "5.3",
+ "item": {
+  "title": "Limits of a Laptop Resale Model",
+  "calculator": "permitted",
+  "stimulus": "An electronics reseller recorded the age, in years, of each of 15 laptops of the same model and its resale value. The ages were: 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4. The least-squares regression line, found using technology, has the form ŷ = a + bx, where x is the age in years and ŷ is the predicted resale value in dollars.",
+  "parts": [
+   {
+    "prompt": "The regression line passes through the points (1, 555) and (3, 385). Find the equation of the regression line.",
+    "criteria": [
+     {
+      "text": "Finds the equation of the line through (1, 555) and (3, 385) by any correct method: slope −85, y-intercept 640, so ŷ = 640 − 85x.",
+      "evidence": "Response gives the correct slope and y-intercept for the line through the two points and writes ŷ = 640 − 85x, by any correct method.",
+      "fix": "Find the slope as change in y over change in x, then substitute one point into ŷ = a + bx to find a.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Use the model to predict the resale value of a laptop that is 8 years old. Is the predicted value reasonable? Explain, and say what this shows about using the model at this age.",
+    "criteria": [
+     {
+      "text": "Substitutes x = 8 into ŷ = 640 − 85x and gets a predicted value of −40 dollars.",
+      "evidence": "Response replaces x with 8 in the regression equation and reports −40 dollars.",
+      "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+      "accepted_variants": [
+       "−40"
+      ]
+     },
+     {
+      "text": "States that the predicted resale value of −40 dollars at 8 years is impossible, which shows the linear model should not be used that far beyond the data (1 to 4 years).",
+      "evidence": "Response says a negative predicted resale value cannot occur and ties it to extrapolating beyond 1 to 4 years.",
+      "fix": "Check whether a prediction is possible in context; an impossible value shows the model fails beyond the observed x-values.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "The reseller also wants to use the model for laptops that are 6 months, 4 years and 6 years old. For each age, state whether using the model is interpolation or extrapolation, and explain.",
+    "criteria": [
+     {
+      "text": "Classifies the prediction at 0.5 years as extrapolation because 0.5 is below the interval of age values (1 to 4 years) used to fit the line.",
+      "evidence": "Response says extrapolation and compares 0.5 with the fitted interval of 1 to 4 years.",
+      "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Classifies the prediction at 4 years as interpolation because 4 is within (at the upper end of) the interval of age values (1 to 4 years) used to fit the line.",
+      "evidence": "Response says interpolation and compares 4 with the fitted interval of 1 to 4 years.",
+      "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Classifies the prediction at 6 years as extrapolation because 6 is beyond the interval of age values (1 to 4 years) used to fit the line.",
+      "evidence": "Response says extrapolation and compares 6 with the fitted interval of 1 to 4 years.",
+      "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) slope = (385 − 555)/(3 − 1) = -85; intercept = 555 − (-85)(1) = 640; so ŷ = 640 − 85x.\n\n(b) ŷ = 640 − 85x with x = 8 gives ŷ = −40 dollars. A negative resale value is impossible. The ages in the data run from 1 to 4 years, so 8 years is far beyond them, and the linear model should not be used that far outside the data.\n\n(c) 0.5 years is below the interval of ages used to fit the line (1 to 4 years), so it is extrapolation; 4 years is within (at the upper end of) the interval of ages used to fit the line (1 to 4 years), so it is interpolation; 6 years is beyond the interval of ages used to fit the line (1 to 4 years), so it is extrapolation.",
+  "verification_python": "ages = [1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4]\na, b = 640, -85\nlo, hi = min(ages), max(ages)\nassert (lo, hi) == (1, 4)\nyf = a + b * 8\nassert abs(yf - -40) < 1e-9 and yf < 0\ndef kind(x):\n    return 'interpolation' if lo <= x <= hi else 'extrapolation'\nassert [kind(x) for x in [0.5, 4, 6]] == ['extrapolation', 'interpolation', 'extrapolation']\ndist = [max(lo - x, x - hi, 0) for x in [0.5, 4, 6]]\nassert dist[1] == 0 and 0 < dist[0] < dist[2]\n(p1x, p1y), (p2x, p2y) = [(1, 555), (3, 385)]\nassert abs((p2y - p1y) / (p2x - p1x) - b) < 1e-9 and abs(p1y - b * p1x - a) < 1e-9\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T23:06:10.557Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"EQ_FROM_POINTS\"],[\"PREDICT\",\"IMPLAUSIBLE\"],[\"EXTRAP_CLASS\",\"EXTRAP_CLASS\",\"EXTRAP_CLASS\"]]",
+  "child_order": "[[\"EQ_FROM_POINTS\"],[\"PREDICT\",\"IMPLAUSIBLE\"],[\"EXTRAP_CLASS\",\"EXTRAP_CLASS\",\"EXTRAP_CLASS\"]]",
+  "child_pattern": [
+   [
+    "EQ_FROM_POINTS"
+   ],
+   [
+    "PREDICT",
+    "IMPLAUSIBLE"
+   ],
+   [
+    "EXTRAP_CLASS",
+    "EXTRAP_CLASS",
+    "EXTRAP_CLASS"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [1,2,3], variant [1,2,3]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"EQ_FROM_POINTS\"],[\"PREDICT\",\"IMPLAUSIBLE\"],[\"EXTRAP_CLASS\",\"EXTRAP_CLASS\",\"EXTRAP_CLASS\"]]\nPart a prompt changed.\nCriterion a1 (EQ_FROM_POINTS): wording and values changed\nPart b prompt changed.\nCriterion b1 (PREDICT): wording and values changed; accepted variants changed\nCriterion b2 (IMPLAUSIBLE): wording and values changed\nPart c prompt changed.\nCriterion c1 (EXTRAP_CLASS): wording and values changed\nCriterion c2 (EXTRAP_CLASS): wording and values changed\nCriterion c3 (EXTRAP_CLASS): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from used-car asking prices in thousands of dollars to laptop resale values in dollars. The sample changes from 20 ages spanning 2–9 years to 15 ages spanning 1–4 years. The two points defining the line, the prediction age in part (b), and all three classification ages in part (c) change. The tasks, rubric structure, and point allocation remain unchanged.",
+     "numbers_recomputed": "The age list contains 15 observations, with minimum 1 and maximum 4, matching the setup and rubric. For a1, slope = (385 − 555)/(3 − 1) = −85 and intercept = 555 − (−85)(1) = 640, giving ŷ = 640 − 85x; all match. For b1 and b2, ŷ(8) = 640 − 85(8) = −40 dollars, matching; 8 > 4, so this is extrapolation. For c1, 6 months = 6/12 = 0.5 years, and 0.5 < 1, so extrapolation matches. For c2, 4 is the upper endpoint of [1, 4], so interpolation matches. For c3, 6 > 4, so extrapolation matches.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c3",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Context changed from a used-car dealer with 20 cars ages 2-9 and prices in thousands of dollars to an electronics reseller with 15 laptops ages 1-4 and resale values in dollars. The line-defining points changed from (4, 19.8) and (8, 12.2) to (1, 555) and (3, 385). Part (b) prediction age changed from 16 to 8; part (c) ages changed from 18 months/9 years/12 years to 6 months/4 years/6 years. All rubric criteria keep the same pattern but with these values and wording updated.",
+     "numbers_recomputed": "Slope: (385−555)/(3−1) = −85 (matches rubric/model answer). Intercept: 555 − (−85)(1) = 640 (matches). Part (b) prediction at x=8: 640−85(8)=−40 dollars (matches). Fitted age interval: min 1, max 4 (matches). Part (c): 6 months = 0.5 years is below 1 (extrapolation, matches); 4 years equals the upper endpoint (interpolation, matches); 6 years is above 4 (extrapolation, matches).",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c3",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

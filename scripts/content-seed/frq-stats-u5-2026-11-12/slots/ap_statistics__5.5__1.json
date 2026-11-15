@@ -1,0 +1,403 @@
+{
+ "id": "ap_statistics__5.5__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 5,
+  "unit_title": "Regression Analysis",
+  "topic_code": "5.5",
+  "topic_title": "Least-Squares Regression",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:26:30.015Z",
+   "source": "given",
+   "item": {
+    "title": "Interpreting a Regression Line for Hot Chocolate Sales",
+    "calculator": "permitted",
+    "stimulus": "A café owner recorded the outdoor temperature at noon and the number of cups of hot chocolate sold that day for 40 days when the noon temperature was between 30°F and 70°F. Technology gives the least-squares regression line ŷ = 312.4 − 3.8x, where x is the noon temperature in degrees Fahrenheit and ŷ is the predicted number of cups sold, and gives r² = 0.81.",
+    "parts": [
+     {
+      "prompt": "Interpret the slope of the regression line in context.",
+      "criteria": [
+       {
+        "text": "Interprets the slope in context: for each one-degree Fahrenheit increase in noon temperature, the predicted number of cups sold decreases by about 3.8 cups.",
+        "evidence": "Response says the predicted number of cups sold decreases by about 3.8 cups per one-degree Fahrenheit increase in noon temperature.",
+        "fix": "Use the pattern: for each one-unit increase in x, the predicted y increases or decreases by the slope, with units and context.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Can the y-intercept of the regression line be given a reasonable interpretation in this context? Explain.",
+      "criteria": [
+       {
+        "text": "States that the y-intercept 312.4 is the predicted number of cups sold when noon temperature is 0.",
+        "evidence": "Response identifies 312.4 as the predicted number of cups sold at noon temperature = 0.",
+        "fix": "Define the y-intercept as the predicted response when the explanatory variable equals 0, naming both variables.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that this intercept should not be interpreted because noon temperature = 0 is outside the interval of values used to fit the line (30 to 70 degrees Fahrenheit), so it is extrapolation.",
+        "evidence": "Response says the intercept has no reasonable interpretation because 0 is beyond the range 30 to 70 degrees Fahrenheit (extrapolation).",
+        "fix": "Check whether x = 0 lies inside the observed x-values; if not, the intercept comes from extrapolation and has no meaningful interpretation.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the value of r² in context.",
+      "criteria": [
+       {
+        "text": "Interprets r² = 0.81: about 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.",
+        "evidence": "Response states that about 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.",
+        "fix": "Write r² as a percent and say that share of the variation in the response is explained by the linear relationship with x.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "For these data the mean noon temperature is x̅ = 50 degrees Fahrenheit and the mean number of cups sold is ȳ = 122.4 cups. Show that the regression line passes through the point (x̅, ȳ).",
+      "criteria": [
+       {
+        "text": "Shows that substituting x̅ = 50 into ŷ = 312.4 − 3.8x gives 122.4, the mean of y, so the line passes through (x̅, ȳ).",
+        "evidence": "Response substitutes x = 50 into the equation, gets 122.4, and says this equals the mean response, so the line passes through the means.",
+        "fix": "Substitute the mean of x into the regression equation; getting the mean of y confirms the least-squares line passes through (mean x, mean y).",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) For each one-degree Fahrenheit increase in noon temperature, the predicted number of cups sold decreases by about 3.8 cups.\n\n(b) The y-intercept, 312.4, is the predicted number of cups sold when noon temperature is 0. It should not be interpreted, because noon temperature = 0 is outside the interval of values used to fit the line (30 to 70 degrees Fahrenheit); this would be extrapolation.\n\n(c) About 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.\n\n(d) Substituting x = 50 into ŷ = 312.4 − 3.8x gives ŷ = 312.4 − 3.8(50) = 122.4, which equals ȳ. So the least-squares line passes through (x̅, ȳ).",
+    "verification_python": "a = 312.4\nb = -3.8\nlo, hi = 30, 70\nxbar, ybar = 50, 122.4\nr2 = 0.81\nassert abs(a + b * xbar - ybar) < 1e-9\nassert round(r2 * 100) == 81\nassert not (lo <= 0 <= hi)\nassert round(abs(b), 1) == 3.8\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.3": 4,
+     "5.5": 2
+    },
+    "onTarget": 2,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    },
+    "vote_pass": false,
+    "overridden_by": {
+     "topic": "5.5",
+     "required_units": [
+      5
+     ],
+     "basis": "ced_text_tiebreak",
+     "reason": "All five criteria are 5.5 learning objectives; extrapolation appears only as the reason in 5.5.B.3."
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Interpreting a Regression Line for Hot Chocolate Sales",
+   "calculator": "permitted",
+   "stimulus": "A café owner recorded the outdoor temperature at noon and the number of cups of hot chocolate sold that day for 40 days when the noon temperature was between 30°F and 70°F. Technology gives the least-squares regression line ŷ = 312.4 − 3.8x, where x is the noon temperature in degrees Fahrenheit and ŷ is the predicted number of cups sold, and gives r² = 0.81.",
+   "parts": [
+    {
+     "prompt": "Interpret the slope of the regression line in context.",
+     "criteria": [
+      {
+       "text": "Interprets the slope in context: for each one-degree Fahrenheit increase in noon temperature, the predicted number of cups sold decreases by about 3.8 cups.",
+       "evidence": "Response says the predicted number of cups sold decreases by about 3.8 cups per one-degree Fahrenheit increase in noon temperature.",
+       "fix": "Use the pattern: for each one-unit increase in x, the predicted y increases or decreases by the slope, with units and context.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Can the y-intercept of the regression line be given a reasonable interpretation in this context? Explain.",
+     "criteria": [
+      {
+       "text": "States that the y-intercept 312.4 is the predicted number of cups sold when noon temperature is 0.",
+       "evidence": "Response identifies 312.4 as the predicted number of cups sold at noon temperature = 0.",
+       "fix": "Define the y-intercept as the predicted response when the explanatory variable equals 0, naming both variables.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that this intercept should not be interpreted because noon temperature = 0 is outside the interval of values used to fit the line (30 to 70 degrees Fahrenheit), so it is extrapolation.",
+       "evidence": "Response says the intercept has no reasonable interpretation because 0 is beyond the range 30 to 70 degrees Fahrenheit (extrapolation).",
+       "fix": "Check whether x = 0 lies inside the observed x-values; if not, the intercept comes from extrapolation and has no meaningful interpretation.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the value of r² in context.",
+     "criteria": [
+      {
+       "text": "Interprets r² = 0.81: about 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.",
+       "evidence": "Response states that about 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.",
+       "fix": "Write r² as a percent and say that share of the variation in the response is explained by the linear relationship with x.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "For these data the mean noon temperature is x̅ = 50 degrees Fahrenheit and the mean number of cups sold is ȳ = 122.4 cups. Show that the regression line passes through the point (x̅, ȳ).",
+     "criteria": [
+      {
+       "text": "Shows that substituting x̅ = 50 into ŷ = 312.4 − 3.8x gives 122.4, the mean of y, so the line passes through (x̅, ȳ).",
+       "evidence": "Response substitutes x = 50 into the equation, gets 122.4, and says this equals the mean response, so the line passes through the means.",
+       "fix": "Substitute the mean of x into the regression equation; getting the mean of y confirms the least-squares line passes through (mean x, mean y).",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) For each one-degree Fahrenheit increase in noon temperature, the predicted number of cups sold decreases by about 3.8 cups.\n\n(b) The y-intercept, 312.4, is the predicted number of cups sold when noon temperature is 0. It should not be interpreted, because noon temperature = 0 is outside the interval of values used to fit the line (30 to 70 degrees Fahrenheit); this would be extrapolation.\n\n(c) About 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.\n\n(d) Substituting x = 50 into ŷ = 312.4 − 3.8x gives ŷ = 312.4 − 3.8(50) = 122.4, which equals ȳ. So the least-squares line passes through (x̅, ȳ).",
+   "verification_python": "a = 312.4\nb = -3.8\nlo, hi = 30, 70\nxbar, ybar = 50, 122.4\nr2 = 0.81\nassert abs(a + b * xbar - ybar) < 1e-9\nassert round(r2 * 100) == 81\nassert not (lo <= 0 <= hi)\nassert round(abs(b), 1) == 3.8\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items.py, rubric_patterns.json), 2026-11-12",
+  "at": "2026-11-12T21:26:29.552025Z"
+ },
+ "history_before_patch": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:24:17.495Z",
+   "source": "given",
+   "item": {
+    "title": "Interpreting a Regression Line for Hot Chocolate Sales",
+    "calculator": "permitted",
+    "stimulus": "A café owner recorded the outdoor temperature at noon and the number of cups of hot chocolate sold that day for 40 days when the noon temperature was between 30°F and 70°F. Technology gives the least-squares regression line ŷ = 312.4 − 3.8x, where x is the noon temperature in degrees Fahrenheit and ŷ is the predicted number of cups sold, and gives r² = 0.81.",
+    "parts": [
+     {
+      "prompt": "Interpret the slope of the regression line in context.",
+      "criteria": [
+       {
+        "text": "Interprets the slope in context: for each one-degree Fahrenheit increase in noon temperature, the predicted number of cups sold decreases by about 3.8 cups.",
+        "evidence": "Response says the predicted number of cups sold decreases by about 3.8 cups per one-degree Fahrenheit increase in noon temperature.",
+        "fix": "Use the pattern: for each one-unit increase in x, the predicted y increases or decreases by the slope, with units and context.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Can the y-intercept of the regression line be given a reasonable interpretation in this context? Explain.",
+      "criteria": [
+       {
+        "text": "States that the y-intercept 312.4 is the predicted number of cups sold when noon temperature is 0.",
+        "evidence": "Response identifies 312.4 as the predicted number of cups sold at noon temperature = 0.",
+        "fix": "Define the y-intercept as the predicted response when the explanatory variable equals 0, naming both variables.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that this intercept should not be interpreted because noon temperature = 0 is outside the interval of values used to fit the line (30 to 70 degrees Fahrenheit), so it is extrapolation.",
+        "evidence": "Response says the intercept has no reasonable interpretation because 0 is beyond the range 30 to 70 degrees Fahrenheit (extrapolation).",
+        "fix": "Check whether x = 0 lies inside the observed x-values; if not, the intercept comes from extrapolation and has no meaningful interpretation.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the value of r² in context.",
+      "criteria": [
+       {
+        "text": "Interprets r² = 0.81: about 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.",
+        "evidence": "Response states that about 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.",
+        "fix": "Write r² as a percent and say that share of the variation in the response is explained by the linear relationship with x.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "For these data the mean noon temperature is x̅ = 50 degrees Fahrenheit and the mean number of cups sold is ȳ = 122.4 cups. Show that the regression line passes through the point (x̅, ȳ).",
+      "criteria": [
+       {
+        "text": "Shows that substituting x̅ = 50 into ŷ = 312.4 − 3.8x gives 122.4, the mean of y, so the line passes through (x̅, ȳ).",
+        "evidence": "Response substitutes x = 50 into the equation, gets 122.4, and says this equals the mean response, so the line passes through the means.",
+        "fix": "Substitute the mean of x into the regression equation; getting the mean of y confirms the least-squares line passes through (mean x, mean y).",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) For each one-degree Fahrenheit increase in noon temperature, the predicted number of cups sold decreases by about 3.8 cups.\n\n(b) The y-intercept, 312.4, is the predicted number of cups sold when noon temperature is 0. It should not be interpreted, because noon temperature = 0 is outside the interval of values used to fit the line (30 to 70 degrees Fahrenheit); this would be extrapolation.\n\n(c) About 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.\n\n(d) Substituting x = 50 into ŷ = 312.4 − 3.8x gives ŷ = 312.4 − 3.8(50) = 122.4, which equals ȳ. So the least-squares line passes through (x̅, ȳ).",
+    "verification_python": "a = 312.4\nb = -3.8\nlo, hi = 30, 70\nxbar, ybar = 50, 122.4\nr2 = 0.81\nassert abs(a + b * xbar - ybar) < 1e-9\nassert round(r2 * 100) == 81\nassert not (lo <= 0 <= hi)\nassert round(abs(b), 1) == 3.8\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "5.3": 4,
+     "5.5": 2
+    },
+    "onTarget": 2,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-11-12T21:26:29.575295Z",
+    "round": 1,
+    "decisions": [
+     {
+      "source": "six-vote topic classifier",
+      "objection": "topic votes {'5.3': 4, '5.5': 2}",
+      "ruling": "reject",
+      "reason": "Every part matches Topic 5.5: slope interpretation (5.5.B.2), y-intercept definition and why it is not interpretable (5.5.B.3, which itself names extrapolation), r-squared (5.5.A.5), and the LSRL passing through (x-bar, y-bar) (5.5.A.1). No part asks for a prediction or interpolation/extrapolation classification (5.3). The 5.3 votes follow the extrapolation wording that 5.5.B.3 itself contains."
+     }
+    ]
+   }
+  ],
+  "topic_ruling": {
+   "topic": "5.5",
+   "required_units": [
+    5
+   ],
+   "basis": "ced_text_tiebreak",
+   "reason": "All five criteria are 5.5 learning objectives; extrapolation appears only as the reason in 5.5.B.3."
+  }
+ },
+ "accepted_round": 1
+}

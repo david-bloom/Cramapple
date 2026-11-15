@@ -1,0 +1,199 @@
+{
+ "id": "ap_statistics__5.1__v2",
+ "parent": "ap_statistics__5.1__1",
+ "parent_status": "accepted",
+ "topic_code": "5.1",
+ "item": {
+  "title": "Weekly Water and Seedling Growth: Describing a Curved Association",
+  "calculator": "not_applicable",
+  "stimulus": "A gardener gave 12 groups of seedlings different weekly amounts of water, in liters, and recorded the mean growth of each group after a month, in millimeters.\n\nWater (liters per week) | Growth (mm)\n1.0 | 40\n2.0 | 51\n3.0 | 59\n4.0 | 65\n5.0 | 69\n6.0 | 70\n7.0 | 69\n8.0 | 65\n9.0 | 59\n10.0 | 51\n11.0 | 40\n12.0 | 27",
+  "parts": [
+   {
+    "prompt": "Describe the association between weekly water amount and seedling growth that a scatterplot of these data would show. Address form, direction and strength, in context.",
+    "criteria": [
+     {
+      "text": "Describes the form of the association as non-linear (a curve that rises and then falls).",
+      "evidence": "Response states the form of the association as non-linear (a curve that rises and then falls).",
+      "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that the direction changes: the association is positive for weekly water amount below about 6 liters and negative for larger values.",
+      "evidence": "Response says the direction changes near 6 liters, positive before and negative after, in context.",
+      "fix": "Read the table from left to right and say where the response variable switches from rising to falling, or the reverse.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that the association is strong because all of the points lie close to one smooth curve.",
+      "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+      "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "A classmate says, \"The association is weak, because the points do not stay close to a straight line.\" Is the classmate correct? Explain.",
+    "criteria": [
+     {
+      "text": "States that the claim that the association is weak because the points do not stay close to a straight line is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.",
+      "evidence": "Response rejects the claim and says strength is judged by how closely the points follow the overall pattern, including a curved one.",
+      "fix": "Judge strength by how closely the points follow the general pattern, whether straight or curved, not by how close they are to a line.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Claim 1 (gardener): seedlings given more water always grow more. Claim 2 (neighbor): every group given 10 or more liters grew less than every group given 3 to 8 liters. For each claim, state whether the data table supports it, and justify your answer using values from the table.",
+    "criteria": [
+     {
+      "text": "Concludes Claim 1 is not supported: growth rises up to 6 liters (70 mm) but falls for larger amounts, for example 27 mm at 12 liters.",
+      "evidence": "Response says Claim 1 is not supported and cites values from the table, such as 70 mm at 6 liters versus 27 mm at 12 liters.",
+      "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Concludes Claim 2 is supported: the highest growth among groups given 10 or more liters is 51 mm, which is below the lowest growth (59 mm) among groups given 3 to 8 liters.",
+      "evidence": "Response says Claim 2 is supported and shows every growth at 10 or more liters (51, 40, 27) is below every growth from 3 to 8 liters (59 or higher), for example by comparing 51 with 59.",
+      "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) Form: the association is non-linear; the points follow a curve (rising then falling). Direction: it changes; the association is positive for weekly water amount below about 6 liters and negative for larger values. Strength: strong, because the points follow a single curved pattern closely.\n\n(b) No. Strength describes how closely the points follow the general pattern, which can be curved. These points follow a curve closely, so the association is strong even though it is not close to a straight line.\n\n(c) Claim 1: Concludes Claim 1 is not supported: growth rises up to 6 liters (70 mm) but falls for larger amounts, for example 27 mm at 12 liters. Claim 2: Concludes Claim 2 is supported: the highest growth among groups given 10 or more liters is 51 mm, which is below the lowest growth (59 mm) among groups given 3 to 8 liters.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nxs = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0]\nys = [40, 51, 59, 65, 69, 70, 69, 65, 59, 51, 40, 27]\npk = 5\nf = lambda x: 70 - 1.2 * (x - 6) ** 2\nassert max(abs(y - f(x)) for x, y in zip(xs, ys)) <= 0.51\nassert all(ys[i] <= ys[i + 1] for i in range(pk))\nassert all(ys[i] >= ys[i + 1] for i in range(pk, len(ys) - 1))\nassert ys[11] < ys[5] and xs[11] > xs[5]\nassert max(y for x, y in zip(xs, ys) if x >= 10) < min(y for x, y in zip(xs, ys) if 3 <= x <= 8)\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T23:05:18.377Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"SCATTER_FORM\",\"SCATTER_DIR_MIXED\",\"SCATTER_STRENGTH\"],[\"ERR_STRENGTH_LINE\"],[\"SCATTER_CLAIM\",\"SCATTER_CLAIM\"]]",
+  "child_order": "[[\"SCATTER_FORM\",\"SCATTER_DIR_MIXED\",\"SCATTER_STRENGTH\"],[\"ERR_STRENGTH_LINE\"],[\"SCATTER_CLAIM\",\"SCATTER_CLAIM\"]]",
+  "child_pattern": [
+   [
+    "SCATTER_FORM",
+    "SCATTER_DIR_MIXED",
+    "SCATTER_STRENGTH"
+   ],
+   [
+    "ERR_STRENGTH_LINE"
+   ],
+   [
+    "SCATTER_CLAIM",
+    "SCATTER_CLAIM"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [3,1,2], variant [3,1,2]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"SCATTER_FORM\",\"SCATTER_DIR_MIXED\",\"SCATTER_STRENGTH\"],[\"ERR_STRENGTH_LINE\"],[\"SCATTER_CLAIM\",\"SCATTER_CLAIM\"]]\nPart a prompt changed.\nCriterion a1 (SCATTER_FORM): identical wording\nCriterion a2 (SCATTER_DIR_MIXED): wording and values changed\nCriterion a3 (SCATTER_STRENGTH): identical wording\nCriterion b1 (ERR_STRENGTH_LINE): identical wording\nPart c prompt changed.\nCriterion c1 (SCATTER_CLAIM): wording and values changed\nCriterion c2 (SCATTER_CLAIM): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from students’ study time and test scores to weekly water amounts and mean seedling growth for 12 groups. All data values and units change, the peak shifts from 3.5 hours to 6 liters, and the claims use new comparison ranges and contextual speakers. The three-part, six-point rubric structure is unchanged.",
+     "numbers_recomputed": "The table contains 12 groups, matching the setup. Growth increases from 40 mm at 1 liter to its maximum of 70 mm at 6 liters, then decreases to 27 mm at 12 liters; thus the direction-change value of 6 liters and both numerical examples in c1 match. For amounts of 10 or more liters, the growth values are 51, 40, and 27 mm, with maximum 51 mm. For amounts from 3 through 8 liters, the growth values are 59, 65, 69, 70, 69, and 65 mm, with minimum 59 mm. Therefore 51 < 59, matching all numerical statements in c2. No model answer was provided or assessed.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The variant changes the context from study time/test score (12 students) to weekly water/seedling growth (12 groups) and replaces all data values. In part (a), the direction-switch value is updated from about 3.5 hours to about 6 liters, with the peak at 6 L = 70 mm. In part (c), the claims are rephrased to water/growth: Claim 1 uses 70 mm at 6 L versus 27 mm at 12 L; Claim 2 compares groups receiving 10+ L (51, 40, 27 mm) with groups receiving 3-8 L (lowest 59 mm). Rubric structure, point counts, and criteria patterns remain identical.",
+     "numbers_recomputed": "Peak/direction switch: data peak is 70 mm at 6 L, so 'about 6 liters' is correct. Claim 1: 12 L growth is 27 mm, less than 70 mm at 6 L; counterexample correct. Claim 2: maximum growth for 10+ L is 51 mm (at 10 L); minimum growth for 3-8 L is 59 mm (at 3 L); 51 < 59, so all 10+ L values are below all 3-8 L values; correct. No other rubric numbers depend on the changed givens.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

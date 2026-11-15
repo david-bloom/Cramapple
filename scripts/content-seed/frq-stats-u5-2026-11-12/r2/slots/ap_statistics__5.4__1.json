@@ -1,0 +1,665 @@
+{
+ "id": "ap_statistics__5.4__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 5,
+  "unit_title": "Regression Analysis",
+  "topic_code": "5.4",
+  "topic_title": "Residuals",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T22:22:20.871Z",
+   "source": "given",
+   "item": {
+    "title": "Residual Pattern for a Supplement Dose and Plant Growth Model",
+    "calculator": "permitted",
+    "stimulus": "A botanist grew seven groups of seedlings with different daily doses of a supplement and measured the mean growth of each group. The least-squares regression line, found using technology, is ŷ = 18.86 + 1.43x, where x is the dose in milligrams and ŷ is the predicted growth in millimeters. The data are shown below.\n\nDose (mg) | Growth (mm)\n1 | 14\n2 | 20\n3 | 27\n4 | 30\n5 | 32\n6 | 30\n7 | 19",
+    "parts": [
+     {
+      "prompt": "Calculate the residuals for the observations at x = 1 and x = 4.",
+      "criteria": [
+       {
+        "text": "Calculates the residual as observed minus predicted: 14 - 20.29 = −6.29 mm.",
+        "evidence": "Response subtracts the predicted value from the observed value 14 and reports −6.29 mm.",
+        "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+        "accepted_variants": [
+         "−6.29",
+         "−6.3"
+        ]
+       },
+       {
+        "text": "Calculates the residual as observed minus predicted: 30 - 24.58 = 5.42 mm.",
+        "evidence": "Response subtracts the predicted value from the observed value 30 and reports 5.42 mm.",
+        "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+        "accepted_variants": [
+         "5.42",
+         "5.4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the residual at x = 1 in context.",
+      "criteria": [
+       {
+        "text": "States that because the residual is negative, the model overpredicts the plant growth for group with x = 1 mg: the observed value is below the predicted value.",
+        "evidence": "Response links the negative residual to the model overpredicts the plant growth for group with x = 1 mg, in context.",
+        "fix": "Link the sign to the context: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Interprets the size in context: for group with x = 1 mg, the observed plant growth is about 6.29 mm below the predicted value.",
+        "evidence": "Response states the difference of about 6.29 mm between observed and predicted plant growth for group with x = 1 mg.",
+        "fix": "Restate the residual as a gap between observed and predicted values, with units and the specific case named.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Determine the sign of the residual for each of the seven observations. Describe the pattern in the signs as x increases, and state what it suggests about the linear model.",
+      "criteria": [
+       {
+        "text": "States that the signs of the residuals as x increases are negative, negative, positive, positive, positive, positive, negative, a systematic negative, positive, negative (arch-shaped) pattern rather than random scatter.",
+        "evidence": "Response gives the sign pattern negative, negative, positive, positive, positive, positive, negative for the seven observations in order of x and calls it systematic, not random.",
+        "fix": "Find every residual (observed minus predicted), then read their signs in order of x and look for a repeating pattern.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the arch-shaped pattern of the residuals (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+        "evidence": "Response identifies the pattern as curvature and concludes the linear model is not the most appropriate.",
+        "fix": "Treat a curved pattern in the residual plot as evidence against a linear model; do not call it random scatter.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) At x = 1: ŷ = 18.86 + 1.43(1) = 20.29, so the residual is 14 − 20.29 = −6.29 mm. At x = 4: ŷ = 24.58, so the residual is 30 − 24.58 = 5.42 mm.\n\n(b) The residual at x = 1 is negative, so the model overpredicts the plant growth there: the observed value is below the predicted value, by about 6.29 mm.\n\n(c) In order of x the residuals are negative, negative, positive, positive, positive, positive, negative. This is a systematic negative, positive, negative (arch-shaped) pattern, not random scatter. It means the residual plot would show curvature, which suggests the linear model is not the most appropriate model for the data.",
+    "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nxs = [1, 2, 3, 4, 5, 6, 7]\nys = [14, 20, 27, 30, 32, 30, 19]\nb, a, r, mx, my = reg(xs, ys)\na2, b2 = round(a, 2), round(b, 2)\nassert (a2, b2) == (18.86, 1.43)\nres = [y - (a2 + b2 * x) for x, y in zip(xs, ys)]\nassert min(abs(e) for e in res) >= 1.5\nsigns = ['positive' if e > 0 else 'negative' for e in res]\nassert signs == ['negative', 'negative', 'positive', 'positive', 'positive', 'positive', 'negative']\nia, ib = xs.index(1), xs.index(4)\nassert round(res[ia], 2) == -6.29 and round(res[ib], 2) == 5.42\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "solution: None. My independent solution matches the rubric and model answer exactly on the residual values and sign pattern. My additional note that a nonlinear model such as a quadratic model may describe the data better is compatible with the rubric's conclusion that the linear model is not the most appropriate."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "None. My independent solution matches the rubric and model answer exactly on the residual values and sign pattern. My additional note that a nonlinear model such as a quadratic model may describe the data better is compatible with the rubric's conclusion that the linear model is not the most appropriate.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Residual Pattern for a Supplement Dose and Plant Growth Model",
+   "calculator": "permitted",
+   "stimulus": "A botanist grew seven groups of seedlings with different daily doses of a supplement and measured the mean growth of each group. The least-squares regression line, found using technology, is ŷ = 18.86 + 1.43x, where x is the dose in milligrams and ŷ is the predicted growth in millimeters. The data are shown below.\n\nDose (mg) | Growth (mm)\n1 | 14\n2 | 20\n3 | 27\n4 | 30\n5 | 32\n6 | 30\n7 | 19",
+   "parts": [
+    {
+     "prompt": "Calculate the residuals for the observations at x = 1 and x = 4.",
+     "criteria": [
+      {
+       "text": "Calculates the residual as observed minus predicted: 14 - 20.29 = −6.29 mm.",
+       "evidence": "Response subtracts the predicted value from the observed value 14 and reports −6.29 mm.",
+       "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+       "accepted_variants": [
+        "−6.29",
+        "−6.3"
+       ]
+      },
+      {
+       "text": "Calculates the residual as observed minus predicted: 30 - 24.58 = 5.42 mm.",
+       "evidence": "Response subtracts the predicted value from the observed value 30 and reports 5.42 mm.",
+       "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+       "accepted_variants": [
+        "5.42",
+        "5.4"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the residual at x = 1 in context.",
+     "criteria": [
+      {
+       "text": "States that because the residual is negative, the model overpredicts the plant growth for group with x = 1 mg: the observed value is below the predicted value.",
+       "evidence": "Response links the negative residual to the model overpredicts the plant growth for group with x = 1 mg, in context.",
+       "fix": "Link the sign to the context: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Interprets the size in context: for group with x = 1 mg, the observed plant growth is about 6.29 mm below the predicted value.",
+       "evidence": "Response states the difference of about 6.29 mm between observed and predicted plant growth for group with x = 1 mg.",
+       "fix": "Restate the residual as a gap between observed and predicted values, with units and the specific case named.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the sign of the residual for each of the seven observations. Describe the pattern in the signs as x increases, and state what it suggests about the linear model.",
+     "criteria": [
+      {
+       "text": "States that the signs of the residuals as x increases are negative, negative, positive, positive, positive, positive, negative, a systematic negative, positive, negative (arch-shaped) pattern rather than random scatter.",
+       "evidence": "Response gives the sign pattern negative, negative, positive, positive, positive, positive, negative for the seven observations in order of x and calls it systematic, not random.",
+       "fix": "Find every residual (observed minus predicted), then read their signs in order of x and look for a repeating pattern.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the arch-shaped pattern of the residuals (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+       "evidence": "Response identifies the pattern as curvature and concludes the linear model is not the most appropriate.",
+       "fix": "Treat a curved pattern in the residual plot as evidence against a linear model; do not call it random scatter.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) At x = 1: ŷ = 18.86 + 1.43(1) = 20.29, so the residual is 14 − 20.29 = −6.29 mm. At x = 4: ŷ = 24.58, so the residual is 30 − 24.58 = 5.42 mm.\n\n(b) The residual at x = 1 is negative, so the model overpredicts the plant growth there: the observed value is below the predicted value, by about 6.29 mm.\n\n(c) In order of x the residuals are negative, negative, positive, positive, positive, positive, negative. This is a systematic negative, positive, negative (arch-shaped) pattern, not random scatter. It means the residual plot would show curvature, which suggests the linear model is not the most appropriate model for the data.",
+   "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nxs = [1, 2, 3, 4, 5, 6, 7]\nys = [14, 20, 27, 30, 32, 30, 19]\nb, a, r, mx, my = reg(xs, ys)\na2, b2 = round(a, 2), round(b, 2)\nassert (a2, b2) == (18.86, 1.43)\nres = [y - (a2 + b2 * x) for x, y in zip(xs, ys)]\nassert min(abs(e) for e in res) >= 1.5\nsigns = ['positive' if e > 0 else 'negative' for e in res]\nassert signs == ['negative', 'negative', 'positive', 'positive', 'positive', 'positive', 'negative']\nia, ib = xs.index(1), xs.index(4)\nassert round(res[ia], 2) == -6.29 and round(res[ib], 2) == 5.42\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items_r2.py), r2 patch",
+  "at": "2026-11-12T22:22:20.575939Z"
+ },
+ "history_before_patch": [
+  {
+   "round": 1,
+   "at": "2026-11-12T22:15:41.526Z",
+   "source": "given",
+   "item": {
+    "title": "Residual Pattern for a Supplement Dose and Plant Growth Model",
+    "calculator": "permitted",
+    "stimulus": "A botanist grew seven groups of seedlings with different daily doses of a supplement and measured the mean growth of each group. The least-squares regression line, found using technology, is ŷ = 18.86 + 1.43x, where x is the dose in milligrams and ŷ is the predicted growth in millimeters. The data are shown below.\n\nDose (mg) | Growth (mm)\n1 | 14\n2 | 20\n3 | 27\n4 | 30\n5 | 32\n6 | 30\n7 | 19",
+    "parts": [
+     {
+      "prompt": "Calculate the residuals for the observations at x = 1 and x = 4.",
+      "criteria": [
+       {
+        "text": "Calculates the residual as observed minus predicted: 14 - 20.29 = −6.29 mm.",
+        "evidence": "Response subtracts the predicted value from the observed value 14 and reports −6.29 mm.",
+        "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+        "accepted_variants": [
+         "−6.29",
+         "−6.3"
+        ]
+       },
+       {
+        "text": "Calculates the residual as observed minus predicted: 30 - 24.58 = 5.42 mm.",
+        "evidence": "Response subtracts the predicted value from the observed value 30 and reports 5.42 mm.",
+        "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+        "accepted_variants": [
+         "5.42",
+         "5.4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the residual at x = 1 in context.",
+      "criteria": [
+       {
+        "text": "States that because the residual is negative, the model overpredicts the response for this observation.",
+        "evidence": "Response links the negative residual to the model overpredicts (observed value is below the predicted value).",
+        "fix": "Link the sign: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Determine the sign of the residual for each of the seven observations. Describe the pattern in the signs as x increases, and state what it suggests about the linear model.",
+      "criteria": [
+       {
+        "text": "States that the signs of the residuals as x increases are negative, negative, positive, positive, positive, positive, negative, a systematic negative, positive, negative (arch-shaped) pattern rather than random scatter.",
+        "evidence": "Response gives the sign pattern negative, negative, positive, positive, positive, positive, negative for the seven observations in order of x and calls it systematic, not random.",
+        "fix": "Find every residual (observed minus predicted), then read their signs in order of x and look for a repeating pattern.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the arch-shaped pattern of the residuals (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+        "evidence": "Response identifies the pattern as curvature and concludes the linear model is not the most appropriate.",
+        "fix": "Treat a curved pattern in the residual plot as evidence against a linear model; do not call it random scatter.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) At x = 1: ŷ = 18.86 + 1.43(1) = 20.29, so the residual is 14 − 20.29 = −6.29 mm. At x = 4: ŷ = 24.58, so the residual is 30 − 24.58 = 5.42 mm.\n\n(b) The residual at x = 1 is negative, so the model overpredicts the plant growth there: the observed value is below the predicted value, by about 6.29 mm.\n\n(c) In order of x the residuals are negative, negative, positive, positive, positive, positive, negative. This is a systematic negative, positive, negative (arch-shaped) pattern, not random scatter. It means the residual plot would show curvature, which suggests the linear model is not the most appropriate model for the data.",
+    "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nxs = [1, 2, 3, 4, 5, 6, 7]\nys = [14, 20, 27, 30, 32, 30, 19]\nb, a, r, mx, my = reg(xs, ys)\na2, b2 = round(a, 2), round(b, 2)\nassert (a2, b2) == (18.86, 1.43)\nres = [y - (a2 + b2 * x) for x, y in zip(xs, ys)]\nassert min(abs(e) for e in res) >= 1.5\nsigns = ['positive' if e > 0 else 'negative' for e in res]\nassert signs == ['negative', 'negative', 'positive', 'positive', 'positive', 'positive', 'negative']\nia, ib = xs.index(1), xs.index(4)\nassert round(res[ia], 2) == -6.29 and round(res[ib], 2) == 5.42\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 combines two separately observable requested elements: determining all seven residual signs and describing their systematic pattern. Split these into separate 1-point criteria."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 combines two separately observable requested elements: determining all seven residual signs and describing their systematic pattern. Split these into separate 1-point criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1: the question asks for an interpretation in context, but the criterion only requires the generic negative-residual-means-overprediction link and does not require the student to identify the response variable (plant growth) or the explanatory variable (dose). A context-free response would earn the point."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1: the question asks for an interpretation in context, but the criterion only requires the generic negative-residual-means-overprediction link and does not require the student to identify the response variable (plant growth) or the explanatory variable (dose). A context-free response would earn the point."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b) asks for an interpretation in context, but criterion b1 does not require the real-world context (plant growth at a 1 mg dose) and does not require the magnitude; as written it can award a generic overprediction statement."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b) asks for an interpretation in context, but criterion b1 does not require the real-world context (plant growth at a 1 mg dose) and does not require the magnitude; as written it can award a generic overprediction statement."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

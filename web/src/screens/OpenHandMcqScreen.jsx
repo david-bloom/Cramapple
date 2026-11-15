@@ -133,7 +133,7 @@ export function OpenHandMcqScreen({ question, onNext }) {
                 note={`${seen.length} of ${total} explanations read`}
                 primary={<ActionButton variant="primary" onClick={onNext}>Next question</ActionButton>}
                 secondary={question.deepDive
-                  ? <ActionButton variant="link" onClick={openDeepDive}>Open the deep dive</ActionButton>
+                  ? <ActionButton variant="link" onClick={openDeepDive}>Open the cheat sheet</ActionButton>
                   : undefined}
               />
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEscapeToClose } from '../../lib/useEscapeToClose.js';
 
-export function DeepDiveOverlay({ open = false, eyebrow = 'Deep dive', title, sections = [], onClose, onCopy }) {
+export function DeepDiveOverlay({ open = false, eyebrow = 'Cheat sheet', title, sections = [], onClose, onCopy }) {
   useEscapeToClose(open, onClose);
   if (!open) return null;
   return (
@@ -26,7 +26,7 @@ export function DeepDiveOverlay({ open = false, eyebrow = 'Deep dive', title, se
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M8.6 3.6h11.8v11.8H8.6z" /><path d="M15.4 20.4H3.6V8.6" />
                 </svg>
-                Copy deep dive
+                Copy cheat sheet
               </button>
             )}
             <button type="button" onClick={onClose} style={{

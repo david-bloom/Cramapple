@@ -6,6 +6,13 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0137 — More Help Is Cut From the Question Page; the Plain "Your answer is saved." Line Is Removed; the Report Trigger Shrinks to a Flag Icon
+- DECISION-0136 — The No-Card 7-Day Trial Is the New-Student Path; the 72-Hour Sample Is on Hold Indefinitely (Amends D12 of DECISION-0135 and Supersedes Its D3 Retire-After-Launch Plan)
+- DECISION-0135 — Free Trial Without a Card Is the Active Trial: 7 Days of Full Access for One Chosen Subject, Email Code on Landing, Card Trial Preserved but Inactive (Partly Supersedes DECISION-0126 Items 1 and 12; Plan Decisions D1-D8 Approved at Their Recommendations)
+- DECISION-0134 — Paywall Sample Access Backend Rules P1–P8 Approved at Their Proposed Defaults (Anonymous Try Limits, Consumption at Attempt Insert, One Sample Per User and Per Email, Trial Supersedes Permanently, Unit Lock and Eligibility, Cramapple-FRQ Path First, Two-Switch Rollback, Grace Resume Deferred)
+- DECISION-0133 — The Question Screens Use Two Panes (Task and a 440px Rail With Rubric and Reference Tabs), and Deep Dive Is Renamed Cheat Sheet, Opened as a Modal
+- DECISION-0132 — Not Scrolling Is a Design Guideline, Not a Rule; the Plate May Scroll When Content Needs It
+- DECISION-0131 — Cramapple Master Is the Design Source of Truth: Full Marks Are Green (`full-*`), Wordmark Only, Type Stack Confirmed, One System for Every Subject, Equations in KaTeX, the Name Is Written "Cramapple"
 - DECISION-0130 — Referral Program: Buy One Self-Serve Platform (Not Build); Students Earn a $5 Gift Card, Tutors 25% Cash, Both Paid 7 Days After the Day-7 Payment; Friend Gets $5 Off
 - DECISION-0129 — Report Day-7 Trial Charges to Reddit Through the Conversions API, Trial Conversions Only, Click Id Only
 - DECISION-0128 — Migration Ledgers Are History, Not a Source of Truth: No Re-Baseline, `db push` Stays Prohibited, Parity Is Verified by Catalog Digests (Closes `TASK-0078` A19)
@@ -55,6 +62,99 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0137 — More Help Is Cut From the Question Page; the Plain "Your answer is saved." Line Is Removed; the Report Trigger Shrinks to a Flag Icon
+
+- **Date:** 2026-11-15
+- **Decided by:** David Bloom (Product Owner), in session: "Cut more help. Remove saved. Shrink the report trigger to a flag icon."
+- **Context:** Model coaching and a 1 to 5 "Helpful?" rating were added to the `/question` feedback card (Lovable commit `9487891`, published 2026-11-14, coaching switched off by `VITE_COACHING`; plan `docs/product/COACHING_VIA_GRADER_V2_PLAN_2026_11_14.md`). After a graded answer, coaching and More help would explain the same miss. The plain "Your answer is saved." line repeated what the card already shows, and "See something wrong or confusing?" was as prominent as the primary actions. More help was approved in `docs/product/MORE_HELP_DECISIONS_AND_DESIGN.md` (2026-10-13) without a numbered decision.
+- **Decision:**
+  1. **Cut More help from the question page.** Remove every student-facing entry point (the button beside "Next question", the entry in `HelpPanel`, and the "More help used · Assisted" display). The backend (`more-help` Edge Function, schema, RPCs), the frontend files and the design docs stay in place for a later restore. Hint recording (rubric, reference, Cheat Sheet) is unchanged; only More help's own assisted marking goes away.
+  2. **Remove the plain "Your answer is saved." line.** The two different messages that say the answer is saved but grading is delayed, or that the trial or subscription does not cover it (`SessionFrame.tsx`), stay, because they are the only confirmation when no result is on screen.
+  3. **Shrink the report trigger to a flag icon.** An outline flag (inline SVG in the design system's stroke style, 44px hit area, muted ink, accessible name unchanged) opens the same report dialog. A question mark is not used: in the design system it means hint.
+- **Consequences:** students lose pre-answer and follow-up help until a replacement is decided. The coaching plan's More help click-rate metric is dropped; the retry-earns-the-missed-point rate and the ratings remain. Implementation is a Lovable draft (`drft_01m7gm7d5df90rrsm7et32f38z`, thread `thr_a9xhllpazl11`) sent on 2026-11-15; at the time of this entry it was sent but not reviewed, merged or published. No Supabase, Edge Function or migration change.
+- **Not decided here:** publishing the Lovable draft, deleting the More help backend or code, any replacement help, or whether the report icon later moves onto the rating row.
+- **Rollback:** a later DECISION restoring the entry points (the files are kept), or revert the Lovable commit.
+
+## DECISION-0136 — The No-Card 7-Day Trial Is the New-Student Path; the 72-Hour Sample Is on Hold Indefinitely (Amends D12 of DECISION-0135 and Supersedes Its D3 Retire-After-Launch Plan)
+
+- **Date:** 2026-11-10
+- **Decided by:** David Bloom (Product Owner). Recorded from his words as quoted by the coordinating Paywall production-deployment session (`local_5fe88b44-2793-4dae-9494-4d7237cb2e58`): "we are going with the no card 7-day trial. the 72-hour sample is indefinitely on hold." He also confirmed there are no existing sample claimants. (Relayed, not typed in the session that wrote this entry; David can correct it.)
+- **Context:** `DECISION-0135` D12 said a used sample must not block a trial and the reverse; the live `claim_sample_try` refuses former trial students (spec `FREE_TRIAL_NO_CARD_BACKEND_DESIGN_SPEC_2026_11_09.md` §14 conflict 4). D3 planned to leave the sample dark and retire it after the trial ships.
+- **Decision:**
+  1. The no-card 7-day single-subject trial is the new-student path.
+  2. The 72-hour sample is **on hold indefinitely**: not launched, not linked from marketing, no public copy mentions it ("72-hour", "8 free questions"). Its code, tables and functions stay deployed and its tests stay; it is not retired.
+  3. **D12 is amended:** because the sample is on hold and has no claimants, no sample/trial interaction needs to hold; the `claim_sample_try` conflict is closed as moot and the function is **not** changed. If the sample is ever reactivated, D12 must be revisited first.
+  4. The Production switch `app.config.sample_access_enabled` is to be set false so the claim path is dead; that Production write needs its own APPROVAL (`APPROVAL-0211`, drafted, not granted).
+- **Not decided here:** any Production step, Lovable publish or prompt send, the trial switch, or whether the sample is ever revived or deleted.
+- **Rollback:** a later DECISION reviving the sample; set `sample_access_enabled=true` again (and the edge secret if it was changed).
+
+## DECISION-0135 — Free Trial Without a Card Is the Active Trial: 7 Days of Full Access for One Chosen Subject, Email Code on Landing, Card Trial Preserved but Inactive (Partly Supersedes DECISION-0126 Items 1 and 12; Plan Decisions D1-D8 Approved at Their Recommendations)
+
+- **Date:** 2026-11-09
+- **Decided by:** David Bloom (Product Owner), in chat, in the paywall app/docs session. His words: "the current experience is the free trial without card. We should preserve the free trial with card for possible future use but it is not active."; "7 days full access but for a specific subject the student selects."; account timing "Email code on landing"; and, to the question "Answer D1-D8, or approve the plan's recommendations?": "Approve recommendations".
+- **Context:** `docs/product/FREE_TRIAL_NO_CARD_CHANGE_PLAN_2026_11_09.md`. The earlier cardless 7-day trial (`TASK-0026`) was retired by `DECISION-0126` item 12; the 72-hour sample (`DECISION-0134`) is live behind a hidden link.
+- **Decision:**
+  1. **The active trial is the free trial without a card:** 7 days of full access to **one subject the student selects**. The card trial (`DECISION-0126`, `TASK-0077`) is **preserved but inactive** (code, tables and functions kept; unreachable from "Start free trial"). This **partly supersedes `DECISION-0126` items 1 ("every purchase gets a trial") and 12 ("retire the cardless trial")** for the active path; the rest of `DECISION-0126` stands for the day the card trial is reactivated.
+  2. **Journey:** "Start free trial" opens an email-code step on the app (no card, no checkout), then `/home`, which prompts for a subject, shows the days remaining and a pay prompt linking to checkout. A subject landing page's "Start free trial" arrives at the hub with that subject confirmed.
+  3. **Plan decisions D1-D8, approved at the plan's recommendations:** D1 the 7-day clock starts when the **subject is confirmed**; D2 at day 7 the subject locks, saved work stays readable, the pay prompt shows, no grace; D3 the live 72-hour sample stays dark and unlinked and is retired after the trial ships; D4 checkout is pay-now at the current price, per subject, while the card trial is inactive (price and any bundle to be confirmed from the backend's offer); D5 uncapped use for 7 days with an alert and a per-account daily ceiling as an abuse guard; D6 one trial per student email, and earlier `trial_v1` and card-trial emails count; D7 nurture emails and the paywall experiment stay out of the first release; D8 the minors'-data approval given for the sample (N4) is re-confirmed to cover this trial.
+- **Addendum 2026-11-09 (backend design spec decisions):** David, in chat: "I agree with D9-12". D9 no subject change after confirming (first release); D10 daily grading ceiling for trial accounts of 40 graded attempts per 24 hours; D11 retire the legacy all-subjects `start-trial` now (`CARDLESS_TRIAL_RETIRED=true`; it is still callable in Production although `DECISION-0126` item 12 only unlinked it). **The Production execution of D11 is a separate approval entry made by the backend session with David's direct confirmation; this decision does not execute it.** D12 a used sample does not block a trial and a used trial does not block a sample; a trial supersedes a sample.
+- **Not decided here:** exact copy, the price shown at checkout, whether a bundle is offered, the day-7 Reddit conversion definition (`DECISION-0129` reports card charges only), and any Production step (each needs its own approval).
+- **Authority:** Development and draft work only, see `APPROVAL-0208`.
+
+
+## DECISION-0134 — Paywall Sample Access Backend Rules P1–P8 Approved at Their Proposed Defaults (Anonymous Try Limits, Consumption at Attempt Insert, One Sample Per User and Per Email, Trial Supersedes Permanently, Unit Lock and Eligibility, Cramapple-FRQ Path First, Two-Switch Rollback, Grace Resume Deferred)
+
+- **Date:** 2026-11-08
+- **Decided by:** David Bloom (Product Owner), in chat: "I approve P1-8", in the backend/entitlement session for the paywall change plan.
+- **Context:** `docs/product/PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md` (Hard-Gate) implemented the plan's §8 open rules on Development as recommended defaults marked PROPOSED, summarised in its §14 as P1–P8, each needing the owner's confirmation before anything could be called decided. The Development build (migration `20261108201632_paywall_sample_access`, `sample-try` v1, `attempt-response` v50, `student-session-items` v48; both switches off) already follows these defaults.
+- **Decision:** P1–P8 are approved exactly as proposed in spec §14:
+  1. **P1 Anonymous repeat/switching:** one answered try per token; subject/unit switch up to 3 times while unanswered; a try is answerable for 24h and claimable for 7 days.
+  2. **P2 Attempt start / consumption:** an allowance is consumed at the server attempt insert, once per content item; at most 3 grading requests and 3 photo-extraction runs per sample FRQ.
+  3. **P3 Eligibility:** one sample per user id **and** per email hash; any prior entitlement row or consumed trial email disqualifies; students only.
+  4. **P4 Trial precedence:** any active regular entitlement supersedes the sample permanently; cancellation never revives it (`DECISION-0126` untouched).
+  5. **P5 Unit rules:** no subject/unit switch after claim; a unit is eligible only with ≥ 8 MCQs and ≥ 1 non-photo FRQ; `photo_required` and image-stimulus items are excluded from the sample.
+  6. **P6 Uploaded FRQ:** read as spec §11 option (a): the sample ships with the Cramapple-FRQ path; grading a student-uploaded FRQ is designed separately (BYOQ stays unscored, `DECISION-0057`/`0068`, identity-agnostic, `DECISION-0077`); out-of-unit uploads are refused by default. `claim_sample_frq_source` keeps raising `sample:byoq_grading_not_available`.
+  7. **P7 Rollback:** two config switches (`SAMPLE_ACCESS_ENABLED` env on `sample-try`, `app.config.sample_access_enabled`) plus the down migration; readback of a student's own graded work is never withdrawn.
+  8. **P8 Grace resume:** `session_resume` during grace stays a follow-up; the app opens the question page by `learning_session_id` from `get_sample_access_state`.
+- **Consequences:** The spec's PROPOSED markers now read as decided rules (its header and §14 say so). No code change is needed; Codex QA (`docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md`) proceeds against the same build. This decision authorises nothing in Production: Production migrations, deploys and flag flips still need their own `APPROVAL`.
+- **Rollback:** a later DECISION revising any of P1–P8; the code paths are switch-guarded and have a down migration (spec §9).
+
+## DECISION-0133 — The Question Screens Use Two Panes (Task and a 440px Rail With Rubric and Reference Tabs), and Deep Dive Is Renamed Cheat Sheet, Opened as a Modal
+
+- **Date:** 2026-11-08
+- **Decided by:** David Bloom (Product Owner), in session. Option A of two layout options drawn on the design canvas was approved.
+- **Context:** The three-pane plate forced 296px and 360px side columns, which left the task pane tall and mostly empty. Separately, students called the Deep Dive a cheat sheet, and it is long (a cheat sheet for the whole unit and topic), so it does not fit beside a question.
+- **Decision:**
+  1. **Two panes.** The task takes the width. One 440px rail on the right holds **Rubric** and **Reference** as tabs (exactly two; the only Tabs in the product). The rail's top rule and active-tab underline take the open tab's voice colour: blue for Rubric, green for Reference.
+  2. **Default tab.** Reference before a question is submitted (there is no score yet); Rubric after submission. Each tab keeps its hint gate until revealed.
+  3. **Deep Dive is renamed Cheat Sheet, everywhere,** in the product and the docs. It is not a tab. A link pinned to the foot of the rail opens it as a modal that keeps the student's answer and tab state, scrolls inside itself, and offers Copy notes, Open in new tab and Close.
+- **Consequences:** `docs/new_design` carries the spec (README, COMPONENT_INVENTORY, VISUAL_IDENTITY, TOKENS, `tokens/spacing.css`: `--col-rail`, two-column `--grid-columns`). User-facing text and docs say "Cheat Sheet". **Not changed:** the `web/` prototype and the live app still render three panes (the grid token in `web/src/styles/tokens/spacing.css` is unchanged on purpose); code identifiers (`DeepDiveOverlay`, `DeepDiveGate`, `--cap-deepdive`, `deepDive` keys, file names), database columns and migrations, and historical logs and task docs keep their names. The stale mirror in `.claude/skills/cramapple-design` is not updated.
+- **Rollback:** revert the PR that carries this entry.
+
+## DECISION-0132 — Not Scrolling Is a Design Guideline, Not a Rule; the Plate May Scroll When Content Needs It
+
+- **Date:** 2026-11-08
+- **Decided by:** David Bloom (Product Owner), in session.
+- **Context:** `docs/new_design` still carried the fixed no-scroll plate as a rule (partly superseded on 2026-09-26 when the frame went responsive). Longer AP Biology FRQs and diagrammatic stimulus will not always fit without scrolling, and students avoid clicking.
+- **Decision:** Designing so a plate does not need to scroll is a **guideline**, a design principle to work toward, not a rule. A plate may scroll where its content needs it. Two cautions stay: do not cut copy below what a student needs just to avoid a scrollbar, and keep the primary action and the feedback reachable.
+- **Consequences:** `docs/new_design/README.md`, `VISUAL_IDENTITY.md`, `HANDOFF.md`, `web/README.md` and a token comment reword the rule. `web/scripts/measure-panes.mjs` (`npm run verify:panes`) still fails on overflow and has not been relaxed; that is a follow-up.
+- **Rollback:** revert the PR that carries this entry.
+
+## DECISION-0131 — Cramapple Master Is the Design Source of Truth: Full Marks Are Green (`full-*`), Wordmark Only, Type Stack Confirmed, One System for Every Subject, Equations in KaTeX, the Name Is Written "Cramapple"
+
+- **Date:** 2026-11-08
+- **Decided by:** David Bloom (Product Owner), in session.
+- **Context:** The design system artifact was renamed "Cramapple Master" and named the source of truth. Four items were open in `docs/new_design/README.md` (gold for full marks, the logo, the type stack, subject coverage).
+- **Decision:**
+  1. **Full marks are green**, not gold and not blue: the new `full-*` colour scale (`--full-600` #2b7a24). Only at the maximum score, always with a ✓ and the words "Full marks". Reference green (`--green-500`) never stands for full marks.
+  2. **Wordmark only, permanently.** No logo is drawn.
+  3. **Type stack confirmed** from the live marketing and app pages: Bungee, Passion One 700, Source Sans 3.
+  4. **One system for every subject.** No subject-specific hue, type or layout.
+  5. **Every equation is KaTeX** (restates `DECISION-0119`); STIX Two Math is only for set-notation glyphs in prose.
+  6. **The name is written "Cramapple"**, including the app tab title `Question | Cramapple`.
+- **Consequences:** `docs/new_design/` and the three token copies (`docs/new_design/tokens`, `web/src/styles/tokens`, `.claude/skills/cramapple-design/tokens`) carry the `full-*` tokens. The live app's tab title is in `david-bloom/ap-prep-blueprint` and is changed there, not here.
+- **Rollback:** revert the PR that carries this entry.
 
 ## DECISION-0130 — Referral Program: Buy One Self-Serve Platform (Not Build); Students Earn a $5 Gift Card, Tutors 25% Cash, Both Paid 7 Days After the Day-7 Payment; Friend Gets $5 Off
 

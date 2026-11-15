@@ -57,13 +57,13 @@ Grouped by concern, under `web/src/components/`.
 | `hint/` | `HintGate` |
 | `choice/` | `RadioOptionRow` |
 | `rubric/` | `RubricCriterionRow` |
-| `feedback/` | `FeedbackCard`, `VerdictChip` |
+| `feedback/` | `FeedbackCard`, `VerdictChip`, `FeedbackRating` |
 | `navigation/` | `Masthead`, `Wordmark`, `Breadcrumb`, `StudyMap` |
 | `overlay/` | `DeepDiveOverlay` |
 | `actions/` | `ActionRow`, `ActionButton` |
 | `question/` | `QuestionHeader`, `GraphFrame`, `AnswerField` |
 
-**Intentional additions.** Four names are not in the original nine-family list but were needed to build the plates without re-implementing chrome inside every kit: `Plate` / `PlateGrid` (the fixed 1440×900 frame and its three-column grid, previously inline in each template), `Masthead` (the 70px orange bar), `Wordmark` (the mark, so the on-light ink rule lives in one place), `ActionButton` (the four action treatments the action row composes), and `AnswerField` (the FRQ written-answer box). Nothing else was invented — there is no Toast, Avatar, Tabs or Tooltip here, because the product has none.
+**Intentional additions.** Four names are not in the original nine-family list but were needed to build the plates without re-implementing chrome inside every kit: `Plate` / `PlateGrid` (the fixed 1440×900 frame and its three-column grid, previously inline in each template), `Masthead` (the 70px orange bar), `Wordmark` (the mark, so the on-light ink rule lives in one place), `ActionButton` (the four action treatments the action row composes), and `AnswerField` (the FRQ written-answer box). `FeedbackRating` was added 2026-11-14: a quiet 1 to 5 "Helpful?" control on the feedback card (digits only, square buttons, 12px chrome, no icons or emoji, final once chosen). Nothing else was invented — there is no Toast, Avatar, Tabs or Tooltip here, because the product has none.
 
 ### Screens
 

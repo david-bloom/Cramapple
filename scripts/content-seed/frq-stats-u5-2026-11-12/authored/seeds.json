@@ -1,0 +1,331 @@
+[
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "5.1",
+  "item": {
+   "title": "Daily Screen Time and Nightly Sleep for Twelve Students",
+   "calculator": "not_applicable",
+   "stimulus": "A school counselor wants to know whether daily screen time is related to sleep. For each of 12 randomly chosen students, the counselor recorded the typical daily screen time in minutes and the typical nightly sleep in hours.\n\nScreen time (minutes per day) | Sleep (hours per night)\n30 | 9.0\n40 | 8.8\n55 | 8.6\n60 | 7.7\n75 | 8.3\n85 | 8.1\n95 | 7.9\n110 | 7.7\n120 | 7.5\n130 | 7.4\n140 | 7.2\n150 | 7.0",
+   "parts": [
+    {
+     "prompt": "If the counselor wants to use daily screen time to predict nightly sleep, which variable is the explanatory variable and which is the response variable? State which axis each variable is placed on in a scatterplot.",
+     "criteria": [
+      {
+       "text": "Identifies daily screen time as the explanatory variable (x-axis) and nightly sleep as the response variable (y-axis).",
+       "evidence": "Response names daily screen time as the explanatory variable on the x-axis and nightly sleep as the response variable on the y-axis; naming both roles without both axes does not earn the point.",
+       "fix": "Ask which variable is used to predict the other: that is explanatory (x-axis); the variable being predicted is the response (y-axis).",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Describe the association between daily screen time and nightly sleep that a scatterplot of these data would show. Address form, direction, strength and any unusual feature, in context.",
+     "criteria": [
+      {
+       "text": "Describes the form of the association as linear (the points follow a roughly straight-line pattern).",
+       "evidence": "Response states the form of the association as linear (the points follow a roughly straight-line pattern).",
+       "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+       "accepted_variants": []
+      },
+      {
+       "text": "States the direction is negative: as daily screen time increases, nightly sleep tends to decrease.",
+       "evidence": "Response states a negative association in context, that is, nightly sleep tends to decrease as daily screen time increases.",
+       "fix": "State the direction in context: say how the response variable tends to change as the explanatory variable increases.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the association is strong because all points other than one lie close to a single straight-line pattern.",
+       "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+       "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Identifies the point with 60 minutes of screen time and 7.7 hours of sleep as an unusual feature: it does not fit the general pattern because this student sleeps noticeably less than other students with similar screen time.",
+       "evidence": "Response singles out the observation (60, 7.7) as not fitting the general pattern and says how it differs from the other points.",
+       "fix": "Scan the table for a point that does not fit the general pattern, then identify it by its values and say how it differs.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The counselor claims that students who spend 120 minutes or more on screens each day sleep fewer than 8 hours per night. Does the data table support this claim? Justify your answer using the values in the table.",
+     "criteria": [
+      {
+       "text": "Concludes the claim is supported, because all 4 students with 120 minutes or more of screen time (7.5, 7.4, 7.2, 7.0 hours) sleep fewer than 8 hours.",
+       "evidence": "Response says the claim is supported and cites the 4 students with screen time of 120 minutes or more, all of whom sleep fewer than 8 hours.",
+       "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The explanatory variable is daily screen time, placed on the x-axis, because it is the variable used to predict the other. The response variable is nightly sleep, placed on the y-axis.\n\n(b) Form: the association is linear, because the points follow a roughly straight-line pattern. Direction: it is negative; as daily screen time increases, nightly sleep tends to decrease. Strength: the association is strong, because all points other than one lie close to a single straight-line pattern. Unusual feature: the point (60, 7.7), 60 minutes of screen time and 7.7 hours of sleep, does not fit the general pattern because this student sleeps noticeably less than other students with similar screen time.\n\n(c) Yes, the data support the claim. All 4 students with 120 minutes or more of screen time have sleep of 7.5, 7.4, 7.2, 7.0 hours, and each sleeps fewer than 8 hours.",
+   "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nxs = [30, 40, 55, 60, 75, 85, 95, 110, 120, 130, 140, 150]\nys = [9.0, 8.8, 8.6, 7.7, 8.3, 8.1, 7.9, 7.7, 7.5, 7.4, 7.2, 7.0]\nui = 3\nb, a, r, mx, my = reg(xs, ys)\nassert r < -0.85\nassert (b < 0) == True\nres = [y - (a + b * x) for x, y in zip(xs, ys)]\nothers = sorted(abs(e) for i, e in enumerate(res) if i != ui)\nassert abs(res[ui]) >= 2.5 * others[-1]\nassert max(range(len(res)), key=lambda i: abs(res[i])) == ui\nmeet = [y for x, y in zip(xs, ys) if x >= 120]\nassert len(meet) == 4\nassert all(y < 8 for y in meet)\nassert meet == [7.5, 7.4, 7.2, 7.0]\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "5.2",
+  "item": {
+   "title": "Interpreting a Correlation Between Temperature and Bike Rentals",
+   "calculator": "not_applicable",
+   "stimulus": "A bike-share company recorded, for each of 60 randomly selected days, the daily high temperature in degrees Fahrenheit and the number of bikes rented that day. Technology reports a correlation coefficient of r = 0.91 for these data.",
+   "parts": [
+    {
+     "prompt": "Interpret the value of r in context.",
+     "criteria": [
+      {
+       "text": "Interprets the sign of r = 0.91 as a positive association: as daily high temperature increases, number of bikes rented tends to increase.",
+       "evidence": "Response links the positive sign of r to the direction of the association in context.",
+       "fix": "Read the sign of r as direction, then restate it in context using both variable names.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that r = 0.91, which is close to 1, indicates a strong linear association between daily high temperature and number of bikes rented.",
+       "evidence": "Response says the linear association is strong because r is close to 1, naming the two variables.",
+       "fix": "Say how close r is to -1 or 1, call the linear association strong, moderate or weak, and name both variables.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A manager says, \"Because r = 0.91, a linear model is definitely appropriate for predicting number of bikes rented from daily high temperature.\" Explain why this reasoning is incomplete and what should be done before deciding that a linear model is appropriate.",
+     "criteria": [
+      {
+       "text": "States that a value of r as close to -1 or 1 as 0.91 does not by itself show that a linear model is appropriate.",
+       "evidence": "Response says a correlation coefficient near -1 or 1 does not necessarily mean a linear model is appropriate.",
+       "fix": "Remember r only measures linear association strength; a strong r can still come from a curved pattern, so r alone cannot justify a linear model.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that a residual plot (or scatterplot) should be examined for curvature or other pattern before concluding a linear model is appropriate.",
+       "evidence": "Response names a residual plot or a scatterplot as the check and says a pattern such as curvature would show the linear model is not appropriate.",
+       "fix": "Name the check: make a residual plot and look for curvature; a random scatter supports a linear model.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A manager also concludes that warmer temperatures cause more bikes to be rented. Is this conclusion justified by the correlation? Explain.",
+     "criteria": [
+      {
+       "text": "States that correlation does not imply causation, so the association does not show that warmer temperatures cause more bikes to be rented.",
+       "evidence": "Response says an association or correlation, even a strong one, does not show that one variable causes changes in the other.",
+       "fix": "Whenever a claim says one variable causes another, point out that a strong association does not establish causation.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The analysts will also measure daily high temperature in different units, in degrees Celsius instead of degrees Fahrenheit. What value of r will they find for the new measurements? Explain.",
+     "criteria": [
+      {
+       "text": "States that r would still be 0.91 after measuring temperature in degrees Celsius instead of degrees Fahrenheit because r is unit-free.",
+       "evidence": "Response says r is unchanged and gives unit-free (not affected by the units of measurement) as the reason.",
+       "fix": "Recall that r has no units, so changing the units of either variable by a positive-slope conversion leaves r unchanged.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The correlation r = 0.91 is positive, so as daily high temperature increases, number of bikes rented tends to increase. Because r is close to 1, the linear association between daily high temperature and number of bikes rented is strong.\n\n(b) A value of r close to -1 or 1 does not necessarily mean a linear model is appropriate. The data could follow a curved pattern even when r is large. The analysts should look at a residual plot (or a scatterplot) and check for curvature or another pattern before deciding.\n\n(c) No. Correlation does not imply causation. The strong association does not show that warmer temperatures cause more bikes to be rented; other variables could account for the pattern.\n\n(d) The new r will still be 0.91. The correlation coefficient is unit-free, so changing the units of measurement (measuring temperature in degrees Celsius instead of degrees Fahrenheit) does not change r.",
+   "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nr = 0.91\nassert -1 <= r <= 1 and abs(r) > 0.8\nassert (r < 0) == False\nxs = [40, 52, 61, 70, 78, 85, 91]\nys = [210, 305, 330, 420, 515, 560, 640]\nr1 = reg(xs, ys)[2]\nr2 = reg([5/9 * x for x in xs], ys)[2]\nassert abs(r1 - r2) < 1e-12\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "5.3",
+  "item": {
+   "title": "Predicting Used-Car Prices From Age",
+   "calculator": "permitted",
+   "stimulus": "A used-car dealer fit a least-squares regression line to the asking prices of 20 cars of the same model. The cars were between 2 and 9 years old. The regression equation, found using technology, is ŷ = 27.4 − 1.9x, where x is the age of the car in years and ŷ is the predicted asking price in thousands of dollars.",
+   "parts": [
+    {
+     "prompt": "Use the model to predict the asking price of a car that is 6 years old. Is this prediction an interpolation or an extrapolation? Explain.",
+     "criteria": [
+      {
+       "text": "Substitutes x = 6 into ŷ = 27.4 − 1.9x and gets a predicted value of 16.0 thousand dollars.",
+       "evidence": "Response replaces x with 6 in the regression equation and reports 16.0 thousand dollars.",
+       "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+       "accepted_variants": [
+        "16.0",
+        "16",
+        "$16,000"
+       ]
+      },
+      {
+       "text": "Classifies the prediction at 6 years as interpolation because 6 is within the interval of age values (2 to 9 years) used to fit the line.",
+       "evidence": "Response says interpolation and compares 6 with the fitted interval of 2 to 9 years.",
+       "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use the model to predict the asking price of a car that is 13 years old. Is this prediction an interpolation or an extrapolation? Explain.",
+     "criteria": [
+      {
+       "text": "Substitutes x = 13 into ŷ = 27.4 − 1.9x and gets a predicted value of 2.7 thousand dollars.",
+       "evidence": "Response replaces x with 13 in the regression equation and reports 2.7 thousand dollars.",
+       "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+       "accepted_variants": [
+        "2.7",
+        "$2,700"
+       ]
+      },
+      {
+       "text": "Classifies the prediction at 13 years as extrapolation because 13 is beyond the interval of age values (2 to 9 years) used to fit the line.",
+       "evidence": "Response says extrapolation and compares 13 with the fitted interval of 2 to 9 years.",
+       "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Which of your two predictions is more reliable? Explain.",
+     "criteria": [
+      {
+       "text": "States that the prediction at 6 years is more reliable than the prediction at 13 years, because 13 is extrapolation and predictions get less reliable the further age is beyond the data.",
+       "evidence": "Response chooses the interpolated prediction as more reliable and gives extrapolation beyond the observed values as the reason.",
+       "fix": "Say which prediction is inside the data range, and explain that extrapolated predictions become less reliable the farther they go beyond it.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) ŷ = 27.4 − 1.9x with x = 6 gives ŷ = 16.0 thousand dollars. This is interpolation, because 6 years is within the interval of age values, 2 to 9 years, used to fit the line.\n\n(b) With x = 13, ŷ = 2.7 thousand dollars. This is extrapolation, because 13 years is beyond the interval of age values, 2 to 9 years, used to fit the line.\n\n(c) The prediction at 6 years is more reliable. The prediction at 13 years is extrapolation, and predictions become less reliable the further age is beyond the data.",
+   "verification_python": "a = 27.4\nb = -1.9\nlo, hi = 2, 9\nxn, xf = 6, 13\nyn = a + b * xn\nyf = a + b * xf\nassert abs(yn - 16.0) < 1e-9\nassert abs(yf - 2.7) < 1e-9\nassert lo <= xn <= hi\nassert xf > hi\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "5.4",
+  "item": {
+   "title": "Residuals for a Model Predicting Weekly Sales From Advertising",
+   "calculator": "permitted",
+   "stimulus": "A retailer fit a least-squares regression line to data from 24 weeks. The regression equation, found using technology, is ŷ = 38.4 + 7.2x, where x is the number of radio advertisements aired during the week and ŷ is the predicted weekly sales in thousands of dollars.",
+   "parts": [
+    {
+     "prompt": "For the week with 5 advertisements, the observed weekly sales was 80.5 thousand dollars. Calculate the residual for this week.",
+     "criteria": [
+      {
+       "text": "Substitutes x = 5 into ŷ = 38.4 + 7.2x and gets a predicted value of 74.4 thousand dollars.",
+       "evidence": "Response replaces x with 5 in the regression equation and reports 74.4 thousand dollars.",
+       "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+       "accepted_variants": [
+        "74.4"
+       ]
+      },
+      {
+       "text": "Calculates the residual as observed minus predicted: 80.5 - 74.4 = 6.1 thousand dollars.",
+       "evidence": "Response subtracts the predicted value from the observed value 80.5 and reports 6.1 thousand dollars.",
+       "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+       "accepted_variants": [
+        "6.1"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the residual you calculated in context.",
+     "criteria": [
+      {
+       "text": "States that because the residual is positive, the model underpredicts the response for this observation.",
+       "evidence": "Response links the positive residual to the model underpredicts (observed value is above the predicted value).",
+       "fix": "Link the sign: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Interprets the size in context: for the week with 5 advertisements, the observed weekly sales is about 6.1 thousand dollars above the predicted value.",
+       "evidence": "Response states the difference of about 6.1 thousand dollars between observed and predicted weekly sales for the week with 5 advertisements.",
+       "fix": "Restate the residual as a gap between observed and predicted values, with units and the specific case named.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A residual plot of the residuals against the predicted weekly sales for the linear model shows a U-shaped pattern, with positive residuals at both ends and negative residuals in the middle. What does this pattern suggest about the linear model, and what would an appropriate residual plot look like?",
+     "criteria": [
+      {
+       "text": "States that the U-shaped pattern (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+       "evidence": "Response identifies the pattern as curvature and concludes the linear model is not the most appropriate.",
+       "fix": "Treat a curved pattern in the residual plot as evidence against a linear model; do not call it random scatter.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that apparent randomness (no pattern) in a residual plot would indicate the linear regression model is appropriate.",
+       "evidence": "Response names no pattern or random scatter as the residual-plot evidence that the linear model is appropriate.",
+       "fix": "Say what a good residual plot looks like: points scattered randomly with no curve or other pattern, supporting the linear model.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) ŷ = 38.4 + 7.2x with x = 5 gives ŷ = 74.4 thousand dollars. The residual is observed minus predicted: 80.5 − 74.4 = 6.1 thousand dollars.\n\n(b) The residual is positive, so the model underpredicts the weekly sales for this week: the observed value is above the predicted value. For the week with 5 advertisements, the observed weekly sales is about 6.1 thousand dollars above the predicted value.\n\n(c) The U-shaped pattern is curvature, which suggests the linear model is not the most appropriate model for the data. If the linear model were appropriate, the residual plot would show apparent randomness, with no pattern.",
+   "verification_python": "a = 38.4\nb = 7.2\nx0, y0 = 5, 80.5\nyh = a + b * x0\nassert abs(yh - 74.4) < 1e-9\ne = y0 - yh\nassert abs(e - 6.1) < 1e-9\nassert (e > 0) == True\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "5.5",
+  "item": {
+   "title": "Interpreting a Regression Line for Hot Chocolate Sales",
+   "calculator": "permitted",
+   "stimulus": "A café owner recorded the outdoor temperature at noon and the number of cups of hot chocolate sold that day for 40 days when the noon temperature was between 30°F and 70°F. Technology gives the least-squares regression line ŷ = 312.4 − 3.8x, where x is the noon temperature in degrees Fahrenheit and ŷ is the predicted number of cups sold, and gives r² = 0.81.",
+   "parts": [
+    {
+     "prompt": "Interpret the slope of the regression line in context.",
+     "criteria": [
+      {
+       "text": "Interprets the slope in context: for each one-degree Fahrenheit increase in noon temperature, the predicted number of cups sold decreases by about 3.8 cups.",
+       "evidence": "Response says the predicted number of cups sold decreases by about 3.8 cups per one-degree Fahrenheit increase in noon temperature.",
+       "fix": "Use the pattern: for each one-unit increase in x, the predicted y increases or decreases by the slope, with units and context.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Can the y-intercept of the regression line be given a reasonable interpretation in this context? Explain.",
+     "criteria": [
+      {
+       "text": "States that the y-intercept 312.4 is the predicted number of cups sold when noon temperature is 0.",
+       "evidence": "Response identifies 312.4 as the predicted number of cups sold at noon temperature = 0.",
+       "fix": "Define the y-intercept as the predicted response when the explanatory variable equals 0, naming both variables.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that this intercept should not be interpreted because noon temperature = 0 is outside the interval of values used to fit the line (30 to 70 degrees Fahrenheit), so it is extrapolation.",
+       "evidence": "Response says the intercept has no reasonable interpretation because 0 is beyond the range 30 to 70 degrees Fahrenheit (extrapolation).",
+       "fix": "Check whether x = 0 lies inside the observed x-values; if not, the intercept comes from extrapolation and has no meaningful interpretation.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the value of r² in context.",
+     "criteria": [
+      {
+       "text": "Interprets r² = 0.81: about 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.",
+       "evidence": "Response states that about 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.",
+       "fix": "Write r² as a percent and say that share of the variation in the response is explained by the linear relationship with x.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "For these data the mean noon temperature is x̅ = 50 degrees Fahrenheit and the mean number of cups sold is ȳ = 122.4 cups. Show that the regression line passes through the point (x̅, ȳ).",
+     "criteria": [
+      {
+       "text": "Shows that substituting x̅ = 50 into ŷ = 312.4 − 3.8x gives 122.4, the mean of y, so the line passes through (x̅, ȳ).",
+       "evidence": "Response substitutes x = 50 into the equation, gets 122.4, and says this equals the mean response, so the line passes through the means.",
+       "fix": "Substitute the mean of x into the regression equation; getting the mean of y confirms the least-squares line passes through (mean x, mean y).",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) For each one-degree Fahrenheit increase in noon temperature, the predicted number of cups sold decreases by about 3.8 cups.\n\n(b) The y-intercept, 312.4, is the predicted number of cups sold when noon temperature is 0. It should not be interpreted, because noon temperature = 0 is outside the interval of values used to fit the line (30 to 70 degrees Fahrenheit); this would be extrapolation.\n\n(c) About 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.\n\n(d) Substituting x = 50 into ŷ = 312.4 − 3.8x gives ŷ = 312.4 − 3.8(50) = 122.4, which equals ȳ. So the least-squares line passes through (x̅, ȳ).",
+   "verification_python": "a = 312.4\nb = -3.8\nlo, hi = 30, 70\nxbar, ybar = 50, 122.4\nr2 = 0.81\nassert abs(a + b * xbar - ybar) < 1e-9\nassert round(r2 * 100) == 81\nassert not (lo <= 0 <= hi)\nassert round(abs(b), 1) == 3.8\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ }
+]

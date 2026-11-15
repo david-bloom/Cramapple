@@ -1,5 +1,6 @@
-import re,json,sys
-SRC="/Users/davidbloom/Documents/Cramapple.nosync/output/stats_unit2_replacement_seeds_draft.md"
+import re,json,sys,os
+HERE=os.path.dirname(os.path.abspath(__file__))
+SRC=os.path.join(HERE,"source_draft.md")
 lines=open(SRC).read().split("\n")
 items=[];cur=None;topic=None;mode=None
 TOP={"2.4":"2.4","2.5":"2.5","2.6":"2.6","2.7":"2.7","2.9":"2.9","2.10":"2.10"}
@@ -52,7 +53,7 @@ while i<len(lines):
         cur["stem_lines"].append(L.strip())
     i+=1
 flush()
-json.dump(items,open("parsed.json","w"),indent=1,ensure_ascii=False)
+json.dump(items,open(os.path.join(HERE,"parsed.json"),"w"),indent=1,ensure_ascii=False)
 bad=[x["id"] for x in items if len(x["choices"])!=4 or sum(c["ok"] for c in x["choices"])!=1]
 print(len(items),"bad:",bad)
 print(sum(1 for x in items if x["seed"]),"seeds")

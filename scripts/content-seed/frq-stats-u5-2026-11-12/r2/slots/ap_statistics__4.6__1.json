@@ -1,0 +1,347 @@
+{
+ "id": "ap_statistics__4.6__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.6",
+  "topic_title": "Sampling Distributions for the Difference Between Two Sample Means",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T22:15:41.667Z",
+   "source": "given",
+   "item": {
+    "title": "Direction, Probability and Sample Size for a Difference in Mean Commute Times",
+    "calculator": "permitted",
+    "stimulus": "Commute times (in minutes) in City A have a mean of 34 and a standard deviation of 8. Commute times in City B have a mean of 30 and a standard deviation of 6. A researcher takes independent random samples of 40 commuters from City A and 45 commuters from City B, each far smaller than 10% of the commuters in its city. Let x̄₁ be the mean for City A and x̄₂ the mean for City B.",
+    "parts": [
+     {
+      "prompt": "Find the mean and the standard deviation of the sampling distribution of x̄₁ − x̄₂, the difference between the two sample means.",
+      "criteria": [
+       {
+        "text": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 4 minutes.",
+        "evidence": "Response gives 4 minutes as the mean of the sampling distribution of the difference in sample means.",
+        "fix": "The sampling distribution of x̄₁ − x̄₂ is centered at μ₁ − μ₂; subtract the second mean from the first.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(8²/40 + 6²/45) = 1.549 minutes.",
+        "evidence": "Response adds the two variances divided by their sample sizes, takes the square root, and reports about 1.549 minutes.",
+        "fix": "Add the two variance-over-sample-size terms before taking the square root; do not subtract or add the standard deviations.",
+        "accepted_variants": [
+         "1.55"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Is the sampling distribution of x̄₁ − x̄₂ approximately normal? Justify your answer.",
+      "criteria": [
+       {
+        "text": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.",
+        "evidence": "Response says the sampling distribution is approximately normal and gives the reason: independent random samples and both sample sizes at least 30.",
+        "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the probability that the sample mean commute time for City B exceeds the sample mean commute time for City A.",
+      "criteria": [
+       {
+        "text": "Finds the probability that the mean commute time of the City B sample exceeds the mean commute time of the City A sample: the probability is about 0.0049, using a normal distribution with mean 4 and standard deviation 1.549 (for example, z = (0 − 4)/1.549 = −2.58).",
+        "evidence": "Response uses the mean 4 and standard deviation 1.549 of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about 0.0049.",
+        "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+        "accepted_variants": [
+         "0.005",
+         "0.49%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Suppose the researcher instead takes independent random samples of the same size n from each city. What is the smallest n for which the standard deviation of x̄₁ − x̄₂ is at most 0.8 minutes?",
+      "criteria": [
+       {
+        "text": "Solves √(8²/n + 6²/n) ≤ 0.8 for a common sample size: n ≥ 156.25, so n = 157.",
+        "evidence": "Response sets the standard deviation of x̄₁ − x̄₂ at most 0.8, solves for n, and rounds up to n = 157.",
+        "fix": "Write the SD formula with the same n for both samples, set it at most the target, solve for n, and round up.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The mean is μ₁ − μ₂ = 34 − 30 = 4 minutes. The standard deviation is √(8²/40 + 6²/45) = 1.549 minutes.\n\n(b) Yes. The sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.\n\n(c) The mean commute time of the City B sample exceeds the mean commute time of the City A sample means x̄₁ − x̄₂ is less than 0. z = (0 − 4)/1.549 = −2.58, so the probability is about 0.0049.\n\n(d) √(8²/n + 6²/n) ≤ 0.8 gives (64 + 36)/n ≤ 0.64, so n ≥ 156.25. The smallest n is 157.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nm1, s1, n1, m2, s2, n2 = 34, 8, 40, 30, 6, 45\nmd = m1 - m2\nsd = math.sqrt(s1 ** 2 / n1 + s2 ** 2 / n2)\nassert md == 4 and round(sd, 3) == 1.549\nz = (0 - md) / sd\nassert round(z, 2) == -2.58\np = ncdf(z)\nassert round(p, 4) == 0.0049\ntg = 0.8\nn_ans = math.ceil((s1 ** 2 + s2 ** 2) / tg ** 2 - 1e-9)\nassert n_ans == 157\nassert math.sqrt((s1 ** 2 + s2 ** 2) / n_ans) <= tg < math.sqrt((s1 ** 2 + s2 ** 2) / (n_ans - 1))\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     4
+    ],
+    "unitCount": {
+     "2": 6,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d) does not establish that the enlarged samples satisfy the 10% condition. The condition given for samples of 40 and 45 does not explicitly guarantee it for samples of 157. State that each city's commuter population is at least 1,570, or that the new samples also satisfy the 10% condition.",
+       "solution: The numerical results agree: mean 4 minutes, standard deviation √2.4 ≈ 1.549 minutes, approximately normal sampling distribution, probability approximately 0.0049, and the sample-size calculation yields 157 per city. However, the part (d) result requires the enlarged samples to satisfy the 10% condition; the independent solution acknowledges this additional assumption, whereas the question and rubric do not establish it."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) does not establish that the enlarged samples satisfy the 10% condition. The condition given for samples of 40 and 45 does not explicitly guarantee it for samples of 157. State that each city's commuter population is at least 1,570, or that the new samples also satisfy the 10% condition."
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The numerical results agree: mean 4 minutes, standard deviation √2.4 ≈ 1.549 minutes, approximately normal sampling distribution, probability approximately 0.0049, and the sample-size calculation yields 157 per city. However, the part (d) result requires the enlarged samples to satisfy the 10% condition; the independent solution acknowledges this additional assumption, whereas the question and rubric do not establish it.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Direction, Probability and Sample Size for a Difference in Mean Commute Times",
+   "calculator": "permitted",
+   "stimulus": "Commute times (in minutes) in City A have a mean of 34 and a standard deviation of 8. Commute times in City B have a mean of 30 and a standard deviation of 6. A researcher takes independent random samples of 40 commuters from City A and 45 commuters from City B, each far smaller than 10% of the commuters in its city. Let x̄₁ be the mean for City A and x̄₂ the mean for City B.",
+   "parts": [
+    {
+     "prompt": "Find the mean and the standard deviation of the sampling distribution of x̄₁ − x̄₂, the difference between the two sample means.",
+     "criteria": [
+      {
+       "text": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 4 minutes.",
+       "evidence": "Response gives 4 minutes as the mean of the sampling distribution of the difference in sample means.",
+       "fix": "The sampling distribution of x̄₁ − x̄₂ is centered at μ₁ − μ₂; subtract the second mean from the first.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(8²/40 + 6²/45) = 1.549 minutes.",
+       "evidence": "Response adds the two variances divided by their sample sizes, takes the square root, and reports about 1.549 minutes.",
+       "fix": "Add the two variance-over-sample-size terms before taking the square root; do not subtract or add the standard deviations.",
+       "accepted_variants": [
+        "1.55"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Is the sampling distribution of x̄₁ − x̄₂ approximately normal? Justify your answer.",
+     "criteria": [
+      {
+       "text": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.",
+       "evidence": "Response says the sampling distribution is approximately normal and gives the reason: independent random samples and both sample sizes at least 30.",
+       "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the probability that the sample mean commute time for City B exceeds the sample mean commute time for City A.",
+     "criteria": [
+      {
+       "text": "Finds the probability that the mean commute time of the City B sample exceeds the mean commute time of the City A sample: the probability is about 0.0049, using a normal distribution with mean 4 and standard deviation 1.549 (for example, z = (0 − 4)/1.549 = −2.58).",
+       "evidence": "Response uses the mean 4 and standard deviation 1.549 of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about 0.0049.",
+       "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+       "accepted_variants": [
+        "0.005",
+        "0.49%"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Suppose the researcher instead takes independent random samples of the same size n from each city. What is the smallest n for which the standard deviation of x̄₁ − x̄₂ is at most 0.8 minutes?",
+     "criteria": [
+      {
+       "text": "Solves √(8²/n + 6²/n) ≤ 0.8 for a common sample size: n ≥ 156.25, so n = 157.",
+       "evidence": "Response sets the standard deviation of x̄₁ − x̄₂ at most 0.8, solves for n, and rounds up to n = 157.",
+       "fix": "Write the SD formula with the same n for both samples, set it at most the target, solve for n, and round up.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The mean is μ₁ − μ₂ = 34 − 30 = 4 minutes. The standard deviation is √(8²/40 + 6²/45) = 1.549 minutes.\n\n(b) Yes. The sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.\n\n(c) The mean commute time of the City B sample exceeds the mean commute time of the City A sample means x̄₁ − x̄₂ is less than 0. z = (0 − 4)/1.549 = −2.58, so the probability is about 0.0049.\n\n(d) √(8²/n + 6²/n) ≤ 0.8 gives (64 + 36)/n ≤ 0.64, so n ≥ 156.25. The smallest n is 157.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nm1, s1, n1, m2, s2, n2 = 34, 8, 40, 30, 6, 45\nmd = m1 - m2\nsd = math.sqrt(s1 ** 2 / n1 + s2 ** 2 / n2)\nassert md == 4 and round(sd, 3) == 1.549\nz = (0 - md) / sd\nassert round(z, 2) == -2.58\np = ncdf(z)\nassert round(p, 4) == 0.0049\ntg = 0.8\nn_ans = math.ceil((s1 ** 2 + s2 ** 2) / tg ** 2 - 1e-9)\nassert n_ans == 157\nassert math.sqrt((s1 ** 2 + s2 ** 2) / n_ans) <= tg < math.sqrt((s1 ** 2 + s2 ** 2) / (n_ans - 1))\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items_r2.py), round 2 difficulty rewrite, 2026-11-12",
+  "at": "2026-11-12T22:15:40.904819Z"
+ },
+ "accepted_round": 1
+}

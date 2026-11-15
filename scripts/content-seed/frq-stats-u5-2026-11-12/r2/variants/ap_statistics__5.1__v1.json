@@ -1,0 +1,199 @@
+{
+ "id": "ap_statistics__5.1__v1",
+ "parent": "ap_statistics__5.1__1",
+ "parent_status": "accepted",
+ "topic_code": "5.1",
+ "item": {
+  "title": "Driving Speed and Fuel Use: Describing a Curved Association",
+  "calculator": "not_applicable",
+  "stimulus": "An engineer drove the same car at 12 steady speeds, in kilometers per hour, and recorded the fuel use, in liters per 100 kilometers, at each speed.\n\nSpeed (km per hour) | Fuel use (liters per 100 km)\n30 | 11.1\n40 | 9.0\n50 | 7.4\n60 | 6.4\n70 | 5.9\n80 | 5.9\n90 | 6.4\n100 | 7.4\n110 | 9.0\n120 | 11.1\n130 | 13.7\n140 | 16.8",
+  "parts": [
+   {
+    "prompt": "Describe the association between driving speed and fuel use that a scatterplot of these data would show. Address form, direction and strength, in context.",
+    "criteria": [
+     {
+      "text": "Describes the form of the association as non-linear (a curve that falls and then rises).",
+      "evidence": "Response states the form of the association as non-linear (a curve that falls and then rises).",
+      "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that the direction changes: the association is negative for driving speed below about 75 km per hour and positive for larger values.",
+      "evidence": "Response says the direction changes near 75 km per hour, negative before and positive after, in context.",
+      "fix": "Read the table from left to right and say where the response variable switches from rising to falling, or the reverse.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that the association is strong because all of the points lie close to one smooth curve.",
+      "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+      "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "A classmate says, \"The association is weak, because the points do not stay close to a straight line.\" Is the classmate correct? Explain.",
+    "criteria": [
+     {
+      "text": "States that the claim that the association is weak because the points do not stay close to a straight line is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.",
+      "evidence": "Response rejects the claim and says strength is judged by how closely the points follow the overall pattern, including a curved one.",
+      "fix": "Judge strength by how closely the points follow the general pattern, whether straight or curved, not by how close they are to a line.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Claim 1 (driver): driving faster always increases fuel use per 100 km. Claim 2 (engineer): every speed above 100 km per hour uses more fuel per 100 km than every speed from 50 to 80 km per hour. For each claim, state whether the data table supports it, and justify your answer using values from the table.",
+    "criteria": [
+     {
+      "text": "Concludes the claim is not supported: fuel use falls as speed increases up to about 70 to 80 km per hour (11.1 liters at 30 km per hour versus 5.9 liters at 70 km per hour) before it rises.",
+      "evidence": "Response says the claim is not supported and cites values from the table, such as 11.1 liters per 100 km at 30 km per hour versus 5.9 at 70 km per hour.",
+      "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Concludes Claim 2 is supported: the lowest fuel use above 100 km per hour is 9.0 liters per 100 km, which is above the highest fuel use (7.4 liters) from 50 to 80 km per hour.",
+      "evidence": "Response says Claim 2 is supported and shows every fuel use above 100 km per hour (9.0 to 16.8) is above every fuel use from 50 to 80 km per hour (7.4 or lower), for example by comparing the lowest of the first group (9.0) with the highest of the second (7.4).",
+      "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) Form: the association is non-linear; the points follow a curve (falling then rising). Direction: it changes; the association is negative for driving speed below about 75 km per hour and positive for larger values. Strength: strong, because the points follow a single curved pattern closely.\n\n(b) No. Strength describes how closely the points follow the general pattern, which can be curved. These points follow a curve closely, so the association is strong even though it is not close to a straight line.\n\n(c) Claim 1: Concludes the claim is not supported: fuel use falls as speed increases up to about 70 to 80 km per hour (11.1 liters at 30 km per hour versus 5.9 liters at 70 km per hour) before it rises. Claim 2: Concludes Claim 2 is supported: the lowest fuel use above 100 km per hour is 9.0 liters per 100 km, which is above the highest fuel use (7.4 liters) from 50 to 80 km per hour.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nxs = [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140]\nys = [11.1, 9.0, 7.4, 6.4, 5.9, 5.9, 6.4, 7.4, 9.0, 11.1, 13.7, 16.8]\npk = 4\nf = lambda x: 5.8 + 0.0026 * (x - 75) ** 2\nassert max(abs(y - f(x)) for x, y in zip(xs, ys)) <= 0.51\nassert all(ys[i] >= ys[i + 1] for i in range(pk))\nassert all(ys[i] <= ys[i + 1] for i in range(pk, len(ys) - 1))\nassert ys[0] > ys[4] and xs[0] < xs[4]\nassert min(y for x, y in zip(xs, ys) if x > 100) > max(y for x, y in zip(xs, ys) if 50 <= x <= 80)\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T22:43:57.906Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"SCATTER_FORM\",\"SCATTER_DIR_MIXED\",\"SCATTER_STRENGTH\"],[\"ERR_STRENGTH_LINE\"],[\"SCATTER_CLAIM\",\"SCATTER_CLAIM\"]]",
+  "child_order": "[[\"SCATTER_FORM\",\"SCATTER_DIR_MIXED\",\"SCATTER_STRENGTH\"],[\"ERR_STRENGTH_LINE\"],[\"SCATTER_CLAIM\",\"SCATTER_CLAIM\"]]",
+  "child_pattern": [
+   [
+    "SCATTER_FORM",
+    "SCATTER_DIR_MIXED",
+    "SCATTER_STRENGTH"
+   ],
+   [
+    "ERR_STRENGTH_LINE"
+   ],
+   [
+    "SCATTER_CLAIM",
+    "SCATTER_CLAIM"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [3,1,2], variant [3,1,2]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"SCATTER_FORM\",\"SCATTER_DIR_MIXED\",\"SCATTER_STRENGTH\"],[\"ERR_STRENGTH_LINE\"],[\"SCATTER_CLAIM\",\"SCATTER_CLAIM\"]]\nPart a prompt changed.\nCriterion a1 (SCATTER_FORM): wording and values changed\nCriterion a2 (SCATTER_DIR_MIXED): wording and values changed\nCriterion a3 (SCATTER_STRENGTH): identical wording\nCriterion b1 (ERR_STRENGTH_LINE): identical wording\nPart c prompt changed.\nCriterion c1 (SCATTER_CLAIM): wording and values changed\nCriterion c2 (SCATTER_CLAIM): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from students’ study time and test scores to one car’s driving speed and fuel use, with 12 new data pairs and new units. The curve now falls and then rises rather than rising and then falling. The direction-change location and both claims’ numerical evidence change; Claim 2 now compares a high-speed group’s minimum with a middle-speed group’s maximum. The parts, scoring structure, and strength reasoning remain unchanged.",
+     "numbers_recomputed": "The table contains 12 speeds, matching the setup. Minimum fuel use is 5.9 liters per 100 km at both 70 and 80 km per hour; their midpoint is (70 + 80)/2 = 75 km per hour, consistent with the approximate direction-change location in a2. Fuel use decreases before this minimum region and increases afterward. For c1, the table gives 11.1 liters per 100 km at 30 km per hour and 5.9 at 70 km per hour, matching the cited counterexample. For c2, speeds strictly above 100 are 110, 120, 130, and 140, with fuel uses 9.0, 11.1, 13.7, and 16.8; their minimum is 9.0 and maximum is 16.8. Speeds from 50 through 80 have fuel uses 7.4, 6.4, 5.9, and 5.9; their maximum is 7.4. Thus 9.0 > 7.4, as stated. All changed-dependent rubric numbers match.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Context changed from study time/test score to driving speed/fuel use; all 12 data pairs were replaced; the curve shape was inverted from rising-then-falling to falling-then-rising; the direction-change point changed from about 3.5 hours to about 75 km/h; the two claims in part (c) were reworded to driver/engineer claims with new comparison values.",
+     "numbers_recomputed": "Fuel use values at 30, 40, ..., 140 km/h are 11.1, 9.0, 7.4, 6.4, 5.9, 5.9, 6.4, 7.4, 9.0, 11.1, 13.7, 16.8 L/100 km. Minimum fuel use is 5.9 at 70 and 80 km/h, so a switch near 75 km/h is reasonable. Claim 1: 11.1 at 30 km/h vs 5.9 at 70 km/h shows fuel use falls, so the claim is not supported. Claim 2: speeds above 100 km/h have fuel use 9.0, 11.1, 13.7, 16.8; speeds 50-80 km/h have fuel use 7.4, 6.4, 5.9, 5.9; lowest above 100 is 9.0, highest from 50 to 80 is 7.4, so the claim is supported. All recomputed numbers match the variant rubric and model answer.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

@@ -11,6 +11,8 @@ import { DeepDiveGate, DEEP_DIVE_HINT } from './parts/DeepDiveGate.jsx';
 import { Stem } from './parts/Stem.jsx';
 import { eyebrow, body } from './parts/text.js';
 import { useSession, useHints } from '../session/SessionProvider.jsx';
+import { useSearchParams } from 'react-router-dom';
+import { useCoachStub } from '../session/coachStub.js';
 import { gradeFrq } from '../session/grade.js';
 
 /**
@@ -18,12 +20,14 @@ import { gradeFrq } from '../session/grade.js';
  * student's own work is scored, and one submission closes the attempt.
  */
 export function PracticeFrqScreen({ question, onNext }) {
-  const { attempts, recordAttempt } = useSession();
-  // The deep dive is costed help in Practice, so it joins the hint list and
+  const { attempts, recordAttempt, rateFeedback } = useSession();
+  const [searchParams] = useSearchParams();
+  // The cheat sheet is costed help in Practice, so it joins the hint list and
   // its receipt lands on the feedback card with the rest.
   const hints = useHints(question.package_id, [...question.hints, DEEP_DIVE_HINT]);
   const attempt = attempts[question.package_id];
   const submitted = Boolean(attempt && attempt.mode === 'practice');
+  const coach = useCoachStub(searchParams.get('coachdemo') === '1', submitted);
 
   const [text, setText] = useState(attempt?.response || '');
   const rubricHint = question.hints.find((h) => h.kind === 'rubric');
@@ -169,6 +173,9 @@ export function PracticeFrqScreen({ question, onNext }) {
                   earned={attempt.earned}
                   total={attempt.total}
                   coaching={attempt.coaching}
+                  coach={coach}
+                  rating={attempt.feedbackRating ? attempt.feedbackRating.value : null}
+                  onRate={(n) => rateFeedback(question.package_id, n, coach && coach.status === 'ready' ? 'coaching' : 'composed')}
                   hintsUsed={attempt.hintsUsed}
                   submitted={attempt.response}
                   submittedLabel="Your answer"
@@ -183,7 +190,7 @@ export function PracticeFrqScreen({ question, onNext }) {
                   ? <ActionButton variant="primary" onClick={onNext}>Next question</ActionButton>
                   : <ActionButton variant="primary" disabled={text.trim().length === 0} onClick={submit}>Submit answer</ActionButton>}
                 secondary={submitted
-                  ? <ActionButton variant="link" onClick={openDeepDive}>Open the deep dive</ActionButton>
+                  ? <ActionButton variant="link" onClick={openDeepDive}>Open the cheat sheet</ActionButton>
                   : <ActionButton variant="link" onClick={onNext}>Skip for now</ActionButton>}
               />
             </div>

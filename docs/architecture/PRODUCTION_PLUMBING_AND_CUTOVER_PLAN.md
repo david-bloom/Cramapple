@@ -1,5 +1,10 @@
 # Cramapple Production Plumbing and Cutover Plan
 
+> **STATUS: CURRENT except where noted — PARTIALLY STALE (reviewed 2026-11-09).**
+> Environment-separation and rollback principles, and the Stripe/entitlement sections that `TASK-0023` and `supabase/functions/_shared/stripe-catalog.ts` still cite, remain useful as background.
+> **Stale in this doc:** the "Vercel owns application delivery and server-side orchestration" operating principle (no Vercel config in the repo; frontend ships via Lovable per DECISION-0075 D6), and any cutover steps already executed or overtaken (TASK-0012 still says In Progress; per-step status not re-verified).
+> Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075) or live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Status:** Draft for production plumbing
 **Date:** 2026-06-20
 **Project:** `pcntajvbdfqhbeewmdry`

@@ -1,0 +1,17 @@
+# APPROVAL-0287 — AP Biology Unit 5 topic-by-topic Production publication (owner directed)
+
+Record ID assigned on PR #659 merge reconciliation: the branch originally used APPROVAL-0280, which `main` had independently assigned to the Physics 2 topic-cell action. The owner direction and Production execution described here are unchanged.
+
+David directed authoring and publishing Biology Unit 5 after the Calculus work, with each completed topic published without waiting for the full unit or another permission request. His explicit instruction supersedes the old releveling handoff's stop-before-Production step and per-batch reapproval rule for this named scope. His one-time exception permits the two-model blind solve and two-model tier audit for these Unit 5 batches instead of the standing four-checker/planted-control gate. This record covers Biology Unit 5 topics 5.1–5.5 only. Each concrete package and before/after counts must be recorded in `docs/product/BIOLOGY_UNIT5_RELEVELING_STATUS_2026_11_13.md` before execution, with observed results appended afterward.
+
+Production project `pcntajvbdfqhbeewmdry`; Biology served pack `2d88ba5e-a6a3-43b8-bfae-9e5505a178a7`. The pinned executor checks the project ref, package keys, labels, hashes, rollback rehearsal, publish result, and student selector. No Physics, Calculus, or other Biology unit is covered. No subject-expert review is claimed; tiers are uncalibrated model judgments.
+
+| Topic | Concrete package and QA | Production state |
+|---|---|---|
+| 5.1 | `apbio-harder-seeds-u5-t5_1-2026-11-13`: 12 new, 0 retired; 3 seed families; DeepSeek and Kimi 12/12 keys each; 0 R1/11 R2/1 R3 by two-model tiers; 0 duplicate/disputed-key flags. | Published. Executor passed hashes, rehearsal, labels, and selector; independent Production query verified 13/13 published and valid-serving. |
+| 5.2 | `apbio-harder-seeds-u5-t5_2-2026-11-14`: 12 new, 0 retired; one duplicate-flagged variant revised, entire package rechecked; DeepSeek and Kimi 12/12 keys each; final tiers 0 R1/9 R2/3 R3, zero duplicate/disputed-key flags. | Published. Executor passed hashes, rehearsal, labels, and selector; independent Production query verified 12/12 published and valid-serving. |
+| 5.3 | `apbio-harder-seeds-u5-t5_3-2026-11-14`: 12 new, 0 retired; DeepSeek and Kimi 12/12 keys each; final tiers 0 R1/6 R2/6 R3, zero duplicate/disputed-key flags. | Published. Executor passed hashes, rehearsal, labels, and selector; independent Production query verified 12/12 published and valid-serving. |
+| 5.4 | `apbio-harder-seeds-u5-t5_4-2026-11-14`: 12 new, 0 retired; one initial R1 seed revised and entire package rechecked; DeepSeek and Kimi 12/12 keys each; final tiers 0 R1/10 R2/2 R3, zero duplicate/disputed-key flags; four retained old items. | Published. Executor passed hashes, rehearsal, labels, and selector; independent Production query verified 16/16 published and valid-serving. |
+| 5.5 | `apbio-harder-seeds-u5-t5_5-2026-11-14`: 12 new, 0 retired; DeepSeek and Kimi 12/12 keys each; final tiers 0 R1/10 R2/2 R3, zero duplicate/disputed-key flags. | Published. Executor passed hashes, rehearsal, labels, and selector; independent Production query verified 12/12 published and valid-serving. |
+
+Final independent Production count for Biology Unit 5: 65/65 published and valid-serving across 5.1–5.5 (13, 12, 12, 16, 12); 60 new R2/R3 MCQs published and zero R1 items retired because the before audit found none.

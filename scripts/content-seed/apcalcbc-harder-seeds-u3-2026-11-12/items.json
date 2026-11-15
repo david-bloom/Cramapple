@@ -1,0 +1,1730 @@
+[
+ {
+  "src_id": "N-3.1-A",
+  "content_key": "apcalcbc-mcq-b2-h-3.1-a",
+  "family": "3.1-A",
+  "variant": null,
+  "topic": "3.1",
+  "title": "apply the chain rule to nested compositions of unspecified functions, evaluating each derivative at the correct input fr",
+  "stem": "The differentiable functions f and g have the values below.\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 2 | 3 | 5 | 4\n2 | 0 | −3 | 3 | −1\n3 | 1 | 2 | 0 | 6\nLet h(x) = f(g(f(x))). What is h′(1)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−6",
+    "is_correct": true,
+    "rationale": "Correct: h′(x) = f′(g(f(x)))·g′(f(x))·f′(x). At x = 1: f(1) = 2, g(2) = 3, so h′(1) = f′(3)·g′(2)·f′(1) = 2·(−1)·3 = −6."
+   },
+   {
+    "label": "B",
+    "text": "36",
+    "is_correct": false,
+    "rationale": "This evaluates every derivative at x = 1, but the chain rule needs f′ and g′ at the values of the inner functions."
+   },
+   {
+    "label": "C",
+    "text": "−2",
+    "is_correct": false,
+    "rationale": "This leaves out the innermost factor f′(1) from the chain rule for the three nested functions."
+   },
+   {
+    "label": "D",
+    "text": "9",
+    "is_correct": false,
+    "rationale": "This takes the outer derivative f′ at f(1) = 2 instead of at g(f(1)) = 3, so the wrong table row is used for f′."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.1-A-v1",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.1-a-v1",
+  "family": "3.1-A",
+  "variant": "1",
+  "topic": "3.1",
+  "title": "apply the chain rule to nested compositions of unspecified functions, evaluating each derivative at the correct input fr (variant 1)",
+  "stem": "The differentiable functions f and g have the values below.\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 5 | 1 | 2 | −2\n2 | −1 | 4 | 3 | 6\nLet h(x) = (f(g(x)))³. What is h′(1)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−8",
+    "is_correct": false,
+    "rationale": "This drops the outer power-rule factor 3(f(g(x)))² and keeps only f′(g(x))·g′(x)."
+   },
+   {
+    "label": "B",
+    "text": "−24",
+    "is_correct": true,
+    "rationale": "Correct: h′(x) = 3(f(g(x)))²·f′(g(x))·g′(x). At x = 1: g(1) = 2, f(2) = −1, so h′(1) = 3·1·f′(2)·g′(1) = 3·4·(−2) = −24."
+   },
+   {
+    "label": "C",
+    "text": "12",
+    "is_correct": false,
+    "rationale": "This omits the inner derivative g′(1) from the chain rule applied to f(g(x))."
+   },
+   {
+    "label": "D",
+    "text": "−6",
+    "is_correct": false,
+    "rationale": "This evaluates f′ at x = 1 instead of at g(1) = 2, so the wrong table row is used for the middle derivative."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.1-A-v2",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.1-a-v2",
+  "family": "3.1-A",
+  "variant": "2",
+  "topic": "3.1",
+  "title": "apply the chain rule to nested compositions of unspecified functions, evaluating each derivative at the correct input fr (variant 2)",
+  "stem": "The differentiable functions f and g have the values below.\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 4 | −3 | 2 | 5\n2 | 1 | 3 | 0 | −1\nLet h(x) = f(g(x²)). What is h′(1)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−30",
+    "is_correct": false,
+    "rationale": "This evaluates the outer derivative f′ at x = 1 instead of at g(1) = 2."
+   },
+   {
+    "label": "B",
+    "text": "30",
+    "is_correct": true,
+    "rationale": "Correct: h′(x) = f′(g(x²))·g′(x²)·2x. At x = 1: g(1) = 2, so h′(1) = f′(2)·g′(1)·2 = 3·5·2 = 30."
+   },
+   {
+    "label": "C",
+    "text": "15",
+    "is_correct": false,
+    "rationale": "This omits the innermost derivative 2x from the chain rule for x², so the factor 2 is missing."
+   },
+   {
+    "label": "D",
+    "text": "−6",
+    "is_correct": false,
+    "rationale": "This evaluates g′ at g(1) = 2 instead of at x² = 1, so the middle derivative is taken at the wrong input."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.1-A-v3",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.1-a-v3",
+  "family": "3.1-A",
+  "variant": "3",
+  "topic": "3.1",
+  "title": "apply the chain rule to nested compositions of unspecified functions, evaluating each derivative at the correct input fr (variant 3)",
+  "stem": "The differentiable function f has the values below.\nx | f(x) | f′(x)\n1 | 2 | 2\n2 | 3 | −1\n3 | 1 | 4\nLet h(x) = f(f(f(x))). What is h′(1)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "8",
+    "is_correct": false,
+    "rationale": "This evaluates f′ at x = 1 for all three factors, but each f′ must be taken at the value of the function inside it."
+   },
+   {
+    "label": "B",
+    "text": "5",
+    "is_correct": false,
+    "rationale": "This adds the three derivatives; the chain rule multiplies the derivatives of the nested functions."
+   },
+   {
+    "label": "C",
+    "text": "−8",
+    "is_correct": true,
+    "rationale": "Correct: h′(x) = f′(f(f(x)))·f′(f(x))·f′(x). At x = 1: f(1) = 2, f(2) = 3, so h′(1) = f′(3)·f′(2)·f′(1) = 4·(−1)·2 = −8."
+   },
+   {
+    "label": "D",
+    "text": "−4",
+    "is_correct": false,
+    "rationale": "This leaves out the innermost factor f′(1), using only the two outer derivatives."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.1-B",
+  "content_key": "apcalcbc-mcq-b2-h-3.1-b",
+  "family": "3.1-B",
+  "variant": null,
+  "topic": "3.1",
+  "title": "interpret the chain rule as a rate of change of a composite quantity, tracking sign and units.",
+  "stem": "The water level in a reservoir is L(V) meters when the stored volume is V million cubic meters. At t = 3 months the volume is V(3) = 25 million cubic meters and V′(3) = −1.5 million cubic meters per month, and L′(25) = 0.4 meters per million cubic meters. Which statement about the water level at t = 3 is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The level is falling at 0.4 meters per month.",
+    "is_correct": false,
+    "rationale": "This uses L′(25) alone and ignores how fast the volume is changing, so the chain-rule factor V′(3) is missing."
+   },
+   {
+    "label": "B",
+    "text": "The level is falling at 0.6 meters per month.",
+    "is_correct": true,
+    "rationale": "Correct: d/dt L(V(t)) = L′(V(3))·V′(3) = (0.4)(−1.5) = −0.6 meters per month, so the level is falling."
+   },
+   {
+    "label": "C",
+    "text": "The level is falling at 0.6 meters per million cubic meters.",
+    "is_correct": false,
+    "rationale": "This has the correct size but the wrong units; a rate with respect to time is in meters per month, not per volume."
+   },
+   {
+    "label": "D",
+    "text": "The level is rising at 0.6 meters per month.",
+    "is_correct": false,
+    "rationale": "This has the correct size but the wrong direction: L′(25) is positive and V′(3) is negative, so the product is negative."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.1-B-v1",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.1-b-v1",
+  "family": "3.1-B",
+  "variant": "1",
+  "topic": "3.1",
+  "title": "interpret the chain rule as a rate of change of a composite quantity, tracking sign and units. (variant 1)",
+  "stem": "The cost of producing q thousand units is C(q) million dollars. At t = 10 weeks, production is q(10) = 40 thousand units and is increasing at q′(10) = 3 thousand units per week, and C′(40) = 0.8 million dollars per thousand units. Which statement about the cost at t = 10 is correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The cost is increasing at 0.8 million dollars per week.",
+    "is_correct": false,
+    "rationale": "This uses C′(40) alone and ignores how fast production is rising, so the chain-rule factor q′(10) is missing."
+   },
+   {
+    "label": "B",
+    "text": "The cost is increasing at 2.4 million dollars per thousand units.",
+    "is_correct": false,
+    "rationale": "This has the correct size but the wrong units; the composite rate is with respect to time, so it is in million dollars per week."
+   },
+   {
+    "label": "C",
+    "text": "The cost is increasing at about 0.27 million dollars per week.",
+    "is_correct": false,
+    "rationale": "This divides C′(40) by q′(10) instead of multiplying the two rates."
+   },
+   {
+    "label": "D",
+    "text": "The cost is increasing at 2.4 million dollars per week.",
+    "is_correct": true,
+    "rationale": "Correct: d/dt C(q(t)) = C′(q(10))·q′(10) = (0.8)(3) = 2.4 million dollars per week."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.1-B-v2",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.1-b-v2",
+  "family": "3.1-B",
+  "variant": "2",
+  "topic": "3.1",
+  "title": "interpret the chain rule as a rate of change of a composite quantity, tracking sign and units. (variant 2)",
+  "stem": "The pressure on a diver is P(d) kilopascals at a depth of d meters. At t = 2 minutes the diver is at depth d(2) = 30 meters and is rising toward the surface at d′(2) = −0.5 meters per minute, and P′(30) = 10 kilopascals per meter. Which statement about the pressure at t = 2 is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The pressure is decreasing at 10 kilopascals per minute.",
+    "is_correct": false,
+    "rationale": "This uses P′(30) alone, treating the depth as changing by one meter per minute and ignoring d′(2)."
+   },
+   {
+    "label": "B",
+    "text": "The pressure is decreasing at 5 kilopascals per minute.",
+    "is_correct": true,
+    "rationale": "Correct: d/dt P(d(t)) = P′(d(2))·d′(2) = (10)(−0.5) = −5 kilopascals per minute."
+   },
+   {
+    "label": "C",
+    "text": "The pressure is increasing at 5 kilopascals per minute.",
+    "is_correct": false,
+    "rationale": "This has the correct size but the wrong direction: the depth is decreasing, so the pressure is decreasing."
+   },
+   {
+    "label": "D",
+    "text": "The pressure is decreasing at 5 kilopascals per meter.",
+    "is_correct": false,
+    "rationale": "This has the correct size but the wrong units; the rate with respect to time is in kilopascals per minute."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.1-B-v3",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.1-b-v3",
+  "family": "3.1-B",
+  "variant": "3",
+  "topic": "3.1",
+  "title": "interpret the chain rule as a rate of change of a composite quantity, tracking sign and units. (variant 3)",
+  "stem": "The number of tickets sold per week is D(p) when the price is p dollars. At t = 8 weeks the price is p(8) = 12 dollars and is falling at p′(8) = −0.5 dollars per week, and D′(12) = −30 tickets per week per dollar. Which statement about the weekly ticket sales at t = 8 is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Weekly sales are decreasing at 15 tickets per week each week.",
+    "is_correct": false,
+    "rationale": "This has the correct size but the wrong direction: both D′(12) and p′(8) are negative, so their product is positive."
+   },
+   {
+    "label": "B",
+    "text": "Weekly sales are increasing at 15 tickets per week each week.",
+    "is_correct": true,
+    "rationale": "Correct: d/dt D(p(t)) = D′(12)·p′(8) = (−30)(−0.5) = +15 tickets per week each week, so sales are increasing."
+   },
+   {
+    "label": "C",
+    "text": "Weekly sales are decreasing at 30 tickets per week each week.",
+    "is_correct": false,
+    "rationale": "This uses D′(12) alone and ignores that the price is changing, so the factor p′(8) is missing."
+   },
+   {
+    "label": "D",
+    "text": "Weekly sales are increasing at 15 tickets per week per dollar.",
+    "is_correct": false,
+    "rationale": "This has the correct size but the wrong units; the composite rate is with respect to time, not price."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.2-A",
+  "content_key": "apcalcbc-mcq-b2-h-3.2-a",
+  "family": "3.2-A",
+  "variant": null,
+  "topic": "3.2",
+  "title": "locate points of horizontal tangency on an implicitly defined curve by setting the numerator of dy/dx to zero and substi",
+  "stem": "At which points does the graph of x² + xy + y² = 12 have a horizontal tangent line?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(2, −4) and (−2, 4)",
+    "is_correct": true,
+    "rationale": "Correct: Differentiating gives dy/dx = −(2x + y)/(x + 2y). Horizontal tangents need 2x + y = 0, so y = −2x; substituting gives 3x² = 12, x = ±2, and the points are (2, −4) and (−2, 4), where x + 2y ≠ 0."
+   },
+   {
+    "label": "B",
+    "text": "(−4, 2) and (4, −2)",
+    "is_correct": false,
+    "rationale": "These are the points where the denominator x + 2y is zero, so the tangent is vertical; a horizontal tangent needs the numerator 2x + y to be zero."
+   },
+   {
+    "label": "C",
+    "text": "(2, 2) and (−2, −2)",
+    "is_correct": false,
+    "rationale": "These come from setting x − y = 0 instead of 2x + y = 0, which is not the condition dy/dx = 0 for this curve."
+   },
+   {
+    "label": "D",
+    "text": "Only (2, −4)",
+    "is_correct": false,
+    "rationale": "This finds one solution but misses (−2, 4), which also lies on the curve with 2x + y = 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.2-A-v1",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.2-a-v1",
+  "family": "3.2-A",
+  "variant": "1",
+  "topic": "3.2",
+  "title": "locate points of horizontal tangency on an implicitly defined curve by setting the numerator of dy/dx to zero and substi (variant 1)",
+  "stem": "At which points does the graph of x² − xy + y² = 3 have a horizontal tangent line?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(2, 1) and (−2, −1)",
+    "is_correct": false,
+    "rationale": "These are the points where 2y − x = 0, so the tangent is vertical; a horizontal tangent needs 2x − y = 0."
+   },
+   {
+    "label": "B",
+    "text": "(1, 2) and (−1, −2)",
+    "is_correct": true,
+    "rationale": "Correct: Differentiating gives dy/dx = (y − 2x)/(2y − x). Horizontal tangents need y = 2x; substituting gives 3x² = 3, x = ±1, and the points are (1, 2) and (−1, −2), where 2y − x ≠ 0."
+   },
+   {
+    "label": "C",
+    "text": "(√3, √3) and (−√3, −√3)",
+    "is_correct": false,
+    "rationale": "These come from setting x − y = 0, which is not the condition dy/dx = 0 for this curve."
+   },
+   {
+    "label": "D",
+    "text": "Only (1, 2)",
+    "is_correct": false,
+    "rationale": "This finds one solution but misses (−1, −2), which also lies on the curve with 2x − y = 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.2-A-v2",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.2-a-v2",
+  "family": "3.2-A",
+  "variant": "2",
+  "topic": "3.2",
+  "title": "locate points of horizontal tangency on an implicitly defined curve by setting the numerator of dy/dx to zero and substi (variant 2)",
+  "stem": "At which points does the graph of 3x² + 2xy + y² = 6 have a horizontal tangent line?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(√3, −√3) and (−√3, √3)",
+    "is_correct": false,
+    "rationale": "These are the points where 2x + 2y = 0, so the tangent is vertical; a horizontal tangent needs 6x + 2y = 0."
+   },
+   {
+    "label": "B",
+    "text": "(1, −3) and (−1, 3)",
+    "is_correct": true,
+    "rationale": "Correct: Differentiating gives dy/dx = −(3x + y)/(x + y). Horizontal tangents need y = −3x; substituting gives 6x² = 6, x = ±1, and the points are (1, −3) and (−1, 3), where x + y ≠ 0."
+   },
+   {
+    "label": "C",
+    "text": "Only (1, −3)",
+    "is_correct": false,
+    "rationale": "This finds one solution but misses (−1, 3), which also lies on the curve with 3x + y = 0."
+   },
+   {
+    "label": "D",
+    "text": "There are no points with a horizontal tangent line.",
+    "is_correct": false,
+    "rationale": "Setting 3x + y = 0 and substituting into the equation gives 6x² = 6, which has real solutions, so horizontal tangents exist."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.2-A-v3",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.2-a-v3",
+  "family": "3.2-A",
+  "variant": "3",
+  "topic": "3.2",
+  "title": "locate points of horizontal tangency on an implicitly defined curve by setting the numerator of dy/dx to zero and substi (variant 3)",
+  "stem": "At which points does the graph of x² + y² − 4x = 0 have a horizontal tangent line?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(0, 0) and (4, 0)",
+    "is_correct": false,
+    "rationale": "These are the points where y = 0, so the tangent is vertical; a horizontal tangent needs the numerator 2x − 4 to be zero."
+   },
+   {
+    "label": "B",
+    "text": "Only (2, 2)",
+    "is_correct": false,
+    "rationale": "This finds one solution but misses (2, −2), which also lies on the circle with x = 2."
+   },
+   {
+    "label": "C",
+    "text": "(2, 2) and (2, −2)",
+    "is_correct": true,
+    "rationale": "Correct: Differentiating gives dy/dx = (4 − 2x)/(2y) = (2 − x)/y. Horizontal tangents need x = 2; substituting gives y² = 4, so the points are (2, 2) and (2, −2), where y ≠ 0."
+   },
+   {
+    "label": "D",
+    "text": "(2, 0)",
+    "is_correct": false,
+    "rationale": "The point (2, 0) is the center of the circle, not a point on the graph, since 4 + 0 − 8 ≠ 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.2-B",
+  "content_key": "apcalcbc-mcq-b2-h-3.2-b",
+  "family": "3.2-B",
+  "variant": null,
+  "topic": "3.2",
+  "title": "build the tangent line to an implicit curve at a point and use it to find an intercept.",
+  "stem": "The point (0, 2) lies on the curve y² − xy = 4. The line tangent to the curve at (0, 2) crosses the x-axis at what value of x?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−4",
+    "is_correct": true,
+    "rationale": "Correct: Differentiating gives 2y·y′ − y − x·y′ = 0, so y′ = y/(2y − x) = 2/4 = 1/2 at (0, 2). The tangent y = 2 + x/2 meets y = 0 at x = −4."
+   },
+   {
+    "label": "B",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This uses the slope −1/2, the negative of dy/dx, so the tangent line is reflected and crosses the axis on the wrong side."
+   },
+   {
+    "label": "C",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This uses the normal line, with slope −2, instead of the tangent line with slope 1/2."
+   },
+   {
+    "label": "D",
+    "text": "−1",
+    "is_correct": false,
+    "rationale": "This uses 2 as the slope, which is the reciprocal of dy/dx = 1/2, and so describes a different line."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.2-B-v1",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.2-b-v1",
+  "family": "3.2-B",
+  "variant": "1",
+  "topic": "3.2",
+  "title": "build the tangent line to an implicit curve at a point and use it to find an intercept. (variant 1)",
+  "stem": "The point (1, 2) lies on the curve x² + xy + y² = 7. The line tangent to the curve at (1, 2) crosses the x-axis at what value of x?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−3/2",
+    "is_correct": false,
+    "rationale": "This uses the slope +4/5, the negative of dy/dx, so the line is reflected and crosses the axis on the wrong side of x = 1."
+   },
+   {
+    "label": "B",
+    "text": "−3/5",
+    "is_correct": false,
+    "rationale": "This uses the normal line, with slope 5/4, instead of the tangent line with slope −4/5."
+   },
+   {
+    "label": "C",
+    "text": "13/5",
+    "is_correct": false,
+    "rationale": "This uses −5/4 as the slope, which inverts dy/dx = −Fx/Fy to −Fy/Fx."
+   },
+   {
+    "label": "D",
+    "text": "7/2",
+    "is_correct": true,
+    "rationale": "Correct: Differentiating gives 2x + y + (x + 2y)y′ = 0, so y′ = −(2x + y)/(x + 2y) = −4/5 at (1, 2). The tangent y − 2 = −(4/5)(x − 1) meets y = 0 at x = 7/2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.2-B-v2",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.2-b-v2",
+  "family": "3.2-B",
+  "variant": "2",
+  "topic": "3.2",
+  "title": "build the tangent line to an implicit curve at a point and use it to find an intercept. (variant 2)",
+  "stem": "The point (1, 2) lies on the curve y³ + xy = 10. The line tangent to the curve at (1, 2) crosses the x-axis at what value of x?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−12",
+    "is_correct": false,
+    "rationale": "This uses the slope +2/13, the negative of dy/dx, so the line is reflected and crosses the axis on the wrong side of x = 1."
+   },
+   {
+    "label": "B",
+    "text": "9/13",
+    "is_correct": false,
+    "rationale": "This uses the normal line, with slope 13/2, instead of the tangent line with slope −2/13."
+   },
+   {
+    "label": "C",
+    "text": "14",
+    "is_correct": true,
+    "rationale": "Correct: Differentiating gives 3y²·y′ + y + x·y′ = 0, so y′ = −y/(3y² + x) = −2/13 at (1, 2). The tangent y − 2 = −(2/13)(x − 1) meets y = 0 at x = 14."
+   },
+   {
+    "label": "D",
+    "text": "17/13",
+    "is_correct": false,
+    "rationale": "This uses −13/2 as the slope, which inverts dy/dx = −Fx/Fy to −Fy/Fx."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.2-B-v3",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.2-b-v3",
+  "family": "3.2-B",
+  "variant": "3",
+  "topic": "3.2",
+  "title": "build the tangent line to an implicit curve at a point and use it to find an intercept. (variant 3)",
+  "stem": "The point (1, 2) lies on the curve xy² + y = 6. The line tangent to the curve at (1, 2) crosses the y-axis at what value of y?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "6/5",
+    "is_correct": false,
+    "rationale": "This uses the slope +4/5, the negative of dy/dx, so the line is reflected and the intercept is on the wrong side of y = 2."
+   },
+   {
+    "label": "B",
+    "text": "3/4",
+    "is_correct": false,
+    "rationale": "This uses the normal line, with slope 5/4, instead of the tangent line with slope −4/5."
+   },
+   {
+    "label": "C",
+    "text": "14/5",
+    "is_correct": true,
+    "rationale": "Correct: Differentiating gives y² + (2xy + 1)y′ = 0, so y′ = −y²/(2xy + 1) = −4/5 at (1, 2). The tangent y − 2 = −(4/5)(x − 1) has y-intercept 2 + 4/5 = 14/5."
+   },
+   {
+    "label": "D",
+    "text": "4/5",
+    "is_correct": false,
+    "rationale": "This computes the slope times the x-distance, −(4/5)(0 − 1), but forgets to add the y-coordinate 2 of the point."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-A",
+  "content_key": "apcalcbc-mcq-b2-h-3.3-a",
+  "family": "3.3-A",
+  "variant": null,
+  "topic": "3.3",
+  "title": "differentiate a composition or product involving an inverse function, using table values of f only.",
+  "stem": "The function f is differentiable and one-to-one, with the values below. Let g = f⁻¹ and h(x) = g(2x + 1).\nx | f(x) | f′(x)\n1 | 3 | 4\n2 | 5 | 6\n3 | 8 | 7\nWhat is h′(1)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/2",
+    "is_correct": true,
+    "rationale": "Correct: g(3) = 1 because f(1) = 3, so g′(3) = 1/f′(1) = 1/4. Then h′(1) = g′(3)·2 = 2/4 = 1/2."
+   },
+   {
+    "label": "B",
+    "text": "1/4",
+    "is_correct": false,
+    "rationale": "This finds g′(3) but omits the chain-rule factor 2 from the inner function 2x + 1."
+   },
+   {
+    "label": "C",
+    "text": "8",
+    "is_correct": false,
+    "rationale": "This multiplies by f′(1) instead of dividing: the inverse derivative is the reciprocal 1/f′(g(3))."
+   },
+   {
+    "label": "D",
+    "text": "2/7",
+    "is_correct": false,
+    "rationale": "This evaluates f′ at 3 instead of at g(3) = 1; the inverse derivative uses f′ at the point where f equals 3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-A-v1",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.3-a-v1",
+  "family": "3.3-A",
+  "variant": "1",
+  "topic": "3.3",
+  "title": "differentiate a composition or product involving an inverse function, using table values of f only. (variant 1)",
+  "stem": "The function f is differentiable and one-to-one, with the values below. Let g = f⁻¹ and h(x) = x·g(x).\nx | f(x) | f′(x)\n1 | 2 | 5\n2 | 6 | 3\n4 | 9 | 2\nWhat is h′(6)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "20",
+    "is_correct": false,
+    "rationale": "This uses f′(2) = 3 where g′(6) = 1/f′(2) belongs, treating the inverse derivative as f′ instead of its reciprocal."
+   },
+   {
+    "label": "B",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "This drops the product-rule term g(6) and keeps only x·g′(x)."
+   },
+   {
+    "label": "C",
+    "text": "2/3",
+    "is_correct": false,
+    "rationale": "This multiplies g(6) by g′(6) instead of applying the product rule to x·g(x)."
+   },
+   {
+    "label": "D",
+    "text": "4",
+    "is_correct": true,
+    "rationale": "Correct: g(6) = 2 because f(2) = 6, and g′(6) = 1/f′(2) = 1/3. Then h′(6) = g(6) + 6·g′(6) = 2 + 2 = 4."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-A-v2",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.3-a-v2",
+  "family": "3.3-A",
+  "variant": "2",
+  "topic": "3.3",
+  "title": "differentiate a composition or product involving an inverse function, using table values of f only. (variant 2)",
+  "stem": "The function f is differentiable and one-to-one, with the values below. Let g = f⁻¹ and h(x) = (g(x))².\nx | f(x) | f′(x)\n1 | 3 | 4\n2 | 5 | 6\nWhat is h′(5)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "24",
+    "is_correct": false,
+    "rationale": "This replaces g′(5) by f′(2) = 6, so the inverse derivative is not taken as a reciprocal."
+   },
+   {
+    "label": "B",
+    "text": "1/6",
+    "is_correct": false,
+    "rationale": "This gives g′(5) alone and omits the power-rule factor 2g(5) from differentiating the square."
+   },
+   {
+    "label": "C",
+    "text": "2/3",
+    "is_correct": true,
+    "rationale": "Correct: g(5) = 2 because f(2) = 5, and g′(5) = 1/f′(2) = 1/6. Then h′(5) = 2·g(5)·g′(5) = 2·2/6 = 2/3."
+   },
+   {
+    "label": "D",
+    "text": "1/3",
+    "is_correct": false,
+    "rationale": "This keeps the factor 2 and g′(5) but omits the factor g(5) = 2 from the power rule."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-A-v3",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.3-a-v3",
+  "family": "3.3-A",
+  "variant": "3",
+  "topic": "3.3",
+  "title": "differentiate a composition or product involving an inverse function, using table values of f only. (variant 3)",
+  "stem": "The function f is differentiable and one-to-one, with the values below. Let g = f⁻¹ and h(x) = g(x²).\nx | f(x) | f′(x)\n2 | 4 | 5\n3 | 7 | 3\nWhat is h′(2)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "4/5",
+    "is_correct": true,
+    "rationale": "Correct: g(4) = 2 because f(2) = 4, so g′(4) = 1/f′(2) = 1/5. Then h′(2) = g′(2²)·2·2 = 4/5."
+   },
+   {
+    "label": "B",
+    "text": "1/5",
+    "is_correct": false,
+    "rationale": "This finds g′(4) but omits the chain-rule factor 2x = 4 from the inner function x²."
+   },
+   {
+    "label": "C",
+    "text": "20",
+    "is_correct": false,
+    "rationale": "This multiplies by f′(2) instead of dividing: the inverse derivative is the reciprocal 1/f′(g(4))."
+   },
+   {
+    "label": "D",
+    "text": "4/3",
+    "is_correct": false,
+    "rationale": "This evaluates f′ at 3 instead of at g(4) = 2, so the wrong table row is used."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-B",
+  "content_key": "apcalcbc-mcq-b2-h-3.3-b",
+  "family": "3.3-B",
+  "variant": null,
+  "topic": "3.3",
+  "title": "find the second derivative of an inverse function, differentiating 1/f′(x) again with respect to y.",
+  "stem": "Let f(x) = x³ + x, which is one-to-one. What is (f⁻¹)″(2)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3/32",
+    "is_correct": false,
+    "rationale": "This loses the minus sign: differentiating 1/f′(x) with respect to y gives −f″(x)/(f′(x))³, which is negative here."
+   },
+   {
+    "label": "B",
+    "text": "−3/8",
+    "is_correct": false,
+    "rationale": "This uses −f″/(f′)² and forgets that a second factor of 1/f′ comes from the chain rule through x = f⁻¹(y)."
+   },
+   {
+    "label": "C",
+    "text": "1/6",
+    "is_correct": false,
+    "rationale": "This takes 1/f″(1) as if the second derivative of the inverse were the reciprocal of the second derivative."
+   },
+   {
+    "label": "D",
+    "text": "−3/32",
+    "is_correct": true,
+    "rationale": "Correct: f(1) = 2, f′(1) = 4, f″(1) = 6. (f⁻¹)′(y) = 1/f′(x), so (f⁻¹)″(y) = −f″(x)·(dx/dy)/(f′(x))² = −f″(x)/(f′(x))³ = −6/64 = −3/32."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-B-v1",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.3-b-v1",
+  "family": "3.3-B",
+  "variant": "1",
+  "topic": "3.3",
+  "title": "find the second derivative of an inverse function, differentiating 1/f′(x) again with respect to y. (variant 1)",
+  "stem": "Let f(x) = x³ + 2x, which is one-to-one. What is (f⁻¹)″(3)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "6/125",
+    "is_correct": false,
+    "rationale": "This loses the minus sign: the derivative of 1/f′(x) with respect to y is −f″/(f′)³."
+   },
+   {
+    "label": "B",
+    "text": "−6/25",
+    "is_correct": false,
+    "rationale": "This uses −f″/(f′)² and omits the extra factor 1/f′ that arises because x depends on y."
+   },
+   {
+    "label": "C",
+    "text": "1/5",
+    "is_correct": false,
+    "rationale": "This is the first derivative (f⁻¹)′(3) = 1/f′(1), not the second derivative."
+   },
+   {
+    "label": "D",
+    "text": "−6/125",
+    "is_correct": true,
+    "rationale": "Correct: f(1) = 3, f′(1) = 5, f″(1) = 6. Then (f⁻¹)″(3) = −f″(1)/(f′(1))³ = −6/125."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-B-v2",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.3-b-v2",
+  "family": "3.3-B",
+  "variant": "2",
+  "topic": "3.3",
+  "title": "find the second derivative of an inverse function, differentiating 1/f′(x) again with respect to y. (variant 2)",
+  "stem": "Let f(x) = eˣ + x, which is one-to-one. What is (f⁻¹)″(1)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/8",
+    "is_correct": false,
+    "rationale": "This loses the minus sign from differentiating 1/f′(x): the second derivative of the inverse is −f″/(f′)³."
+   },
+   {
+    "label": "B",
+    "text": "−1/4",
+    "is_correct": false,
+    "rationale": "This uses −f″/(f′)² and forgets the extra factor 1/f′ from the chain rule through x = f⁻¹(y)."
+   },
+   {
+    "label": "C",
+    "text": "−1/8",
+    "is_correct": true,
+    "rationale": "Correct: f(0) = 1, f′(0) = e⁰ + 1 = 2, f″(0) = e⁰ = 1. Then (f⁻¹)″(1) = −f″(0)/(f′(0))³ = −1/8."
+   },
+   {
+    "label": "D",
+    "text": "1/2",
+    "is_correct": false,
+    "rationale": "This is the first derivative (f⁻¹)′(1) = 1/f′(0), not the second derivative."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-B-v3",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.3-b-v3",
+  "family": "3.3-B",
+  "variant": "3",
+  "topic": "3.3",
+  "title": "find the second derivative of an inverse function, differentiating 1/f′(x) again with respect to y. (variant 3)",
+  "stem": "The function f is twice differentiable and one-to-one, with f(2) = 7, f′(2) = 4 and f″(2) = −2. What is (f⁻¹)″(7)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−1/32",
+    "is_correct": false,
+    "rationale": "This loses the minus sign: the formula is (f⁻¹)″ = −f″/(f′)³, and f″(2) is itself negative, so the result is positive."
+   },
+   {
+    "label": "B",
+    "text": "1/8",
+    "is_correct": false,
+    "rationale": "This uses −f″/(f′)² and forgets the extra factor 1/f′ that comes from the chain rule through x = f⁻¹(y)."
+   },
+   {
+    "label": "C",
+    "text": "1/32",
+    "is_correct": true,
+    "rationale": "Correct: (f⁻¹)′(y) = 1/f′(x), so (f⁻¹)″(y) = −f″(x)/(f′(x))³ with x = f⁻¹(7) = 2: −(−2)/64 = 1/32."
+   },
+   {
+    "label": "D",
+    "text": "1/4",
+    "is_correct": false,
+    "rationale": "This is the first derivative (f⁻¹)′(7) = 1/f′(2), not the second derivative."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-A",
+  "content_key": "apcalcbc-mcq-b2-h-3.4-a",
+  "family": "3.4-A",
+  "variant": null,
+  "topic": "3.4",
+  "title": "differentiate an inverse trigonometric function of a reciprocal or quadratic on a restricted domain, keeping the correct",
+  "stem": "For x < −1, let f(x) = cos⁻¹(1/x). What is f′(−2)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "√3/6",
+    "is_correct": true,
+    "rationale": "Correct: f′(x) = [−1/√(1 − 1/x²)]·(−1/x²) = 1/(x²√(1 − 1/x²)). At x = −2: 1/(4·√(3/4)) = 1/(2√3) = √3/6, which is positive because the factor −1/x² is negative and cos⁻¹ is decreasing."
+   },
+   {
+    "label": "B",
+    "text": "−√3/6",
+    "is_correct": false,
+    "rationale": "This applies the simplified formula 1/(x√(x² − 1)) at x = −2; that formula holds for x > 1, and for x < −1 the correct form has |x|, so the sign is wrong."
+   },
+   {
+    "label": "C",
+    "text": "−2/√3",
+    "is_correct": false,
+    "rationale": "This omits the chain-rule factor −1/x² from the inner function 1/x, so only the outer derivative −1/√(1 − 1/4) is evaluated."
+   },
+   {
+    "label": "D",
+    "text": "2/√3",
+    "is_correct": false,
+    "rationale": "This omits the chain-rule factor −1/x² and also uses the derivative of sin⁻¹ instead of the negative derivative of cos⁻¹."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-A-v1",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.4-a-v1",
+  "family": "3.4-A",
+  "variant": "1",
+  "topic": "3.4",
+  "title": "differentiate an inverse trigonometric function of a reciprocal or quadratic on a restricted domain, keeping the correct (variant 1)",
+  "stem": "For x < −1, let f(x) = sin⁻¹(1/x). What is f′(−3)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "√2/12",
+    "is_correct": false,
+    "rationale": "This applies −1/(x√(x² − 1)), which is valid only for x > 1; at x = −3 it gives the wrong sign because the correct form uses |x|."
+   },
+   {
+    "label": "B",
+    "text": "3√2/4",
+    "is_correct": false,
+    "rationale": "This omits the chain-rule factor −1/x² and keeps only the outer derivative 1/√(1 − 1/9)."
+   },
+   {
+    "label": "C",
+    "text": "−1/9",
+    "is_correct": false,
+    "rationale": "This keeps the chain factor −1/x² but leaves out the outer factor 1/√(1 − 1/x²)."
+   },
+   {
+    "label": "D",
+    "text": "−√2/12",
+    "is_correct": true,
+    "rationale": "Correct: f′(x) = [1/√(1 − 1/x²)]·(−1/x²). At x = −3: (1/√(8/9))·(−1/9) = (3/(2√2))(−1/9) = −1/(6√2) = −√2/12."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-A-v2",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.4-a-v2",
+  "family": "3.4-A",
+  "variant": "2",
+  "topic": "3.4",
+  "title": "differentiate an inverse trigonometric function of a reciprocal or quadratic on a restricted domain, keeping the correct (variant 2)",
+  "stem": "For −√2 < x < 0, let f(x) = cos⁻¹(x² − 1). Which expression equals f′(x)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−2/√(2 − x²)",
+    "is_correct": false,
+    "rationale": "This simplifies √(2x² − x⁴) as x√(2 − x²), but x is negative here, so √(x²) = −x and the sign is wrong."
+   },
+   {
+    "label": "B",
+    "text": "2/√(2 − x²)",
+    "is_correct": true,
+    "rationale": "Correct: f′(x) = −2x/√(1 − (x² − 1)²) = −2x/√(2x² − x⁴) = −2x/(|x|√(2 − x²)). For x < 0, |x| = −x, so f′(x) = 2/√(2 − x²), which is positive."
+   },
+   {
+    "label": "C",
+    "text": "2x/√(2 − x²)",
+    "is_correct": false,
+    "rationale": "This drops the factor x in the denominator when simplifying but keeps the factor 2x from the chain rule, so x does not cancel."
+   },
+   {
+    "label": "D",
+    "text": "2/√(1 − x²)",
+    "is_correct": false,
+    "rationale": "This forgets that 1 − (x² − 1)² = 2x² − x⁴, not 1 − x²; the radicand is 2 − x² after factoring out x²."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-A-v3",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.4-a-v3",
+  "family": "3.4-A",
+  "variant": "3",
+  "topic": "3.4",
+  "title": "differentiate an inverse trigonometric function of a reciprocal or quadratic on a restricted domain, keeping the correct (variant 3)",
+  "stem": "For x < −2, let f(x) = cos⁻¹(2/x). What is f′(−4)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−√3/12",
+    "is_correct": false,
+    "rationale": "This applies 2/(x√(x² − 4)), which holds for x > 2; at x = −4 the correct form has |x|, so the sign is wrong."
+   },
+   {
+    "label": "B",
+    "text": "−2/√3",
+    "is_correct": false,
+    "rationale": "This omits the chain-rule factor −2/x² from the inner function 2/x and keeps only −1/√(1 − 1/4)."
+   },
+   {
+    "label": "C",
+    "text": "2/√3",
+    "is_correct": false,
+    "rationale": "This omits the chain-rule factor and also uses the derivative of sin⁻¹ rather than the negative derivative of cos⁻¹."
+   },
+   {
+    "label": "D",
+    "text": "√3/12",
+    "is_correct": true,
+    "rationale": "Correct: f′(x) = [−1/√(1 − 4/x²)]·(−2/x²). At x = −4: [1/√(3/4)]·(2/16) = (2/√3)(1/8) = 1/(4√3) = √3/12."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-B",
+  "content_key": "apcalcbc-mcq-b2-h-3.4-b",
+  "family": "3.4-B",
+  "variant": null,
+  "topic": "3.4",
+  "title": "find the rate of change of an angle defined by an inverse trigonometric function of a changing length, with the correct ",
+  "stem": "A camera is 40 meters from the base of a launch pad and films a rocket rising vertically. When the rocket is h meters high, the camera's angle of elevation is θ = tan⁻¹(h/40). At the moment h = 30 meters, the rocket is rising at 12 meters per second. How fast is θ changing at that moment?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.192 radians per second",
+    "is_correct": true,
+    "rationale": "Correct: dθ/dt = [1/(1 + (h/40)²)]·(1/40)·dh/dt = [1/(1 + 9/16)]·(12/40) = (16/25)(0.3) = 0.192 radians per second."
+   },
+   {
+    "label": "B",
+    "text": "7.68 radians per second",
+    "is_correct": false,
+    "rationale": "This omits the chain-rule factor 1/40 from the argument h/40, so the rate of h is used as if the argument were h itself."
+   },
+   {
+    "label": "C",
+    "text": "0.3 radians per second",
+    "is_correct": false,
+    "rationale": "This uses only the inner derivative (12/40) and leaves out the factor 1/(1 + (h/40)²) from the arctangent derivative."
+   },
+   {
+    "label": "D",
+    "text": "0.0133 radians per second",
+    "is_correct": false,
+    "rationale": "This applies the arctangent derivative to h instead of h/40, giving 12/(1 + 900) and ignoring the scale factor 40."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-B-v1",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.4-b-v1",
+  "family": "3.4-B",
+  "variant": "1",
+  "topic": "3.4",
+  "title": "find the rate of change of an angle defined by an inverse trigonometric function of a changing length, with the correct  (variant 1)",
+  "stem": "A 13-meter ladder leans against a wall. The angle θ between the ladder and the ground satisfies θ = cos⁻¹(x/13), where x is the distance in meters from the wall to the foot of the ladder. The foot slides away from the wall at 0.5 meters per second. How fast is θ changing when x = 5 meters?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/24 radians per second",
+    "is_correct": false,
+    "rationale": "This drops the minus sign from the derivative of cos⁻¹; the angle decreases as the foot slides out."
+   },
+   {
+    "label": "B",
+    "text": "−1/24 radians per second",
+    "is_correct": true,
+    "rationale": "Correct: dθ/dt = −[1/√(1 − (x/13)²)]·(1/13)·dx/dt = −[1/√(144/169)]·(1/13)(0.5) = −(13/12)(1/26) = −1/24 radians per second."
+   },
+   {
+    "label": "C",
+    "text": "−13/24 radians per second",
+    "is_correct": false,
+    "rationale": "This omits the chain-rule factor 1/13 from the argument x/13."
+   },
+   {
+    "label": "D",
+    "text": "−13/288 radians per second",
+    "is_correct": false,
+    "rationale": "This leaves out the square root and uses 1/(1 − (x/13)²) in place of 1/√(1 − (x/13)²)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-B-v2",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.4-b-v2",
+  "family": "3.4-B",
+  "variant": "2",
+  "topic": "3.4",
+  "title": "find the rate of change of an angle defined by an inverse trigonometric function of a changing length, with the correct  (variant 2)",
+  "stem": "An observer watches a plane fly horizontally at an altitude of 3 kilometers. The angle of elevation is θ = tan⁻¹(3/x), where x is the horizontal distance in kilometers from the observer to the plane. The plane is approaching at 400 kilometers per hour, so dx/dt = −400. How fast is θ changing when x = 4 kilometers?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−48 radians per hour",
+    "is_correct": false,
+    "rationale": "This has the correct size but the wrong sign: the plane is approaching, so the angle of elevation is increasing."
+   },
+   {
+    "label": "B",
+    "text": "75 radians per hour",
+    "is_correct": false,
+    "rationale": "This keeps the chain factors but drops 1/(1 + (3/x)²) = 16/25 from the arctangent derivative."
+   },
+   {
+    "label": "C",
+    "text": "−256 radians per hour",
+    "is_correct": false,
+    "rationale": "This omits the chain-rule factor −3/x² from the inner function 3/x, using only 1/(1 + (3/x)²)·dx/dt."
+   },
+   {
+    "label": "D",
+    "text": "48 radians per hour",
+    "is_correct": true,
+    "rationale": "Correct: dθ/dt = [1/(1 + (3/x)²)]·(−3/x²)·dx/dt = (16/25)(−3/16)(−400) = (−3/25)(−400) = 48 radians per hour."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-B-v3",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.4-b-v3",
+  "family": "3.4-B",
+  "variant": "3",
+  "topic": "3.4",
+  "title": "find the rate of change of an angle defined by an inverse trigonometric function of a changing length, with the correct  (variant 3)",
+  "stem": "A kite is flown on a 100-meter string held taut at ground level. The angle θ between the string and the ground satisfies θ = sin⁻¹(h/100), where h is the kite's height in meters. The kite is rising at 2 meters per second. How fast is θ changing when h = 60 meters?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2.5 radians per second",
+    "is_correct": false,
+    "rationale": "This omits the chain-rule factor 1/100 from the argument h/100, so dh/dt = 2 is used unscaled."
+   },
+   {
+    "label": "B",
+    "text": "0.03125 radians per second",
+    "is_correct": false,
+    "rationale": "This leaves out the square root and uses 1/(1 − (h/100)²) in place of 1/√(1 − (h/100)²)."
+   },
+   {
+    "label": "C",
+    "text": "0.025 radians per second",
+    "is_correct": true,
+    "rationale": "Correct: dθ/dt = [1/√(1 − (h/100)²)]·(1/100)·dh/dt = (1/0.8)(0.02) = 0.025 radians per second."
+   },
+   {
+    "label": "D",
+    "text": "0.02 radians per second",
+    "is_correct": false,
+    "rationale": "This uses only the inner derivative (2/100) and leaves out the factor 1/√(1 − (h/100)²) from the arcsine derivative."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-A",
+  "content_key": "apcalcbc-mcq-b2-h-3.5-a",
+  "family": "3.5-A",
+  "variant": null,
+  "topic": "3.5",
+  "title": "recognize that a variable base with a variable exponent needs logarithmic differentiation, and apply it with the product",
+  "stem": "For x > 0, which expression gives the derivative of y = x³ˣ?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3x·x³ˣ⁻¹",
+    "is_correct": false,
+    "rationale": "This applies the power rule as if the exponent 3x were a constant, but here both the base and the exponent depend on x."
+   },
+   {
+    "label": "B",
+    "text": "3x³ˣ·ln x",
+    "is_correct": false,
+    "rationale": "This applies the rule for aˣ with a constant base, which gives only part of the answer; it omits the term from differentiating the base x."
+   },
+   {
+    "label": "C",
+    "text": "3x³ˣ/x",
+    "is_correct": false,
+    "rationale": "This differentiates ln y = 3x·ln x as 3·(1/x), treating the factor 3x as constant and skipping the product rule."
+   },
+   {
+    "label": "D",
+    "text": "3x³ˣ(ln x + 1)",
+    "is_correct": true,
+    "rationale": "Correct: ln y = 3x·ln x, so y′/y = 3 ln x + 3x·(1/x) = 3(ln x + 1), and y′ = 3x³ˣ(ln x + 1). At x = 2 this is 192(ln 2 + 1), which differs from each other choice."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-A-v1",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.5-a-v1",
+  "family": "3.5-A",
+  "variant": "1",
+  "topic": "3.5",
+  "title": "recognize that a variable base with a variable exponent needs logarithmic differentiation, and apply it with the product (variant 1)",
+  "stem": "For x > 1, which expression gives the derivative of y = (ln x)ˣ?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(ln x)ˣ⁻¹",
+    "is_correct": false,
+    "rationale": "This applies the power rule as if the exponent x were constant; the exponent depends on x, so logarithmic differentiation is needed."
+   },
+   {
+    "label": "B",
+    "text": "(ln x)ˣ·ln(ln x)",
+    "is_correct": false,
+    "rationale": "This applies the rule for aˣ with a constant base, omitting the term that comes from differentiating the base ln x."
+   },
+   {
+    "label": "C",
+    "text": "(ln x)ˣ·[ln(ln x) + 1/ln x]",
+    "is_correct": true,
+    "rationale": "Correct: ln y = x·ln(ln x), so y′/y = ln(ln x) + x·[1/(x ln x)] = ln(ln x) + 1/ln x, and y′ = (ln x)ˣ[ln(ln x) + 1/ln x]."
+   },
+   {
+    "label": "D",
+    "text": "(ln x)ˣ·[ln(ln x) + 1/(x ln x)]",
+    "is_correct": false,
+    "rationale": "This differentiates x·ln(ln x) but forgets to multiply the derivative 1/(x ln x) of ln(ln x) by the factor x from the product rule."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-A-v2",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.5-a-v2",
+  "family": "3.5-A",
+  "variant": "2",
+  "topic": "3.5",
+  "title": "recognize that a variable base with a variable exponent needs logarithmic differentiation, and apply it with the product (variant 2)",
+  "stem": "For all x, which expression gives the derivative of y = (x² + 1)ˣ?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2x²(x² + 1)ˣ⁻¹",
+    "is_correct": false,
+    "rationale": "This applies the power rule as if the exponent x were constant, which captures only the term from differentiating the base."
+   },
+   {
+    "label": "B",
+    "text": "(x² + 1)ˣ·ln(x² + 1)",
+    "is_correct": false,
+    "rationale": "This applies the rule for aˣ with a constant base, omitting the term that comes from differentiating the base x² + 1."
+   },
+   {
+    "label": "C",
+    "text": "(x² + 1)ˣ·[ln(x² + 1) + 2x/(x² + 1)]",
+    "is_correct": false,
+    "rationale": "This forgets the factor x from the product rule on x·ln(x² + 1), so the second term should be x·2x/(x² + 1)."
+   },
+   {
+    "label": "D",
+    "text": "(x² + 1)ˣ·[ln(x² + 1) + 2x²/(x² + 1)]",
+    "is_correct": true,
+    "rationale": "Correct: ln y = x·ln(x² + 1), so y′/y = ln(x² + 1) + x·2x/(x² + 1), and y′ = (x² + 1)ˣ[ln(x² + 1) + 2x²/(x² + 1)]."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-A-v3",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.5-a-v3",
+  "family": "3.5-A",
+  "variant": "3",
+  "topic": "3.5",
+  "title": "recognize that a variable base with a variable exponent needs logarithmic differentiation, and apply it with the product (variant 3)",
+  "stem": "For x > 0, which expression gives the derivative of y = x^(cos x)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(cos x)·x^(cos x − 1)",
+    "is_correct": false,
+    "rationale": "This applies the power rule as if the exponent cos x were constant, which captures only the term from differentiating the base."
+   },
+   {
+    "label": "B",
+    "text": "x^(cos x)·[−sin x·ln x + (cos x)/x]",
+    "is_correct": true,
+    "rationale": "Correct: ln y = cos x·ln x, so y′/y = −sin x·ln x + (cos x)/x, and y′ = x^(cos x)[−sin x·ln x + (cos x)/x]."
+   },
+   {
+    "label": "C",
+    "text": "−sin x·ln x·x^(cos x)",
+    "is_correct": false,
+    "rationale": "This applies the rule for aˣ with a constant base, omitting the term that comes from differentiating the base x."
+   },
+   {
+    "label": "D",
+    "text": "x^(cos x)·[sin x·ln x + (cos x)/x]",
+    "is_correct": false,
+    "rationale": "This loses the minus sign: the derivative of cos x is −sin x, so the first term must be −sin x·ln x."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-B",
+  "content_key": "apcalcbc-mcq-b2-h-3.5-b",
+  "family": "3.5-B",
+  "variant": null,
+  "topic": "3.5",
+  "title": "combine product, quotient, power and chain rules with tabulated values of unspecified functions, evaluating each derivat",
+  "stem": "The differentiable functions f and g have the values below.\nx | f(x) | f′(x) | g(x) | g′(x)\n2 | 2 | −1 | 1 | 2\n4 | 0 | 5 | 6 | −3\nLet h(x) = f(x)·g(x²)/x. What is h′(2)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−9",
+    "is_correct": false,
+    "rationale": "This omits the chain-rule factor 2x when differentiating g(x²) in the numerator."
+   },
+   {
+    "label": "B",
+    "text": "−12",
+    "is_correct": false,
+    "rationale": "This adds f(x)·g(x²) in the quotient-rule numerator, but the quotient rule subtracts numerator·denominator′."
+   },
+   {
+    "label": "C",
+    "text": "−18",
+    "is_correct": true,
+    "rationale": "Correct: Let N(x) = f(x)·g(x²). N′ = f′(x)g(x²) + f(x)·2x·g′(x²). h′ = (N′·x − N)/x². At x = 2: N = 2·6 = 12, N′ = (−1)(6) + 2·4·(−3) = −30, so h′(2) = (−30·2 − 12)/4 = −18."
+   },
+   {
+    "label": "D",
+    "text": "−15",
+    "is_correct": false,
+    "rationale": "This treats 1/x as a constant factor and differentiates only the product f(x)·g(x²), ignoring the derivative of 1/x."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-B-v1",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.5-b-v1",
+  "family": "3.5-B",
+  "variant": "1",
+  "topic": "3.5",
+  "title": "combine product, quotient, power and chain rules with tabulated values of unspecified functions, evaluating each derivat (variant 1)",
+  "stem": "The differentiable functions f and g have the values below.\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 5 | 1 | 2 | 3\n2 | 4 | −2 | 7 | 1\nLet h(x) = g(x)/f(g(x)). What is h′(1)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3/2",
+    "is_correct": true,
+    "rationale": "Correct: With D(x) = f(g(x)): D(1) = f(2) = 4 and D′(1) = f′(2)·g′(1) = −6. Then h′(1) = [g′(1)·D(1) − g(1)·D′(1)]/D(1)² = [12 + 12]/16 = 3/2."
+   },
+   {
+    "label": "B",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This omits the inner derivative g′(1) when differentiating f(g(x)) in the denominator."
+   },
+   {
+    "label": "C",
+    "text": "3/8",
+    "is_correct": false,
+    "rationale": "This evaluates f′ at x = 1 instead of at g(1) = 2, so the wrong table entry is used for f′."
+   },
+   {
+    "label": "D",
+    "text": "6",
+    "is_correct": false,
+    "rationale": "This divides by f(g(x)) instead of by its square, forgetting that the quotient rule has denominator squared."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-B-v2",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.5-b-v2",
+  "family": "3.5-B",
+  "variant": "2",
+  "topic": "3.5",
+  "title": "combine product, quotient, power and chain rules with tabulated values of unspecified functions, evaluating each derivat (variant 2)",
+  "stem": "The differentiable functions f and g have the values below.\nx | f(x) | f′(x) | g(x) | g′(x)\n2 | 1 | −2 | 5 | −1\n4 | 0 | 3 | 3 | 2\nLet h(x) = x·f(x)·g(x²). What is h′(2)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "7",
+    "is_correct": true,
+    "rationale": "Correct: Product rule on three factors: h′ = f·g(x²) + x·f′·g(x²) + x·f·2x·g′(x²). At x = 2: (1)(3) + 2(−2)(3) + 2(1)(4)(2) = 3 − 12 + 16 = 7."
+   },
+   {
+    "label": "B",
+    "text": "−5",
+    "is_correct": false,
+    "rationale": "This omits the chain-rule factor 2x when differentiating g(x²), so the last term is 2·1·2 instead of 2·1·4·2."
+   },
+   {
+    "label": "C",
+    "text": "16",
+    "is_correct": false,
+    "rationale": "This keeps only the term in which g(x²) is differentiated and drops the other two product-rule terms."
+   },
+   {
+    "label": "D",
+    "text": "−23",
+    "is_correct": false,
+    "rationale": "This evaluates g and g′ at x = 2 instead of at x² = 4, so the wrong table row is used."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-B-v3",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.5-b-v3",
+  "family": "3.5-B",
+  "variant": "3",
+  "topic": "3.5",
+  "title": "combine product, quotient, power and chain rules with tabulated values of unspecified functions, evaluating each derivat (variant 3)",
+  "stem": "The differentiable functions f and g have the values below.\nx | f(x) | f′(x) | g(x) | g′(x)\n2 | 9 | 6 | 2 | −3\nLet h(x) = g(x)·√(f(x)). What is h′(2)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−7",
+    "is_correct": true,
+    "rationale": "Correct: h′ = g′·√f + g·f′/(2√f). At x = 2: (−3)(3) + (2)(6)/(2·3) = −9 + 2 = −7."
+   },
+   {
+    "label": "B",
+    "text": "−5",
+    "is_correct": false,
+    "rationale": "This leaves out the factor 1/2 from the derivative of √f(x), using g·f′/√f instead of g·f′/(2√f)."
+   },
+   {
+    "label": "C",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "This drops the product-rule term g′(2)·√f(2) and keeps only g·f′/(2√f)."
+   },
+   {
+    "label": "D",
+    "text": "−26/3",
+    "is_correct": false,
+    "rationale": "This forgets the inner derivative f′(2) when differentiating √f(x), using g/(2√f) in place of g·f′/(2√f)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-A",
+  "content_key": "apcalcbc-mcq-b2-h-3.6-a",
+  "family": "3.6-A",
+  "variant": null,
+  "topic": "3.6",
+  "title": "find a second derivative of a reciprocal, root, logarithm or product of an unspecified function from its first and secon",
+  "stem": "The function f is twice differentiable, with f(1) = 2, f′(1) = 3 and f″(1) = −4. If h(x) = 1/f(x), what is h″(1)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This keeps only −f″/f² and drops the term 2(f′)²/f³ that comes from differentiating 1/f² a second time."
+   },
+   {
+    "label": "B",
+    "text": "13/4",
+    "is_correct": true,
+    "rationale": "Correct: h′ = −f′/f²; h″ = −f″/f² + 2(f′)²/f³. At x = 1: −(−4)/4 + 2(9)/8 = 1 + 9/4 = 13/4."
+   },
+   {
+    "label": "C",
+    "text": "5/4",
+    "is_correct": false,
+    "rationale": "This changes the sign of the first term, using f″/f² + 2(f′)²/f³ instead of −f″/f² + 2(f′)²/f³."
+   },
+   {
+    "label": "D",
+    "text": "−5/4",
+    "is_correct": false,
+    "rationale": "This subtracts the second term, using −f″/f² − 2(f′)²/f³; the chain-rule term 2(f′)²/f³ is positive."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-A-v1",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.6-a-v1",
+  "family": "3.6-A",
+  "variant": "1",
+  "topic": "3.6",
+  "title": "find a second derivative of a reciprocal, root, logarithm or product of an unspecified function from its first and secon (variant 1)",
+  "stem": "The function f is twice differentiable and positive, with f(2) = 4, f′(2) = 2 and f″(2) = 1. If h(x) = √(f(x)), what is h″(2)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/8",
+    "is_correct": true,
+    "rationale": "Correct: h′ = f′/(2√f); h″ = f″/(2√f) − (f′)²/(4f^(3/2)). At x = 2: 1/4 − 4/32 = 1/4 − 1/8 = 1/8."
+   },
+   {
+    "label": "B",
+    "text": "1/4",
+    "is_correct": false,
+    "rationale": "This keeps only f″/(2√f) and drops the term −(f′)²/(4f^(3/2)) that comes from differentiating 1/√f."
+   },
+   {
+    "label": "C",
+    "text": "3/8",
+    "is_correct": false,
+    "rationale": "This adds the second term +(f′)²/(4f^(3/2)) instead of subtracting it; the derivative of f^(−1/2) carries a minus sign."
+   },
+   {
+    "label": "D",
+    "text": "3/16",
+    "is_correct": false,
+    "rationale": "This uses f′ instead of (f′)² in the second term, forgetting the chain-rule factor f′ when differentiating f^(−1/2)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-A-v2",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.6-a-v2",
+  "family": "3.6-A",
+  "variant": "2",
+  "topic": "3.6",
+  "title": "find a second derivative of a reciprocal, root, logarithm or product of an unspecified function from its first and secon (variant 2)",
+  "stem": "The function f is twice differentiable and positive, with f(1) = 2, f′(1) = −3 and f″(1) = 5. If h(x) = ln(f(x)), what is h″(1)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "5/2",
+    "is_correct": false,
+    "rationale": "This keeps only f″/f and drops the term −(f′)²/f² from differentiating f′/f with the quotient rule."
+   },
+   {
+    "label": "B",
+    "text": "19/4",
+    "is_correct": false,
+    "rationale": "This adds (f′)² in the quotient-rule numerator, but the quotient rule subtracts f′·f′ from f″·f."
+   },
+   {
+    "label": "C",
+    "text": "1/4",
+    "is_correct": true,
+    "rationale": "Correct: h′ = f′/f; h″ = [f″·f − (f′)²]/f² = [5·2 − 9]/4 = 1/4."
+   },
+   {
+    "label": "D",
+    "text": "−1",
+    "is_correct": false,
+    "rationale": "This uses f″ − (f′)² in the numerator without the factor f, so the first quotient-rule term f″·f is wrong."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-A-v3",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.6-a-v3",
+  "family": "3.6-A",
+  "variant": "3",
+  "topic": "3.6",
+  "title": "find a second derivative of a reciprocal, root, logarithm or product of an unspecified function from its first and secon (variant 3)",
+  "stem": "The function f is twice differentiable, with f(0) = 3, f′(0) = 1 and f″(0) = 4. If h(x) = f(x)·e^(−x), what is h″(0)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "5",
+    "is_correct": true,
+    "rationale": "Correct: h′ = e^(−x)(f′ − f); h″ = e^(−x)(f″ − f′) − e^(−x)(f′ − f) = e^(−x)(f″ − 2f′ + f). At x = 0: 4 − 2 + 3 = 5."
+   },
+   {
+    "label": "B",
+    "text": "9",
+    "is_correct": false,
+    "rationale": "This uses e^(−x)(f″ + 2f′ + f), changing the sign of the middle term; each derivative of e^(−x) contributes a factor of −1."
+   },
+   {
+    "label": "C",
+    "text": "6",
+    "is_correct": false,
+    "rationale": "This uses f″ − f′ + f, forgetting the factor 2 on the middle term of the product rule applied twice."
+   },
+   {
+    "label": "D",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This keeps only f″(0)·e⁰ and drops the terms from differentiating e^(−x)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-B",
+  "content_key": "apcalcbc-mcq-b2-h-3.6-b",
+  "family": "3.6-B",
+  "variant": null,
+  "topic": "3.6",
+  "title": "decide the concavity of a composite function from the signs of f′, f″, g′ and g″ using h″ = f″(g)(g′)² + f′(g)g″.",
+  "stem": "The functions f and g are twice differentiable on the real numbers. For all real t, f′(t) > 0 and f″(t) > 0, and for all real x, g′(x) < 0 and g″(x) > 0. Let h(x) = f(g(x)). Which statement about the graph of h is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "h is concave down on the real numbers, because g is decreasing.",
+    "is_correct": false,
+    "rationale": "This confuses a decreasing inner function with concave down; concavity depends on the sign of h″, which here is positive."
+   },
+   {
+    "label": "B",
+    "text": "The concavity of h cannot be determined, because g′ < 0 and f″ > 0 have opposite signs.",
+    "is_correct": false,
+    "rationale": "This drops the square: h″ contains f″(g(x))·(g′(x))², and the square makes that term positive despite g′ < 0."
+   },
+   {
+    "label": "C",
+    "text": "h is concave up on the real numbers, because h″(x) is a sum of two positive terms.",
+    "is_correct": true,
+    "rationale": "Correct: h″(x) = f″(g(x))·(g′(x))² + f′(g(x))·g″(x). The first term is positive because f″ > 0 and the square is positive; the second is positive because f′ > 0 and g″ > 0. So h″ > 0."
+   },
+   {
+    "label": "D",
+    "text": "h is concave down on the real numbers, because the composition reverses the concavity of f when g′ < 0.",
+    "is_correct": false,
+    "rationale": "This is not a valid rule; h″ = f″(g)(g′)² + f′(g)g″ is positive here, regardless of the sign of g′."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-B-v1",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.6-b-v1",
+  "family": "3.6-B",
+  "variant": "1",
+  "topic": "3.6",
+  "title": "decide the concavity of a composite function from the signs of f′, f″, g′ and g″ using h″ = f″(g)(g′)² + f′(g)g″. (variant 1)",
+  "stem": "The functions f and g are twice differentiable on the real numbers. For all real t, f′(t) < 0 and f″(t) > 0, and for all real x, g′(x) > 0 and g″(x) > 0. Let h(x) = f(g(x)). Which statement is justified by this information alone?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "h is concave up on the real numbers, because f and g are both concave up.",
+    "is_correct": false,
+    "rationale": "Composing two concave up functions does not guarantee concave up; the term f′(g(x))·g″(x) is negative here."
+   },
+   {
+    "label": "B",
+    "text": "h is concave down on the real numbers, because f is decreasing.",
+    "is_correct": false,
+    "rationale": "This confuses decreasing with concave down; h″ = f″(g)(g′)² + f′(g)g″ has a positive and a negative term here."
+   },
+   {
+    "label": "C",
+    "text": "h is concave down on the real numbers, because f′(g(x))·g″(x) < 0 outweighs the other term.",
+    "is_correct": false,
+    "rationale": "Nothing in the information shows that the negative term is larger in size than f″(g(x))(g′(x))² for every x."
+   },
+   {
+    "label": "D",
+    "text": "The sign of h″ cannot be determined, because the two terms of h″ can have opposite signs.",
+    "is_correct": true,
+    "rationale": "Correct: h″ = f″(g)(g′)² + f′(g)g″. Here f″(g)(g′)² > 0 but f′(g)g″ < 0, so the sign of h″ depends on which term is larger, and the information does not decide that."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-B-v2",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.6-b-v2",
+  "family": "3.6-B",
+  "variant": "2",
+  "topic": "3.6",
+  "title": "decide the concavity of a composite function from the signs of f′, f″, g′ and g″ using h″ = f″(g)(g′)² + f′(g)g″. (variant 2)",
+  "stem": "The functions f and g are twice differentiable on the real numbers. For all real t, f′(t) > 0 and f″(t) < 0, and for all real x, g′(x) < 0 and g″(x) < 0. Let h(x) = f(g(x)). Which statement about the graph of h is correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "h is concave up on the real numbers, because g′ and g″ are both negative.",
+    "is_correct": false,
+    "rationale": "Two negative signs in g do not produce a positive h″; the terms are f″(g)(g′)² < 0 and f′(g)g″ < 0."
+   },
+   {
+    "label": "B",
+    "text": "The concavity of h cannot be determined, because g′ < 0 and f″ < 0 have the same sign.",
+    "is_correct": false,
+    "rationale": "This drops the square, so f″(g)·g′ would be positive; the actual term f″(g)(g′)² is negative because the square is positive."
+   },
+   {
+    "label": "C",
+    "text": "h is concave up on the real numbers, because f′(g(x))·g″(x) is negative and a negative times f″ is positive.",
+    "is_correct": false,
+    "rationale": "Both terms of h″ are negative, so h″ < 0; multiplying by f″ is not part of the term f′(g)g″."
+   },
+   {
+    "label": "D",
+    "text": "h is concave down on the real numbers, because both terms of h″(x) are negative.",
+    "is_correct": true,
+    "rationale": "Correct: h″(x) = f″(g(x))·(g′(x))² + f′(g(x))·g″(x). First term: (negative)(positive) < 0. Second term: (positive)(negative) < 0. So h″ < 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-B-v3",
+  "content_key": "apcalcbc-mcq-b2-sv-h-3.6-b-v3",
+  "family": "3.6-B",
+  "variant": "3",
+  "topic": "3.6",
+  "title": "decide the concavity of a composite function from the signs of f′, f″, g′ and g″ using h″ = f″(g)(g′)² + f′(g)g″. (variant 3)",
+  "stem": "The functions f and g are twice differentiable. At x = 1, g′(1) = −1 and g″(1) = 4, and the values f′(g(1)) = −2 and f″(g(1)) = 3 are known. Let h(x) = f(g(x)). Which statement about h at x = 1 is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "h″(1) = −11, so the graph of h is concave down at x = 1.",
+    "is_correct": false,
+    "rationale": "This does not square g′(1): it uses f″(g)·g′ + f′(g)·g″ = −3 − 8 instead of f″(g)(g′)² + f′(g)g″."
+   },
+   {
+    "label": "B",
+    "text": "h″(1) = −5, so the graph of h is concave down at x = 1.",
+    "is_correct": true,
+    "rationale": "Correct: h″ = f″(g(x))·(g′(x))² + f′(g(x))·g″(x) = 3·(−1)² + (−2)(4) = 3 − 8 = −5 < 0, so h is concave down at x = 1."
+   },
+   {
+    "label": "C",
+    "text": "h″(1) = 12, so the graph of h is concave up at x = 1.",
+    "is_correct": false,
+    "rationale": "This multiplies the two second derivatives, f″(g(1))·g″(1), which ignores the chain and product rules."
+   },
+   {
+    "label": "D",
+    "text": "h″(1) = 3, so the graph of h is concave up at x = 1.",
+    "is_correct": false,
+    "rationale": "This keeps only f″(g(1))·(g′(1))² and drops the term f′(g(1))·g″(1) = −8."
+   }
+  ]
+ }
+]

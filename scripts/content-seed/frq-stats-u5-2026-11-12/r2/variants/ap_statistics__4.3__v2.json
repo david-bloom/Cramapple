@@ -1,0 +1,206 @@
+{
+ "id": "ap_statistics__4.3__v2",
+ "parent": "ap_statistics__4.3__1",
+ "parent_status": "accepted",
+ "topic_code": "4.3",
+ "item": {
+  "title": "Claims and Misreadings of a Matched-Pairs Interval for Weight Loss",
+  "calculator": "permitted",
+  "stimulus": "A dietitian recorded the weights of 18 randomly selected adults before and after an 8-week diet. For each adult, the difference (before minus after) in kilograms was calculated; positive differences mean the adult lost weight. The differences have no strong skewness and no outliers. Using technology, the dietitian found a 95% confidence interval for the population mean difference μ_d of (1.21, 4.99) kg.",
+  "parts": [
+   {
+    "prompt": "Interpret the interval in context, and interpret the confidence level.",
+    "criteria": [
+     {
+      "text": "Interprets the interval: we are 95% confident that the interval from 1.21 to 4.99 kg captures the true mean weight loss (before minus after) for all adults like these after the 8-week diet.",
+      "evidence": "Response states the confidence level, the interval from 1.21 to 4.99 kg, and the parameter it captures (true mean weight loss (before minus after) for all adults like these after the 8-week diet).",
+      "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Interprets the confidence level: if many random samples of the same size were taken, about 95% of the intervals they produce would capture the true parameter.",
+      "evidence": "Response describes 95% as the long-run percent of intervals, from repeated random samples, that capture the true parameter.",
+      "fix": "Describe the confidence level as the success rate of the method over many samples, not the probability for one interval.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "The dietitian makes two claims. Claim 1: the diet does not change mean weight (μ_d = 0). Claim 2: the diet lowers mean weight by at least 6 kg (μ_d ≥ 6). For each claim, state whether the interval supports it, and explain.",
+    "criteria": [
+     {
+      "text": "Because 0 is not in the interval (1.21, 4.99), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the diet is associated with a change in mean weight).",
+      "evidence": "Response compares 0 with the interval and concludes: 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the diet is associated with a change in mean weight).",
+      "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Because 6 is above the interval (1.21, 4.99), 6 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2.",
+      "evidence": "Response compares 6 with the interval and concludes: 6 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2.",
+      "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "The dietitian also says, \"95% of participants lost between 1.21 and 4.99 kg.\" Is this a correct use of the interval? Explain.",
+    "criteria": [
+     {
+      "text": "States that the dietitian's statement that 95% of participants lost between 1.21 and 4.99 kg is not justified, because the interval estimates the population mean difference, not the range of individual values.",
+      "evidence": "Response says the interval is for the population mean (or mean difference) and does not describe where individual values fall.",
+      "fix": "Remember a confidence interval estimates a parameter such as a mean, so it says nothing about the spread of individuals.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Suppose the dietitian had used a random sample of 72 participants instead of 18, and the sample mean difference and standard deviation were the same. How would the width of the 95% interval change? Give an approximate value for the new margin of error.",
+    "criteria": [
+     {
+      "text": "States that with n = 72 instead of 18 the interval would be narrower, with a margin of error about half as large (about 0.89 kg), because the standard error s/√n shrinks.",
+      "evidence": "Response says the interval is narrower, the margin of error is about half as large, and gives the larger sample size as the reason.",
+      "fix": "Quadrupling n halves the standard error (√4 = 2), so the margin of error is about half, with t* slightly smaller.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) We are 95% confident that the interval from 1.21 to 4.99 kg captures the true mean weight loss (before minus after) for all adults like these after the 8-week diet. The confidence level means that if many random samples of the same size were taken, about 95% of the intervals they produce would capture the true mean difference.\n\n(b) Claim 1: 0 is not in the interval (1.21, 4.99), so it is not a plausible value of μ_d, and the interval provides convincing evidence against Claim 1 (the diet is associated with a change in mean weight). Claim 2: 6 is above the interval, so it is not a plausible value and every plausible value is below it; the interval does not support Claim 2.\n\n(c) No. The interval estimates the population mean difference, not the range of individual values, so it does not describe where 95% of individuals fall.\n\n(d) The interval would be narrower. The standard error s/√n would be about half as large because √72 is about twice √18, so the margin of error would be about half of 1.89, roughly 0.89 kg.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, conf, n2 = 18, 3.1, 3.8, 0.95, 72\nts = round(tinv(1 - (1 - conf) / 2, n - 1), 3)\nme = ts * s / math.sqrt(n)\nassert round(d - me, 2) == 1.21 and round(d + me, 2) == 4.99\nassert 1.21 > 0 and 4.99 < 6\nme2 = round(tinv(1 - (1 - conf) / 2, n2 - 1), 3) * s / math.sqrt(n2)\nassert round(me2, 2) == 0.89\nassert 0.45 < me2 / me < 0.5\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T23:05:18.621Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"CI_INTERPRET\",\"CI_LEVEL\"],[\"CI_CLAIM\",\"CI_CLAIM\"],[\"CI_NOT_INDIV\"],[\"CI_SAMPLE_SIZE\"]]",
+  "child_order": "[[\"CI_INTERPRET\",\"CI_LEVEL\"],[\"CI_CLAIM\",\"CI_CLAIM\"],[\"CI_NOT_INDIV\"],[\"CI_SAMPLE_SIZE\"]]",
+  "child_pattern": [
+   [
+    "CI_INTERPRET",
+    "CI_LEVEL"
+   ],
+   [
+    "CI_CLAIM",
+    "CI_CLAIM"
+   ],
+   [
+    "CI_NOT_INDIV"
+   ],
+   [
+    "CI_SAMPLE_SIZE"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 4, variant 4. Criteria per part: parent [2,2,1,1], variant [2,2,1,1]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"CI_INTERPRET\",\"CI_LEVEL\"],[\"CI_CLAIM\",\"CI_CLAIM\"],[\"CI_NOT_INDIV\"],[\"CI_SAMPLE_SIZE\"]]\nCriterion a1 (CI_INTERPRET): wording and values changed\nCriterion a2 (CI_LEVEL): identical wording\nPart b prompt changed.\nCriterion b1 (CI_CLAIM): wording and values changed\nCriterion b2 (CI_CLAIM): wording and values changed\nPart c prompt changed.\nCriterion c1 (CI_NOT_INDIV): wording and values changed\nPart d prompt changed.\nCriterion d1 (CI_SAMPLE_SIZE): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from 5K improvement after a 6-week training program to weight loss after an 8-week diet, with kilograms replacing minutes. The original sample size changes from 20 to 18, the 95% interval from (0.37, 2.33) to (1.21, 4.99), the second claim’s threshold from 2.5 to 6, and the enlarged sample from 80 to 72. The rubric structure and reasoning demands remain unchanged.",
+     "numbers_recomputed": "The given interval has midpoint (1.21 + 4.99)/2 = 3.10 kg and margin of error (4.99 − 1.21)/2 = 1.89 kg. For Claim 1, 0 < 1.21, so zero remains outside the interval. For Claim 2, 6 > 4.99, so every value in the interval is below 6 kg. The sample-size multiplier is 72/18 = 4, giving a standard-error multiplier of sqrt(18/72) = 1/2. Accounting for the changed t critical value, the new margin of error is 1.89 × (t*_{71}/t*_{17}) × 1/2 ≈ 1.89 × (1.99394/2.10982) × 1/2 ≈ 0.8931 kg, matching the rubric’s approximately 0.89 kg. The corresponding width is approximately 1.7862 kg, narrower than the original 3.78 kg. All changed-dependent numerical statements match.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Context changed from a coach and 5K running times before/after a 6-week program with 20 runners to a dietitian and weights before/after an 8-week diet with 18 adults. Units changed from minutes to kg. The confidence interval changed from (0.37, 2.33) to (1.21, 4.99). Claim 2 threshold changed from 2.5 to 6. Part (d) sample sizes changed from 20/80 to 18/72, and the approximate new margin changed from 0.47 minutes to 0.89 kg. Rubric structure, criteria count, point values, and part pattern are unchanged.",
+     "numbers_recomputed": "Variant interval (1.21, 4.99) has width 3.78 and margin 1.89 kg. Claim 1: 0 is below 1.21, so 0 is outside the interval, matching the rubric. Claim 2: 6 is above 4.99, so 6 is above the interval, matching the rubric. Part (d): new MoE = 1.89 * sqrt(18/72) * (t*_71/t*_17) ≈ 1.89 * 0.5 * 0.945 ≈ 0.893 kg, so the stated 'about 0.89 kg' matches. Note: half of 1.89 is 0.945, but the actual value is slightly less than half because t* decreases; the variant's final approximate value is correct.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

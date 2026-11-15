@@ -1,0 +1,190 @@
+{
+ "id": "ap_statistics__4.4__v1",
+ "parent": "ap_statistics__4.4__1",
+ "parent_status": "accepted",
+ "topic_code": "4.4",
+ "item": {
+  "title": "Setting Up a Test of a Claimed Mean Clinic Wait",
+  "calculator": "not_applicable",
+  "stimulus": "A clinic posts a sign saying that patients wait a mean of 20 minutes to see a provider. A patient advocate suspects the true mean wait is more than 20 minutes. The advocate takes a random sample of 18 patients from the hundreds seen this month and records each wait. The sample mean is 23.1 minutes and the sample standard deviation is 5.8 minutes. A dotplot of the sample shows no strong skewness and no outliers.",
+  "parts": [
+   {
+    "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+    "criteria": [
+     {
+      "text": "Defines μ as the true mean waiting time, in minutes, of all patients seen at this clinic this month.",
+      "evidence": "Response defines μ as the true mean waiting time, in minutes, of all patients seen at this clinic this month, naming the response variable and the population in context.",
+      "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States H₀: μ = 20 and Hₐ: μ > 20.",
+      "evidence": "Response writes H₀: μ = 20 and Hₐ: μ > 20, with the alternative in the correct direction.",
+      "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Identify the appropriate procedure and show that its conditions are met.",
+    "criteria": [
+     {
+      "text": "Identifies the appropriate procedure as a one-sample t-test for a population mean.",
+      "evidence": "Response names a one-sample t-test for a population mean.",
+      "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the randomization condition: the 18 patients were randomly selected.",
+      "evidence": "Response states the randomization condition in context: the 18 patients were randomly selected.",
+      "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the 10% condition: 18 patients are less than 10% of the hundreds seen this month.",
+      "evidence": "Response checks that the sample size is less than 10% of the population: 18 patients are less than 10% of the hundreds seen this month.",
+      "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the sample-data condition: n = 18 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+      "evidence": "Response states the sample-data condition and why it is met: n = 18 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+      "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) μ is the true mean waiting time, in minutes, of all patients seen at this clinic this month. H₀: μ = 20 versus Hₐ: μ > 20.\n\n(b) The procedure is a one-sample t-test for a population mean, Randomization: the 18 patients were randomly selected. 10% condition: 18 patients are less than 10% of the hundreds seen this month. Sample-data condition: n = 18 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+  "verification_python": "mu0, n = 20, 18\nassert n < 30\nassert 23.1 > mu0\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:59:51.672Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"PROC_ID\",\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"]]",
+  "child_order": "[[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"PROC_ID\",\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"]]",
+  "child_pattern": [
+   [
+    "PARAM_DEFINE",
+    "HYPOTHESES"
+   ],
+   [
+    "PROC_ID",
+    "COND_RANDOM",
+    "COND_TEN",
+    "COND_NORMAL"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 2, variant 2. Criteria per part: parent [2,4], variant [2,4]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"PROC_ID\",\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"]]\nCriterion a1 (PARAM_DEFINE): wording and values changed\nCriterion a2 (HYPOTHESES): wording and values changed\nCriterion b1 (PROC_ID): identical wording\nCriterion b2 (COND_RANDOM): wording and values changed\nCriterion b3 (COND_TEN): wording and values changed\nCriterion b4 (COND_NORMAL): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from nationwide bulb lifetimes to waiting times for patients at a clinic this month. The claimed mean changes from 1200 hours to 20 minutes, the suspicion changes from less than to greater than, the sample size changes from 40 to 18, and the sample mean and standard deviation change from 1168 and 96 hours to 23.1 and 5.8 minutes. The population changes from thousands of bulbs to hundreds of patients. A stated dotplot assessment replaces the large-sample justification for the sample-data condition.",
+     "numbers_recomputed": "The null value is 20 minutes, so the hypotheses H₀: μ = 20 and Hₐ: μ > 20 match the claim and suspicion. The random sample contains 18 patients, matching b2. The strict 10% comparison requires N > 180; 'hundreds' implies at least 200 patients, and 18 < 0.10(200) = 20, so b3 matches. For b4, n = 18 < 30, matching the small-sample condition; the stated absence of strong skewness and outliers supplies the required justification. The sample mean 23.1 and standard deviation 5.8 are supplied givens, not calculated rubric targets.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Context changed from light bulb lifetimes to clinic waiting times; claimed mean changed from 1200 hours to 20 minutes; alternative direction changed from less than to greater than; sample size changed from 40 to 18; sample mean and standard deviation changed to 23.1 minutes and 5.8 minutes; population changed from all company light bulbs sold in stores nationwide to all patients seen at this clinic this month; the 10% condition now compares 18 patients to the hundreds seen this month; the sample-data condition changed from n = 40 ≥ 30 to n = 18 < 30 with a dotplot showing no strong skewness or outliers. Rubric structure, point pattern, and wording shape are unchanged.",
+     "numbers_recomputed": "Recalculated the changed numbers in the rubric and model answer: μ0 = 20 matches the sign claim; alternative direction is >, matching the suspicion that the true mean is more than 20; n = 18 matches the sample size; the 10% check uses 18 patients versus hundreds seen this month, and since 'hundreds' implies at least 200 patients, 18 < 20 (10% of 200) matches; the sample-data branch n = 18 < 30 matches, so the dotplot showing no strong skewness and no outliers is the correct justification. The given sample mean 23.1 and standard deviation 5.8 are setup values not used in criteria or model answer, so no further recomputation is required.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

@@ -6,7 +6,7 @@ import React from 'react';
  * The design system's rule for content it does not have: "omit, or leave
  * purposely blank with a disclaimer." Real item packages carry the question and
  * the choices and nothing else the plate wants — no habits pair, no reference
- * materials, no hints, no deep dive, no per-distractor fix.
+ * materials, no hints, no cheat sheet, no per-distractor fix.
  *
  * Inventing that content here would put unvetted pedagogy in front of a student
  * wearing the product's own styling, which is exactly what INV-3 and the

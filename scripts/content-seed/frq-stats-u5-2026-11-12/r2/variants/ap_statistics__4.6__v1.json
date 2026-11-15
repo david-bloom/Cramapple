@@ -1,0 +1,194 @@
+{
+ "id": "ap_statistics__4.6__v1",
+ "parent": "ap_statistics__4.6__1",
+ "parent_status": "accepted",
+ "topic_code": "4.6",
+ "item": {
+  "title": "Direction, Probability and Sample Size for a Difference in Mean Delivery Times",
+  "calculator": "permitted",
+  "stimulus": "Delivery times (in minutes) for Store 1 have a mean of 52 and a standard deviation of 10. Delivery times for Store 2 have a mean of 47 and a standard deviation of 7. An analyst takes independent random samples of 50 deliveries from Store 1 and 60 deliveries from Store 2, each far smaller than 10% of that store's deliveries. Let x̄₁ be the mean for Store 1 and x̄₂ the mean for Store 2.",
+  "parts": [
+   {
+    "prompt": "Find the mean and the standard deviation of the sampling distribution of x̄₁ − x̄₂, the difference between the two sample means.",
+    "criteria": [
+     {
+      "text": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 5 minutes.",
+      "evidence": "Response gives 5 minutes as the mean of the sampling distribution of the difference in sample means.",
+      "fix": "The sampling distribution of x̄₁ − x̄₂ is centered at μ₁ − μ₂; subtract the second mean from the first.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(10²/50 + 7²/60) = 1.678 minutes.",
+      "evidence": "Response adds the two variances divided by their sample sizes, takes the square root, and reports about 1.678 minutes.",
+      "fix": "Add the two variance-over-sample-size terms before taking the square root; do not subtract or add the standard deviations.",
+      "accepted_variants": [
+       "1.68"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Is the sampling distribution of x̄₁ − x̄₂ approximately normal? Justify your answer.",
+    "criteria": [
+     {
+      "text": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (50 and 60) are at least 30.",
+      "evidence": "Response says the sampling distribution is approximately normal and gives the reason: independent random samples and both sample sizes at least 30.",
+      "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Find the probability that the sample mean delivery time for Store 1 is less than the sample mean delivery time for Store 2.",
+    "criteria": [
+     {
+      "text": "Finds the probability that the mean delivery time of the Store 1 sample is less than the mean delivery time of the Store 2 sample: the probability is about 0.0014, using a normal distribution with mean 5 and standard deviation 1.678 (for example, z = (0 − 5)/1.678 = −2.98).",
+      "evidence": "Response uses the mean 5 and standard deviation 1.678 of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about 0.0014.",
+      "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+      "accepted_variants": [
+       "0.001",
+       "0.14%"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Suppose the analyst instead takes independent random samples of the same size n from each store. What is the smallest n for which the standard deviation of x̄₁ − x̄₂ is at most 1.2 minutes?",
+    "criteria": [
+     {
+      "text": "Solves √(10²/n + 7²/n) ≤ 1.2 for a common sample size: n ≥ 103.47, so n = 104.",
+      "evidence": "Response sets the standard deviation of x̄₁ − x̄₂ at most 1.2, solves for n, and rounds up to n = 104.",
+      "fix": "Write the SD formula with the same n for both samples, set it at most the target, solve for n, and round up.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) The mean is μ₁ − μ₂ = 52 − 47 = 5 minutes. The standard deviation is √(10²/50 + 7²/60) = 1.678 minutes.\n\n(b) Yes. The sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (50 and 60) are at least 30.\n\n(c) The mean delivery time of the Store 1 sample is less than the mean delivery time of the Store 2 sample means x̄₁ − x̄₂ is less than 0. z = (0 − 5)/1.678 = −2.98, so the probability is about 0.0014.\n\n(d) √(10²/n + 7²/n) ≤ 1.2 gives (100 + 49)/n ≤ 1.44, so n ≥ 103.47. The smallest n is 104.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nm1, s1, n1, m2, s2, n2 = 52, 10, 50, 47, 7, 60\nmd = m1 - m2\nsd = math.sqrt(s1 ** 2 / n1 + s2 ** 2 / n2)\nassert md == 5 and round(sd, 3) == 1.678\nz = (0 - md) / sd\nassert round(z, 2) == -2.98\np = ncdf(z)\nassert round(p, 4) == 0.0014\ntg = 1.2\nn_ans = math.ceil((s1 ** 2 + s2 ** 2) / tg ** 2 - 1e-9)\nassert n_ans == 104\nassert math.sqrt((s1 ** 2 + s2 ** 2) / n_ans) <= tg < math.sqrt((s1 ** 2 + s2 ** 2) / (n_ans - 1))\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T22:56:21.972Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"DIFF_MEAN\",\"DIFF_SD\"],[\"XBAR_SHAPE\"],[\"XBAR_PROB\"],[\"SD_SOLVE_N\"]]",
+  "child_order": "[[\"DIFF_MEAN\",\"DIFF_SD\"],[\"XBAR_SHAPE\"],[\"XBAR_PROB\"],[\"SD_SOLVE_N\"]]",
+  "child_pattern": [
+   [
+    "DIFF_MEAN",
+    "DIFF_SD"
+   ],
+   [
+    "XBAR_SHAPE"
+   ],
+   [
+    "XBAR_PROB"
+   ],
+   [
+    "SD_SOLVE_N"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 4, variant 4. Criteria per part: parent [2,1,1,1], variant [2,1,1,1]. Points: parent 5, variant 5.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"DIFF_MEAN\",\"DIFF_SD\"],[\"XBAR_SHAPE\"],[\"XBAR_PROB\"],[\"SD_SOLVE_N\"]]\nCriterion a1 (DIFF_MEAN): wording and values changed\nCriterion a2 (DIFF_SD): wording and values changed; accepted variants changed\nCriterion b1 (XBAR_SHAPE): wording and values changed\nPart c prompt changed.\nCriterion c1 (XBAR_PROB): wording and values changed; accepted variants changed\nPart d prompt changed.\nCriterion d1 (SD_SOLVE_N): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from city commute times to store delivery times. Population means change from 34 and 30 to 52 and 47 minutes, standard deviations from 8 and 6 to 10 and 7 minutes, and sample sizes from 40 and 45 to 50 and 60. Part (c) rephrases the same lower-tail comparison as Store 1 having a smaller sample mean than Store 2. Part (d) changes the target standard deviation from 0.8 to 1.2 minutes. Corresponding rubric values and accepted numerical forms change; the parts, points, and reasoning requirements remain unchanged.",
+     "numbers_recomputed": "a1: 52 − 47 = 5 minutes, matching. a2: sqrt(10²/50 + 7²/60) = sqrt(169/60) = 1.678293 minutes, matching 1.678 and 1.68. b1: Both sample sizes, 50 and 60, are at least 30, matching. c1: P(x̄₁ − x̄₂ < 0) uses z = (0 − 5)/sqrt(169/60) = −2.979218, matching −2.98; the normal probability is approximately 0.001445, matching 0.0014 and 0.14%, and rounding to 0.001 at three decimal places. d1: sqrt(149/n) ≤ 1.2 implies n ≥ 149/1.44 = 103.472222, matching 103.47; the smallest integer is 104, matching.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The variant changes the context from city commute times to store delivery times; it changes the population means from 34 and 30 to 52 and 47, the standard deviations from 8 and 6 to 10 and 7, and the sample sizes from 40 and 45 to 50 and 60. Part (c) wording is adjusted from City B exceeding City A to Store 1 being less than Store 2, which still corresponds to x̄₁ − x̄₂ < 0. Part (d) changes the target standard deviation from 0.8 to 1.2. The rubric structure, number of parts, criteria, and point values are unchanged.",
+     "numbers_recomputed": "Mean: 52 − 47 = 5 minutes; matches the criterion. SD: √(10²/50 + 7²/60) = √(2 + 0.8167) = √2.8167 ≈ 1.6783, reported as 1.678; matches. Part (c): z = (0 − 5)/1.6783 ≈ −2.98, lower-tail probability ≈ 0.00144, reported as about 0.0014 with equivalents 0.001 and 0.14%; matches. Part (d): √(10²/n + 7²/n) ≤ 1.2 gives √(149/n) ≤ 1.2, so n ≥ 149/1.44 ≈ 103.47, giving n = 104; matches. Sample sizes 50 and 60 are stated correctly.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

@@ -1,0 +1,192 @@
+{
+ "id": "ap_statistics__4.9__v1",
+ "parent": "ap_statistics__4.9__1",
+ "parent_status": "accepted",
+ "topic_code": "4.9",
+ "item": {
+  "title": "Is a Two-Sample t-Test Appropriate? Quiz Scores for Two Study Formats",
+  "calculator": "not_applicable",
+  "stimulus": "An instructor believes that students who study with practice tests earn a greater mean quiz score than students who study by rereading. Thousands of students at the university use each format. The instructor independently and randomly selected 32 students who use practice tests (sample mean 78.5 points) and 15 students who reread (sample mean 74.1 points). A dotplot of the 32 practice-test scores shows no strong skewness and no outliers. A dotplot of the 15 rereading scores is skewed right with one outlier.",
+  "parts": [
+   {
+    "prompt": "Let μ₁ be the mean for the practice-test format and μ₂ the mean for the rereading format. Define the parameters of interest and state the null and alternative hypotheses for the test.",
+    "criteria": [
+     {
+      "text": "Defines μ₁ and μ₂ as the μ₁ is the true mean quiz score, in points, of all students at the university who study with practice tests, and μ₂ is the true mean quiz score of all students at the university who study by rereading.",
+      "evidence": "Response defines μ₁ and μ₂ as the μ₁ is the true mean quiz score, in points, of all students at the university who study with practice tests, and μ₂ is the true mean quiz score of all students at the university who study by rereading, naming the response variable and the population in context.",
+      "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ > 0.",
+      "evidence": "Response writes H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ > 0, with the alternative in the correct direction.",
+      "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Identify the appropriate procedure, and decide whether its conditions are met. Justify each decision.",
+    "criteria": [
+     {
+      "text": "Identifies the appropriate procedure as a two-sample t-test for a difference in population means.",
+      "evidence": "Response names a two-sample t-test for a difference in population means.",
+      "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the randomization condition: the students were selected by independent random samples from the two groups of students.",
+      "evidence": "Response states the randomization condition in context: the students were selected by independent random samples from the two groups of students.",
+      "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the 10% condition: each sample is less than 10% of the thousands of students in its group.",
+      "evidence": "Response checks that the sample size is less than 10% of the population: each sample is less than 10% of the thousands of students in its group.",
+      "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the sample-data condition: one sample (n = 15) is less than 30, so both samples must show no strong skewness or outliers, but the rereading sample has an outlier, so the sample-data condition is not met and the two-sample t-test is not appropriate.",
+      "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: one sample (n = 15) is less than 30, so both samples must show no strong skewness or outliers, but the rereading sample has an outlier, so the sample-data condition is not met and the two-sample t-test is not appropriate.",
+      "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) Μ₁ is the true mean quiz score, in points, of all students at the university who study with practice tests, and μ₂ is the true mean quiz score of all students at the university who study by rereading. H₀: μ₁ − μ₂ = 0 versus Hₐ: μ₁ − μ₂ > 0.\n\n(b) The procedure is a two-sample t-test for a difference in population means. Randomization: the students were selected by independent random samples from the two groups of students. 10% condition: each sample is less than 10% of the thousands of students in its group. Sample-data condition: one sample (n = 15) is less than 30, so both samples must show no strong skewness or outliers, but the rereading sample has an outlier, so the sample-data condition is not met and the two-sample t-test is not appropriate.",
+  "verification_python": "n1, n2 = 32, 15\nboth_big = min(n1, n2) >= 30\nassert both_big == False\nassert 78.5 > 74.1\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T22:57:38.653Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"PROC_ID\",\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"]]",
+  "child_order": "[[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"PROC_ID\",\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"]]",
+  "child_pattern": [
+   [
+    "PARAM_DEFINE",
+    "HYPOTHESES"
+   ],
+   [
+    "PROC_ID",
+    "COND_RANDOM",
+    "COND_TEN",
+    "COND_NORMAL"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 2, variant 2. Criteria per part: parent [2,4], variant [2,4]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"PROC_ID\",\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"]]\nPart a prompt changed.\nCriterion a1 (PARAM_DEFINE): wording and values changed\nCriterion a2 (HYPOTHESES): wording and values changed\nCriterion b1 (PROC_ID): identical wording\nCriterion b2 (COND_RANDOM): wording and values changed\nCriterion b3 (COND_TEN): wording and values changed\nCriterion b4 (COND_NORMAL): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from customer onboarding times to university students’ quiz scores under practice-test versus rereading study formats. Sample sizes change from 36 and 14 to 32 and 15, and sample means from 21.4 and 26.8 minutes to 78.5 and 74.1 points. The research claim changes from a lower mean to a greater mean, correctly reversing the alternative hypothesis. The distributional features and rubric structure remain unchanged; the variant’s final condition check cites the rereading outlier without also mentioning its right skew.",
+     "numbers_recomputed": "The changed small-sample size is n₂ = 15, and 15 < 30, matching b4; n₁ = 32 ≥ 30. For the 10% condition, 32 < 0.10N₁ requires N₁ > 320, and 15 < 0.10N₂ requires N₂ > 150; thousands of students in each group satisfy both, matching b3. The null difference remains 0, and the greater-mean claim correctly gives μ₁ − μ₂ > 0. The sample means are supplied data, not calculated rubric targets. No model answer was provided or assessed.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Context changed from onboarding setup times to quiz scores for two study formats. Populations changed from customers using new versus standard onboarding to university students using practice tests versus rereading; response variable changed from setup time in minutes to quiz score in points; sample sizes changed from 36/14 to 32/15; sample means changed from 21.4/26.8 minutes to 78.5/74.1 points; the alternative direction reversed from H_a: μ1−μ2<0 to H_a: μ1−μ2>0; context wording was updated in criteria a1-b4.",
+     "numbers_recomputed": "Sample sizes are 32 for practice tests and 15 for rereading; both match the setup and criteria, and 15<30 drives the sample-data condition check. Setup sample means are 78.5 and 74.1 points; these do not appear in the rubric or model answer beyond context. The expected difference in sample means is 78.5−74.1=4.4 points, but it is not used in any criterion. Hypotheses signs: with μ1 as practice-test mean and μ2 as rereading mean, the alternative μ1−μ2>0 matches the stated belief and is correct. No other numeric values in the rubric require recomputation.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

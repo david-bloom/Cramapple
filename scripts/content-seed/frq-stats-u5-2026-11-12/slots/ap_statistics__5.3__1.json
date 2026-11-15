@@ -1,0 +1,287 @@
+{
+ "id": "ap_statistics__5.3__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 5,
+  "unit_title": "Regression Analysis",
+  "topic_code": "5.3",
+  "topic_title": "Linear Regression Models",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:24:17.440Z",
+   "source": "given",
+   "item": {
+    "title": "Predicting Used-Car Prices From Age",
+    "calculator": "permitted",
+    "stimulus": "A used-car dealer fit a least-squares regression line to the asking prices of 20 cars of the same model. The cars were between 2 and 9 years old. The regression equation, found using technology, is ŷ = 27.4 − 1.9x, where x is the age of the car in years and ŷ is the predicted asking price in thousands of dollars.",
+    "parts": [
+     {
+      "prompt": "Use the model to predict the asking price of a car that is 6 years old. Is this prediction an interpolation or an extrapolation? Explain.",
+      "criteria": [
+       {
+        "text": "Substitutes x = 6 into ŷ = 27.4 − 1.9x and gets a predicted value of 16.0 thousand dollars.",
+        "evidence": "Response replaces x with 6 in the regression equation and reports 16.0 thousand dollars.",
+        "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+        "accepted_variants": [
+         "16.0",
+         "16",
+         "$16,000"
+        ]
+       },
+       {
+        "text": "Classifies the prediction at 6 years as interpolation because 6 is within the interval of age values (2 to 9 years) used to fit the line.",
+        "evidence": "Response says interpolation and compares 6 with the fitted interval of 2 to 9 years.",
+        "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use the model to predict the asking price of a car that is 13 years old. Is this prediction an interpolation or an extrapolation? Explain.",
+      "criteria": [
+       {
+        "text": "Substitutes x = 13 into ŷ = 27.4 − 1.9x and gets a predicted value of 2.7 thousand dollars.",
+        "evidence": "Response replaces x with 13 in the regression equation and reports 2.7 thousand dollars.",
+        "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+        "accepted_variants": [
+         "2.7",
+         "$2,700"
+        ]
+       },
+       {
+        "text": "Classifies the prediction at 13 years as extrapolation because 13 is beyond the interval of age values (2 to 9 years) used to fit the line.",
+        "evidence": "Response says extrapolation and compares 13 with the fitted interval of 2 to 9 years.",
+        "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Which of your two predictions is more reliable? Explain.",
+      "criteria": [
+       {
+        "text": "States that the prediction at 6 years is more reliable than the prediction at 13 years, because 13 is extrapolation and predictions get less reliable the further age is beyond the data.",
+        "evidence": "Response chooses the interpolated prediction as more reliable and gives extrapolation beyond the observed values as the reason.",
+        "fix": "Say which prediction is inside the data range, and explain that extrapolated predictions become less reliable the farther they go beyond it.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) ŷ = 27.4 − 1.9x with x = 6 gives ŷ = 16.0 thousand dollars. This is interpolation, because 6 years is within the interval of age values, 2 to 9 years, used to fit the line.\n\n(b) With x = 13, ŷ = 2.7 thousand dollars. This is extrapolation, because 13 years is beyond the interval of age values, 2 to 9 years, used to fit the line.\n\n(c) The prediction at 6 years is more reliable. The prediction at 13 years is extrapolation, and predictions become less reliable the further age is beyond the data.",
+    "verification_python": "a = 27.4\nb = -1.9\nlo, hi = 2, 9\nxn, xf = 6, 13\nyn = a + b * xn\nyf = a + b * xf\nassert abs(yn - 16.0) < 1e-9\nassert abs(yf - 2.7) < 1e-9\nassert lo <= xn <= hi\nassert xf > hi\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.3": 5,
+     "5.5": 1
+    },
+    "onTarget": 5,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Predicting Used-Car Prices From Age",
+   "calculator": "permitted",
+   "stimulus": "A used-car dealer fit a least-squares regression line to the asking prices of 20 cars of the same model. The cars were between 2 and 9 years old. The regression equation, found using technology, is ŷ = 27.4 − 1.9x, where x is the age of the car in years and ŷ is the predicted asking price in thousands of dollars.",
+   "parts": [
+    {
+     "prompt": "Use the model to predict the asking price of a car that is 6 years old. Is this prediction an interpolation or an extrapolation? Explain.",
+     "criteria": [
+      {
+       "text": "Substitutes x = 6 into ŷ = 27.4 − 1.9x and gets a predicted value of 16.0 thousand dollars.",
+       "evidence": "Response replaces x with 6 in the regression equation and reports 16.0 thousand dollars.",
+       "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+       "accepted_variants": [
+        "16.0",
+        "16",
+        "$16,000"
+       ]
+      },
+      {
+       "text": "Classifies the prediction at 6 years as interpolation because 6 is within the interval of age values (2 to 9 years) used to fit the line.",
+       "evidence": "Response says interpolation and compares 6 with the fitted interval of 2 to 9 years.",
+       "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use the model to predict the asking price of a car that is 13 years old. Is this prediction an interpolation or an extrapolation? Explain.",
+     "criteria": [
+      {
+       "text": "Substitutes x = 13 into ŷ = 27.4 − 1.9x and gets a predicted value of 2.7 thousand dollars.",
+       "evidence": "Response replaces x with 13 in the regression equation and reports 2.7 thousand dollars.",
+       "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+       "accepted_variants": [
+        "2.7",
+        "$2,700"
+       ]
+      },
+      {
+       "text": "Classifies the prediction at 13 years as extrapolation because 13 is beyond the interval of age values (2 to 9 years) used to fit the line.",
+       "evidence": "Response says extrapolation and compares 13 with the fitted interval of 2 to 9 years.",
+       "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Which of your two predictions is more reliable? Explain.",
+     "criteria": [
+      {
+       "text": "States that the prediction at 6 years is more reliable than the prediction at 13 years, because 13 is extrapolation and predictions get less reliable the further age is beyond the data.",
+       "evidence": "Response chooses the interpolated prediction as more reliable and gives extrapolation beyond the observed values as the reason.",
+       "fix": "Say which prediction is inside the data range, and explain that extrapolated predictions become less reliable the farther they go beyond it.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) ŷ = 27.4 − 1.9x with x = 6 gives ŷ = 16.0 thousand dollars. This is interpolation, because 6 years is within the interval of age values, 2 to 9 years, used to fit the line.\n\n(b) With x = 13, ŷ = 2.7 thousand dollars. This is extrapolation, because 13 years is beyond the interval of age values, 2 to 9 years, used to fit the line.\n\n(c) The prediction at 6 years is more reliable. The prediction at 13 years is extrapolation, and predictions become less reliable the further age is beyond the data.",
+   "verification_python": "a = 27.4\nb = -1.9\nlo, hi = 2, 9\nxn, xf = 6, 13\nyn = a + b * xn\nyf = a + b * xf\nassert abs(yn - 16.0) < 1e-9\nassert abs(yf - 2.7) < 1e-9\nassert lo <= xn <= hi\nassert xf > hi\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items.py, rubric_patterns.json), 2026-11-12",
+  "at": "2026-11-12T21:24:13.454032Z"
+ },
+ "accepted_round": 1
+}

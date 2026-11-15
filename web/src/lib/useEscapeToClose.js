@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 /**
  * Close an overlay on Escape. Both overlays in this product (the study map and
- * the deep dive) cover the plate below the breadcrumb, so a keyboard user needs
+ * the cheat sheet) cover the plate below the breadcrumb, so a keyboard user needs
  * a way out that is not the mouse.
  */
 export function useEscapeToClose(open, onClose) {

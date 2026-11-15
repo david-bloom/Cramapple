@@ -71,6 +71,15 @@ export const PUBLIC_ENDPOINT_LIMITS = {
     perIpPerHour: 240,
     globalPerHour: 6000,
   },
+  // Paywall sample: the anonymous first MCQ (start/answer/status). A
+  // classroom shares one NAT, so the per-IP number tolerates a class period;
+  // the SQL layer bounds each token to one answered try (spec §3.2).
+  // PROPOSED numbers (PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md P1).
+  sampleTry: {
+    endpoint: "sample-try",
+    perIpPerHour: 60,
+    globalPerHour: 2000,
+  },
 } as const satisfies Record<string, PublicEndpointLimit>;
 
 export const RATE_LIMIT_WINDOW_SECONDS = 3600;

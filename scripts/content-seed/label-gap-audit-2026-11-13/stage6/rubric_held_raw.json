@@ -1,0 +1,3129 @@
+[
+ {
+  "content_key": "apcalcab-frq-u13-006",
+  "version_num": 2,
+  "frq_form": "short",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "cold_label",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 21606,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.080344,
+       "cost_details": {
+        "upstream_inference_cost": 0.080344,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 31235,
+       "prompt_tokens": 29522,
+       "completion_tokens": 1713,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 26368
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1510
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apcalcab-frq-u13-006",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "No AB-excluded content is required; the apparent content is estimating derivatives from tabular data and derivative notation."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "part-b-criterion-03 awards a point for explaining that the forward difference is an approximation rather than an exact instantaneous rate. Part (b) asks students to approximate T'(0) using the most appropriate difference quotient and explain that choice; it does not ask for a separate explanation of why the result is not exact."
+        ]
+       },
+       "uncertainty_flags": [
+        "Rubric preflight failed; serving unit labels were not assigned."
+       ]
+      }
+     },
+     {
+      "ms": 10652,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.00720851,
+       "is_byok": false,
+       "market_cost": 0.00720851,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.00720851,
+       "total_tokens": 32840,
+       "prompt_tokens": 30651,
+       "completion_tokens": 2189,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 27627
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1386
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apcalcab-frq-u13-006",
+       "primary_unit": 2,
+       "required_units": [
+        2
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion requires setting up a central difference quotient from a table, which is covered in Unit 2, Topic 2.3 (Estimating Derivatives of a Function at a Point).",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion requires performing the calculation of the difference quotient and stating the value with units, which is covered in Unit 2, Topic 2.3.",
+         "criterion_key": "part-a-criterion-02"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion requires identifying the appropriate difference quotient at an endpoint, demonstrating understanding of the limitations of data tables for derivative estimation, covered in Unit 2, Topic 2.3.",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion requires setting up and computing a one-sided difference quotient, covered in Unit 2, Topic 2.3.",
+         "criterion_key": "part-b-criterion-02"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion requires explaining that a difference quotient is an approximation of an instantaneous rate, which is a conceptual understanding of derivatives and their estimation, covered in Unit 2, Topic 2.3.",
+         "criterion_key": "part-b-criterion-03"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion requires using correct derivative notation (T'(6)), which is covered in Unit 2, Topic 2.2 (Defining the Derivative of a Function and Using Derivative Notation).",
+         "criterion_key": "part-c-criterion-01"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion requires setting up and computing a central difference quotient, covered in Unit 2, Topic 2.3.",
+         "criterion_key": "part-c-criterion-02"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion requires explaining the conceptual advantage of a central difference quotient (incorporating behavior from both sides), covered in Unit 2, Topic 2.3.",
+         "criterion_key": "part-c-criterion-03"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion requires comparing central vs. one-sided difference quotients by referencing the two-sided limit definition of the derivative, drawing on concepts from Unit 2, Topic 2.2 and Topic 2.3.",
+         "criterion_key": "part-c-criterion-04"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260926030346",
+    "coverage_deferred": true,
+    "legacy_serving_label": null
+   }
+  },
+  "stem": "Estimating Cooling Rates from a Temperature Table: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apcalcab-frq-u13-017",
+  "version_num": 1,
+  "frq_form": "short",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "cold_label",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 7498,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.047259,
+       "cost_details": {
+        "upstream_inference_cost": 0.047259,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 29938,
+       "prompt_tokens": 29289,
+       "completion_tokens": 649,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 26368
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 388
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apcalcab-frq-u13-017",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "The mathematical content involves inverse trigonometric derivatives, chain rule application, evaluation of a derivative, and derivative domain restrictions, all within AP Calculus AB scope; no Units 9-10, BC-only Unit 6 topics, improper integrals, partial fractions, or arc length are required."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "part-a-criterion-03 scores a domain restriction for the arcsin term, but part (a) only asks students to state derivative formulas and identify inner functions and their derivatives.",
+         "The domain restriction is explicitly asked in part (c), where it is covered by part-c-criterion-02 and part-c-criterion-03, so part-a-criterion-03 scores an unasked operation in part (a)."
+        ]
+       },
+       "uncertainty_flags": [
+        "Rubric preflight failed; unit labels were not forced."
+       ]
+      }
+     },
+     {
+      "ms": 11874,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.00764071,
+       "is_byok": false,
+       "market_cost": 0.00764071,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.00764071,
+       "total_tokens": 32770,
+       "prompt_tokens": 30375,
+       "completion_tokens": 2395,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 27627
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1627
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apcalcab-frq-u13-017",
+       "primary_unit": 3,
+       "required_units": [
+        1,
+        2,
+        3
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires knowledge of the derivative of arctan(u) and the chain rule (Topic 3.4, 3.1).",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires knowledge of the derivative of arcsin(u) and the chain rule (Topic 3.4, 3.1).",
+         "criterion_key": "part-a-criterion-02"
+        },
+        {
+         "units": [
+          1,
+          3
+         ],
+         "evidence": "Requires understanding the domain of arcsin(u) and its derivative, which relates to continuity and differentiability (Topic 3.4, 1.11).",
+         "criterion_key": "part-a-criterion-03"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires applying the chain rule and arctan derivative formula (Topic 3.4, 3.1).",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires applying the chain rule and arcsin derivative formula (Topic 3.4, 3.1).",
+         "criterion_key": "part-b-criterion-02"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires algebraic manipulation to simplify the radical expression, which is an application of the derivative (Topic 3.4).",
+         "criterion_key": "part-b-criterion-03"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "Requires evaluating the derivative at a specific point (Topic 3.4, 2.2).",
+         "criterion_key": "part-c-criterion-01"
+        },
+        {
+         "units": [
+          1,
+          3
+         ],
+         "evidence": "Requires identifying the domain of the derivative, specifically for the arcsin term, which relates to continuity and differentiability (Topic 3.4, 1.11).",
+         "criterion_key": "part-c-criterion-02"
+        },
+        {
+         "units": [
+          1,
+          3
+         ],
+         "evidence": "Requires justifying the domain restriction by understanding why the derivative's denominator cannot be zero, linking to differentiability and domain concepts (Topic 3.4, 1.11).",
+         "criterion_key": "part-c-criterion-03"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260926030346",
+    "coverage_deferred": true,
+    "legacy_serving_label": {
+     "source": "legacy_prompt_json",
+     "label_status": "legacy_unvalidated",
+     "primary_unit": null,
+     "required_units": [],
+     "max_required_unit": null
+    }
+   }
+  },
+  "stem": "Differentiating a Sum of Inverse Trigonometric Functions: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apcalcbc-frq-u13-010",
+  "version_num": 2,
+  "frq_form": "short",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "cold_label",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 21793,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.076729,
+       "cost_details": {
+        "upstream_inference_cost": 0.076729,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 31122,
+       "prompt_tokens": 29531,
+       "completion_tokens": 1591,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 26368
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1351
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apcalcbc-frq-u13-010",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "The mathematical content shown is routine differentiation using the chain rule, logarithmic derivative, trigonometric derivative, and exponential derivative, all eligible within AP Calculus BC."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "part-a-criterion-04 awards a point specifically for simplifying h'(x) to a single-fraction form, but part A asks students to find h'(x) and show chain-rule applications; it does not explicitly ask for simplification. A correct unsimplified derivative from part-a-criterion-03 would answer the prompt, so this criterion scores an unasked operation.",
+         "Because the rubric preflight fails, unit labels are withheld rather than forced."
+        ]
+       },
+       "uncertainty_flags": [
+        "rubric_preflight_failed_unit_labels_withheld"
+       ]
+      }
+     },
+     {
+      "ms": 21284,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.01220641,
+       "is_byok": false,
+       "market_cost": 0.01220641,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.01220641,
+       "total_tokens": 34833,
+       "prompt_tokens": 30644,
+       "completion_tokens": 4189,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 27627
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 3424
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apcalcbc-frq-u13-010",
+       "primary_unit": 3,
+       "required_units": [
+        2,
+        3
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "Requires applying the power rule (Unit 2) and the chain rule (Unit 3) to the outermost function.",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "Requires applying the derivative rule for natural logarithm (Unit 2) and the chain rule (Unit 3) to the middle function.",
+         "criterion_key": "part-a-criterion-02"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires correctly combining the derivatives obtained from successive applications of the chain rule (Unit 3).",
+         "criterion_key": "part-a-criterion-03"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires algebraic simplification of the derivative expression, which is a result of applying the chain rule (Unit 3).",
+         "criterion_key": "part-a-criterion-04"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "Requires substituting a value into the derivative function obtained in Part A, which relies on knowledge of basic derivatives (Unit 2) and the chain rule (Unit 3).",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "Requires evaluating the numerical expression for the derivative, which relies on the correct derivative from Part A (Units 2, 3).",
+         "criterion_key": "part-b-criterion-02"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "Requires showing arithmetic simplification during the evaluation of the derivative, which relies on the correct derivative from Part A (Units 2, 3).",
+         "criterion_key": "part-b-criterion-03"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "Requires applying the derivative rule for sine (Unit 2) and the chain rule (Unit 3) to the outermost function.",
+         "criterion_key": "part-c-criterion-01"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "Requires applying the derivative rule for exponential functions (Unit 2) and the chain rule (Unit 3) to the inner function, then combining results.",
+         "criterion_key": "part-c-criterion-02"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260927113406",
+    "coverage_deferred": true,
+    "legacy_serving_label": {
+     "source": "vercel_ai_gateway_two_model_serving_lane",
+     "label_status": "stale",
+     "primary_unit": 3,
+     "required_units": [
+      2,
+      3
+     ],
+     "max_required_unit": 3
+    }
+   }
+  },
+  "stem": "Repeated Chain Rule with Logarithmic and Exponential Compositions: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apcalcbc-frq-u13-018",
+  "version_num": 2,
+  "frq_form": "short",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "cold_label",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 15406,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.065639,
+       "cost_details": {
+        "upstream_inference_cost": 0.065639,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 31074,
+       "prompt_tokens": 29917,
+       "completion_tokens": 1157,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 26368
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 914
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apcalcbc-frq-u13-018",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "The assessed calculus content is inverse trigonometric differentiation, chain rule, and product rule, all within AP Calculus BC scope."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "part-a-criterion-01 appears to require distinguishing the function domain [-1,1] from the interval on which the derivative formula is valid, (-1,1). The prompt for part A asks only for the domain restriction required for arccos(x^2) to be defined and verification that x=1/2 lies in the domain; it does not ask for the derivative-formula validity interval.",
+         "Because a criterion scores an unasked operation, unit labels are not forced."
+        ]
+       },
+       "uncertainty_flags": [
+        "Rubric preflight failed, so serving-unit labels were not assigned."
+       ]
+      }
+     },
+     {
+      "ms": 20319,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.01235461,
+       "is_byok": false,
+       "market_cost": 0.01235461,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.01235461,
+       "total_tokens": 35195,
+       "prompt_tokens": 30988,
+       "completion_tokens": 4207,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 27627
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 3283
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apcalcbc-frq-u13-018",
+       "primary_unit": 3,
+       "required_units": [
+        2,
+        3
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          3
+         ],
+         "evidence": "This criterion requires stating the domain restriction for arccos(x^2). While the domain of inverse trigonometric functions is foundational (precalculus), its application here is directly tied to the function being differentiated in Unit 3.4, and the 'minimum_fix' notes the distinction between the function's domain and where its derivative is defined, which is a calculus concept.",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "This criterion requires verifying a point lies within the domain established in the previous step. This is arithmetic, but it directly supports the understanding of the function's domain, which is foundational for Unit 3.4.",
+         "criterion_key": "part-a-criterion-02"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "This criterion requires differentiating arccos(x^2) using the chain rule and the derivative rule for inverse cosine. This directly assesses topics 3.1 (Chain Rule) and 3.4 (Differentiating Inverse Trigonometric Functions).",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion requires applying the product rule to x\u00b7arctan(2x). This directly assesses topic 2.8 (The Product Rule).",
+         "criterion_key": "part-b-criterion-02"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "This criterion requires differentiating arctan(2x) using the chain rule and the derivative rule for inverse tangent. This directly assesses topics 3.1 (Chain Rule) and 3.4 (Differentiating Inverse Trigonometric Functions).",
+         "criterion_key": "part-b-criterion-03"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "This criterion requires combining all the differentiated terms into the final expression for h'(x). This synthesizes the product rule from Unit 2 and the chain rule/inverse trig derivatives from Unit 3.",
+         "criterion_key": "part-b-criterion-04"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "This criterion requires substituting x=1/2 into the derivative h'(x) found in Part B. This relies on the correct derivative from Units 2 and 3.",
+         "criterion_key": "part-c-criterion-01"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "This criterion requires simplifying one of the terms after substitution. This algebraic simplification is applied to a term derived using Unit 2 and 3 concepts.",
+         "criterion_key": "part-c-criterion-02"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "This criterion requires stating the final combined exact expression for h'(1/2). This involves evaluating inverse trigonometric values (e.g., arctan(1) = \u03c0/4, which is foundational for Unit 3.4) and combining results from the differentiation in Units 2 and 3.",
+         "criterion_key": "part-c-criterion-03"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260927113406",
+    "coverage_deferred": true,
+    "legacy_serving_label": {
+     "source": "vercel_ai_gateway_two_model_serving_lane",
+     "label_status": "stale",
+     "primary_unit": 3,
+     "required_units": [
+      2,
+      3
+     ],
+     "max_required_unit": 3
+    }
+   }
+  },
+  "stem": "Derivative of a Sum of Inverse Trigonometric Compositions: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apcalcbc-frq-u13-020",
+  "version_num": 2,
+  "frq_form": "short",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "cold_label",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 8420,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.043679,
+       "cost_details": {
+        "upstream_inference_cost": 0.043679,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 29287,
+       "prompt_tokens": 28651,
+       "completion_tokens": 636,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 26368
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 392
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apcalcbc-frq-u13-020",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "No AP Precalculus Unit 4 content or AP Calculus AB-misscoped BC-only trap is present in the provided mathematical content; the issue is rubric/prompt incompleteness rather than scope."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "The packet contains no explicit prompt parts or asked operations: prompt_json is empty, and the stem only says to answer all parts without listing parts.",
+         "All scoring criteria appear to score operations that are not actually asked in the provided prompt text, including finding dy/dx, evaluating dy/dx at (1,2), finding y'', and interpreting concavity."
+        ]
+       },
+       "uncertainty_flags": [
+        "Unit labels were not assigned because rubric preflight failed: the scoring criteria cannot be mapped to explicit prompt parts or asked operations."
+       ]
+      }
+     },
+     {
+      "ms": 15457,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.00899728,
+       "is_byok": false,
+       "market_cost": 0.00899728,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.00899728,
+       "total_tokens": 32627,
+       "prompt_tokens": 29596,
+       "completion_tokens": 3031,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 27626
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 2416
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apcalcbc-frq-u13-020",
+       "primary_unit": 3,
+       "required_units": [
+        2,
+        3,
+        5
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "This criterion requires implicit differentiation (3.2), which involves applying the product rule (2.8) and chain rule (3.1) to terms within the equation, as well as the power rule (2.5).",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "This criterion requires evaluating the derivative found via implicit differentiation (3.2) at a specific point.",
+         "criterion_key": "part-a-criterion-04"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "This criterion requires finding the second derivative of an implicitly defined function (3.6), which again involves implicit differentiation (3.2), product rule (2.8), and chain rule (3.1).",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "This criterion requires substituting values into the equation derived from finding the second derivative (3.6).",
+         "criterion_key": "part-b-criterion-02"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "This criterion requires solving for and stating the final value of the second derivative (3.6).",
+         "criterion_key": "part-b-criterion-03"
+        },
+        {
+         "units": [
+          5
+         ],
+         "evidence": "This criterion requires interpreting the sign of the second derivative to determine concavity (5.6).",
+         "criterion_key": "part-c-criterion-01"
+        },
+        {
+         "units": [
+          5
+         ],
+         "evidence": "This criterion requires justifying the interpretation of concavity based on the second derivative (5.6).",
+         "criterion_key": "part-c-criterion-02"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260927113406",
+    "coverage_deferred": true,
+    "legacy_serving_label": {
+     "source": "vercel_ai_gateway_two_model_serving_lane",
+     "label_status": "stale",
+     "primary_unit": 3,
+     "required_units": [
+      2,
+      3,
+      5
+     ],
+     "max_required_unit": 5
+    }
+   }
+  },
+  "stem": "Second Derivative of an Implicitly Defined Curve: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apphy1-frq-035",
+  "version_num": 2,
+  "frq_form": "long",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "confirm_or_correct_legacy",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 14561,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.058068,
+       "cost_details": {
+        "upstream_inference_cost": 0.058068,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 16844,
+       "prompt_tokens": 15540,
+       "completion_tokens": 1304,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 13056
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1034
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphy1-frq-035",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [
+        {
+         "units": [],
+         "evidence": "No serving-unit label assigned because rubric preflight fails: this criterion awards an unasked physical condition.",
+         "criterion_key": "part-a-criterion-07"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "No AP Physics 1 scope violation detected; content is within current AP Physics 1 algebra-based mechanics scope."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "part-a-criterion-07 scores an unasked operation: stating the physical attainability condition kx\u00b2/2 > \u03bcmgL. The prompt asks students to derive an expression for maximum height, begin from a fundamental principle, and show friction work; it does not ask for a domain/attainability condition, and the stimulus states the block crosses the rough region and moves up the ramp."
+        ]
+       },
+       "uncertainty_flags": [
+        "Serving-unit gating withheld because the FRQ rubric is broken under preflight rules."
+       ]
+      }
+     },
+     {
+      "ms": 13876,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.00893199,
+       "is_byok": false,
+       "market_cost": 0.00893199,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.00893199,
+       "total_tokens": 19319,
+       "prompt_tokens": 16262,
+       "completion_tokens": 3057,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 13293
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 2179
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphy1-frq-035",
+       "primary_unit": 3,
+       "required_units": [
+        2,
+        3
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires applying the work-energy theorem or conservation of energy with nonconservative work. (Fact pack: Unit 3, Topic 3.4 Conservation of Energy; Topic 3.2 Work)",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires knowledge of elastic potential energy. (Fact pack: Unit 3, Topic 3.3 Potential Energy)",
+         "criterion_key": "part-a-criterion-02"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "Requires determining the normal force and applying the kinetic friction formula. (Fact pack: Unit 2, Topic 2.7 Kinetic and Static Friction; Topic 2.5 Newton's Second Law for normal force)",
+         "criterion_key": "part-a-criterion-03"
+        },
+        {
+         "units": [
+          2,
+          3
+         ],
+         "evidence": "Requires calculating work done by friction, including its negative sign. (Fact pack: Unit 3, Topic 3.2 Work; Unit 2, Topic 2.7 Kinetic and Static Friction)",
+         "criterion_key": "part-a-criterion-04"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires knowledge of gravitational potential energy and the condition for maximum height (zero kinetic energy). (Fact pack: Unit 3, Topic 3.3 Potential Energy; Topic 3.1 Translational Kinetic Energy)",
+         "criterion_key": "part-a-criterion-05"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires algebraic manipulation of the energy conservation equation. (Fact pack: Unit 3, Topic 3.4 Conservation of Energy)",
+         "criterion_key": "part-a-criterion-06"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires interpreting the physical meaning of the energy balance for a physically attainable result. (Fact pack: Unit 3, Topic 3.4 Conservation of Energy)",
+         "criterion_key": "part-a-criterion-07"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires algebraic substitution into the derived energy expression. (Fact pack: Unit 3, Topic 3.3 Potential Energy)",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires algebraic manipulation of the derived energy expressions. (Fact pack: Unit 3, Topic 3.3 Potential Energy)",
+         "criterion_key": "part-b-criterion-02"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Requires explaining the functional dependence of spring potential energy and work done by friction. (Fact pack: Unit 3, Topic 3.3 Potential Energy; Topic 3.2 Work)",
+         "criterion_key": "part-b-criterion-03"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260926232426",
+    "coverage_deferred": true,
+    "legacy_serving_label": {
+     "source": "legacy_prompt_json",
+     "label_status": "legacy_unvalidated",
+     "primary_unit": null,
+     "required_units": [],
+     "max_required_unit": null
+    }
+   }
+  },
+  "stem": "Spring launch on a rough track: Answer all mandatory subparts. Show reasoning and calculations clearly. Use standard AP Physics notation and justify qualitative claims.",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apphy1-frq-052",
+  "version_num": 2,
+  "frq_form": "short",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "confirm_or_correct_legacy",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 9364,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.046203,
+       "cost_details": {
+        "upstream_inference_cost": 0.046203,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 16361,
+       "prompt_tokens": 15435,
+       "completion_tokens": 926,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 13056
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 393
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphy1-frq-052",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [
+        {
+         "units": [],
+         "evidence": "Not classified because rubric preflight failed.",
+         "criterion_key": "a-accel"
+        },
+        {
+         "units": [],
+         "evidence": "Not classified because rubric preflight failed.",
+         "criterion_key": "a-fbd"
+        },
+        {
+         "units": [],
+         "evidence": "Not classified because rubric preflight failed.",
+         "criterion_key": "a-modeling"
+        },
+        {
+         "units": [],
+         "evidence": "Not classified because rubric preflight failed.",
+         "criterion_key": "a-newton"
+        },
+        {
+         "units": [],
+         "evidence": "Not classified because rubric preflight failed.",
+         "criterion_key": "a-tension"
+        },
+        {
+         "units": [],
+         "evidence": "Not classified because rubric preflight failed.",
+         "criterion_key": "b-explanation"
+        },
+        {
+         "units": [],
+         "evidence": "Rubric defect: this criterion scores a limiting-case analysis as m2 approaches infinity, but no such operation is requested in the prompt.",
+         "criterion_key": "b-limit"
+        },
+        {
+         "units": [],
+         "evidence": "Not classified because rubric preflight failed.",
+         "criterion_key": "b-new"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "The item is AP Physics 1 translational dynamics content and contains no Precalculus Unit 4 or AP Calculus AB/BC-only scope issue."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "Most criteria map to asked operations in part (a) and part (b).",
+         "Criterion b-limit scores an unasked operation: the prompt asks for prediction, new acceleration, and trend explanation for changing the 5.00 kg mass to 7.00 kg, but does not ask for the limiting case as m2 approaches infinity.",
+         "Because the rubric includes a criterion for an unasked operation, serving-unit labels are not forced."
+        ]
+       },
+       "uncertainty_flags": [
+        "Rubric preflight failed due to unasked b-limit criterion; required_units intentionally left empty rather than forcing a unit guess."
+       ]
+      }
+     },
+     {
+      "ms": 12737,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.00771669,
+       "is_byok": false,
+       "market_cost": 0.00771669,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.00771669,
+       "total_tokens": 18744,
+       "prompt_tokens": 16161,
+       "completion_tokens": 2583,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 13293
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1798
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphy1-frq-052",
+       "primary_unit": 2,
+       "required_units": [
+        2
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion assesses the calculation of acceleration using Newton's Second Law, which is covered in Unit 2 (Force and Translational Dynamics), specifically Topic 2.5 'Newton's Second Law'.",
+         "criterion_key": "a-accel"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion assesses the ability to draw free-body diagrams, a core skill in Unit 2 (Force and Translational Dynamics), Topic 2.2 'Forces and Free-Body Diagrams'.",
+         "criterion_key": "a-fbd"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion assesses the understanding of modeling assumptions for ideal strings and pulleys, which are fundamental to applying Newton's laws in systems and are discussed in Unit 2 (Force and Translational Dynamics), Topic 2.3 'Newton's Third Law' (ideal string properties).",
+         "criterion_key": "a-modeling"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion directly assesses the application of Newton's Second Law to write equations of motion for each block, which is covered in Unit 2 (Force and Translational Dynamics), Topic 2.5 'Newton's Second Law'.",
+         "criterion_key": "a-newton"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion assesses the calculation of tension, which is derived from the application of Newton's Second Law to the system, covered in Unit 2 (Force and Translational Dynamics), Topic 2.5 'Newton's Second Law'.",
+         "criterion_key": "a-tension"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion assesses qualitative reasoning about how changes in mass affect acceleration based on the derived formula from Newton's Second Law, covered in Unit 2 (Force and Translational Dynamics), Topic 2.5 'Newton's Second Law'.",
+         "criterion_key": "b-explanation"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion assesses the analysis of a limiting case for the system's acceleration, which requires conceptual understanding and mathematical manipulation derived from Newton's Second Law, covered in Unit 2 (Force and Translational Dynamics), Topic 2.5 'Newton's Second Law'.",
+         "criterion_key": "b-limit"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "This criterion assesses the calculation of a new acceleration value using Newton's Second Law with modified parameters, covered in Unit 2 (Force and Translational Dynamics), Topic 2.5 'Newton's Second Law'.",
+         "criterion_key": "b-new"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260926232426",
+    "coverage_deferred": true,
+    "legacy_serving_label": {
+     "source": "legacy_prompt_json",
+     "label_status": "legacy_unvalidated",
+     "primary_unit": null,
+     "required_units": [],
+     "max_required_unit": null
+    }
+   }
+  },
+  "stem": "Answer all parts of the following question.\n\n(a) Draw free-body diagrams for both blocks, write Newton's second law for each block, state the modeling assumptions used, and calculate the acceleration of the system and the tension in the string.\n\n(b) Predict how the acceleration changes if the 5.00 k",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apphy1-frq-054",
+  "version_num": 2,
+  "frq_form": "short",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "confirm_or_correct_legacy",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 9303,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.039488,
+       "cost_details": {
+        "upstream_inference_cost": 0.039488,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 16058,
+       "prompt_tokens": 15340,
+       "completion_tokens": 718,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 13056
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 487
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphy1-frq-054",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "No AP Physics 1 scope violation detected; the content is projectile-motion kinematics, which is within AP Physics 1."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "Prompt part (a) asks students to determine the horizontal and vertical components of the initial velocity, v0x and v0y, but no scoring criterion awards credit for calculating or stating those components.",
+         "The existing criteria cover maximum height, horizontal range, symbolic range derivation, total time of flight, the 50-degree range comparison, and the sine-symmetry explanation, but they do not fully cover all asked operations in the prompt."
+        ]
+       },
+       "uncertainty_flags": [
+        "Rubric preflight failed, so no serving-unit guess was forced."
+       ]
+      }
+     },
+     {
+      "ms": 12517,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.00784546,
+       "is_byok": false,
+       "market_cost": 0.00784546,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.00784546,
+       "total_tokens": 18725,
+       "prompt_tokens": 16081,
+       "completion_tokens": 2644,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 13292
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 2095
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphy1-frq-054",
+       "primary_unit": 1,
+       "required_units": [
+        1
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          1
+         ],
+         "evidence": "Calculating maximum height requires applying constant-acceleration kinematic equations (Unit 1.3) and understanding vertical components of motion (Unit 1.5).",
+         "criterion_key": "a-height"
+        },
+        {
+         "units": [
+          1
+         ],
+         "evidence": "Calculating horizontal range requires applying constant-velocity kinematics (Unit 1.3) and understanding horizontal components of motion (Unit 1.5).",
+         "criterion_key": "a-range"
+        },
+        {
+         "units": [
+          1
+         ],
+         "evidence": "Deriving the symbolic range formula involves combining kinematic equations (Unit 1.3) and vector components (Unit 1.5) algebraically.",
+         "criterion_key": "a-symbolic-range"
+        },
+        {
+         "units": [
+          1
+         ],
+         "evidence": "Calculating total time of flight requires applying constant-acceleration kinematic equations (Unit 1.3) to the vertical motion (Unit 1.5).",
+         "criterion_key": "a-time"
+        },
+        {
+         "units": [
+          1
+         ],
+         "evidence": "Determining the range for a different launch angle uses the same principles of kinematics (Unit 1.3) and 2D motion (Unit 1.5) as part (a).",
+         "criterion_key": "b-50deg-range"
+        },
+        {
+         "units": [
+          1
+         ],
+         "evidence": "Explaining the symmetry of range for complementary angles relies on understanding the derived range formula, which is a direct application of kinematics (Unit 1.3) and 2D motion (Unit 1.5).",
+         "criterion_key": "b-symmetry-explanation"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260926232426",
+    "coverage_deferred": true,
+    "legacy_serving_label": {
+     "source": "legacy_prompt_json",
+     "label_status": "legacy_unvalidated",
+     "primary_unit": null,
+     "required_units": [],
+     "max_required_unit": null
+    }
+   }
+  },
+  "stem": "Answer all parts of the following question.\n\n(a) Determine the horizontal and vertical components of the initial velocity, v0x and v0y. Before substituting any numbers, combine R = v0x t and t = 2v0y/g (with v0x = v0 cos\u03b8, v0y = v0 sin\u03b8) to derive the range symbolically as R = v0\u00b2 sin(2\u03b8)/g. Then us",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apphy2-frq-028",
+  "version_num": 4,
+  "frq_form": "short",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "confirm_or_correct_legacy",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 12427,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.049089,
+       "cost_details": {
+        "upstream_inference_cost": 0.049089,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 19063,
+       "prompt_tokens": 18009,
+       "completion_tokens": 1054,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 16128
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 516
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphy2-frq-028",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [
+        {
+         "units": [
+          13
+         ],
+         "evidence": "Correct image location for an object between F and C in a concave spherical mirror depends on Unit 13 mirror image formation/ray diagrams, but serving-unit enforcement is withheld because rubric preflight failed.",
+         "criterion_key": "a-location"
+        },
+        {
+         "units": [
+          13
+         ],
+         "evidence": "Drawing valid concave-mirror principal rays depends on Unit 13 Images Formed by Mirrors, but serving-unit enforcement is withheld because rubric preflight failed.",
+         "criterion_key": "a-rays"
+        },
+        {
+         "units": [
+          13
+         ],
+         "evidence": "Determining inverted orientation from a concave-mirror ray diagram depends on Unit 13, but serving-unit enforcement is withheld because rubric preflight failed.",
+         "criterion_key": "b-orientation"
+        },
+        {
+         "units": [
+          13
+         ],
+         "evidence": "Classifying a mirror image as real from actual reflected-ray convergence depends on Unit 13, but serving-unit enforcement is withheld because rubric preflight failed.",
+         "criterion_key": "b-real"
+        },
+        {
+         "units": [
+          13
+         ],
+         "evidence": "Determining magnified/enlarged image size for an object between F and C in a concave mirror depends on Unit 13, but serving-unit enforcement is withheld because rubric preflight failed.",
+         "criterion_key": "b-size"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "Concave spherical mirror ray diagrams and image classification are within AP Physics 2 Unit 13 Geometric Optics."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "Prompt part (a) asks students to draw and label the principal axis, mirror, F, C, object, and image, but the rubric only scores image location and principal rays; it does not separately cover the requested labels/elements.",
+         "Prompt part (a) asks students to show arrow directions, but the rubric does not explicitly score arrow directions except insofar as rays are drawn correctly."
+        ]
+       },
+       "uncertainty_flags": [
+        "Legacy serving label had an empty required_units set; cold labeling indicates Unit 13 content, but required_units were not assigned because rubric preflight failed."
+       ]
+      }
+     },
+     {
+      "ms": 7632,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.0094712,
+       "is_byok": false,
+       "market_cost": 0.0094712,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.0094712,
+       "total_tokens": 20248,
+       "prompt_tokens": 18704,
+       "completion_tokens": 1544,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 0
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1037
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphy2-frq-028",
+       "primary_unit": 13,
+       "required_units": [
+        13
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          13
+         ],
+         "evidence": "This criterion assesses the ability to correctly locate the image formed by a concave mirror for a specific object position (between F and C), which is a core concept in Unit 13.2 Images Formed by Mirrors.",
+         "criterion_key": "a-location"
+        },
+        {
+         "units": [
+          13
+         ],
+         "evidence": "This criterion assesses the correct application of principal rays for a concave mirror, a fundamental skill taught in Unit 13.2 Images Formed by Mirrors.",
+         "criterion_key": "a-rays"
+        },
+        {
+         "units": [
+          13
+         ],
+         "evidence": "This criterion assesses the ability to determine the orientation (inverted) of the image formed by a concave mirror, which is part of the analysis of images in Unit 13.2 Images Formed by Mirrors.",
+         "criterion_key": "b-orientation"
+        },
+        {
+         "units": [
+          13
+         ],
+         "evidence": "This criterion assesses the understanding of whether an image is real or virtual based on ray convergence, a key concept in Unit 13.2 Images Formed by Mirrors.",
+         "criterion_key": "b-real"
+        },
+        {
+         "units": [
+          13
+         ],
+         "evidence": "This criterion assesses the ability to determine the relative size (enlarged) of the image formed by a concave mirror, which is part of the analysis of images in Unit 13.2 Images Formed by Mirrors.",
+         "criterion_key": "b-size"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260926232425",
+    "coverage_deferred": true,
+    "legacy_serving_label": {
+     "source": "legacy_prompt_json",
+     "label_status": "legacy_unvalidated",
+     "primary_unit": null,
+     "required_units": [],
+     "max_required_unit": null
+    }
+   }
+  },
+  "stem": "Answer all parts of the following question.\n\n(a) Draw and label the principal axis, mirror, F, C, object, and image. Use any two valid principal rays to locate the image and show the arrow directions.\n\n(b) State the image's orientation, relative size, and whether it is real or virtual.",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apphycem-frq-np1-002",
+  "version_num": 2,
+  "frq_form": "short",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "confirm_or_correct_legacy",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 41673,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.116273,
+       "cost_details": {
+        "upstream_inference_cost": 0.116273,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 14382,
+       "prompt_tokens": 11179,
+       "completion_tokens": 3203,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 7936
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 2588
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphycem-frq-np1-002",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [
+        {
+         "units": [
+          8
+         ],
+         "evidence": "States Gauss's law for electric flux and enclosed charge, which is Unit 8.",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [
+          8
+         ],
+         "evidence": "Uses a spherical Gaussian surface and flux E(4*pi*r^2), an application of Gauss's law in Unit 8.",
+         "criterion_key": "part-a-criterion-02"
+        },
+        {
+         "units": [
+          8
+         ],
+         "evidence": "Identifies enclosed charge for a<r<b in a spherically symmetric charge distribution, part of Unit 8 Gauss's-law reasoning.",
+         "criterion_key": "part-a-criterion-03"
+        },
+        {
+         "units": [
+          8
+         ],
+         "evidence": "Solves for the electric field magnitude from Gauss's law, Unit 8.",
+         "criterion_key": "part-a-criterion-04"
+        },
+        {
+         "units": [
+          9
+         ],
+         "evidence": "Sets up electric potential difference from the line integral of electric field, Unit 9.",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [
+          9
+         ],
+         "evidence": "Evaluates the potential-difference integral to obtain V(a)-V(b), Unit 9.",
+         "criterion_key": "part-b-criterion-02"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "The item is within AP Physics C: E&M scope: Gauss's law for a spherically symmetric charge distribution and electric potential difference from an electric field."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "The prompt explicitly asks students to justify, using spherical symmetry, why the electric field is radial and constant in magnitude on the Gaussian surface.",
+         "No listed scoring criterion requires that symmetry justification. Part-a-criterion-02 only requires use of the spherical Gaussian surface area or flux form E(4*pi*r^2), not an explicit justification of radial direction and constant magnitude.",
+         "All listed criteria otherwise map to asked operations, but the prompt contains an asked operation without scoring coverage."
+        ]
+       },
+       "uncertainty_flags": [
+        "Rubric preflight failed, so required_units and primary_unit are not finalized for serving. If the rubric is repaired by adding a scored spherical-symmetry justification criterion, the corrected required_units would be [8, 9]."
+       ]
+      }
+     },
+     {
+      "ms": 11398,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.0097101,
+       "is_byok": false,
+       "market_cost": 0.0097101,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.0097101,
+       "total_tokens": 14173,
+       "prompt_tokens": 11692,
+       "completion_tokens": 2481,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 0
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1876
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphycem-frq-np1-002",
+       "primary_unit": 8,
+       "required_units": [
+        8,
+        9
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          8
+         ],
+         "evidence": "This criterion requires stating Gauss's law, which is a core concept in Unit 8 (Electric Charges, Fields, and Gauss's Law), specifically topic 8.6.",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [
+          8
+         ],
+         "evidence": "This criterion involves applying Gauss's law to a spherical Gaussian surface, a quantitative application explicitly covered in Unit 8 (topic 8.6) for spherical symmetry.",
+         "criterion_key": "part-a-criterion-02"
+        },
+        {
+         "units": [
+          8
+         ],
+         "evidence": "This criterion requires identifying the enclosed charge, which is fundamental to applying Gauss's law (topic 8.6) and understanding charge distribution (topic 8.2) within Unit 8.",
+         "criterion_key": "part-a-criterion-03"
+        },
+        {
+         "units": [
+          8
+         ],
+         "evidence": "This criterion requires solving for the electric field using Gauss's law, a direct outcome of applying Unit 8 concepts (topic 8.6).",
+         "criterion_key": "part-a-criterion-04"
+        },
+        {
+         "units": [
+          9
+         ],
+         "evidence": "This criterion requires setting up the integral for potential difference from the electric field, which is a key relationship in Unit 9 (Electric Potential), specifically topic 9.2 (\u0394V = -\u222bE\u20d7\u00b7dr\u20d7).",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [
+          9
+         ],
+         "evidence": "This criterion requires evaluating the integral to find the potential difference, which is a calculus-based derivation of potential from the E-field, a core skill in Unit 9 (topic 9.2).",
+         "criterion_key": "part-b-criterion-02"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260927113404",
+    "coverage_deferred": true,
+    "legacy_serving_label": null
+   }
+  },
+  "stem": "Answer both parts of the following question.\n\n(a) Using Gauss's law, derive an expression for the magnitude of the electric field E(r) in the region a < r < b.\n\n(b) Using the result from part (a), derive an expression for the potential difference V(a) - V(b). Justify, using spherical symmetry, why t",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apphycem-frq-np1-003",
+  "version_num": 2,
+  "frq_form": "short",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "confirm_or_correct_legacy",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 13644,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.052503,
+       "cost_details": {
+        "upstream_inference_cost": 0.052503,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 12438,
+       "prompt_tokens": 11397,
+       "completion_tokens": 1041,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 7936
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 516
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphycem-frq-np1-003",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [
+        {
+         "units": [],
+         "evidence": "Unit labeling withheld because rubric_preflight.status is fail.",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [],
+         "evidence": "Unit labeling withheld because rubric_preflight.status is fail.",
+         "criterion_key": "part-a-criterion-02"
+        },
+        {
+         "units": [],
+         "evidence": "Unit labeling withheld because rubric_preflight.status is fail.",
+         "criterion_key": "part-a-criterion-03"
+        },
+        {
+         "units": [],
+         "evidence": "Unit labeling withheld because rubric_preflight.status is fail.",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [],
+         "evidence": "Unit labeling withheld because rubric_preflight.status is fail.",
+         "criterion_key": "part-b-criterion-02"
+        },
+        {
+         "units": [],
+         "evidence": "The prompt requires a justification that the value of x gives a maximum, but no rubric criterion scores that requested operation.",
+         "criterion_key": "missing-part-b-maximum-justification"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "No AP Precalculus Unit 4 or AP Calculus AB/BC scope issue applies. The physics content is within AP Physics C: E&M current-unit scope, but required-unit labeling is withheld due to failed FRQ rubric preflight."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "Part (b) explicitly asks the student to justify that the critical value gives a maximum, either using the sign of dE/dx on either side or by comparing to E(0)=0 and the behavior as x approaches infinity.",
+         "The rubric awards points for differentiating, setting the derivative equal to zero, and solving for x = R/sqrt(2), but it has no criterion for the requested maximum justification.",
+         "Because an asked operation lacks scoring coverage, serving-unit labeling is withheld rather than forced."
+        ]
+       },
+       "uncertainty_flags": [
+        "Rubric preflight failed; required_units and primary_unit intentionally left unassigned."
+       ]
+      }
+     },
+     {
+      "ms": 10811,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.0060998,
+       "is_byok": false,
+       "market_cost": 0.0060998,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.0060998,
+       "total_tokens": 14006,
+       "prompt_tokens": 11889,
+       "completion_tokens": 2117,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 10220
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1445
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphycem-frq-np1-003",
+       "primary_unit": 8,
+       "required_units": [
+        8
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          8
+         ],
+         "evidence": "This criterion assesses the ability to apply Coulomb's law for electric field from a charge element and correctly identify the distance, which falls under Unit 8: Electric Charges, Fields, and Gauss's Law, specifically Topic 8.3 Electric Fields and 8.4 Electric Fields of Charge Distributions.",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [
+          8
+         ],
+         "evidence": "This criterion assesses the understanding of electric field superposition and symmetry arguments for charge distributions, which is covered in Unit 8: Electric Charges, Fields, and Gauss's Law, specifically Topic 8.4 Electric Fields of Charge Distributions.",
+         "criterion_key": "part-a-criterion-02"
+        },
+        {
+         "units": [
+          8
+         ],
+         "evidence": "This criterion assesses the ability to perform the calculus-based integration to find the electric field from a continuous charge distribution (a ring), which is explicitly listed as an expected skill in Unit 8: Electric Charges, Fields, and Gauss's Law, Topic 8.4 Electric Fields of Charge Distributions ('a thin ring of charge at a location along the axis of the ring').",
+         "criterion_key": "part-a-criterion-03"
+        },
+        {
+         "units": [
+          8
+         ],
+         "evidence": "This criterion assesses the ability to use calculus (differentiation) to find the maximum of a physical quantity (electric field) derived from a charge distribution. The function itself is from Unit 8, and analyzing its behavior is part of understanding electric fields. This falls under Unit 8: Electric Charges, Fields, and Gauss's Law, Topic 8.4 Electric Fields of Charge Distributions, as it involves analyzing the derived electric field.",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [
+          8
+         ],
+         "evidence": "This criterion assesses the algebraic solution for the critical point of the electric field function, which is a direct application of the calculus performed in the previous step to the Unit 8 electric field function. This falls under Unit 8: Electric Charges, Fields, and Gauss's Law, Topic 8.4 Electric Fields of Charge Distributions.",
+         "criterion_key": "part-b-criterion-02"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260927113404",
+    "coverage_deferred": true,
+    "legacy_serving_label": null
+   }
+  },
+  "stem": "Answer both parts of the following question.\n\n(a) Using integration, derive an expression for the magnitude of the electric field E(x) at a point on the axis of the ring, a distance x from its center.\n\n(b) Find the value of x, in terms of R, at which E(x) is maximum. Treat x as a nonnegative distanc",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apphycem-frq-np1-010",
+  "version_num": 2,
+  "frq_form": "short",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "confirm_or_correct_legacy",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 10605,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.044578,
+       "cost_details": {
+        "upstream_inference_cost": 0.044578,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 12218,
+       "prompt_tokens": 11450,
+       "completion_tokens": 768,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 7936
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 516
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphycem-frq-np1-010",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "The content is within AP Physics C: E&M scope; it concerns parallel-plate capacitance, dielectrics, and capacitor energy."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "Prompt part (c) asks where the energy goes when the dielectric moves freely into the capacitor, but no rubric criterion explicitly scores identifying kinetic energy or dissipated thermal/sound energy.",
+         "Prompt part (c) asks the student to describe how the work done by the field and by an external agent differ during slow insertion, but no rubric criterion explicitly scores the external agent doing negative work or the quasi-static work bookkeeping."
+        ]
+       },
+       "uncertainty_flags": [
+        "Rubric preflight failed, so no serving-unit guess was forced. If the rubric were repaired to cover all asked operations, the scored content would likely require Unit 10."
+       ]
+      }
+     },
+     {
+      "ms": 13048,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.0073382,
+       "is_byok": false,
+       "market_cost": 0.0073382,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.0073382,
+       "total_tokens": 14548,
+       "prompt_tokens": 11942,
+       "completion_tokens": 2606,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 10220
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1969
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphycem-frq-np1-010",
+       "primary_unit": 10,
+       "required_units": [
+        9,
+        10
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          10
+         ],
+         "evidence": "This criterion assesses knowledge of the parallel-plate capacitance formula, which is covered in Unit 10 (Conductors and Capacitors), topic 10.3.",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [
+          10
+         ],
+         "evidence": "This criterion assesses the effect of a dielectric on capacitance, which is covered in Unit 10 (Conductors and Capacitors), topic 10.4.",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [
+          10
+         ],
+         "evidence": "This criterion assesses the formula for energy stored in a capacitor (U = Q\u00b2/2C) and the understanding that charge is fixed when the battery is disconnected, both fundamental concepts in Unit 10 (Conductors and Capacitors), topic 10.3.",
+         "criterion_key": "part-b-criterion-02"
+        },
+        {
+         "units": [
+          10
+         ],
+         "evidence": "This criterion requires algebraic manipulation of capacitor energy expressions, building directly on formulas from Unit 10.",
+         "criterion_key": "part-b-criterion-03"
+        },
+        {
+         "units": [
+          10
+         ],
+         "evidence": "This criterion assesses the conceptual understanding of how a dielectric affects stored energy, interpreting the result from Unit 10 concepts.",
+         "criterion_key": "part-c-criterion-01"
+        },
+        {
+         "units": [
+          9,
+          10
+         ],
+         "evidence": "This criterion requires an explanation involving energy conservation and work done by the electric field on the dielectric. Energy conservation and work-energy principles are core to Unit 9 (Electric Potential), topic 9.3. The interaction of the electric field with a dielectric (polarization and resulting force/work) is a conceptual aspect of Unit 10 (Conductors and Capacitors), topic 10.4.",
+         "criterion_key": "part-c-criterion-02"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260927113404",
+    "coverage_deferred": true,
+    "legacy_serving_label": null
+   }
+  },
+  "stem": "Answer all parts of the following question.\n\n(a) Find the capacitance C0 of the capacitor before the dielectric is inserted, in terms of A and d.\n\n(b) After the dielectric is inserted, with the charge Q0 now fixed (since the battery is disconnected), find the new capacitance C, and find the ratio of",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apphycm-frq-036",
+  "version_num": 2,
+  "frq_form": "long",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "confirm_or_correct_legacy",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 16015,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.06218,
+       "cost_details": {
+        "upstream_inference_cost": 0.06218,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 18763,
+       "prompt_tokens": 17494,
+       "completion_tokens": 1269,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 14080
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1034
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphycm-frq-036",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "The content is within AP Physics C: Mechanics scope; velocity-dependent resistive forces and terminal velocity are included in Unit 2."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "Part C asks students to sketch v(t) and a(t), mark initial values, asymptotes, and concavity. part-c-criterion-03 awards a point for labeling the characteristic time scale m/b or a value at t=m/b, which is not an explicitly asked operation in the prompt."
+        ]
+       },
+       "uncertainty_flags": [
+        "Rubric preflight failed, so serving-unit assignment was not forced. If the unasked time-scale criterion is removed or the prompt is revised to ask for a characteristic time scale, the item would most likely require Unit 2."
+       ]
+      }
+     },
+     {
+      "ms": 15602,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.0091007,
+       "is_byok": false,
+       "market_cost": 0.0091007,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.0091007,
+       "total_tokens": 21335,
+       "prompt_tokens": 18225,
+       "completion_tokens": 3110,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 15340
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 2048
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apphycm-frq-036",
+       "primary_unit": 2,
+       "required_units": [
+        1,
+        2
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          2
+         ],
+         "evidence": "Drawing a free-body diagram is a core skill from Unit 2 (2.2 Forces and Free-Body Diagrams).",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "Writing the differential equation governing v(t) requires applying Newton's Second Law (2.5) with a resistive force (2.9 Resistive Forces), which is explicitly a differential equation topic.",
+         "criterion_key": "part-a-criterion-02"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "Identifying terminal speed is a direct concept within Unit 2 (2.9 Resistive Forces).",
+         "criterion_key": "part-a-criterion-03"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "Solving the differential equation for v(t) using calculus (separation of variables) is the central skill of Unit 2 (2.9 Resistive Forces).",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "The integration step is part of solving the differential equation, a core skill of Unit 2 (2.9 Resistive Forces).",
+         "criterion_key": "part-b-criterion-02"
+        },
+        {
+         "units": [
+          1,
+          2
+         ],
+         "evidence": "Applying initial conditions to obtain the specific solution for v(t) involves understanding initial conditions (Unit 1 Kinematics) and the form of the solution from Unit 2 (2.9 Resistive Forces).",
+         "criterion_key": "part-b-criterion-03"
+        },
+        {
+         "units": [
+          1,
+          2
+         ],
+         "evidence": "Deriving acceleration a(t) from v(t) requires differentiation (Unit 1.2 Displacement, Velocity, and Acceleration) of the velocity function obtained from Unit 2 (2.9 Resistive Forces).",
+         "criterion_key": "part-b-criterion-04"
+        },
+        {
+         "units": [
+          1,
+          2
+         ],
+         "evidence": "Sketching the velocity-time graph requires understanding motion representation (Unit 1.3 Representing Motion) and the specific exponential behavior and asymptotic limits derived from Unit 2 (2.9 Resistive Forces).",
+         "criterion_key": "part-c-criterion-01"
+        },
+        {
+         "units": [
+          1,
+          2
+         ],
+         "evidence": "Sketching the acceleration-time graph requires understanding motion representation (Unit 1.3 Representing Motion) and the specific exponential behavior and asymptotic limits derived from Unit 2 (2.9 Resistive Forces).",
+         "criterion_key": "part-c-criterion-02"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "Labeling the characteristic time scale (m/b) is specific to the exponential solutions found in Unit 2 (2.9 Resistive Forces).",
+         "criterion_key": "part-c-criterion-03"
+        },
+        {
+         "units": [
+          2
+         ],
+         "evidence": "Comparing terminal speed based on the drag coefficient uses the formula for terminal speed derived from Unit 2 (2.9 Resistive Forces).",
+         "criterion_key": "part-d-criterion-01"
+        },
+        {
+         "units": [
+          1,
+          2
+         ],
+         "evidence": "Comparing the initial slope of the velocity graph (initial acceleration) requires applying Newton's Second Law (2.5) at t=0 (when drag is zero) and understanding initial acceleration (Unit 1.2 Displacement, Velocity, and Acceleration).",
+         "criterion_key": "part-d-criterion-02"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260927113517",
+    "coverage_deferred": true,
+    "legacy_serving_label": {
+     "source": "legacy_prompt_json",
+     "label_status": "legacy_unvalidated",
+     "primary_unit": null,
+     "required_units": [],
+     "max_required_unit": null
+    }
+   }
+  },
+  "stem": "Velocity-dependent drag representations: Answer all mandatory subparts. Show reasoning and calculations clearly. Use standard AP Physics notation and justify qualitative claims.",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apprecalc-frq-027",
+  "version_num": 1,
+  "frq_form": "long",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 13071,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.033565,
+       "cost_details": {
+        "upstream_inference_cost": 0.033565,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 3158,
+       "prompt_tokens": 2447,
+       "completion_tokens": 711,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 0
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 516
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apprecalc-frq-027",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "The item involves sinusoidal/periodic modeling and graph behavior, which is within AP Precalculus Unit 3 rather than Unit 4."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "part-a-criterion-2 scores that the points support a two-cycle sketch by repetition, but the prompt only asks for five consecutive key points for one cycle beginning at t=0 and the midline. No two-cycle sketch or repetition support is asked."
+        ]
+       },
+       "uncertainty_flags": [
+        "Rubric preflight failed, so unit labels were not forced."
+       ]
+      }
+     },
+     {
+      "ms": 33686,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.00669115,
+       "is_byok": false,
+       "market_cost": 0.00669115,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.00669115,
+       "total_tokens": 5148,
+       "prompt_tokens": 2684,
+       "completion_tokens": 2464,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 1015
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1778
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apprecalc-frq-027",
+       "primary_unit": 3,
+       "required_units": [
+        1,
+        3
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Identifying key points (max, min, midline crossings) for a sinusoidal function requires understanding of sinusoidal graphs, amplitude, period, and midline, which are covered in Unit 3 (e.g., 3.4, 3.5, 3.6).",
+         "criterion_key": "part-a-criterion-1"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Stating the midline and understanding its role in the graph of a sinusoidal function is covered in Unit 3 (e.g., 3.4, 3.5).",
+         "criterion_key": "part-a-criterion-2"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Constructing a sinusoidal model from given characteristics (amplitude, midline, period, phase) is a core skill in Unit 3 (e.g., 3.5, 3.6, 3.7).",
+         "criterion_key": "part-b-criterion-1"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Justifying the parameters of a sinusoidal model based on amplitude, vertical shift, period, and phase is covered in Unit 3 (e.g., 3.5, 3.6, 3.7).",
+         "criterion_key": "part-b-criterion-2"
+        },
+        {
+         "units": [
+          1,
+          3
+         ],
+         "evidence": "Determining whether a function is increasing or decreasing and whether its rate of change is increasing or decreasing (concavity) for a specific interval of a sinusoidal function requires both general understanding of function behavior and rates of change (Unit 1.3) and specific knowledge of sinusoidal function graphs (Unit 3.4, 3.5).",
+         "criterion_key": "part-c-criterion-1"
+        },
+        {
+         "units": [
+          1,
+          3
+         ],
+         "evidence": "Justifying the behavior by referencing the 'downward, concave-down behavior' of the first quarter-cycle of a cosine function explicitly links to understanding rates of change and concavity (Unit 1.3) in the context of sinusoidal functions (Unit 3.4, 3.5).",
+         "criterion_key": "part-c-criterion-2"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "math-serving-units-2026-08-04-20260804211958",
+    "coverage_deferred": true
+   }
+  },
+  "stem": "Answer all parts of the following question.\n\n(a) Give five consecutive key points for one cycle beginning at t=0 and state the midline.\n\n(b) Construct a cosine model d(t) for the depth.\n\n(c) On 0<t<3, state whether d is increasing or decreasing and whether its rate of change is increasing or decreas",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apprecalc-frq-029",
+  "version_num": 3,
+  "frq_form": "long",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 11816,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.03303,
+       "cost_details": {
+        "upstream_inference_cost": 0.03303,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 3166,
+       "prompt_tokens": 2478,
+       "completion_tokens": 688,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 0
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 483
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apprecalc-frq-029",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "The item concerns sinusoidal modeling, key points, midline, and qualitative rate-of-change behavior for a periodic context, which are within AP Precalculus Units 1-3 and do not require Unit 4, calculus, or BC-only content."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "part-a-criterion-2 includes evidence that the points support a two-cycle sketch by repetition, but the prompt does not ask for a sketch or for two cycles. This scores an unasked operation."
+        ]
+       },
+       "uncertainty_flags": [
+        "Rubric preflight failed; unit labels were not forced."
+       ]
+      }
+     },
+     {
+      "ms": 17419,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.0083389,
+       "is_byok": false,
+       "market_cost": 0.0083389,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.0083389,
+       "total_tokens": 5745,
+       "prompt_tokens": 2738,
+       "completion_tokens": 3007,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 0
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 2280
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apprecalc-frq-029",
+       "primary_unit": 3,
+       "required_units": [
+        1,
+        3
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          3
+         ],
+         "evidence": "This criterion requires identifying key points of a sinusoidal function, which is covered in Unit 3 (e.g., 3.4 Sine and Cosine Function Graphs, 3.5 Sinusoidal Functions).",
+         "criterion_key": "part-a-criterion-1"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "This criterion requires identifying the midline of a sinusoidal function, a core characteristic covered in Unit 3 (e.g., 3.5 Sinusoidal Functions).",
+         "criterion_key": "part-a-criterion-2"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "This criterion requires constructing a sinusoidal model from given contextual information, which is covered in Unit 3 (e.g., 3.5 Sinusoidal Functions, 3.7 Sinusoidal Function Context and Data Modeling).",
+         "criterion_key": "part-b-criterion-1"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "This criterion assesses the correct use of amplitude, vertical shift (midline), period, and phase (minimum phase for a negative cosine model), all of which are parameters of sinusoidal functions covered in Unit 3 (e.g., 3.5 Sinusoidal Functions, 3.6 Sinusoidal Function Transformations).",
+         "criterion_key": "part-b-criterion-2"
+        },
+        {
+         "units": [
+          1,
+          3
+         ],
+         "evidence": "This criterion requires determining whether the function L is increasing or decreasing, and whether its rate of change is increasing or decreasing. The increasing/decreasing behavior of the function itself is part of understanding sinusoidal graphs (Unit 3). The behavior of the rate of change (concavity) is a general function behavior concept covered in Unit 1 (e.g., 1.3 Rates of Change and Behavior of Graphs), applied here to a sinusoidal function.",
+         "criterion_key": "part-c-criterion-1"
+        },
+        {
+         "units": [
+          1,
+          3
+         ],
+         "evidence": "This criterion explicitly refers to 'upward, concave-down behavior'. Concavity is a key concept related to the rate of change of the rate of change, which is covered in Unit 1 (e.g., 1.3 Rates of Change and Behavior of Graphs). Applying this to a specific part of a sinusoidal function also draws on Unit 3 knowledge.",
+         "criterion_key": "part-c-criterion-2"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "math-serving-units-2026-08-04-20260804211958",
+    "coverage_deferred": true
+   }
+  },
+  "stem": "Answer all parts of the following question.\n\n(a) Give five consecutive key points for one cycle and state the midline.\n\n(b) Construct a cosine model L(t) for daylight hours.\n\n(c) On 3<t<6, state whether L is increasing or decreasing and whether its rate of change is increasing or decreasing.",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apprecalc-frq-031",
+  "version_num": 1,
+  "frq_form": "long",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 20368,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.0503,
+       "cost_details": {
+        "upstream_inference_cost": 0.0503,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 3760,
+       "prompt_tokens": 2500,
+       "completion_tokens": 1260,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 0
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1034
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apprecalc-frq-031",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "The item concerns sinusoidal modeling and qualitative behavior of a periodic coordinate, which is within AP Precalculus Unit 3 rather than Unit 4."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "part-a-criterion-2 includes 'points support a two-cycle sketch by repetition,' but the prompt does not ask for a sketch or a two-cycle repetition.",
+         "part-c-criterion-2 requires using the first quarter-cycle's downward, concave-down behavior as justification, but part (c) only asks students to state whether x is increasing or decreasing and whether its rate of change is increasing or decreasing."
+        ]
+       },
+       "uncertainty_flags": [
+        "Rubric preflight failed; unit assignment not forced."
+       ]
+      }
+     },
+     {
+      "ms": 18103,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.0089212,
+       "is_byok": false,
+       "market_cost": 0.0089212,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.0089212,
+       "total_tokens": 5970,
+       "prompt_tokens": 2729,
+       "completion_tokens": 3241,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 0
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 2569
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apprecalc-frq-031",
+       "primary_unit": 3,
+       "required_units": [
+        1,
+        3
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Identifying key points of a sinusoidal function based on amplitude, period, and phase shift is covered in Unit 3 (e.g., 3.4, 3.5, 3.6).",
+         "criterion_key": "part-a-criterion-1"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Determining the midline and understanding the periodic nature of sinusoidal functions is covered in Unit 3 (e.g., 3.4, 3.5).",
+         "criterion_key": "part-a-criterion-2"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Constructing a sinusoidal model from given characteristics (amplitude, period, phase shift, midline) is a core skill in Unit 3 (e.g., 3.5, 3.6, 3.7).",
+         "criterion_key": "part-b-criterion-1"
+        },
+        {
+         "units": [
+          3
+         ],
+         "evidence": "Identifying and using amplitude, period, and phase for a sinusoidal model is covered in Unit 3 (e.g., 3.5, 3.6).",
+         "criterion_key": "part-b-criterion-2"
+        },
+        {
+         "units": [
+          1,
+          3
+         ],
+         "evidence": "Determining if x is increasing or decreasing for a sinusoidal function is Unit 3 (e.g., 3.4, 3.5). Determining if its rate of change is increasing or decreasing (concavity) applies general concepts from Unit 1 (e.g., 1.3 Rates of Change and Behavior of Graphs) to a Unit 3 function.",
+         "criterion_key": "part-c-criterion-1"
+        },
+        {
+         "units": [
+          1,
+          3
+         ],
+         "evidence": "Justifying the decreasing and concave-down behavior of a sinusoidal function in a specific interval requires understanding of sinusoidal graphs (Unit 3, e.g., 3.4, 3.5) and the relationship between rate of change and concavity (Unit 1, e.g., 1.3).",
+         "criterion_key": "part-c-criterion-2"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "math-serving-units-2026-08-04-20260804211958",
+    "coverage_deferred": true
+   }
+  },
+  "stem": "Answer all parts of the following question.\n\n(a) Give five consecutive key points beginning at the maximum and state the midline.\n\n(b) Construct a cosine model x(t) for the coordinate.\n\n(c) On 1/2<t<5/4, state whether x is increasing or decreasing and whether its rate of change is increasing or decr",
+  "rubric_pj": null
+ },
+ {
+  "content_key": "apprecalc-frq-u12-004",
+  "version_num": 2,
+  "frq_form": "short",
+  "rubric_type": "discrete_text",
+  "evaluator_strategy": "llm_discrete_text",
+  "lab": {
+   "st": "held",
+   "payload": {
+    "mode": "cold_label",
+    "scope": "serving_only",
+    "models": [
+     {
+      "ms": 8289,
+      "ok": true,
+      "model": "openai/gpt-5.5",
+      "usage": {
+       "cost": 0,
+       "is_byok": true,
+       "market_cost": 0.029962,
+       "cost_details": {
+        "upstream_inference_cost": 0.029962,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "total_tokens": 6455,
+       "prompt_tokens": 5672,
+       "completion_tokens": 783,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 4864
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 516
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apprecalc-frq-u12-004",
+       "primary_unit": null,
+       "required_units": [],
+       "criterion_units": [],
+       "scope_violation": {
+        "status": "none",
+        "evidence": "No Unit 4 content, calculus, or other out-of-scope content is required; the issue is rubric-prompt misalignment."
+       },
+       "rubric_preflight": {
+        "status": "fail",
+        "findings": [
+         "Part C asks students to state a reasonable domain for x in context and explain real-world restrictions, but the corresponding criteria score the interval where profit is positive, 0 \u2264 x < 18.2, rather than the domain of the model or contextual restrictions on x.",
+         "Part C criteria score an unasked operation: distinguishing the profit-positive interval from the stated domain 0 \u2264 x \u2264 20 and justifying profitability beyond the break-even point.",
+         "The rubric does not directly award credit for the asked domain statement and real-world restrictions, such as x representing a price increase with the stated contextual bounds 0 \u2264 x \u2264 20."
+        ]
+       },
+       "uncertainty_flags": [
+        "rubric_preflight_failed"
+       ]
+      }
+     },
+     {
+      "ms": 9151,
+      "ok": true,
+      "model": "google/gemini-2.5-flash",
+      "usage": {
+       "cost": 0.0054619,
+       "is_byok": false,
+       "market_cost": 0.0054619,
+       "cost_details": {
+        "upstream_inference_cost": null,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+       },
+       "gateway_cost": 0.0054619,
+       "total_tokens": 7967,
+       "prompt_tokens": 6070,
+       "completion_tokens": 1897,
+       "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "video_tokens": 0,
+        "cached_tokens": 4080
+       },
+       "completion_tokens_details": {
+        "image_tokens": 0,
+        "reasoning_tokens": 1276
+       },
+       "cache_creation_input_tokens": 0
+      },
+      "output": {
+       "content_key": "apprecalc-frq-u12-004",
+       "primary_unit": 1,
+       "required_units": [
+        1
+       ],
+       "criterion_units": [
+        {
+         "units": [
+          1
+         ],
+         "evidence": "Finding the maximum of a quadratic function (vertex) is a core concept of polynomial functions, covered in Unit 1 (e.g., Topic 1.4 or 1.14).",
+         "criterion_key": "part-a-criterion-01"
+        },
+        {
+         "units": [
+          1
+         ],
+         "evidence": "Evaluating a polynomial function at a specific value to find the maximum profit is an application of function models, covered in Unit 1 (Topic 1.14).",
+         "criterion_key": "part-a-criterion-02"
+        },
+        {
+         "units": [
+          1
+         ],
+         "evidence": "Finding the zeros/roots of a quadratic function is a fundamental skill for polynomial functions, covered in Unit 1 (e.g., Topic 1.5 or 1.8).",
+         "criterion_key": "part-b-criterion-01"
+        },
+        {
+         "units": [
+          1
+         ],
+         "evidence": "Interpreting mathematical solutions in a real-world context and applying domain restrictions based on the problem's scenario is part of function model application, covered in Unit 1 (Topic 1.14).",
+         "criterion_key": "part-b-criterion-02"
+        },
+        {
+         "units": [
+          1
+         ],
+         "evidence": "Identifying the interval where a polynomial function's output is positive (profit is positive) requires understanding function behavior and zeros, covered in Unit 1 (e.g., Topic 1.3 or 1.14).",
+         "criterion_key": "part-c-criterion-01"
+        },
+        {
+         "units": [
+          1
+         ],
+         "evidence": "Justifying a reasonable domain for a model based on real-world restrictions and the function's output (profitability) is a key aspect of function model application and interpretation, covered in Unit 1 (Topic 1.14).",
+         "criterion_key": "part-c-criterion-02"
+        }
+       ],
+       "scope_violation": {
+        "status": "none",
+        "evidence": ""
+       },
+       "rubric_preflight": {
+        "status": "pass",
+        "findings": []
+       },
+       "uncertainty_flags": []
+      }
+     }
+    ],
+    "reason": "rubric_preflight_failure",
+    "run_id": "serving-units-mcp-2026-09-25-20260926030633",
+    "coverage_deferred": true,
+    "legacy_serving_label": {
+     "source": "legacy_prompt_json",
+     "label_status": "legacy_unvalidated",
+     "primary_unit": null,
+     "required_units": [],
+     "max_required_unit": null
+    }
+   }
+  },
+  "stem": "Maximizing Weekly Profit with a Quadratic Model: Answer all parts. Show your reasoning and calculations clearly, using standard AP notation and justifying any qualitative claims.",
+  "rubric_pj": null
+ }
+]

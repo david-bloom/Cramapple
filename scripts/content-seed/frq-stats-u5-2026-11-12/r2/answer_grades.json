@@ -1,0 +1,676 @@
+{
+ "ap_statistics__4.5__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Calculates the test statistic t = d̄/(s_d/√n) = −2.90/(5.1/√12) = −1.97.",
+    "earned": true,
+    "reason": "The student correctly substitutes the sample values into the formula and computes t = -1.97."
+   },
+   {
+    "criterion": "b1. Interprets the p-value 0.0746: assuming the mean commute-time difference (route A minus route B) for all drivers is 0, the probability of getting a sample mean difference at least 2.9 minutes away from 0 in either direction (equivalently, a test statistic at least about 1.97 away from 0) is about 0.0746.",
+    "earned": true,
+    "reason": "The student provides a complete and correct interpretation of the p-value in context."
+   },
+   {
+    "criterion": "c1. States that the student's statement that the p-value proves the two routes have the same mean commute time is incorrect, because failing to reject the null hypothesis means the data do not provide convincing evidence of a difference; it does not prove that the null hypothesis is true.",
+    "earned": true,
+    "reason": "The student correctly states that the statement is incorrect and accurately explains that failing to reject H₀ does not prove H₀ is true."
+   },
+   {
+    "criterion": "d1. Compares the p-value 0.0746 with α = 0.05: because the p-value is greater than α, fail to reject H₀.",
+    "earned": true,
+    "reason": "The student correctly compares the p-value of 0.0746 with α = 0.05 and decides to fail to reject H₀."
+   },
+   {
+    "criterion": "d2. Concludes in context: there is not convincing evidence that the mean commute-time difference (route A minus route B) is not 0 minutes for all drivers like these.",
+    "earned": true,
+    "reason": "The student states a correct conclusion in context regarding the lack of convincing evidence for the alternative hypothesis."
+   },
+   {
+    "criterion": "d3. Compares the p-value 0.0746 with α = 0.1: because the p-value is less than α, reject H₀.",
+    "earned": true,
+    "reason": "The student correctly compares the p-value with α = 0.1 and states that they would reject H₀ (and that the decision would change)."
+   }
+  ]
+ },
+ "ap_statistics__4.4__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Defines μ_d as the μ_d is the true mean difference (time to fall asleep without the sleep aid minus time with it), in minutes, for all adults in this city.",
+    "earned": true,
+    "reason": "The response clearly defines μ_d as the true mean difference (time to fall asleep without the sleep aid minus time with it), in minutes, for all adults in this city, including both context and population."
+   },
+   {
+    "criterion": "States H₀: μ_d = 0 and Hₐ: μ_d > 0.",
+    "earned": true,
+    "reason": "The response correctly states H₀: μ_d = 0 versus Hₐ: μ_d > 0."
+   },
+   {
+    "criterion": "Checks the randomization condition: the 12 adults were randomly selected.",
+    "earned": true,
+    "reason": "The response correctly states that the 12 adults were randomly selected."
+   },
+   {
+    "criterion": "Checks the 10% condition: 12 adults are less than 10% of the adults in the city.",
+    "earned": true,
+    "reason": "The response correctly checks that 12 adults are less than 10% of the adults in the city."
+   },
+   {
+    "criterion": "Checks the sample-data condition: the sample of differences has n = 12, which is less than 30, and its dotplot is strongly left-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+    "earned": true,
+    "reason": "The response checks the sample-data condition, noting n = 12 < 30, strong left-skewness, and one outlier, correctly concluding that the condition is not met and the test is not appropriate."
+   },
+   {
+    "criterion": "States that the classmate's two-sample t-test is not appropriate, because each adult provided both times, so the two sets of times are not independent samples; the analysis should use the 12 differences (a matched-pairs, one-sample procedure).",
+    "earned": true,
+    "reason": "The response rejects the two-sample t-test and correctly explains that because each adult provided both times, the samples are not independent and a matched-pairs procedure on the differences should be used."
+   }
+  ]
+ },
+ "ap_statistics__4.3__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Interprets the interval: we are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program.",
+    "earned": true,
+    "reason": "The student correctly states the confidence level, the interval (0.37 to 2.33 minutes), and the parameter in context."
+   },
+   {
+    "criterion": "a2. Interprets the confidence level: if many random samples of the same size were taken, about 95% of the intervals they produce would capture the true parameter.",
+    "earned": true,
+    "reason": "The student correctly describes the confidence level as the percentage of intervals from repeated samples of the same size that would capture the true mean difference."
+   },
+   {
+    "criterion": "b1. Because 0 is not in the interval (0.37, 2.33), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the program is associated with a change in mean 5K time).",
+    "earned": true,
+    "reason": "The student points out that 0 is not in the interval, concludes it is not a plausible value for the population mean difference, and correctly states there is convincing evidence against Claim 1."
+   },
+   {
+    "criterion": "b2. Because 2.5 is above the interval (0.37, 2.33), 2.5 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2.",
+    "earned": true,
+    "reason": "The student correctly notes that 2.5 is above the interval, is not a plausible value, and therefore Claim 2 is not supported."
+   },
+   {
+    "criterion": "c1. States that the coach's statement that 95% of runners improved by between 0.37 and 2.33 minutes is not justified, because the interval estimates the population mean difference, not the range of individual values.",
+    "earned": true,
+    "reason": "The student clearly states that the interval estimates the population mean difference rather than the distribution or range of individual runner values."
+   },
+   {
+    "criterion": "d1. States that with n = 80 instead of 20 the interval would be narrower, with a margin of error about half as large (about 0.47 minutes), because the standard error s/√n shrinks.",
+    "earned": true,
+    "reason": "The student correctly states that the interval would be narrower, explains that the margin of error is halved due to the larger sample size (sqrt(80) vs sqrt(20)), and gives the new value as roughly 0.47 minutes."
+   }
+  ]
+ },
+ "ap_statistics__4.6__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 5,
+  "earned": 5,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 5 minutes.",
+    "earned": true,
+    "reason": "The student clearly states that the mean of the sampling distribution is 5 minutes with supporting subtraction."
+   },
+   {
+    "criterion": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(10²/50 + 7²/60) = 1.678 minutes.",
+    "earned": true,
+    "reason": "The student correctly computes the standard deviation as √(10²/50 + 7²/60) = 1.678 minutes."
+   },
+   {
+    "criterion": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (50 and 60) are at least 30.",
+    "earned": true,
+    "reason": "The student states the distribution is approximately normal and justifies it using independent random samples and sample sizes both greater than or equal to 30."
+   },
+   {
+    "criterion": "Finds the probability that the mean delivery time of the Store 1 sample is less than the mean delivery time of the Store 2 sample: the probability is about 0.0014, using a normal distribution with mean 5 and standard deviation 1.678 (for example, z = (0 − 5)/1.678 = −2.98).",
+    "earned": true,
+    "reason": "The student calculates the z-score using the mean of 5 and standard deviation of 1.678 and finds the probability of approximately 0.0014."
+   },
+   {
+    "criterion": "Solves √(10²/n + 7²/n) ≤ 1.2 for a common sample size: n ≥ 103.47, so n = 104.",
+    "earned": true,
+    "reason": "The student sets up the inequality correctly, solves for n ≥ 103.47, and rounds up to the integer 104."
+   }
+  ]
+ },
+ "ap_statistics__4.6__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 5,
+  "earned": 5,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 4 minutes.",
+    "earned": true,
+    "reason": "The response correctly identifies that the mean is μ₁ − μ₂ = 34 − 30 = 4 minutes."
+   },
+   {
+    "criterion": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(8²/40 + 6²/45) = 1.549 minutes.",
+    "earned": true,
+    "reason": "The response shows the correct formula with values substituted, √(8²/40 + 6²/45), and computes 1.549 minutes."
+   },
+   {
+    "criterion": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.",
+    "earned": true,
+    "reason": "The response explicitly states that the sampling distribution is approximately normal and references independent random samples with both sample sizes (40 and 45) being at least 30."
+   },
+   {
+    "criterion": "Finds the probability that the mean commute time of the City B sample exceeds the mean commute time of the City A sample: the probability is about 0.0049, using a normal distribution with mean 4 and standard deviation 1.549 (for example, z = (0 − 4)/1.549 = −2.58).",
+    "earned": true,
+    "reason": "The response sets up the z-score correctly as z = (0 − 4)/1.549 = −2.58 and finds the probability to be approximately 0.0049."
+   },
+   {
+    "criterion": "Solves √(8²/n + 6²/n) ≤ 0.8 for a common sample size: n ≥ 156.25, so n = 157.",
+    "earned": true,
+    "reason": "The response sets up the inequality √(8²/n + 6²/n) ≤ 0.8, correctly solves for n ≥ 156.25, and rounds up to the smallest integer n = 157."
+   }
+  ]
+ },
+ "ap_statistics__4.4__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Defines μ_d as the μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school.",
+    "earned": true,
+    "reason": "The response clearly defines μ_d including the context, direction of subtraction, units, and the population."
+   },
+   {
+    "criterion": "States H₀: μ_d = 0 and Hₐ: μ_d < 0.",
+    "earned": true,
+    "reason": "The response correctly states both the null and alternative hypotheses with the correct direction."
+   },
+   {
+    "criterion": "Checks the randomization condition: the 15 students were randomly selected.",
+    "earned": true,
+    "reason": "The response explicitly states the randomization condition in context by noting that the 15 students were randomly selected."
+   },
+   {
+    "criterion": "Checks the 10% condition: 15 students are less than 10% of the students at the school.",
+    "earned": true,
+    "reason": "The response correctly checks that 15 students is less than 10% of all students at the school."
+   },
+   {
+    "criterion": "Checks the sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+    "earned": true,
+    "reason": "The response states that n = 15 (< 30), notes that the dotplot is strongly right-skewed with an outlier, and concludes that the condition is not met."
+   },
+   {
+    "criterion": "States that the classmate's two-sample t-test is not appropriate, because each student provided both times, so the two sets of times are not independent samples; the analysis should use the 15 differences (a matched-pairs, one-sample procedure).",
+    "earned": true,
+    "reason": "The response clearly states that the two-sample test is not appropriate because the samples are not independent since each student provided both times, and indicates that a matched-pairs procedure should be used instead."
+   }
+  ]
+ },
+ "ap_statistics__4.3__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Interprets the interval: we are 95% confident that the interval from 2.75 to 10.85 mmHg captures the true mean drop (before minus after) in systolic blood pressure for all patients like these after the new medication.",
+    "earned": true,
+    "reason": "The response clearly states the confidence level, the interval (2.75 to 10.85 mmHg), and correctly defines the parameter in context."
+   },
+   {
+    "criterion": "Interprets the confidence level: if many random samples of the same size were taken, about 95% of the intervals they produce would capture the true parameter.",
+    "earned": true,
+    "reason": "The response correctly explains the confidence level in terms of taking many random samples of the same size and the long-run percentage of intervals capturing the true parameter."
+   },
+   {
+    "criterion": "Because 0 is not in the interval (2.75, 10.85), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the medication is associated with a change in mean systolic blood pressure).",
+    "earned": true,
+    "reason": "The response notes that 0 is not in the interval, concludes it is not a plausible value, and correctly states that the interval provides convincing evidence against Claim 1."
+   },
+   {
+    "criterion": "Because 12 is above the interval (2.75, 10.85), 12 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2.",
+    "earned": true,
+    "reason": "The response notes that 12 is above the interval, states it is not a plausible value, and concludes the interval does not support Claim 2."
+   },
+   {
+    "criterion": "States that the pharmacist's statement that 95% of patients had a drop of between 2.75 and 10.85 mmHg is not justified, because the interval estimates the population mean difference, not the range of individual values.",
+    "earned": true,
+    "reason": "The response correctly indicates that the pharmacist is wrong because the interval estimates the population mean difference, not individual patient values."
+   },
+   {
+    "criterion": "States that with n = 96 instead of 24 the interval would be narrower, with a margin of error about half as large (about 1.94 mmHg), because the standard error s/√n shrinks.",
+    "earned": true,
+    "reason": "The response correctly identifies that the interval is narrower, states the margin of error is about half as large (giving the approximate value 1.94 mmHg), and explains this via the standard error formula and sample size."
+   }
+  ]
+ },
+ "ap_statistics__4.9__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Defines μ₁ and μ₂ as the μ₁ is the true mean setup time, in minutes, of all customers who use the new onboarding process, and μ₂ is the true mean setup time of all customers who use the standard process.",
+    "earned": true,
+    "reason": "The student clearly defined both parameters with the response variable (setup time, in minutes) and the populations in context."
+   },
+   {
+    "criterion": "States H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ < 0.",
+    "earned": true,
+    "reason": "The student correctly stated the null and alternative hypotheses with the appropriate direction."
+   },
+   {
+    "criterion": "Identifies the appropriate procedure as a two-sample t-test for a difference in population means.",
+    "earned": true,
+    "reason": "The student correctly named the procedure as a two-sample t-test for a difference in population means."
+   },
+   {
+    "criterion": "Checks the randomization condition: the customers were selected by independent random samples from the two groups of customers.",
+    "earned": true,
+    "reason": "The student explicitly verified the randomization condition in context."
+   },
+   {
+    "criterion": "Checks the 10% condition: each sample is less than 10% of the thousands of customers in its group.",
+    "earned": true,
+    "reason": "The student verified that each sample is less than 10% of the population of thousands of customers."
+   },
+   {
+    "criterion": "Checks the sample-data condition: one sample (n = 14) is less than 30, so both samples must show no strong skewness or outliers, but the standard-process sample has an outlier and is skewed, so the sample-data condition is not met and the two-sample t-test is not appropriate.",
+    "earned": true,
+    "reason": "The student correctly addressed the sample sizes, skewness, outlier, and concluded that the condition is not met and the test is not appropriate."
+   }
+  ]
+ },
+ "ap_statistics__4.9__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Defines μ₁ and μ₂ as the μ₁ is the true mean quiz score, in points, of all students at the university who study with practice tests, and μ₂ is the true mean quiz score of all students at the university who study by rereading.",
+    "earned": true,
+    "reason": "The response clearly defines both parameters in context, including the population and response variable."
+   },
+   {
+    "criterion": "States H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ > 0.",
+    "earned": true,
+    "reason": "The response correctly states the null and alternative hypotheses with the correct direction."
+   },
+   {
+    "criterion": "Identifies the appropriate procedure as a two-sample t-test for a difference in population means.",
+    "earned": true,
+    "reason": "The response explicitly names the two-sample t-test for a difference in population means."
+   },
+   {
+    "criterion": "Checks the randomization condition: the students were selected by independent random samples from the two groups of students.",
+    "earned": true,
+    "reason": "The response checks the randomization condition in context."
+   },
+   {
+    "criterion": "Checks the 10% condition: each sample is less than 10% of the thousands of students in its group.",
+    "earned": true,
+    "reason": "The response checks the 10% condition for both samples."
+   },
+   {
+    "criterion": "Checks the sample-data condition: one sample (n = 15) is less than 30, so both samples must show no strong skewness or outliers, but the rereading sample has an outlier, so the sample-data condition is not met and the two-sample t-test is not appropriate.",
+    "earned": true,
+    "reason": "The response checks the sample-data condition, notes the presence of an outlier in the small sample, and correctly concludes that the condition is not met."
+   }
+  ]
+ },
+ "ap_statistics__4.7__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Checks the randomization condition: the seedlings were selected by independent random samples from the two greenhouses.",
+    "earned": true,
+    "reason": "The student states that the seedlings were selected by independent random samples from the two greenhouses."
+   },
+   {
+    "criterion": "Checks the 10% condition: each sample is less than 10% of the seedlings in its greenhouse.",
+    "earned": true,
+    "reason": "The student clearly checks that each sample is less than 10% of the seedlings in its greenhouse."
+   },
+   {
+    "criterion": "Checks the sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+    "earned": true,
+    "reason": "The student states that both sample sizes are less than 30 and notes that the dotplots show no strong skewness and no outliers."
+   },
+   {
+    "criterion": "States df = smaller of (n₁ − 1, n₂ − 1) = 17 and reads t* = 2.110 from the table for 95% confidence.",
+    "earned": true,
+    "reason": "The student identifies df = 17 using the smaller of the two sample sizes minus 1 and selects t* = 2.110."
+   },
+   {
+    "criterion": "Computes the interval (14.6 − 12.9) ± 2.110√(3.1²/18 + 2.8²/22) = 1.7 ± 2.110(0.944) = −0.29 to 3.69 centimeters, using t* = 2.110.",
+    "earned": true,
+    "reason": "The student correctly calculates the standard error and calculates the interval −0.29 to 3.69 centimeters using t* = 2.110."
+   },
+   {
+    "criterion": "States that using df = 17, the smaller of n₁ − 1 and n₂ − 1, gives a larger t* (2.110 versus 2.031) and a wider interval than technology's df of about 34.7, so the table method is conservative.",
+    "earned": true,
+    "reason": "The student explains that the smaller df (17) produces a larger critical value t* (2.110 vs. 2.031) than technology's df of 34.7, resulting in a wider interval and demonstrating that the table method is conservative."
+   }
+  ]
+ },
+ "ap_statistics__5.4__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Calculates the residual as observed minus predicted: 14 - 20.29 = −6.29 mm.",
+    "earned": true,
+    "reason": "The student calculates ŷ = 20.29 and finds the residual as 14 − 20.29 = −6.29 mm."
+   },
+   {
+    "criterion": "Calculates the residual as observed minus predicted: 30 - 24.58 = 5.42 mm.",
+    "earned": true,
+    "reason": "The student calculates the residual as 30 − 24.58 = 5.42 mm."
+   },
+   {
+    "criterion": "States that because the residual is negative, the model overpredicts the plant growth for group with x = 1 mg: the observed value is below the predicted value.",
+    "earned": true,
+    "reason": "The student states that because the residual at x = 1 is negative, the model overpredicts plant growth and the observed value is below the predicted value."
+   },
+   {
+    "criterion": "Interprets the size in context: for group with x = 1 mg, the observed plant growth is about 6.29 mm below the predicted value.",
+    "earned": true,
+    "reason": "The student correctly quantifies the difference in context as about 6.29 mm."
+   },
+   {
+    "criterion": "States that the signs of the residuals as x increases are negative, negative, positive, positive, positive, positive, negative, a systematic negative, positive, negative (arch-shaped) pattern rather than random scatter.",
+    "earned": true,
+    "reason": "The student lists the seven signs in order of increasing x and identifies the pattern as systematic rather than random scatter."
+   },
+   {
+    "criterion": "States that the arch-shaped pattern of the residuals (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+    "earned": true,
+    "reason": "The student identifies the pattern as curvature and concludes that the linear model is not the most appropriate model for the data."
+   }
+  ]
+ },
+ "ap_statistics__4.7__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Checks the randomization condition: the students were selected by independent random samples from the two schools.",
+    "earned": true,
+    "reason": "The response clearly states the randomization condition in context: 'the students were selected by independent random samples from the two schools.'"
+   },
+   {
+    "criterion": "a2. Checks the 10% condition: each sample is less than 10% of the students at its school.",
+    "earned": true,
+    "reason": "The response explicitly checks that 'each sample is less than 10% of the students at its school.'"
+   },
+   {
+    "criterion": "a3. Checks the sample-data condition: both sample sizes (32 and 35) are at least 30.",
+    "earned": true,
+    "reason": "The response checks the sample-data condition by noting that 'both sample sizes (32 and 35) are at least 30.'"
+   },
+   {
+    "criterion": "b1. States df = smaller of (n₁ − 1, n₂ − 1) = 31 and reads t* = 2.040 from the table for 95% confidence.",
+    "earned": true,
+    "reason": "The response states df = smaller of (32 − 1, 35 − 1) = 31 and identifies t* = 2.040."
+   },
+   {
+    "criterion": "b2. Computes the interval (78.4 − 72.1) ± 2.040√(11.2²/32 + 9.8²/35) = 6.3 ± 2.040(2.581) = 1.03 to 11.57 points, using t* = 2.040.",
+    "earned": true,
+    "reason": "The response shows the calculation using t* = 2.040 and the standard error 2.581 to arrive at the interval 1.03 to 11.57 points."
+   },
+   {
+    "criterion": "c1. States that using df = 31, the smaller of n₁ − 1 and n₂ − 1, gives a larger t* (2.040 versus 1.999) and a wider interval than technology's df of about 61.9, so the table method is conservative.",
+    "earned": true,
+    "reason": "The response explains that the smaller df of 31 gives a larger critical value t* (2.040 vs 1.999) compared to technology's df of about 61.9, resulting in a wider, conservative interval."
+   }
+  ]
+ },
+ "ap_statistics__5.1__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Describes the form of the association as non-linear (a curve that falls and then rises).",
+    "earned": true,
+    "reason": "The response explicitly states that the form is non-linear and follows a curve that falls and then rises."
+   },
+   {
+    "criterion": "a2. States that the direction changes: the association is negative for driving speed below about 75 km per hour and positive for larger values.",
+    "earned": true,
+    "reason": "The response states in context that the direction changes, being negative for driving speeds below about 75 km per hour and positive for larger values."
+   },
+   {
+    "criterion": "a3. States that the association is strong because all of the points lie close to one smooth curve.",
+    "earned": true,
+    "reason": "The response identifies the association as strong and explains that the points follow a single curved pattern closely."
+   },
+   {
+    "criterion": "b1. States that the claim that the association is weak because the points do not stay close to a straight line is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.",
+    "earned": true,
+    "reason": "The response rejects the classmate's claim and explains that strength is determined by how closely points follow the overall pattern, which can be curved rather than linear."
+   },
+   {
+    "criterion": "c1. Concludes the claim is not supported: fuel use falls as speed increases up to about 70 to 80 km per hour (11.1 liters at 30 km per hour versus 5.9 liters at 70 km per hour) before it rises.",
+    "earned": true,
+    "reason": "The response states that Claim 1 is not supported and justifies this by showing fuel use decreases as speed increases up to 70-80 km per hour, citing values from the table (11.1 at 30 km/h vs. 5.9 at 70 km/h)."
+   },
+   {
+    "criterion": "c2. Concludes Claim 2 is supported: the lowest fuel use above 100 km per hour is 9.0 liters per 100 km, which is above the highest fuel use (7.4 liters) from 50 to 80 km per hour.",
+    "earned": true,
+    "reason": "The response states that Claim 2 is supported and compares the lowest fuel use above 100 km/h (9.0 liters) to the highest fuel use between 50 and 80 km/h (7.4 liters)."
+   }
+  ]
+ },
+ "ap_statistics__4.5__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Calculates the test statistic t = d̄/(s_d/√n) = 3.4/(4.6/√15) = 2.86.",
+    "earned": true,
+    "reason": "The student correctly substituted the sample values into the formula and obtained t = 2.86."
+   },
+   {
+    "criterion": "Interprets the p-value 0.0063: assuming the mean score gain for all students after mnemonic training is 0, the probability of getting a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater) is about 0.0063.",
+    "earned": true,
+    "reason": "The student provided a complete and correct interpretation of the p-value in context."
+   },
+   {
+    "criterion": "States that the student's statement that there is a 0.63% chance that the null hypothesis is true is incorrect, because the p-value is computed assuming the null hypothesis is true; it is the probability of a result this extreme, not the probability that the null hypothesis is true.",
+    "earned": true,
+    "reason": "The student correctly stated that the claim is incorrect and explained that the p-value is calculated under the assumption that the null hypothesis is true, rather than being the probability of the null hypothesis being true."
+   },
+   {
+    "criterion": "Compares the p-value 0.0063 with α = 0.05: because the p-value is less than α, reject H₀.",
+    "earned": true,
+    "reason": "The student compared the p-value of 0.0063 to α = 0.05, noted it is less than α, and correctly stated to reject H₀."
+   },
+   {
+    "criterion": "Concludes in context: there is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these.",
+    "earned": true,
+    "reason": "The student correctly concluded in context that there is convincing evidence that the mean score gain after mnemonic training is greater than 0 points."
+   },
+   {
+    "criterion": "Compares the p-value 0.0063 with α = 0.001: because the p-value is greater than α, fail to reject H₀.",
+    "earned": true,
+    "reason": "The student compared the p-value of 0.0063 to α = 0.001, noted it is greater than α, and correctly stated to fail to reject H₀."
+   }
+  ]
+ },
+ "ap_statistics__5.1__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Describes the form of the association as non-linear (a curve that rises and then falls).\n    Evidence required: Response states the form of the association as non-linear (a curve that rises and then falls).",
+    "earned": true,
+    "reason": "The response explicitly describes the form as non-linear and states that the points follow a curve that rises then falls."
+   },
+   {
+    "criterion": "a2. States that the direction changes: the association is positive for daily study time below about 3.5 hours and negative for larger values.\n    Evidence required: Response says the direction changes near 3.5 hours, positive before and negative after, in context.",
+    "earned": true,
+    "reason": "The response clearly states that the direction changes, being positive for daily study time below about 3.5 hours and negative for larger values."
+   },
+   {
+    "criterion": "a3. States that the association is strong because all of the points lie close to one smooth curve.\n    Evidence required: Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+    "earned": true,
+    "reason": "The response identifies the strength as strong and explains that the points closely follow a single curved pattern."
+   },
+   {
+    "criterion": "b1. States that the claim that the association is weak because the points do not stay close to a straight line is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.\n    Evidence required: Response rejects the claim and says strength is judged by how closely the points follow the overall pattern, including a curved one.",
+    "earned": true,
+    "reason": "The response correctly rejects the classmate's claim and explains that strength describes how closely points follow the general pattern, which can be curved rather than a straight line."
+   },
+   {
+    "criterion": "c1. Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours.\n    Evidence required: Response says the claim is not supported and cites values from the table, such as 85 points at 3.5 hours versus 65 points at 6 hours.",
+    "earned": true,
+    "reason": "The response states that Claim 1 is not supported and justifies this with specific values from the table (85 points at 3.5 hours and 65 points at 6 hours)."
+   },
+   {
+    "criterion": "c2. Concludes Claim 2 is supported: the highest score among students who studied 5 hours or more is 78 points, which is below the lowest score (82 points) among students who studied 2.5 to 4.5 hours.\n    Evidence required: Response says Claim 2 is supported and shows every score at 5 hours or more (78, 72, 65) is below every score from 2.5 to 4.5 hours (82 or higher), for example by comparing the highest of the first group (78) with the lowest of the second (82).",
+    "earned": true,
+    "reason": "The response concludes Claim 2 is supported and justifies it by comparing the highest score among students studying 5+ hours (78 points) with the lowest score for students studying 2.5 to 4.5 hours (82 points)."
+   }
+  ]
+ },
+ "ap_statistics__5.5__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Interprets the slope in context: for each one-degree Fahrenheit increase in afternoon temperature, the predicted number of cones sold increases by about 2.1 cones.",
+    "earned": true,
+    "reason": "The student correctly stated that for each one-degree Fahrenheit increase in afternoon temperature, the predicted number of cones sold increases by about 2.1 cones."
+   },
+   {
+    "criterion": "States that the y-intercept 24.5 is the predicted number of cones sold when afternoon temperature is 0.",
+    "earned": true,
+    "reason": "The student correctly identified 24.5 as the predicted number of cones sold when the afternoon temperature is 0."
+   },
+   {
+    "criterion": "States that this intercept should not be interpreted because afternoon temperature = 0 is outside the interval of values used to fit the line (62 to 96 degrees Fahrenheit), so it is extrapolation.",
+    "earned": true,
+    "reason": "The student correctly noted that the intercept should not be interpreted because 0 is outside the range of values used to fit the line (62 to 96 degrees Fahrenheit), which would be extrapolation."
+   },
+   {
+    "criterion": "States that the student's interpretation that the regression line predicts the number of cones sold correctly on 76% of the days is incorrect, because r² does not count points on the line or correct predictions.",
+    "earned": true,
+    "reason": "The student correctly stated that the interpretation is incorrect and explained that r² does not measure the percent of points on the line or correct predictions."
+   },
+   {
+    "criterion": "Interprets r² = 0.76: about 76% of the variation in number of cones sold is explained by the linear relationship with afternoon temperature.",
+    "earned": true,
+    "reason": "The student provided the correct interpretation that about 76% of the variation in the number of cones sold is explained by the linear relationship with afternoon temperature."
+   },
+   {
+    "criterion": "Uses the fact that the line passes through (x̅, ȳ): solves 192.5 = 24.5 + 2.1x̅ to get a mean afternoon temperature of 80 degrees Fahrenheit.",
+    "earned": true,
+    "reason": "The student set up the equation 192.5 = 24.5 + 2.1x̅ using the point of means and correctly solved for x̅ = 80 degrees Fahrenheit."
+   }
+  ]
+ },
+ "ap_statistics__5.4__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Calculates the residual as observed minus predicted: 30 - 23.39 = 6.61 hundreds of kWh.",
+    "earned": true,
+    "reason": "The response shows the calculation 30 − 23.39 = 6.61 hundreds of kWh."
+   },
+   {
+    "criterion": "Calculates the residual as observed minus predicted: 12 - 18.89 = −6.89 hundreds of kWh.",
+    "earned": true,
+    "reason": "The response shows the calculation 12 − 18.89 = −6.89 hundreds of kWh."
+   },
+   {
+    "criterion": "States that because the residual is positive, the model underpredicts the energy use for temperature group with x = 20 °F: the observed value is above the predicted value.",
+    "earned": true,
+    "reason": "The response correctly links the positive residual to underpredicting the energy use at x = 20 (observed value is above predicted)."
+   },
+   {
+    "criterion": "Interprets the size in context: for temperature group with x = 20 °F, the observed energy use is about 6.61 hundreds of kWh above the predicted value.",
+    "earned": true,
+    "reason": "The response states that the observed value is above the predicted value by about 6.61 hundreds of kWh for that group."
+   },
+   {
+    "criterion": "States that the signs of the residuals as x increases are positive, positive, negative, negative, negative, negative, positive, a systematic positive, negative, positive (U-shaped) pattern rather than random scatter.",
+    "earned": true,
+    "reason": "The response correctly lists the sequence of signs for the seven observations and notes that it is a systematic U-shaped pattern rather than random scatter."
+   },
+   {
+    "criterion": "States that the U-shaped pattern of the residuals (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+    "earned": true,
+    "reason": "The response identifies curvature in the residuals and states that this suggests the linear model is not the most appropriate model for the data."
+   }
+  ]
+ },
+ "ap_statistics__5.5__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Interprets the slope in context: for each one-degree Fahrenheit increase in noon temperature, the predicted number of cups sold decreases by about 3.8 cups.",
+    "earned": true,
+    "reason": "The student correctly states that for each one-degree Fahrenheit increase in noon temperature, the predicted number of cups sold decreases by about 3.8 cups."
+   },
+   {
+    "criterion": "b1. States that the y-intercept 312.4 is the predicted number of cups sold when noon temperature is 0.",
+    "earned": true,
+    "reason": "The student identifies 312.4 as the predicted number of cups sold when the noon temperature is 0."
+   },
+   {
+    "criterion": "b2. States that this intercept should not be interpreted because noon temperature = 0 is outside the interval of values used to fit the line (30 to 70 degrees Fahrenheit), so it is extrapolation.",
+    "earned": true,
+    "reason": "The student explains that the intercept should not be interpreted because noon temperature = 0 is outside the range of 30 to 70 degrees Fahrenheit, correctly identifying this as extrapolation."
+   },
+   {
+    "criterion": "c1. States that the student's interpretation that 81% of the days fall exactly on the regression line is incorrect, because r² does not count points on the line or correct predictions.",
+    "earned": true,
+    "reason": "The student states that the interpretation is incorrect and explains that r² does not measure the percent of points on the line or correct predictions."
+   },
+   {
+    "criterion": "c2. Interprets r² = 0.81: about 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.",
+    "earned": true,
+    "reason": "The student accurately interprets r² in context, stating that about 81% of the variation in the number of cups sold is explained by the linear relationship with noon temperature."
+   },
+   {
+    "criterion": "d1. Uses the fact that the line passes through (x̅, ȳ): solves 122.4 = 312.4 − 3.8x̅ to get a mean noon temperature of 50 degrees Fahrenheit.",
+    "earned": true,
+    "reason": "The student notes that the line passes through (x̅, ȳ), sets up the equation 122.4 = 312.4 − 3.8x̅, and correctly solves for x̅ = 50 degrees Fahrenheit."
+   }
+  ]
+ }
+}

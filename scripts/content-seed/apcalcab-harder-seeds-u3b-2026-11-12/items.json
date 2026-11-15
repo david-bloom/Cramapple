@@ -1,0 +1,866 @@
+[
+ {
+  "src_id": "N-3.4-A",
+  "content_key": "apcalcab-mcq-b2-h-3.4-a",
+  "family": "3.4-A",
+  "variant": null,
+  "topic": "3.4",
+  "title": "differentiate sums of inverse trigonometric functions whose chain factors cancel or add.",
+  "stem": "For x > 0, let f(x) = tan⁻¹(x) + tan⁻¹(1/x). What is f′(2)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0",
+    "is_correct": true,
+    "rationale": "Correct: d/dx tan⁻¹(1/x) = [1/(1 + 1/x²)]·(−1/x²) = −1/(x² + 1), which cancels 1/(1 + x²), so f′(x) = 0 (f is constant, π/2, for x > 0)."
+   },
+   {
+    "label": "B",
+    "text": "2/5",
+    "is_correct": false,
+    "rationale": "This loses the minus sign from the chain factor −1/x² when differentiating tan⁻¹(1/x), so the two terms 1/5 and 1/5 are added."
+   },
+   {
+    "label": "C",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This omits the chain factor −1/x² on the second term, giving 1/(1 + 1/4) = 4/5 for it, and then 1/5 + 4/5 = 1."
+   },
+   {
+    "label": "D",
+    "text": "1/5",
+    "is_correct": false,
+    "rationale": "This differentiates only the first term and treats tan⁻¹(1/x) as if it were constant."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-A-v1",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.4-a-v1",
+  "family": "3.4-A",
+  "variant": "1",
+  "topic": "3.4",
+  "title": "differentiate sums of inverse trigonometric functions whose chain factors cancel or add. (variant 1)",
+  "stem": "For x > 0, let g(x) = tan⁻¹(x) − tan⁻¹(1/x). What is g′(2)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0",
+    "is_correct": false,
+    "rationale": "This assumes the expression is the constant identity tan⁻¹(x) + tan⁻¹(1/x), but the minus sign makes the two derivative terms add rather than cancel."
+   },
+   {
+    "label": "B",
+    "text": "2/5",
+    "is_correct": true,
+    "rationale": "Correct: g′(x) = 1/(1 + x²) − [−1/(x² + 1)] = 2/(1 + x²), so g′(2) = 2/5."
+   },
+   {
+    "label": "C",
+    "text": "−3/5",
+    "is_correct": false,
+    "rationale": "This omits the chain factor −1/x² on the second term, giving 1/5 − 4/5 instead of 1/5 + 1/5."
+   },
+   {
+    "label": "D",
+    "text": "1/5",
+    "is_correct": false,
+    "rationale": "This keeps only the derivative of tan⁻¹(x) and drops the derivative of the second term entirely."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-A-v2",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.4-a-v2",
+  "family": "3.4-A",
+  "variant": "2",
+  "topic": "3.4",
+  "title": "differentiate sums of inverse trigonometric functions whose chain factors cancel or add. (variant 2)",
+  "stem": "Let f(x) = 3sin⁻¹(x) + 3cos⁻¹(x) + x² for −1 < x < 1. What is f′(1/2)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "4√3 + 1",
+    "is_correct": false,
+    "rationale": "This uses +1/√(1 − x²) for the derivative of cos⁻¹(x), so the two inverse trigonometric terms add instead of cancelling."
+   },
+   {
+    "label": "B",
+    "text": "2√3 + 1",
+    "is_correct": false,
+    "rationale": "This keeps the derivative of 3sin⁻¹(x) and drops the derivative of 3cos⁻¹(x), so no cancellation occurs."
+   },
+   {
+    "label": "C",
+    "text": "0",
+    "is_correct": false,
+    "rationale": "This correctly cancels the two inverse trigonometric derivatives but drops the derivative 2x of x², which equals 1 at x = 1/2."
+   },
+   {
+    "label": "D",
+    "text": "1",
+    "is_correct": true,
+    "rationale": "Correct: 3/√(1 − x²) − 3/√(1 − x²) = 0, so f′(x) = 2x and f′(1/2) = 1."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-A-v3",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.4-a-v3",
+  "family": "3.4-A",
+  "variant": "3",
+  "topic": "3.4",
+  "title": "differentiate sums of inverse trigonometric functions whose chain factors cancel or add. (variant 3)",
+  "stem": "For x > 0, let f(x) = tan⁻¹(2x) + tan⁻¹(1/(2x)). What is f′(1)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "4/5",
+    "is_correct": false,
+    "rationale": "This takes the derivative of tan⁻¹(1/(2x)) with the wrong sign, so its term 2/5 is added to 2/5 instead of cancelling it."
+   },
+   {
+    "label": "B",
+    "text": "2/5",
+    "is_correct": false,
+    "rationale": "This differentiates only tan⁻¹(2x), whose derivative at 1 is 2/5, and ignores the second term."
+   },
+   {
+    "label": "C",
+    "text": "0",
+    "is_correct": true,
+    "rationale": "Correct: f′(x) = 2/(1 + 4x²) + [1/(1 + 1/(4x²))]·(−1/(2x²)) = 2/(1 + 4x²) − 2/(4x² + 1) = 0; at x = 1 the terms are 2/5 and −2/5."
+   },
+   {
+    "label": "D",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This applies the arctangent rule without the chain factors: 1/(1 + 4) + 1/(1 + 1/4) = 1/5 + 4/5."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-B",
+  "content_key": "apcalcab-mcq-b2-h-3.4-b",
+  "family": "3.4-B",
+  "variant": null,
+  "topic": "3.4",
+  "title": "apply an inverse trigonometric derivative to an unspecified inner function given only values of g and g′.",
+  "stem": "The differentiable function g satisfies g(2) = 3 and g′(2) = 10. Let h(x) = sin⁻¹(g(x)/5). What is h′(2)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "25/2",
+    "is_correct": false,
+    "rationale": "This forgets that the inner function is g(x)/5, so the factor 1/5 is missing from the chain-rule derivative of the argument."
+   },
+   {
+    "label": "B",
+    "text": "−5/2",
+    "is_correct": false,
+    "rationale": "This uses the derivative of cos⁻¹, which carries a minus sign, instead of the derivative of sin⁻¹."
+   },
+   {
+    "label": "C",
+    "text": "25/8",
+    "is_correct": false,
+    "rationale": "This leaves out the square root: the sin⁻¹ derivative is 1/√(1 − u²), not 1/(1 − u²)."
+   },
+   {
+    "label": "D",
+    "text": "5/2",
+    "is_correct": true,
+    "rationale": "Correct: h′(2) = [g′(2)/5]/√(1 − (3/5)²) = 2/(4/5) = 5/2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-B-v1",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.4-b-v1",
+  "family": "3.4-B",
+  "variant": "1",
+  "topic": "3.4",
+  "title": "apply an inverse trigonometric derivative to an unspecified inner function given only values of g and g′. (variant 1)",
+  "stem": "The differentiable function g satisfies g(1) = 4 and g′(1) = −3. Let h(x) = tan⁻¹(g(x)/2). What is h′(1)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−3/10",
+    "is_correct": true,
+    "rationale": "Correct: h′(1) = [g′(1)/2]/(1 + (g(1)/2)²) = (−3/2)/(1 + 4) = −3/10."
+   },
+   {
+    "label": "B",
+    "text": "−3/5",
+    "is_correct": false,
+    "rationale": "This omits the factor 1/2 from the derivative of g(x)/2, so g′(1) is used in place of g′(1)/2."
+   },
+   {
+    "label": "C",
+    "text": "−3/34",
+    "is_correct": false,
+    "rationale": "This puts g(1) = 4 instead of g(1)/2 = 2 into the denominator 1 + u², so the arctangent rule is evaluated at the wrong argument."
+   },
+   {
+    "label": "D",
+    "text": "−3/(2√5)",
+    "is_correct": false,
+    "rationale": "This uses 1/√(1 + u²) instead of 1/(1 + u²); the arctangent derivative has no square root."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-B-v2",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.4-b-v2",
+  "family": "3.4-B",
+  "variant": "2",
+  "topic": "3.4",
+  "title": "apply an inverse trigonometric derivative to an unspecified inner function given only values of g and g′. (variant 2)",
+  "stem": "The differentiable function g satisfies g(3) = 2 and g′(3) = 6. Let h(x) = cos⁻¹(g(x)/4). What is h′(3)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "√3",
+    "is_correct": false,
+    "rationale": "This drops the minus sign from the derivative of cos⁻¹, which is −1/√(1 − u²)."
+   },
+   {
+    "label": "B",
+    "text": "−4√3",
+    "is_correct": false,
+    "rationale": "This omits the factor 1/4 from the derivative of g(x)/4, so g′(3) = 6 is used unscaled."
+   },
+   {
+    "label": "C",
+    "text": "−2",
+    "is_correct": false,
+    "rationale": "This leaves out the square root and uses −u′/(1 − u²) instead of −u′/√(1 − u²)."
+   },
+   {
+    "label": "D",
+    "text": "−√3",
+    "is_correct": true,
+    "rationale": "Correct: h′(3) = −[g′(3)/4]/√(1 − (2/4)²) = −(3/2)/(√3/2) = −√3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-B-v3",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.4-b-v3",
+  "family": "3.4-B",
+  "variant": "3",
+  "topic": "3.4",
+  "title": "apply an inverse trigonometric derivative to an unspecified inner function given only values of g and g′. (variant 3)",
+  "stem": "The differentiable function g satisfies g(1) = 3/4 and g′(1) = −2. Let h(x) = sin⁻¹(1 − g(x)). What is h′(1)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−8/√15",
+    "is_correct": false,
+    "rationale": "This forgets that the derivative of 1 − g(x) is −g′(x), so the minus sign from the inner function is lost."
+   },
+   {
+    "label": "B",
+    "text": "8/√15",
+    "is_correct": true,
+    "rationale": "Correct: h′(1) = −g′(1)/√(1 − (1 − g(1))²) = 2/√(1 − 1/16) = 2/(√15/4) = 8/√15."
+   },
+   {
+    "label": "C",
+    "text": "32/15",
+    "is_correct": false,
+    "rationale": "This leaves out the square root, using 1/(1 − u²) in place of 1/√(1 − u²)."
+   },
+   {
+    "label": "D",
+    "text": "8/√7",
+    "is_correct": false,
+    "rationale": "This evaluates the square root at g(1) = 3/4 instead of at the argument 1 − g(1) = 1/4."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-A",
+  "content_key": "apcalcab-mcq-b2-h-3.5-a",
+  "family": "3.5-A",
+  "variant": null,
+  "topic": "3.5",
+  "title": "diagnose the first incorrect step in a worked derivative that mixes product, quotient and chain rules.",
+  "stem": "A student differentiates h(x) = x²·sin(x³) as follows.\nStep 1: By the product rule, h′(x) = (x²)′·sin(x³) + x²·(sin(x³))′.\nStep 2: (x²)′ = 2x.\nStep 3: (sin(x³))′ = cos(x³).\nStep 4: Therefore h′(x) = 2x·sin(x³) + x²·cos(x³).\nWhich statement identifies the first incorrect step?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Step 1 is incorrect: the product rule requires multiplying the derivatives of the two factors.",
+    "is_correct": false,
+    "rationale": "The product rule adds two terms, each differentiating one factor, so Step 1 is correct as written."
+   },
+   {
+    "label": "B",
+    "text": "Step 3 is incorrect: the chain rule requires the factor 3x², so (sin(x³))′ = 3x²cos(x³).",
+    "is_correct": true,
+    "rationale": "Correct: The derivative of sin(x³) is cos(x³)·3x², so Step 3 is the first wrong step; the correct result is h′(x) = 2x sin(x³) + 3x⁴cos(x³)."
+   },
+   {
+    "label": "C",
+    "text": "Step 2 is incorrect: the derivative of x² is x.",
+    "is_correct": false,
+    "rationale": "The power rule gives (x²)′ = 2x, so Step 2 is correct."
+   },
+   {
+    "label": "D",
+    "text": "Step 4 is incorrect: the two terms of the product rule should be multiplied, not added.",
+    "is_correct": false,
+    "rationale": "Step 4 correctly adds the two product-rule terms from Steps 1 to 3; its only flaw is inherited from Step 3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-A-v1",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.5-a-v1",
+  "family": "3.5-A",
+  "variant": "1",
+  "topic": "3.5",
+  "title": "diagnose the first incorrect step in a worked derivative that mixes product, quotient and chain rules. (variant 1)",
+  "stem": "A student differentiates g(x) = e²ˣ/(x² + 1) as follows.\nStep 1: By the quotient rule, g′(x) = [(x² + 1)·(e²ˣ)′ − e²ˣ·(x² + 1)′]/(x² + 1).\nStep 2: (e²ˣ)′ = 2e²ˣ.\nStep 3: (x² + 1)′ = 2x.\nStep 4: Therefore g′(x) = [2e²ˣ(x² + 1) − 2x·e²ˣ]/(x² + 1).\nWhich statement identifies the first incorrect step?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Step 2 is incorrect: the derivative of e²ˣ is e²ˣ.",
+    "is_correct": false,
+    "rationale": "The chain rule gives (e²ˣ)′ = 2e²ˣ, so Step 2 is correct."
+   },
+   {
+    "label": "B",
+    "text": "Step 1 is incorrect: the denominator of the quotient rule must be (x² + 1)².",
+    "is_correct": true,
+    "rationale": "Correct: The quotient rule divides by the square of the denominator, so Step 1 is wrong; the correct result is g′(x) = e²ˣ(2x² − 2x + 2)/(x² + 1)²."
+   },
+   {
+    "label": "C",
+    "text": "Step 3 is incorrect: the derivative of x² + 1 is x².",
+    "is_correct": false,
+    "rationale": "The derivative of x² + 1 is 2x, so Step 3 is correct."
+   },
+   {
+    "label": "D",
+    "text": "Step 4 is incorrect: the numerator should add the two products rather than subtract them.",
+    "is_correct": false,
+    "rationale": "The quotient rule subtracts in the numerator, and Step 4 follows that pattern correctly from Steps 1 to 3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-A-v2",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.5-a-v2",
+  "family": "3.5-A",
+  "variant": "2",
+  "topic": "3.5",
+  "title": "diagnose the first incorrect step in a worked derivative that mixes product, quotient and chain rules. (variant 2)",
+  "stem": "A student differentiates p(x) = x³(2x − 5)⁴ as follows.\nStep 1: By the product rule, p′(x) = (x³)′·(2x − 5)⁴ + x³·((2x − 5)⁴)′.\nStep 2: ((2x − 5)⁴)′ = 4(2x − 5)³.\nStep 3: (x³)′ = 3x².\nStep 4: Therefore p′(x) = 3x²(2x − 5)⁴ + 4x³(2x − 5)³.\nWhich statement identifies the first incorrect step?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Step 1 is incorrect: the product rule should multiply (x³)′ by ((2x − 5)⁴)′.",
+    "is_correct": false,
+    "rationale": "The product rule adds two terms; it never multiplies the two derivatives, so Step 1 is correct."
+   },
+   {
+    "label": "B",
+    "text": "Step 3 is incorrect: the derivative of x³ is 3x.",
+    "is_correct": false,
+    "rationale": "The power rule gives (x³)′ = 3x², so Step 3 is correct."
+   },
+   {
+    "label": "C",
+    "text": "Step 2 is incorrect: the chain rule requires the factor 2, so ((2x − 5)⁴)′ = 8(2x − 5)³.",
+    "is_correct": true,
+    "rationale": "Correct: The derivative of (2x − 5)⁴ is 4(2x − 5)³·2 = 8(2x − 5)³, so Step 2 is the first wrong step."
+   },
+   {
+    "label": "D",
+    "text": "Step 4 is incorrect: the exponent 3 in the second term should be 4.",
+    "is_correct": false,
+    "rationale": "Step 4 only combines the earlier steps; the exponent 3 in the second term is correct, and the flaw lies earlier in Step 2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-A-v3",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.5-a-v3",
+  "family": "3.5-A",
+  "variant": "3",
+  "topic": "3.5",
+  "title": "diagnose the first incorrect step in a worked derivative that mixes product, quotient and chain rules. (variant 3)",
+  "stem": "A student differentiates q(x) = x·cos(x²) as follows.\nStep 1: By the product rule, q′(x) = (x)′·cos(x²) + x·(cos(x²))′.\nStep 2: (x)′ = 1.\nStep 3: (cos(x²))′ = −sin(x²)·2x.\nStep 4: Therefore q′(x) = cos(x²) − 2x·sin(x²).\nWhich statement identifies the first incorrect step?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Step 3 is incorrect: the derivative of cos(x²) is +sin(x²)·2x.",
+    "is_correct": false,
+    "rationale": "The derivative of cos u is −sin u, so Step 3 correctly includes the minus sign and the factor 2x."
+   },
+   {
+    "label": "B",
+    "text": "Step 1 is incorrect: the product rule should differentiate only the second factor.",
+    "is_correct": false,
+    "rationale": "The product rule differentiates each factor in turn, so Step 1 is correct as written."
+   },
+   {
+    "label": "C",
+    "text": "Step 2 is incorrect: the derivative of x is x.",
+    "is_correct": false,
+    "rationale": "The derivative of x is 1, so Step 2 is correct."
+   },
+   {
+    "label": "D",
+    "text": "Step 4 is incorrect: the second term must also be multiplied by the factor x, giving −2x²sin(x²).",
+    "is_correct": true,
+    "rationale": "Correct: Steps 1 to 3 are right, but x·(−2x sin(x²)) = −2x² sin(x²), so Step 4 drops a factor of x; q′(x) = cos(x²) − 2x² sin(x²)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-B",
+  "content_key": "apcalcab-mcq-b2-h-3.5-b",
+  "family": "3.5-B",
+  "variant": null,
+  "topic": "3.5",
+  "title": "combine product, quotient and chain rules with tabulated values of unspecified functions, evaluating each derivative at ",
+  "stem": "The differentiable functions f and g have the values below.\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 3 | −2 | 4 | 5\n4 | −1 | 2 | 6 | 3\nLet h(x) = x²·f(g(x)). What is h′(1)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "8",
+    "is_correct": true,
+    "rationale": "Correct: h′(x) = 2x·f(g(x)) + x²·f′(g(x))·g′(x). At x = 1: 2·f(4) + f′(4)·g′(1) = 2(−1) + 2·5 = 8."
+   },
+   {
+    "label": "B",
+    "text": "10",
+    "is_correct": false,
+    "rationale": "This drops the product-rule term 2x·f(g(x)) and keeps only x²·f′(g(x))·g′(x)."
+   },
+   {
+    "label": "C",
+    "text": "−12",
+    "is_correct": false,
+    "rationale": "This evaluates f′ at x = 1 instead of at g(1) = 4, so the outer derivative is taken at the wrong input."
+   },
+   {
+    "label": "D",
+    "text": "0",
+    "is_correct": false,
+    "rationale": "This omits the inner derivative g′(1) in the chain rule for f(g(x))."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-B-v1",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.5-b-v1",
+  "family": "3.5-B",
+  "variant": "1",
+  "topic": "3.5",
+  "title": "combine product, quotient and chain rules with tabulated values of unspecified functions, evaluating each derivative at  (variant 1)",
+  "stem": "The differentiable functions f and g have the values below.\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 2 | 3 | 6 | 1\n2 | 0 | 1 | 5 | −4\nLet h(x) = x³·g(f(x)). What is h′(1)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−12",
+    "is_correct": false,
+    "rationale": "This drops the product-rule term 3x²·g(f(x)) and keeps only the term containing g′(f(x))·f′(x)."
+   },
+   {
+    "label": "B",
+    "text": "18",
+    "is_correct": false,
+    "rationale": "This evaluates g′ at x = 1 instead of at f(1) = 2, so the outer derivative uses the wrong input."
+   },
+   {
+    "label": "C",
+    "text": "3",
+    "is_correct": true,
+    "rationale": "Correct: h′(x) = 3x²·g(f(x)) + x³·g′(f(x))·f′(x). At x = 1: 3·g(2) + g′(2)·f′(1) = 3·5 + (−4)·3 = 3."
+   },
+   {
+    "label": "D",
+    "text": "11",
+    "is_correct": false,
+    "rationale": "This omits the inner derivative f′(1) in the chain rule for g(f(x))."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-B-v2",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.5-b-v2",
+  "family": "3.5-B",
+  "variant": "2",
+  "topic": "3.5",
+  "title": "combine product, quotient and chain rules with tabulated values of unspecified functions, evaluating each derivative at  (variant 2)",
+  "stem": "The differentiable function f has the values below.\nx | f(x) | f′(x)\n2 | 6 | −1\n4 | 5 | 3\nLet h(x) = f(x²)/x. What is h′(2)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "19/4",
+    "is_correct": true,
+    "rationale": "Correct: h′(x) = [2x·f′(x²)·x − f(x²)]/x². At x = 2: (4·3·2 − 5)/4 = 19/4."
+   },
+   {
+    "label": "B",
+    "text": "1/4",
+    "is_correct": false,
+    "rationale": "This omits the inner derivative 2x when differentiating f(x²) in the numerator of the quotient rule."
+   },
+   {
+    "label": "C",
+    "text": "−7/2",
+    "is_correct": false,
+    "rationale": "This evaluates f and f′ at x = 2 instead of at x² = 4, so the table row used is wrong."
+   },
+   {
+    "label": "D",
+    "text": "29/4",
+    "is_correct": false,
+    "rationale": "This adds f(x²) in the quotient-rule numerator, but the quotient rule subtracts numerator-derivative terms."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-B-v3",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.5-b-v3",
+  "family": "3.5-B",
+  "variant": "3",
+  "topic": "3.5",
+  "title": "combine product, quotient and chain rules with tabulated values of unspecified functions, evaluating each derivative at  (variant 3)",
+  "stem": "The differentiable functions f and g have the values below.\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 3 | 4 | −2 | 1\n2 | 0 | 5 | 3 | −6\nLet h(x) = f(x)·g(2x). What is h′(1)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−24",
+    "is_correct": true,
+    "rationale": "Correct: h′(x) = f′(x)·g(2x) + f(x)·2g′(2x). At x = 1: 4·3 + 3·2·(−6) = −24."
+   },
+   {
+    "label": "B",
+    "text": "−6",
+    "is_correct": false,
+    "rationale": "This omits the inner derivative 2 when differentiating g(2x), so g′(2) is not doubled."
+   },
+   {
+    "label": "C",
+    "text": "−2",
+    "is_correct": false,
+    "rationale": "This evaluates g and g′ at x = 1 instead of at 2x = 2, so the wrong table row is used."
+   },
+   {
+    "label": "D",
+    "text": "−36",
+    "is_correct": false,
+    "rationale": "This drops the product-rule term f′(1)·g(2) and keeps only f(1)·2g′(2)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-A",
+  "content_key": "apcalcab-mcq-b2-h-3.6-a",
+  "family": "3.6-A",
+  "variant": null,
+  "topic": "3.6",
+  "title": "find a second derivative of a composite or product of unspecified functions by applying the chain and product rules twic",
+  "stem": "The functions f and g are twice differentiable, with g(1) = 2, g′(1) = 3, g″(1) = −4, f′(2) = 5 and f″(2) = −1. If h(x) = f(g(x)), what is h″(1)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−23",
+    "is_correct": false,
+    "rationale": "This forgets to square g′(1) in the term f″(g(x))·(g′(x))², using f″(2)·g′(1) = −3 instead of −9."
+   },
+   {
+    "label": "B",
+    "text": "−29",
+    "is_correct": true,
+    "rationale": "Correct: h′(x) = f′(g(x))·g′(x); h″(x) = f″(g(x))·(g′(x))² + f′(g(x))·g″(x) = (−1)(9) + (5)(−4) = −29."
+   },
+   {
+    "label": "C",
+    "text": "−9",
+    "is_correct": false,
+    "rationale": "This drops the product-rule term f′(g(x))·g″(x), which contributes 5·(−4) = −20."
+   },
+   {
+    "label": "D",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This multiplies the two second derivatives, f″(2)·g″(1), which is not what differentiating twice produces."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-A-v1",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.6-a-v1",
+  "family": "3.6-A",
+  "variant": "1",
+  "topic": "3.6",
+  "title": "find a second derivative of a composite or product of unspecified functions by applying the chain and product rules twic (variant 1)",
+  "stem": "The function f is twice differentiable, with f′(4) = 3 and f″(4) = −1/2. If h(x) = f(x²), what is h″(2)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−8",
+    "is_correct": false,
+    "rationale": "This drops the term 2f′(x²) that comes from differentiating the factor 2x, keeping only 4x²·f″(x²)."
+   },
+   {
+    "label": "B",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This omits the inner derivative 2x when differentiating f′(x²), using 2f′(4) + 2x·f″(4) instead of 2f′(4) + 4x²·f″(4)."
+   },
+   {
+    "label": "C",
+    "text": "−2",
+    "is_correct": true,
+    "rationale": "Correct: h′(x) = 2x·f′(x²); h″(x) = 2f′(x²) + 2x·2x·f″(x²) = 2·3 + 16·(−1/2) = −2."
+   },
+   {
+    "label": "D",
+    "text": "−14",
+    "is_correct": false,
+    "rationale": "This subtracts the product-rule term 2f′(x²) instead of adding it to 4x²·f″(x²)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-A-v2",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.6-a-v2",
+  "family": "3.6-A",
+  "variant": "2",
+  "topic": "3.6",
+  "title": "find a second derivative of a composite or product of unspecified functions by applying the chain and product rules twic (variant 2)",
+  "stem": "The function f is twice differentiable, with f(0) = 0, f′(0) = 2 and f″(0) = −3. If h(x) = e^(f(x)), what is h″(0)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−3",
+    "is_correct": false,
+    "rationale": "This keeps only e^f·f″ and drops the term e^f·(f′)² that arises from differentiating e^f a second time."
+   },
+   {
+    "label": "B",
+    "text": "1",
+    "is_correct": true,
+    "rationale": "Correct: h′ = e^f·f′; h″ = e^f·(f′)² + e^f·f″ = e⁰(4 − 3) = 1."
+   },
+   {
+    "label": "C",
+    "text": "−1",
+    "is_correct": false,
+    "rationale": "This uses f″ + f′ in place of f″ + (f′)², forgetting to square f′(0)."
+   },
+   {
+    "label": "D",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This keeps only the term e^f·(f′)² and drops e^f·f″."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-A-v3",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.6-a-v3",
+  "family": "3.6-A",
+  "variant": "3",
+  "topic": "3.6",
+  "title": "find a second derivative of a composite or product of unspecified functions by applying the chain and product rules twic (variant 3)",
+  "stem": "The functions f and g are twice differentiable, with f(1) = 2, f′(1) = 3, f″(1) = −1, g(1) = −2, g′(1) = 4 and g″(1) = 5. If h(x) = f(x)·g(x), what is h″(1)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "24",
+    "is_correct": false,
+    "rationale": "This omits the factor 2 on the middle term, using f′g′ instead of 2f′g′."
+   },
+   {
+    "label": "B",
+    "text": "12",
+    "is_correct": false,
+    "rationale": "This keeps only f″g + f·g″ and drops the cross term 2f′g′."
+   },
+   {
+    "label": "C",
+    "text": "36",
+    "is_correct": true,
+    "rationale": "Correct: h″ = f″g + 2f′g′ + f·g″ = (−1)(−2) + 2(3)(4) + (2)(5) = 2 + 24 + 10 = 36."
+   },
+   {
+    "label": "D",
+    "text": "−5",
+    "is_correct": false,
+    "rationale": "This multiplies the two second derivatives, f″(1)·g″(1), which ignores the product rule."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-B",
+  "content_key": "apcalcab-mcq-b2-h-3.6-b",
+  "family": "3.6-B",
+  "variant": null,
+  "topic": "3.6",
+  "title": "find and interpret the second derivative of a function defined implicitly, substituting dy/dx before evaluating.",
+  "stem": "The curve y² = 4x passes through the point (4, 4), and near that point y is a differentiable function of x. Which statement about d²y/dx² at (4, 4) is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "d²y/dx² = −1/8, so the curve is concave down at (4, 4).",
+    "is_correct": false,
+    "rationale": "This differentiates 2/y as −2/y² and forgets the chain factor dy/dx = 1/2, which gives −1/8 instead of −2(1/2)/16 = −1/16."
+   },
+   {
+    "label": "B",
+    "text": "d²y/dx² = 1/16, so the curve is concave up at (4, 4).",
+    "is_correct": false,
+    "rationale": "This loses the minus sign when differentiating 2/y; the derivative of 1/y is −y′/y², which is negative here."
+   },
+   {
+    "label": "C",
+    "text": "d²y/dx² = −1/16, so the curve is concave down at (4, 4).",
+    "is_correct": true,
+    "rationale": "Correct: 2y·y′ = 4 gives y′ = 2/y. Then y″ = −2y′/y² = −4/y³. At (4, 4): y′ = 1/2 and y″ = −4/64 = −1/16 < 0."
+   },
+   {
+    "label": "D",
+    "text": "d²y/dx² = 1/2, so the curve is concave up at (4, 4).",
+    "is_correct": false,
+    "rationale": "This reports dy/dx = 2/y = 1/2, the first derivative, instead of differentiating a second time."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-B-v1",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.6-b-v1",
+  "family": "3.6-B",
+  "variant": "1",
+  "topic": "3.6",
+  "title": "find and interpret the second derivative of a function defined implicitly, substituting dy/dx before evaluating. (variant 1)",
+  "stem": "Near the point (2, 2) on the curve xy = 4, y is a differentiable function of x. Which statement about d²y/dx² at (2, 2) is correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "d²y/dx² = −1, so the curve is concave down at (2, 2).",
+    "is_correct": false,
+    "rationale": "This makes a sign error in the quotient step: y″ = −(x·y′ − y)/x² with y′ = −1 equals +1, not −1."
+   },
+   {
+    "label": "B",
+    "text": "d²y/dx² = 1/2, so the curve is concave up at (2, 2).",
+    "is_correct": false,
+    "rationale": "This drops the term x·y′ and uses only −(−y)/x² = y/x², ignoring that y′ is not zero."
+   },
+   {
+    "label": "C",
+    "text": "d²y/dx² = 2, so the curve is concave up at (2, 2).",
+    "is_correct": false,
+    "rationale": "This forgets to divide by x² and reports 2y/x instead of 2y/x²."
+   },
+   {
+    "label": "D",
+    "text": "d²y/dx² = 1, so the curve is concave up at (2, 2).",
+    "is_correct": true,
+    "rationale": "Correct: Differentiating xy = 4 gives y + x·y′ = 0, so y′ = −y/x = −1. Then y″ = −(x·y′ − y)/x² = −(−2 − 2)/4 = 1 > 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-B-v2",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.6-b-v2",
+  "family": "3.6-B",
+  "variant": "2",
+  "topic": "3.6",
+  "title": "find and interpret the second derivative of a function defined implicitly, substituting dy/dx before evaluating. (variant 2)",
+  "stem": "Near the point (3, 4) on the circle x² + y² = 25, y is a differentiable function of x. Which statement about d²y/dx² at (3, 4) is correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "d²y/dx² = −1/4, so the curve is concave down at (3, 4).",
+    "is_correct": false,
+    "rationale": "This treats y′ as 0 when differentiating −x/y, so the term x·y′ in the quotient rule is lost."
+   },
+   {
+    "label": "B",
+    "text": "d²y/dx² = −7/64, so the curve is concave down at (3, 4).",
+    "is_correct": false,
+    "rationale": "This substitutes y′ = −x/y with the wrong sign, giving y − x²/y in the numerator instead of y + x²/y."
+   },
+   {
+    "label": "C",
+    "text": "d²y/dx² = −25/16, so the curve is concave down at (3, 4).",
+    "is_correct": false,
+    "rationale": "This divides by y² instead of y³; the simplified result is −25/y³."
+   },
+   {
+    "label": "D",
+    "text": "d²y/dx² = −25/64, so the curve is concave down at (3, 4).",
+    "is_correct": true,
+    "rationale": "Correct: y′ = −x/y; y″ = −(y − x·y′)/y² = −(y² + x²)/y³ = −25/y³. At (3, 4): −25/64 < 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-B-v3",
+  "content_key": "apcalcab-mcq-b2-sv-h-3.6-b-v3",
+  "family": "3.6-B",
+  "variant": "3",
+  "topic": "3.6",
+  "title": "find and interpret the second derivative of a function defined implicitly, substituting dy/dx before evaluating. (variant 3)",
+  "stem": "The curve x = y³ + 2y passes through the point (3, 1), and near that point y is a differentiable function of x. Which statement about d²y/dx² at (3, 1) is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "d²y/dx² = −6/125, so the curve is concave down at (3, 1).",
+    "is_correct": true,
+    "rationale": "Correct: 1 = (3y² + 2)y′ gives y′ = 1/(3y² + 2) = 1/5. Then y″ = −6y·y′/(3y² + 2)² = −6(1/5)/25 = −6/125 < 0."
+   },
+   {
+    "label": "B",
+    "text": "d²y/dx² = 6/125, so the curve is concave up at (3, 1).",
+    "is_correct": false,
+    "rationale": "This loses the minus sign: differentiating (3y² + 2)⁻¹ produces −(3y² + 2)⁻²·6y·y′, which is negative here."
+   },
+   {
+    "label": "C",
+    "text": "d²y/dx² = −6/25, so the curve is concave down at (3, 1).",
+    "is_correct": false,
+    "rationale": "This forgets one factor of dy/dx = 1/5 from the chain rule when differentiating 1/(3y² + 2)."
+   },
+   {
+    "label": "D",
+    "text": "d²y/dx² = −1/25, so the curve is concave down at (3, 1).",
+    "is_correct": false,
+    "rationale": "This treats 3y² + 2 as if it were x, ignoring the chain factor 6y·(dy/dx) from the inner function."
+   }
+  ]
+ }
+]

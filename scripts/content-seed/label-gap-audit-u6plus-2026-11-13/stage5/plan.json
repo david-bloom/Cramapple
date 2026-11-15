@@ -1,0 +1,587 @@
+[
+ {
+  "content_key": "apcalcab-frq-017",
+  "old_version_id": "73db0cfd-c121-4af5-b19d-03bd7d735bec",
+  "old_version_num": 1,
+  "stem": "Answer all parts of the following question.\n\n(a) Find the net rate of change of the amount of water at t=2. Interpret the value with units.\n\n(b) Find the net change in the amount of water during the six minutes.\n\n(c) At what time is the amount of water greatest? Justify using candidate times and the sign of the net rate.",
+  "stimulus": "A tank initially contains 80 liters of water. For 0≤t≤6 minutes, water enters at I(t)=12+3sin(t²/8) liters per minute and leaves at O(t)=4+0.5t² liters per minute.",
+  "canonical_answer_1": "I(2)−O(2)≈7.438 liters per minute. | The amount of water is increasing at that instant. | The response distinguishes amount from its rate of change. | Uses ∫₀⁶[I(t)−O(t)]dt. | The net change is approximately 17.918 liters. | Solves I(t)=O(t) to obtain t≈4.443. | The net rate changes from positive to negative there. | Compares the interior candidate with t=0 and t=6. | Concludes the amount of water is greatest at t≈4.443 minutes (maximum about 107.953 liters).",
+  "prompt_json": {
+   "modules": [
+    "unit-4-contextual-applications-of-differentiation",
+    "topic-4.3",
+    "practice-2"
+   ],
+   "subject": "ap_calculus_ab",
+   "frq_type": "long",
+   "archetype": "ap-calculus-ab-frq-contextual-rate-accumulation",
+   "item_type": "frq",
+   "difficulty": "Hard",
+   "content_key": "apcalcab-frq-017",
+   "total_points": 9,
+   "calculator_mode": "calculator",
+   "scoring_contract": {
+    "part_count": 3,
+    "units_rule": "Units are required only when a criterion or prompt explicitly requests contextual units.",
+    "total_points": 9,
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "ambiguity_rule": "Escalate responses that use a valid but unlisted interpretation rather than forcing a score.",
+    "calculator_mode": "calculator",
+    "carry_forward_rule": "A later criterion may earn when the student's earlier arithmetic error is carried forward consistently and the later reasoning remains valid."
+   },
+   "source_school_year": "2026-27",
+   "package_content_sha256": "cdb05d8de8b33afb30009411538feb169438549e145fd0d0ff9e9ed12819cbad",
+   "package_schema_version": "1.0.0",
+   "content_version": 2,
+   "qa_remediation": "2026-11-13 rubric preflight repair (APPROVAL-0277): criteria aligned to the operations the prompt asks"
+  },
+  "criteria": [
+   {
+    "id": "818832ec-2412-4ef3-8744-64f55bbc6573",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: I(2)−O(2)≈7.438 liters per minute.",
+    "criterion_key": "part-a-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "I(2)−O(2)≈7.438 liters per minute.",
+    "evidence_requirements": "I(2)−O(2)≈7.438 liters per minute.",
+    "content_item_version_id": "73db0cfd-c121-4af5-b19d-03bd7d735bec"
+   },
+   {
+    "id": "f0a72ef0-5c6a-4216-a404-290041012881",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: The amount of water is increasing at that instant.",
+    "criterion_key": "part-a-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "The amount of water is increasing at that instant.",
+    "evidence_requirements": "The amount of water is increasing at that instant.",
+    "content_item_version_id": "73db0cfd-c121-4af5-b19d-03bd7d735bec"
+   },
+   {
+    "id": "6ad324fa-b1da-4883-b9a1-87d56bb788ba",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: The response distinguishes amount from its rate of change.",
+    "criterion_key": "part-a-criterion-3",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "The response distinguishes amount from its rate of change.",
+    "evidence_requirements": "The response distinguishes amount from its rate of change.",
+    "content_item_version_id": "73db0cfd-c121-4af5-b19d-03bd7d735bec"
+   },
+   {
+    "id": "6251c322-923a-4169-8d63-1c6c40cb9f2e",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses ∫₀⁶[I(t)−O(t)]dt.",
+    "criterion_key": "part-b-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Uses ∫₀⁶[I(t)−O(t)]dt.",
+    "evidence_requirements": "Uses ∫₀⁶[I(t)−O(t)]dt.",
+    "content_item_version_id": "73db0cfd-c121-4af5-b19d-03bd7d735bec"
+   },
+   {
+    "id": "f65a7731-774b-4870-a0d4-21d1700acb2c",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: The net change is approximately 17.918 liters.",
+    "criterion_key": "part-b-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "The net change is approximately 17.918 liters.",
+    "evidence_requirements": "The net change is approximately 17.918 liters.",
+    "content_item_version_id": "73db0cfd-c121-4af5-b19d-03bd7d735bec"
+   },
+   {
+    "id": "fa4eb932-57ae-49fc-a4b9-9e7ddf5ee445",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: Solves I(t)=O(t) to obtain t≈4.443.",
+    "criterion_key": "part-c-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Solves I(t)=O(t) to obtain t≈4.443.",
+    "evidence_requirements": "Solves I(t)=O(t) to obtain t≈4.443.",
+    "content_item_version_id": "73db0cfd-c121-4af5-b19d-03bd7d735bec"
+   },
+   {
+    "id": "e6e23c4e-476a-48f3-b6d7-46cdbbd83826",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: The net rate changes from positive to negative there.",
+    "criterion_key": "part-c-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "The net rate changes from positive to negative there.",
+    "evidence_requirements": "The net rate changes from positive to negative there.",
+    "content_item_version_id": "73db0cfd-c121-4af5-b19d-03bd7d735bec"
+   },
+   {
+    "id": "2cf956bc-fc28-4cce-9cc3-486786286c5d",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: Compares the interior candidate with t=0 and t=6.",
+    "criterion_key": "part-c-criterion-3",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Compares the interior candidate with t=0 and t=6.",
+    "evidence_requirements": "Compares the interior candidate with t=0 and t=6.",
+    "content_item_version_id": "73db0cfd-c121-4af5-b19d-03bd7d735bec"
+   },
+   {
+    "id": "1a6388ee-3a88-44f9-83be-69fe72b9d1de",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "State the conclusion the question asks for: the amount of water is greatest at t≈4.443 minutes.",
+    "criterion_key": "part-c-criterion-4",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Concludes that the amount of water is greatest at t≈4.443 minutes, supported by the comparison of candidate times (also stating the maximum amount, about 107.953 liters, is acceptable but not required).",
+    "evidence_requirements": "Response names t≈4.443 minutes as the time of greatest amount, linked to the comparison of the interior candidate with t=0 and t=6.",
+    "content_item_version_id": "73db0cfd-c121-4af5-b19d-03bd7d735bec"
+   }
+  ],
+  "old_total": 9,
+  "new_total": 9,
+  "stem_changed": false
+ },
+ {
+  "content_key": "apcalcab-frq-036",
+  "old_version_id": "cbee2cad-7e2c-4a80-a4a7-7328310a04f6",
+  "old_version_num": 1,
+  "stem": "Answer all parts of the following question.\n\n(a) Find the area of R.\n\n(b) Find the volume when R is revolved about the x-axis.\n\n(c) Find the volume when R is revolved about the y-axis.\n\n(d) Find the volume of the solid with base R and square cross sections perpendicular to the x-axis.",
+  "stimulus": "Let R be the region bounded by y=2x and y=x² for 0≤x≤2.",
+  "canonical_answer_1": "Uses ∫₀²(2x−x²)dx. | Obtains 4/3 square units. | Uses π∫₀²[(2x)²−(x²)²]dx. | Obtains 64π/15 cubic units. | Uses washers in y, π∫₀⁴[(√y)²−(y/2)²]dy, or cylindrical shells 2π∫₀²x(2x−x²)dx. | Obtains 8π/3 cubic units. | Uses side length 2x−x². | Integrates ∫₀²(2x−x²)²dx. | Obtains 16/15 cubic units.",
+  "prompt_json": {
+   "modules": [
+    "unit-8-applications-of-integration",
+    "topic-8.4",
+    "practice-1"
+   ],
+   "subject": "ap_calculus_ab",
+   "frq_type": "long",
+   "archetype": "ap-calculus-ab-frq-multiple-volumes",
+   "item_type": "frq",
+   "difficulty": "Medium",
+   "content_key": "apcalcab-frq-036",
+   "total_points": 9,
+   "calculator_mode": "no-calculator",
+   "scoring_contract": {
+    "part_count": 4,
+    "units_rule": "Units are required only when a criterion or prompt explicitly requests contextual units.",
+    "total_points": 9,
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "ambiguity_rule": "Escalate responses that use a valid but unlisted interpretation rather than forcing a score.",
+    "calculator_mode": "no-calculator",
+    "carry_forward_rule": "A later criterion may earn when the student's earlier arithmetic error is carried forward consistently and the later reasoning remains valid."
+   },
+   "source_school_year": "2026-27",
+   "package_content_sha256": "def84b769ba8983d299de39323f7e44138d35066e46c92069adaf6a3975af2e6",
+   "package_schema_version": "1.0.0",
+   "content_version": 2,
+   "qa_remediation": "2026-11-13 rubric preflight repair (APPROVAL-0277): criteria aligned to the operations the prompt asks"
+  },
+  "criteria": [
+   {
+    "id": "63392bed-e2da-49e9-a053-aae657e34f69",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses ∫₀²(2x−x²)dx.",
+    "criterion_key": "part-a-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Uses ∫₀²(2x−x²)dx.",
+    "evidence_requirements": "Uses ∫₀²(2x−x²)dx.",
+    "content_item_version_id": "cbee2cad-7e2c-4a80-a4a7-7328310a04f6"
+   },
+   {
+    "id": "564ce281-2529-4ca1-9fa4-371f3c4e3cb6",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains 4/3 square units.",
+    "criterion_key": "part-a-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Obtains 4/3 square units.",
+    "evidence_requirements": "Obtains 4/3 square units.",
+    "content_item_version_id": "cbee2cad-7e2c-4a80-a4a7-7328310a04f6"
+   },
+   {
+    "id": "dbe7d607-c32d-409d-9528-98b6ae8d5dc2",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses π∫₀²[(2x)²−(x²)²]dx.",
+    "criterion_key": "part-b-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Uses π∫₀²[(2x)²−(x²)²]dx.",
+    "evidence_requirements": "Uses π∫₀²[(2x)²−(x²)²]dx.",
+    "content_item_version_id": "cbee2cad-7e2c-4a80-a4a7-7328310a04f6"
+   },
+   {
+    "id": "f234f717-91b7-4166-aa96-d473dd93361b",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains 64π/15 cubic units.",
+    "criterion_key": "part-b-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Obtains 64π/15 cubic units.",
+    "evidence_requirements": "Obtains 64π/15 cubic units.",
+    "content_item_version_id": "cbee2cad-7e2c-4a80-a4a7-7328310a04f6"
+   },
+   {
+    "id": "0742dd25-2fe2-41ef-b51b-67c40d1bc1ff",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Set up the y-axis volume as washers in y, π∫₀⁴[(√y)²−(y/2)²]dy, or as shells, 2π∫₀²x(2x−x²)dx.",
+    "criterion_key": "part-c-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Sets up a correct integral for the volume about the y-axis: washers in y, π∫₀⁴[(√y)²−(y/2)²]dy, or cylindrical shells, 2π∫₀²x(2x−x²)dx.",
+    "evidence_requirements": "Response gives a correct integral for the y-axis revolution, either washers in y (outer radius √y, inner radius y/2, limits 0 to 4) or shells (radius x, height 2x−x², limits 0 to 2).",
+    "content_item_version_id": "cbee2cad-7e2c-4a80-a4a7-7328310a04f6"
+   },
+   {
+    "id": "8693336b-ba49-4fb5-ade6-72d0077a96aa",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains 8π/3 cubic units.",
+    "criterion_key": "part-c-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Obtains 8π/3 cubic units.",
+    "evidence_requirements": "Obtains 8π/3 cubic units.",
+    "content_item_version_id": "cbee2cad-7e2c-4a80-a4a7-7328310a04f6"
+   },
+   {
+    "id": "317b647e-1d5d-49d6-baa5-8cf7465285e9",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses side length 2x−x².",
+    "criterion_key": "part-d-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Uses side length 2x−x².",
+    "evidence_requirements": "Uses side length 2x−x².",
+    "content_item_version_id": "cbee2cad-7e2c-4a80-a4a7-7328310a04f6"
+   },
+   {
+    "id": "a9f45d01-c975-4977-8cc5-019e14945274",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: Integrates ∫₀²(2x−x²)²dx.",
+    "criterion_key": "part-d-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Integrates ∫₀²(2x−x²)²dx.",
+    "evidence_requirements": "Integrates ∫₀²(2x−x²)²dx.",
+    "content_item_version_id": "cbee2cad-7e2c-4a80-a4a7-7328310a04f6"
+   },
+   {
+    "id": "d2785bcf-84d8-40f8-b127-05fc28690182",
+    "created_at": "2026-07-28T19:05:03.435853+00:00",
+    "minimum_fix": "Add or correct the evidence needed to establish: Obtains 16/15 cubic units.",
+    "criterion_key": "part-d-criterion-3",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent expression, valid reasoning path, or appropriately rounded value supported by the student's setup."
+    ],
+    "learner_facing_text": "Obtains 16/15 cubic units.",
+    "evidence_requirements": "Obtains 16/15 cubic units.",
+    "content_item_version_id": "cbee2cad-7e2c-4a80-a4a7-7328310a04f6"
+   }
+  ],
+  "old_total": 9,
+  "new_total": 9,
+  "stem_changed": false
+ },
+ {
+  "content_key": "apchem-frq-l-023",
+  "old_version_id": "1c218046-970a-43fc-9efb-b0508769284f",
+  "old_version_num": 3,
+  "stem": "Use the equilibrium data to calculate the equilibrium constant, Kc, and interpret its value.\n\nIf additional O2(g) were added to this equilibrium mixture at constant volume and temperature, predict the effect on the equilibrium position and explain using Le Chatelier's principle (without recalculating Kc).\n\nWhen interpreting Kc, distinguish a product-favored equilibrium from the actual composition of this particular mixture, and state whether Kc changes after a concentration disturbance at constant temperature.",
+  "stimulus": "The reaction 2SO2(g) + O2(g) <-> 2SO3(g) reaches equilibrium in a rigid 2.00 L container at a fixed temperature. At equilibrium the container holds 0.400 mol SO2, 0.200 mol O2, and 1.600 mol SO3.",
+  "canonical_answer_1": "Converting moles to concentrations by dividing by the 2.00 L container volume: [SO2] = 0.400 mol / 2.00 L = 0.200 M, [O2] = 0.200 mol / 2.00 L = 0.100 M, [SO3] = 1.600 mol / 2.00 L = 0.800 M.\n\nEquilibrium expression: Kc = [SO3]^2 / ([SO2]^2[O2])\n\nKc = (0.800)^2 / [(0.200)^2(0.100)] = 0.640 / (0.0400 x 0.100) = 0.640 / 0.00400 = 160\n\nInterpretation: since Kc (160) is much greater than 1, the equilibrium is product-favored -- at equilibrium the mixture contains far more SO3 than SO2 or O2, consistent with the given equilibrium amounts (1.600 mol SO3 versus 0.400 mol SO2 and 0.200 mol O2). This describes the actual equilibrium composition of this particular mixture, not a general claim that the reaction always goes to completion.\n\nEffect of adding more O2(g): adding O2 increases [O2], so Q momentarily becomes less than Kc. By Le Chatelier's principle, the equilibrium shifts to the right (toward SO3) to partially consume the added O2 and re-establish equilibrium, so [SO2] and [O2] decrease and [SO3] increases relative to the disturbed state. The value of Kc itself does not change, since Kc is affected only by a change in temperature, not by a concentration disturbance.",
+  "prompt_json": {
+   "topic": "7.4",
+   "modules": [
+    "unit-7-equilibrium",
+    "practice-7"
+   ],
+   "subject": "ap_chemistry",
+   "frq_type": "long",
+   "archetype": "ap-chemistry-frq-long",
+   "difficulty": "Medium",
+   "content_key": "apchem-frq-l-023",
+   "total_points": 10,
+   "qa_remediation": "2026-11-13 rubric preflight repair (APPROVAL-0277): criteria aligned to the operations the prompt asks",
+   "content_version": 4,
+   "qa_source_version_id": "3b981296-6998-489b-aa1c-33372727c92b",
+   "qa_source_decision_id": "5c034216-aaee-49ee-8d63-e1851ef9e077"
+  },
+  "criteria": [
+   {
+    "id": "c807a8f3-e900-480a-b684-c69ba989a608",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "To earn this point, explicitly show: Correctly converts moles to molar concentrations by dividing by the 2.00 L volume: [SO2] = 0.200 M, [O2] = 0.100 M, [SO3] = 0.800 M.",
+    "criterion_key": "a1",
+    "judgement_kind": "text",
+    "points_possible": 2,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly converts moles to molar concentrations by dividing by the 2.00 L volume: [SO2] = 0.200 M, [O2] = 0.100 M, [SO3] = 0.800 M.",
+    "evidence_requirements": "Correctly converts moles to molar concentrations by dividing by the 2.00 L volume: [SO2] = 0.200 M, [O2] = 0.100 M, [SO3] = 0.800 M.",
+    "content_item_version_id": "1c218046-970a-43fc-9efb-b0508769284f"
+   },
+   {
+    "id": "03183386-34b0-4379-a2e2-08e119cccea5",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "To earn this point, explicitly show: Writes the correct equilibrium expression, Kc = [SO3]^2 / ([SO2]^2[O2]), with coefficients correctly used as exponents.",
+    "criterion_key": "a2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Writes the correct equilibrium expression, Kc = [SO3]^2 / ([SO2]^2[O2]), with coefficients correctly used as exponents.",
+    "evidence_requirements": "Writes the correct equilibrium expression, Kc = [SO3]^2 / ([SO2]^2[O2]), with coefficients correctly used as exponents.",
+    "content_item_version_id": "1c218046-970a-43fc-9efb-b0508769284f"
+   },
+   {
+    "id": "be9fd600-ee86-4b0f-9421-c200072dcbbe",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "Substitute [SO3] = 0.800 M, [SO2] = 0.200 M and [O2] = 0.100 M into the expression and evaluate Kc = 160.",
+    "criterion_key": "a3",
+    "judgement_kind": "text",
+    "points_possible": 2,
+    "accepted_variants": [],
+    "learner_facing_text": "Substitutes the equilibrium concentrations into the expression and evaluates Kc = (0.800)²/[(0.200)²(0.100)] = 160.",
+    "evidence_requirements": "Response shows the three concentrations substituted into the expression and obtains Kc = 160 (units not required).",
+    "content_item_version_id": "1c218046-970a-43fc-9efb-b0508769284f"
+   },
+   {
+    "id": "4869e596-a02f-4a6f-a35f-910176905413",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "Say product-favored from Kc = 160, then support the conclusion about this particular mixture from the stated concentrations.",
+    "criterion_key": "a4",
+    "judgement_kind": "text",
+    "points_possible": 2,
+    "accepted_variants": [],
+    "learner_facing_text": "Interprets Kc = 160 as a product-favored equilibrium, and separately uses this mixture's concentrations to show it holds far more SO3 than SO2 or O2, without claiming that Kc alone fixes the composition of every mixture.",
+    "evidence_requirements": "Response states that Kc much greater than 1 means product-favored, and cites this mixture's actual concentrations (0.800 M SO3 versus 0.200 M SO2 and 0.100 M O2); does not claim every mixture with this Kc is mostly product.",
+    "content_item_version_id": "1c218046-970a-43fc-9efb-b0508769284f"
+   },
+   {
+    "id": "844e087b-14c6-4af0-a346-cefe4d7016a3",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "State the shift direction (toward products) and give the Le Chatelier or Q < K reason.",
+    "criterion_key": "a5",
+    "judgement_kind": "text",
+    "points_possible": 2,
+    "accepted_variants": [],
+    "learner_facing_text": "Predicts that adding O2 shifts the equilibrium toward products (to the right), explained with Le Chatelier's principle or with Q < K after the addition, without recalculating Kc.",
+    "evidence_requirements": "Response gives the direction (toward SO3) and a Le Chatelier or Q-versus-K reason.",
+    "content_item_version_id": "1c218046-970a-43fc-9efb-b0508769284f"
+   },
+   {
+    "criterion_key": "a6",
+    "learner_facing_text": "States that Kc does not change after the concentration disturbance at constant temperature.",
+    "evidence_requirements": "Response says Kc is unchanged because temperature is constant.",
+    "minimum_fix": "State that Kc is unchanged at constant temperature.",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "judgement_kind": "text"
+   }
+  ],
+  "old_total": 10,
+  "new_total": 10,
+  "stem_changed": false
+ },
+ {
+  "content_key": "apchem-frq-l-026",
+  "old_version_id": "2029cd8a-bbf5-420b-9453-d42c0ba9349e",
+  "old_version_num": 3,
+  "stem": "A buffer solution is prepared by dissolving NH3 and NH4Cl in water to make 1.00 L of solution that is 0.30 M in NH3 and 0.25 M in NH4Cl. For NH3, Kb = 1.8 x 10^-5.\n\n(a) Calculate Ka for NH4+, the conjugate acid of NH3.\n(b) Using the Henderson-Hasselbalch equation, calculate the pH of the buffer.\n(c) A student adds 0.020 mol of HCl(g) to the 1.00 L buffer solution (assume no volume change). Write the net ionic equation for the reaction that occurs, and explain in mechanistic terms what species reacts with the added H+ and what it becomes.\n(d) Without calculating a new pH, use the amounts of NH3 and NH4+ before and after the HCl is added to predict whether the pH changes noticeably from the value in part (b). Justify your prediction.\n(e) Calculate the maximum moles of strong acid that could be added to this buffer before it loses its buffering ability (before all the NH3 is consumed).\n(f) Instead of HCl, suppose 0.020 mol of NaOH(aq) is added to the original 1.00 L buffer. Identify which buffer component reacts, state the new amounts of NH3 and NH4+, and predict the direction and approximate size of the pH change.\n(g) Explain why a buffer prepared with equal concentrations of NH3 and NH4Cl (rather than the 0.30 M / 0.25 M ratio given) would resist pH changes from both added acid and added base more evenly.\n\nAssume 25 C when using Kw = 1.0 x 10^-14. For equal acid/base capacity comparisons, hold total buffer concentration constant.",
+  "stimulus": null,
+  "canonical_answer_1": "(a) Ka(NH4+) = Kw/Kb = 1.0 x 10^-14 / 1.8 x 10^-5 approximately 5.6 x 10^-10; pKa approximately 9.25\n(b) pH = pKa + log([NH3]/[NH4+]) = 9.25 + log(0.30/0.25) = 9.25 + log(1.2) approximately 9.25 + 0.08 approximately 9.33\n(c) Net ionic equation: NH3(aq) + H+(aq) -> NH4+(aq). Mechanistically, the base component of the buffer, NH3, reacts directly with the added H+, converting it into NH4+ (the weak acid) -- this consumes the added strong acid's H+ before it can substantially lower the solution's pH.\n(d) After adding 0.020 mol HCl: mol NH3 decreases from 0.30 to 0.28 mol; mol NH4+ increases from 0.25 to 0.27 mol. The NH3/NH4+ ratio changes only from 1.2 to about 1.04, so the pH decreases only slightly from 9.33.\n(e) The buffer can neutralize up to (but not including) 0.30 mol of strong acid -- the amount of NH3 available -- while still retaining both buffer components; at exactly 0.30 mol added, all NH3 is consumed and buffering capacity is lost.\n(f) NH4+ reacts with the added OH-: NH4+ = 0.25 - 0.02 = 0.23 mol, NH3 = 0.30 + 0.02 = 0.32 mol. The ratio rises from 1.2 to about 1.39, so the pH rises slightly from 9.33.\n(g) A buffer prepared with equal concentrations of NH3 and NH4Cl at the same total buffer concentration has equal stoichiometric reserves of base and acid, so it can neutralize the same amount of added acid as added base before either component is exhausted -- giving more even (symmetric) resistance to pH change from both directions, unlike the given 0.30 M / 0.25 M buffer, which has more reserve capacity against added acid than against added base.",
+  "prompt_json": {
+   "topic": "8.9",
+   "modules": [
+    "unit-8-acids-and-bases",
+    "practice-8"
+   ],
+   "subject": "ap_chemistry",
+   "frq_type": "long",
+   "archetype": "ap-chemistry-frq-long",
+   "difficulty": "Medium",
+   "content_key": "apchem-frq-l-026",
+   "total_points": 10,
+   "qa_remediation": "2026-11-13 rubric preflight repair (APPROVAL-0277); prompt parts (d) and (f) rewritten as qualitative reasoning because the CED excludes computing pH change on adding acid or base to a buffer",
+   "content_version": 4,
+   "qa_source_version_id": "34f3c4b2-9bdb-4685-90f9-818be7c81a18",
+   "qa_source_decision_id": "385390ae-e01c-4593-9c77-ee1b9796d2be"
+  },
+  "criteria": [
+   {
+    "id": "190108bd-78b1-4a16-a13c-c30bef5843f0",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "Calculate Ka(NH4+) = Kw/Kb = (1.0 × 10^-14)/(1.8 × 10^-5).",
+    "criterion_key": "a1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly calculates Ka(NH4+) = Kw/Kb ≈ 5.6 × 10^-10.",
+    "evidence_requirements": "Response divides Kw by Kb to obtain Ka ≈ 5.6 × 10^-10.",
+    "content_item_version_id": "2029cd8a-bbf5-420b-9453-d42c0ba9349e"
+   },
+   {
+    "id": "bb4f5c55-2b0a-4c9c-b8d0-72e12b591d56",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "Convert Ka to pKa and apply the Henderson-Hasselbalch equation with NH3 as the base and NH4+ as the acid.",
+    "criterion_key": "b1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Applies the Henderson-Hasselbalch equation, pH = pKa + log([base]/[acid]), with pKa = -log Ka ≈ 9.25 and [NH3] as the base and [NH4+] as the acid.",
+    "evidence_requirements": "Response converts Ka to pKa ≈ 9.25 and applies pH = pKa + log([NH3]/[NH4+]) with NH3 as the base.",
+    "content_item_version_id": "2029cd8a-bbf5-420b-9453-d42c0ba9349e"
+   },
+   {
+    "id": "e87ca3b4-4b28-4e56-b29e-2ad6a83ea095",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "To earn this point, explicitly show: Calculates the correct initial pH approximately 9.33.",
+    "criterion_key": "b2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Calculates the correct initial pH approximately 9.33.",
+    "evidence_requirements": "Calculates the correct initial pH approximately 9.33.",
+    "content_item_version_id": "2029cd8a-bbf5-420b-9453-d42c0ba9349e"
+   },
+   {
+    "id": "6bf0d71a-9792-4d16-9d2b-ddc45d2ad88e",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "Write the net ionic equation for NH3 reacting with H+ (or H3O+).",
+    "criterion_key": "c1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Writes the net ionic equation NH3 + H+ -> NH4+ (or NH3 + H3O+ -> NH4+ + H2O).",
+    "evidence_requirements": "Credits either the H+ or the H3O+ form of the net ionic equation.",
+    "content_item_version_id": "2029cd8a-bbf5-420b-9453-d42c0ba9349e"
+   },
+   {
+    "id": "c7ccca6a-32be-4fcf-b6b2-b2d6d4cde5ef",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "Name NH3 as the reacting species and NH4+ as the product, instead of only saying the buffer resists change.",
+    "criterion_key": "c2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Explains specifically that the conjugate base, NH3, consumes the added H+ by reacting with it directly to form NH4+, rather than describing the buffer only as resisting pH change without naming the reacting species.",
+    "evidence_requirements": "Response names NH3 as the species that reacts with the added H+ and NH4+ as what it becomes.",
+    "content_item_version_id": "2029cd8a-bbf5-420b-9453-d42c0ba9349e"
+   },
+   {
+    "id": "9dfbc7f0-eeff-40fc-a69d-360e587fbc40",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "Subtract 0.020 mol from NH3 and add 0.020 mol to NH4+.",
+    "criterion_key": "d1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly updates moles after the HCl: NH3 decreases from 0.30 to 0.28 mol and NH4+ increases from 0.25 to 0.27 mol.",
+    "evidence_requirements": "Response gives 0.28 mol NH3 and 0.27 mol NH4+.",
+    "content_item_version_id": "2029cd8a-bbf5-420b-9453-d42c0ba9349e"
+   },
+   {
+    "id": "c4090752-5597-4b00-a68d-1236bd9b9835",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "State that the pH falls only slightly because the NH3/NH4+ ratio changes little.",
+    "criterion_key": "d2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Predicts that the pH decreases only slightly (stays close to the part (b) value) because the NH3 to NH4+ ratio changes only from about 1.2 to about 1.04.",
+    "evidence_requirements": "Response concludes the pH changes little and falls slightly, tied to the small change in the NH3/NH4+ ratio.",
+    "content_item_version_id": "2029cd8a-bbf5-420b-9453-d42c0ba9349e"
+   },
+   {
+    "id": "b838a0a6-5dbb-4bf2-89b1-ee8c08583e21",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "Clarify that buffering is lost at exactly 0.30 mol strong acid added.",
+    "criterion_key": "e1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "States that the buffer can neutralize added strong acid up to but not including 0.30 mol while retaining both buffer components; at exactly 0.30 mol all NH3 is consumed.",
+    "evidence_requirements": "Requires the boundary distinction between before 0.30 mol and exactly 0.30 mol HCl.",
+    "content_item_version_id": "2029cd8a-bbf5-420b-9453-d42c0ba9349e"
+   },
+   {
+    "id": "683439bf-14ab-44dd-a1df-1eb0e28b12eb",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "Subtract 0.020 mol from NH4+, add 0.020 mol to NH3, and say the pH rises slightly.",
+    "criterion_key": "f1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly updates the amounts after the NaOH (NH4+ = 0.23 mol, NH3 = 0.32 mol), identifies NH4+ as the component that reacts, and predicts that the pH rises slightly because the NH3/NH4+ ratio increases from about 1.2 to about 1.39.",
+    "evidence_requirements": "Response gives 0.23 mol NH4+ and 0.32 mol NH3, names NH4+ as the reacting component, and states the pH rises slightly.",
+    "content_item_version_id": "2029cd8a-bbf5-420b-9453-d42c0ba9349e"
+   },
+   {
+    "id": "ff24394b-5a93-4180-b602-336f3e71c650",
+    "created_at": "2026-08-12T20:05:29.415361+00:00",
+    "minimum_fix": "Add the same-total-buffer-concentration condition.",
+    "criterion_key": "g1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Explains that equal concentrations at the same total buffer concentration give equal stoichiometric capacities for added acid and base.",
+    "evidence_requirements": "Requires equal concentration and same total buffer concentration for equal acid/base capacity.",
+    "content_item_version_id": "2029cd8a-bbf5-420b-9453-d42c0ba9349e"
+   }
+  ],
+  "old_total": 10,
+  "new_total": 10,
+  "stem_changed": true
+ }
+]

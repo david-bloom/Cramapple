@@ -12,6 +12,8 @@ import { Missing } from './parts/Missing.jsx';
 import { MISSING, topicLabel } from '../content/adapter.js';
 import { body } from './parts/text.js';
 import { useSession, useHints } from '../session/SessionProvider.jsx';
+import { useSearchParams } from 'react-router-dom';
+import { useCoachStub } from '../session/coachStub.js';
 import { gradeMcq } from '../session/grade.js';
 
 /**
@@ -24,12 +26,14 @@ import { gradeMcq } from '../session/grade.js';
  * expanded options would push the feedback card past the frame.
  */
 export function PracticeMcqScreen({ question, onNext }) {
-  const { attempts, recordAttempt } = useSession();
-  // The deep dive is costed help in Practice, so it joins the hint list and
+  const { attempts, recordAttempt, rateFeedback } = useSession();
+  const [searchParams] = useSearchParams();
+  // The cheat sheet is costed help in Practice, so it joins the hint list and
   // its receipt lands on the feedback card with the rest.
   const hints = useHints(question.package_id, [...question.hints, DEEP_DIVE_HINT]);
   const attempt = attempts[question.package_id];
   const submitted = Boolean(attempt && attempt.mode === 'practice');
+  const coach = useCoachStub(searchParams.get('coachdemo') === '1', submitted);
 
   const [picked, setPicked] = useState(attempt?.picked || null);
   const elimHint = question.hints.find((h) => h.kind === 'eliminate');
@@ -169,6 +173,9 @@ export function PracticeMcqScreen({ question, onNext }) {
                   earned={attempt.earned}
                   total={attempt.total}
                   coaching={attempt.coaching}
+                  coach={coach}
+                  rating={attempt.feedbackRating ? attempt.feedbackRating.value : null}
+                  onRate={(n) => rateFeedback(question.package_id, n, coach && coach.status === 'ready' ? 'coaching' : 'composed')}
                   hintsUsed={attempt.hintsUsed}
                 />
               ) : <span />}
@@ -180,7 +187,7 @@ export function PracticeMcqScreen({ question, onNext }) {
                   : <ActionButton variant="primary" disabled={!picked} onClick={submit}>Submit answer</ActionButton>}
                 secondary={submitted
                   ? (question.deepDive
-                    ? <ActionButton variant="link" onClick={openDeepDive}>Open the deep dive</ActionButton>
+                    ? <ActionButton variant="link" onClick={openDeepDive}>Open the cheat sheet</ActionButton>
                     : undefined)
                   : <ActionButton variant="link" onClick={onNext}>Skip for now</ActionButton>}
               />

@@ -1,0 +1,20 @@
+# CED-text / content rulings for the 17 vote splits in the unit-less set (2026-11-14). topic, required units (votes >= 4, plus the primary unit), basis.
+RULINGS = {
+ 'apphy1-mcq-np2-003': ('4.3', [4], 'CED 4.3: impulse one object exerts on another is equal and opposite to the impulse the second exerts on the first; the item compares the two momentum changes. Plurality 3 of 5.'),
+ 'apphy1-frq-053': ('3.2', [2, 3], 'CED 3.2 holds the work-energy theorem (dK = sum of W), which the derivation of the kinetic friction coefficient uses. Plurality 3 of 5.'),
+ 'apprecalc-frq-006': ('1.7', [1], 'Even split 2/2 (1.7 vs 1.14). Parts ask for the horizontal limiting value (end behavior of a rational function, 1.7), monotonicity and a solve-and-interpret; 1.7 is the title match. Judgment call within Unit 1.'),
+ 'apprecalc-frq-np2-001': ('2.7', [1, 2], 'Plurality 3 of 5; part (a) is composition and inverse, 2.7 composition; parts (b) and (c) add Unit 1 end behavior and Unit 2 model validation. Primary unit 2 either way.'),
+ 'apprecalc-frq-np2-010': ('3.12', [1, 3], 'Plurality 4 of 6 (3.12 vs 1.8 two); three one-line parts across Units 1 and 3; the highest unit and the sum-identity part set the primary. Judgment call.'),
+ 'apcalcbc-frq-002': ('5.4', [2, 3, 5], 'Plurality 4 of 6; parts (b) and (c) classify and evaluate the critical point of y = x^x (first derivative test); part (a) is logarithmic differentiation (Unit 3).'),
+ 'apcalcbc-mcq-004': ('5.11', [2, 3, 4, 5], 'Plurality 4 of 6 (5.11 vs 4.2 two): greatest speed is an extremum problem. Judgment call between 5.11 and 4.2 (different units, same required set).'),
+ 'apcalcbc-frq-020': ('5.12', [3, 5], 'Even split 2/2 (5.12 vs 3.2): parts (a),(b) are implicit differentiation (3.2) and parts (c),(d) the second derivative and concavity of an implicit curve (5.12). Chosen 5.12, the higher unit that needs both. Judgment call.'),
+ 'apcalcbc-frq-029': ('9.1', [2, 9], 'Plurality 3 of 5; parts (a),(b) differentiate parametric equations (9.1), (c) is 9.2 and (d) is 9.6.'),
+ 'apcalcbc-frq-u13-014': ('5.1', [2, 5], 'Four different topics from four votes. The item asks average rate of change, a table derivative estimate and an MVT argument for a local maximum; its authoring metadata says 5.1 and the MVT part carries the Unit 5 requirement. Judgment call.'),
+ 'apcalcbc-frq-019': ('5.6', [2, 3, 5], 'Plurality 3 of 5; the last part determines concavity (5.6) after differentiating a product twice.'),
+ 'apcalcbc-frq-034': ('10.14', [10], 'Even split 2/2 (10.14 vs 10.15): parts (a)-(c) are the Maclaurin series, polynomial and derivative value (10.14); only (d) integrates the series (10.15).'),
+ 'apchem-mcq-004': ('3.2', [2, 3], 'CED 3.2 states ionic solids conduct only when ions are mobile, molten or dissolved, which is exactly this item; overrules 4 of 6 votes for 2.3 (whose CED text is about the periodic arrangement). Unit 3 added to the required units (2 got 6 votes).'),
+ 'apphycm-mcq-019': ('5.6', [5], 'Even split 2/2 (5.6 vs 6.3): the item applies tau = I alpha with a time-varying torque; 6.3 would put the primary unit at 6, which only 2 votes name. Judgment call.'),
+ 'apcalcbc-frq-016': ('10.11', [10], 'Even split 2/2 (10.11 vs 10.14): two of three parts approximate ln(1.2) with the polynomial and bound the error (10.11); only (a) writes the series terms (10.14).'),
+ 'apcalcbc-frq-022': ('5.9', [5, 6], 'Even split 2/2 (5.9 vs 5.8): the item analyses f from f-prime and f-double-prime (5.9); Unit 6 is required because f must be recovered from f-prime and f(0) for the absolute extrema.'),
+ 'apphy2-frq-002': ('10.3', [10], 'Even split 2/2 (10.3 vs 10.5): part (b) centres on vector superposition of the fields, with the scalar potential as the contrast. Same unit either way. Judgment call.'),
+}

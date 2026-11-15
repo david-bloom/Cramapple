@@ -1,0 +1,202 @@
+{
+ "id": "ap_statistics__4.7__v2",
+ "parent": "ap_statistics__4.7__1",
+ "parent_status": "accepted",
+ "topic_code": "4.7",
+ "item": {
+  "title": "Interval for a Difference in Mean Battery Life Using a t Table",
+  "calculator": "permitted",
+  "stimulus": "A reviewer compares two phone brands. Independent random samples of phones were tested: 26 phones of Brand X (mean battery life 14.2 hours, standard deviation 2.1 hours) and 21 phones of Brand Y (mean 12.8 hours, standard deviation 2.4 hours). Each brand has sold thousands of the model. Dotplots of both samples show no strong skewness and no outliers.\n\nA t table gives these critical values:\nDegrees of freedom | t* for 95% confidence\n18 | 2.101\n19 | 2.093\n20 | 2.086\n21 | 2.080\n22 | 2.074",
+  "parts": [
+   {
+    "prompt": "Show that the conditions for the appropriate procedure for estimating the difference in mean battery life are met.",
+    "criteria": [
+     {
+      "text": "Checks the randomization condition: the phones were selected by independent random samples from the two brands.",
+      "evidence": "Response states the randomization condition in context: the phones were selected by independent random samples from the two brands.",
+      "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the 10% condition: each sample is less than 10% of the thousands of phones sold by its brand.",
+      "evidence": "Response checks that the sample size is less than 10% of the population: each sample is less than 10% of the thousands of phones sold by its brand.",
+      "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+      "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+      "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Use the smaller of n₁ − 1 and n₂ − 1 as the degrees of freedom and the table to find t*. Then calculate the standard error and the 95% confidence interval for μ₁ − μ₂.",
+    "criteria": [
+     {
+      "text": "States df = smaller of (n₁ − 1, n₂ − 1) = 20 and reads t* = 2.086 from the table for 95% confidence.",
+      "evidence": "Response uses the smaller of n₁ − 1 and n₂ − 1 as df and selects t* = 2.086 from the table.",
+      "fix": "With a table, use the smaller of n₁ − 1 and n₂ − 1 for df, then read t* for the confidence level.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Computes the interval (14.2 − 12.8) ± 2.086√(2.1²/26 + 2.4²/21) = 1.4 ± 2.086(0.666) = 0.01 to 2.79 hours, using t* = 2.086.",
+      "evidence": "Response adds and subtracts t* times the standard error, giving an interval from 0.01 to 2.79 hours.",
+      "fix": "Add and subtract t* times the standard error from the sample statistic, using the given critical value.",
+      "accepted_variants": [
+       "(0.01, 2.79)",
+       "(0.0, 2.8)"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Technology gives df ≈ 40.1 and t* = 2.021 for 95% confidence, and the interval (0.05, 2.75) hours. Why is your interval from the table wider?",
+    "criteria": [
+     {
+      "text": "States that using df = 20, the smaller of n₁ − 1 and n₂ − 1, gives a larger t* (2.086 versus 2.021) and a wider interval than technology's df of about 40.1, so the table method is conservative.",
+      "evidence": "Response says the smaller degrees of freedom gives a larger t* and a wider interval than technology's df, so the table interval is conservative.",
+      "fix": "Fewer degrees of freedom means a larger t*, so the interval from the table is wider than the one from technology.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) The procedure is a two-sample t-interval for a difference in population means. Randomization: the phones were selected by independent random samples from the two brands. 10% condition: each sample is less than 10% of the thousands of phones sold by its brand. Sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.\n\n(b) df = smaller of (26 − 1, 21 − 1) = 20, so t* = 2.086. SE = √(2.1²/26 + 2.4²/21) = 0.666 hours. The interval is (14.2 − 12.8) ± 2.086(0.666) = 0.01 to 2.79 hours.\n\n(c) The smaller df (20) gives a larger t* (2.086 versus 2.021) than technology's df of about 40.1, so the table interval is wider; the table method is conservative.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn1, m1, s1, n2, m2, s2, conf = 26, 14.2, 2.1, 21, 12.8, 2.4, 0.95\ndf = min(n1 - 1, n2 - 1)\nassert df == 20\nts = tinv(1 - (1 - conf) / 2, df)\nassert abs(ts - 2.086) < 0.0006\nfor k, v in [(18, 2.101), (19, 2.093), (20, 2.086), (21, 2.08), (22, 2.074)]:\n    assert abs(tinv(1 - (1 - conf) / 2, k) - v) < 0.0006\nse = math.sqrt(s1 ** 2 / n1 + s2 ** 2 / n2)\nassert round(se, 3) == 0.666\nlo = (m1 - m2) - 2.086 * se; hi = (m1 - m2) + 2.086 * se\nassert round(lo, 2) == 0.01 and round(hi, 2) == 2.79\nse2, df2 = welch(s1, n1, s2, n2)\nassert round(df2, 1) == 40.1\nt2 = tinv(1 - (1 - conf) / 2, 40.1)\nassert abs(t2 - 2.021) < 0.0006 and t2 < 2.086\nassert round((m1 - m2) - 2.021 * se, 2) == 0.05 and round((m1 - m2) + 2.021 * se, 2) == 2.75\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T23:05:19.054Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"T_CONSERVATIVE\",\"CI_INTERVAL\"],[\"DF_WHY\"]]",
+  "child_order": "[[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"T_CONSERVATIVE\",\"CI_INTERVAL\"],[\"DF_WHY\"]]",
+  "child_pattern": [
+   [
+    "COND_RANDOM",
+    "COND_TEN",
+    "COND_NORMAL"
+   ],
+   [
+    "T_CONSERVATIVE",
+    "CI_INTERVAL"
+   ],
+   [
+    "DF_WHY"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [3,2,1], variant [3,2,1]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"T_CONSERVATIVE\",\"CI_INTERVAL\"],[\"DF_WHY\"]]\nPart a prompt changed.\nCriterion a1 (COND_RANDOM): wording and values changed\nCriterion a2 (COND_TEN): wording and values changed\nCriterion a3 (COND_NORMAL): wording and values changed\nCriterion b1 (T_CONSERVATIVE): wording and values changed\nCriterion b2 (CI_INTERVAL): wording and values changed; accepted variants changed\nPart c prompt changed.\nCriterion c1 (DF_WHY): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from exam scores at two schools to battery life for two phone brands, with new sample sizes, means, standard deviations, units, and t-table entries. The 10% condition now follows from populations of thousands rather than an explicit assurance. Both samples are now smaller than 30, so the sample-data condition relies on the stated dotplot features. The table-based and technology-based calculations change accordingly; the parts, scoring structure, and inference task remain unchanged.",
+     "numbers_recomputed": "Both sample sizes, 26 and 21, are below 30. Populations larger than 260 and 210, respectively, make the samples less than 10%; populations of thousands satisfy this. Conservative df = min(26 − 1, 21 − 1) = 20, giving t* = 2.086. The supplied 95% t critical values for df 18–22 round to 2.101, 2.093, 2.086, 2.080, and 2.074, respectively; all match. The point estimate is 14.2 − 12.8 = 1.4 hours. SE = sqrt(2.1²/26 + 2.4²/21) = sqrt(0.4439011) ≈ 0.666259 hours, matching 0.666. Using t* = 2.086, the margin of error is approximately 1.389816 hours and the interval is (0.010184, 2.789816), matching (0.01, 2.79) and the accepted one-decimal form (0.0, 2.8). Welch df = (2.1²/26 + 2.4²/21)² / [(2.1²/26)²/25 + (2.4²/21)²/20] ≈ 40.1124, matching 40.1. Its 95% critical value rounds to 2.021. Using that rounded critical value gives a margin of error of approximately 1.346510 and interval (0.053490, 2.746510), matching (0.05, 2.75).",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "harder",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Context changed from school exam scores to phone battery life; means and standard deviations changed from 78.4/11.2 and 72.1/9.8 to 14.2/2.1 and 12.8/2.4; sample sizes changed from 32/35 to 26/21, so both are now below 30 and the sample-data condition is justified by dotplots rather than n≥30; the t-table values, degrees of freedom, standard error, confidence interval, and technology df/interval all changed accordingly.",
+     "numbers_recomputed": "df = smaller of (26−1, 21−1) = 20, matching t* = 2.086 from the table; point estimate = 14.2 − 12.8 = 1.4; SE = √(2.1²/26 + 2.4²/21) = √(0.169615 + 0.274286) = 0.666; margin of error = 2.086 × 0.666 ≈ 1.390; interval = 1.4 ± 1.390 = 0.010 to 2.790, rounded to 0.01 to 2.79 hours; technology df ≈ 40.1 and t* = 2.021; technology interval ≈ (0.0535, 2.7465), rounded to (0.05, 2.75). All recomputed values match the variant rubric and model answer.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

@@ -1,0 +1,204 @@
+{
+ "id": "ap_statistics__5.2__v1",
+ "parent": "ap_statistics__5.2__1",
+ "parent_status": "accepted",
+ "topic_code": "5.2",
+ "item": {
+  "title": "Interpreting a Correlation Between Vehicle Weight and Fuel Economy",
+  "calculator": "not_applicable",
+  "stimulus": "An automotive magazine recorded, for each of 45 randomly selected new car models, the vehicle weight in pounds and the fuel economy in miles per gallon. Technology reports a correlation coefficient of r = −0.88 for these data.",
+  "parts": [
+   {
+    "prompt": "Interpret the value of r in context.",
+    "criteria": [
+     {
+      "text": "Interprets the sign of r = −0.88 as a negative association: as vehicle weight increases, fuel economy tends to decrease.",
+      "evidence": "Response links the negative sign of r to the direction of the association in context.",
+      "fix": "Read the sign of r as direction, then restate it in context using both variable names.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that r = −0.88, which is close to -1, indicates a strong linear association between vehicle weight and fuel economy.",
+      "evidence": "Response says the linear association is strong because r is close to -1, naming the two variables.",
+      "fix": "Say how close r is to -1 or 1, call the linear association strong, moderate or weak, and name both variables.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "An editor says, \"Because r = −0.88, a linear model is definitely appropriate for predicting fuel economy from vehicle weight.\" Explain why this reasoning is incomplete and what should be done before deciding that a linear model is appropriate.",
+    "criteria": [
+     {
+      "text": "States that a value of r as close to -1 or 1 as −0.88 does not by itself show that a linear model is appropriate.",
+      "evidence": "Response says a correlation coefficient near -1 or 1 does not necessarily mean a linear model is appropriate.",
+      "fix": "Remember r only measures linear association strength; a strong r can still come from a curved pattern, so r alone cannot justify a linear model.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that a residual plot (or scatterplot) should be examined for curvature or other pattern before concluding a linear model is appropriate.",
+      "evidence": "Response names a residual plot or a scatterplot as the check and says a pattern such as curvature would show the linear model is not appropriate.",
+      "fix": "Name the check: make a residual plot and look for curvature; a random scatter supports a linear model.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "An editor also concludes that heavier vehicles cause lower fuel economy. Is this conclusion justified by the correlation? Explain.",
+    "criteria": [
+     {
+      "text": "States that correlation does not imply causation, so the association does not show that heavier vehicles cause lower fuel economy.",
+      "evidence": "Response says an association or correlation, even a strong one, does not show that one variable causes changes in the other.",
+      "fix": "Whenever a claim says one variable causes another, point out that a strong association does not establish causation.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "The analysts will also measure vehicle weight in different units, in kilograms instead of pounds. What value of r will they find for the new measurements? Explain.",
+    "criteria": [
+     {
+      "text": "States that r would still be −0.88 after measuring weight in kilograms instead of pounds because r is unit-free.",
+      "evidence": "Response says r is unchanged and gives unit-free (not affected by the units of measurement) as the reason.",
+      "fix": "Recall that r has no units, so changing the units of either variable by a positive-slope conversion leaves r unchanged.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) The correlation r = −0.88 is negative, so as vehicle weight increases, fuel economy tends to decrease. Because r is close to -1, the linear association between vehicle weight and fuel economy is strong.\n\n(b) A value of r close to -1 or 1 does not necessarily mean a linear model is appropriate. The data could follow a curved pattern even when r is large. The analysts should look at a residual plot (or a scatterplot) and check for curvature or another pattern before deciding.\n\n(c) No. Correlation does not imply causation. The strong association does not show that heavier vehicles cause lower fuel economy; other variables could account for the pattern.\n\n(d) The new r will still be −0.88. The correlation coefficient is unit-free, so changing the units of measurement (measuring weight in kilograms instead of pounds) does not change r.",
+  "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nr = -0.88\nassert -1 <= r <= 1 and abs(r) > 0.8\nassert (r < 0) == True\nxs = [2400, 2700, 3000, 3300, 3700, 4100, 4600]\nys = [39, 36, 34, 30, 27, 24, 21]\nr1 = reg(xs, ys)[2]\nr2 = reg([0.4536 * x for x in xs], ys)[2]\nassert abs(r1 - r2) < 1e-12\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:29:00.971Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"R_DIR\",\"R_STRENGTH\"],[\"R_NOT_GUARANTEE\",\"R_CHECK_RESIDUAL_PLOT\"],[\"NO_CAUSATION\"],[\"R_UNIT_FREE\"]]",
+  "child_order": "[[\"R_DIR\",\"R_STRENGTH\"],[\"R_NOT_GUARANTEE\",\"R_CHECK_RESIDUAL_PLOT\"],[\"NO_CAUSATION\"],[\"R_UNIT_FREE\"]]",
+  "child_pattern": [
+   [
+    "R_DIR",
+    "R_STRENGTH"
+   ],
+   [
+    "R_NOT_GUARANTEE",
+    "R_CHECK_RESIDUAL_PLOT"
+   ],
+   [
+    "NO_CAUSATION"
+   ],
+   [
+    "R_UNIT_FREE"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 4, variant 4. Criteria per part: parent [2,2,1,1], variant [2,2,1,1]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"R_DIR\",\"R_STRENGTH\"],[\"R_NOT_GUARANTEE\",\"R_CHECK_RESIDUAL_PLOT\"],[\"NO_CAUSATION\"],[\"R_UNIT_FREE\"]]\nCriterion a1 (R_DIR): wording and values changed\nCriterion a2 (R_STRENGTH): wording and values changed\nPart b prompt changed.\nCriterion b1 (R_NOT_GUARANTEE): wording and values changed\nCriterion b2 (R_CHECK_RESIDUAL_PLOT): identical wording\nPart c prompt changed.\nCriterion c1 (NO_CAUSATION): wording and values changed\nPart d prompt changed.\nCriterion d1 (R_UNIT_FREE): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from temperature and bike rentals on 60 randomly selected days to vehicle weight and fuel economy for 45 randomly selected new car models. The reported correlation changes from 0.91 to −0.88, reversing the association's direction while retaining a strong linear association. The manager becomes an editor, the prediction and causal claims use the new variables, and the unit conversion changes from Fahrenheit-to-Celsius to pounds-to-kilograms.",
+     "numbers_recomputed": "For r = −0.88, the negative sign indicates decreasing fuel economy as vehicle weight increases, matching a1. Its magnitude is 0.88 and its distance from −1 is 0.12, supporting the strong-linear-association interpretation in a2 and the premise in b1. Converting pounds to kilograms multiplies weight by the positive constant 0.45359237, so the new correlation is sign(0.45359237) × (−0.88) = −0.88, matching d1. The sample size of 45 is a given, not a computed result; no criterion requires a sample-size-dependent calculation.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The variant changes the context from bike-share temperature and bike rentals (60 days, r = 0.91) to automotive vehicle weight and fuel economy (45 car models, r = −0.88). The wording in parts (a), (b), (c), and (d) is updated for the new variables, sign of r, and unit conversion. The rubric structure, criteria, and point allocations remain identical to the parent.",
+     "numbers_recomputed": "The given correlation changes from r = 0.91 to r = −0.88. The sign is negative, so the direction statement is negative association: as vehicle weight increases, fuel economy tends to decrease; that matches. The magnitude |−0.88| = 0.88 is close to 1, so the strength statement 'strong linear association' matches. In part (d), converting vehicle weight from pounds to kilograms is a positive-slope unit conversion, so r remains −0.88; that matches. The sample size 45 is stated and does not affect any rubric-required computation.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

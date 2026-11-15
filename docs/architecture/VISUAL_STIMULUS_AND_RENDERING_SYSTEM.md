@@ -1,5 +1,10 @@
 # Visual Stimulus and Rendering System
 
+> **STATUS: CURRENT except where noted — PARTIALLY STALE (reviewed 2026-11-09).**
+> Still the governing four-lane model (Lanes A-C) for visuals; `docs/INDEX.md` names it as such and Lane A is LIVE in Production (APPROVAL-0153, 2026-10-10: `app.figures`, `app.figure_uses`).
+> **Stale in this doc:** the "Proposed" status (2026-06-12), and any claim that Lane A is future work. Lane B (stored assets, `visual_asset_ref`) remains open. Current figure how-to lives in `docs/product/FIGURE_PRODUCTION_PROTOCOL.md`.
+> Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075) or live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Status:** Proposed for Product Owner and Learning Quality review
 **Owner:** Main Conductor / Technical Owner
 **Product Owner:** David Bloom

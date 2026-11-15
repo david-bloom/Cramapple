@@ -1,0 +1,294 @@
+{
+ "id": "ap_statistics__4.3__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.3",
+  "topic_title": "Justifying a Claim Based on a Confidence Interval for a Population Mean or Population Mean Difference",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T22:15:41.339Z",
+   "source": "given",
+   "item": {
+    "title": "Claims and Misreadings of a Matched-Pairs Interval for 5K Times",
+    "calculator": "permitted",
+    "stimulus": "A coach recorded the 5K running times of 20 randomly selected runners before and after a 6-week training program. For each runner, the difference (before minus after) in minutes was calculated; positive differences mean the runner got faster. The differences have no strong skewness and no outliers. Using technology, the coach found a 95% confidence interval for the population mean difference μ_d of (0.37, 2.33) minutes.",
+    "parts": [
+     {
+      "prompt": "Interpret the interval in context, and interpret the confidence level.",
+      "criteria": [
+       {
+        "text": "Interprets the interval: we are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program.",
+        "evidence": "Response states the confidence level, the interval from 0.37 to 2.33 minutes, and the parameter it captures (true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program).",
+        "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Interprets the confidence level: if many random samples of the same size were taken, about 95% of the intervals they produce would capture the true parameter.",
+        "evidence": "Response describes 95% as the long-run percent of intervals, from repeated random samples, that capture the true parameter.",
+        "fix": "Describe the confidence level as the success rate of the method over many samples, not the probability for one interval.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The coach makes two claims. Claim 1: the program does not change mean 5K time (μ_d = 0). Claim 2: the program improves mean 5K time by at least 2.5 minutes (μ_d ≥ 2.5). For each claim, state whether the interval supports it, and explain.",
+      "criteria": [
+       {
+        "text": "Because 0 is not in the interval (0.37, 2.33), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the program is associated with a change in mean 5K time).",
+        "evidence": "Response compares 0 with the interval and concludes: 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the program is associated with a change in mean 5K time).",
+        "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Because 2.5 is above the interval (0.37, 2.33), 2.5 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2.",
+        "evidence": "Response compares 2.5 with the interval and concludes: 2.5 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2.",
+        "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The coach also says, \"95% of runners improved by between 0.37 and 2.33 minutes.\" Is this a correct use of the interval? Explain.",
+      "criteria": [
+       {
+        "text": "States that the coach's statement that 95% of runners improved by between 0.37 and 2.33 minutes is not justified, because the interval estimates the population mean difference, not the range of individual values.",
+        "evidence": "Response says the interval is for the population mean (or mean difference) and does not describe where individual values fall.",
+        "fix": "Remember a confidence interval estimates a parameter such as a mean, so it says nothing about the spread of individuals.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Suppose the coach had used a random sample of 80 runners instead of 20, and the sample mean difference and standard deviation were the same. How would the width of the 95% interval change? Give an approximate value for the new margin of error.",
+      "criteria": [
+       {
+        "text": "States that with n = 80 instead of 20 the interval would be narrower, with a margin of error about half as large (about 0.47 minutes), because the standard error s/√n shrinks.",
+        "evidence": "Response says the interval is narrower, the margin of error is about half as large, and gives the larger sample size as the reason.",
+        "fix": "Quadrupling n halves the standard error (√4 = 2), so the margin of error is about half, with t* slightly smaller.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) We are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program. The confidence level means that if many random samples of the same size were taken, about 95% of the intervals they produce would capture the true mean difference.\n\n(b) Claim 1: 0 is not in the interval (0.37, 2.33), so it is not a plausible value of μ_d, and the interval provides convincing evidence against Claim 1 (the program is associated with a change in mean 5K time). Claim 2: 2.5 is above the interval, so it is not a plausible value and every plausible value is below it; the interval does not support Claim 2.\n\n(c) No. The interval estimates the population mean difference, not the range of individual values, so it does not describe where 95% of individuals fall.\n\n(d) The interval would be narrower. The standard error s/√n would be about half as large because √80 is about twice √20, so the margin of error would be about half of 0.98, roughly 0.47 minutes.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, conf, n2 = 20, 1.35, 2.1, 0.95, 80\nts = round(tinv(1 - (1 - conf) / 2, n - 1), 3)\nme = ts * s / math.sqrt(n)\nassert round(d - me, 2) == 0.37 and round(d + me, 2) == 2.33\nassert 0.37 > 0 and 2.33 < 2.5\nme2 = round(tinv(1 - (1 - conf) / 2, n2 - 1), 3) * s / math.sqrt(n2)\nassert round(me2, 2) == 0.47\nassert 0.45 < me2 / me < 0.5\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Claims and Misreadings of a Matched-Pairs Interval for 5K Times",
+   "calculator": "permitted",
+   "stimulus": "A coach recorded the 5K running times of 20 randomly selected runners before and after a 6-week training program. For each runner, the difference (before minus after) in minutes was calculated; positive differences mean the runner got faster. The differences have no strong skewness and no outliers. Using technology, the coach found a 95% confidence interval for the population mean difference μ_d of (0.37, 2.33) minutes.",
+   "parts": [
+    {
+     "prompt": "Interpret the interval in context, and interpret the confidence level.",
+     "criteria": [
+      {
+       "text": "Interprets the interval: we are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program.",
+       "evidence": "Response states the confidence level, the interval from 0.37 to 2.33 minutes, and the parameter it captures (true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program).",
+       "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Interprets the confidence level: if many random samples of the same size were taken, about 95% of the intervals they produce would capture the true parameter.",
+       "evidence": "Response describes 95% as the long-run percent of intervals, from repeated random samples, that capture the true parameter.",
+       "fix": "Describe the confidence level as the success rate of the method over many samples, not the probability for one interval.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The coach makes two claims. Claim 1: the program does not change mean 5K time (μ_d = 0). Claim 2: the program improves mean 5K time by at least 2.5 minutes (μ_d ≥ 2.5). For each claim, state whether the interval supports it, and explain.",
+     "criteria": [
+      {
+       "text": "Because 0 is not in the interval (0.37, 2.33), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the program is associated with a change in mean 5K time).",
+       "evidence": "Response compares 0 with the interval and concludes: 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the program is associated with a change in mean 5K time).",
+       "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Because 2.5 is above the interval (0.37, 2.33), 2.5 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2.",
+       "evidence": "Response compares 2.5 with the interval and concludes: 2.5 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2.",
+       "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The coach also says, \"95% of runners improved by between 0.37 and 2.33 minutes.\" Is this a correct use of the interval? Explain.",
+     "criteria": [
+      {
+       "text": "States that the coach's statement that 95% of runners improved by between 0.37 and 2.33 minutes is not justified, because the interval estimates the population mean difference, not the range of individual values.",
+       "evidence": "Response says the interval is for the population mean (or mean difference) and does not describe where individual values fall.",
+       "fix": "Remember a confidence interval estimates a parameter such as a mean, so it says nothing about the spread of individuals.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Suppose the coach had used a random sample of 80 runners instead of 20, and the sample mean difference and standard deviation were the same. How would the width of the 95% interval change? Give an approximate value for the new margin of error.",
+     "criteria": [
+      {
+       "text": "States that with n = 80 instead of 20 the interval would be narrower, with a margin of error about half as large (about 0.47 minutes), because the standard error s/√n shrinks.",
+       "evidence": "Response says the interval is narrower, the margin of error is about half as large, and gives the larger sample size as the reason.",
+       "fix": "Quadrupling n halves the standard error (√4 = 2), so the margin of error is about half, with t* slightly smaller.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) We are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program. The confidence level means that if many random samples of the same size were taken, about 95% of the intervals they produce would capture the true mean difference.\n\n(b) Claim 1: 0 is not in the interval (0.37, 2.33), so it is not a plausible value of μ_d, and the interval provides convincing evidence against Claim 1 (the program is associated with a change in mean 5K time). Claim 2: 2.5 is above the interval, so it is not a plausible value and every plausible value is below it; the interval does not support Claim 2.\n\n(c) No. The interval estimates the population mean difference, not the range of individual values, so it does not describe where 95% of individuals fall.\n\n(d) The interval would be narrower. The standard error s/√n would be about half as large because √80 is about twice √20, so the margin of error would be about half of 0.98, roughly 0.47 minutes.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, conf, n2 = 20, 1.35, 2.1, 0.95, 80\nts = round(tinv(1 - (1 - conf) / 2, n - 1), 3)\nme = ts * s / math.sqrt(n)\nassert round(d - me, 2) == 0.37 and round(d + me, 2) == 2.33\nassert 0.37 > 0 and 2.33 < 2.5\nme2 = round(tinv(1 - (1 - conf) / 2, n2 - 1), 3) * s / math.sqrt(n2)\nassert round(me2, 2) == 0.47\nassert 0.45 < me2 / me < 0.5\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items_r2.py), round 2 difficulty rewrite, 2026-11-12",
+  "at": "2026-11-12T22:15:40.904370Z"
+ },
+ "accepted_round": 1
+}

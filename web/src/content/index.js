@@ -77,7 +77,7 @@ export function getTopic(code) {
 
 /**
  * A library question's reference block for a given topic, for a BYOQ item to
- * borrow. CramApple-authored and topic-general, so it carries no answer to the
+ * borrow. Cramapple-authored and topic-general, so it carries no answer to the
  * student's own submitted problem -- see content/byoq.js.
  */
 export function referenceForTopic(code) {
@@ -105,7 +105,7 @@ export function nextQuestion(question) {
   return i >= 0 && i < list.length - 1 ? list[i + 1] : null;
 }
 
-/** Plain text of a stem, for aria labels and the copied deep dive. */
+/** Plain text of a stem, for aria labels and the copied cheat sheet. */
 export function stemText(question) {
   return question.stem.map((n) => n.value).join('');
 }

@@ -1,5 +1,8 @@
 # Cramapple Supabase Edge Functions Draft
 
+> **STATUS: HISTORICAL — superseded by the actual functions in `supabase/functions/` (31 directories incl. `_shared`, as of 2026-11-09) and DECISION-0075 D16 (reviewed 2026-11-09).**
+> A 2026-06-20 draft boundary for a handful of functions; the live set is far larger (checkout/trial/Stripe, review, BYOQ, capture, more-help, etc.) and has no single current inventory doc (see README open items). Kept for history; do not treat as the current plan. Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075, ratified 2026-09-27) or with live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Status:** Draft for production plumbing
 **Date:** 2026-06-20
 **Project:** `pcntajvbdfqhbeewmdry`

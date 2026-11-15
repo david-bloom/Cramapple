@@ -1,0 +1,1 @@
+R=[("- Periodic table position reflects recurring electron-configuration patterns.\n- Ionization energy, radius, electron affinity and electronegativity trends are explained through Coulomb's law,","- Periodic position reflects recurring electron-configuration patterns; ionization energy, radius, electron affinity and electronegativity trends follow from Coulomb's law,")]

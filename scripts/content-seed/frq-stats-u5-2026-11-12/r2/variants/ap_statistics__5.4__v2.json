@@ -1,0 +1,205 @@
+{
+ "id": "ap_statistics__5.4__v2",
+ "parent": "ap_statistics__5.4__1",
+ "parent_status": "accepted",
+ "topic_code": "5.4",
+ "item": {
+  "title": "Residual Pattern for a Tree Age and Fruit Yield Model",
+  "calculator": "permitted",
+  "stimulus": "An orchard manager recorded the mean fruit yield of trees in seven age groups. The least-squares regression line, found using technology, is ŷ = 17.43 + 0.57x, where x is the age of the trees in years and ŷ is the predicted yield in kilograms. The data are shown below.\n\nTree age (years) | Yield (kg)\n1 | 11\n2 | 17\n3 | 24\n4 | 26\n5 | 25\n6 | 23\n7 | 12",
+  "parts": [
+   {
+    "prompt": "Calculate the residuals for the observations at x = 1 and x = 4.",
+    "criteria": [
+     {
+      "text": "Calculates the residual as observed minus predicted: 11 - 18.00 = −7.00 kg.",
+      "evidence": "Response subtracts the predicted value from the observed value 11 and reports −7.00 kg.",
+      "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+      "accepted_variants": [
+       "−7.00",
+       "−7.0"
+      ]
+     },
+     {
+      "text": "Calculates the residual as observed minus predicted: 26 - 19.71 = 6.29 kg.",
+      "evidence": "Response subtracts the predicted value from the observed value 26 and reports 6.29 kg.",
+      "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+      "accepted_variants": [
+       "6.29",
+       "6.3"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Interpret the residual at x = 1 in context.",
+    "criteria": [
+     {
+      "text": "States that because the residual is negative, the model overpredicts the fruit yield for age group with x = 1 years: the observed value is below the predicted value.",
+      "evidence": "Response links the negative residual to the model overpredicts the fruit yield for age group with x = 1 years, in context.",
+      "fix": "Link the sign to the context: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Interprets the size in context: for age group with x = 1 years, the observed fruit yield is about 7.00 kg below the predicted value.",
+      "evidence": "Response states the difference of about 7.00 kg between observed and predicted fruit yield for age group with x = 1 years.",
+      "fix": "Restate the residual as a gap between observed and predicted values, with units and the specific case named.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Determine the sign of the residual for each of the seven observations. Describe the pattern in the signs as x increases, and state what it suggests about the linear model.",
+    "criteria": [
+     {
+      "text": "States that the signs of the residuals as x increases are negative, negative, positive, positive, positive, positive, negative, a systematic negative, positive, negative (arch-shaped) pattern rather than random scatter.",
+      "evidence": "Response gives the sign pattern negative, negative, positive, positive, positive, positive, negative for the seven observations in order of x and calls it systematic, not random.",
+      "fix": "Find every residual (observed minus predicted), then read their signs in order of x and look for a repeating pattern.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that the arch-shaped pattern of the residuals (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+      "evidence": "Response identifies the pattern as curvature and concludes the linear model is not the most appropriate.",
+      "fix": "Treat a curved pattern in the residual plot as evidence against a linear model; do not call it random scatter.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) At x = 1: ŷ = 17.43 + 0.57(1) = 18.00, so the residual is 11 − 18.00 = −7.00 kg. At x = 4: ŷ = 19.71, so the residual is 26 − 19.71 = 6.29 kg.\n\n(b) The residual at x = 1 is negative, so the model overpredicts the fruit yield there: the observed value is below the predicted value, by about 7.00 kg.\n\n(c) In order of x the residuals are negative, negative, positive, positive, positive, positive, negative. This is a systematic negative, positive, negative (arch-shaped) pattern, not random scatter. It means the residual plot would show curvature, which suggests the linear model is not the most appropriate model for the data.",
+  "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nxs = [1, 2, 3, 4, 5, 6, 7]\nys = [11, 17, 24, 26, 25, 23, 12]\nb, a, r, mx, my = reg(xs, ys)\na2, b2 = round(a, 2), round(b, 2)\nassert (a2, b2) == (17.43, 0.57)\nres = [y - (a2 + b2 * x) for x, y in zip(xs, ys)]\nassert min(abs(e) for e in res) >= 1.5\nsigns = ['positive' if e > 0 else 'negative' for e in res]\nassert signs == ['negative', 'negative', 'positive', 'positive', 'positive', 'positive', 'negative']\nia, ib = xs.index(1), xs.index(4)\nassert round(res[ia], 2) == -7.0 and round(res[ib], 2) == 6.29\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T23:05:18.565Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"RESID_CALC\",\"RESID_CALC\"],[\"RESID_SIGN_CTX\",\"RESID_MAGNITUDE\"],[\"RESID_SEQ\",\"RESID_PLOT_CURVE\"]]",
+  "child_order": "[[\"RESID_CALC\",\"RESID_CALC\"],[\"RESID_SIGN_CTX\",\"RESID_MAGNITUDE\"],[\"RESID_SEQ\",\"RESID_PLOT_CURVE\"]]",
+  "child_pattern": [
+   [
+    "RESID_CALC",
+    "RESID_CALC"
+   ],
+   [
+    "RESID_SIGN_CTX",
+    "RESID_MAGNITUDE"
+   ],
+   [
+    "RESID_SEQ",
+    "RESID_PLOT_CURVE"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [2,2,2], variant [2,2,2]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"RESID_CALC\",\"RESID_CALC\"],[\"RESID_SIGN_CTX\",\"RESID_MAGNITUDE\"],[\"RESID_SEQ\",\"RESID_PLOT_CURVE\"]]\nCriterion a1 (RESID_CALC): wording and values changed; accepted variants changed\nCriterion a2 (RESID_CALC): wording and values changed; accepted variants changed\nCriterion b1 (RESID_SIGN_CTX): wording and values changed\nCriterion b2 (RESID_MAGNITUDE): wording and values changed\nCriterion c1 (RESID_SEQ): identical wording\nCriterion c2 (RESID_PLOT_CURVE): identical wording",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from supplement dose and seedling growth to tree age and mean fruit yield, with units changing from milligrams/millimeters to years/kilograms. All seven response values and both regression coefficients change; the explanatory values remain 1–7. The requested calculations, six-point rubric structure, and residual-pattern conclusion remain unchanged.",
+     "numbers_recomputed": "For the variant data, x̄ = 4, ȳ = 138/7, Sxx = 28, and Sxy = 16, giving slope 16/28 = 0.5714286 and intercept 17.4285714; these round to the stated 0.57 and 17.43. Using the stated equation, predictions at x = 1–7 are 18.00, 18.57, 19.14, 19.71, 20.28, 20.85, and 21.42 kg. Corresponding residuals are −7.00, −1.57, 4.86, 6.29, 4.72, 2.15, and −9.42 kg. Thus a1's −7.00 kg, a2's 6.29 kg, their rounded equivalent forms, and b2's 7.00 kg gap all match. The signs match c1: negative, negative, positive, positive, positive, positive, negative.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changed from supplement dose and plant growth to tree age and fruit yield. The regression equation changed from ŷ = 18.86 + 1.43x to ŷ = 17.43 + 0.57x, the data values changed accordingly, and the units changed from mg/mm to years/kg. The rubric structure and residual sign pattern are unchanged; the numerical residuals in parts (a) and (b) are updated.",
+     "numbers_recomputed": "At x = 1: ŷ = 17.43 + 0.57(1) = 18.00, residual = 11 - 18.00 = -7.00 kg. At x = 4: ŷ = 17.43 + 0.57(4) = 19.71, residual = 26 - 19.71 = 6.29 kg. All seven residuals in order are -7.00, -1.57, 4.86, 6.29, 4.72, 2.15, -9.42, giving signs -, -, +, +, +, +, -. These match the variant rubric and model answer.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

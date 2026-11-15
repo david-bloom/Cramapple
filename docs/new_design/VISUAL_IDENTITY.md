@@ -4,6 +4,12 @@ STATUS: CURRENT except where a CORRECTION note below applies.
 
 Supersedes `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` and `..._v2.md`. See `README.md` in this folder for what changed and why.
 
+**This system applies to every subject.** AP Statistics is only the sample content the plates were validated against. A subject never gets its own hue, type or layout.
+
+> **UPDATE (2026-11-08): not scrolling is a guideline, not a rule.** Prefer a plate that is apprehensible
+> at a glance with no scrolling, and treat that as a design principle. Where content genuinely needs it
+> (long FRQs, diagrammatic stimulus, small screens), scroll. See "Scrolling" below.
+>
 > **CORRECTION (2026-09-27): the fixed no-scroll plate rule below is SUPERSEDED.**
 > David decided **go responsive** on 2026-09-26 (`docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`,
 > "DECIDED, 2026-09-26" #1). The plate is now **fluid up to 1440px, grows with its content, stacks its
@@ -15,9 +21,11 @@ Supersedes `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` and `..._v2.md`. Se
 
 **The plate.** *(Frame geometry SUPERSEDED — see CORRECTION above; retained for historical reference.)* Every template was a fixed 1440×900 frame that never scrolls and never has a collapsed region. `overflow: hidden` at the frame, a 70px orange masthead, a 48px breadcrumb bar, then a three-column grid — 352px / fluid / 324px with 20px gaps inside 40px gutters — and a single 10px caption line at the bottom. **Content is sized to fit; it is never made reachable by scrolling or expanding.** If something does not fit, cut copy or restructure the layout. This was a hard rule and the most common way to break the system. *(As of 2026-09-26 this is no longer the rule: the frame is responsive and vertical scrolling is allowed.)*
 
+**Scrolling is a guideline, not a rule** *(decided 2026-11-08, David)*. Design each plate so the scoring, the question and the reference material can be seen together without scrolling, because that is the product's argument. That is a principle to design toward, not a limit to enforce. A plate may scroll when its content needs it: a long FRQ, a diagrammatic stimulus, a small screen. Two cautions keep the guideline honest. Do not cut copy below what a student needs just to avoid a scrollbar. And do not let scrolling hide the thing a student must act on: the primary action and the feedback stay reachable without hunting for them.
+
 **Corners are square.** Radius 0 on every surface — panes, cards, buttons, chips, inputs. The only round thing in the product is a radio dot. Do not introduce rounded cards.
 
-**Panes are capped, not tinted.** Each pane is white with a 1px `--rule-300` border and a 3px colored top rule that names its voice: blue for the rubric/answer key, green for reference materials, yellow for a hint pane, purple for the student's work, teal for the deep dive. The question pane is not capped — it is outlined in 2px brand orange, which is what makes it read as the primary surface. Pane shadow is `--shadow-pane`; the question pane carries the slightly heavier `--shadow-section`.
+**Panes are capped, not tinted.** Each pane is white with a 1px `--rule-300` border and a 3px colored top rule that names its voice: blue for the rubric/answer key, green for reference materials, yellow for a hint pane, purple for the student's work, teal for the cheat sheet. **The rail takes the voice of its open tab:** `--cap-rubric` (blue) on Rubric, `--cap-reference` (green) on Reference. The question pane is not capped — it is outlined in 2px brand orange, which is what makes it read as the primary surface. Pane shadow is `--shadow-pane`; the question pane carries the slightly heavier `--shadow-section`.
 
 **Color is assignment, not decoration.** Five voices, each with one job:
 
@@ -25,11 +33,14 @@ Supersedes `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` and `..._v2.md`. Se
 | --- | --- |
 | Orange `--orange-600` | Masthead, active breadcrumb, the one primary button per screen. Never used for error. |
 | Blue `--blue-600` | Rubric, points earned, credited answers, ✓ marks. |
-| Green `--green-500` | Reference materials only. |
+| Green `--green-500` | Reference materials only. Never full marks. |
 | Yellow `--yellow-500` | Hints only. Every yellow surface costs the student something. |
 | Purple `--purple-600` | The student's own work: answer field, options, feedback. |
+| Full-marks green `--full-600` | Full marks, at the maximum score only. |
 
-Maroon `--maroon-600` #8a2f3f carries points lost, incorrect verdicts and eliminated options — cool enough never to be read as the brand orange, because a lost point is a correction and not an alarm. Clay `--clay-600` #8c4530 is the ↻ revisit mark: come back to this, the point is still available. Amber is gone — the warm lane is now brand orange only. Teal `--teal-500` #2a8a92 owns the Deep Dive — its cap, its eyebrow, and any control that opens it.
+**Full marks are green** (decided 2026-11-08; not gold, not blue). They use their own `full-*` scale — `--full-600` #2b7a24 for text and the solid chip (5.4:1 on white), `--full-050` #eaf6e6 for the surface, `--full-500` for a rule — a yellower green than reference. The rules: it appears only when the score is the maximum; it always sits beside a ✓ and the words "Full marks", because colour is never the only signal; a score below the maximum stays blue (earned) and maroon (lost); reference panes keep `--green-500` and never borrow `full-*`. Reference green and full-marks green are one family, so keep them off the same component.
+
+Maroon `--maroon-600` #8a2f3f carries points lost, incorrect verdicts and eliminated options — cool enough never to be read as the brand orange, because a lost point is a correction and not an alarm. Clay `--clay-600` #8c4530 is the ↻ revisit mark: come back to this, the point is still available. Amber is gone — the warm lane is now brand orange only. Teal `--teal-500` #2a8a92 owns the Cheat Sheet — its cap, its eyebrow, and any control that opens it.
 
 **Type.** Bungee is the wordmark and nothing else. Passion One sets pane titles, scores and overlay titles at 22–32px; it is used at display sizes only, never for prose. Source Sans 3 does all reading and all controls. STIX Two Math is reserved for set mathematics. *(AMENDED 2026-10-12: **rendered** equations use KaTeX's own bundled faces, not STIX Two Math. Chosen by David on a side-by-side rendering of real published formulas — KaTeX's spacing is tuned for its own faces, and forcing STIX Two Math over it degrades the metrics. STIX Two Math still owns mathematical characters set in prose, which KaTeX does not touch. Rule: `CONTENT_AND_PEDAGOGY.md`, Equation presentation.)* **Body copy never goes below 16px** — chrome (breadcrumb 13px, counts 12px, eyebrows 12px, the plate caption 10px) is the only exception, and never for content a student must read to answer. Eyebrows are 12px, 700 weight, uppercase, `.15em` tracking.
 
@@ -71,7 +82,7 @@ were invisible to the test suite and to reading the markup, and visible in one m
 
 **States.** Selection is a 2px purple border plus a filled radio dot plus a bolder label — never a background wash. Disabled is a desaturated fill (`--action-primary-disabled`) with `cursor: not-allowed`, not opacity. Eliminated/struck content is maroon ink with a line-through and ~55% opacity. Hover darkens a fill by one step (`--action-primary-bg-hover`) and does nothing else — no lift, no shadow change. Press has no separate treatment. Secondary actions are underlined text links (3px underline offset), never outlined buttons. Quiet actions are white with a `--rule-400` border and `--ink-500` label. There is no motion in the system: no transitions, no fades, no bounces, no easing. State changes are instant, because the product's rhythm is read-decide-see. Two named exceptions exist: ConfettiBurst (D10) and the shared loading spinner shown only while a page or its data is loading (`DECISION-0114`; static under `prefers-reduced-motion`).
 
-**Overlays.** Two, both square-cornered and both full-bleed within their region: the study map drops under the breadcrumb across the full width over a `--scrim`; the deep dive covers the entire frame below the breadcrumb (all three panes) — it must be full-frame, because at the center pane's ~664px it cannot fit its content without scrolling.
+**Overlays.** Two, both square-cornered and both full-bleed within their region: the study map drops under the breadcrumb across the full width over a `--scrim`; the Cheat Sheet opens as a modal over a `--scrim`, about 1120px wide, with its own internal scroll, because it is a long cheat sheet for the whole topic and cannot fit in a pane. It keeps the student's answer and tab state, and offers Copy notes, Open in new tab and Close.
 
 ## The mark
 
@@ -90,6 +101,8 @@ Never: shadow it, outline it, stack it over two lines, letter-space it beyond `-
 
 ### About an actual logo
 
+**Decided 2026-11-08 (David): wordmark only, permanently.** The options below are closed; the first is the answer.
+
 There isn't one, and I won't invent it — a drawn apple, a monogram or anything else I produced would be a guess that consumers of this system would then treat as the brand. A type-set wordmark is a legitimate permanent answer (it is what ships today and it works at every size), so the decision is genuinely open:
 
 - **Keep the wordmark as the mark.** No further work; it is already tokenised for every ground.
@@ -102,11 +115,11 @@ Until a file exists, every `Wordmark` call renders type, and that is the correct
 There is no icon library in the product and none should be added. The system uses three things:
 
 1. **Typographic glyphs** for status and navigation: ✓ (credit), ✕ (take the point — Open Hand only), ↻ (revisit), ? (hint), ▸ ▼ (disclosure), ⌂ (home), · (separator), — (no score yet).
-2. **Two 24×24 stroke SVGs**, inline, `stroke-width` 1.9, round caps, `currentColor`: a camera (attach hand-drawn work, used in `AnswerField`) and a copy/duplicate mark (copy the deep dive, used in `DeepDiveOverlay`). They also live as files in `assets/icons/`. **These two are reconstructions from the written style guide, not the original files** — the source SVGs were not supplied. Replace them if the originals exist.
+2. **Two 24×24 stroke SVGs**, inline, `stroke-width` 1.9, round caps, `currentColor`: a camera (attach hand-drawn work, used in `AnswerField`) and a copy/duplicate mark (copy the cheat sheet, used in `DeepDiveOverlay`). They also live as files in `assets/icons/`. **These two are reconstructions from the written style guide, not the original files** — the source SVGs were not supplied. Replace them if the originals exist.
 3. **Data SVG** — the question's chart, drawn per question from coordinates. No chart library.
 
 If a genuine icon need appears, match that inline stroke style (1.9–2px, round caps, `currentColor`, 24px box) rather than importing a set. No emoji. No PNG icons exist.
 
 ## Fonts
 
-Bungee, Passion One, Source Sans 3 and STIX Two Math are loaded from Google Fonts by `tokens/fonts.css`. No binaries were supplied, so no local `@font-face` rules ship with this system and the compiler reports zero bundled fonts — consumers get the families over the network. If the brand has licensed files, drop them into `assets/fonts/` and swap the `@import` for real `@font-face` rules.
+Bungee, Passion One, Source Sans 3 and STIX Two Math (set notation only; equations are KaTeX) are loaded from Google Fonts by `tokens/fonts.css`. No binaries were supplied, so no local `@font-face` rules ship with this system and the compiler reports zero bundled fonts — consumers get the families over the network. If the brand has licensed files, drop them into `assets/fonts/` and swap the `@import` for real `@font-face` rules.

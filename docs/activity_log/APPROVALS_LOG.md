@@ -7,13 +7,86 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 - APPROVAL-0274 (2026-11-13): Calculus AB lost second-derivative primes restored in Production (5 topics) — APPROVAL-0274_CALC_AB_LOST_PRIMES_REPAIR_PRODUCTION_2026_11_13.md
 - APPROVAL-0273 (2026-11-13): structured explainer text for Biology 6-8, Chemistry 6-9, Calculus AB/BC, Physics 1, Precalculus applied to Production (317 rows) — APPROVAL-0273_STRUCTURED_EXPLAINERS_REMAINING_SUBJECTS_PRODUCTION_2026_11_13.md
 - [APPROVAL-0272 — quick_take "In 30 seconds" text for AP Chemistry, Biology and Statistics units 1-5 applied to Production (granted 2026-11-13)](APPROVAL-0272_QUICK_TAKE_CHEM_BIO_STATS_UNITS_1_5_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0287 — AP Biology Unit 5 topic-by-topic Production publication (owner directed 2026-11-13)](APPROVAL-0287_BIOLOGY_UNIT5_TOPIC_RELEASE_PRODUCTION_2026_11_13.md)
+- APPROVAL-0286 (2026-11-14): apcalcbc-mcq-007 (Newton's method, outside the CED) retired in Production — APPROVAL-0286_RETIRE_APCALCBC_MCQ_007_PRODUCTION_2026_11_14.md
+- APPROVAL-0285 (2026-11-14): 75 previously unit-less items labeled (topic cells and serving labels) to Production — APPROVAL-0285_LABEL_75_UNITLESS_ITEMS_PRODUCTION_2026_11_14.md
+- APPROVAL-0284 (2026-11-14): rubric/prompt repair of 11 held FRQs (unit-less set), new versions to Production — APPROVAL-0284_RUBRIC_PROMPT_REPAIR_11_FRQS_UNITLESS_PRODUCTION_2026_11_14.md
+- APPROVAL-0283 (2026-11-14): two repaired FRQs labeled (apcalcab-frq-035 7.7, apchem-sfrq-035 8.10) to Production — APPROVAL-0283_LABEL_TWO_REPAIRED_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_14.md
+- APPROVAL-0282 (2026-11-14): two FRQs repaired (apcalcab-frq-035, apchem-sfrq-035), new versions to Production — APPROVAL-0282_CONTENT_REPAIR_TWO_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_14.md
+- APPROVAL-0281 (2026-11-14): three held Units 6+ items labeled (Calculus BC 2, Chemistry 1) to Production — APPROVAL-0281_LABEL_THREE_HELD_ITEMS_UNITS_6PLUS_PRODUCTION_2026_11_14.md
+- APPROVAL-0279 (2026-11-14): quick_take for six more subjects (363 rows), Calculus AB structured text (41) and AB source-field primes (4) applied to Production — APPROVAL-0279_QUICK_TAKE_AND_AB_STRUCTURED_REMAINING_PRODUCTION_2026_11_14.md
+- APPROVAL-0280 (2026-11-14): topic cell 14.3 for apphy2-mcq-013 (Physics 2) to Production — APPROVAL-0280_LABEL_APPHY2_MCQ_013_TOPIC_14_3_PRODUCTION_2026_11_14.md
+- APPROVAL-0278 (2026-11-13): four repaired rubric-held FRQs labeled (Units 6+), 4 topic cells and 4 serving labels to Production — APPROVAL-0278_LABEL_4_REPAIRED_RUBRIC_HELD_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_13.md
+- APPROVAL-0277 (2026-11-13): four rubric-held FRQs repaired (Units 6+), new versions to Production — APPROVAL-0277_RUBRIC_PREFLIGHT_REPAIR_4_FRQS_UNITS_6PLUS_PRODUCTION_2026_11_13.md
+- APPROVAL-0276 (2026-11-13): label gap fill Units 6+ round 2, 13 CED-text rulings (13 topic cells, 11 serving labels) to Production — APPROVAL-0276_LABEL_GAP_FILL_UNITS_6PLUS_ROUND2_CED_RULINGS_PRODUCTION_2026_11_13.md
+- APPROVAL-0275 (2026-11-13): label gap fill Units 6+, 118 topic cells and 66 serving labels to Production — APPROVAL-0275_LABEL_GAP_FILL_UNITS_6PLUS_SERVING_AND_TOPIC_PRODUCTION_2026_11_13.md
+- APPROVAL-0274 (2026-11-13): Calculus AB lost second-derivative primes restored in Production (5 topics) — APPROVAL-0274_CALC_AB_LOST_PRIMES_REPAIR_PRODUCTION_2026_11_13.md
+- APPROVAL-0273 (2026-11-13): structured explainer text for Biology 6-8, Chemistry 6-9, Calculus AB/BC, Physics 1, Precalculus applied to Production (317 rows) — APPROVAL-0273_STRUCTURED_EXPLAINERS_REMAINING_SUBJECTS_PRODUCTION_2026_11_13.md
+- [APPROVAL-0272 — quick_take "In 30 seconds" text for AP Chemistry, Biology and Statistics units 1-5 applied to Production (granted 2026-11-13)](APPROVAL-0272_QUICK_TAKE_CHEM_BIO_STATS_UNITS_1_5_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0268 — Calculus AB and BC Unit 5 topics 5.3–5.12, topic-by-topic (5.3 executed 2026-11-13)](APPROVAL-0268_CALCULUS_AB_BC_UNIT5_TOPICS_5_3_TO_5_12_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0267 — Calculus AB and BC Unit 5 topic 5.2 (granted and executed 2026-11-12; renumbered 2026-11-13)](APPROVAL-0267_CALCULUS_AB_BC_UNIT5_TOPIC_5_2_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0260 — Calculus AB and BC Unit 5 topic 5.1 (granted and executed 2026-11-12)](APPROVAL-0260_CALCULUS_AB_BC_UNIT5_TOPIC_5_1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0259 — AP Statistics Unit 5 re-leveling (granted and executed 2026-11-12)](APPROVAL-0259_STATS_UNIT5_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0258 — TASK-0050: 14 reviewed AP Statistics successors published with labels (executed 2026-11-13 ET)](APPROVAL-0258_TASK0050_STATISTICS_14_SUCCESSORS_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0236 — TASK-0050 AP Statistics Phase B: 390 provisional skill cells added to Production (granted and executed 2026-11-11 ET)](APPROVAL-0236_TASK0050_STATISTICS_PHASE_B_PROVISIONAL_SKILLS_PRODUCTION_2026_11_11.md)
+- [APPROVAL-0218 — AP Chemistry topics 3.1 to 3.3 harder seeds: 24 items published, 12 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0218_AP_CHEMISTRY_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
+- [APPROVAL-0229 — AP Physics 1 Unit 4 topics 4.1 to 4.4: 32 items published (granted and executed 2026-11-12)](APPROVAL-0229_AP_PHYSICS_1_UNIT4_4_1_TO_4_4_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0230 — AP Biology Unit 4 topics 4.1 to 4.6: 48 items published, 5 retired (granted and executed 2026-11-12)](APPROVAL-0230_AP_BIOLOGY_UNIT4_4_1_TO_4_6_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0231 — AP Chemistry Unit 4 topics 4.1 to 4.9: 72 items published, 4 retired (granted and executed 2026-11-12)](APPROVAL-0231_AP_CHEMISTRY_UNIT4_4_1_TO_4_9_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0232 — AP Calculus AB Unit 4 topics 4.1 to 4.7: 56 items published, 10 retired (granted and executed 2026-11-12)](APPROVAL-0232_AP_CALCULUS_AB_UNIT4_4_1_TO_4_7_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0233 — AP Calculus BC Unit 4 topics 4.1 to 4.7: 56 items published (granted and executed 2026-11-12)](APPROVAL-0233_AP_CALCULUS_BC_UNIT4_4_1_TO_4_7_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0234 — AP Precalculus Unit 4 topics 4.1 to 4.7: 28 items published (granted and executed 2026-11-12)](APPROVAL-0234_AP_PRECALCULUS_UNIT4_4_1_TO_4_7_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0242 — AP Precalculus Unit 2 topics 2.9 to 2.15: 56 items published, 20 retired (granted and executed 2026-11-12)](APPROVAL-0242_PRECALCULUS_UNIT2_2_9_TO_2_15_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0243 — AP Biology Unit 1 topics 1.1 to 1.7: 56 items published, 26 retired (granted and executed 2026-11-12)](APPROVAL-0243_BIOLOGY_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0244 — AP Chemistry Unit 1 topics 1.1 to 1.8: 64 items published, 12 retired (granted and executed 2026-11-12)](APPROVAL-0244_CHEMISTRY_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0245 — AP Physics 1 Unit 1 topics 1.1 to 1.5: 40 items published, 12 retired (granted and executed 2026-11-12)](APPROVAL-0245_PHYSICS1_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0246 — AP Calculus AB Unit 1 topics 1.1 to 1.8: 64 items published, 5 retired (granted and executed 2026-11-12)](APPROVAL-0246_CALCAB_A_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0247 — AP Calculus AB Unit 1 topics 1.9 to 1.16: 64 items published, 7 retired (granted and executed 2026-11-12)](APPROVAL-0247_CALCAB_B_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0248 — AP Calculus BC Unit 1 topics 1.1 to 1.8: 64 items published, 6 retired (granted and executed 2026-11-12)](APPROVAL-0248_CALCBC_A_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0249 — AP Calculus BC Unit 1 topics 1.9 to 1.16: 64 items published, 8 retired (granted and executed 2026-11-12)](APPROVAL-0249_CALCBC_B_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0250 — AP Precalculus Unit 1 topics 1.1 to 1.7: 56 items published, 36 retired (granted and executed 2026-11-12)](APPROVAL-0250_PRECALC_A_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0251 — AP Precalculus Unit 1 topics 1.8 to 1.14: 56 items published, 5 retired (granted and executed 2026-11-12)](APPROVAL-0251_PRECALC_B_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0252 — AP Statistics Unit 1 topics 1.1 to 1.7: 56 items published, 25 retired (granted and executed 2026-11-12)](APPROVAL-0252_STATS_A_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0253 — AP Statistics Unit 1 topics 1.8 to 1.13: 48 items published, 24 retired (granted and executed 2026-11-12)](APPROVAL-0253_STATS_B_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0254 — AP Physics C: Mechanics Unit 1 topics 1.1 to 1.5: 40 items published, 19 retired (granted and executed 2026-11-12)](APPROVAL-0254_PHYSICS_C_MECH_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0255 — AP Precalculus topic 1.4 seed B: two published items corrected in place (granted and executed 2026-11-12)](APPROVAL-0255_PRECALCULUS_1_4B_CORRECTION_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0241 — AP Precalculus Unit 2 topics 2.1 to 2.8: 64 items published, 31 retired (granted and executed 2026-11-12)](APPROVAL-0241_PRECALCULUS_UNIT2_2_1_TO_2_8_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0240 — AP Calculus BC Unit 2 topics 2.1 to 2.10: 80 items published, 33 retired (granted and executed 2026-11-12)](APPROVAL-0240_CALCULUS_BC_UNIT2_2_1_TO_2_10_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0239 — AP Calculus AB Unit 2 topics 2.1 to 2.10: 80 items published, 27 retired (granted and executed 2026-11-12)](APPROVAL-0239_CALCULUS_AB_UNIT2_2_1_TO_2_10_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0238 — AP Chemistry Unit 2 topics 2.1 to 2.7: 56 items published, 18 retired (granted and executed 2026-11-12)](APPROVAL-0238_CHEMISTRY_UNIT2_2_1_TO_2_7_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0237 — AP Biology Unit 2 topics 2.1 to 2.10: 80 items published, 4 retired (granted and executed 2026-11-12)](APPROVAL-0237_BIOLOGY_UNIT2_2_1_TO_2_10_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0256 — AP Physics 1 Unit 2 topics 2.1 to 2.9: 72 items published, 40 retired (granted and executed 2026-11-12; renumbered from the colliding 0236)](APPROVAL-0256_PHYSICS1_UNIT2_2_1_TO_2_9_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0235 — AP Precalculus Unit 4 topics 4.8 to 4.14: 28 items published (granted and executed 2026-11-12)](APPROVAL-0235_AP_PRECALCULUS_UNIT4_4_8_TO_4_14_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0228 — AP Statistics Unit 3 second seeds for topics 3.7, 3.12 and 3.14: 12 items published (granted and executed 2026-11-12)](APPROVAL-0228_AP_STATISTICS_UNIT3_SECOND_SEEDS_3_7_3_12_3_14_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0221 — AP Biology topics 3.1 to 3.5 re-leveled: 40 items published, 11 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0221_AP_BIOLOGY_UNIT3_3_1_TO_3_5_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0222 — AP Calculus AB topics 3.4 to 3.6 re-leveled: 24 items published, 4 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0222_AP_CALCULUS_AB_UNIT3_3_4_TO_3_6_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0223 — AP Precalculus topics 3.4 to 3.9 re-leveled: 48 items published, 24 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0223_AP_PRECALCULUS_UNIT3_3_4_TO_3_9_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0224 — AP Precalculus topics 3.10 to 3.15 re-leveled: 48 items published, 26 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0224_AP_PRECALCULUS_UNIT3_3_10_TO_3_15_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0225 — AP Chemistry topics 3.4 to 3.13 re-leveled: 80 items published, 41 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0225_AP_CHEMISTRY_UNIT3_3_4_TO_3_13_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0226 — AP Calculus BC topics 3.1 to 3.6 re-leveled: 48 items published, 46 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0226_AP_CALCULUS_BC_UNIT3_3_1_TO_3_6_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0227 — AP Physics 1 topics 3.1 to 3.5 re-leveled: 40 items published, 42 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0227_AP_PHYSICS_1_UNIT3_3_1_TO_3_5_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0220 — AP Precalculus topics 3.1 to 3.3 harder seeds: 24 items published, 11 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0220_AP_PRECALCULUS_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
+- [APPROVAL-0219 — AP Calculus AB topics 3.1 to 3.3 harder seeds: 24 items published, 18 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0219_AP_CALCULUS_AB_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
+- [APPROVAL-0217 — AP Statistics Unit 4 harder seeds and variants: 48 items published, 18 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0217_AP_STATISTICS_UNIT4_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
+- [APPROVAL-0216 — AP Statistics Units 2 to 4 serving-label audit: 2 held labels validated (granted and executed 2026-11-11)](APPROVAL-0216_AP_STATISTICS_UNITS2_4_SERVING_LABEL_AUDIT_2026_11_11.md)
+- [APPROVAL-0215 — AP Statistics Unit 3 harder seeds and variants: 76 items published, 37 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0215_AP_STATISTICS_UNIT3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
+- [APPROVAL-0214 — AP Statistics Unit 2 harder seeds and variants: 96 items published, 33 superseded items retired (granted and executed 2026-11-10)](APPROVAL-0214_AP_STATISTICS_UNIT2_HARDER_SEEDS_PRODUCTION_2026_11_10.md)
+- [APPROVAL-0213 — Card trial off in Production: `TRIAL_ADMISSION_ENABLED=false` (granted and executed 2026-11-10)](APPROVAL-0213_CARD_TRIAL_ADMISSION_OFF_PRODUCTION_2026_11_10.md)
+- [APPROVAL-0212 — No-card trial: Production `cardless_trial_enabled=true`, self-test window (granted and executed 2026-11-10)](APPROVAL-0212_NO_CARD_TRIAL_SELF_TEST_SWITCH_ON_PRODUCTION_2026_11_10.md)
+- [APPROVAL-0210 — No-card trial: four Production migrations applied dark, switch false (granted and executed 2026-11-09 ET)](APPROVAL-0210_NO_CARD_TRIAL_PRODUCTION_DARK_MIGRATIONS_2026_11_09.md)
+- [APPROVAL-0211 — Production: set `app.config.sample_access_enabled=false` (config row only), sample on hold per DECISION-0136 (granted and executed 2026-11-10)](APPROVAL-0211_SAMPLE_ACCESS_SWITCH_OFF_PRODUCTION_2026_11_10.md)
+- [APPROVAL-0207 — Paywall sample access Phase 3: steps A, A.1 and B approved and executed 2026-11-09; backend switches ON in Production for a hidden-link small group (typed-answer FRQ, D6/D7 deferred); Lovable publish pending](APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md)
+- [APPROVAL-0209 — Retire the legacy all-subjects `start-trial` in Production: `CARDLESS_TRIAL_RETIRED=true` set and verified (granted and executed 2026-11-09)](APPROVAL-0209_RETIRE_LEGACY_CARDLESS_START_TRIAL_PRODUCTION_2026_11_09.md)
+- [APPROVAL-0208 — Free trial without a card: plan approved for Development-only design and build; nothing released (granted 2026-11-09)](APPROVAL-0208_FREE_TRIAL_NO_CARD_DEVELOPMENT_AUTHORITY_2026_11_09.md)
+- [APPROVAL-0206 — Paywall change plan approved for Development-only design and build; nothing released (granted 2026-11-08)](APPROVAL-0206_PAYWALL_PLAN_DEVELOPMENT_AUTHORITY_2026_11_08.md)
+- [APPROVAL-0205 — Subject access before study: apply migration and deploy `session-event` and `student-session-items` to Production (executed 2026-11-04; sign-in spinner incident)](APPROVAL-0205_SUBJECT_ACCESS_PRODUCTION_RELEASE_2026_11_04.md)
 - [APPROVAL-0204 — Rewrite the AP Chemistry Unit 2 explainers 2.1-2.7 in Production (executed 2026-10-31)](APPROVAL-0204_CHEM_UNIT2_EXPLAINER_REWRITE_PRODUCTION_2026_10_31.md)
 - [APPROVAL-0203 — Ad attribution: apply `ad_attribution` migration and deploy `create-checkout-session`, `create-parent-payment-link` and `stripe-webhook` to Production (executed 2026-10-26; no live tagged trial verified yet)](APPROVAL-0203_AD_ATTRIBUTION_PRODUCTION_MIGRATION_AND_DEPLOY_2026_10_26.md)
 - [APPROVAL-0202 — Scoped QA access for the MCQ investigation (executed; grading and teaching access verified)](APPROVAL-0202_SCOPED_QA_ACCESS_2026_10_29.md)
 
 - [Precalculus publication — APPROVAL-0195 (concurrent ID collision; use full record path) — Publish 88 Precalculus Units 1–3 MCQs with validated skills (executed; 88 published)](APPROVAL-0195_PRECALCULUS_U1_U3_MCQ_GAP_FILL_PUBLICATION_2026_10_17.md)
 
-- [APPROVAL-0201 — Publish 16 FRQs to Production for the Zero-FRQ Topics of AP Biology and AP Statistics, Units 1-4 (recorded 2026-10-28, before execution)](APPROVAL-0201_FRQ_ZERO_TOPICS_BIOLOGY_STATISTICS_U1_4_PRODUCTION_PUBLICATION_2026_10_28.md)
+- [APPROVAL-0201 — Publish 16 FRQs to Production for the Zero-FRQ Topics of AP Biology and AP Statistics, Units 1-4 (recorded 2026-10-28; executed 2026-10-29, 16 FRQs published and verified)](APPROVAL-0201_FRQ_ZERO_TOPICS_BIOLOGY_STATISTICS_U1_4_PRODUCTION_PUBLICATION_2026_10_28.md)
 - [APPROVAL-0200 — TASK-0078 A6/A7: `evaluate-attempt`, `attempt-response` and `create-post-purchase-addon` deployed to Production from `main` (executed 2026-10-21; bundles identical to Development)](APPROVAL-0200_TASK0078_A6_A7_PRODUCTION_FUNCTION_DEPLOYS_2026_10_21.md)
 - [APPROVAL-0199 — TASK-0078 batch to Production: replay claims migration + `session-event`/`storage-sign-url` deploys, submission replay scoping, weekly session sweep (executed 2026-10-21 on Development and Production)](APPROVAL-0199_TASK0078_REPLAY_CLAIMS_SUBMIT_SCOPING_WEEKLY_SWEEP_PRODUCTION_2026_10_21.md)
 - [APPROVAL-0198 — Apply the TASK-0063 session RPC reconciliation migration to Production (executed 2026-10-21; subject-switch refusal removed for the two affected students)](APPROVAL-0198_TASK0063_SESSION_RPC_PRODUCTION_APPLY_2026_10_21.md)
@@ -153,7 +226,21 @@ Most recent entries (full chronological list follows below):
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
+- [APPROVAL-0257 — AP Statistics Units 4-5 FRQs round 2: 30 FRQs published as content only, labels out (granted 2026-11-12)](APPROVAL-0257_STATS_UNITS_4_5_FRQS_CONTENT_ONLY_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0265 — Label gap fill, Units 1-5: validated topic cells and serving labels (granted 2026-11-13)](APPROVAL-0265_LABEL_GAP_FILL_UNITS_1_5_SERVING_AND_TOPIC_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0266 — Label gap fill, Units 1-5, round 2: CED-text rulings on the residue (granted 2026-11-13)](APPROVAL-0266_LABEL_GAP_FILL_UNITS_1_5_ROUND2_CED_RULINGS_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0261 — AP Chemistry 1.5 explainer reshaped into bullets, steps and a table, applied to Production (granted 2026-11-12)](APPROVAL-0261_AP_CHEMISTRY_1_5_STRUCTURED_EXPLAINER_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0262 — AP Statistics units 1-5 explainers reshaped into bullets, steps and tables, applied to Production (granted 2026-11-12)](APPROVAL-0262_AP_STATISTICS_UNITS_1_5_STRUCTURED_EXPLAINERS_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0263 — AP Biology units 1-5 explainers reshaped into bullets, steps and tables, applied to Production (granted 2026-11-12)](APPROVAL-0263_AP_BIOLOGY_UNITS_1_5_STRUCTURED_EXPLAINERS_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0269 — Rubric repair and labeling of 16 rubric-held FRQs, Units 1-5 (granted 2026-11-13)](APPROVAL-0269_RUBRIC_PREFLIGHT_REPAIR_AND_LABEL_16_FRQS_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0270 — Author the missing prompt parts of apcalcbc-frq-u13-020, publish and label (granted 2026-11-13)](APPROVAL-0270_AUTHOR_PROMPT_PARTS_APCALCBC_FRQ_U13_020_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0271 — Label five of the seven residue items, Units 1-5 label-gap audit (granted 2026-11-13)](APPROVAL-0271_LABEL_5_RESIDUE_ITEMS_UNITS_1_5_PRODUCTION_2026_11_13.md)
 <!-- INDEX_END -->
+
+
+## APPROVAL-0207 — Paywall sample access Phase 3: steps A, A.1 and B executed 2026-11-09
+
+- **Step A:** approved by David in chat ("Approve step A") and executed 2026-11-09: Production ledger `20261109155919 paywall_sample_access`, `20261109155941 paywall_sample_access_qa_fixes`; `sample-try` v1, `attempt-response` v45, `student-session-items` v47; both switches off; verified dark (packet §6). **Step A.1:** serving-alignment migration approved ("Approve step A.1") and applied to Production 2026-11-09 (ledger `20261109174046`); its availability helper corrected the same day ("Approve A.1 patch": label-mirror instead of a 51-row selector page; 31 eligible units); still dark. **Step B:** approved by David in chat ("i approve step b" to the app session; "Approve step B, flip now" to the backend session) and executed 2026-11-09 ~20:15 UTC: `SAMPLE_ACCESS_ENABLED=true` on `sample-try`, `app.config.sample_access_enabled=true`; verified `list_units` 200 with 31 of 48 units eligible (basis serving), `get_sample_access_state` enabled; 0 sample rows at flip. Population "Hidden link, small group"; N12 typed-answer FRQ (photo flags off); N4 notice approved; N3 31/48 accepted; D6/D7 out of first activation. Lovable publish with `VITE_SAMPLE_JOURNEY` is David's step. Rollback: both switches false (packet §9). Step A = Production dark apply of migrations `20261108201632` and `20261109131921` plus `sample-try`, `attempt-response`, `student-session-items` from `main`, switches off. Step B = activation (env + config switch + app publish), separate approval with seven preconditions. Full packet: `APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md`.
 
 ## APPROVAL-0174 — Complete Calculus AB/Chemistry Units 1–3 Visual Audit and Attach Two Follow-Up Repairs After Independent QA
 

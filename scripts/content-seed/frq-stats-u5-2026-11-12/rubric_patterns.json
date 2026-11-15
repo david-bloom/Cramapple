@@ -1,0 +1,969 @@
+{
+ "library": "AP Statistics Unit 5 (Regression Analysis) rubric pattern library",
+ "version": "0.1",
+ "date": "2026-11-12",
+ "how_to_use": "Each pattern defines one 1-point criterion shape: text, evidence and fix templates plus the slots a context fills (Python str.format fields). An FRQ is an ordered list of (part prompt, [pattern id + fills]). A variant of an FRQ keeps the same ordered pattern ids and changes only the context, numbers and fills, so a checker compares fills, not rubric shape. build_items.py instantiates these; pattern_use.json records which pattern each criterion came from. Every fix is at most 25 words after filling.",
+ "ced_source": "AP Statistics CED, Unit 5, topics 5.1-5.5 (learning objectives and essential knowledge numbered in each pattern's ek field).",
+ "patterns": {
+  "EXPL_RESP": {
+   "topic": "5.1",
+   "ek": "5.1.A.2",
+   "shape": "identify",
+   "slots": [
+    "x_name",
+    "y_name"
+   ],
+   "text": "Identifies {x_name} as the explanatory variable (x-axis) and {y_name} as the response variable (y-axis).",
+   "evidence": "Response names {x_name} as the explanatory variable on the x-axis and {y_name} as the response variable on the y-axis; naming both roles without both axes does not earn the point.",
+   "fix": "Ask which variable is used to predict the other: that is explanatory (x-axis); the variable being predicted is the response (y-axis).",
+   "accepted_variants": []
+  },
+  "SCATTER_FORM": {
+   "topic": "5.1",
+   "ek": "5.1.B.2",
+   "shape": "describe",
+   "slots": [
+    "form_phrase"
+   ],
+   "text": "Describes the form of the association as {form_phrase}.",
+   "evidence": "Response states the form of the association as {form_phrase}.",
+   "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+   "accepted_variants": []
+  },
+  "SCATTER_DIR": {
+   "topic": "5.1",
+   "ek": "5.1.B.3",
+   "shape": "describe_in_context",
+   "slots": [
+    "direction",
+    "x_name",
+    "y_name",
+    "trend_phrase"
+   ],
+   "text": "States the direction is {direction}: as {x_name} increases, {y_name} tends to {trend_phrase}.",
+   "evidence": "Response states a {direction} association in context, that is, {y_name} tends to {trend_phrase} as {x_name} increases.",
+   "fix": "State the direction in context: say how the response variable tends to change as the explanatory variable increases.",
+   "accepted_variants": []
+  },
+  "SCATTER_STRENGTH": {
+   "topic": "5.1",
+   "ek": "5.1.B.4",
+   "shape": "describe",
+   "slots": [
+    "strength",
+    "strength_reason"
+   ],
+   "text": "States that the association is {strength} because {strength_reason}.",
+   "evidence": "Response describes the strength as {strength} and ties it to how closely the points follow the general pattern.",
+   "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+   "accepted_variants": []
+  },
+  "SCATTER_UNUSUAL": {
+   "topic": "5.1",
+   "ek": "5.1.B.5",
+   "shape": "describe_unusual",
+   "slots": [
+    "unusual_text",
+    "unusual_evidence"
+   ],
+   "text": "{unusual_text}",
+   "evidence": "{unusual_evidence}",
+   "fix": "Scan the table for a point that does not fit the general pattern, then identify it by its values and say how it differs.",
+   "accepted_variants": []
+  },
+  "SCATTER_CLAIM": {
+   "topic": "5.1",
+   "ek": "5.1.C.1",
+   "shape": "justify_claim",
+   "slots": [
+    "claim_text",
+    "claim_evidence"
+   ],
+   "text": "{claim_text}",
+   "evidence": "{claim_evidence}",
+   "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+   "accepted_variants": []
+  },
+  "R_DIR": {
+   "topic": "5.2",
+   "ek": "5.2.A.1",
+   "shape": "interpret_in_context",
+   "slots": [
+    "r_value",
+    "direction",
+    "x_name",
+    "y_name",
+    "trend_phrase"
+   ],
+   "text": "Interprets the sign of r = {r_value} as a {direction} association: as {x_name} increases, {y_name} tends to {trend_phrase}.",
+   "evidence": "Response links the {direction} sign of r to the direction of the association in context.",
+   "fix": "Read the sign of r as direction, then restate it in context using both variable names.",
+   "accepted_variants": []
+  },
+  "R_STRENGTH": {
+   "topic": "5.2",
+   "ek": "5.2.A.2",
+   "shape": "interpret_in_context",
+   "slots": [
+    "r_value",
+    "strength_word",
+    "x_name",
+    "y_name"
+   ],
+   "text": "States that r = {r_value}, which is close to {near_pole}, indicates a {strength_word} linear association between {x_name} and {y_name}.",
+   "evidence": "Response says the linear association is {strength_word} because r is close to {near_pole}, naming the two variables.",
+   "fix": "Say how close r is to -1 or 1, call the linear association strong, moderate or weak, and name both variables.",
+   "accepted_variants": []
+  },
+  "R_NOT_GUARANTEE": {
+   "topic": "5.2",
+   "ek": "5.2.A.3",
+   "shape": "evaluate_claim_condition",
+   "slots": [
+    "r_value"
+   ],
+   "text": "States that a value of r as close to -1 or 1 as {r_value} does not by itself show that a linear model is appropriate.",
+   "evidence": "Response says a correlation coefficient near -1 or 1 does not necessarily mean a linear model is appropriate.",
+   "fix": "Remember r only measures linear association strength; a strong r can still come from a curved pattern, so r alone cannot justify a linear model.",
+   "accepted_variants": []
+  },
+  "R_CHECK_RESIDUAL_PLOT": {
+   "topic": "5.2",
+   "ek": "5.2.A.3",
+   "shape": "condition_check",
+   "slots": [],
+   "text": "States that a residual plot (or scatterplot) should be examined for curvature or other pattern before concluding a linear model is appropriate.",
+   "evidence": "Response names a residual plot or a scatterplot as the check and says a pattern such as curvature would show the linear model is not appropriate.",
+   "fix": "Name the check: make a residual plot and look for curvature; a random scatter supports a linear model.",
+   "accepted_variants": []
+  },
+  "NO_CAUSATION": {
+   "topic": "5.2",
+   "ek": "5.2.A.4",
+   "shape": "evaluate_claim_condition",
+   "slots": [
+    "cause_claim"
+   ],
+   "text": "States that correlation does not imply causation, so the association does not show that {cause_claim}.",
+   "evidence": "Response says an association or correlation, even a strong one, does not show that one variable causes changes in the other.",
+   "fix": "Whenever a claim says one variable causes another, point out that a strong association does not establish causation.",
+   "accepted_variants": []
+  },
+  "R_UNIT_FREE": {
+   "topic": "5.2",
+   "ek": "5.2.A.1",
+   "shape": "interpret_property",
+   "slots": [
+    "r_value",
+    "unit_change"
+   ],
+   "text": "States that r would still be {r_value} after {unit_change} because r is unit-free.",
+   "evidence": "Response says r is unchanged and gives unit-free (not affected by the units of measurement) as the reason.",
+   "fix": "Recall that r has no units, so changing the units of either variable by a positive-slope conversion leaves r unchanged.",
+   "accepted_variants": []
+  },
+  "PREDICT": {
+   "topic": "5.3",
+   "ek": "5.3.A.2",
+   "shape": "calculate",
+   "slots": [
+    "eq_text",
+    "x0",
+    "yhat_text",
+    "y_units",
+    "yhat_variants"
+   ],
+   "text": "Substitutes x = {x0} into {eq_text} and gets a predicted value of {yhat_text} {y_units}.",
+   "evidence": "Response replaces x with {x0} in the regression equation and reports {yhat_text} {y_units}.",
+   "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+   "accepted_variants": "{yhat_variants}"
+  },
+  "EXTRAP_CLASS": {
+   "topic": "5.3",
+   "ek": "5.3.A.3-4",
+   "shape": "classify_with_reason",
+   "slots": [
+    "x0",
+    "kind",
+    "x_name",
+    "lo",
+    "hi",
+    "x_units"
+   ],
+   "text": "Classifies the prediction at {x0} {x_units} as {kind} because {x0} is {where} the interval of {x_name} values ({lo} to {hi} {x_units}) used to fit the line.",
+   "evidence": "Response says {kind} and compares {x0} with the fitted interval of {lo} to {hi} {x_units}.",
+   "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+   "accepted_variants": []
+  },
+  "RELIABILITY": {
+   "topic": "5.3",
+   "ek": "5.3.A.3",
+   "shape": "compare_with_reason",
+   "slots": [
+    "x_near",
+    "x_far",
+    "x_units",
+    "x_name"
+   ],
+   "text": "States that the prediction at {x_near} {x_units} is more reliable than the prediction at {x_far} {x_units}, because {x_far} is extrapolation and predictions get less reliable the further {x_name} is beyond the data.",
+   "evidence": "Response chooses the interpolated prediction as more reliable and gives extrapolation beyond the observed values as the reason.",
+   "fix": "Say which prediction is inside the data range, and explain that extrapolated predictions become less reliable the farther they go beyond it.",
+   "accepted_variants": []
+  },
+  "RESID_CALC": {
+   "topic": "5.4",
+   "ek": "5.4.A.1",
+   "shape": "calculate",
+   "slots": [
+    "y_obs",
+    "yhat_text",
+    "resid_text",
+    "y_units",
+    "resid_variants"
+   ],
+   "text": "Calculates the residual as observed minus predicted: {y_obs} - {yhat_text} = {resid_text} {y_units}.",
+   "evidence": "Response subtracts the predicted value from the observed value {y_obs} and reports {resid_text} {y_units}.",
+   "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+   "accepted_variants": "{resid_variants}"
+  },
+  "RESID_SIGN": {
+   "topic": "5.4",
+   "ek": "5.4.B.1",
+   "shape": "interpret",
+   "slots": [
+    "sign_word",
+    "model_verb"
+   ],
+   "text": "States that because the residual is {sign_word}, the model {model_verb} the response for this observation.",
+   "evidence": "Response links the {sign_word} residual to the model {model_verb} (observed value is {above_below} the predicted value).",
+   "fix": "Link the sign: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+   "accepted_variants": []
+  },
+  "RESID_MAGNITUDE": {
+   "topic": "5.4",
+   "ek": "5.4.B.1",
+   "shape": "interpret_in_context",
+   "slots": [
+    "case_phrase",
+    "y_name",
+    "abs_resid",
+    "y_units",
+    "above_below"
+   ],
+   "text": "Interprets the size in context: for {case_phrase}, the observed {y_name} is about {abs_resid} {y_units} {above_below} the predicted value.",
+   "evidence": "Response states the difference of about {abs_resid} {y_units} between observed and predicted {y_name} for {case_phrase}.",
+   "fix": "Restate the residual as a gap between observed and predicted values, with units and the specific case named.",
+   "accepted_variants": []
+  },
+  "RESID_PLOT_CURVE": {
+   "topic": "5.4",
+   "ek": "5.4.C.4",
+   "shape": "interpret_plot",
+   "slots": [
+    "pattern_text"
+   ],
+   "text": "States that the {pattern_text} (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+   "evidence": "Response identifies the pattern as curvature and concludes the linear model is not the most appropriate.",
+   "fix": "Treat a curved pattern in the residual plot as evidence against a linear model; do not call it random scatter.",
+   "accepted_variants": []
+  },
+  "RESID_PLOT_RANDOM": {
+   "topic": "5.4",
+   "ek": "5.4.C.3",
+   "shape": "interpret_plot",
+   "slots": [],
+   "text": "States that apparent randomness (no pattern) in a residual plot would indicate the linear regression model is appropriate.",
+   "evidence": "Response names no pattern or random scatter as the residual-plot evidence that the linear model is appropriate.",
+   "fix": "Say what a good residual plot looks like: points scattered randomly with no curve or other pattern, supporting the linear model.",
+   "accepted_variants": []
+  },
+  "SLOPE_INTERP": {
+   "topic": "5.5",
+   "ek": "5.5.B.2",
+   "shape": "interpret_in_context",
+   "slots": [
+    "x_unit_one",
+    "y_name",
+    "inc_dec",
+    "b_abs",
+    "y_units",
+    "x_name"
+   ],
+   "text": "Interprets the slope in context: for each one-{x_unit_one} increase in {x_name}, the predicted {y_name} {inc_dec} by about {b_abs} {y_units}.",
+   "evidence": "Response says the predicted {y_name} {inc_dec} by about {b_abs} {y_units} per one-{x_unit_one} increase in {x_name}.",
+   "fix": "Use the pattern: for each one-unit increase in x, the predicted y increases or decreases by the slope, with units and context.",
+   "accepted_variants": []
+  },
+  "INTERCEPT_DEF": {
+   "topic": "5.5",
+   "ek": "5.5.B.3",
+   "shape": "interpret_in_context",
+   "slots": [
+    "a_text",
+    "y_name",
+    "x_name",
+    "y_units"
+   ],
+   "text": "States that the y-intercept {a_text} is the predicted {y_name} when {x_name} is 0.",
+   "evidence": "Response identifies {a_text} as the predicted {y_name} at {x_name} = 0.",
+   "fix": "Define the y-intercept as the predicted response when the explanatory variable equals 0, naming both variables.",
+   "accepted_variants": []
+  },
+  "INTERCEPT_WHY": {
+   "topic": "5.5",
+   "ek": "5.5.B.3",
+   "shape": "identify_not_interpretable",
+   "slots": [
+    "x_name",
+    "lo",
+    "hi",
+    "x_units"
+   ],
+   "text": "States that this intercept should not be interpreted because {x_name} = 0 is outside the interval of values used to fit the line ({lo} to {hi} {x_units}), so it is extrapolation.",
+   "evidence": "Response says the intercept has no reasonable interpretation because 0 is beyond the range {lo} to {hi} {x_units} (extrapolation).",
+   "fix": "Check whether x = 0 lies inside the observed x-values; if not, the intercept comes from extrapolation and has no meaningful interpretation.",
+   "accepted_variants": []
+  },
+  "R2_INTERP": {
+   "topic": "5.5",
+   "ek": "5.5.A.5",
+   "shape": "interpret_in_context",
+   "slots": [
+    "r2_text",
+    "pct",
+    "y_name",
+    "x_name"
+   ],
+   "text": "Interprets r² = {r2_text}: about {pct}% of the variation in {y_name} is explained by the linear relationship with {x_name}.",
+   "evidence": "Response states that about {pct}% of the variation in {y_name} is explained by the linear relationship with {x_name}.",
+   "fix": "Write r² as a percent and say that share of the variation in the response is explained by the linear relationship with x.",
+   "accepted_variants": []
+  },
+  "LSRL_THROUGH_MEANS": {
+   "topic": "5.5",
+   "ek": "5.5.A.1",
+   "shape": "verify_property",
+   "slots": [
+    "eq_text",
+    "xbar",
+    "ybar_text",
+    "x_units"
+   ],
+   "text": "Shows that substituting x̅ = {xbar} into {eq_text} gives {ybar_text}, the mean of y, so the line passes through (x̅, ȳ).",
+   "evidence": "Response substitutes x = {xbar} into the equation, gets {ybar_text}, and says this equals the mean response, so the line passes through the means.",
+   "fix": "Substitute the mean of x into the regression equation; getting the mean of y confirms the least-squares line passes through (mean x, mean y).",
+   "accepted_variants": []
+  },
+  "MEAN_XBAR": {
+   "topic": "4.1",
+   "ek": "4.1.A.1",
+   "shape": "calculate",
+   "slots": [
+    "mu",
+    "units",
+    "n",
+    "noun"
+   ],
+   "text": "States that the mean of the sampling distribution of x̄ is μ = {mu} {units}.",
+   "evidence": "Response gives {mu} {units} as the mean of the sampling distribution of the sample mean.",
+   "fix": "The sampling distribution of x̄ is centered at the population mean, whatever the sample size; state that value with units.",
+   "accepted_variants": []
+  },
+  "SD_XBAR": {
+   "topic": "4.1",
+   "ek": "4.1.A.1",
+   "shape": "calculate",
+   "slots": [
+    "sigma",
+    "n",
+    "sd",
+    "units",
+    "sd_variants"
+   ],
+   "text": "Calculates the standard deviation of the sampling distribution of x̄ as σ/√n = {sigma}/√{n} = {sd} {units}.",
+   "evidence": "Response divides {sigma} by √{n} and reports about {sd} {units}.",
+   "fix": "Divide the population standard deviation by the square root of the sample size, and keep the units.",
+   "accepted_variants": "{sd_variants}"
+  },
+  "XBAR_SHAPE": {
+   "topic": "4.1",
+   "ek": "4.1.B.1",
+   "shape": "justify_conditions",
+   "slots": [
+    "stat_name",
+    "why"
+   ],
+   "text": "States that the sampling distribution of {stat_name} is approximately normal because {why}.",
+   "evidence": "Response says the sampling distribution is approximately normal and gives the reason: {why_short}.",
+   "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+   "accepted_variants": []
+  },
+  "XBAR_PROB": {
+   "topic": "4.1",
+   "ek": "4.1.A.1",
+   "shape": "calculate",
+   "slots": [
+    "event_text",
+    "cut",
+    "mu",
+    "sd",
+    "z",
+    "prob",
+    "prob_variants"
+   ],
+   "text": "Finds {event_text}: the probability is about {prob}, using a normal distribution with mean {mu} and standard deviation {sd} (for example, z = ({cut} − {mu})/{sd} = {z}).",
+   "evidence": "Response uses the mean {mu} and standard deviation {sd} of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about {prob}.",
+   "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+   "accepted_variants": "{prob_variants}"
+  },
+  "SD_CHANGE": {
+   "topic": "4.1",
+   "ek": "4.1.A.1",
+   "shape": "compare",
+   "slots": [
+    "n2",
+    "sd2",
+    "sd",
+    "units"
+   ],
+   "text": "States that with n = {n2} the standard deviation of the sampling distribution becomes {sd2} {units}, smaller than {sd} {units}, because σ/√n decreases as n increases.",
+   "evidence": "Response gives {sd2} {units} for the new sample size and says the standard deviation decreases as n increases.",
+   "fix": "Substitute the new sample size into σ/√n; larger samples give a smaller standard deviation of x̄.",
+   "accepted_variants": []
+  },
+  "PARAM_DEFINE": {
+   "topic": "4.4",
+   "ek": "4.4.A.3",
+   "shape": "define",
+   "slots": [
+    "param_sym",
+    "param_phrase"
+   ],
+   "text": "Defines {param_sym} as the {param_phrase}.",
+   "evidence": "Response defines {param_sym} as the {param_phrase}, naming the response variable and the population in context.",
+   "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+   "accepted_variants": []
+  },
+  "HYPOTHESES": {
+   "topic": "4.4",
+   "ek": "4.4.B.1-2",
+   "shape": "state",
+   "slots": [
+    "h0",
+    "ha"
+   ],
+   "text": "States H₀: {h0} and Hₐ: {ha}.",
+   "evidence": "Response writes H₀: {h0} and Hₐ: {ha}, with the alternative in the correct direction.",
+   "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+   "accepted_variants": []
+  },
+  "PROC_ID": {
+   "topic": "4.4",
+   "ek": "4.4.A.1",
+   "shape": "identify",
+   "slots": [
+    "proc",
+    "why_proc"
+   ],
+   "text": "Identifies the appropriate procedure as {proc}.",
+   "evidence": "Response names {proc}.",
+   "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+   "accepted_variants": []
+  },
+  "COND_RANDOM": {
+   "topic": "4.4",
+   "ek": "4.4.C.1",
+   "shape": "condition_check",
+   "slots": [
+    "rand_text"
+   ],
+   "text": "Checks the randomization condition: {rand_text}.",
+   "evidence": "Response states the randomization condition in context: {rand_text}.",
+   "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+   "accepted_variants": []
+  },
+  "COND_NORMAL": {
+   "topic": "4.4",
+   "ek": "4.4.C.1",
+   "shape": "condition_check",
+   "slots": [
+    "norm_text"
+   ],
+   "text": "Checks the sample-data condition: {norm_text}.",
+   "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: {norm_text}.",
+   "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+   "accepted_variants": []
+  },
+  "TEST_STAT": {
+   "topic": "4.5",
+   "ek": "4.5.A.1 / 4.10.A.1",
+   "shape": "calculate",
+   "slots": [
+    "t_formula",
+    "t_text",
+    "df_text",
+    "t_variants"
+   ],
+   "text": "Calculates the test statistic {t_formula} = {t_text}.",
+   "evidence": "Response substitutes the sample values into the formula and reports t of about {t_text}.",
+   "fix": "Subtract the null value from the sample statistic and divide by the standard error computed from the sample standard deviations.",
+   "accepted_variants": "{t_variants}"
+  },
+  "P_INTERPRET": {
+   "topic": "4.5",
+   "ek": "4.5.B.1 / 4.10.B.1",
+   "shape": "interpret_in_context",
+   "slots": [
+    "p",
+    "null_context",
+    "extreme_text"
+   ],
+   "text": "Interprets the p-value {p}: assuming {null_context}, the probability of getting {extreme_text} is about {p}.",
+   "evidence": "Response says {p} is the probability, computed assuming {null_context}, of getting {extreme_text} (an equivalent statement in terms of the test statistic is also acceptable).",
+   "fix": "Say the p-value is the probability of a result this extreme or more, in the direction of Hₐ, assuming H₀ is true.",
+   "accepted_variants": []
+  },
+  "P_DECISION": {
+   "topic": "4.5",
+   "ek": "4.5.C.1",
+   "shape": "decide",
+   "slots": [
+    "p",
+    "alpha",
+    "cmp",
+    "decision"
+   ],
+   "text": "Compares the p-value {p} with α = {alpha}: because the p-value is {cmp} α, {decision} H₀.",
+   "evidence": "Response compares {p} with {alpha}, and says {decision} H₀.",
+   "fix": "Compare the p-value with α: reject H₀ when the p-value is less than or equal to α, otherwise fail to reject.",
+   "accepted_variants": []
+  },
+  "CONCLUDE": {
+   "topic": "4.5",
+   "ek": "4.5.C.3",
+   "shape": "conclude",
+   "slots": [
+    "concl_text",
+    "concl_short"
+   ],
+   "text": "Concludes in context: {concl_text}.",
+   "evidence": "Response states {concl_short}, in terms of Hₐ and in context.",
+   "fix": "State the conclusion in terms of Hₐ in context, using 'convincing evidence' or 'not convincing evidence'.",
+   "accepted_variants": []
+  },
+  "CI_SE": {
+   "topic": "4.2",
+   "ek": "4.2.C",
+   "shape": "calculate",
+   "slots": [
+    "se_formula",
+    "se",
+    "units"
+   ],
+   "text": "Calculates the standard error {se_formula} = {se} {units}.",
+   "evidence": "Response computes the standard error from the sample statistics and reports about {se} {units}.",
+   "fix": "Use the standard error formula for this procedure with the sample standard deviation(s) and sample size(s).",
+   "accepted_variants": []
+  },
+  "CI_INTERVAL": {
+   "topic": "4.2",
+   "ek": "4.2.C",
+   "shape": "calculate",
+   "slots": [
+    "formula",
+    "lo",
+    "hi",
+    "units",
+    "tstar",
+    "interval_variants"
+   ],
+   "text": "Computes the interval {formula} = {lo} to {hi} {units}, using t* = {tstar}.",
+   "evidence": "Response adds and subtracts t* times the standard error, giving an interval from {lo} to {hi} {units}.",
+   "fix": "Add and subtract t* times the standard error from the sample statistic, using the given critical value.",
+   "accepted_variants": "{interval_variants}"
+  },
+  "CI_INTERPRET": {
+   "topic": "4.3",
+   "ek": "4.3.A.1-3 / 4.8.A.1-3",
+   "shape": "interpret_in_context",
+   "slots": [
+    "conf",
+    "lo",
+    "hi",
+    "units",
+    "param_phrase"
+   ],
+   "text": "Interprets the interval: we are {conf}% confident that the interval from {lo} to {hi} {units} captures the {param_phrase}.",
+   "evidence": "Response states the confidence level, the interval from {lo} to {hi} {units}, and the parameter it captures ({param_phrase}).",
+   "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+   "accepted_variants": []
+  },
+  "CI_CLAIM": {
+   "topic": "4.3",
+   "ek": "4.3.B.1 / 4.8.B.1",
+   "shape": "justify_claim",
+   "slots": [
+    "value",
+    "in_out",
+    "lo",
+    "hi",
+    "claim_concl"
+   ],
+   "text": "Because {value} is {in_out} the interval ({lo}, {hi}), {claim_concl}.",
+   "evidence": "Response compares {value} with the interval and concludes: {claim_concl}.",
+   "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+   "accepted_variants": []
+  },
+  "CI_WIDTH": {
+   "topic": "4.3",
+   "ek": "4.3.C.1",
+   "shape": "compare",
+   "slots": [
+    "conf2"
+   ],
+   "text": "States that a {conf2}% interval from the same data would be wider, because a higher confidence level needs a larger critical value t* (a larger margin of error) to capture the parameter more often.",
+   "evidence": "Response says the interval would be wider and gives the higher confidence level (larger t*, larger margin of error, capturing the parameter more often) as the reason.",
+   "fix": "Hold the standard error fixed: higher confidence means a larger t*, so a larger margin of error and a wider interval.",
+   "accepted_variants": []
+  },
+  "DIFF_MEAN": {
+   "topic": "4.6",
+   "ek": "4.6.A.1",
+   "shape": "calculate",
+   "slots": [
+    "md",
+    "units"
+   ],
+   "text": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = {md} {units}.",
+   "evidence": "Response gives {md} {units} as the mean of the sampling distribution of the difference in sample means.",
+   "fix": "The sampling distribution of x̄₁ − x̄₂ is centered at μ₁ − μ₂; subtract the second mean from the first.",
+   "accepted_variants": []
+  },
+  "DIFF_SD": {
+   "topic": "4.6",
+   "ek": "4.6.A.1",
+   "shape": "calculate",
+   "slots": [
+    "s1",
+    "n1",
+    "s2",
+    "n2",
+    "sdd",
+    "units",
+    "sdd_variants"
+   ],
+   "text": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √({s1}²/{n1} + {s2}²/{n2}) = {sdd} {units}.",
+   "evidence": "Response adds the two variances divided by their sample sizes, takes the square root, and reports about {sdd} {units}.",
+   "fix": "Add the two variance-over-sample-size terms before taking the square root; do not subtract or add the standard deviations.",
+   "accepted_variants": "{sdd_variants}"
+  },
+  "COND_TEN": {
+   "topic": "4.4",
+   "ek": "4.1.B.1.ii",
+   "shape": "condition_check",
+   "slots": [
+    "ten_text"
+   ],
+   "text": "Checks the 10% condition: {ten_text}.",
+   "evidence": "Response checks that the sample size is less than 10% of the population: {ten_text}.",
+   "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+   "accepted_variants": []
+  },
+  "T_STAR": {
+   "topic": "4.2",
+   "ek": "4.2.A.1-2",
+   "shape": "explain",
+   "slots": [
+    "ts",
+    "zs",
+    "df",
+    "conf"
+   ],
+   "text": "States that t* = {ts} is larger than the normal critical value z* = {zs} for {conf}% confidence, because the t-distribution (with {df} degrees of freedom) has heavier tails than the normal distribution.",
+   "evidence": "Response says t* is larger than z* and gives heavier tails of the t-distribution (using s to estimate σ, with {df} degrees of freedom) as the reason.",
+   "fix": "Recall that t-distributions have heavier tails than the normal, so for the same confidence level t* is larger than z*, especially for small samples.",
+   "accepted_variants": []
+  },
+  "POINT_EST": {
+   "topic": "4.7",
+   "ek": "4.7.C.1",
+   "shape": "calculate",
+   "slots": [
+    "m1",
+    "m2",
+    "d",
+    "units"
+   ],
+   "text": "States the point estimate for μ₁ − μ₂ as x̄₁ − x̄₂ = {m1} − {m2} = {d} {units}.",
+   "evidence": "Response states {d} {units} (or an equivalent form) as the point estimate for the difference in means.",
+   "fix": "Estimate a difference in population means with the difference in sample means, subtracting in the order the parameter is written.",
+   "accepted_variants": []
+  },
+  "SCATTER_DIR_MIXED": {
+   "topic": "5.1",
+   "ek": "5.1.B.3",
+   "shape": "describe_in_context",
+   "slots": [
+    "x_name",
+    "y_name",
+    "turn",
+    "first_dir",
+    "second_dir",
+    "x_units"
+   ],
+   "text": "States that the direction changes: the association is {first_dir} for {x_name} below about {turn} {x_units} and {second_dir} for larger values.",
+   "evidence": "Response says the direction changes near {turn} {x_units}, {first_dir} before and {second_dir} after, in context.",
+   "fix": "Read the table from left to right and say where the response variable switches from rising to falling, or the reverse.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "ERR_STRENGTH_LINE": {
+   "topic": "5.1",
+   "ek": "5.1.B.4",
+   "shape": "critique",
+   "slots": [
+    "student_claim"
+   ],
+   "text": "States that {student_claim} is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.",
+   "evidence": "Response rejects the claim and says strength is judged by how closely the points follow the overall pattern, including a curved one.",
+   "fix": "Judge strength by how closely the points follow the general pattern, whether straight or curved, not by how close they are to a line.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "IMPLAUSIBLE": {
+   "topic": "5.3",
+   "ek": "5.3.A.3",
+   "shape": "explain",
+   "slots": [
+    "x0",
+    "yhat_text",
+    "y_name",
+    "y_units",
+    "lo",
+    "hi",
+    "x_units"
+   ],
+   "text": "States that the predicted {y_name} of {yhat_text} {y_units} at {x0} {x_units} is impossible, which shows the linear model should not be used that far beyond the data ({lo} to {hi} {x_units}).",
+   "evidence": "Response says a negative predicted {y_name} cannot occur and ties it to extrapolating beyond {lo} to {hi} {x_units}.",
+   "fix": "Check whether a prediction is possible in context; an impossible value shows the model fails beyond the observed x-values.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "RESID_SEQ": {
+   "topic": "5.4",
+   "ek": "5.4.C.2-4",
+   "shape": "interpret_pattern",
+   "slots": [
+    "seq_text",
+    "shape_word"
+   ],
+   "text": "States that the signs of the residuals as x increases are {seq_text}, a systematic {shape_word} pattern rather than random scatter.",
+   "evidence": "Response gives the sign pattern {seq_text} for the seven observations in order of x and calls it systematic, not random.",
+   "fix": "Find every residual (observed minus predicted), then read their signs in order of x and look for a repeating pattern.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "R2_ERR": {
+   "topic": "5.5",
+   "ek": "5.5.A.5",
+   "shape": "critique",
+   "slots": [
+    "student_claim"
+   ],
+   "text": "States that {student_claim} is incorrect, because r² does not count points on the line or correct predictions.",
+   "evidence": "Response rejects the student's interpretation and says r² is not a percent of points on the line or of correct predictions.",
+   "fix": "Do not read r² as a count of points or correct predictions; it describes explained variation in the response.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "SOLVE_XBAR": {
+   "topic": "5.5",
+   "ek": "5.5.A.1",
+   "shape": "calculate",
+   "slots": [
+    "ybar_text",
+    "a_text",
+    "b_text",
+    "xbar",
+    "x_units",
+    "x_name"
+   ],
+   "text": "Uses the fact that the line passes through (x̅, ȳ): solves {ybar_text} = {a_text} {b_text}x̅ to get a mean {x_name} of {xbar} {x_units}.",
+   "evidence": "Response substitutes the mean response {ybar_text} into the equation and solves for x̅, getting {xbar} {x_units}.",
+   "fix": "Because the line passes through (mean x, mean y), set the predicted value equal to the mean of y and solve for x.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "CI_LEVEL": {
+   "topic": "4.3",
+   "ek": "4.3.A.2",
+   "shape": "interpret",
+   "slots": [
+    "conf"
+   ],
+   "text": "Interprets the confidence level: if many random samples of the same size were taken, about {conf}% of the intervals they produce would capture the true parameter.",
+   "evidence": "Response describes {conf}% as the long-run percent of intervals, from repeated random samples, that capture the true parameter.",
+   "fix": "Describe the confidence level as the success rate of the method over many samples, not the probability for one interval.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "CI_NOT_INDIV": {
+   "topic": "4.3",
+   "ek": "4.3.A.3",
+   "shape": "critique",
+   "slots": [
+    "student_claim",
+    "param_phrase"
+   ],
+   "text": "States that {student_claim} is not justified, because the interval estimates the {param_phrase}, not the range of individual values.",
+   "evidence": "Response says the interval is for the population mean (or mean difference) and does not describe where individual values fall.",
+   "fix": "Remember a confidence interval estimates a parameter such as a mean, so it says nothing about the spread of individuals.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "CI_SAMPLE_SIZE": {
+   "topic": "4.3",
+   "ek": "4.3.C.1",
+   "shape": "compare",
+   "slots": [
+    "n_old",
+    "n_new",
+    "ratio_text",
+    "me_text",
+    "units"
+   ],
+   "text": "States that with n = {n_new} instead of {n_old} the interval would be narrower, with a margin of error about {ratio_text} as large (about {me_text} {units}), because the standard error s/√n shrinks.",
+   "evidence": "Response says the interval is narrower, the margin of error is about {ratio_text} as large, and gives the larger sample size as the reason.",
+   "fix": "Quadrupling n halves the standard error (√4 = 2), so the margin of error is about half, with t* slightly smaller.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "P_ERR": {
+   "topic": "4.5",
+   "ek": "4.5.B.1",
+   "shape": "critique",
+   "slots": [
+    "student_claim",
+    "correction"
+   ],
+   "text": "States that {student_claim} is incorrect, because {correction}.",
+   "evidence": "Response rejects the claim and gives the correct meaning: {correction}.",
+   "fix": "Say what a p-value is (assuming H₀ is true, the probability of a result this extreme) and what a decision does and does not show.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "SD_SOLVE_N": {
+   "topic": "4.6",
+   "ek": "4.6.A.1",
+   "shape": "calculate",
+   "slots": [
+    "target",
+    "n_exact",
+    "n_ans",
+    "s1",
+    "s2",
+    "units"
+   ],
+   "text": "Solves √({s1}²/n + {s2}²/n) ≤ {target} for a common sample size: n ≥ {n_exact}, so n = {n_ans}.",
+   "evidence": "Response sets the standard deviation of x̄₁ − x̄₂ at most {target}, solves for n, and rounds up to n = {n_ans}.",
+   "fix": "Write the SD formula with the same n for both samples, set it at most the target, solve for n, and round up.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "T_CONSERVATIVE": {
+   "topic": "4.7",
+   "ek": "4.7.C.1",
+   "shape": "select",
+   "slots": [
+    "n1",
+    "n2",
+    "df",
+    "ts",
+    "conf"
+   ],
+   "text": "States df = smaller of (n₁ − 1, n₂ − 1) = {df} and reads t* = {ts} from the table for {conf}% confidence.",
+   "evidence": "Response uses the smaller of n₁ − 1 and n₂ − 1 as df and selects t* = {ts} from the table.",
+   "fix": "With a table, use the smaller of n₁ − 1 and n₂ − 1 for df, then read t* for the confidence level.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "RESID_SIGN_CTX": {
+   "topic": "5.4",
+   "ek": "5.4.B.1",
+   "shape": "interpret_in_context",
+   "slots": [
+    "sign_word",
+    "model_verb",
+    "y_name",
+    "case_phrase",
+    "above_below"
+   ],
+   "text": "States that because the residual is {sign_word}, the model {model_verb} the {y_name} for {case_phrase}: the observed value is {above_below} the predicted value.",
+   "evidence": "Response links the {sign_word} residual to the model {model_verb} the {y_name} for {case_phrase}, in context.",
+   "fix": "Link the sign to the context: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "DF_WHY": {
+   "topic": "4.7",
+   "ek": "4.7.C.1",
+   "shape": "explain",
+   "slots": [
+    "df",
+    "df_tech",
+    "ts",
+    "ts_tech"
+   ],
+   "text": "States that using df = {df}, the smaller of n₁ − 1 and n₂ − 1, gives a larger t* ({ts} versus {ts_tech}) and a wider interval than technology's df of about {df_tech}, so the table method is conservative.",
+   "evidence": "Response says the smaller degrees of freedom gives a larger t* and a wider interval than technology's df, so the table interval is conservative.",
+   "fix": "Fewer degrees of freedom means a larger t*, so the interval from the table is wider than the one from technology.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "RELIABILITY_RANK": {
+   "topic": "5.3",
+   "ek": "5.3.A.3-4",
+   "shape": "compare_with_reason",
+   "slots": [
+    "order_text",
+    "reason_text"
+   ],
+   "text": "Ranks the predictions from most to least reliable as {order_text}, because {reason_text}.",
+   "evidence": "Response gives the order {order_text} and explains that interpolation is more reliable and extrapolation is less reliable the further it is beyond the data.",
+   "fix": "Put the interpolation first, then rank extrapolations by how far the x-value lies outside the data; farther is less reliable.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "PROC_ERR": {
+   "topic": "4.4",
+   "ek": "4.4.A.2",
+   "shape": "critique",
+   "slots": [
+    "proposed",
+    "why_not"
+   ],
+   "text": "States that {proposed} is not appropriate, because {why_not}.",
+   "evidence": "Response rejects {proposed} and gives the reason: {why_not}.",
+   "fix": "Check whether the two measurements come from the same individuals; if so, analyze the differences with a one-sample procedure.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "EQ_FROM_POINTS": {
+   "topic": "5.3",
+   "ek": "5.3.A.2",
+   "shape": "calculate",
+   "slots": [
+    "p1",
+    "p2",
+    "b_text",
+    "a_text",
+    "eq_text"
+   ],
+   "text": "Finds the equation of the line through {p1} and {p2} by any correct method: slope {b_text}, y-intercept {a_text}, so {eq_text}.",
+   "evidence": "Response gives the correct slope and y-intercept for the line through the two points and writes {eq_text}, by any correct method.",
+   "fix": "Find the slope as change in y over change in x, then substitute one point into ŷ = a + bx to find a.",
+   "accepted_variants": [],
+   "round": "r2"
+  }
+ }
+}

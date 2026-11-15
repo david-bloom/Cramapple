@@ -1,0 +1,175 @@
+{
+ "id": "ap_statistics__4.6__v1",
+ "parent": "ap_statistics__4.6__1",
+ "parent_status": "accepted",
+ "topic_code": "4.6",
+ "item": {
+  "title": "Sampling Distribution of a Difference in Mean Delivery Times",
+  "calculator": "permitted",
+  "stimulus": "Delivery times (in minutes) for Store 1 have a mean of 52 and a standard deviation of 10. Delivery times for Store 2 have a mean of 47 and a standard deviation of 7. An analyst takes independent random samples of 50 deliveries from Store 1 and 60 deliveries from Store 2, each far smaller than 10% of that store's deliveries. Let x̄₁ be the mean for Store 1 and x̄₂ the mean for Store 2.",
+  "parts": [
+   {
+    "prompt": "Find the mean of the sampling distribution of x̄₁ − x̄₂, the difference between the two sample means.",
+    "criteria": [
+     {
+      "text": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 5 minutes.",
+      "evidence": "Response gives 5 minutes as the mean of the sampling distribution of the difference in sample means.",
+      "fix": "The sampling distribution of x̄₁ − x̄₂ is centered at μ₁ − μ₂; subtract the second mean from the first.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Find the standard deviation of the sampling distribution of x̄₁ − x̄₂.",
+    "criteria": [
+     {
+      "text": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(10²/50 + 7²/60) = 1.678 minutes.",
+      "evidence": "Response adds the two variances divided by their sample sizes, takes the square root, and reports about 1.678 minutes.",
+      "fix": "Add the two variance-over-sample-size terms before taking the square root; do not subtract or add the standard deviations.",
+      "accepted_variants": [
+       "1.68"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Is the sampling distribution of x̄₁ − x̄₂ approximately normal? Justify your answer.",
+    "criteria": [
+     {
+      "text": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (50 and 60) are at least 30.",
+      "evidence": "Response says the sampling distribution is approximately normal and gives the reason: independent random samples and both sample sizes at least 30.",
+      "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Find the probability that the difference x̄₁ − x̄₂ is less than 2 minutes.",
+    "criteria": [
+     {
+      "text": "Finds the probability that x̄₁ − x̄₂ is less than 2 minutes: the probability is about 0.0369, using a normal distribution with mean 5 and standard deviation 1.678 (for example, z = (2 − 5)/1.678 = −1.79).",
+      "evidence": "Response uses the mean 5 and standard deviation 1.678 of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about 0.0369.",
+      "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+      "accepted_variants": [
+       "0.037",
+       "3.7%"
+      ]
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) The mean is μ₁ − μ₂ = 52 − 47 = 5 minutes.\n\n(b) √(10²/50 + 7²/60) = 1.678 minutes.\n\n(c) Yes. The sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (50 and 60) are at least 30.\n\n(d) z = (2 − 5)/1.678 = −1.79, so the probability that x̄₁ − x̄₂ is less than 2 minutes is about 0.0369.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nm1, s1, n1, m2, s2, n2, cut = 52, 10, 50, 47, 7, 60, 2\nmd = m1 - m2\nsd = math.sqrt(s1 ** 2 / n1 + s2 ** 2 / n2)\nassert md == 5 and round(sd, 3) == 1.678\nz = (cut - md) / sd\nassert round(z, 2) == -1.79\np = ncdf(z)\nassert round(p, 4) == 0.0369\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:59:51.711Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"DIFF_MEAN\"],[\"DIFF_SD\"],[\"XBAR_SHAPE\"],[\"XBAR_PROB\"]]",
+  "child_order": "[[\"DIFF_MEAN\"],[\"DIFF_SD\"],[\"XBAR_SHAPE\"],[\"XBAR_PROB\"]]",
+  "child_pattern": [
+   [
+    "DIFF_MEAN"
+   ],
+   [
+    "DIFF_SD"
+   ],
+   [
+    "XBAR_SHAPE"
+   ],
+   [
+    "XBAR_PROB"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 4, variant 4. Criteria per part: parent [1,1,1,1], variant [1,1,1,1]. Points: parent 4, variant 4.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"DIFF_MEAN\"],[\"DIFF_SD\"],[\"XBAR_SHAPE\"],[\"XBAR_PROB\"]]\nCriterion a1 (DIFF_MEAN): wording and values changed\nCriterion b1 (DIFF_SD): wording and values changed; accepted variants changed\nCriterion c1 (XBAR_SHAPE): wording and values changed\nPart d prompt changed.\nCriterion d1 (XBAR_PROB): wording and values changed; accepted variants changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from city commute times to store delivery times. Population means change from 34 and 30 to 52 and 47 minutes, standard deviations from 8 and 6 to 10 and 7 minutes, and sample sizes from 40 and 45 to 50 and 60. Part (d) changes from an upper-tail probability above 6 minutes to a lower-tail probability below 2 minutes. The corresponding rubric calculations and accepted numerical forms are updated.",
+     "numbers_recomputed": "a1: 52 − 47 = 5 minutes, matching. b1: √(10²/50 + 7²/60) = √(2 + 0.8166667) = 1.678293 minutes, matching 1.678 and 1.68. c1: Sample sizes 50 and 60 are both at least 30, matching. d1: z = (2 − 5)/1.678293 = −1.78753, matching −1.79; the lower-tail normal probability is approximately 0.0369, matching 0.0369, 0.037, and 3.7%.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Context changed from city commute times to store delivery times. Population means changed from 34 and 30 to 52 and 47, standard deviations changed from 8 and 6 to 10 and 7, and sample sizes changed from 40 and 45 to 50 and 60. Part d now asks for the probability that x̄₁ − x̄₂ is less than 2 minutes rather than greater than 6 minutes. The rubric wording and values were updated accordingly.",
+     "numbers_recomputed": "Part a: 52 − 47 = 5 minutes, matches. Part b: √(10²/50 + 7²/60) = √(169/60) ≈ 1.6783 minutes, matches the stated 1.678 and accepted 1.68. Part d: z = (2 − 5)/1.6783 ≈ −1.7875, giving a left-tail probability of about 0.0369, matches the stated 0.0369 and accepted 0.037 and 3.7%.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

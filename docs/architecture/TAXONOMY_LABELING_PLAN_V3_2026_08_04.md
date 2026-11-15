@@ -1,5 +1,8 @@
 # Taxonomy Labeling Plan — v3 (amended)
 
+> **STATUS: HISTORICAL — superseded by `docs/product/CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md` (all four phases shipped 2026-09-27, PR #208/#209) (reviewed 2026-11-09).**
+> The AP Biology tagging-pilot plan (2026-08-04, "ready for execution"); execution and later rationalization have happened. Keep as the rationale record for the labeling approach. Kept for history; do not treat as the current plan. Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075, ratified 2026-09-27) or with live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Amends:** the CED unit-labeling plan drafted for the AP Biology tagging pilot.
 **Date:** 2026-08-04
 **Status:** Revised per Codex review. Ready for execution subject to §11.

@@ -1,0 +1,2814 @@
+[
+ {
+  "src_id": "N-3.1-A",
+  "content_key": "APSTATS-MCQ-H-3.1-A",
+  "seed": null,
+  "family": "3.1-A",
+  "variant": null,
+  "topic": "3.1",
+  "title": "Bias versus variability of an estimator",
+  "stem": "A statistician simulates 1,000 random samples of size 50 from a population whose true proportion is 0.30 and records two estimators of that proportion. Estimator X has a sampling distribution centered at 0.30 with a standard deviation of 0.065. Estimator Y has a sampling distribution centered at 0.36 with a standard deviation of 0.020. The statistician then repeats the simulation with samples of size 200. Which statement is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Estimator Y is better, because its smaller standard deviation means its estimates are closer to 0.30 on average.",
+    "is_correct": false,
+    "rationale": "A small standard deviation measures consistency, not accuracy, and Y's estimates cluster around 0.36, not 0.30."
+   },
+   {
+    "label": "B",
+    "text": "Estimator X is unbiased but more variable; samples of size 200 should reduce its variability, but they would not remove Y's bias.",
+    "is_correct": true,
+    "rationale": "Correct: X is centered at the true value 0.30 (unbiased); Y is centered 0.06 above it (biased). Larger n shrinks the spread, not the center."
+   },
+   {
+    "label": "C",
+    "text": "Estimator X is biased, because many individual estimates differ from 0.30.",
+    "is_correct": false,
+    "rationale": "Bias refers to the center of the sampling distribution, and individual estimates varying around 0.30 is variability, not bias."
+   },
+   {
+    "label": "D",
+    "text": "Estimator Y's bias should disappear at n = 200, because larger samples remove bias.",
+    "is_correct": false,
+    "rationale": "Bias comes from the estimator or the sampling method, so a larger sample only makes Y cluster more tightly around 0.36."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.2-A",
+  "content_key": "APSTATS-MCQ-H-3.2-A",
+  "seed": null,
+  "family": "3.2-A",
+  "variant": null,
+  "topic": "3.2",
+  "title": "Standardize a sample proportion",
+  "stem": "In a large city, 30% of households recycle. A random sample of 200 households is selected, and 38% of the sampled households recycle. Which statement is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The sample proportion is about 35 standard deviations above 0.30, since the standard deviation of the sampling distribution is 0.0023.",
+    "is_correct": false,
+    "rationale": "Divided sqrt[p(1 - p)] by n instead of taking the square root of p(1 - p)/n, which makes the standard deviation far too small."
+   },
+   {
+    "label": "B",
+    "text": "The sample proportion is about 2.5 standard deviations above 0.30, so a result this large would be unusual if the true proportion were 0.30.",
+    "is_correct": true,
+    "rationale": "Correct: SD = sqrt(0.30 x 0.70 / 200) = 0.0324; z = 0.08 / 0.0324 = 2.47."
+   },
+   {
+    "label": "C",
+    "text": "The sample proportion is about 76 standard deviations above 0.30, since the standard deviation of the sampling distribution is 0.00105.",
+    "is_correct": false,
+    "rationale": "Used the variance p(1 - p)/n as if it were the standard deviation."
+   },
+   {
+    "label": "D",
+    "text": "The sample proportion is only 0.08 above 0.30, so it is within normal sampling variability for any sample size.",
+    "is_correct": false,
+    "rationale": "Whether a difference is unusual depends on its size relative to the standard deviation, which shrinks as the sample size grows."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-A",
+  "content_key": "APSTATS-MCQ-H-3.3-A",
+  "seed": null,
+  "family": "3.3-A",
+  "variant": null,
+  "topic": "3.3",
+  "title": "Margin of error under combined changes",
+  "stem": "A 90% confidence interval for a population proportion, based on a random sample of 400 people, has a margin of error of 0.04. A second interval uses a random sample of 1,600 people from the same population, at a 99% confidence level, with about the same sample proportion. About what is its margin of error?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.016",
+    "is_correct": false,
+    "rationale": "Divided by 4 for the sample size instead of 2, then applied the critical value change."
+   },
+   {
+    "label": "B",
+    "text": "0.063",
+    "is_correct": false,
+    "rationale": "Accounted for the higher confidence level but ignored the larger sample."
+   },
+   {
+    "label": "C",
+    "text": "0.020",
+    "is_correct": false,
+    "rationale": "Accounted for the larger sample but ignored the higher confidence level."
+   },
+   {
+    "label": "D",
+    "text": "0.031",
+    "is_correct": true,
+    "rationale": "Correct: quadrupling n halves the margin to 0.02; the critical value rises from 1.645 to 2.576, a factor of 1.566; 0.02 x 1.566 = 0.0313."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-B",
+  "content_key": "APSTATS-MCQ-H-3.3-B",
+  "seed": null,
+  "family": "3.3-B",
+  "variant": null,
+  "topic": "3.3",
+  "title": "Sample size using a pilot estimate",
+  "stem": "A researcher wants a 95% confidence interval for a population proportion with a margin of error no larger than 0.04. A pilot study estimated the proportion to be about 0.20. Using z* = 1.96 and the pilot estimate, what is the smallest sample size that guarantees this margin of error?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "601",
+    "is_correct": false,
+    "rationale": "Ignored the pilot estimate and used the conservative p = 0.5."
+   },
+   {
+    "label": "B",
+    "text": "384",
+    "is_correct": false,
+    "rationale": "Rounded 384.16 down, which would give a margin slightly above 0.04."
+   },
+   {
+    "label": "C",
+    "text": "481",
+    "is_correct": false,
+    "rationale": "Used p = 0.20 in place of p(1 - p) = 0.16."
+   },
+   {
+    "label": "D",
+    "text": "385",
+    "is_correct": true,
+    "rationale": "Correct: n >= 1.96^2 (0.20)(0.80) / 0.04^2 = 384.16, so n = 385."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-B",
+  "content_key": "APSTATS-MCQ-H-3.4-B",
+  "seed": null,
+  "family": "3.4-B",
+  "variant": null,
+  "topic": "3.4",
+  "title": "Recover p-hat and margin from an interval, then judge a claim",
+  "stem": "A random sample of adults is used to construct a 95% confidence interval for the proportion who prefer a new product to the current one. The interval is (0.44, 0.56). The marketing manager says, \"A majority of adults prefer the new product.\" Which statement is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The sample proportion was 0.50 with a margin of error of 0.06, and since 0.50 and values below it are plausible, the interval does not support a majority.",
+    "is_correct": true,
+    "rationale": "Correct: p-hat = (0.44 + 0.56)/2 = 0.50; margin of error = (0.56 - 0.44)/2 = 0.06; 0.44 to 0.50 are plausible values below a majority."
+   },
+   {
+    "label": "B",
+    "text": "The interval supports the claim, because the upper endpoint 0.56 is above 0.50.",
+    "is_correct": false,
+    "rationale": "A claim is supported only when every plausible value agrees with it, and this interval also contains values at or below 0.50."
+   },
+   {
+    "label": "C",
+    "text": "The sample proportion was 0.56 and the margin of error was 0.12, so the claim is supported.",
+    "is_correct": false,
+    "rationale": "The sample proportion is the midpoint of the interval, and the margin of error is half its width."
+   },
+   {
+    "label": "D",
+    "text": "The interval shows that exactly 50% of adults prefer the new product, so the claim is false.",
+    "is_correct": false,
+    "rationale": "A confidence interval gives a range of plausible values, not a single exact value, so it cannot show that the proportion equals 0.50."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-A",
+  "content_key": "APSTATS-MCQ-H-3.5-A",
+  "seed": null,
+  "family": "3.5-A",
+  "variant": null,
+  "topic": "3.5",
+  "title": "Hypotheses from the research question",
+  "stem": "A mayor claims that at most 30% of residents oppose a new bike lane. A reporter wants to test whether the true proportion who oppose it is greater than 30%. In a random sample of 150 residents, 40 oppose the bike lane (about 27%). Which hypotheses should the reporter test?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: p = 0.30, Ha: p > 0.30, where p is the proportion of all residents who oppose the bike lane.",
+    "is_correct": true,
+    "rationale": "Correct: the question asks about more than 30%; the null sets p to the claimed 0.30; the sample 0.27 is data, not part of the hypotheses."
+   },
+   {
+    "label": "B",
+    "text": "H0: p = 0.30, Ha: p < 0.30, where p is the proportion of all residents who oppose the bike lane.",
+    "is_correct": false,
+    "rationale": "Chose the direction suggested by the sample result (0.27 is below 0.30) instead of the question being asked."
+   },
+   {
+    "label": "C",
+    "text": "H0: p = 0.27, Ha: p > 0.27, where p is the proportion of all residents who oppose the bike lane.",
+    "is_correct": false,
+    "rationale": "Set the null value equal to the sample proportion, but hypotheses use the claimed value, not data."
+   },
+   {
+    "label": "D",
+    "text": "H0: p-hat = 0.30, Ha: p-hat > 0.30, where p-hat is the proportion of sampled residents who oppose the bike lane.",
+    "is_correct": false,
+    "rationale": "Hypotheses must be about the population parameter p, not about the sample statistic p-hat."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-A",
+  "content_key": "APSTATS-MCQ-H-3.6-A",
+  "seed": null,
+  "family": "3.6-A",
+  "variant": null,
+  "topic": "3.6",
+  "title": "p-value for a one- or two-sided alternative",
+  "stem": "A significance test of H0: p = 0.50 versus Ha: p != 0.50 gives a test statistic z = 1.80. For a standard normal distribution, P(Z > 1.80) = 0.036. Using a significance level of alpha = 0.05, which conclusion is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Reject H0, because the p-value is 0.036, which is less than 0.05.",
+    "is_correct": false,
+    "rationale": "Used a one-sided tail area for a two-sided alternative."
+   },
+   {
+    "label": "B",
+    "text": "Fail to reject H0, because the two-sided p-value is 2(0.036) = 0.072, which is greater than 0.05.",
+    "is_correct": true,
+    "rationale": "Correct: for Ha: p != 0.50 the p-value counts both tails, 2 x 0.0359 = 0.072 > 0.05."
+   },
+   {
+    "label": "C",
+    "text": "Reject H0, because z = 1.80 is greater than 1.",
+    "is_correct": false,
+    "rationale": "Compared z with 1 instead of comparing the p-value with alpha."
+   },
+   {
+    "label": "D",
+    "text": "Fail to reject H0, because 0.072 means there is a 7.2% chance that H0 is true.",
+    "is_correct": false,
+    "rationale": "The decision is right, but a p-value is not the probability that H0 is true."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-B",
+  "content_key": "APSTATS-MCQ-H-3.6-B",
+  "seed": null,
+  "family": "3.6-B",
+  "variant": null,
+  "topic": "3.6",
+  "title": "Statistical versus practical significance",
+  "stem": "A company claims that 50% of its customers renew their subscription. An analyst tests H0: p = 0.50 versus Ha: p != 0.50 using a random sample of 50,000 customers, of whom 50.6% renew. The p-value is about 0.007. Which conclusion is best?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "There is convincing evidence that the renewal rate is far from 50%, because the p-value is so small.",
+    "is_correct": false,
+    "rationale": "A small p-value says the difference is unlikely to be chance, not that it is large; with n this big even a small difference is detectable."
+   },
+   {
+    "label": "B",
+    "text": "There is a 0.7% chance that the renewal rate is exactly 50%, so the company's claim is nearly certainly false.",
+    "is_correct": false,
+    "rationale": "A p-value is computed assuming H0 is true, so it is not the probability that H0 is true."
+   },
+   {
+    "label": "C",
+    "text": "There is convincing evidence that the renewal rate differs from 50%, but the sample difference is only about 0.6 percentage points, so the difference may be too small to matter in practice.",
+    "is_correct": true,
+    "rationale": "Correct: SE = sqrt(0.5 x 0.5 / 50,000) = 0.00224; z = 0.006 / 0.00224 = 2.7; two-sided p about 0.007."
+   },
+   {
+    "label": "D",
+    "text": "There is no evidence of a difference, because 50.6% is very close to 50%.",
+    "is_correct": false,
+    "rationale": "The p-value of 0.007 is below common significance levels, so the evidence of a difference is convincing even though the difference is small."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.7-A",
+  "content_key": "APSTATS-MCQ-H-3.7-A",
+  "seed": null,
+  "family": "3.7-A",
+  "variant": null,
+  "topic": "3.7",
+  "title": "Conditions for a one-sample z-test use p0",
+  "stem": "A delivery company claims that 92% of its packages arrive on time. A random sample of 80 packages is selected from the company's very large volume of shipments, and 70 of them (87.5%) arrive on time. An analyst plans a one-sample z-test of H0: p = 0.92 versus Ha: p < 0.92. Which statement about the conditions for the test is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The large counts condition is met, because np-hat = 70 and n(1 - p-hat) = 10 are both at least 10.",
+    "is_correct": false,
+    "rationale": "The conditions for a test use the hypothesized proportion p0, not the sample proportion."
+   },
+   {
+    "label": "B",
+    "text": "The large counts condition is not met, because n(1 - p0) = 80(0.08) = 6.4 is less than 10.",
+    "is_correct": true,
+    "rationale": "Correct: np0 = 73.6 and n(1 - p0) = 6.4; the 10% condition holds since the shipments are very numerous."
+   },
+   {
+    "label": "C",
+    "text": "The large counts condition is met, because the sample size of 80 is greater than 30.",
+    "is_correct": false,
+    "rationale": "The sample-size rule of 30 is for means; for proportions the large counts condition is what matters."
+   },
+   {
+    "label": "D",
+    "text": "The independence condition is not met, because the packages were sampled without replacement.",
+    "is_correct": false,
+    "rationale": "Sampling without replacement is fine when the sample is less than 10% of a very large population."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.8-A",
+  "content_key": "APSTATS-MCQ-H-3.8-A",
+  "seed": null,
+  "family": "3.8-A",
+  "variant": null,
+  "topic": "3.8",
+  "title": "Power and Type II error in context",
+  "stem": "A test of H0: p = 0.50 versus Ha: p > 0.50 uses a significance level of alpha = 0.05. The test has power 0.70 against the alternative p = 0.60. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "There is a 70% chance that the true proportion is 0.60.",
+    "is_correct": false,
+    "rationale": "Power is a probability about the test's decision, computed for an assumed true value, not a probability about the parameter."
+   },
+   {
+    "label": "B",
+    "text": "If the true proportion is 0.50, there is a 70% chance that the test rejects H0.",
+    "is_correct": false,
+    "rationale": "Rejecting a true H0 is a Type I error, whose probability is alpha = 0.05."
+   },
+   {
+    "label": "C",
+    "text": "If the true proportion is 0.60, there is a 30% chance that the test fails to reject H0, which would be a Type II error.",
+    "is_correct": true,
+    "rationale": "Correct: Type II error probability = 1 - power = 0.30."
+   },
+   {
+    "label": "D",
+    "text": "If the true proportion is 0.60, there is a 5% chance that the test makes a Type II error.",
+    "is_correct": false,
+    "rationale": "0.05 is the probability of a Type I error, not a Type II error."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.8-B",
+  "content_key": "APSTATS-MCQ-H-3.8-B",
+  "seed": null,
+  "family": "3.8-B",
+  "variant": null,
+  "topic": "3.8",
+  "title": "Trade-off between Type I and Type II error",
+  "stem": "A researcher wants a test that has a smaller probability of a Type I error and also a smaller probability of a Type II error against a particular alternative value. Which plan can accomplish both?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Lower alpha and keep the sample size the same.",
+    "is_correct": false,
+    "rationale": "With the sample size fixed, lowering alpha makes rejecting harder, which raises the Type II error probability."
+   },
+   {
+    "label": "B",
+    "text": "Lower alpha and increase the sample size enough to shrink the standard error.",
+    "is_correct": true,
+    "rationale": "Correct: lowering alpha alone raises the Type II probability; a larger n shrinks the standard error and lowers the Type II probability, offsetting the loss."
+   },
+   {
+    "label": "C",
+    "text": "Raise alpha and increase the sample size.",
+    "is_correct": false,
+    "rationale": "Raising alpha raises the Type I error probability."
+   },
+   {
+    "label": "D",
+    "text": "Keep alpha the same and decrease the sample size.",
+    "is_correct": false,
+    "rationale": "A smaller sample increases the standard error and the Type II error probability, and leaves the Type I probability at alpha."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.8-C",
+  "content_key": "APSTATS-MCQ-H-3.8-C",
+  "seed": null,
+  "family": "3.8-C",
+  "variant": null,
+  "topic": "3.8",
+  "title": "Type II error from a framed null hypothesis",
+  "stem": "An airport tests each bag with a procedure that tests H0: the bag contains no prohibited item versus Ha: the bag contains a prohibited item. Rejecting H0 means the bag is flagged. Which statement correctly describes a Type II error?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Type II error: a bag with a prohibited item is not flagged, so H0 is not rejected even though it is false.",
+    "is_correct": true,
+    "rationale": "Correct: Type II means failing to reject a false H0; here H0 (no prohibited item) is false when the bag contains one."
+   },
+   {
+    "label": "B",
+    "text": "Type II error: a bag with no prohibited item is flagged and searched, which delays the passenger.",
+    "is_correct": false,
+    "rationale": "Flagging a bag that has no prohibited item rejects a true H0, which is a Type I error."
+   },
+   {
+    "label": "C",
+    "text": "Type I error: a bag with a prohibited item is not flagged and is allowed through.",
+    "is_correct": false,
+    "rationale": "The situation described is right, but it is a Type II error, not a Type I error."
+   },
+   {
+    "label": "D",
+    "text": "Type II error: a bag with a prohibited item is flagged and removed.",
+    "is_correct": false,
+    "rationale": "Flagging a bag that contains a prohibited item is the correct decision, not an error."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.9-A",
+  "content_key": "APSTATS-MCQ-H-3.9-A",
+  "seed": null,
+  "family": "3.9-A",
+  "variant": null,
+  "topic": "3.9",
+  "title": "Sampling distribution of a difference of sample proportions",
+  "stem": "Among all users of app A, 40% renew their subscription, and among all users of app B, 25% renew. Independent random samples of 200 users of app A and 150 users of app B are selected, and the difference in sample proportions (p-hat A - p-hat B) is recorded. Which statement describes its sampling distribution?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Approximately normal with mean 0.15 and standard deviation 0.0700.",
+    "is_correct": false,
+    "rationale": "Added the two standard deviations instead of adding the two variances and taking the square root."
+   },
+   {
+    "label": "B",
+    "text": "Approximately normal with mean 0.15 and standard deviation 0.0495.",
+    "is_correct": true,
+    "rationale": "Correct: mean = 0.40 - 0.25 = 0.15; variance = 0.4(0.6)/200 + 0.25(0.75)/150 = 0.00245; SD = 0.0495; counts 80, 120, 37.5, 112.5 are all at least 10."
+   },
+   {
+    "label": "C",
+    "text": "Approximately normal with mean 1.6 and standard deviation 0.0495.",
+    "is_correct": false,
+    "rationale": "Divided the two proportions instead of subtracting them."
+   },
+   {
+    "label": "D",
+    "text": "Approximately normal with mean 0.15 and standard deviation 0.00245.",
+    "is_correct": false,
+    "rationale": "Reported the variance as the standard deviation."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.10-A",
+  "content_key": "APSTATS-MCQ-H-3.10-A",
+  "seed": null,
+  "family": "3.10-A",
+  "variant": null,
+  "topic": "3.10",
+  "title": "Interpret an interval for a difference of proportions",
+  "stem": "An online retailer randomly assigns visitors to see site A or site B. A 95% confidence interval for p_A - p_B, where p_A and p_B are the proportions of all visitors who would make a purchase using site A and site B, is (0.02, 0.14). Which interpretation is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "We are 95% confident that the proportion of all visitors who purchase using site A is between 0.02 and 0.14 higher than the proportion using site B.",
+    "is_correct": true,
+    "rationale": "Correct: the interval is for p_A - p_B and is entirely positive, so p_A is larger."
+   },
+   {
+    "label": "B",
+    "text": "We are 95% confident that between 2% and 14% of all visitors make a purchase.",
+    "is_correct": false,
+    "rationale": "The interval estimates a difference between two proportions, not a single proportion."
+   },
+   {
+    "label": "C",
+    "text": "There is a 95% probability that p-hat A - p-hat B in a new sample will be between 0.02 and 0.14.",
+    "is_correct": false,
+    "rationale": "The confidence level refers to the method capturing the population difference, not to a future sample statistic."
+   },
+   {
+    "label": "D",
+    "text": "We are 95% confident that the proportion of all visitors who purchase using site B is between 0.02 and 0.14 higher than the proportion using site A.",
+    "is_correct": false,
+    "rationale": "Reversed the direction; a positive p_A - p_B means site A is higher."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.11-A",
+  "content_key": "APSTATS-MCQ-H-3.11-A",
+  "seed": null,
+  "family": "3.11-A",
+  "variant": null,
+  "topic": "3.11",
+  "title": "Claim from an interval for a difference of proportions",
+  "stem": "A company randomly samples users of its new app and its old app. A 95% confidence interval for p_new - p_old, the difference in the proportions of all users who renew, is (-0.11, -0.02). A manager claims the new app lowered the renewal rate. Which conclusion is best?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The interval does not support the claim, because a proportion cannot be negative.",
+    "is_correct": false,
+    "rationale": "The interval is for a difference between proportions, which can be negative."
+   },
+   {
+    "label": "B",
+    "text": "The interval shows the new app raised the renewal rate, because the interval is centered near zero.",
+    "is_correct": false,
+    "rationale": "Negative values mean the new proportion is smaller."
+   },
+   {
+    "label": "C",
+    "text": "The interval supports the claim, because every plausible value of p_new - p_old is negative, so the new app's renewal proportion is lower.",
+    "is_correct": true,
+    "rationale": "Correct: all plausible differences new - old are below 0; midpoint -0.065."
+   },
+   {
+    "label": "D",
+    "text": "The interval shows the renewal rate fell by exactly 6.5 percentage points.",
+    "is_correct": false,
+    "rationale": "The midpoint is the sample difference; the interval gives a range of plausible values for the population difference."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.12-A",
+  "content_key": "APSTATS-MCQ-H-3.12-A",
+  "seed": null,
+  "family": "3.12-A",
+  "variant": null,
+  "topic": "3.12",
+  "title": "Hypotheses for a difference of proportions",
+  "stem": "A teacher wants to test whether the proportion of students who pass an exam is higher when students use study app A than when they use study app B. In independent random samples, 60 of 100 students using app A passed and 66 of 100 students using app B passed. Which hypotheses should the teacher test?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: p_A - p_B = 0 versus Ha: p_A - p_B < 0, where p_A and p_B are the proportions of all students who would pass using each app.",
+    "is_correct": false,
+    "rationale": "Followed the sample result (app A is lower in the sample) instead of the question."
+   },
+   {
+    "label": "B",
+    "text": "H0: p-hat A - p-hat B = 0 versus Ha: p-hat A - p-hat B > 0.",
+    "is_correct": false,
+    "rationale": "Hypotheses are about population parameters, not sample statistics."
+   },
+   {
+    "label": "C",
+    "text": "H0: p_A - p_B = 0 versus Ha: p_A - p_B > 0, where p_A and p_B are the proportions of all students who would pass using each app.",
+    "is_correct": true,
+    "rationale": "Correct: the question is whether app A is higher; the null is no difference; the sample difference of -0.06 is data."
+   },
+   {
+    "label": "D",
+    "text": "H0: p_A - p_B = -0.06 versus Ha: p_A - p_B > -0.06, where p_A and p_B are the proportions of all students who would pass using each app.",
+    "is_correct": false,
+    "rationale": "Used the sample difference as the null value, but the null value for a difference of proportions is 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.13-A",
+  "content_key": "APSTATS-MCQ-H-3.13-A",
+  "seed": null,
+  "family": "3.13-A",
+  "variant": null,
+  "topic": "3.13",
+  "title": "Two-proportion z-test with pooled standard error",
+  "stem": "In an email campaign, 84 of 150 customers randomly assigned to version A clicked a link, and 90 of 200 customers randomly assigned to version B clicked. A test of H0: p_A = p_B versus Ha: p_A != p_B uses the pooled proportion 174/350 = 0.497. For a standard normal distribution, P(Z > 2.04) = 0.021. Which result is correct at alpha = 0.05?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "z = 2.04, p-value = 0.021; reject H0, so there is convincing evidence that the click rates differ.",
+    "is_correct": false,
+    "rationale": "Used a one-sided tail area for a two-sided alternative."
+   },
+   {
+    "label": "B",
+    "text": "z = 2.04, p-value = 0.042; reject H0, so there is convincing evidence that the click rates differ.",
+    "is_correct": true,
+    "rationale": "Correct: p-hat A = 0.56, p-hat B = 0.45; SE = sqrt(0.497 x 0.503 x (1/150 + 1/200)) = 0.054; z = 0.11 / 0.054 = 2.04; two-sided p = 2(0.021) = 0.042 < 0.05."
+   },
+   {
+    "label": "C",
+    "text": "z = 4.12, p-value < 0.001; reject H0, so there is convincing evidence that the click rates differ.",
+    "is_correct": false,
+    "rationale": "Divided the pooled variance by n1 + n2 instead of using 1/n1 + 1/n2, which makes the standard error far too small."
+   },
+   {
+    "label": "D",
+    "text": "z = 2.04, p-value = 0.042; fail to reject H0, because 0.042 is greater than 0.025.",
+    "is_correct": false,
+    "rationale": "Split alpha across two tails twice; for a two-sided test the p-value is compared with alpha itself."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.14-A",
+  "content_key": "APSTATS-MCQ-H-3.14-A",
+  "seed": null,
+  "family": "3.14-A",
+  "variant": null,
+  "topic": "3.14",
+  "title": "Homogeneity or independence, and degrees of freedom",
+  "stem": "A school district randomly selects 150 students from each of three high schools and asks each student to choose a preferred lunch option from four choices. The district wants to know whether the distribution of preferred lunch option is the same at all three schools. Which test and degrees of freedom are correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A test of independence, with df = 6.",
+    "is_correct": false,
+    "rationale": "Independence applies when one sample is classified on two variables, not when separate samples are taken from each school."
+   },
+   {
+    "label": "B",
+    "text": "A test of homogeneity, with df = 12.",
+    "is_correct": false,
+    "rationale": "Used rows times columns instead of (rows - 1)(columns - 1)."
+   },
+   {
+    "label": "C",
+    "text": "A test of homogeneity, with df = 3 + 4 - 2 = 5.",
+    "is_correct": false,
+    "rationale": "Added the numbers of rows and columns minus 2, which is not how degrees of freedom are found for a table."
+   },
+   {
+    "label": "D",
+    "text": "A test of homogeneity, with df = (3 - 1)(4 - 1) = 6.",
+    "is_correct": true,
+    "rationale": "Correct: separate random samples from three populations classified on one categorical variable gives homogeneity; df = (rows - 1)(columns - 1) = 2 x 3 = 6."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.15-A",
+  "content_key": "APSTATS-MCQ-H-3.15-A",
+  "seed": null,
+  "family": "3.15-A",
+  "variant": null,
+  "topic": "3.15",
+  "title": "Expected counts and chi-square conditions",
+  "stem": "A random sample of 100 people was classified by group and response. Group 1 (20 people): 15 responded yes and 5 responded no. Group 2 (80 people): 75 responded yes and 5 responded no. A researcher plans a chi-square test. Which statement about the conditions is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The expected counts condition is not met, because the expected count for Group 1 and response no is 20(10)/100 = 2, which is less than 5.",
+    "is_correct": true,
+    "rationale": "Correct: column totals are 90 and 10; expected counts: Group 1: 18 and 2; Group 2: 72 and 8; the smallest is 2."
+   },
+   {
+    "label": "B",
+    "text": "The conditions are met, because every observed count is at least 5.",
+    "is_correct": false,
+    "rationale": "The condition is on expected counts, and an expected count can be small even when all observed counts are at least 5."
+   },
+   {
+    "label": "C",
+    "text": "The conditions are met, because the total sample size of 100 is greater than 30.",
+    "is_correct": false,
+    "rationale": "The sample-size rule of 30 does not replace checking expected counts."
+   },
+   {
+    "label": "D",
+    "text": "The expected counts condition is not met, because Group 2 has more people than Group 1.",
+    "is_correct": false,
+    "rationale": "Unequal group sizes are not a violation; the condition is about expected counts."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.1-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.1-A-v1",
+  "seed": "APSTATS-MCQ-H-3.1-A",
+  "family": "3.1-A",
+  "variant": "1",
+  "topic": "3.1",
+  "title": "Bias versus variability of an estimator (variant 1)",
+  "stem": "A county health office estimates the proportion of residents who exercise weekly using an online sign-up poll. The poll is repeated many times, and each time about 5,000 people respond. The estimates are tightly clustered around 0.72, but the true proportion in the county is 0.55. Which statement is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The estimator is unbiased, because the estimates are so consistent from poll to poll.",
+    "is_correct": false,
+    "rationale": "Consistent results show low variability, not accuracy."
+   },
+   {
+    "label": "B",
+    "text": "The estimator is biased but has low variability, and asking even more volunteers in the same way would not remove the bias.",
+    "is_correct": true,
+    "rationale": "Correct: centered at 0.72, not 0.55 (biased); spread is small (low variability); a voluntary-response method is biased at any size."
+   },
+   {
+    "label": "C",
+    "text": "The estimator has high variability, because its estimates are far from 0.55.",
+    "is_correct": false,
+    "rationale": "Variability is the spread of the estimates, not their distance from the truth."
+   },
+   {
+    "label": "D",
+    "text": "The estimator is biased, but the bias would shrink if the poll used 50,000 volunteers.",
+    "is_correct": false,
+    "rationale": "Bias from the sampling method is not reduced by a larger sample of the same kind."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.1-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.1-A-v2",
+  "seed": "APSTATS-MCQ-H-3.1-A",
+  "family": "3.1-A",
+  "variant": "2",
+  "topic": "3.1",
+  "title": "Bias versus variability of an estimator (variant 2)",
+  "stem": "Statisticians compare two methods of estimating a true proportion of 0.40. Method P uses samples of size 100, and its sampling distribution has a mean of 0.40 and a standard deviation of 0.049. Method Q uses samples of size 400, and its sampling distribution has a mean of 0.40 and a standard deviation of 0.025. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Method Q is less biased than Method P, because its sample size is larger.",
+    "is_correct": false,
+    "rationale": "Sample size changes variability, not bias, and both methods already have zero bias."
+   },
+   {
+    "label": "B",
+    "text": "Method P is better, because a smaller sample leaves less room for error.",
+    "is_correct": false,
+    "rationale": "Smaller samples give more variable estimates."
+   },
+   {
+    "label": "C",
+    "text": "Both methods are unbiased, but Method Q is more precise because its estimates vary less from sample to sample.",
+    "is_correct": true,
+    "rationale": "Correct: both means equal 0.40 (unbiased); SD 0.025 < 0.049."
+   },
+   {
+    "label": "D",
+    "text": "The two methods are equally good, because both are centered at 0.40.",
+    "is_correct": false,
+    "rationale": "Unbiasedness alone does not make estimators equally good; the more precise one is preferred."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.1-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.1-A-v3",
+  "seed": "APSTATS-MCQ-H-3.1-A",
+  "family": "3.1-A",
+  "variant": "3",
+  "topic": "3.1",
+  "title": "Bias versus variability of an estimator (variant 3)",
+  "stem": "Repeated random samples are used to estimate a true proportion of 0.50 with three estimators. Estimator R has a sampling distribution centered at 0.50 with a standard deviation of 0.08. Estimator S is centered at 0.58 with a standard deviation of 0.02. Estimator T is centered at 0.59 with a standard deviation of 0.09. Which statement is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Estimator R is the only unbiased estimator, and Estimator S has the least variability but is biased.",
+    "is_correct": true,
+    "rationale": "Correct: only R is centered at 0.50; S has the smallest SD but is centered at 0.58."
+   },
+   {
+    "label": "B",
+    "text": "Estimator S is the best choice, because it has the smallest standard deviation.",
+    "is_correct": false,
+    "rationale": "A small standard deviation does not make up for being centered at the wrong value."
+   },
+   {
+    "label": "C",
+    "text": "Estimator T is unbiased, because its large standard deviation means it sometimes hits 0.50.",
+    "is_correct": false,
+    "rationale": "Unbiasedness is about the center, not the spread."
+   },
+   {
+    "label": "D",
+    "text": "Estimator R is biased, because it has a wider spread than Estimator S.",
+    "is_correct": false,
+    "rationale": "A wide spread of estimates is variability, and bias is about where the sampling distribution is centered."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.2-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.2-A-v1",
+  "seed": "APSTATS-MCQ-H-3.2-A",
+  "family": "3.2-A",
+  "variant": "1",
+  "topic": "3.2",
+  "title": "Standardize a sample proportion (variant 1)",
+  "stem": "About 60% of the students at a large school own a laptop. A random sample of 150 students is selected, and 52% of the sample own a laptop. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The sample proportion is about 24 standard deviations below 0.60, since the standard deviation of the sampling distribution is 0.0033.",
+    "is_correct": false,
+    "rationale": "Divided sqrt[p(1 - p)] by n instead of taking the square root of p(1 - p)/n, which makes the standard deviation far too small."
+   },
+   {
+    "label": "B",
+    "text": "The sample proportion is 0.08 below 0.60, which is too small a gap to ever be unusual.",
+    "is_correct": false,
+    "rationale": "Unusualness depends on the gap measured in standard deviations, not the raw gap."
+   },
+   {
+    "label": "C",
+    "text": "The sample proportion is about 2 standard deviations below 0.60, so a result this low would be fairly unusual if the true proportion were 0.60.",
+    "is_correct": true,
+    "rationale": "Correct: SD = sqrt(0.6 x 0.4 / 150) = 0.04; z = -0.08 / 0.04 = -2.0."
+   },
+   {
+    "label": "D",
+    "text": "The sample proportion is about 50 standard deviations below 0.60, since the standard deviation of the sampling distribution is 0.0016.",
+    "is_correct": false,
+    "rationale": "Used the variance p(1 - p)/n as the standard deviation."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.2-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.2-A-v2",
+  "seed": "APSTATS-MCQ-H-3.2-A",
+  "family": "3.2-A",
+  "variant": "2",
+  "topic": "3.2",
+  "title": "Standardize a sample proportion (variant 2)",
+  "stem": "A hospital knows that 15% of its patients are readmitted within 30 days. In a random sample of 400 patients, 19% were readmitted. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The sample proportion is only 0.04 above 0.15, so it is within normal sampling variability for a sample of any size.",
+    "is_correct": false,
+    "rationale": "The gap must be compared with the standard deviation, which is small for n = 400."
+   },
+   {
+    "label": "B",
+    "text": "The sample proportion is about 45 standard deviations above 0.15, since the standard deviation of the sampling distribution is 0.00089.",
+    "is_correct": false,
+    "rationale": "Divided sqrt[p(1 - p)] by n instead of taking the square root of p(1 - p)/n, which makes the standard deviation far too small."
+   },
+   {
+    "label": "C",
+    "text": "The sample proportion is about 2.2 standard deviations above 0.15, so a result this large would be somewhat unusual if the true proportion were 0.15.",
+    "is_correct": true,
+    "rationale": "Correct: SD = sqrt(0.15 x 0.85 / 400) = 0.01785; z = 0.04 / 0.01785 = 2.24."
+   },
+   {
+    "label": "D",
+    "text": "The sample proportion is about 125 standard deviations above 0.15, since the standard deviation of the sampling distribution is 0.00032.",
+    "is_correct": false,
+    "rationale": "Used p(1 - p)/n as the standard deviation."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.2-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.2-A-v3",
+  "seed": "APSTATS-MCQ-H-3.2-A",
+  "family": "3.2-A",
+  "variant": "3",
+  "topic": "3.2",
+  "title": "Standardize a sample proportion (variant 3)",
+  "stem": "A manufacturer reports that 45% of its tablets pass inspection on the first try. A random sample of 100 tablets gives a sample proportion of 0.50. Which statement is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The sample proportion is about 10 standard deviations above 0.45, since the standard deviation of the sampling distribution is 0.005.",
+    "is_correct": false,
+    "rationale": "Divided sqrt[p(1 - p)] by n instead of taking the square root of p(1 - p)/n, which makes the standard deviation far too small."
+   },
+   {
+    "label": "B",
+    "text": "The sample proportion is about 1 standard deviation above 0.45, so a result this large would not be unusual if the true proportion were 0.45.",
+    "is_correct": true,
+    "rationale": "Correct: SD = sqrt(0.45 x 0.55 / 100) = 0.0497; z = 0.05 / 0.0497 = 1.01."
+   },
+   {
+    "label": "C",
+    "text": "The sample proportion is 0.05 above 0.45, which is too large a gap to be ordinary sampling variability.",
+    "is_correct": false,
+    "rationale": "With n = 100 the standard deviation is about 0.05, so a gap of 0.05 is ordinary."
+   },
+   {
+    "label": "D",
+    "text": "The sample proportion is about 20 standard deviations above 0.45, since the standard deviation of the sampling distribution is 0.0025.",
+    "is_correct": false,
+    "rationale": "Used p(1 - p)/n as the standard deviation."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.3-A-v1",
+  "seed": "APSTATS-MCQ-H-3.3-A",
+  "family": "3.3-A",
+  "variant": "1",
+  "topic": "3.3",
+  "title": "Margin of error under combined changes (variant 1)",
+  "stem": "A 95% confidence interval for a population proportion, based on a random sample of 625 people, has a margin of error of 0.03. A second interval uses a random sample of 2,500 people at a 90% confidence level, with about the same sample proportion. About what is its margin of error?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.025",
+    "is_correct": false,
+    "rationale": "Accounted for the lower confidence level but ignored the larger sample."
+   },
+   {
+    "label": "B",
+    "text": "0.015",
+    "is_correct": false,
+    "rationale": "Accounted for the larger sample but ignored the lower confidence level."
+   },
+   {
+    "label": "C",
+    "text": "0.013",
+    "is_correct": true,
+    "rationale": "Correct: n quadrupled so 0.03 / 2 = 0.015; critical value falls from 1.96 to 1.645 (factor 0.839); 0.015 x 0.839 = 0.0126."
+   },
+   {
+    "label": "D",
+    "text": "0.006",
+    "is_correct": false,
+    "rationale": "Divided by 4 instead of 2 for the sample size, then applied the critical value change."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.3-A-v2",
+  "seed": "APSTATS-MCQ-H-3.3-A",
+  "family": "3.3-A",
+  "variant": "2",
+  "topic": "3.3",
+  "title": "Margin of error under combined changes (variant 2)",
+  "stem": "A 95% confidence interval for a population proportion, based on a random sample of 200 people, has a margin of error of 0.05. A second interval uses a random sample of 800 people at a 99% confidence level, with about the same sample proportion. About what is its margin of error?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.066",
+    "is_correct": false,
+    "rationale": "Accounted for the higher confidence level but ignored the larger sample."
+   },
+   {
+    "label": "B",
+    "text": "0.033",
+    "is_correct": true,
+    "rationale": "Correct: 0.05 / 2 = 0.025; 2.576 / 1.96 = 1.314; 0.025 x 1.314 = 0.0329."
+   },
+   {
+    "label": "C",
+    "text": "0.025",
+    "is_correct": false,
+    "rationale": "Accounted for the larger sample but ignored the higher confidence level."
+   },
+   {
+    "label": "D",
+    "text": "0.016",
+    "is_correct": false,
+    "rationale": "Divided by 4 for the sample size instead of 2, then applied the critical value change."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.3-A-v3",
+  "seed": "APSTATS-MCQ-H-3.3-A",
+  "family": "3.3-A",
+  "variant": "3",
+  "topic": "3.3",
+  "title": "Margin of error under combined changes (variant 3)",
+  "stem": "A 99% confidence interval for a population proportion, based on a random sample of 500 people, has a margin of error of 0.02. A second interval uses a random sample of only 125 people at a 90% confidence level, with about the same sample proportion. About what is its margin of error?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.040",
+    "is_correct": false,
+    "rationale": "Accounted for the smaller sample but ignored the lower confidence level."
+   },
+   {
+    "label": "B",
+    "text": "0.013",
+    "is_correct": false,
+    "rationale": "Accounted for the lower confidence level but ignored the smaller sample."
+   },
+   {
+    "label": "C",
+    "text": "0.051",
+    "is_correct": false,
+    "rationale": "Multiplied by 4 instead of 2 for the sample-size change, then applied the critical value change."
+   },
+   {
+    "label": "D",
+    "text": "0.026",
+    "is_correct": true,
+    "rationale": "Correct: n cut to a quarter, so the margin doubles to 0.04; 1.645 / 2.576 = 0.639; 0.04 x 0.639 = 0.0255."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-B-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.3-B-v1",
+  "seed": "APSTATS-MCQ-H-3.3-B",
+  "family": "3.3-B",
+  "variant": "1",
+  "topic": "3.3",
+  "title": "Sample size using a pilot estimate (variant 1)",
+  "stem": "A researcher wants a 90% confidence interval for a population proportion with a margin of error no larger than 0.05. A pilot study estimated the proportion to be about 0.35. Using z* = 1.645 and the pilot estimate, what is the smallest sample size that guarantees this margin of error?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "271",
+    "is_correct": false,
+    "rationale": "Ignored the pilot estimate and used p = 0.5."
+   },
+   {
+    "label": "B",
+    "text": "247",
+    "is_correct": true,
+    "rationale": "Correct: n >= 1.645^2 (0.35)(0.65) / 0.05^2 = 246.25, so n = 247."
+   },
+   {
+    "label": "C",
+    "text": "246",
+    "is_correct": false,
+    "rationale": "Rounded 246.25 down to 246, but any value with a fractional part must be rounded up to guarantee the margin of error."
+   },
+   {
+    "label": "D",
+    "text": "379",
+    "is_correct": false,
+    "rationale": "Used p = 0.35 in place of p(1 - p) = 0.2275."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-B-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.3-B-v2",
+  "seed": "APSTATS-MCQ-H-3.3-B",
+  "family": "3.3-B",
+  "variant": "2",
+  "topic": "3.3",
+  "title": "Sample size using a pilot estimate (variant 2)",
+  "stem": "A researcher wants a 99% confidence interval for a population proportion with a margin of error no larger than 0.02. A pilot study estimated the proportion to be about 0.10. Using z* = 2.576 and the pilot estimate, what is the smallest sample size that guarantees this margin of error?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "4,148",
+    "is_correct": false,
+    "rationale": "Ignored the pilot estimate and used p = 0.5."
+   },
+   {
+    "label": "B",
+    "text": "1,494",
+    "is_correct": true,
+    "rationale": "Correct: n >= 2.576^2 (0.10)(0.90) / 0.02^2 = 1493.05, so n = 1,494."
+   },
+   {
+    "label": "C",
+    "text": "1,493",
+    "is_correct": false,
+    "rationale": "Rounded 1,493.05 down to 1,493, but any value with a fractional part must be rounded up to guarantee the margin of error."
+   },
+   {
+    "label": "D",
+    "text": "1,659",
+    "is_correct": false,
+    "rationale": "Used p = 0.10 in place of p(1 - p) = 0.09."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.3-B-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.3-B-v3",
+  "seed": "APSTATS-MCQ-H-3.3-B",
+  "family": "3.3-B",
+  "variant": "3",
+  "topic": "3.3",
+  "title": "Sample size using a pilot estimate (variant 3)",
+  "stem": "A researcher wants a 95% confidence interval for a population proportion with a margin of error no larger than 0.03. A pilot study estimated the proportion to be about 0.70. Using z* = 1.96 and the pilot estimate, what is the smallest sample size that guarantees this margin of error?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1,068",
+    "is_correct": false,
+    "rationale": "Ignored the pilot estimate and used p = 0.5."
+   },
+   {
+    "label": "B",
+    "text": "896",
+    "is_correct": false,
+    "rationale": "Rounded 896.37 down to 896, but any value with a fractional part must be rounded up to guarantee the margin of error."
+   },
+   {
+    "label": "C",
+    "text": "897",
+    "is_correct": true,
+    "rationale": "Correct: n >= 1.96^2 (0.70)(0.30) / 0.03^2 = 896.37, so n = 897."
+   },
+   {
+    "label": "D",
+    "text": "2,988",
+    "is_correct": false,
+    "rationale": "Used p = 0.70 in place of p(1 - p) = 0.21."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-B-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.4-B-v1",
+  "seed": "APSTATS-MCQ-H-3.4-B",
+  "family": "3.4-B",
+  "variant": "1",
+  "topic": "3.4",
+  "title": "Recover p-hat and margin from an interval, then judge a claim (variant 1)",
+  "stem": "A random sample of voters is used to construct a 95% confidence interval for the proportion who support a school bond. The interval is (0.52, 0.64). A board member claims that a majority of voters support the bond. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The interval does not support the claim, because the interval does not capture the sample proportion exactly.",
+    "is_correct": false,
+    "rationale": "The sample proportion is the midpoint of the interval by construction."
+   },
+   {
+    "label": "B",
+    "text": "There is a 95% probability that more than half of all voters support the bond.",
+    "is_correct": false,
+    "rationale": "The true proportion is a fixed number, so probability statements describe the method, not this interval."
+   },
+   {
+    "label": "C",
+    "text": "The interval supports the claim, because every plausible value for the population proportion is above 0.50.",
+    "is_correct": true,
+    "rationale": "Correct: lower endpoint 0.52 > 0.50, so all plausible values exceed one half."
+   },
+   {
+    "label": "D",
+    "text": "The interval supports the claim only for the 95% of voters inside the interval.",
+    "is_correct": false,
+    "rationale": "The interval is about a population proportion, not about subsets of voters."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-B-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.4-B-v2",
+  "seed": "APSTATS-MCQ-H-3.4-B",
+  "family": "3.4-B",
+  "variant": "2",
+  "topic": "3.4",
+  "title": "Recover p-hat and margin from an interval, then judge a claim (variant 2)",
+  "stem": "A random sample of 900 teenagers is used to construct a 99% confidence interval for the proportion who text while walking. The interval is (0.31, 0.39). A safety group claims that the proportion is 0.30. Which statement is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The claim is not supported, because 0.30 is not a plausible value; every plausible value is above 0.30.",
+    "is_correct": true,
+    "rationale": "Correct: 0.30 lies below the lower endpoint 0.31."
+   },
+   {
+    "label": "B",
+    "text": "The claim is supported, because 0.30 is close to the lower endpoint 0.31.",
+    "is_correct": false,
+    "rationale": "Being close to an endpoint is not the same as being inside the interval."
+   },
+   {
+    "label": "C",
+    "text": "The claim is supported, because the interval is centered at 0.35 and that is near 0.30.",
+    "is_correct": false,
+    "rationale": "The center of the interval is the sample proportion, and the claim must be a plausible value for the population."
+   },
+   {
+    "label": "D",
+    "text": "The claim is not supported, because 99% of teenagers are outside the interval.",
+    "is_correct": false,
+    "rationale": "A confidence level does not describe the share of teenagers."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.4-B-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.4-B-v3",
+  "seed": "APSTATS-MCQ-H-3.4-B",
+  "family": "3.4-B",
+  "variant": "3",
+  "topic": "3.4",
+  "title": "Recover p-hat and margin from an interval, then judge a claim (variant 3)",
+  "stem": "A random sample of 250 customers is used to construct a 90% confidence interval for the proportion who are satisfied. The interval is (0.33, 0.43). A manager claims that fewer than 40% of customers are satisfied. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The claim is supported, because the sample proportion of 0.38 is less than 0.40.",
+    "is_correct": false,
+    "rationale": "A claim about a population cannot be judged from the sample proportion alone."
+   },
+   {
+    "label": "B",
+    "text": "The claim is supported, because most of the interval is below 0.40.",
+    "is_correct": false,
+    "rationale": "The whole range of plausible values must agree with the claim."
+   },
+   {
+    "label": "C",
+    "text": "The claim is not supported, because values from 0.40 to 0.43 are plausible for the population proportion.",
+    "is_correct": true,
+    "rationale": "Correct: the interval contains 0.40 and values above it; p-hat = 0.38."
+   },
+   {
+    "label": "D",
+    "text": "The claim is not supported, because the interval would need to be a 95% interval to be used.",
+    "is_correct": false,
+    "rationale": "A 90% interval can be used to evaluate a claim; the level only sets the level of confidence."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.5-A-v1",
+  "seed": "APSTATS-MCQ-H-3.5-A",
+  "family": "3.5-A",
+  "variant": "1",
+  "topic": "3.5",
+  "title": "Hypotheses from the research question (variant 1)",
+  "stem": "A school claims that at least 70% of its graduates enroll in college. A skeptical reporter wants to test whether the true proportion is less than 70%. In a random sample of 120 graduates, 90 enrolled in college (75%). Which hypotheses should the reporter test?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: p = 0.70, Ha: p > 0.70, where p is the proportion of all graduates who enroll in college.",
+    "is_correct": false,
+    "rationale": "Followed the direction of the sample result instead of the question."
+   },
+   {
+    "label": "B",
+    "text": "H0: p = 0.70, Ha: p < 0.70, where p is the proportion of all graduates who enroll in college.",
+    "is_correct": true,
+    "rationale": "Correct: the reporter's question is \"less than 70%\"; the sample 75% is data."
+   },
+   {
+    "label": "C",
+    "text": "H0: p = 0.75, Ha: p < 0.75, where p is the proportion of all graduates who enroll in college.",
+    "is_correct": false,
+    "rationale": "Used the sample proportion as the null value."
+   },
+   {
+    "label": "D",
+    "text": "H0: p-hat = 0.70, Ha: p-hat < 0.70, where p-hat is the proportion of sampled graduates who enroll.",
+    "is_correct": false,
+    "rationale": "Hypotheses are about the population parameter, not the statistic."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.5-A-v2",
+  "seed": "APSTATS-MCQ-H-3.5-A",
+  "family": "3.5-A",
+  "variant": "2",
+  "topic": "3.5",
+  "title": "Hypotheses from the research question (variant 2)",
+  "stem": "A manufacturer says that 4% of its batteries are defective. An inspector suspects the true defect rate is different from 4%. In a random sample of 500 batteries, 24 are defective (4.8%). Which hypotheses should the inspector test?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: p = 0.048, Ha: p != 0.048, where p is the proportion of all batteries that are defective.",
+    "is_correct": false,
+    "rationale": "Used the sample proportion as the null value."
+   },
+   {
+    "label": "B",
+    "text": "H0: p = 0.04, Ha: p > 0.04, where p is the proportion of all batteries that are defective.",
+    "is_correct": false,
+    "rationale": "The inspector's suspicion is a difference in either direction, not just an increase."
+   },
+   {
+    "label": "C",
+    "text": "H0: p-hat = 0.04, Ha: p-hat != 0.04, where p-hat is the proportion of sampled batteries that are defective.",
+    "is_correct": false,
+    "rationale": "Hypotheses are about the population parameter, not the statistic."
+   },
+   {
+    "label": "D",
+    "text": "H0: p = 0.04, Ha: p != 0.04, where p is the proportion of all batteries that are defective.",
+    "is_correct": true,
+    "rationale": "Correct: \"different from\" is two-sided and the null uses the manufacturer's 4%."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.5-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.5-A-v3",
+  "seed": "APSTATS-MCQ-H-3.5-A",
+  "family": "3.5-A",
+  "variant": "3",
+  "topic": "3.5",
+  "title": "Hypotheses from the research question (variant 3)",
+  "stem": "A candidate needs more than 50% of the vote to win. A campaign wants to test whether the proportion of all voters supporting the candidate exceeds 50%. In a random sample of 400 voters, 188 support the candidate (47%). Which hypotheses should the campaign test?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: p = 0.50, Ha: p < 0.50, where p is the proportion of all voters who support the candidate.",
+    "is_correct": false,
+    "rationale": "Followed the sample result (47% is below 50%) instead of the question."
+   },
+   {
+    "label": "B",
+    "text": "H0: p >= 0.50, Ha: p = 0.50, where p is the proportion of all voters who support the candidate.",
+    "is_correct": false,
+    "rationale": "The alternative hypothesis never contains equality."
+   },
+   {
+    "label": "C",
+    "text": "H0: p = 0.47, Ha: p > 0.47, where p is the proportion of all voters who support the candidate.",
+    "is_correct": false,
+    "rationale": "Used the sample proportion as the null value."
+   },
+   {
+    "label": "D",
+    "text": "H0: p = 0.50, Ha: p > 0.50, where p is the proportion of all voters who support the candidate.",
+    "is_correct": true,
+    "rationale": "Correct: the question is whether support exceeds 50%."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.6-A-v1",
+  "seed": "APSTATS-MCQ-H-3.6-A",
+  "family": "3.6-A",
+  "variant": "1",
+  "topic": "3.6",
+  "title": "p-value for a one- or two-sided alternative (variant 1)",
+  "stem": "A significance test of H0: p = 0.30 versus Ha: p != 0.30 gives a test statistic z = 2.10. For a standard normal distribution, P(Z > 2.10) = 0.018. Using a significance level of alpha = 0.01, which conclusion is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Fail to reject H0, because the two-sided p-value is 2(0.018) = 0.036, which is greater than 0.01.",
+    "is_correct": true,
+    "rationale": "Correct: two-sided p = 0.036 > 0.01."
+   },
+   {
+    "label": "B",
+    "text": "Reject H0, because 0.018 is less than 0.05.",
+    "is_correct": false,
+    "rationale": "Compared with the wrong significance level, 0.05."
+   },
+   {
+    "label": "C",
+    "text": "Reject H0, because z = 2.10 is greater than 2.",
+    "is_correct": false,
+    "rationale": "Compared z with a number instead of comparing the p-value with alpha."
+   },
+   {
+    "label": "D",
+    "text": "Fail to reject H0, because 0.036 is the probability that H0 is true.",
+    "is_correct": false,
+    "rationale": "The decision is right, but a p-value is not the probability that H0 is true."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.6-A-v2",
+  "seed": "APSTATS-MCQ-H-3.6-A",
+  "family": "3.6-A",
+  "variant": "2",
+  "topic": "3.6",
+  "title": "p-value for a one- or two-sided alternative (variant 2)",
+  "stem": "A significance test of H0: p = 0.40 versus Ha: p > 0.40 gives a test statistic z = 1.70. For a standard normal distribution, P(Z > 1.70) = 0.045. Using a significance level of alpha = 0.05, which conclusion is correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Fail to reject H0, because the two-sided p-value is 2(0.045) = 0.090.",
+    "is_correct": false,
+    "rationale": "Doubled the tail area, but the alternative is one-sided."
+   },
+   {
+    "label": "B",
+    "text": "Fail to reject H0, because z = 1.70 is smaller than 1.96.",
+    "is_correct": false,
+    "rationale": "1.96 applies to a two-sided 5% test, not to this one-sided test."
+   },
+   {
+    "label": "C",
+    "text": "Reject H0, because 0.045 is the probability that H0 is true.",
+    "is_correct": false,
+    "rationale": "The decision is right, but a p-value is not the probability that H0 is true."
+   },
+   {
+    "label": "D",
+    "text": "Reject H0, because the p-value for this one-sided alternative is 0.045, which is less than 0.05.",
+    "is_correct": true,
+    "rationale": "Correct: Ha is one-sided so the p-value is the single tail, 0.045 < 0.05."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.6-A-v3",
+  "seed": "APSTATS-MCQ-H-3.6-A",
+  "family": "3.6-A",
+  "variant": "3",
+  "topic": "3.6",
+  "title": "p-value for a one- or two-sided alternative (variant 3)",
+  "stem": "A significance test of H0: p = 0.25 versus Ha: p != 0.25 gives a test statistic z = -2.40. For a standard normal distribution, P(Z < -2.40) = 0.008. Using a significance level of alpha = 0.01, which conclusion is correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Reject H0, because the p-value is 0.008, which is less than 0.01.",
+    "is_correct": false,
+    "rationale": "Used a one-sided tail for a two-sided alternative."
+   },
+   {
+    "label": "B",
+    "text": "Fail to reject H0, because the test statistic is negative.",
+    "is_correct": false,
+    "rationale": "The sign of z only gives the direction, and the p-value depends on the size of z."
+   },
+   {
+    "label": "C",
+    "text": "Reject H0, because 0.016 is smaller than 0.05.",
+    "is_correct": false,
+    "rationale": "Compared with 0.05 although alpha is 0.01."
+   },
+   {
+    "label": "D",
+    "text": "Fail to reject H0, because the two-sided p-value is 2(0.008) = 0.016, which is greater than 0.01.",
+    "is_correct": true,
+    "rationale": "Correct: two-sided p = 0.016 > 0.01."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-B-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.6-B-v1",
+  "seed": "APSTATS-MCQ-H-3.6-B",
+  "family": "3.6-B",
+  "variant": "1",
+  "topic": "3.6",
+  "title": "Statistical versus practical significance (variant 1)",
+  "stem": "A principal claims that 40% of students walk to school. A researcher tests H0: p = 0.40 versus Ha: p != 0.40 using a random sample of only 40 students, 21 of whom (52.5%) walk. The p-value is about 0.11. Using alpha = 0.05, which conclusion is best?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "There is convincing evidence that exactly 40% of students walk, because the test failed to reject H0.",
+    "is_correct": false,
+    "rationale": "Failing to reject H0 does not show that H0 is true."
+   },
+   {
+    "label": "B",
+    "text": "There is convincing evidence that the proportion differs from 40%, because 65% is much larger than 40%.",
+    "is_correct": false,
+    "rationale": "The p-value of 0.11 is above 0.05, and a small sample can produce a large gap by chance."
+   },
+   {
+    "label": "C",
+    "text": "There is an 11% chance that the principal is correct.",
+    "is_correct": false,
+    "rationale": "A p-value is computed assuming H0 is true; it is not the probability that H0 is true."
+   },
+   {
+    "label": "D",
+    "text": "There is not convincing evidence of a difference at the 0.05 level, but the sample was small and the gap of 12.5 percentage points is sizable, so a larger sample would be informative.",
+    "is_correct": true,
+    "rationale": "Correct: z = 0.125 / sqrt(0.4 x 0.6 / 40) = 1.61; two-sided p = 0.107; np0 = 16 and n(1 - p0) = 24 so the z-test is valid."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-B-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.6-B-v2",
+  "seed": "APSTATS-MCQ-H-3.6-B",
+  "family": "3.6-B",
+  "variant": "2",
+  "topic": "3.6",
+  "title": "Statistical versus practical significance (variant 2)",
+  "stem": "A city claims that 80% of its buses run on time. A transit analyst tests H0: p = 0.80 versus Ha: p != 0.80 using a random sample of 100,000 bus trips, 79.5% of which were on time. The p-value is about 0.0001. Which conclusion is best?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "There is convincing evidence that the on-time rate is much lower than 80%, because the p-value is tiny.",
+    "is_correct": false,
+    "rationale": "A small p-value says the gap is unlikely to be chance, not that it is large."
+   },
+   {
+    "label": "B",
+    "text": "The sample is too large to be trusted, so no conclusion can be drawn.",
+    "is_correct": false,
+    "rationale": "Large samples give more reliable estimates, and the evidence of a difference is real."
+   },
+   {
+    "label": "C",
+    "text": "There is a 0.01% chance that the city's claim of 80% is correct.",
+    "is_correct": false,
+    "rationale": "A p-value is computed assuming H0 is true, not the probability that H0 is true."
+   },
+   {
+    "label": "D",
+    "text": "There is convincing evidence that the on-time rate differs from 80%, but a half-percentage-point gap is small, so it may not matter in practice.",
+    "is_correct": true,
+    "rationale": "Correct: SE = sqrt(0.8 x 0.2 / 100,000) = 0.00126; z = -0.005 / 0.00126 = -3.95; two-sided p about 0.0001."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.6-B-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.6-B-v3",
+  "seed": "APSTATS-MCQ-H-3.6-B",
+  "family": "3.6-B",
+  "variant": "3",
+  "topic": "3.6",
+  "title": "Statistical versus practical significance (variant 3)",
+  "stem": "Two researchers each test H0: p = 0.50 about different populations. Researcher 1 finds a p-value of about 0.005 with a sample proportion of 0.51 from 20,000 people. Researcher 2 finds a p-value of about 0.005 with a sample proportion of 0.70 from 50 people. Which statement is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The evidence against H0 is equally strong, but Researcher 1's difference is much smaller and may not matter in practice.",
+    "is_correct": true,
+    "rationale": "Correct: z = 0.01 / sqrt(0.25 / 20,000) = 2.83 and z = 0.20 / sqrt(0.25 / 50) = 2.83, so both p-values are about 0.005; the sample differences are 0.01 and 0.20."
+   },
+   {
+    "label": "B",
+    "text": "Researcher 2 has stronger evidence, because 0.70 is farther from 0.50 than 0.51.",
+    "is_correct": false,
+    "rationale": "Strength of evidence is measured by the p-value, which is the same."
+   },
+   {
+    "label": "C",
+    "text": "The two results have equal evidence against H0 and equal practical importance, because the p-values are the same.",
+    "is_correct": false,
+    "rationale": "The same p-value does not mean the same size of effect."
+   },
+   {
+    "label": "D",
+    "text": "Researcher 1 has stronger evidence, because the sample size is larger.",
+    "is_correct": false,
+    "rationale": "The p-values already incorporate sample size."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.7-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.7-A-v1",
+  "seed": "APSTATS-MCQ-H-3.7-A",
+  "family": "3.7-A",
+  "variant": "1",
+  "topic": "3.7",
+  "title": "Conditions for a one-sample z-test use p0 (variant 1)",
+  "stem": "A phone company claims that 20% of its customers use a certain feature. A random sample of 100 customers is selected from the company's very large customer base, and only 6 of them use the feature. An analyst plans a one-sample z-test of H0: p = 0.20 versus Ha: p < 0.20. Which statement about the large counts condition is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The condition is met, because np0 = 100(0.20) = 20 and n(1 - p0) = 100(0.80) = 80 are both at least 10.",
+    "is_correct": true,
+    "rationale": "Correct: the test uses p0 = 0.20: np0 = 20 and n(1 - p0) = 80."
+   },
+   {
+    "label": "B",
+    "text": "The condition is not met, because only 6 sampled customers use the feature, which is less than 10.",
+    "is_correct": false,
+    "rationale": "The condition uses the hypothesized proportion, not the sample count of successes."
+   },
+   {
+    "label": "C",
+    "text": "The condition is not met, because p0 = 0.20 is less than 0.50.",
+    "is_correct": false,
+    "rationale": "The proportion does not need to be at least 0.50; both expected counts must be at least 10."
+   },
+   {
+    "label": "D",
+    "text": "The condition is met, because 6 sampled customers is at least 5.",
+    "is_correct": false,
+    "rationale": "The rule of 5 applies to expected counts in chi-square tests, and this check uses np0 and n(1 - p0) with a threshold of 10."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.7-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.7-A-v2",
+  "seed": "APSTATS-MCQ-H-3.7-A",
+  "family": "3.7-A",
+  "variant": "2",
+  "topic": "3.7",
+  "title": "Conditions for a one-sample z-test use p0 (variant 2)",
+  "stem": "A town has 500 households. A resident claims that 40% of its households recycle. A random sample of 80 households is selected, and 30 of them (37.5%) recycle. An analyst plans a one-sample z-test of H0: p = 0.40 versus Ha: p < 0.40. Which statement about the conditions is correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "All conditions are met, because np0 = 32 and n(1 - p0) = 48 are both at least 10.",
+    "is_correct": false,
+    "rationale": "The counts condition is met, but the 10% condition also has to be checked."
+   },
+   {
+    "label": "B",
+    "text": "The large counts condition is not met, because p-hat = 0.375 does not equal 0.40.",
+    "is_correct": false,
+    "rationale": "The test statistic compares p-hat with p0; the two need not be equal for conditions to hold."
+   },
+   {
+    "label": "C",
+    "text": "The random condition is not met, because a sample of 80 is too small.",
+    "is_correct": false,
+    "rationale": "The condition is about how the sample was selected, not about its size alone."
+   },
+   {
+    "label": "D",
+    "text": "The independence (10%) condition is not met, because the sample of 80 is more than 10% of the 500 households.",
+    "is_correct": true,
+    "rationale": "Correct: 10% of 500 = 50 < 80; np0 = 32 and n(1 - p0) = 48 are fine."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.7-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.7-A-v3",
+  "seed": "APSTATS-MCQ-H-3.7-A",
+  "family": "3.7-A",
+  "variant": "3",
+  "topic": "3.7",
+  "title": "Conditions for a one-sample z-test use p0 (variant 3)",
+  "stem": "A researcher wants to know whether more than half of the voters in a large state support a ballot measure. In a random sample of 100 voters, 62 support it. For a one-sample z-test of H0: p = 0.50 versus Ha: p > 0.50, which value is the test statistic?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "z = 0.24",
+    "is_correct": false,
+    "rationale": "Left n out of the standard error, dividing by sqrt[p0(1 - p0)] only."
+   },
+   {
+    "label": "B",
+    "text": "z = 2.40",
+    "is_correct": true,
+    "rationale": "Correct: z = (0.62 - 0.50) / sqrt(0.50 x 0.50 / 100) = 0.12 / 0.05 = 2.40."
+   },
+   {
+    "label": "C",
+    "text": "z = 2.47",
+    "is_correct": false,
+    "rationale": "Used p-hat in the standard error; in a test the standard error uses the hypothesized p0."
+   },
+   {
+    "label": "D",
+    "text": "z = 24",
+    "is_correct": false,
+    "rationale": "Divided sqrt[p0(1 - p0)] by n instead of taking the square root of p0(1 - p0)/n."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.8-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.8-A-v1",
+  "seed": "APSTATS-MCQ-H-3.8-A",
+  "family": "3.8-A",
+  "variant": "1",
+  "topic": "3.8",
+  "title": "Power and Type II error in context (variant 1)",
+  "stem": "A significance test has power 0.85 against a particular alternative value of the parameter. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "If the null hypothesis is true, the probability of a Type I error is 0.15.",
+    "is_correct": false,
+    "rationale": "The Type I error probability is alpha and is not 1 minus the power."
+   },
+   {
+    "label": "B",
+    "text": "The probability that the null hypothesis is false is 0.85.",
+    "is_correct": false,
+    "rationale": "Power is a conditional probability about the test's decision, not a probability that the null is false."
+   },
+   {
+    "label": "C",
+    "text": "If that alternative is true, the probability of a Type II error is 0.15.",
+    "is_correct": true,
+    "rationale": "Correct: Type II probability = 1 - 0.85 = 0.15."
+   },
+   {
+    "label": "D",
+    "text": "If the null hypothesis is true, the probability that the test rejects it is 0.85.",
+    "is_correct": false,
+    "rationale": "If the null is true the probability of rejecting it is alpha."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.8-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.8-A-v2",
+  "seed": "APSTATS-MCQ-H-3.8-A",
+  "family": "3.8-A",
+  "variant": "2",
+  "topic": "3.8",
+  "title": "Power and Type II error in context (variant 2)",
+  "stem": "A test of H0: p = 0.50 versus Ha: p > 0.50 has power 0.70 against p = 0.60 for a particular sample size and significance level. With the same sample size and significance level, how would the power against p = 0.55 compare?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Greater than 0.70, because values closer to the null give a larger gap to detect.",
+    "is_correct": false,
+    "rationale": "A value closer to the null is a smaller gap, not a larger one."
+   },
+   {
+    "label": "B",
+    "text": "Equal to 0.70, because the sample size and significance level are the same.",
+    "is_correct": false,
+    "rationale": "Power also depends on how far the true value is from the null value."
+   },
+   {
+    "label": "C",
+    "text": "Equal to the significance level, because 0.55 is close to 0.50.",
+    "is_correct": false,
+    "rationale": "Power equals alpha only when the true value equals the null value."
+   },
+   {
+    "label": "D",
+    "text": "Less than 0.70, because a true value closer to the null value is harder to detect.",
+    "is_correct": true,
+    "rationale": "Correct: smaller effect size, same standard error, so less power."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.8-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.8-A-v3",
+  "seed": "APSTATS-MCQ-H-3.8-A",
+  "family": "3.8-A",
+  "variant": "3",
+  "topic": "3.8",
+  "title": "Power and Type II error in context (variant 3)",
+  "stem": "A test of H0: p = 0.30 versus Ha: p < 0.30 has a probability of 0.18 of failing to reject H0 when the true proportion is 0.20. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The test has power 0.18 against p = 0.20.",
+    "is_correct": false,
+    "rationale": "0.18 is the Type II error probability, not the power."
+   },
+   {
+    "label": "B",
+    "text": "The test has power 0.82, so there is an 82% chance that the true proportion is 0.20.",
+    "is_correct": false,
+    "rationale": "Power is not a probability that the parameter takes a value."
+   },
+   {
+    "label": "C",
+    "text": "The test has power 0.82, so there is an 82% chance the test rejects H0 if the true proportion is 0.20.",
+    "is_correct": true,
+    "rationale": "Correct: power = 1 - 0.18 = 0.82."
+   },
+   {
+    "label": "D",
+    "text": "The test has power 0.82, so there is an 18% chance that H0 is true.",
+    "is_correct": false,
+    "rationale": "Power does not give the probability that H0 is true."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.8-B-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.8-B-v1",
+  "seed": "APSTATS-MCQ-H-3.8-B",
+  "family": "3.8-B",
+  "variant": "1",
+  "topic": "3.8",
+  "title": "Trade-off between Type I and Type II error (variant 1)",
+  "stem": "A researcher increases the significance level from alpha = 0.01 to alpha = 0.10 and keeps the same sample size and the same true parameter value. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The probability of a Type I error decreases, and the probability of a Type II error increases.",
+    "is_correct": false,
+    "rationale": "Reversed the effect of raising alpha, which makes rejection easier and so raises the Type I probability and lowers the Type II probability."
+   },
+   {
+    "label": "B",
+    "text": "The probabilities of both types of error decrease.",
+    "is_correct": false,
+    "rationale": "With the sample size fixed, the two error probabilities move in opposite directions."
+   },
+   {
+    "label": "C",
+    "text": "The probability of a Type I error increases, and the probability of a Type II error decreases.",
+    "is_correct": true,
+    "rationale": "Correct: a larger alpha makes rejection easier, so Type I goes up and power goes up (Type II goes down)."
+   },
+   {
+    "label": "D",
+    "text": "The probability of a Type I error increases, and the probability of a Type II error is unchanged.",
+    "is_correct": false,
+    "rationale": "Raising alpha makes rejection easier, which also lowers the Type II error probability."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.8-B-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.8-B-v2",
+  "seed": "APSTATS-MCQ-H-3.8-B",
+  "family": "3.8-B",
+  "variant": "2",
+  "topic": "3.8",
+  "title": "Trade-off between Type I and Type II error (variant 2)",
+  "stem": "A drug company tests H0: the drug is not effective versus Ha: the drug is effective. A Type I error would approve an ineffective drug, which could harm patients. Which plan best addresses this concern while keeping the test useful?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Raise alpha to 0.10 so the test is more sensitive.",
+    "is_correct": false,
+    "rationale": "A larger alpha makes false approvals more likely."
+   },
+   {
+    "label": "B",
+    "text": "Lower alpha to 0.01 and increase the sample size so the test keeps its power.",
+    "is_correct": true,
+    "rationale": "Correct: lowering alpha reduces false approvals; a larger n offsets the power loss."
+   },
+   {
+    "label": "C",
+    "text": "Lower alpha to 0.01 and decrease the sample size to save cost.",
+    "is_correct": false,
+    "rationale": "A smaller sample would lower power further."
+   },
+   {
+    "label": "D",
+    "text": "Keep alpha at 0.05 and decrease the sample size.",
+    "is_correct": false,
+    "rationale": "The sample size does not change the Type I error probability, which stays at alpha."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.8-B-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.8-B-v3",
+  "seed": "APSTATS-MCQ-H-3.8-B",
+  "family": "3.8-B",
+  "variant": "3",
+  "topic": "3.8",
+  "title": "Trade-off between Type I and Type II error (variant 3)",
+  "stem": "A researcher doubles the sample size for a test while keeping the significance level and the true parameter value the same. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The probability of a Type I error decreases, and the probability of a Type II error stays the same.",
+    "is_correct": false,
+    "rationale": "The Type I error probability is set by alpha, and the Type II probability falls with a larger n."
+   },
+   {
+    "label": "B",
+    "text": "The probabilities of both Type I and Type II errors decrease.",
+    "is_correct": false,
+    "rationale": "The Type I error probability is alpha and does not change with the sample size."
+   },
+   {
+    "label": "C",
+    "text": "The probability of a Type I error stays at alpha, and the probability of a Type II error decreases.",
+    "is_correct": true,
+    "rationale": "Correct: alpha is chosen by the researcher; a larger n shrinks the standard error and raises power."
+   },
+   {
+    "label": "D",
+    "text": "The probability of a Type I error stays at alpha, and the power decreases.",
+    "is_correct": false,
+    "rationale": "Power increases with a larger sample size."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.8-C-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.8-C-v1",
+  "seed": "APSTATS-MCQ-H-3.8-C",
+  "family": "3.8-C",
+  "variant": "1",
+  "topic": "3.8",
+  "title": "Type II error from a framed null hypothesis (variant 1)",
+  "stem": "A food plant tests each batch with H0: the batch is not contaminated versus Ha: the batch is contaminated. Rejecting H0 means the batch is discarded. Which statement correctly describes a Type I error?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Type I error: a clean batch is discarded even though it was not contaminated.",
+    "is_correct": true,
+    "rationale": "Correct: Type I means rejecting a true H0; H0 (not contaminated) is true for a clean batch."
+   },
+   {
+    "label": "B",
+    "text": "Type I error: a contaminated batch is not discarded and is shipped to stores.",
+    "is_correct": false,
+    "rationale": "This describes failing to reject a false H0, which is a Type II error."
+   },
+   {
+    "label": "C",
+    "text": "Type II error: a clean batch is discarded.",
+    "is_correct": false,
+    "rationale": "Discarding a clean batch is a Type I error, not a Type II error."
+   },
+   {
+    "label": "D",
+    "text": "Type I error: a contaminated batch is discarded.",
+    "is_correct": false,
+    "rationale": "Discarding a contaminated batch is the correct decision."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.8-C-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.8-C-v2",
+  "seed": "APSTATS-MCQ-H-3.8-C",
+  "family": "3.8-C",
+  "variant": "2",
+  "topic": "3.8",
+  "title": "Type II error from a framed null hypothesis (variant 2)",
+  "stem": "A cereal machine is set to fill boxes with a mean of 500 g. An inspector tests H0: mu = 500 versus Ha: mu != 500 and stops the machine when H0 is rejected. Which statement correctly describes a Type II error?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Type II error: the machine is not stopped even though its true mean is not 500 g.",
+    "is_correct": true,
+    "rationale": "Correct: a Type II error fails to reject a false H0; here H0 is false when the true mean differs from 500."
+   },
+   {
+    "label": "B",
+    "text": "Type I error: the machine is stopped even though it is filling correctly.",
+    "is_correct": false,
+    "rationale": "Stopping a correct machine is a Type I error, and the question asks about a Type II error."
+   },
+   {
+    "label": "C",
+    "text": "Type II error: the machine is stopped even though it is filling correctly.",
+    "is_correct": false,
+    "rationale": "Stopping a correct machine rejects a true H0, which is a Type I error."
+   },
+   {
+    "label": "D",
+    "text": "Type II error: the machine is stopped because it is filling incorrectly.",
+    "is_correct": false,
+    "rationale": "Stopping an incorrect machine is the correct decision."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.8-C-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.8-C-v3",
+  "seed": "APSTATS-MCQ-H-3.8-C",
+  "family": "3.8-C",
+  "variant": "3",
+  "topic": "3.8",
+  "title": "Type II error from a framed null hypothesis (variant 3)",
+  "stem": "A researcher tests H0: the new teaching method is no better than the current method versus Ha: the new method is better. Which statement correctly describes a Type I error?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The researcher concludes the new method is no better when it is actually better.",
+    "is_correct": false,
+    "rationale": "Failing to find an effect that exists is a Type II error."
+   },
+   {
+    "label": "B",
+    "text": "The researcher concludes the new method is no better when it is actually no better.",
+    "is_correct": false,
+    "rationale": "Concluding no benefit when there is none is a correct decision, not an error."
+   },
+   {
+    "label": "C",
+    "text": "The researcher concludes the new method is better when it is actually better.",
+    "is_correct": false,
+    "rationale": "Concluding a benefit when there really is one is a correct decision, not an error."
+   },
+   {
+    "label": "D",
+    "text": "The researcher concludes the new method is better when it is actually no better.",
+    "is_correct": true,
+    "rationale": "Correct: Type I means rejecting a true H0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.9-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.9-A-v1",
+  "seed": "APSTATS-MCQ-H-3.9-A",
+  "family": "3.9-A",
+  "variant": "1",
+  "topic": "3.9",
+  "title": "Sampling distribution of a difference of sample proportions (variant 1)",
+  "stem": "In one large school district 70% of students walk to school, and in another 55% walk. Independent random samples of 120 students from the first district and 100 students from the second district are selected. Which statement describes the sampling distribution of p-hat 1 - p-hat 2?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Approximately normal with mean 0.15 and standard deviation 0.0916.",
+    "is_correct": false,
+    "rationale": "Added the two standard deviations instead of adding the two variances and taking the square root."
+   },
+   {
+    "label": "B",
+    "text": "Approximately normal with mean 0.15 and standard deviation 0.0650.",
+    "is_correct": true,
+    "rationale": "Correct: variance = 0.7(0.3)/120 + 0.55(0.45)/100 = 0.00422; SD = 0.065; counts 84, 36, 55, 45 are at least 10."
+   },
+   {
+    "label": "C",
+    "text": "Approximately normal with mean 0.15 and standard deviation 0.00422.",
+    "is_correct": false,
+    "rationale": "Reported the variance as the standard deviation."
+   },
+   {
+    "label": "D",
+    "text": "Approximately normal with mean 1.27 and standard deviation 0.0650.",
+    "is_correct": false,
+    "rationale": "Divided the proportions instead of subtracting them."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.9-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.9-A-v2",
+  "seed": "APSTATS-MCQ-H-3.9-A",
+  "family": "3.9-A",
+  "variant": "2",
+  "topic": "3.9",
+  "title": "Sampling distribution of a difference of sample proportions (variant 2)",
+  "stem": "In each of two large cities, 30% of residents support a new tax. Independent random samples of 80 residents are taken from each city. Which statement describes the sampling distribution of p-hat 1 - p-hat 2?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Approximately normal with mean 0.30 and standard deviation 0.0725.",
+    "is_correct": false,
+    "rationale": "Used the common proportion as the mean instead of the difference."
+   },
+   {
+    "label": "B",
+    "text": "Approximately normal with mean 0 and standard deviation 0.00525.",
+    "is_correct": false,
+    "rationale": "Reported the variance as the standard deviation."
+   },
+   {
+    "label": "C",
+    "text": "Approximately normal with mean 0 and standard deviation 0.1025.",
+    "is_correct": false,
+    "rationale": "Added the two standard deviations instead of adding the two variances and taking the square root."
+   },
+   {
+    "label": "D",
+    "text": "Approximately normal with mean 0 and standard deviation 0.0725.",
+    "is_correct": true,
+    "rationale": "Correct: mean = 0; variance = 2 x 0.3(0.7)/80 = 0.00525; SD = 0.0725; counts 24 and 56 are at least 10."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.9-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.9-A-v3",
+  "seed": "APSTATS-MCQ-H-3.9-A",
+  "family": "3.9-A",
+  "variant": "3",
+  "topic": "3.9",
+  "title": "Sampling distribution of a difference of sample proportions (variant 3)",
+  "stem": "In population 1, 90% of members have a trait, and in population 2, 80% have it. Independent random samples of 40 members from population 1 and 60 from population 2 are taken. Which statement describes the sampling distribution of p-hat 1 - p-hat 2?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Approximately normal with mean 0.10 and standard deviation 0.0701, since the sample sizes are both at least 30.",
+    "is_correct": false,
+    "rationale": "The rule of 30 does not apply; the large counts condition fails for population 1."
+   },
+   {
+    "label": "B",
+    "text": "Mean 0.10 and standard deviation 0.0991, and not approximately normal, since 40(0.10) = 4 is less than 10.",
+    "is_correct": false,
+    "rationale": "The shape conclusion is right, but the standard deviation was found by adding the two standard deviations."
+   },
+   {
+    "label": "C",
+    "text": "Approximately normal with mean 0.10 and standard deviation 0.00492.",
+    "is_correct": false,
+    "rationale": "Reported the variance as the standard deviation and ignored the large counts condition."
+   },
+   {
+    "label": "D",
+    "text": "Mean 0.10 and standard deviation 0.0701, but not approximately normal, since 40(0.10) = 4 is less than 10.",
+    "is_correct": true,
+    "rationale": "Correct: variance = 0.9(0.1)/40 + 0.8(0.2)/60 = 0.00492; SD = 0.0701; n1(1 - p1) = 4 < 10."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.10-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.10-A-v1",
+  "seed": "APSTATS-MCQ-H-3.10-A",
+  "family": "3.10-A",
+  "variant": "1",
+  "topic": "3.10",
+  "title": "Interpret an interval for a difference of proportions (variant 1)",
+  "stem": "A tutoring company compares a new curriculum with its old curriculum. A 95% confidence interval for p_new - p_old, the difference in the proportions of all students who would pass an exam, is (-0.12, -0.03). Which interpretation is correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "We are 95% confident that between 3% and 12% of all students pass.",
+    "is_correct": false,
+    "rationale": "The interval estimates a difference between two proportions, not a single proportion."
+   },
+   {
+    "label": "B",
+    "text": "We are 95% confident that the proportion of all students who pass with the old curriculum is between 0.03 and 0.12 lower than with the new curriculum.",
+    "is_correct": false,
+    "rationale": "Reversed the direction; negative new - old means the old proportion is higher."
+   },
+   {
+    "label": "C",
+    "text": "There is a 95% chance that a student is between 3% and 12% less likely to pass with the new curriculum.",
+    "is_correct": false,
+    "rationale": "The interval is about population proportions, not about the chance for one student."
+   },
+   {
+    "label": "D",
+    "text": "We are 95% confident that the proportion of all students who pass with the new curriculum is between 0.03 and 0.12 lower than the proportion with the old curriculum.",
+    "is_correct": true,
+    "rationale": "Correct: the interval is for new - old and is negative, so new is lower."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.10-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.10-A-v2",
+  "seed": "APSTATS-MCQ-H-3.10-A",
+  "family": "3.10-A",
+  "variant": "2",
+  "topic": "3.10",
+  "title": "Interpret an interval for a difference of proportions (variant 2)",
+  "stem": "A 90% confidence interval for p_T - p_C, the difference in the proportions of all patients who recover with a treatment and with a control, is (0.05, 0.19). Which interpretation is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "We are 90% confident that the proportion of all patients who recover with the treatment is between 0.05 and 0.19 higher than with the control.",
+    "is_correct": true,
+    "rationale": "Correct: the interval for T - C is entirely positive, so the treatment proportion is higher."
+   },
+   {
+    "label": "B",
+    "text": "We are 90% confident that between 5% and 19% of all patients recover.",
+    "is_correct": false,
+    "rationale": "The interval describes a difference, not a single proportion."
+   },
+   {
+    "label": "C",
+    "text": "Between 5% and 19% of patients in the sample recovered with the treatment.",
+    "is_correct": false,
+    "rationale": "The interval is about the populations, not the patients in the sample."
+   },
+   {
+    "label": "D",
+    "text": "We are 90% confident that the proportion who recover with the control is between 0.05 and 0.19 higher than with the treatment.",
+    "is_correct": false,
+    "rationale": "Reversed the direction of the comparison, since a positive T - C means the treatment proportion is the higher one."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.10-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.10-A-v3",
+  "seed": "APSTATS-MCQ-H-3.10-A",
+  "family": "3.10-A",
+  "variant": "3",
+  "topic": "3.10",
+  "title": "Interpret an interval for a difference of proportions (variant 3)",
+  "stem": "A 95% confidence interval for p_1 - p_2, the difference in the proportions of all adults in two cities who favor a plan, is (-0.04, 0.08). Which interpretation is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "We are 95% confident that p_1 equals p_2, because the interval contains 0.",
+    "is_correct": false,
+    "rationale": "An interval containing 0 shows that no difference is plausible, not that the proportions are equal."
+   },
+   {
+    "label": "B",
+    "text": "We are 95% confident that p_1 is between 4% and 8% higher than p_2.",
+    "is_correct": false,
+    "rationale": "The interval includes negative values, so p_1 could be lower than p_2."
+   },
+   {
+    "label": "C",
+    "text": "We are 95% confident that p_1 - p_2 is between -0.04 and 0.08, so a difference of zero is a plausible value.",
+    "is_correct": true,
+    "rationale": "Correct: the interval contains 0 so equal proportions are plausible but not proven."
+   },
+   {
+    "label": "D",
+    "text": "There is a 95% probability that p-hat 1 - p-hat 2 in a new sample falls between -0.04 and 0.08.",
+    "is_correct": false,
+    "rationale": "The confidence level refers to the method capturing the population difference."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.11-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.11-A-v1",
+  "seed": "APSTATS-MCQ-H-3.11-A",
+  "family": "3.11-A",
+  "variant": "1",
+  "topic": "3.11",
+  "title": "Claim from an interval for a difference of proportions (variant 1)",
+  "stem": "A 95% confidence interval for p_1 - p_2, the difference in the proportions of all customers in two regions who prefer a product, is (0.03, 0.17). A manager claims that the proportion in region 1 is at least 0.10 higher than in region 2. Which statement is correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The interval supports the claim, because the whole interval is positive.",
+    "is_correct": false,
+    "rationale": "A positive interval supports a positive difference, not a difference of at least 0.10."
+   },
+   {
+    "label": "B",
+    "text": "The interval supports the claim, because the center of the interval, 0.10, equals 0.10.",
+    "is_correct": false,
+    "rationale": "The midpoint is the sample difference; the claim needs every plausible value to be at least 0.10."
+   },
+   {
+    "label": "C",
+    "text": "The interval does not show region 1 is higher, because the lower endpoint 0.03 is close to 0.",
+    "is_correct": false,
+    "rationale": "Any interval entirely above 0 supports a positive difference."
+   },
+   {
+    "label": "D",
+    "text": "The interval shows region 1 is higher, but it does not support the claim of at least 0.10, because values below 0.10 are plausible.",
+    "is_correct": true,
+    "rationale": "Correct: all plausible differences are positive; 0.03 to 0.10 are plausible and below the claimed value."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.11-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.11-A-v2",
+  "seed": "APSTATS-MCQ-H-3.11-A",
+  "family": "3.11-A",
+  "variant": "2",
+  "topic": "3.11",
+  "title": "Claim from an interval for a difference of proportions (variant 2)",
+  "stem": "A 90% confidence interval for p_1 - p_2 is (0.01, 0.15), and a 99% confidence interval computed from the same data is (-0.03, 0.19). A researcher claims p_1 is greater than p_2. Which statement is correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The claim is supported at both confidence levels, because the 99% interval is wider.",
+    "is_correct": false,
+    "rationale": "The 99% interval contains 0, so it does not rule out no difference."
+   },
+   {
+    "label": "B",
+    "text": "The claim is not supported at either level, because the intervals are different.",
+    "is_correct": false,
+    "rationale": "Different intervals from different levels do not contradict each other; each answers its own level."
+   },
+   {
+    "label": "C",
+    "text": "The claim is supported at the 99% level but not at the 90% level, because higher confidence is stronger evidence.",
+    "is_correct": false,
+    "rationale": "A higher confidence level makes the interval wider, which makes it harder to exclude 0."
+   },
+   {
+    "label": "D",
+    "text": "The claim is supported at the 90% confidence level but not at the 99% level, because 0 is plausible in the 99% interval.",
+    "is_correct": true,
+    "rationale": "Correct: 90% interval excludes 0; 99% interval contains 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.11-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.11-A-v3",
+  "seed": "APSTATS-MCQ-H-3.11-A",
+  "family": "3.11-A",
+  "variant": "3",
+  "topic": "3.11",
+  "title": "Claim from an interval for a difference of proportions (variant 3)",
+  "stem": "A 95% confidence interval for p_B - p_A, the difference in the proportions of all voters who support a candidate in group B and in group A, is (0.04, 0.12). A pollster claims that group A has the higher proportion. Which statement is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The claim is not supported; the interval suggests group B has the higher proportion, since every plausible value of p_B - p_A is positive.",
+    "is_correct": true,
+    "rationale": "Correct: p_B - p_A > 0 means B is higher."
+   },
+   {
+    "label": "B",
+    "text": "The claim is supported, because 0.04 and 0.12 are both positive.",
+    "is_correct": false,
+    "rationale": "Positive values of B - A mean B is larger, not A."
+   },
+   {
+    "label": "C",
+    "text": "The claim is not supported, because the interval does not contain 0.",
+    "is_correct": false,
+    "rationale": "The interval excluding 0 shows a difference, but its direction contradicts the claim."
+   },
+   {
+    "label": "D",
+    "text": "The claim cannot be judged, because the interval does not say which group is larger.",
+    "is_correct": false,
+    "rationale": "The order in the subtraction tells which group is larger."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.12-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.12-A-v1",
+  "seed": "APSTATS-MCQ-H-3.12-A",
+  "family": "3.12-A",
+  "variant": "1",
+  "topic": "3.12",
+  "title": "Hypotheses for a difference of proportions (variant 1)",
+  "stem": "A researcher wants to know whether the proportion of adults who exercise regularly is different for people who live in cities (population 1) and people who live in rural areas (population 2). In independent random samples, 90 of 150 city residents and 70 of 120 rural residents exercise regularly. Which hypotheses should be tested?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: p_1 - p_2 = 0 versus Ha: p_1 - p_2 > 0, where p_1 and p_2 are the proportions of all residents who exercise regularly in each setting.",
+    "is_correct": false,
+    "rationale": "The question asks about any difference, not only that city residents are higher."
+   },
+   {
+    "label": "B",
+    "text": "H0: p_1 - p_2 = 0 versus Ha: p_1 - p_2 != 0, where p_1 and p_2 are the proportions of all residents who exercise regularly in each setting.",
+    "is_correct": true,
+    "rationale": "Correct: \"different\" is two-sided; sample proportions are 0.60 and 0.583."
+   },
+   {
+    "label": "C",
+    "text": "H0: p-hat 1 = p-hat 2 versus Ha: p-hat 1 != p-hat 2.",
+    "is_correct": false,
+    "rationale": "Hypotheses are about population parameters, not statistics."
+   },
+   {
+    "label": "D",
+    "text": "H0: p_1 - p_2 = 0.017 versus Ha: p_1 - p_2 != 0.017, where p_1 and p_2 are the proportions of all residents who exercise regularly in each setting.",
+    "is_correct": false,
+    "rationale": "Used the sample difference as the null value."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.12-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.12-A-v2",
+  "seed": "APSTATS-MCQ-H-3.12-A",
+  "family": "3.12-A",
+  "variant": "2",
+  "topic": "3.12",
+  "title": "Hypotheses for a difference of proportions (variant 2)",
+  "stem": "A factory manager wants evidence that a new process produces a lower proportion of defective items than the old process. In independent random samples, 24 of 200 items from the new process and 18 of 200 items from the old process were defective. Which hypotheses should be tested?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: p_new - p_old = 0 versus Ha: p_new - p_old < 0, where p_new and p_old are the proportions of all items that are defective.",
+    "is_correct": true,
+    "rationale": "Correct: the question asks whether new is lower than old, even though the sample has new (0.12) higher than old (0.09)."
+   },
+   {
+    "label": "B",
+    "text": "H0: p_new - p_old = 0 versus Ha: p_new - p_old > 0, where p_new and p_old are the proportions of all items that are defective.",
+    "is_correct": false,
+    "rationale": "Followed the sample result (new was higher in the sample) instead of the question."
+   },
+   {
+    "label": "C",
+    "text": "H0: p_new - p_old = 0.03 versus Ha: p_new - p_old < 0.03, where p_new and p_old are the proportions of all items that are defective.",
+    "is_correct": false,
+    "rationale": "Used the sample difference 0.03 as the null value."
+   },
+   {
+    "label": "D",
+    "text": "H0: p-hat new - p-hat old = 0 versus Ha: p-hat new - p-hat old < 0.",
+    "is_correct": false,
+    "rationale": "Hypotheses are about parameters, not statistics."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.12-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.12-A-v3",
+  "seed": "APSTATS-MCQ-H-3.12-A",
+  "family": "3.12-A",
+  "variant": "3",
+  "topic": "3.12",
+  "title": "Hypotheses for a difference of proportions (variant 3)",
+  "stem": "A pollster wants to test whether the proportion of voters who support a measure is greater among voters under 30 (population 1) than among voters 30 and over (population 2). In independent random samples, 45 of 100 young voters and 60 of 120 older voters support the measure. Which hypotheses should be tested?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: p_1 - p_2 = 0 versus Ha: p_1 - p_2 < 0, where p_1 and p_2 are the proportions of all voters in each group who support the measure.",
+    "is_correct": false,
+    "rationale": "Followed the sample result (young voters were lower in the sample)."
+   },
+   {
+    "label": "B",
+    "text": "H0: p_1 - p_2 = 0 versus Ha: p_1 - p_2 > 0, where p_1 and p_2 are the proportions of all voters in each group who support the measure.",
+    "is_correct": true,
+    "rationale": "Correct: the question asks whether young voters are higher; the sample proportions are 0.45 and 0.50."
+   },
+   {
+    "label": "C",
+    "text": "H0: p_1 - p_2 = -0.05 versus Ha: p_1 - p_2 > -0.05, where p_1 and p_2 are the proportions of all voters in each group who support the measure.",
+    "is_correct": false,
+    "rationale": "Used the sample difference as the null value."
+   },
+   {
+    "label": "D",
+    "text": "H0: p_1 = p_2 versus Ha: p-hat 1 > p-hat 2.",
+    "is_correct": false,
+    "rationale": "Mixes a parameter statement in the null with a statistic statement in the alternative."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.13-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.13-A-v1",
+  "seed": "APSTATS-MCQ-H-3.13-A",
+  "family": "3.13-A",
+  "variant": "1",
+  "topic": "3.13",
+  "title": "Two-proportion z-test with pooled standard error (variant 1)",
+  "stem": "In a random sample of 120 customers who received coupon A, 66 redeemed it; in an independent random sample of 100 customers who received coupon B, 45 redeemed it. A test of H0: p_A = p_B versus Ha: p_A > p_B uses the pooled proportion 111/220 = 0.505. For a standard normal distribution, P(Z > 1.48) = 0.069. Which result is correct at alpha = 0.05?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "z = 1.48, p-value = 0.139; fail to reject H0, so there is not convincing evidence that the redemption rate for coupon A is higher.",
+    "is_correct": false,
+    "rationale": "Doubled the tail area, but the alternative is one-sided."
+   },
+   {
+    "label": "B",
+    "text": "z = 1.48, p-value = 0.069; fail to reject H0, so there is not convincing evidence that the redemption rate for coupon A is higher.",
+    "is_correct": true,
+    "rationale": "Correct: p-hat A = 0.55, p-hat B = 0.45; SE = sqrt(0.505 x 0.495 x (1/120 + 1/100)) = 0.0677; z = 0.10 / 0.0677 = 1.48."
+   },
+   {
+    "label": "C",
+    "text": "z = 2.97, p-value = 0.001; reject H0, so there is convincing evidence that the redemption rate for coupon A is higher.",
+    "is_correct": false,
+    "rationale": "Divided the pooled variance by n1 + n2, which makes the standard error too small."
+   },
+   {
+    "label": "D",
+    "text": "z = 1.48, p-value = 0.069; reject H0, because 0.069 is close to 0.05.",
+    "is_correct": false,
+    "rationale": "A p-value above alpha means fail to reject, no matter how close it is."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.13-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.13-A-v2",
+  "seed": "APSTATS-MCQ-H-3.13-A",
+  "family": "3.13-A",
+  "variant": "2",
+  "topic": "3.13",
+  "title": "Two-proportion z-test with pooled standard error (variant 2)",
+  "stem": "In a random sample of 130 members of group 1, 39 prefer a plan; in an independent random sample of 90 members of group 2, 54 prefer it. A test of H0: p_1 = p_2 versus Ha: p_1 != p_2 uses the pooled proportion 93/220 = 0.423. Which result is correct at alpha = 0.05?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "z = -9.01, p-value < 0.001; reject H0, so there is convincing evidence that the proportions differ.",
+    "is_correct": false,
+    "rationale": "Divided the pooled variance by n1 + n2, which makes the standard error too small."
+   },
+   {
+    "label": "B",
+    "text": "z = -4.43, p-value = 0.99; fail to reject H0.",
+    "is_correct": false,
+    "rationale": "Used the wrong tail of the distribution for a statistic far below 0."
+   },
+   {
+    "label": "C",
+    "text": "z = -4.58, p-value < 0.001; reject H0, so there is convincing evidence that the proportions differ.",
+    "is_correct": false,
+    "rationale": "Used separate (unpooled) proportions in the standard error; under H0: p_1 = p_2 the pooled proportion is used."
+   },
+   {
+    "label": "D",
+    "text": "z = -4.43, p-value < 0.001; reject H0, so there is convincing evidence that the proportions differ.",
+    "is_correct": true,
+    "rationale": "Correct: p-hat 1 = 0.30, p-hat 2 = 0.60; SE = sqrt(0.423 x 0.577 x (1/130 + 1/90)) = 0.0677; z = -0.30 / 0.0677 = -4.43."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.13-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.13-A-v3",
+  "seed": "APSTATS-MCQ-H-3.13-A",
+  "family": "3.13-A",
+  "variant": "3",
+  "topic": "3.13",
+  "title": "Two-proportion z-test with pooled standard error (variant 3)",
+  "stem": "In a random sample of 160 patients given treatment X, 72 improved; in an independent random sample of 140 patients given treatment Y, 50 improved. A test of H0: p_X = p_Y versus Ha: p_X > p_Y uses the pooled proportion 122/300 = 0.407. For a standard normal distribution, P(Z > 1.63) = 0.052. Which result is correct at alpha = 0.05?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "z = 1.63, p-value = 0.103; fail to reject H0.",
+    "is_correct": false,
+    "rationale": "Doubled the tail area, but the alternative is one-sided."
+   },
+   {
+    "label": "B",
+    "text": "z = 3.27, p-value = 0.001; reject H0, so there is convincing evidence that X is better.",
+    "is_correct": false,
+    "rationale": "Divided the pooled variance by n1 + n2 instead of using 1/n1 + 1/n2, which makes the standard error too small."
+   },
+   {
+    "label": "C",
+    "text": "z = 1.63, p-value = 0.052; fail to reject H0, so there is not convincing evidence that treatment X has the higher improvement rate.",
+    "is_correct": true,
+    "rationale": "Correct: p-hat X = 0.45, p-hat Y = 0.357; SE = sqrt(0.407 x 0.593 x (1/160 + 1/140)) = 0.0568; z = 0.093 / 0.0568 = 1.63."
+   },
+   {
+    "label": "D",
+    "text": "z = 1.63, p-value = 0.052; reject H0, because 0.052 rounds to 0.05.",
+    "is_correct": false,
+    "rationale": "A p-value of 0.052 is not less than alpha = 0.05, so H0 is not rejected."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.14-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.14-A-v1",
+  "seed": "APSTATS-MCQ-H-3.14-A",
+  "family": "3.14-A",
+  "variant": "1",
+  "topic": "3.14",
+  "title": "Homogeneity or independence, and degrees of freedom (variant 1)",
+  "stem": "A researcher randomly selects 400 adults from one city and records each adult's age group (3 groups) and favorite social media platform (3 platforms). The researcher wants to know whether age group and favorite platform are associated. Which test and degrees of freedom are correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A test of independence, with df = (3 - 1)(3 - 1) = 4.",
+    "is_correct": true,
+    "rationale": "Correct: one sample classified on two variables gives independence; df = 2 x 2 = 4."
+   },
+   {
+    "label": "B",
+    "text": "A test of homogeneity, with df = 4.",
+    "is_correct": false,
+    "rationale": "Homogeneity applies to separate samples from different populations, and here there is one sample."
+   },
+   {
+    "label": "C",
+    "text": "A test of independence, with df = 9.",
+    "is_correct": false,
+    "rationale": "Used rows times columns instead of (rows - 1)(columns - 1) for the degrees of freedom."
+   },
+   {
+    "label": "D",
+    "text": "A test of independence, with df = 3.",
+    "is_correct": false,
+    "rationale": "Used the number of categories minus 1 for one variable only."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.14-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.14-A-v2",
+  "seed": "APSTATS-MCQ-H-3.14-A",
+  "family": "3.14-A",
+  "variant": "2",
+  "topic": "3.14",
+  "title": "Homogeneity or independence, and degrees of freedom (variant 2)",
+  "stem": "A health researcher takes independent random samples of 100 patients from each of two clinics and records whether each patient's outcome is improved, unchanged or worse. The researcher wants to know whether the distribution of outcomes is the same at the two clinics. Which test and degrees of freedom are correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A test of independence, with df = 2.",
+    "is_correct": false,
+    "rationale": "Independence applies to one sample classified on two variables."
+   },
+   {
+    "label": "B",
+    "text": "A test of homogeneity, with df = 5.",
+    "is_correct": false,
+    "rationale": "Used the number of cells minus 1, which is the degrees of freedom for a goodness-of-fit test, not for a two-way table."
+   },
+   {
+    "label": "C",
+    "text": "A test of homogeneity, with df = (2 - 1)(3 - 1) = 2.",
+    "is_correct": true,
+    "rationale": "Correct: separate samples from two populations gives homogeneity; df = 1 x 2 = 2."
+   },
+   {
+    "label": "D",
+    "text": "A test of homogeneity, with df = 1.",
+    "is_correct": false,
+    "rationale": "Used the number of clinics minus 1 only."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.14-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.14-A-v3",
+  "seed": "APSTATS-MCQ-H-3.14-A",
+  "family": "3.14-A",
+  "variant": "3",
+  "topic": "3.14",
+  "title": "Homogeneity or independence, and degrees of freedom (variant 3)",
+  "stem": "A random sample of 300 students is classified by grade level (freshman, sophomore, junior, senior) and by whether the student owns a car (yes or no). The researcher wants to know whether grade level and car ownership are related. Which test and degrees of freedom are correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A test of independence, with df = (4 - 1)(2 - 1) = 3.",
+    "is_correct": true,
+    "rationale": "Correct: one sample classified on two variables gives independence; df = 3 x 1 = 3."
+   },
+   {
+    "label": "B",
+    "text": "A test of independence, with df = 8.",
+    "is_correct": false,
+    "rationale": "Used rows times columns instead of (rows - 1)(columns - 1) for the degrees of freedom."
+   },
+   {
+    "label": "C",
+    "text": "A test of homogeneity, with df = 3.",
+    "is_correct": false,
+    "rationale": "Homogeneity applies to separate samples from different populations, and here there is one sample."
+   },
+   {
+    "label": "D",
+    "text": "A test of independence, with df = 5.",
+    "is_correct": false,
+    "rationale": "Added the numbers of rows and columns minus 1."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.15-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-3.15-A-v1",
+  "seed": "APSTATS-MCQ-H-3.15-A",
+  "family": "3.15-A",
+  "variant": "1",
+  "topic": "3.15",
+  "title": "Expected counts and chi-square conditions (variant 1)",
+  "stem": "A random sample of 100 people was classified by group and response. Group 1 (40 people): 4 responded yes and 36 responded no. Group 2 (60 people): 16 responded yes and 44 responded no. A researcher plans a chi-square test. Which statement about the conditions is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The expected counts condition is met, because every expected count is at least 5; the smallest is 40(20)/100 = 8.",
+    "is_correct": true,
+    "rationale": "Correct: column totals 20 and 80; expected counts: 8, 32, 12, 48."
+   },
+   {
+    "label": "B",
+    "text": "The conditions are not met, because the observed count of 4 is less than 5.",
+    "is_correct": false,
+    "rationale": "The condition applies to expected counts, and an observed count below 5 does not violate it."
+   },
+   {
+    "label": "C",
+    "text": "The conditions are not met, because the two groups are not the same size.",
+    "is_correct": false,
+    "rationale": "Groups of different sizes do not violate any condition, because the check is on expected counts."
+   },
+   {
+    "label": "D",
+    "text": "The expected counts condition is met, because the observed counts add to 100.",
+    "is_correct": false,
+    "rationale": "The total being 100 does not by itself guarantee every expected count is at least 5."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.15-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-3.15-A-v2",
+  "seed": "APSTATS-MCQ-H-3.15-A",
+  "family": "3.15-A",
+  "variant": "2",
+  "topic": "3.15",
+  "title": "Expected counts and chi-square conditions (variant 2)",
+  "stem": "A chi-square test of independence is planned for a random sample of 200 people classified in a 3 x 3 table. The row totals are 30, 50 and 120, and the column totals are 10, 90 and 100. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The expected counts condition is met, because the sample size of 200 is large.",
+    "is_correct": false,
+    "rationale": "The total sample size does not guarantee that every expected count is large."
+   },
+   {
+    "label": "B",
+    "text": "The expected counts condition is met, because every row total is at least 30.",
+    "is_correct": false,
+    "rationale": "The condition is about expected counts in every cell, not row totals."
+   },
+   {
+    "label": "C",
+    "text": "The expected counts condition is not met, because some expected counts are less than 5; for example, 30(10)/200 = 1.5.",
+    "is_correct": true,
+    "rationale": "Correct: expected count for row 1, column 1 = 1.5 < 5; row 2, column 1 = 2.5."
+   },
+   {
+    "label": "D",
+    "text": "The expected counts condition is not met, because the column totals are not equal.",
+    "is_correct": false,
+    "rationale": "Unequal column totals do not violate the condition, because the check is on each expected count."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.15-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-3.15-A-v3",
+  "seed": "APSTATS-MCQ-H-3.15-A",
+  "family": "3.15-A",
+  "variant": "3",
+  "topic": "3.15",
+  "title": "Expected counts and chi-square conditions (variant 3)",
+  "stem": "A chi-square test of independence on a 3 x 3 table gives a test statistic of 11.5. For a chi-square distribution with 4 degrees of freedom, P(chi-square > 9.49) = 0.05 and P(chi-square > 13.28) = 0.01. Which conclusion is correct at alpha = 0.05?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Reject H0, because 11.5 is greater than 9.49; the p-value is between 0.01 and 0.05, so there is convincing evidence of an association.",
+    "is_correct": true,
+    "rationale": "Correct: df = (3 - 1)(3 - 1) = 4; 9.49 < 11.5 < 13.28."
+   },
+   {
+    "label": "B",
+    "text": "Fail to reject H0, because 11.5 is less than 13.28.",
+    "is_correct": false,
+    "rationale": "Compared with the critical value for 0.01 instead of alpha = 0.05."
+   },
+   {
+    "label": "C",
+    "text": "Reject H0, because the test statistic is greater than 4, the number of degrees of freedom.",
+    "is_correct": false,
+    "rationale": "The comparison is with a critical value or p-value, not with the degrees of freedom."
+   },
+   {
+    "label": "D",
+    "text": "Reject H0, because 11.5 proves that the two variables are related by cause and effect.",
+    "is_correct": false,
+    "rationale": "A significant association does not establish cause and effect."
+   }
+  ]
+ }
+]

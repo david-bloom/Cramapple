@@ -1,0 +1,2306 @@
+[
+ {
+  "src_id": "N-1.9-A",
+  "content_key": "apcalcab-mcq-b7-h-1.9-a",
+  "family": "1.9-A",
+  "variant": null,
+  "topic": "1.9",
+  "title": "evaluate a limit of a composite g(f(x)) by combining a verbally described graph of f with a piecewise rule for g, tracki",
+  "stem": "The graph of f near x = 2 is described as follows: as x approaches 2 from either side, f(x) increases toward 3 but always stays below 3, and the point on the graph at x = 2 is (2, 5). The function g is defined by g(u) = 2u + 1 for u < 3 and g(u) = u² − 1 for u ≥ 3. What is lim(x→2) g(f(x))?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "7",
+    "is_correct": true,
+    "rationale": "Correct: Since f(x) → 3 from below, g(f(x)) → lim(u→3−) g(u) = 2(3) + 1 = 7. The values g(3) = 8 and g(f(2)) = g(5) = 24 are not what the limit follows."
+   },
+   {
+    "label": "B",
+    "text": "8",
+    "is_correct": false,
+    "rationale": "This evaluates the piece of g that applies at u = 3 itself, u² − 1 = 8, but the inputs f(x) stay below 3, so the left-hand piece of g governs the limit."
+   },
+   {
+    "label": "C",
+    "text": "The limit does not exist",
+    "is_correct": false,
+    "rationale": "G has different one-sided limits at u = 3, but here the inputs f(x) approach 3 only from below, so only the left-hand piece matters and the limit does exist."
+   },
+   {
+    "label": "D",
+    "text": "24",
+    "is_correct": false,
+    "rationale": "This substitutes f(2) = 5 into g. The limit depends on how f(x) behaves near x = 2, not on the single value f(2)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.9-A-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.9-a-v1",
+  "family": "1.9-A",
+  "variant": "1",
+  "topic": "1.9",
+  "title": "evaluate a limit of a composite g(f(x)) by combining a verbally described graph of f with a piecewise rule for g, tracki (variant 1)",
+  "stem": "A graph of f near x = 4 is described as follows: as x approaches 4 from either side, f(x) decreases toward −1 but always stays above −1, and the point on the graph at x = 4 is (4, 2). The function g is defined by g(u) = u + 5 for u ≤ −1 and g(u) = u² + 2 for u > −1. What is lim(x→4) g(f(x))?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3",
+    "is_correct": true,
+    "rationale": "Correct: f(x) → −1 from above, so g(f(x)) → lim(u→−1+) (u² + 2) = 3."
+   },
+   {
+    "label": "B",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This uses the piece u + 5 that applies at u = −1 itself, giving 4, but the inputs f(x) stay above −1, so the right-hand piece u² + 2 governs."
+   },
+   {
+    "label": "C",
+    "text": "The limit does not exist",
+    "is_correct": false,
+    "rationale": "G has a jump at u = −1, but the inputs f(x) approach −1 only from above, so only one piece matters and the limit exists."
+   },
+   {
+    "label": "D",
+    "text": "6",
+    "is_correct": false,
+    "rationale": "This substitutes f(4) = 2 into g to get g(2) = 6. The limit depends on the behaviour of f near x = 4, not on the value f(4)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.9-A-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.9-a-v2",
+  "family": "1.9-A",
+  "variant": "2",
+  "topic": "1.9",
+  "title": "evaluate a limit of a composite g(f(x)) by combining a verbally described graph of f with a piecewise rule for g, tracki (variant 2)",
+  "stem": "Near x = −3 the function f satisfies f(x) > 2 for every x ≠ −3, f(x) approaches 2 as x → −3, and f(−3) = 2. The function g is given by g(u) = (u² − 4)/(u − 2) for u ≠ 2 and g(2) = 7. What is lim(x→−3) g(f(x))?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "7",
+    "is_correct": false,
+    "rationale": "This uses g(2) = 7. The inputs f(x) approach 2 but are never equal to 2 for x ≠ −3, so the limit follows the formula (u² − 4)/(u − 2) = u + 2, not the single value g(2)."
+   },
+   {
+    "label": "B",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "This is lim f(x), the inner limit, not the limit of g(f(x)). The inner limit must still be fed through g."
+   },
+   {
+    "label": "C",
+    "text": "The limit does not exist",
+    "is_correct": false,
+    "rationale": "After cancelling, g(u) = u + 2 for u ≠ 2, which is continuous near 2 in the limit sense, so the limit exists and the answer is not DNE."
+   },
+   {
+    "label": "D",
+    "text": "4",
+    "is_correct": true,
+    "rationale": "Correct: For u ≠ 2, g(u) = u + 2, and f(x) ≠ 2 near −3, so g(f(x)) = f(x) + 2 → 4."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.9-A-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.9-a-v3",
+  "family": "1.9-A",
+  "variant": "3",
+  "topic": "1.9",
+  "title": "evaluate a limit of a composite g(f(x)) by combining a verbally described graph of f with a piecewise rule for g, tracki (variant 3)",
+  "stem": "A graph of f near x = 0 is described as follows: as x approaches 0 from either side, f(x) increases toward 1 but always stays below 1, and f(0) = 4. The function g is defined by g(u) = |u − 1|/(u − 1) for u ≠ 1. What is lim(x→0) g(f(x))?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This is the value of g for u > 1 (and also g(f(0)) = g(4) = 1). The inputs f(x) approach 1 from below, where |u − 1| = −(u − 1), so the quotient is −1."
+   },
+   {
+    "label": "B",
+    "text": "0",
+    "is_correct": false,
+    "rationale": "This averages the one-sided limits −1 and 1 of g at u = 1. Limits are not averaged, and here the inputs reach 1 only from below, so only −1 matters."
+   },
+   {
+    "label": "C",
+    "text": "The limit does not exist",
+    "is_correct": false,
+    "rationale": "G has different one-sided limits at u = 1, but f(x) approaches 1 only from below, so only the left-hand limit is used and the limit exists."
+   },
+   {
+    "label": "D",
+    "text": "−1",
+    "is_correct": true,
+    "rationale": "Correct: f(x) < 1 near 0, so |f(x) − 1| = −(f(x) − 1) and g(f(x)) = −1 for every x near 0, giving −1."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.9-B",
+  "content_key": "apcalcab-mcq-b7-h-1.9-b",
+  "family": "1.9-B",
+  "variant": null,
+  "topic": "1.9",
+  "title": "evaluate a one-sided limit of f(c − x) or f(c·x) from limits of f at a point, recognising that a negative inside factor ",
+  "stem": "A function f satisfies lim(x→2−) f(x) = 5, lim(x→2+) f(x) = −1, and f(2) = 3. What is lim(x→−2+) f(−x)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−1",
+    "is_correct": false,
+    "rationale": "This reads the right-hand limit of f at 2. As x → −2 from the right, −x approaches 2 from the left, so the left-hand limit 5 is the one needed."
+   },
+   {
+    "label": "B",
+    "text": "3",
+    "is_correct": false,
+    "rationale": "This is f(2), the function value. The limit depends on the nearby values, not on the value at the point."
+   },
+   {
+    "label": "C",
+    "text": "The limit does not exist",
+    "is_correct": false,
+    "rationale": "The two-sided limit of f at 2 does not exist, but the question asks about one side only, which is determined."
+   },
+   {
+    "label": "D",
+    "text": "5",
+    "is_correct": true,
+    "rationale": "Correct: If x → −2+, then x > −2, so −x < 2 and −x → 2−. So the limit is lim(u→2−) f(u) = 5."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.9-B-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.9-b-v1",
+  "family": "1.9-B",
+  "variant": "1",
+  "topic": "1.9",
+  "title": "evaluate a one-sided limit of f(c − x) or f(c·x) from limits of f at a point, recognising that a negative inside factor  (variant 1)",
+  "stem": "A function f satisfies lim(x→2−) f(x) = 4, lim(x→2+) f(x) = 0, and f(2) = 7. What is lim(x→1−) f(3 − x)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This reads the left-hand limit at 2. As x → 1 from the left, x < 1, so 3 − x > 2 and the input approaches 2 from the right."
+   },
+   {
+    "label": "B",
+    "text": "7",
+    "is_correct": false,
+    "rationale": "This is f(2), the function value. The limit depends on nearby values only."
+   },
+   {
+    "label": "C",
+    "text": "The limit does not exist",
+    "is_correct": false,
+    "rationale": "The two-sided limit of f at 2 does not exist, but only one side is involved here, so the one-sided limit exists."
+   },
+   {
+    "label": "D",
+    "text": "0",
+    "is_correct": true,
+    "rationale": "Correct: x → 1− gives 3 − x → 2+, so the limit is lim(u→2+) f(u) = 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.9-B-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.9-b-v2",
+  "family": "1.9-B",
+  "variant": "2",
+  "topic": "1.9",
+  "title": "evaluate a one-sided limit of f(c − x) or f(c·x) from limits of f at a point, recognising that a negative inside factor  (variant 2)",
+  "stem": "A function f satisfies lim(x→6−) f(x) = −3, lim(x→6+) f(x) = 2, and f(6) = 1. What is lim(x→−3+) f(−2x)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "This reads the right-hand limit at 6. As x → −3 from the right, x > −3, so −2x < 6 and the input approaches 6 from the left."
+   },
+   {
+    "label": "B",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This is f(6), the function value, which does not determine the limit."
+   },
+   {
+    "label": "C",
+    "text": "−3",
+    "is_correct": true,
+    "rationale": "Correct: x > −3 gives −2x < 6, so −2x → 6−. The limit is lim(u→6−) f(u) = −3."
+   },
+   {
+    "label": "D",
+    "text": "The limit does not exist",
+    "is_correct": false,
+    "rationale": "F has no two-sided limit at 6, but the one-sided approach here is fixed from the left, so the limit exists."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.9-B-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.9-b-v3",
+  "family": "1.9-B",
+  "variant": "3",
+  "topic": "1.9",
+  "title": "evaluate a one-sided limit of f(c − x) or f(c·x) from limits of f at a point, recognising that a negative inside factor  (variant 3)",
+  "stem": "A function f satisfies lim(x→2−) f(x) = 6, lim(x→2+) f(x) = 2, and f(2) = 4. What is lim(x→−1) f(1 − x)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "6",
+    "is_correct": false,
+    "rationale": "This uses only the left-hand limit. As x → −1 from the left, 1 − x approaches 2 from the right, giving 2; from the right it gives 6. The two sides disagree."
+   },
+   {
+    "label": "B",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "This uses only one side. The inputs 1 − x approach 2 from both sides as x → −1, so both one-sided limits of f at 2 are involved."
+   },
+   {
+    "label": "C",
+    "text": "The limit does not exist",
+    "is_correct": true,
+    "rationale": "Correct: x → −1 from either side makes 1 − x approach 2 from both sides, and the one-sided limits 6 and 2 differ, so the limit does not exist."
+   },
+   {
+    "label": "D",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This is f(2), the function value. The limit is decided by nearby values, which give 6 and 2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.10-A",
+  "content_key": "apcalcab-mcq-b7-h-1.10-a",
+  "family": "1.10-A",
+  "variant": null,
+  "topic": "1.10",
+  "title": "classify discontinuities of a rational function containing an absolute value by comparing one-sided limits, distinguishi",
+  "stem": "Let f(x) = |x − 3|/(x² − 9). Which of the following correctly describes the discontinuities of f?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A jump discontinuity at x = 3 and an infinite discontinuity at x = −3",
+    "is_correct": true,
+    "rationale": "Correct: At x = 3 the one-sided limits are −1/6 and 1/6 (jump); at x = −3 the numerator is 6 and the denominator tends to 0 (infinite)."
+   },
+   {
+    "label": "B",
+    "text": "A removable discontinuity at x = 3 and an infinite discontinuity at x = −3",
+    "is_correct": false,
+    "rationale": "This cancels x − 3 without handling the absolute value. For x > 3 the quotient is 1/(x + 3), but for x < 3 it is −1/(x + 3), so the one-sided limits are 1/6 and −1/6, not equal."
+   },
+   {
+    "label": "C",
+    "text": "Infinite discontinuities at both x = 3 and x = −3",
+    "is_correct": false,
+    "rationale": "At x = 3 the factor x − 3 cancels in magnitude, leaving finite one-sided limits ±1/6. Only x = −3 makes the quotient unbounded."
+   },
+   {
+    "label": "D",
+    "text": "A jump discontinuity at x = 3 and a removable discontinuity at x = −3",
+    "is_correct": false,
+    "rationale": "At x = −3 the numerator is |−6| = 6, which is not 0, while the denominator tends to 0, so the quotient is unbounded rather than approaching a finite limit."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.10-A-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.10-a-v1",
+  "family": "1.10-A",
+  "variant": "1",
+  "topic": "1.10",
+  "title": "classify discontinuities of a rational function containing an absolute value by comparing one-sided limits, distinguishi (variant 1)",
+  "stem": "Let g(x) = |x + 2|/(x² + x − 2). Which of the following correctly describes the discontinuities of g?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A removable discontinuity at x = −2 and an infinite discontinuity at x = 1",
+    "is_correct": false,
+    "rationale": "Cancelling x + 2 requires |x + 2| = x + 2, true only for x > −2. For x < −2 the quotient is −1/(x − 1), so the one-sided limits 1/3 and −1/3 differ."
+   },
+   {
+    "label": "B",
+    "text": "Infinite discontinuities at both x = −2 and x = 1",
+    "is_correct": false,
+    "rationale": "At x = −2 the factor x + 2 cancels in magnitude, so the one-sided limits are finite, ±1/3. Only x = 1 is an infinite discontinuity."
+   },
+   {
+    "label": "C",
+    "text": "A jump discontinuity at x = −2 and an infinite discontinuity at x = 1",
+    "is_correct": true,
+    "rationale": "Correct: Near −2 the one-sided limits are 1/3 (left) and −1/3 (right); near 1 the numerator is 3 and the denominator tends to 0."
+   },
+   {
+    "label": "D",
+    "text": "A jump discontinuity at x = 1 and an infinite discontinuity at x = −2",
+    "is_correct": false,
+    "rationale": "The roles are reversed. At x = 1 the numerator is 3 and the denominator tends to 0, which is infinite. At x = −2 the one-sided limits are finite and unequal, a jump."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.10-A-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.10-a-v2",
+  "family": "1.10-A",
+  "variant": "2",
+  "topic": "1.10",
+  "title": "classify discontinuities of a rational function containing an absolute value by comparing one-sided limits, distinguishi (variant 2)",
+  "stem": "Let h(x) = |2x − 6|/(x² − 2x − 3). Which of the following correctly describes the discontinuities of h?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A removable discontinuity at x = 3 and an infinite discontinuity at x = −1",
+    "is_correct": false,
+    "rationale": "The absolute value makes the quotient equal 2/(x + 1) for x > 3 but −2/(x + 1) for x < 3, so the one-sided limits at 3 are 1/2 and −1/2, which differ."
+   },
+   {
+    "label": "B",
+    "text": "A jump discontinuity at x = −1 and an infinite discontinuity at x = 3",
+    "is_correct": false,
+    "rationale": "At x = −1 the numerator is |−8| = 8 and the denominator tends to 0, so that point is infinite. The finite, unequal one-sided limits occur at x = 3."
+   },
+   {
+    "label": "C",
+    "text": "Jump discontinuities at both x = 3 and x = −1",
+    "is_correct": false,
+    "rationale": "At x = −1 the numerator is 8 and the denominator tends to 0, so the one-sided limits are unbounded, not finite and unequal."
+   },
+   {
+    "label": "D",
+    "text": "A jump discontinuity at x = 3 and an infinite discontinuity at x = −1",
+    "is_correct": true,
+    "rationale": "Correct: At x = 3 the one-sided limits are −1/2 and 1/2; at x = −1 the numerator is 8 and the denominator tends to 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.10-A-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.10-a-v3",
+  "family": "1.10-A",
+  "variant": "3",
+  "topic": "1.10",
+  "title": "classify discontinuities of a rational function containing an absolute value by comparing one-sided limits, distinguishi (variant 3)",
+  "stem": "Let q(x) = (x² − 9)/|x + 3|. Which of the following correctly describes the discontinuities of q?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Only a removable discontinuity, at x = −3",
+    "is_correct": false,
+    "rationale": "Cancelling x + 3 with |x + 3| works on one side only. From the left the quotient equals −(x − 3), approaching 6, from the right it equals x − 3, approaching −6, so there is no single limit."
+   },
+   {
+    "label": "B",
+    "text": "Only a jump discontinuity, at x = −3, with one-sided limits 6 and −6",
+    "is_correct": true,
+    "rationale": "Correct: For x < −3, q(x) = −(x − 3) → 6; for x > −3, q(x) = x − 3 → −6. The denominator is nonzero away from −3, so there is no other discontinuity."
+   },
+   {
+    "label": "C",
+    "text": "An infinite discontinuity at x = −3",
+    "is_correct": false,
+    "rationale": "The factor x + 3 in the numerator offsets the factor in |x + 3| in the denominator, so the quotient stays bounded near −3."
+   },
+   {
+    "label": "D",
+    "text": "A jump discontinuity at x = −3 and an infinite discontinuity at x = 3",
+    "is_correct": false,
+    "rationale": "The point x = 3 makes the numerator 0, not the denominator. q(3) = 0 and q is continuous there, so there is no infinite discontinuity."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.10-B",
+  "content_key": "apcalcab-mcq-b7-h-1.10-b",
+  "family": "1.10-B",
+  "variant": null,
+  "topic": "1.10",
+  "title": "choose the parameter that turns a discontinuity at a break point into a removable one rather than a jump, using one-side",
+  "stem": "A function f is defined by f(x) = 3x + 1 for x < 2, f(2) = 10, and f(x) = x² + k for x > 2, where k is a constant. For which value of k does f have a removable discontinuity at x = 2?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "k = 6",
+    "is_correct": false,
+    "rationale": "This makes the right-hand limit 4 + k equal to f(2) = 10, but the left-hand limit is 7, so the two-sided limit still fails to exist, giving a jump."
+   },
+   {
+    "label": "B",
+    "text": "k = 3",
+    "is_correct": true,
+    "rationale": "Correct: The left limit is 3(2) + 1 = 7. A removable discontinuity needs the right limit 4 + k = 7, so k = 3, and f(2) = 10 ≠ 7 keeps it discontinuous."
+   },
+   {
+    "label": "C",
+    "text": "k = 7",
+    "is_correct": false,
+    "rationale": "This sets k equal to the left-hand limit 7, forgetting that the right-hand limit is 2² + k = 4 + k."
+   },
+   {
+    "label": "D",
+    "text": "k = 10",
+    "is_correct": false,
+    "rationale": "This sets k equal to f(2). The right-hand limit is 4 + k, so k = 10 gives 14, which does not match the left-hand limit 7."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.10-B-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.10-b-v1",
+  "family": "1.10-B",
+  "variant": "1",
+  "topic": "1.10",
+  "title": "choose the parameter that turns a discontinuity at a break point into a removable one rather than a jump, using one-side (variant 1)",
+  "stem": "A function g is defined by g(x) = x² + 2x for x < 1, g(1) = 0, and g(x) = kx + 5 for x > 1, where k is a constant. For which value of k does g have a removable discontinuity at x = 1?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "k = −5",
+    "is_correct": false,
+    "rationale": "This sets kx + 5 = g(1) = 0 at x = 1. The limit must match the left-hand limit 3, not the point value."
+   },
+   {
+    "label": "B",
+    "text": "k = 8",
+    "is_correct": false,
+    "rationale": "This solves k + 5 = 3 with a sign slip, moving +5 across the equation as +5."
+   },
+   {
+    "label": "C",
+    "text": "k = −2",
+    "is_correct": true,
+    "rationale": "Correct: The left limit is 1 + 2 = 3. A removable discontinuity needs k + 5 = 3, so k = −2, and g(1) = 0 ≠ 3."
+   },
+   {
+    "label": "D",
+    "text": "k = 3",
+    "is_correct": false,
+    "rationale": "This sets k equal to the left-hand limit 3. The right-hand limit is k(1) + 5 = k + 5."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.10-B-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.10-b-v2",
+  "family": "1.10-B",
+  "variant": "2",
+  "topic": "1.10",
+  "title": "choose the parameter that turns a discontinuity at a break point into a removable one rather than a jump, using one-side (variant 2)",
+  "stem": "A function f is defined by f(x) = (x² − 9)/(x − 3) for x < 3, f(3) = 1, and f(x) = kx − 12 for x > 3, where k is a constant. For which value of k does f have a removable discontinuity at x = 3?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "k = 13/3",
+    "is_correct": false,
+    "rationale": "This sets kx − 12 equal to f(3) = 1 at x = 3. The limit from the right must equal the limit from the left, which is 6."
+   },
+   {
+    "label": "B",
+    "text": "k = 4",
+    "is_correct": false,
+    "rationale": "This sets 3k − 12 = 0, matching nothing in the problem. The left-hand limit is 6, not 0."
+   },
+   {
+    "label": "C",
+    "text": "k = 18",
+    "is_correct": false,
+    "rationale": "This stops after finding 3k = 18, forgetting to divide by 3."
+   },
+   {
+    "label": "D",
+    "text": "k = 6",
+    "is_correct": true,
+    "rationale": "Correct: For x < 3, f(x) = x + 3 → 6. Need 3k − 12 = 6, so k = 6; f(3) = 1 ≠ 6."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.10-B-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.10-b-v3",
+  "family": "1.10-B",
+  "variant": "3",
+  "topic": "1.10",
+  "title": "choose the parameter that turns a discontinuity at a break point into a removable one rather than a jump, using one-side (variant 3)",
+  "stem": "A function f is defined by f(x) = x² + 3x for x < −1, f(−1) = 5, and f(x) = k − x for x > −1, where k is a constant. For which value of k does f have a removable discontinuity at x = −1?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "k = −3",
+    "is_correct": true,
+    "rationale": "Correct: The left limit is 1 − 3 = −2. Need k − (−1) = k + 1 = −2, so k = −3, and f(−1) = 5 ≠ −2."
+   },
+   {
+    "label": "B",
+    "text": "k = −1",
+    "is_correct": false,
+    "rationale": "This evaluates k − x at x = −1 as k − 1 instead of k + 1."
+   },
+   {
+    "label": "C",
+    "text": "k = 4",
+    "is_correct": false,
+    "rationale": "This sets k + 1 = f(−1) = 5. The right-hand limit must match the left-hand limit −2, not the point value."
+   },
+   {
+    "label": "D",
+    "text": "k = −2",
+    "is_correct": false,
+    "rationale": "This sets k equal to the left-hand limit −2, ignoring the −x term, which contributes +1 at x = −1."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.11-A",
+  "content_key": "apcalcab-mcq-b7-h-1.11-a",
+  "family": "1.11-A",
+  "variant": null,
+  "topic": "1.11",
+  "title": "apply the three-part definition of continuity at two junctions of a three-piece function, writing and solving two linear",
+  "stem": "A function f is defined by f(x) = x + 1 for x < 1, f(x) = ax + b for 1 ≤ x ≤ 3, and f(x) = x² − 2 for x > 3, where a and b are constants. For what value of a is f continuous for all real x?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "a = 5/2",
+    "is_correct": true,
+    "rationale": "Correct: Continuity at 1 gives a + b = 2, at 3 gives 3a + b = 7. Subtracting gives 2a = 5."
+   },
+   {
+    "label": "B",
+    "text": "a = 5",
+    "is_correct": false,
+    "rationale": "This subtracts the two matching values (7 − 2) without dividing by the interval length 2."
+   },
+   {
+    "label": "C",
+    "text": "a = 2",
+    "is_correct": false,
+    "rationale": "This uses only the condition at x = 1, a + b = 2, and assumes b = 0."
+   },
+   {
+    "label": "D",
+    "text": "a = 7/3",
+    "is_correct": false,
+    "rationale": "This assumes b = 0 in the condition at x = 3, 3a = 7, and ignores the condition at x = 1."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.11-A-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.11-a-v1",
+  "family": "1.11-A",
+  "variant": "1",
+  "topic": "1.11",
+  "title": "apply the three-part definition of continuity at two junctions of a three-piece function, writing and solving two linear (variant 1)",
+  "stem": "A function f is defined by f(x) = 2x − 1 for x < −2, f(x) = ax + b for −2 ≤ x ≤ 1, and f(x) = x² + 3 for x > 1, where a and b are constants. For what value of b is f continuous for all real x?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "b = 4",
+    "is_correct": false,
+    "rationale": "This assumes a = 0 in the condition at x = 1, a + b = 4, and ignores the other junction."
+   },
+   {
+    "label": "B",
+    "text": "b = −5",
+    "is_correct": false,
+    "rationale": "This takes b equal to the matching value −5 at x = −2, ignoring the term −2a."
+   },
+   {
+    "label": "C",
+    "text": "b = 1",
+    "is_correct": true,
+    "rationale": "Correct: At −2: −2a + b = −5. At 1: a + b = 4. Subtracting gives 3a = 9, a = 3, so b = 1."
+   },
+   {
+    "label": "D",
+    "text": "b = 2",
+    "is_correct": false,
+    "rationale": "This takes a = 2 and uses a + b = 4 without checking the condition at x = −2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.11-A-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.11-a-v2",
+  "family": "1.11-A",
+  "variant": "2",
+  "topic": "1.11",
+  "title": "apply the three-part definition of continuity at two junctions of a three-piece function, writing and solving two linear (variant 2)",
+  "stem": "A function f is defined by f(x) = x² for x < 2, f(x) = ax + b for 2 ≤ x ≤ 4, and f(x) = 16 − x for x > 4, where a and b are constants. For what value of a is f continuous for all real x?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "a = 8",
+    "is_correct": false,
+    "rationale": "This subtracts the matching values 12 − 4 without dividing by the interval length 2."
+   },
+   {
+    "label": "B",
+    "text": "a = 3",
+    "is_correct": false,
+    "rationale": "This assumes b = 0 in the condition at x = 4, 4a = 12, and ignores x = 2."
+   },
+   {
+    "label": "C",
+    "text": "a = 2",
+    "is_correct": false,
+    "rationale": "This assumes b = 0 in the condition at x = 2, 2a = 4, and ignores x = 4."
+   },
+   {
+    "label": "D",
+    "text": "a = 4",
+    "is_correct": true,
+    "rationale": "Correct: At 2: 2a + b = 4. At 4: 4a + b = 12. Subtracting gives 2a = 8, so a = 4 (and b = −4)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.11-A-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.11-a-v3",
+  "family": "1.11-A",
+  "variant": "3",
+  "topic": "1.11",
+  "title": "apply the three-part definition of continuity at two junctions of a three-piece function, writing and solving two linear (variant 3)",
+  "stem": "A function f is defined by f(x) = x³ for x < 1, f(x) = ax + b for 1 ≤ x ≤ 2, and f(x) = 12 − x² for x > 2, where a and b are constants. For what value of b is f continuous for all real x?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "b = −6",
+    "is_correct": true,
+    "rationale": "Correct: At 1: a + b = 1. At 2: 2a + b = 8. Subtracting gives a = 7, so b = 1 − 7 = −6."
+   },
+   {
+    "label": "B",
+    "text": "b = 6",
+    "is_correct": false,
+    "rationale": "This finds a = 7 correctly but makes a sign error in b = 1 − a."
+   },
+   {
+    "label": "C",
+    "text": "b = 1",
+    "is_correct": false,
+    "rationale": "This assumes a = 0 in the condition at x = 1, a + b = 1."
+   },
+   {
+    "label": "D",
+    "text": "b = 7",
+    "is_correct": false,
+    "rationale": "This reports a = 7, the slope, instead of the intercept b."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.11-B",
+  "content_key": "apcalcab-mcq-b7-h-1.11-b",
+  "family": "1.11-B",
+  "variant": null,
+  "topic": "1.11",
+  "title": "find the parameter values that make a piecewise function continuous at a point when the matching condition is a quadrati",
+  "stem": "A function f is defined by f(x) = kx − 3 for x < 3 and f(x) = x + k² − 4 for x ≥ 3, where k is a constant. For which values of k is f continuous at x = 3?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "k = −1 or k = −2",
+    "is_correct": false,
+    "rationale": "This solves k² − 3k + 2 = 0 with the signs of the roots reversed."
+   },
+   {
+    "label": "B",
+    "text": "k = 2/3",
+    "is_correct": false,
+    "rationale": "This drops the k² term from the right-hand piece, leaving 3k − 3 = −1."
+   },
+   {
+    "label": "C",
+    "text": "k = 1 or k = 2",
+    "is_correct": true,
+    "rationale": "Correct: Left limit 3k − 3, f(3) = 3 + k² − 4 = k² − 1. Setting equal: k² − 3k + 2 = 0, so k = 1 or 2."
+   },
+   {
+    "label": "D",
+    "text": "k = 0 or k = 3",
+    "is_correct": false,
+    "rationale": "This drops the constant 2 and solves k² − 3k = 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.11-B-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.11-b-v1",
+  "family": "1.11-B",
+  "variant": "1",
+  "topic": "1.11",
+  "title": "find the parameter values that make a piecewise function continuous at a point when the matching condition is a quadrati (variant 1)",
+  "stem": "A function f is defined by f(x) = kx + 2 for x < 2 and f(x) = x + k² − 8 for x ≥ 2, where k is a constant. For which values of k is f continuous at x = 2?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "k = −4 or k = 2",
+    "is_correct": false,
+    "rationale": "This solves k² − 2k − 8 = 0 with the signs of the roots reversed."
+   },
+   {
+    "label": "B",
+    "text": "k = 4 or k = −2",
+    "is_correct": true,
+    "rationale": "Correct: Left limit 2k + 2; f(2) = 2 + k² − 8 = k² − 6. So k² − 2k − 8 = 0, giving k = 4 or k = −2."
+   },
+   {
+    "label": "C",
+    "text": "k = 4 only",
+    "is_correct": false,
+    "rationale": "This keeps one root of k² − 2k − 8 = 0 and discards k = −2. Both roots work, since k can be any constant."
+   },
+   {
+    "label": "D",
+    "text": "No value of k",
+    "is_correct": false,
+    "rationale": "This follows from a sign slip that gives k² − 2k + 8 = 0, which has no real roots. The correct equation k² − 2k − 8 = 0 has two."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.11-B-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.11-b-v2",
+  "family": "1.11-B",
+  "variant": "2",
+  "topic": "1.11",
+  "title": "find the parameter values that make a piecewise function continuous at a point when the matching condition is a quadrati (variant 2)",
+  "stem": "A function f is defined by f(x) = kx + 3 for x < 2 and f(x) = x² − 4 + k² for x ≥ 2, where k is a constant. For which values of k is f continuous at x = 2?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "k = −3 or k = 1",
+    "is_correct": false,
+    "rationale": "This solves k² − 2k − 3 = 0 with the signs of the roots reversed."
+   },
+   {
+    "label": "B",
+    "text": "k = 3 or k = −1",
+    "is_correct": true,
+    "rationale": "Correct: Left limit 2k + 3; f(2) = 4 − 4 + k² = k². So k² − 2k − 3 = 0, giving k = 3 or k = −1."
+   },
+   {
+    "label": "C",
+    "text": "k = 3 only",
+    "is_correct": false,
+    "rationale": "This keeps one root and discards k = −1. Both roots work."
+   },
+   {
+    "label": "D",
+    "text": "No value of k",
+    "is_correct": false,
+    "rationale": "This follows from a sign slip that gives k² − 2k + 3 = 0, which has no real roots. The correct equation k² − 2k − 3 = 0 has two."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.11-B-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.11-b-v3",
+  "family": "1.11-B",
+  "variant": "3",
+  "topic": "1.11",
+  "title": "find the parameter values that make a piecewise function continuous at a point when the matching condition is a quadrati (variant 3)",
+  "stem": "A function f is defined by f(x) = 3kx + 10 for x < 1 and f(x) = k²x for x ≥ 1, where k is a constant. For which values of k is f continuous at x = 1?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "k = −5 or k = 2",
+    "is_correct": false,
+    "rationale": "This solves k² − 3k − 10 = 0 with the signs of the roots reversed."
+   },
+   {
+    "label": "B",
+    "text": "k = 5 only",
+    "is_correct": false,
+    "rationale": "This keeps one root and discards k = −2. Both roots work."
+   },
+   {
+    "label": "C",
+    "text": "k = 5 or k = −2",
+    "is_correct": true,
+    "rationale": "Correct: Left limit 3k + 10, f(1) = k². So k² − 3k − 10 = 0, giving k = 5 or k = −2."
+   },
+   {
+    "label": "D",
+    "text": "No value of k",
+    "is_correct": false,
+    "rationale": "This follows from a sign slip that gives k² − 3k + 10 = 0, which has no real roots. The correct equation k² − 3k − 10 = 0 has two."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.12-A",
+  "content_key": "apcalcab-mcq-b7-h-1.12-a",
+  "family": "1.12-A",
+  "variant": null,
+  "topic": "1.12",
+  "title": "decide on which closed interval a function with a radical or logarithm and a rational factor is continuous, checking the",
+  "stem": "Let f(x) = √(x² − 4x)/(x − 5). On which of the following closed intervals is f continuous?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[4, 6]",
+    "is_correct": false,
+    "rationale": "This interval contains x = 5, where the denominator is 0 and f is undefined."
+   },
+   {
+    "label": "B",
+    "text": "[0, 4]",
+    "is_correct": false,
+    "rationale": "For 0 < x < 4 the radicand x² − 4x is negative, so f is undefined at most points of this interval."
+   },
+   {
+    "label": "C",
+    "text": "[5, 8]",
+    "is_correct": false,
+    "rationale": "The left endpoint x = 5 makes the denominator 0, so f is not defined or continuous at 5."
+   },
+   {
+    "label": "D",
+    "text": "[−3, 0]",
+    "is_correct": true,
+    "rationale": "Correct: x² − 4x ≥ 0 for x ≤ 0 or x ≥ 4, and x ≠ 5. On [−3, 0] f is defined and continuous (one-sided at the endpoint 0)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.12-A-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.12-a-v1",
+  "family": "1.12-A",
+  "variant": "1",
+  "topic": "1.12",
+  "title": "decide on which closed interval a function with a radical or logarithm and a rational factor is continuous, checking the (variant 1)",
+  "stem": "Let f(x) = ln(x² − 9)/(x − 5). On which of the following closed intervals is f continuous?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[−6, −4]",
+    "is_correct": true,
+    "rationale": "Correct: x² − 9 > 0 requires |x| > 3, and x ≠ 5. All of [−6, −4] satisfies this."
+   },
+   {
+    "label": "B",
+    "text": "[4, 6]",
+    "is_correct": false,
+    "rationale": "This contains x = 5, where the denominator is 0."
+   },
+   {
+    "label": "C",
+    "text": "[−5, −3]",
+    "is_correct": false,
+    "rationale": "The endpoint x = −3 gives ln 0, which is undefined, so f is not defined at −3 and cannot be continuous there."
+   },
+   {
+    "label": "D",
+    "text": "[−4, 4]",
+    "is_correct": false,
+    "rationale": "For −3 ≤ x ≤ 3 the argument x² − 9 is not positive, so f is undefined on much of this interval."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.12-A-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.12-a-v2",
+  "family": "1.12-A",
+  "variant": "2",
+  "topic": "1.12",
+  "title": "decide on which closed interval a function with a radical or logarithm and a rational factor is continuous, checking the (variant 2)",
+  "stem": "Let f(x) = 1/(√(x − 1) − 2). On which of the following closed intervals is f continuous?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[1, 5]",
+    "is_correct": false,
+    "rationale": "At x = 5, √4 − 2 = 0, so the denominator vanishes and f is undefined."
+   },
+   {
+    "label": "B",
+    "text": "[0, 4]",
+    "is_correct": false,
+    "rationale": "For x < 1 the radical √(x − 1) is not defined, so f is not defined at x = 0."
+   },
+   {
+    "label": "C",
+    "text": "[2, 6]",
+    "is_correct": false,
+    "rationale": "This contains x = 5, where the denominator is 0."
+   },
+   {
+    "label": "D",
+    "text": "[1, 4]",
+    "is_correct": true,
+    "rationale": "Correct: The radical needs x ≥ 1 and the denominator is zero only at x = 5, so f is continuous on [1, 4] (one-sided at 1)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.12-A-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.12-a-v3",
+  "family": "1.12-A",
+  "variant": "3",
+  "topic": "1.12",
+  "title": "decide on which closed interval a function with a radical or logarithm and a rational factor is continuous, checking the (variant 3)",
+  "stem": "Let f(x) = sin x/(2cos x − 1). On which of the following closed intervals is f continuous?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[0, π/2]",
+    "is_correct": false,
+    "rationale": "This contains x = π/3, where cos x = 1/2 and the denominator is 0."
+   },
+   {
+    "label": "B",
+    "text": "[−π/3, 0]",
+    "is_correct": false,
+    "rationale": "The endpoint x = −π/3 has cos x = 1/2, so the denominator is 0 there and f is undefined."
+   },
+   {
+    "label": "C",
+    "text": "[π/6, π/2]",
+    "is_correct": false,
+    "rationale": "This contains x = π/3, where the denominator is 0."
+   },
+   {
+    "label": "D",
+    "text": "[−π/6, π/6]",
+    "is_correct": true,
+    "rationale": "Correct: The denominator is zero when cos x = 1/2, that is x = ±π/3 + 2πn. [−π/6, π/6] contains none of these."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.12-B",
+  "content_key": "apcalcab-mcq-b7-h-1.12-b",
+  "family": "1.12-B",
+  "variant": null,
+  "topic": "1.12",
+  "title": "use a verbal description of limits and values at specific points to decide on which interval a function is continuous, a",
+  "stem": "A function f is defined on [0, 8]. It is known that lim(x→3−) f(x) = 2, lim(x→3+) f(x) = 2, and f(3) = 2; that lim(x→6−) f(x) = 4, lim(x→6+) f(x) = 1, and f(6) = 1; and that f is continuous at every other point of [0, 8] (one-sided at the endpoints). On which of the following sets is f continuous?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[0, 6)",
+    "is_correct": true,
+    "rationale": "Correct: f is continuous at 3 and everywhere except at 6, so it is continuous on [0, 6) and on [6, 8]."
+   },
+   {
+    "label": "B",
+    "text": "[0, 6]",
+    "is_correct": false,
+    "rationale": "At x = 6 the left-hand limit 4 does not equal f(6) = 1, so f is not continuous from the left at 6, and 6 cannot be the right endpoint of an interval of continuity."
+   },
+   {
+    "label": "C",
+    "text": "[3, 8]",
+    "is_correct": false,
+    "rationale": "This contains x = 6, where the limit from the left differs from the limit from the right."
+   },
+   {
+    "label": "D",
+    "text": "(0, 8)",
+    "is_correct": false,
+    "rationale": "This contains x = 6 as an interior point, where f has a jump."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.12-B-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.12-b-v1",
+  "family": "1.12-B",
+  "variant": "1",
+  "topic": "1.12",
+  "title": "use a verbal description of limits and values at specific points to decide on which interval a function is continuous, a (variant 1)",
+  "stem": "A function f is defined on [−4, 4]. It is known that lim(x→−1−) f(x) = 5, lim(x→−1+) f(x) = 5, and f(−1) = 5; that lim(x→2−) f(x) = 3, lim(x→2+) f(x) = 3, and f(2) = 0; and that f is continuous at every other point of [−4, 4] (one-sided at the endpoints). On which of the following sets is f continuous?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[−4, 4]",
+    "is_correct": false,
+    "rationale": "At x = 2 the limit is 3 but f(2) = 0, so f has a removable discontinuity at 2."
+   },
+   {
+    "label": "B",
+    "text": "[−4, 2) ∪ (2, 4]",
+    "is_correct": true,
+    "rationale": "Correct: The only point of discontinuity is x = 2, so f is continuous on [−4, 2) ∪ (2, 4]."
+   },
+   {
+    "label": "C",
+    "text": "[−4, 2]",
+    "is_correct": false,
+    "rationale": "The right endpoint x = 2 fails continuity from the left, since the limit 3 differs from f(2) = 0."
+   },
+   {
+    "label": "D",
+    "text": "(−4, −1) ∪ (−1, 4)",
+    "is_correct": false,
+    "rationale": "This wrongly removes x = −1, where the limit and the value are both 5, so f is continuous there."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.12-B-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.12-b-v2",
+  "family": "1.12-B",
+  "variant": "2",
+  "topic": "1.12",
+  "title": "use a verbal description of limits and values at specific points to decide on which interval a function is continuous, a (variant 2)",
+  "stem": "A function f is defined on [1, 9] except at x = 7, where f is undefined and lim(x→7) f(x) = ∞ from both sides. Also lim(x→3−) f(x) = 2, lim(x→3+) f(x) = 5, and f(3) = 5, and f is continuous at every other point of its domain (one-sided at the endpoints). Which of the following is the longest interval on which f is continuous?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[1, 7)",
+    "is_correct": false,
+    "rationale": "This contains x = 3 as an interior point, where the one-sided limits 2 and 5 differ."
+   },
+   {
+    "label": "B",
+    "text": "[3, 7)",
+    "is_correct": true,
+    "rationale": "Correct: f is continuous from the right at 3 (limit 5 = f(3)) and continuous up to but not including 7, so [3, 7) has length 4, longer than [1, 3) or (7, 9]."
+   },
+   {
+    "label": "C",
+    "text": "[3, 7]",
+    "is_correct": false,
+    "rationale": "F is not defined at 7, so 7 cannot belong to an interval of continuity."
+   },
+   {
+    "label": "D",
+    "text": "[1, 3]",
+    "is_correct": false,
+    "rationale": "The right endpoint x = 3 requires continuity from the left, but the left-hand limit 2 differs from f(3) = 5."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.12-B-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.12-b-v3",
+  "family": "1.12-B",
+  "variant": "3",
+  "topic": "1.12",
+  "title": "use a verbal description of limits and values at specific points to decide on which interval a function is continuous, a (variant 3)",
+  "stem": "A function f is defined on [0, 10]. The graph has a sharp corner at x = 5, but lim(x→5) f(x) = f(5) = 2. At x = 8, lim(x→8−) f(x) = 4 = f(8) and lim(x→8+) f(x) = 1. At every other point f is continuous (one-sided at the endpoints). Which of the following is the longest interval on which f is continuous?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[0, 10]",
+    "is_correct": false,
+    "rationale": "This contains x = 8 as an interior point, where the right-hand limit 1 differs from f(8) = 4."
+   },
+   {
+    "label": "B",
+    "text": "[5, 10]",
+    "is_correct": false,
+    "rationale": "This also contains x = 8 as an interior point, where f has a jump."
+   },
+   {
+    "label": "C",
+    "text": "[0, 5]",
+    "is_correct": false,
+    "rationale": "F is continuous on this interval, but it stops short because the corner at 5 is mistaken for a discontinuity. A corner does not break continuity."
+   },
+   {
+    "label": "D",
+    "text": "[0, 8]",
+    "is_correct": true,
+    "rationale": "Correct: f is continuous at 5 (limit equals value) and left-continuous at 8, so f is continuous on [0, 8], which has length 8."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.13-A",
+  "content_key": "apcalcab-mcq-b7-h-1.13-a",
+  "family": "1.13-A",
+  "variant": null,
+  "topic": "1.13",
+  "title": "find the value that removes a discontinuity of a complex fraction by combining the fractions, factoring and cancelling t",
+  "stem": "Let g(x) = (1/x − 1/2)/(x − 2) for x ≠ 0 and x ≠ 2. What value should be assigned to g(2) so that g is continuous at x = 2?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−1/4",
+    "is_correct": true,
+    "rationale": "Correct: (1/x − 1/2)/(x − 2) = ((2 − x)/(2x))/(x − 2) = −1/(2x), which tends to −1/4 as x → 2."
+   },
+   {
+    "label": "B",
+    "text": "1/4",
+    "is_correct": false,
+    "rationale": "This has a sign error. 1/x − 1/2 = (2 − x)/(2x), whose factor 2 − x is −(x − 2), so the quotient is −1/(2x)."
+   },
+   {
+    "label": "C",
+    "text": "−1/2",
+    "is_correct": false,
+    "rationale": "This drops the 2 in the denominator, simplifying to −1/x and evaluating at x = 2."
+   },
+   {
+    "label": "D",
+    "text": "0",
+    "is_correct": false,
+    "rationale": "This substitutes into the numerator, where 1/2 − 1/2 = 0, and ignores that the denominator is also 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.13-A-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.13-a-v1",
+  "family": "1.13-A",
+  "variant": "1",
+  "topic": "1.13",
+  "title": "find the value that removes a discontinuity of a complex fraction by combining the fractions, factoring and cancelling t (variant 1)",
+  "stem": "Let g(x) = (1/(x + 1) − 1/4)/(x − 3) for x ≠ −1 and x ≠ 3. What value should be assigned to g(3) so that g is continuous at x = 3?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/16",
+    "is_correct": false,
+    "rationale": "This has a sign error. The numerator combines to (3 − x)/(4(x + 1)), and 3 − x is −(x − 3)."
+   },
+   {
+    "label": "B",
+    "text": "−1/16",
+    "is_correct": true,
+    "rationale": "Correct: 1/(x + 1) − 1/4 = (3 − x)/(4(x + 1)), so g(x) = −1/(4(x + 1)) → −1/16."
+   },
+   {
+    "label": "C",
+    "text": "−1/4",
+    "is_correct": false,
+    "rationale": "This forgets the factor x + 1 in the denominator, leaving −1/4 instead of −1/(4(x + 1))."
+   },
+   {
+    "label": "D",
+    "text": "0",
+    "is_correct": false,
+    "rationale": "This substitutes into the numerator, getting 1/4 − 1/4 = 0, and ignores the zero in the denominator."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.13-A-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.13-a-v2",
+  "family": "1.13-A",
+  "variant": "2",
+  "topic": "1.13",
+  "title": "find the value that removes a discontinuity of a complex fraction by combining the fractions, factoring and cancelling t (variant 2)",
+  "stem": "Let g(x) = (1/x² − 1/9)/(x − 3) for x ≠ 0 and x ≠ 3. What value should be assigned to g(3) so that g is continuous at x = 3?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2/27",
+    "is_correct": false,
+    "rationale": "This has a sign error. 9 − x² = −(x − 3)(x + 3), so the quotient is −(x + 3)/(9x²)."
+   },
+   {
+    "label": "B",
+    "text": "−2/27",
+    "is_correct": true,
+    "rationale": "Correct: 1/x² − 1/9 = (9 − x²)/(9x²), so g(x) = −(x + 3)/(9x²) → −6/81 = −2/27."
+   },
+   {
+    "label": "C",
+    "text": "−2/3",
+    "is_correct": false,
+    "rationale": "This forgets the x² in the denominator and evaluates −(x + 3)/9."
+   },
+   {
+    "label": "D",
+    "text": "0",
+    "is_correct": false,
+    "rationale": "This substitutes into the numerator, getting 1/9 − 1/9 = 0, and ignores the zero in the denominator."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.13-A-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.13-a-v3",
+  "family": "1.13-A",
+  "variant": "3",
+  "topic": "1.13",
+  "title": "find the value that removes a discontinuity of a complex fraction by combining the fractions, factoring and cancelling t (variant 3)",
+  "stem": "Let g(x) = (1/(2x − 1) − 1)/(x − 1) for x ≠ 1/2 and x ≠ 1. What value should be assigned to g(1) so that g is continuous at x = 1?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "This has a sign error. 1 − (2x − 1) = 2 − 2x = −2(x − 1)."
+   },
+   {
+    "label": "B",
+    "text": "−2",
+    "is_correct": true,
+    "rationale": "Correct: 1/(2x − 1) − 1 = (2 − 2x)/(2x − 1) = −2(x − 1)/(2x − 1), so g(x) = −2/(2x − 1) → −2."
+   },
+   {
+    "label": "C",
+    "text": "−1",
+    "is_correct": false,
+    "rationale": "This loses the factor 2 from 2 − 2x and evaluates −1/(2x − 1)."
+   },
+   {
+    "label": "D",
+    "text": "0",
+    "is_correct": false,
+    "rationale": "This substitutes into the numerator, getting 1 − 1 = 0, and ignores the zero in the denominator."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.13-B",
+  "content_key": "apcalcab-mcq-b7-h-1.13-b",
+  "family": "1.13-B",
+  "variant": null,
+  "topic": "1.13",
+  "title": "combine a given function value with continuity at a point to determine unknown coefficients in the numerator of a ration",
+  "stem": "The function f is defined by f(x) = (x² + ax + b)/(x − 3) for x ≠ 3 and f(3) = 5, where a and b are constants. If f is continuous at x = 3, what is the value of b?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−6",
+    "is_correct": true,
+    "rationale": "Correct: The numerator must be (x − 3)(x + c) with limit 3 + c = 5, so c = 2 and the numerator is x² − x − 6, giving b = −6."
+   },
+   {
+    "label": "B",
+    "text": "6",
+    "is_correct": false,
+    "rationale": "This has a sign error. The numerator (x − 3)(x + 2) = x² − x − 6 has constant term −6, not +6."
+   },
+   {
+    "label": "C",
+    "text": "−15",
+    "is_correct": false,
+    "rationale": "This takes the remaining factor as x + 5, using the limit 5 as the second constant instead of 5 − 3 = 2."
+   },
+   {
+    "label": "D",
+    "text": "−9",
+    "is_correct": false,
+    "rationale": "This uses −3 × 3, treating the second factor's constant as 3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.13-B-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.13-b-v1",
+  "family": "1.13-B",
+  "variant": "1",
+  "topic": "1.13",
+  "title": "combine a given function value with continuity at a point to determine unknown coefficients in the numerator of a ration (variant 1)",
+  "stem": "The function f is defined by f(x) = (x² + ax + b)/(x − 2) for x ≠ 2 and f(2) = 7, where a and b are constants. If f is continuous at x = 2, what is the value of a?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "a = 3",
+    "is_correct": true,
+    "rationale": "Correct: The numerator must be (x − 2)(x + c) with limit 2 + c = 7, so c = 5, and (x − 2)(x + 5) = x² + 3x − 10, so a = 3."
+   },
+   {
+    "label": "B",
+    "text": "a = 5",
+    "is_correct": false,
+    "rationale": "This reports the second constant c = 5 in (x − 2)(x + c) rather than a = c − 2."
+   },
+   {
+    "label": "C",
+    "text": "a = −3",
+    "is_correct": false,
+    "rationale": "This has a sign error when expanding (x − 2)(x + 5) = x² + 3x − 10."
+   },
+   {
+    "label": "D",
+    "text": "a = 7",
+    "is_correct": false,
+    "rationale": "This takes a equal to the given value f(2)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.13-B-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.13-b-v2",
+  "family": "1.13-B",
+  "variant": "2",
+  "topic": "1.13",
+  "title": "combine a given function value with continuity at a point to determine unknown coefficients in the numerator of a ration (variant 2)",
+  "stem": "The function f is defined by f(x) = (x² + ax + b)/(x + 1) for x ≠ −1 and f(−1) = −4, where a and b are constants. If f is continuous at x = −1, what is the value of b?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "b = 3",
+    "is_correct": false,
+    "rationale": "This has a sign error. With c = −3, (x + 1)(x − 3) has constant term −3."
+   },
+   {
+    "label": "B",
+    "text": "b = −3",
+    "is_correct": true,
+    "rationale": "Correct: The numerator must be (x + 1)(x + c) with limit −1 + c = −4, so c = −3, and (x + 1)(x − 3) = x² − 2x − 3, giving b = −3."
+   },
+   {
+    "label": "C",
+    "text": "b = −4",
+    "is_correct": false,
+    "rationale": "This takes b equal to the given value f(−1)."
+   },
+   {
+    "label": "D",
+    "text": "b = −2",
+    "is_correct": false,
+    "rationale": "This reports a = −2 instead of the constant term b = −3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.13-B-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.13-b-v3",
+  "family": "1.13-B",
+  "variant": "3",
+  "topic": "1.13",
+  "title": "combine a given function value with continuity at a point to determine unknown coefficients in the numerator of a ration (variant 3)",
+  "stem": "The function f is defined by f(x) = (x² + ax + b)/(x − 4) for x ≠ 4 and f(4) = −2, where a and b are constants. If f is continuous at x = 4, what is the value of a?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "a = −6",
+    "is_correct": false,
+    "rationale": "This reports the second constant c = −6 in (x − 4)(x + c) rather than a = c − 4."
+   },
+   {
+    "label": "B",
+    "text": "a = −10",
+    "is_correct": true,
+    "rationale": "Correct: The numerator must be (x − 4)(x + c) with limit 4 + c = −2, so c = −6, and (x − 4)(x − 6) = x² − 10x + 24, so a = −10."
+   },
+   {
+    "label": "C",
+    "text": "a = 10",
+    "is_correct": false,
+    "rationale": "This has a sign error when expanding (x − 4)(x − 6) = x² − 10x + 24."
+   },
+   {
+    "label": "D",
+    "text": "a = −2",
+    "is_correct": false,
+    "rationale": "This takes a equal to the given value f(4)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.14-A",
+  "content_key": "apcalcab-mcq-b7-h-1.14-a",
+  "family": "1.14-A",
+  "variant": null,
+  "topic": "1.14",
+  "title": "determine the parameter values for which a rational function has exactly one vertical asymptote, using that a numerator ",
+  "stem": "Let f(x) = (x² + kx − 6)/(x² − x − 2), where k is a constant. For which values of k does the graph of f have exactly one vertical asymptote?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "k = −1 or k = 5",
+    "is_correct": false,
+    "rationale": "This reverses the signs of the correct values. Substituting x = 2 into the numerator gives 2k − 2, so k = 1, not −1."
+   },
+   {
+    "label": "B",
+    "text": "k = 2 or k = −1",
+    "is_correct": false,
+    "rationale": "These are the zeros of the denominator, not values of the parameter. The parameter must make the numerator vanish at one of them."
+   },
+   {
+    "label": "C",
+    "text": "k = 1 only",
+    "is_correct": false,
+    "rationale": "This finds the value that cancels x − 2 but misses that k = −5 cancels x + 1, which also leaves exactly one asymptote."
+   },
+   {
+    "label": "D",
+    "text": "k = 1 or k = −5",
+    "is_correct": true,
+    "rationale": "Correct: The denominator is (x − 2)(x + 1). The numerator vanishes at 2 when k = 1 (leaving an asymptote at −1) and at −1 when k = −5 (leaving an asymptote at 2)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.14-A-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.14-a-v1",
+  "family": "1.14-A",
+  "variant": "1",
+  "topic": "1.14",
+  "title": "determine the parameter values for which a rational function has exactly one vertical asymptote, using that a numerator  (variant 1)",
+  "stem": "Let f(x) = (x² + kx + 6)/(x² − 3x + 2), where k is a constant. For which values of k does the graph of f have exactly one vertical asymptote?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "k = 7 or k = 5",
+    "is_correct": false,
+    "rationale": "This reverses the signs. Substituting x = 1 gives 7 + k, so k = −7, not 7."
+   },
+   {
+    "label": "B",
+    "text": "k = 1 or k = 2",
+    "is_correct": false,
+    "rationale": "These are the zeros of the denominator, not values of the parameter."
+   },
+   {
+    "label": "C",
+    "text": "k = −7 or k = −5",
+    "is_correct": true,
+    "rationale": "Correct: The denominator is (x − 1)(x − 2). The numerator vanishes at 1 when k = −7 and at 2 when k = −5; either removes one asymptote and leaves one."
+   },
+   {
+    "label": "D",
+    "text": "k = −5 only",
+    "is_correct": false,
+    "rationale": "This finds the value that cancels x − 2 but misses that k = −7 cancels x − 1."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.14-A-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.14-a-v2",
+  "family": "1.14-A",
+  "variant": "2",
+  "topic": "1.14",
+  "title": "determine the parameter values for which a rational function has exactly one vertical asymptote, using that a numerator  (variant 2)",
+  "stem": "Let f(x) = (x² + kx − 12)/(x² − x − 6), where k is a constant. For which values of k does the graph of f have exactly one vertical asymptote?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "k = −1 or k = 4",
+    "is_correct": false,
+    "rationale": "This reverses the signs. Substituting x = 3 gives 3k − 3, so k = 1, not −1."
+   },
+   {
+    "label": "B",
+    "text": "k = 3 or k = −2",
+    "is_correct": false,
+    "rationale": "These are the zeros of the denominator, not values of the parameter."
+   },
+   {
+    "label": "C",
+    "text": "k = 1 or k = −4",
+    "is_correct": true,
+    "rationale": "Correct: The denominator is (x − 3)(x + 2). The numerator vanishes at 3 when k = 1 and at −2 when k = −4."
+   },
+   {
+    "label": "D",
+    "text": "k = −4 only",
+    "is_correct": false,
+    "rationale": "This finds the value that cancels x + 2 but misses that k = 1 cancels x − 3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.14-A-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.14-a-v3",
+  "family": "1.14-A",
+  "variant": "3",
+  "topic": "1.14",
+  "title": "determine the parameter values for which a rational function has exactly one vertical asymptote, using that a numerator  (variant 3)",
+  "stem": "Let f(x) = (x² + kx − 6)/(x² + 2x − 3), where k is a constant. For which values of k does the graph of f have exactly one vertical asymptote?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "k = 1 or k = 5",
+    "is_correct": true,
+    "rationale": "Correct: The denominator is (x − 1)(x + 3). The numerator vanishes at 1 when k = 5 and at −3 when k = 1."
+   },
+   {
+    "label": "B",
+    "text": "k = −1 or k = −5",
+    "is_correct": false,
+    "rationale": "This reverses the signs. Substituting x = 1 gives k − 5, so k = 5, not −5."
+   },
+   {
+    "label": "C",
+    "text": "k = 1 or k = −3",
+    "is_correct": false,
+    "rationale": "The value −3 is a zero of the denominator, not a value of the parameter that works."
+   },
+   {
+    "label": "D",
+    "text": "k = 5 only",
+    "is_correct": false,
+    "rationale": "This finds the value that cancels x − 1 but misses that k = 1 cancels x + 3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.14-B",
+  "content_key": "apcalcab-mcq-b7-h-1.14-b",
+  "family": "1.14-B",
+  "variant": null,
+  "topic": "1.14",
+  "title": "analyse the sign of each factor to decide whether the one-sided limits at two vertical asymptotes agree, distinguishing ",
+  "stem": "Let f(x) = (x + 1)/((x − 2)²(x + 3)). Which of the following is true?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Both lim(x→2) f(x) = ∞ and lim(x→−3) f(x) = ∞",
+    "is_correct": false,
+    "rationale": "The factor x + 3 changes sign at −3, so the one-sided limits there are +∞ from the left and −∞ from the right, which do not agree."
+   },
+   {
+    "label": "B",
+    "text": "Neither limit exists, because the one-sided limits at 2 have opposite signs",
+    "is_correct": false,
+    "rationale": "The squared factor (x − 2)² is positive on both sides of 2, so the signs agree and f tends to ∞ on both sides."
+   },
+   {
+    "label": "C",
+    "text": "lim(x→2) f(x) = −∞ and lim(x→−3) f(x) does not exist",
+    "is_correct": false,
+    "rationale": "Near 2 the numerator is 3 and x + 3 is 5, both positive, and (x − 2)² is positive, so f is positive, tending to +∞, not −∞."
+   },
+   {
+    "label": "D",
+    "text": "lim(x→2) f(x) = ∞, but lim(x→−3) f(x) does not exist",
+    "is_correct": true,
+    "rationale": "Correct: Near 2: numerator 3 > 0, x + 3 = 5 > 0, (x − 2)² > 0 gives +∞ both sides. Near −3: numerator −2 and the sign of x + 3 flips, so the one-sided limits are +∞ and −∞."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.14-B-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.14-b-v1",
+  "family": "1.14-B",
+  "variant": "1",
+  "topic": "1.14",
+  "title": "analyse the sign of each factor to decide whether the one-sided limits at two vertical asymptotes agree, distinguishing  (variant 1)",
+  "stem": "Let g(x) = (x − 4)/((x + 1)(x − 3)²). Which of the following is true?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "lim(x→3) g(x) = ∞, but lim(x→−1) g(x) does not exist",
+    "is_correct": false,
+    "rationale": "Near 3 the numerator is −1 and x + 1 is 4, so the quotient is negative and tends to −∞, not +∞."
+   },
+   {
+    "label": "B",
+    "text": "lim(x→3) g(x) = −∞ and lim(x→−1) g(x) = −∞",
+    "is_correct": false,
+    "rationale": "The factor x + 1 changes sign at −1, so the one-sided limits there are +∞ from the left and −∞ from the right, not equal."
+   },
+   {
+    "label": "C",
+    "text": "lim(x→3) g(x) = −∞, but lim(x→−1) g(x) does not exist",
+    "is_correct": true,
+    "rationale": "Correct: Near 3: numerator −1, x + 1 = 4, (x − 3)² > 0, so −∞ both sides. Near −1: numerator −5, (x − 3)² = 16, and x + 1 changes sign, so the one-sided limits are +∞ and −∞."
+   },
+   {
+    "label": "D",
+    "text": "lim(x→3) g(x) does not exist, and lim(x→−1) g(x) = −∞",
+    "is_correct": false,
+    "rationale": "This assigns the sign change to the squared factor and the single sign to the linear one, reversing the roles. The squared factor does not change sign."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.14-B-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.14-b-v2",
+  "family": "1.14-B",
+  "variant": "2",
+  "topic": "1.14",
+  "title": "analyse the sign of each factor to decide whether the one-sided limits at two vertical asymptotes agree, distinguishing  (variant 2)",
+  "stem": "Let h(x) = (2 − x)/((x − 5)(x + 1)²). Which of the following is true?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "lim(x→−1) h(x) = ∞, but lim(x→5) h(x) does not exist",
+    "is_correct": false,
+    "rationale": "Near −1 the numerator is 3 and x − 5 is −6, so the quotient is negative and tends to −∞."
+   },
+   {
+    "label": "B",
+    "text": "lim(x→−1) h(x) = −∞ and lim(x→5) h(x) = −∞",
+    "is_correct": false,
+    "rationale": "The factor x − 5 changes sign at 5, so the one-sided limits there are +∞ from the left and −∞ from the right."
+   },
+   {
+    "label": "C",
+    "text": "lim(x→−1) h(x) = −∞, but lim(x→5) h(x) does not exist",
+    "is_correct": true,
+    "rationale": "Correct: Near −1: numerator 3, x − 5 = −6, (x + 1)² > 0 gives −∞ both sides. Near 5: numerator −3 and x − 5 changes sign, giving +∞ from the left and −∞ from the right."
+   },
+   {
+    "label": "D",
+    "text": "lim(x→−1) h(x) does not exist, and lim(x→5) h(x) = −∞",
+    "is_correct": false,
+    "rationale": "This reverses the roles. The squared factor (x + 1)² is positive on both sides of −1, so the limit there exists as −∞."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.14-B-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.14-b-v3",
+  "family": "1.14-B",
+  "variant": "3",
+  "topic": "1.14",
+  "title": "analyse the sign of each factor to decide whether the one-sided limits at two vertical asymptotes agree, distinguishing  (variant 3)",
+  "stem": "Let k(x) = (2 − x)/((x + 4)³(x − 1)²). Which of the following is true?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "lim(x→1) k(x) = −∞, but lim(x→−4) k(x) does not exist",
+    "is_correct": false,
+    "rationale": "Near 1 the numerator is 1 and (x + 4)³ is 125, both positive, so k is positive and tends to +∞."
+   },
+   {
+    "label": "B",
+    "text": "lim(x→1) k(x) = ∞ and lim(x→−4) k(x) = ∞",
+    "is_correct": false,
+    "rationale": "The factor (x + 4)³ is negative for x < −4 and positive for x > −4, so the one-sided limits at −4 have opposite signs."
+   },
+   {
+    "label": "C",
+    "text": "lim(x→1) k(x) does not exist, and lim(x→−4) k(x) = ∞",
+    "is_correct": false,
+    "rationale": "This reverses the roles. The even power (x − 1)² does not change sign at 1, while the odd power (x + 4)³ does change sign at −4."
+   },
+   {
+    "label": "D",
+    "text": "lim(x→1) k(x) = ∞, but lim(x→−4) k(x) does not exist",
+    "is_correct": true,
+    "rationale": "Correct: Near 1: numerator 1, (x + 4)³ = 125, (x − 1)² > 0 gives +∞ both sides. Near −4: numerator 6, (x − 1)² = 25, and (x + 4)³ changes sign, so one-sided limits are −∞ and +∞."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.15-A",
+  "content_key": "apcalcab-mcq-b7-h-1.15-a",
+  "family": "1.15-A",
+  "variant": null,
+  "topic": "1.15",
+  "title": "find a horizontal asymptote of a difference of expressions that is infinity minus infinity by multiplying by the conjuga",
+  "stem": "Let f(x) = x − √(x² + 4x) for x ≥ 0. As x → ∞, the graph of f approaches a horizontal asymptote. What is its equation?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = 0",
+    "is_correct": false,
+    "rationale": "This treats x − √(x² + 4x) as ∞ − ∞ = 0. The difference of two large quantities can approach any value, so the expression must be rewritten."
+   },
+   {
+    "label": "B",
+    "text": "y = −4",
+    "is_correct": false,
+    "rationale": "This multiplies by the conjugate to get −4x/(x + √(x² + 4x)) but then divides only by x, forgetting that the denominator is about 2x."
+   },
+   {
+    "label": "C",
+    "text": "y = 2",
+    "is_correct": false,
+    "rationale": "This has a sign error. x is smaller than √(x² + 4x), so the difference is negative."
+   },
+   {
+    "label": "D",
+    "text": "y = −2",
+    "is_correct": true,
+    "rationale": "Correct: Multiplying by the conjugate gives −4x/(x + √(x² + 4x)). Dividing by x gives −4/(1 + √(1 + 4/x)) → −4/2 = −2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.15-A-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.15-a-v1",
+  "family": "1.15-A",
+  "variant": "1",
+  "topic": "1.15",
+  "title": "find a horizontal asymptote of a difference of expressions that is infinity minus infinity by multiplying by the conjuga (variant 1)",
+  "stem": "Let f(x) = √(x² + 6x) − x for x ≥ 0. As x → ∞, the graph of f approaches a horizontal asymptote. What is its equation?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = 0",
+    "is_correct": false,
+    "rationale": "This treats √(x² + 6x) − x as ∞ − ∞ = 0, which is not a valid conclusion."
+   },
+   {
+    "label": "B",
+    "text": "y = 3",
+    "is_correct": true,
+    "rationale": "Correct: Multiplying by the conjugate gives 6x/(√(x² + 6x) + x) = 6/(√(1 + 6/x) + 1) → 6/2 = 3."
+   },
+   {
+    "label": "C",
+    "text": "y = 6",
+    "is_correct": false,
+    "rationale": "This reduces 6x/(√(x² + 6x) + x) by dividing by x but forgets the denominator tends to 2."
+   },
+   {
+    "label": "D",
+    "text": "y = −3",
+    "is_correct": false,
+    "rationale": "This has a sign error. √(x² + 6x) exceeds x, so the difference is positive."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.15-A-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.15-a-v2",
+  "family": "1.15-A",
+  "variant": "2",
+  "topic": "1.15",
+  "title": "find a horizontal asymptote of a difference of expressions that is infinity minus infinity by multiplying by the conjuga (variant 2)",
+  "stem": "Let f(x) = √(4x² + x) − 2x for x ≥ 0. As x → ∞, the graph of f approaches a horizontal asymptote. What is its equation?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = 0",
+    "is_correct": false,
+    "rationale": "This treats √(4x² + x) − 2x as ∞ − ∞ = 0, which is not valid."
+   },
+   {
+    "label": "B",
+    "text": "y = 1/2",
+    "is_correct": false,
+    "rationale": "This forgets one term in the denominator after rationalising. The denominator √(4x² + x) + 2x behaves like 4x, not 2x."
+   },
+   {
+    "label": "C",
+    "text": "y = 1/4",
+    "is_correct": true,
+    "rationale": "Correct: Multiplying by the conjugate gives x/(√(4x² + x) + 2x) = 1/(√(4 + 1/x) + 2) → 1/4."
+   },
+   {
+    "label": "D",
+    "text": "y = 1",
+    "is_correct": false,
+    "rationale": "This forgets that the denominator grows. The rationalised form x/(√(4x² + x) + 2x) divided by x has denominator tending to 4."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.15-A-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.15-a-v3",
+  "family": "1.15-A",
+  "variant": "3",
+  "topic": "1.15",
+  "title": "find a horizontal asymptote of a difference of expressions that is infinity minus infinity by multiplying by the conjuga (variant 3)",
+  "stem": "Let f(x) = x − √(x² − 10x) for x ≥ 10. As x → ∞, the graph of f approaches a horizontal asymptote. What is its equation?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = 5",
+    "is_correct": true,
+    "rationale": "Correct: Multiplying by the conjugate gives 10x/(x + √(x² − 10x)) = 10/(1 + √(1 − 10/x)) → 10/2 = 5."
+   },
+   {
+    "label": "B",
+    "text": "y = 0",
+    "is_correct": false,
+    "rationale": "This treats x − √(x² − 10x) as ∞ − ∞ = 0, which is not valid."
+   },
+   {
+    "label": "C",
+    "text": "y = 10",
+    "is_correct": false,
+    "rationale": "This forgets the denominator tends to 2 after dividing by x."
+   },
+   {
+    "label": "D",
+    "text": "y = −5",
+    "is_correct": false,
+    "rationale": "This has a sign error. x exceeds √(x² − 10x), so the difference is positive."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.15-B",
+  "content_key": "apcalcab-mcq-b7-h-1.15-b",
+  "family": "1.15-B",
+  "variant": null,
+  "topic": "1.15",
+  "title": "find both horizontal asymptotes of a rational expression containing |x| by rewriting |x| as x for x > 0 and −x for x < 0",
+  "stem": "Let f(x) = (4x + |x|)/(x + 1). Which of the following gives all horizontal asymptotes of the graph of f?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = 5 and y = 3",
+    "is_correct": true,
+    "rationale": "Correct: As x → ∞, f(x) = 5x/(x + 1) → 5. As x → −∞, |x| = −x, so f(x) = 3x/(x + 1) → 3."
+   },
+   {
+    "label": "B",
+    "text": "y = 5 only",
+    "is_correct": false,
+    "rationale": "This considers only x → ∞, where |x| = x. As x → −∞, |x| = −x and the limit is different."
+   },
+   {
+    "label": "C",
+    "text": "y = 4 only",
+    "is_correct": false,
+    "rationale": "This ignores the absolute value and treats it as 0, giving 4x/x = 4."
+   },
+   {
+    "label": "D",
+    "text": "y = 5 and y = −3",
+    "is_correct": false,
+    "rationale": "This has a sign slip as x → −∞. The numerator becomes 4x − x = 3x and the quotient 3x/(x + 1) tends to +3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.15-B-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.15-b-v1",
+  "family": "1.15-B",
+  "variant": "1",
+  "topic": "1.15",
+  "title": "find both horizontal asymptotes of a rational expression containing |x| by rewriting |x| as x for x > 0 and −x for x < 0 (variant 1)",
+  "stem": "Let f(x) = (2x − 3|x|)/(x − 4). Which of the following gives all horizontal asymptotes of the graph of f?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = −1 only",
+    "is_correct": false,
+    "rationale": "This considers only x → ∞, where |x| = x. As x → −∞, |x| = −x and the limit is 5."
+   },
+   {
+    "label": "B",
+    "text": "y = 2 only",
+    "is_correct": false,
+    "rationale": "This ignores the absolute value, treating it as 0 and giving 2x/x = 2."
+   },
+   {
+    "label": "C",
+    "text": "y = −1 and y = 5",
+    "is_correct": true,
+    "rationale": "Correct: As x → ∞, f(x) = −x/(x − 4) → −1. As x → −∞, |x| = −x, so f(x) = 5x/(x − 4) → 5."
+   },
+   {
+    "label": "D",
+    "text": "y = −1 and y = −5",
+    "is_correct": false,
+    "rationale": "This has a sign slip as x → −∞. The numerator becomes 2x + 3x = 5x, giving +5, not −5."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.15-B-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.15-b-v2",
+  "family": "1.15-B",
+  "variant": "2",
+  "topic": "1.15",
+  "title": "find both horizontal asymptotes of a rational expression containing |x| by rewriting |x| as x for x > 0 and −x for x < 0 (variant 2)",
+  "stem": "Let f(x) = (5x − 2|x|)/(2x + 1). Which of the following gives all horizontal asymptotes of the graph of f?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = 3/2 only",
+    "is_correct": false,
+    "rationale": "This considers only x → ∞, where |x| = x. As x → −∞, |x| = −x and the limit is 7/2."
+   },
+   {
+    "label": "B",
+    "text": "y = 3/2 and y = 7/2",
+    "is_correct": true,
+    "rationale": "Correct: As x → ∞, f(x) = 3x/(2x + 1) → 3/2. As x → −∞, |x| = −x, so f(x) = 7x/(2x + 1) → 7/2."
+   },
+   {
+    "label": "C",
+    "text": "y = 5/2 only",
+    "is_correct": false,
+    "rationale": "This ignores the absolute value and treats it as 0, giving 5x/(2x) = 5/2."
+   },
+   {
+    "label": "D",
+    "text": "y = 3/2 and y = −7/2",
+    "is_correct": false,
+    "rationale": "This has a sign slip as x → −∞. The numerator becomes 5x + 2x = 7x and the quotient tends to +7/2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.15-B-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.15-b-v3",
+  "family": "1.15-B",
+  "variant": "3",
+  "topic": "1.15",
+  "title": "find both horizontal asymptotes of a rational expression containing |x| by rewriting |x| as x for x > 0 and −x for x < 0 (variant 3)",
+  "stem": "Let f(x) = (|x| − 6x)/(3x − 2). Which of the following gives all horizontal asymptotes of the graph of f?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = −5/3 and y = −7/3",
+    "is_correct": true,
+    "rationale": "Correct: As x → ∞, f(x) = −5x/(3x − 2) → −5/3. As x → −∞, |x| = −x, so f(x) = −7x/(3x − 2) → −7/3."
+   },
+   {
+    "label": "B",
+    "text": "y = −5/3 only",
+    "is_correct": false,
+    "rationale": "This considers only x → ∞, where |x| = x. As x → −∞, |x| = −x and the limit is −7/3."
+   },
+   {
+    "label": "C",
+    "text": "y = −2 only",
+    "is_correct": false,
+    "rationale": "This ignores the absolute value, treating it as 0 and giving −6x/(3x) = −2."
+   },
+   {
+    "label": "D",
+    "text": "y = −5/3 and y = 7/3",
+    "is_correct": false,
+    "rationale": "This has a sign slip as x → −∞. The numerator becomes −x − 6x = −7x, so the limit is −7/3, not +7/3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.16-A",
+  "content_key": "apcalcab-mcq-b7-h-1.16-a",
+  "family": "1.16-A",
+  "variant": null,
+  "topic": "1.16",
+  "title": "use the Intermediate Value Theorem on a table of values of a continuous function to count the zeros guaranteed, includin",
+  "stem": "A function f is continuous on [0, 6]. Selected values are f(0) = 3, f(2) = −1, f(4) = −1, and f(6) = 5. Which of the following is guaranteed by the Intermediate Value Theorem?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f has exactly two zeros in (0, 6)",
+    "is_correct": false,
+    "rationale": "The theorem guarantees a minimum number of zeros only. Between the table values f could cross zero additional times."
+   },
+   {
+    "label": "B",
+    "text": "f has at least three zeros in (0, 6)",
+    "is_correct": false,
+    "rationale": "This counts [2, 4] as a sign change, but f(2) and f(4) are both −1, so the theorem gives no guarantee there."
+   },
+   {
+    "label": "C",
+    "text": "f has at least two zeros in (0, 6)",
+    "is_correct": true,
+    "rationale": "Correct: Sign changes occur on [0, 2] (3 to −1) and [4, 6] (−1 to 5), each giving a zero. No guarantee on [2, 4], so at least two zeros."
+   },
+   {
+    "label": "D",
+    "text": "f has exactly one zero in (0, 6)",
+    "is_correct": false,
+    "rationale": "This counts only one sign change, but there are two, on [0, 2] and on [4, 6], each of which gives a zero."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.16-A-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.16-a-v1",
+  "family": "1.16-A",
+  "variant": "1",
+  "topic": "1.16",
+  "title": "use the Intermediate Value Theorem on a table of values of a continuous function to count the zeros guaranteed, includin (variant 1)",
+  "stem": "A sensor reading R(t) is continuous on [−3, 7]. Selected values are R(−3) = −2, R(−1) = 3, R(1) = −5, R(4) = −5, and R(7) = 1. Which is the strongest statement about the zeros of the function that the Intermediate Value Theorem guarantees?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "R has at least three zeros in (−3, 7)",
+    "is_correct": true,
+    "rationale": "Correct: Sign changes occur on [−3, −1], [−1, 1], and [4, 7], and none on [1, 4]. That guarantees at least three zeros."
+   },
+   {
+    "label": "B",
+    "text": "R has exactly three zeros in (−3, 7)",
+    "is_correct": false,
+    "rationale": "The theorem guarantees a minimum only. R could cross zero more often between the listed times."
+   },
+   {
+    "label": "C",
+    "text": "R has at least four zeros in (−3, 7)",
+    "is_correct": false,
+    "rationale": "This counts [1, 4] as a sign change, but R(1) and R(4) are both −5, so no zero is guaranteed there."
+   },
+   {
+    "label": "D",
+    "text": "R has at least two zeros in (−3, 7)",
+    "is_correct": false,
+    "rationale": "This misses one of the three sign changes. Sign changes occur on [−3, −1], [−1, 1], and [4, 7]."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.16-A-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.16-a-v2",
+  "family": "1.16-A",
+  "variant": "2",
+  "topic": "1.16",
+  "title": "use the Intermediate Value Theorem on a table of values of a continuous function to count the zeros guaranteed, includin (variant 2)",
+  "stem": "A function f is continuous on [0, 6]. Selected values are f(0) = 3, f(2) = 0, f(4) = −2, and f(6) = 4. Which is the strongest statement about the zeros of the function that the Intermediate Value Theorem guarantees?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f has at least three zeros in [0, 6]",
+    "is_correct": false,
+    "rationale": "This treats the changes 3 to 0 and 0 to −2 as separate sign changes in addition to −2 to 4. The zero at x = 2 is already one zero and counts only once."
+   },
+   {
+    "label": "B",
+    "text": "f has exactly two zeros in [0, 6]",
+    "is_correct": false,
+    "rationale": "The theorem guarantees a minimum number only; further zeros may exist."
+   },
+   {
+    "label": "C",
+    "text": "f has at least two zeros in [0, 6]",
+    "is_correct": true,
+    "rationale": "Correct: f(2) = 0 is one zero. On [4, 6] the values go from −2 to 4, giving another zero by the theorem. So at least two zeros."
+   },
+   {
+    "label": "D",
+    "text": "f has at least one zero in [0, 6]",
+    "is_correct": false,
+    "rationale": "This counts only the sign change on [4, 6] and ignores that f(2) = 0 is itself a zero."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.16-A-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.16-a-v3",
+  "family": "1.16-A",
+  "variant": "3",
+  "topic": "1.16",
+  "title": "use the Intermediate Value Theorem on a table of values of a continuous function to count the zeros guaranteed, includin (variant 3)",
+  "stem": "A function f is continuous on [−2, 8]. Selected values are f(−2) = 2, f(0) = −1, f(3) = 1, f(5) = −2, and f(8) = 3. Which is the strongest statement about the zeros of the function that the Intermediate Value Theorem guarantees?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f has at least three zeros in (−2, 8)",
+    "is_correct": false,
+    "rationale": "This misses one of the four sign changes, which occur on [−2, 0], [0, 3], [3, 5], and [5, 8]."
+   },
+   {
+    "label": "B",
+    "text": "f has at least four zeros in (−2, 8)",
+    "is_correct": true,
+    "rationale": "Correct: Consecutive values alternate in sign on all four intervals, giving a zero in each, so at least four zeros."
+   },
+   {
+    "label": "C",
+    "text": "f has at least five zeros in (−2, 8)",
+    "is_correct": false,
+    "rationale": "There are five table entries but only four consecutive pairs, and each pair gives at most one guaranteed zero."
+   },
+   {
+    "label": "D",
+    "text": "f has exactly four zeros in (−2, 8)",
+    "is_correct": false,
+    "rationale": "The theorem guarantees a minimum only. More zeros may exist between the listed points."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.16-B",
+  "content_key": "apcalcab-mcq-b7-h-1.16-b",
+  "family": "1.16-B",
+  "variant": null,
+  "topic": "1.16",
+  "title": "decide for which interval the Intermediate Value Theorem, applied to the endpoint values of a polynomial, guarantees a z",
+  "stem": "Let f(x) = x³ − 3x² + 1, which is continuous for all x. For which of the following intervals do the values of f at the endpoints let the Intermediate Value Theorem guarantee a zero of f in the interval?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[0, 3]",
+    "is_correct": false,
+    "rationale": "Here f(0) = 1 and f(3) = 1 have the same sign, so the theorem gives no guarantee, even though f does have zeros inside the interval."
+   },
+   {
+    "label": "B",
+    "text": "[1, 2]",
+    "is_correct": false,
+    "rationale": "Here f(1) = −1 and f(2) = −3 are both negative, so no sign change is shown."
+   },
+   {
+    "label": "C",
+    "text": "[3, 4]",
+    "is_correct": false,
+    "rationale": "Here f(3) = 1 and f(4) = 17 are both positive, so no sign change is shown."
+   },
+   {
+    "label": "D",
+    "text": "[−1, 0]",
+    "is_correct": true,
+    "rationale": "Correct: f(−1) = −3 < 0 and f(0) = 1 > 0, so the theorem guarantees a zero in (−1, 0)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.16-B-v1",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.16-b-v1",
+  "family": "1.16-B",
+  "variant": "1",
+  "topic": "1.16",
+  "title": "decide for which interval the Intermediate Value Theorem, applied to the endpoint values of a polynomial, guarantees a z (variant 1)",
+  "stem": "Let g(x) = x³ − 7x + 3, which is continuous for all x. For which of the following intervals do the values of g at the endpoints let the Intermediate Value Theorem guarantee a zero of g in the interval?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[−4, 1]",
+    "is_correct": false,
+    "rationale": "Here g(−4) = −33 and g(1) = −3 are both negative, so the theorem gives no guarantee, even though g has two zeros inside the interval."
+   },
+   {
+    "label": "B",
+    "text": "[2, 3]",
+    "is_correct": true,
+    "rationale": "Correct: g(2) = 8 − 14 + 3 = −3 < 0 and g(3) = 27 − 21 + 3 = 9 > 0, so there is a zero in (2, 3)."
+   },
+   {
+    "label": "C",
+    "text": "[−2, 0]",
+    "is_correct": false,
+    "rationale": "Here g(−2) = 9 and g(0) = 3 are both positive, so no sign change is shown."
+   },
+   {
+    "label": "D",
+    "text": "[1, 2]",
+    "is_correct": false,
+    "rationale": "Here g(1) = −3 and g(2) = −3 are both negative, so no sign change is shown."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.16-B-v2",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.16-b-v2",
+  "family": "1.16-B",
+  "variant": "2",
+  "topic": "1.16",
+  "title": "decide for which interval the Intermediate Value Theorem, applied to the endpoint values of a polynomial, guarantees a z (variant 2)",
+  "stem": "Let h(x) = x³ − 3x + 1, which is continuous for all x. For which of the following intervals do the values of h at the endpoints let the Intermediate Value Theorem guarantee a zero of h in the interval?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[−1, 2]",
+    "is_correct": false,
+    "rationale": "Here h(−1) = 3 and h(2) = 3 are both positive, so the theorem gives no guarantee, even though h has two zeros inside the interval."
+   },
+   {
+    "label": "B",
+    "text": "[0, 1]",
+    "is_correct": true,
+    "rationale": "Correct: h(0) = 1 > 0 and h(1) = −1 < 0, so the theorem guarantees a zero in (0, 1)."
+   },
+   {
+    "label": "C",
+    "text": "[−1, 0]",
+    "is_correct": false,
+    "rationale": "Here h(−1) = 3 and h(0) = 1 are both positive, so no sign change is shown."
+   },
+   {
+    "label": "D",
+    "text": "[2, 3]",
+    "is_correct": false,
+    "rationale": "Here h(2) = 3 and h(3) = 19 are both positive, so no sign change is shown."
+   }
+  ]
+ },
+ {
+  "src_id": "N-1.16-B-v3",
+  "content_key": "apcalcab-mcq-b7-sv-h-1.16-b-v3",
+  "family": "1.16-B",
+  "variant": "3",
+  "topic": "1.16",
+  "title": "decide for which interval the Intermediate Value Theorem, applied to the endpoint values of a polynomial, guarantees a z (variant 3)",
+  "stem": "Let p(x) = x⁴ − 5x² + 2, which is continuous for all x. For which of the following intervals do the values of p at the endpoints let the Intermediate Value Theorem guarantee a zero of p in the interval?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[−1, 1]",
+    "is_correct": false,
+    "rationale": "Here p(−1) = −2 and p(1) = −2 have the same sign, so the theorem gives no guarantee, even though p has two zeros inside the interval."
+   },
+   {
+    "label": "B",
+    "text": "[−2, −1]",
+    "is_correct": false,
+    "rationale": "Here p(−2) = −2 and p(−1) = −2 are both negative, so no sign change is shown."
+   },
+   {
+    "label": "C",
+    "text": "[2, 3]",
+    "is_correct": true,
+    "rationale": "Correct: p(2) = 16 − 20 + 2 = −2 < 0 and p(3) = 81 − 45 + 2 = 38 > 0, so there is a zero in (2, 3)."
+   },
+   {
+    "label": "D",
+    "text": "[1, 2]",
+    "is_correct": false,
+    "rationale": "Here p(1) = −2 and p(2) = −2 are both negative, so no sign change is shown."
+   }
+  ]
+ }
+]

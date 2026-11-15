@@ -1,0 +1,32 @@
+{
+ "5.1": {
+  "core_idea": "- A scatterplot's four-part description is a fixed checklist, not a menu: form, direction, strength, unusual features.\n- Naming only one or two of the four leaves points unclaimed even when the description given is accurate.",
+  "what_students_need_to_understand": "- Strong and weak describe how tightly points cluster around a pattern, not how many points there are or how large the values are.\n- Strength is about scatter around the pattern, not sample size or magnitude.",
+  "how_this_becomes_points": "1. Name all four components in a single description: form, direction, strength, and any unusual features.\n2. Address each explicitly rather than implying it.",
+  "point_attaining_answer": "The relationship is linear, positive, and strong, with one unusual point.\n\n| Component | Description |\n| Form | linear |\n| Direction | positive |\n| Strength | strong |\n| Unusual feature | a student scoring far higher than the pattern would predict for that number of study hours |"
+ },
+ "5.2": {
+  "core_idea": "- r is unit-free precisely so it can compare relationships measured in completely different units.\n- A large |r| only measures how closely points follow a straight line: it never proves that line is the right model, and it never proves one variable causes the other.",
+  "what_students_need_to_understand": "- This course does not expect you to compute r by hand from raw data; the CED states r is calculated using technology.\n- Cite and interpret the technology-reported value rather than attempting a hand formula.",
+  "how_this_becomes_points": "1. Use sign-as-direction and magnitude-as-strength language, sourced from technology.\n2. Recognize that r alone, even close to 1 or -1, does not confirm linearity without a residual-plot check.",
+  "point_attaining_answer": "The conclusion is not supported.\n\nA strong correlation only shows a strong linear association, not that one variable causes the other.\n\nA third variable, such as hot weather driving both ice cream sales and swimming, likely explains the pattern."
+ },
+ "5.3": {
+  "core_idea": "- The regression equation only reliably predicts within the range of x-values used to build it.\n- Predicting outside that range is a substantively different, less trustworthy activity, even though the arithmetic looks identical either way.",
+  "what_students_need_to_understand": "- Interpolation vs. extrapolation depends entirely on where the requested x-value sits relative to the data's x-range, not on the model's r or r-squared value.\n- A great-fitting model can still make an unreliable extrapolated prediction.",
+  "how_this_becomes_points": "1. State whether the requested x-value is inside or outside the original data's range.\n2. Name interpolation or extrapolation accordingly, not just computing y-hat.",
+  "point_attaining_answer": "The prediction is an extrapolation: $200,000 falls far outside the $10,000 to $50,000 range used to build the model.\n\nSo the prediction is unreliable regardless of how well the model fits the original data."
+ },
+ "5.4": {
+  "core_idea": "- The sign of a residual is easy to flip in your head.\n- A positive residual means the actual value came in higher than predicted, so the model underpredicted, not that the model was somehow more correct or more positive.",
+  "what_students_need_to_understand": "- A residual plot showing patternless scatter around zero supports the linear model.\n- A residual plot showing clear curvature is direct evidence the straight-line model is the wrong shape for this data, regardless of how large r is.",
+  "how_this_becomes_points": "1. Compute residual as observed minus predicted (never predicted minus observed).\n2. Read the residual plot's shape as the deciding evidence for whether a linear model is appropriate.",
+  "point_attaining_answer": "The residual is 295,000 minus 310,000, which equals -15,000.\n\nA negative residual means the actual sale price came in below the predicted price, so the model overpredicted this house's value."
+ },
+ "5.5": {
+  "core_idea": "- The least-squares line is the one specific line that minimizes the sum of squared residuals across every data point.\n- Unlike the slope, the y-intercept sometimes should not be interpreted at all, when x = 0 is far outside the data or a negative predicted y has no real meaning.",
+  "what_students_need_to_understand": "- r-squared is the proportion of the variation in the response variable explained by the linear relationship with the explanatory variable.\n- It is not the correlation coefficient itself, and not the proportion of individual points that fit exactly.",
+  "how_this_becomes_points": "1. Interpret the slope in context: predicted increase or decrease in y for a one-unit increase in x.\n2. Interpret r-squared as the proportion of variation explained.\n3. Recognize explicitly when the y-intercept has no real-world meaning, rather than interpreting it automatically.",
+  "point_attaining_answer": "No, the y-intercept should not be interpreted here: age = 0 is far outside the 24 to 60 month range the model was built from.\n\nInterpreting it would be extrapolation far beyond the data."
+ }
+}

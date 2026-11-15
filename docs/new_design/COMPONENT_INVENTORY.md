@@ -18,7 +18,7 @@ Grouped by concern. Each directory holds `<Name>.jsx`, `<Name>.d.ts`, `<Name>.pr
 | `components/actions/` | `ActionRow`, `ActionButton` |
 | `components/question/` | `QuestionHeader`, `GraphFrame`, `AnswerField` |
 
-**Intentional additions.** Four names are not in the original nine-family list but were needed to build the plates without re-implementing chrome inside every kit: `Plate` / `PlateGrid` (the fixed 1440×900 frame and its three-column grid, previously inline in each template), `Masthead` (the 70px orange bar), `Wordmark` (the mark, so the on-light ink rule lives in one place), `ActionButton` (the four action treatments the action row composes), and `AnswerField` (the FRQ written-answer box). Nothing else was invented — there is no Toast, Avatar, Tabs or Tooltip here, because the product has none.
+**Intentional additions.** Four names are not in the original nine-family list but were needed to build the plates without re-implementing chrome inside every kit: `Plate` / `PlateGrid` (the plate frame and its two-column grid, task and rail: `minmax(0, 1fr)` and `--col-rail`), `Masthead` (the 70px orange bar), `Wordmark` (the mark, so the on-light ink rule lives in one place), `ActionButton` (the four action treatments the action row composes), and `AnswerField` (the FRQ written-answer box). **Rail tabs (added 2026-11-08).** The rail is one pane with a two-tab strip, Rubric and Reference; `PaneShell` takes the tab strip in place of a single title. The Cheat Sheet (`DeepDiveOverlay`) opens as a modal from a link pinned to the foot of the rail. Nothing else was invented — there is no Toast, Avatar or Tooltip here, and Tabs exist only as the rail's two-tab strip, because the product has no other use for them.
 
 ### UI kits
 

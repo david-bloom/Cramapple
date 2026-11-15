@@ -13,3 +13,6 @@ Deno.env.set("ALLOWED_ORIGINS", "https://cramapple.com");
 // configuration, since that's the state worth pinning with tests. See
 // index_test.ts's file header for which branch this leaves untested and why.
 Deno.env.set("GRADING_ENTITLEMENTS_ENABLED", "true");
+// Only the transcript ops (propose/confirm) read this flag; it is on so the
+// paywall-sample photo-cap gate in propose_transcript can be tested.
+Deno.env.set("FRQ_PHOTO_RESPONSES_ENABLED", "true");

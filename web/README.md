@@ -4,7 +4,7 @@ The student practice frontend: the fixed 1440×900 three-pane question plate, in
 both modes (Open Hand and Practice) and both item types (FRQ and MCQ), plus the
 home / study map screen.
 
-Built directly on the CramApple Design System — the tokens, the nineteen
+Built directly on the Cramapple Master design system — the tokens, the nineteen
 components and the product rules all come from `docs/new_design/` and
 `.claude/skills/cramapple-design/`. Nothing here restyles them.
 
@@ -48,10 +48,12 @@ scripts/           browser checks that enforce the product's layout rules
 
 These are design rules, not preferences. Breaking one is a bug.
 
-- **The plate is fixed at 1440×900 and never scrolls.** No region inside it
-  scrolls or collapses. If content does not fit, cut copy or restructure — do
-  not add a scrollbar. `npm run verify:panes` fails the build if any pane
-  overflows, in any state of any screen.
+- **Design the plate not to need scrolling (a guideline, decided 2026-11-08).**
+  If content does not fit, first try cutting copy or restructuring; if a student
+  needs the content, let it scroll, and keep the primary action and feedback
+  reachable. `npm run verify:panes` still fails on any pane overflow: it predates
+  this decision, so treat a report as a prompt to look, and relax the script
+  before relying on a scrolling plate.
 - **The feedback card sits in its own `auto` row directly above the action row**,
   never inside the pane's `minmax(0,1fr)` content track. Inside the track, a
   grown answer field or option list pushes the card and the primary action past
@@ -69,7 +71,7 @@ These are design rules, not preferences. Breaking one is a bug.
   dive, which sits behind the same gate as the rubric rather than being a
   post-submit extra. How much help a student took, read against the score, is
   the mastery signal — so help that discloses silently would leave that signal
-  incomplete. After submission the deep dive is free.
+  incomplete. After submission the cheat sheet is free.
 - **Reference materials are not help.** They are what a student may look up —
   topic, skills, vocabulary — so they stay visible and ungated throughout.
 - **Body text never goes below 16px.** Chrome (breadcrumb 13, counts 12,
@@ -195,3 +197,9 @@ fonts, four panes overflowed the frame.
   is AP Biology, whose FRQs are longer and carry diagrammatic stimulus; the
   fixed no-scroll plate is exactly where that will bite. See the open question
   in `docs/new_design/README.md`.
+
+## Coaching slot and feedback rating (added 2026-11-14)
+
+The feedback card has one text slot. It always shows the grader's composed feedback (`coaching` prop) with the grade, instantly. When model-written coaching exists it arrives as `coach` (`{ status: 'pending' | 'ready' | 'none', text }`) and replaces the composed text in the same slot; while pending, a quiet "Coaching on its way" line shows, and if coaching never arrives the card stays as it was, with no error or apology. A one-to-five "Helpful?" control (`FeedbackRating`) sits at the bottom of the card; the rating is stored on the attempt as `feedbackRating { value, source, at }` where `source` is `coaching` or `composed`, so ratings of the two can be compared. Ratings are local only until a backend capture is approved.
+
+There is no coaching backend yet. Open any practice question with `?coachdemo=1` (for example `/#/practice/apstats-2-3-mcq-001?coachdemo=1`) to see the pending and ready states with fixed demo text (`src/session/coachStub.js`, delete when the real call exists).

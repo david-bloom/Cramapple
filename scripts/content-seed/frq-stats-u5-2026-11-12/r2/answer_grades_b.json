@@ -1,0 +1,453 @@
+{
+ "ap_statistics__4.9__v2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Defines μ₁ and μ₂ as the μ₁ is the true mean delivery time, in minutes, of all deliveries by the first courier, and μ₂ is the true mean delivery time of all deliveries by the second courier.",
+    "earned": true,
+    "reason": "The response defines both parameters correctly, including the context (mean delivery time in minutes) and the populations."
+   },
+   {
+    "criterion": "States H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ ≠ 0.",
+    "earned": true,
+    "reason": "The response correctly states the null and two-sided alternative hypotheses."
+   },
+   {
+    "criterion": "Identifies the appropriate procedure as a two-sample t-test for a difference in population means.",
+    "earned": true,
+    "reason": "The response explicitly names the two-sample t-test for a difference in population means."
+   },
+   {
+    "criterion": "Checks the randomization condition: the deliveries were selected by independent random samples from the two couriers' deliveries.",
+    "earned": true,
+    "reason": "The response correctly checks the randomization condition in context."
+   },
+   {
+    "criterion": "Checks the 10% condition: each sample is less than 10% of the thousands of deliveries by its courier.",
+    "earned": true,
+    "reason": "The response verifies that each sample size is less than 10% of the thousands of deliveries made by each courier."
+   },
+   {
+    "criterion": "Checks the sample-data condition: one sample (n = 12) is less than 30, so both samples must show no strong skewness or outliers, but the second courier's sample is skewed with one outlier, so the sample-data condition is not met and the two-sample t-test is not appropriate.",
+    "earned": true,
+    "reason": "The response explains that since n = 12 < 30, both distributions must not have strong skewness or outliers, notes the right skewness and outlier in the second courier's data, and concludes the condition is not met and the test is not appropriate."
+   }
+  ]
+ },
+ "ap_statistics__4.6__v2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 5,
+  "earned": 5,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 3 minutes.",
+    "earned": true,
+    "reason": "The response correctly identifies and calculates the mean of the sampling distribution as 3 minutes."
+   },
+   {
+    "criterion": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(5²/36 + 4²/42) = 1.037 minutes.",
+    "earned": true,
+    "reason": "The response shows the correct formula with values plugged in and calculates the standard deviation as 1.037 minutes."
+   },
+   {
+    "criterion": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (36 and 42) are at least 30.",
+    "earned": true,
+    "reason": "The response states that the distribution is approximately normal and justifies this by noting the samples are random, independent, and both sample sizes are at least 30."
+   },
+   {
+    "criterion": "Finds the probability that the mean wait of the Line 1 sample is less than the mean wait of the Line 2 sample: the probability is about 0.0019, using a normal distribution with mean 3 and standard deviation 1.037 (for example, z = (0 − 3)/1.037 = −2.89).",
+    "earned": true,
+    "reason": "The response uses the correct z-score calculation with the mean of 3 and standard deviation of 1.037 to find the probability of approximately 0.0019."
+   },
+   {
+    "criterion": "Solves √(5²/n + 4²/n) ≤ 0.45 for a common sample size: n ≥ 202.47, so n = 203.",
+    "earned": true,
+    "reason": "The response sets up the inequality correctly, solves to find n ≥ 202.47, and rounds up to the correct minimum sample size of 203."
+   }
+  ]
+ },
+ "ap_statistics__5.3__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Finds the equation of the line through (4, 19.8) and (8, 12.2) by any correct method: slope −1.9, y-intercept 27.4, so ŷ = 27.4 − 1.9x.",
+    "earned": true,
+    "reason": "The response correctly calculates the slope (-1.9), y-intercept (27.4), and states the regression equation ŷ = 27.4 − 1.9x."
+   },
+   {
+    "criterion": "Substitutes x = 16 into ŷ = 27.4 − 1.9x and gets a predicted value of −3.0 thousand dollars.",
+    "earned": true,
+    "reason": "The response substitutes x = 16 into the regression equation and finds a predicted value of −3.0 thousand dollars."
+   },
+   {
+    "criterion": "States that the predicted asking price of −3.0 thousand dollars at 16 years is impossible, which shows the linear model should not be used that far beyond the data (2 to 9 years).",
+    "earned": true,
+    "reason": "The response notes that a negative price is impossible and explains that the model should not be used this far outside the range of the data (2 to 9 years)."
+   },
+   {
+    "criterion": "Classifies the prediction at 1.5 years as extrapolation because 1.5 is below the interval of age values (2 to 9 years) used to fit the line.",
+    "earned": true,
+    "reason": "The response identifies 1.5 years as extrapolation because it is below the observed data interval of 2 to 9 years."
+   },
+   {
+    "criterion": "Classifies the prediction at 9 years as interpolation because 9 is within (at the upper end of) the interval of age values (2 to 9 years) used to fit the line.",
+    "earned": true,
+    "reason": "The response correctly classifies 9 years as interpolation because it falls within the interval of ages (2 to 9 years)."
+   },
+   {
+    "criterion": "Classifies the prediction at 12 years as extrapolation because 12 is beyond the interval of age values (2 to 9 years) used to fit the line.",
+    "earned": true,
+    "reason": "The response correctly identifies 12 years as extrapolation because it is beyond the interval of ages (2 to 9 years)."
+   }
+  ]
+ },
+ "ap_statistics__5.1__v2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Describes the form of the association as non-linear (a curve that rises and then falls).",
+    "earned": true,
+    "reason": "The response explicitly describes the form as non-linear, noting that the points follow a curve that rises then falls."
+   },
+   {
+    "criterion": "a2. States that the direction changes: the association is positive for weekly water amount below about 6 liters and negative for larger values.",
+    "earned": true,
+    "reason": "The response states in context that the direction changes, being positive below about 6 liters of water per week and negative for larger values."
+   },
+   {
+    "criterion": "a3. States that the association is strong because all of the points lie close to one smooth curve.",
+    "earned": true,
+    "reason": "The response identifies the association as strong and explains that the points follow a single curved pattern closely."
+   },
+   {
+    "criterion": "b1. States that the claim that the association is weak because the points do not stay close to a straight line is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.",
+    "earned": true,
+    "reason": "The response correctly rejects the classmate's claim and explains that strength refers to how closely points follow the general pattern, which can be curved."
+   },
+   {
+    "criterion": "c1. Concludes Claim 1 is not supported: growth rises up to 6 liters (70 mm) but falls for larger amounts, for example 27 mm at 12 liters.",
+    "earned": true,
+    "reason": "The response concludes Claim 1 is not supported and provides the required numerical evidence from the table (70 mm at 6 liters and 27 mm at 12 liters)."
+   },
+   {
+    "criterion": "c2. Concludes Claim 2 is supported: the highest growth among groups given 10 or more liters is 51 mm, which is below the lowest growth (59 mm) among groups given 3 to 8 liters.",
+    "earned": true,
+    "reason": "The response states Claim 2 is supported and supports this by comparing the maximum growth for 10 or more liters (51 mm) to the minimum growth for 3 to 8 liters (59 mm)."
+   }
+  ]
+ },
+ "ap_statistics__4.5__v2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Calculates the test statistic t = d̄/(s_d/√n) = −2.60/(4.4/√18) = −2.51.",
+    "earned": true,
+    "reason": "The response shows the correct substitution into the formula and reports t = -2.51."
+   },
+   {
+    "criterion": "Interprets the p-value 0.0113: assuming the mean difference in typing errors (after minus before) for all typists is 0, the probability of getting a sample mean difference of −2.6 errors or lower (equivalently, a test statistic of about −2.51 or lower) is about 0.0113.",
+    "earned": true,
+    "reason": "The response correctly interprets the p-value in context, assuming the null hypothesis is true."
+   },
+   {
+    "criterion": "States that the student's statement that the small p-value shows the keyboard reduces errors by a large amount is incorrect, because a small p-value means convincing evidence that the mean difference is less than 0; it does not measure how large the difference is, which is estimated by the sample mean difference of −2.6 errors.",
+    "earned": true,
+    "reason": "The response correctly rejects the statement and explains that the p-value measures evidence against the null rather than the effect size."
+   },
+   {
+    "criterion": "Compares the p-value 0.0113 with α = 0.05: because the p-value is less than α, reject H₀.",
+    "earned": true,
+    "reason": "The response explicitly compares 0.0113 with 0.05 and states to reject H₀."
+   },
+   {
+    "criterion": "Concludes in context: there is convincing evidence that the mean difference in typing errors (after minus before) is less than 0 for all typists like these.",
+    "earned": true,
+    "reason": "The response provides the correct conclusion in context supporting the alternative hypothesis."
+   },
+   {
+    "criterion": "Compares the p-value 0.0113 with α = 0.01: because the p-value is greater than α, fail to reject H₀.",
+    "earned": true,
+    "reason": "The response explicitly compares 0.0113 with 0.01, concludes to fail to reject H₀, and notes that the decision changes."
+   }
+  ]
+ },
+ "ap_statistics__4.3__v2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Interprets the interval: we are 95% confident that the interval from 1.21 to 4.99 kg captures the true mean weight loss (before minus after) for all adults like these after the 8-week diet.",
+    "earned": true,
+    "reason": "The response clearly states the confidence level, the interval (1.21 to 4.99 kg), and interprets it in context with the correct parameter."
+   },
+   {
+    "criterion": "Interprets the confidence level: if many random samples of the same size were taken, about 95% of the intervals they produce would capture the true parameter.",
+    "earned": true,
+    "reason": "The response correctly explains the confidence level in terms of repeated sampling of the same size producing intervals that capture the true mean difference about 95% of the time."
+   },
+   {
+    "criterion": "Because 0 is not in the interval (1.21, 4.99), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the diet is associated with a change in mean weight).",
+    "earned": true,
+    "reason": "The response states that 0 is not in the interval, concludes that 0 is not a plausible value of the population mean difference, and correctly states that the interval provides convincing evidence against Claim 1."
+   },
+   {
+    "criterion": "Because 6 is above the interval (1.21, 4.99), 6 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2.",
+    "earned": true,
+    "reason": "The response notes that 6 is above the interval, meaning it is not plausible and plausible values are below it, and concludes that the interval does not support Claim 2."
+   },
+   {
+    "criterion": "States that the dietitian's statement that 95% of participants lost between 1.21 and 4.99 kg is not justified, because the interval estimates the population mean difference, not the range of individual values.",
+    "earned": true,
+    "reason": "The response states that the dietitian's statement is incorrect because confidence intervals estimate the population mean difference rather than describing the distribution of individual values."
+   },
+   {
+    "criterion": "States that with n = 72 instead of 18 the interval would be narrower, with a margin of error about half as large (about 0.89 kg), because the standard error s/√n shrinks.",
+    "earned": true,
+    "reason": "The response states that the interval would be narrower, explains that the margin of error would be about half as large due to the sample size quadrupling in the standard error formula, and provides an approximate value of roughly 0.89 kg."
+   }
+  ]
+ },
+ "ap_statistics__4.4__v2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Defines μ_d as the μ_d is the true mean difference (focus score without headphones minus focus score with headphones), in points, for all students at this college.",
+    "earned": true,
+    "reason": "The student correctly defined μ_d including the context, direction of subtraction, units, and the population."
+   },
+   {
+    "criterion": "States H₀: μ_d = 0 and Hₐ: μ_d < 0.",
+    "earned": true,
+    "reason": "The student correctly stated the null and alternative hypotheses with the appropriate direction."
+   },
+   {
+    "criterion": "Checks the randomization condition: the 14 students were randomly selected.",
+    "earned": true,
+    "reason": "The student stated that the 14 students were randomly selected."
+   },
+   {
+    "criterion": "Checks the 10% condition: 14 students are less than 10% of the students at the college.",
+    "earned": true,
+    "reason": "The student stated that 14 students are less than 10% of the students at the college."
+   },
+   {
+    "criterion": "Checks the sample-data condition: the sample of differences has n = 14, which is less than 30, and its dotplot is strongly skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+    "earned": true,
+    "reason": "The student noted that n = 14 < 30 and the dotplot shows strong skewness with an outlier, concluding that the condition is not met and the test is not appropriate."
+   },
+   {
+    "criterion": "States that the classmate's two-sample t-test is not appropriate, because each student provided both scores, so the two sets of scores are not independent samples; the analysis should use the 14 differences (a matched-pairs, one-sample procedure).",
+    "earned": true,
+    "reason": "The student stated that the test is not appropriate because the two sets of scores are not independent (each student provided both scores) and that a matched-pairs procedure should be used."
+   }
+  ]
+ },
+ "ap_statistics__4.7__v2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Checks the randomization condition: the phones were selected by independent random samples from the two brands.",
+    "earned": true,
+    "reason": "The student explicitly states that the phones were selected by independent random samples from the two brands."
+   },
+   {
+    "criterion": "Checks the 10% condition: each sample is less than 10% of the thousands of phones sold by its brand.",
+    "earned": true,
+    "reason": "The student states that each sample is less than 10% of the thousands of phones sold by its brand."
+   },
+   {
+    "criterion": "Checks the sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+    "earned": true,
+    "reason": "The student notes that both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers."
+   },
+   {
+    "criterion": "States df = smaller of (n₁ − 1, n₂ − 1) = 20 and reads t* = 2.086 from the table for 95% confidence.",
+    "earned": true,
+    "reason": "The student calculates df = smaller of (26 − 1, 21 − 1) = 20 and identifies t* = 2.086 from the table."
+   },
+   {
+    "criterion": "Computes the interval (14.2 − 12.8) ± 2.086√(2.1²/26 + 2.4²/21) = 1.4 ± 2.086(0.666) = 0.01 to 2.79 hours, using t* = 2.086.",
+    "earned": true,
+    "reason": "The student correctly calculates the standard error and accurately computes the confidence interval as 0.01 to 2.79 hours."
+   },
+   {
+    "criterion": "States that using df = 20, the smaller of n₁ − 1 and n₂ − 1, gives a larger t* (2.086 versus 2.021) and a wider interval than technology's df of about 40.1, so the table method is conservative.",
+    "earned": true,
+    "reason": "The student correctly explains that the smaller df of 20 results in a larger critical value t* (2.086 vs 2.021), producing a wider and more conservative interval."
+   }
+  ]
+ },
+ "ap_statistics__5.3__v1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Finds the equation of the line through (1, 555) and (3, 385) by any correct method: slope −85, y-intercept 640, so ŷ = 640 − 85x.",
+    "earned": true,
+    "reason": "The response shows correct calculation of the slope (-85), y-intercept (640), and writes the regression equation as ŷ = 640 − 85x."
+   },
+   {
+    "criterion": "b1. Substitutes x = 8 into ŷ = 640 − 85x and gets a predicted value of −40 dollars.",
+    "earned": true,
+    "reason": "The response substitutes x = 8 into the equation and correctly finds ŷ = −40 dollars."
+   },
+   {
+    "criterion": "b2. States that the predicted resale value of −40 dollars at 8 years is impossible, which shows the linear model should not be used that far beyond the data (1 to 4 years).",
+    "earned": true,
+    "reason": "The response correctly identifies that a negative resale value is impossible and explains that the model should not be used because 8 years is far beyond the data range of 1 to 4 years."
+   },
+   {
+    "criterion": "c1. Classifies the prediction at 0.5 years as extrapolation because 0.5 is below the interval of age values (1 to 4 years) used to fit the line.",
+    "earned": true,
+    "reason": "The response identifies 0.5 years as extrapolation and explains that it is below the fitted data interval of 1 to 4 years."
+   },
+   {
+    "criterion": "c2. Classifies the prediction at 4 years as interpolation because 4 is within (at the upper end of) the interval of age values (1 to 4 years) used to fit the line.",
+    "earned": true,
+    "reason": "The response identifies 4 years as interpolation and explains that it is within (at the upper end of) the fitted interval of 1 to 4 years."
+   },
+   {
+    "criterion": "c3. Classifies the prediction at 6 years as extrapolation because 6 is beyond the interval of age values (1 to 4 years) used to fit the line.",
+    "earned": true,
+    "reason": "The response identifies 6 years as extrapolation and explains that it is beyond the fitted data interval of 1 to 4 years."
+   }
+  ]
+ },
+ "ap_statistics__5.4__v2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Calculates the residual as observed minus predicted: 11 - 18.00 = −7.00 kg.",
+    "earned": true,
+    "reason": "The response shows 11 − 18.00 = −7.00 kg."
+   },
+   {
+    "criterion": "Calculates the residual as observed minus predicted: 26 - 19.71 = 6.29 kg.",
+    "earned": true,
+    "reason": "The response shows 26 − 19.71 = 6.29 kg."
+   },
+   {
+    "criterion": "States that because the residual is negative, the model overpredicts the fruit yield for age group with x = 1 years: the observed value is below the predicted value.",
+    "earned": true,
+    "reason": "The response states that the negative residual at x = 1 means the model overpredicts the fruit yield and the observed value is below the predicted value."
+   },
+   {
+    "criterion": "Interprets the size in context: for age group with x = 1 years, the observed fruit yield is about 7.00 kg below the predicted value.",
+    "earned": true,
+    "reason": "The response indicates that the observed value is below the predicted fruit yield by about 7.00 kg at x = 1."
+   },
+   {
+    "criterion": "States that the signs of the residuals as x increases are negative, negative, positive, positive, positive, positive, negative, a systematic negative, positive, negative (arch-shaped) pattern rather than random scatter.",
+    "earned": true,
+    "reason": "The response lists the signs in order as negative, negative, positive, positive, positive, positive, negative and notes this is a systematic pattern rather than random scatter."
+   },
+   {
+    "criterion": "States that the arch-shaped pattern of the residuals (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+    "earned": true,
+    "reason": "The response identifies the pattern as curvature and concludes that the linear model is not the most appropriate model for the data."
+   }
+  ]
+ },
+ "ap_statistics__5.3__v2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Uses the two points (2, 1430) and (4, 1010) on the line to find the slope −210 and the y-intercept 1850, giving ŷ = 1850 − 210x.",
+    "earned": true,
+    "reason": "The response clearly calculates the slope (-210) and y-intercept (1850) using the two given points and states the final regression equation ŷ = 1850 − 210x."
+   },
+   {
+    "criterion": "Substitutes x = 10 into ŷ = 1850 − 210x and gets a predicted value of −250 dollars.",
+    "earned": true,
+    "reason": "The response explicitly substitutes x = 10 into the model and finds the predicted value of −250 dollars."
+   },
+   {
+    "criterion": "States that the predicted resale price of −250 dollars at 10 years is impossible, which shows the linear model should not be used that far beyond the data (1 to 5 years).",
+    "earned": true,
+    "reason": "The response states that a negative resale price is impossible and explains that the linear model should not be used that far outside the range of data (1 to 5 years)."
+   },
+   {
+    "criterion": "Classifies the prediction at 0.5 years as extrapolation because 0.5 is below the interval of age values (1 to 5 years) used to fit the line.",
+    "earned": true,
+    "reason": "The response classifies 0.5 years as extrapolation and correctly justifies it by noting that 0.5 is below the fitted data interval of 1 to 5 years."
+   },
+   {
+    "criterion": "Classifies the prediction at 5 years as interpolation because 5 is within (at the upper end of) the interval of age values (1 to 5 years) used to fit the line.",
+    "earned": true,
+    "reason": "The response classifies 5 years as interpolation and explains that 5 is within the interval of ages (1 to 5 years) used to fit the line."
+   },
+   {
+    "criterion": "Classifies the prediction at 8 years as extrapolation because 8 is beyond the interval of age values (1 to 5 years) used to fit the line.",
+    "earned": true,
+    "reason": "The response classifies 8 years as extrapolation and explains that 8 is beyond the interval of ages (1 to 5 years) used to fit the line."
+   }
+  ]
+ },
+ "ap_statistics__5.5__v2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Interprets the slope in context: for each one-hundred pounds increase in vehicle weight, the predicted fuel economy decreases by about 0.8 miles per gallon.",
+    "earned": true,
+    "reason": "The student correctly interprets the slope in context, stating that predicted fuel economy decreases by about 0.8 miles per gallon for each one-hundred pounds increase in vehicle weight."
+   },
+   {
+    "criterion": "States that the y-intercept 52.4 is the predicted fuel economy when vehicle weight is 0.",
+    "earned": true,
+    "reason": "The student correctly identifies 52.4 as the predicted fuel economy when vehicle weight is 0."
+   },
+   {
+    "criterion": "States that this intercept should not be interpreted because vehicle weight = 0 is outside the interval of values used to fit the line (22 to 42 hundreds of pounds), so it is extrapolation.",
+    "earned": true,
+    "reason": "The student explains that the intercept should not be interpreted because a weight of 0 is outside the domain of the data (22 to 42 hundreds of pounds) and represents extrapolation."
+   },
+   {
+    "criterion": "States that the student's interpretation that the regression line predicts the fuel economy exactly for 88% of the vehicle models is incorrect, because r² does not count points on the line or correct predictions.",
+    "earned": true,
+    "reason": "The student correctly rejects the statement and explains that r² does not measure the percentage of points on the line or correct predictions."
+   },
+   {
+    "criterion": "Interprets r² = 0.88: about 88% of the variation in fuel economy is explained by the linear relationship with vehicle weight.",
+    "earned": true,
+    "reason": "The student accurately provides the contextually correct interpretation of r²."
+   },
+   {
+    "criterion": "Uses the fact that the line passes through (x̅, ȳ): solves 28.4 = 52.4 − 0.8x̅ to get a mean vehicle weight of 30 hundreds of pounds.",
+    "earned": true,
+    "reason": "The student states that the line passes through (x̅, ȳ), substitutes 28.4 for ȳ, and solves for x̅ to find 30 hundreds of pounds."
+   }
+  ]
+ }
+}

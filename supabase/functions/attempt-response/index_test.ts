@@ -350,3 +350,114 @@ Deno.test("create_attempt still returns 500 for any other insert failure", async
   assertEquals(res.status, 500);
   assertEquals(await res.json(), { error: "attempt_create_failed" });
 });
+
+// ---------------------------------------------------------------------------
+// propose_transcript: paywall-sample photo cap (spec §7, Codex QA finding 2,
+// 2026-11-09). The fixture is an admin caller (bypasses the subject dark-launch
+// check) with a draft attempt, an unsubmitted response version and one
+// original attachment; the only thing under test is how the handler treats the
+// `sample_take_photo_run` rpc result BEFORE any model call or shared cap.
+// ---------------------------------------------------------------------------
+function proposeTranscriptFixture(
+  sampleRun: { data: unknown; error: { message: string } | null },
+) {
+  const ids = {
+    user: crypto.randomUUID(),
+    attempt: crypto.randomUUID(),
+    version: crypto.randomUUID(),
+    response: crypto.randomUUID(),
+    pack: crypto.randomUUID(),
+  };
+  const rpcCalls: string[] = [];
+  const tablesQueried: string[] = [];
+  const rows: Record<string, unknown> = {
+    attempts: {
+      id: ids.attempt,
+      user_id: ids.user,
+      status: "draft",
+      content_item_version_id: ids.version,
+      exam_pack_version_id: ids.pack,
+    },
+    response_versions: {
+      id: ids.response,
+      attempt_id: ids.attempt,
+      is_submitted: false,
+      response_text: null,
+      response_parts: {},
+    },
+    content_item_versions: { id: ids.version, stem: "Explain.", prompt_json: { parts: [{ key: "a" }] } },
+  };
+  const attachment = {
+    id: crypto.randomUUID(),
+    kind: "original",
+    storage_bucket: "frq-photos",
+    storage_path: "x/y.jpg",
+    media_type: "image/jpeg",
+    sha256_digest: "0".repeat(64),
+    redacted_at: null,
+    created_at: new Date().toISOString(),
+  };
+  const makeChain = (table: string) => {
+    tablesQueried.push(table);
+    const chain = {
+      select: () => chain,
+      eq: () => chain,
+      like: () => chain,
+      insert: () => chain,
+      order: () => Promise.resolve({ data: table === "response_attachments" ? [attachment] : [], error: null }),
+      maybeSingle: () => Promise.resolve({ data: rows[table] ?? null, error: null }),
+    };
+    return chain;
+  };
+  const rpc = (name: string) => {
+    rpcCalls.push(name);
+    const result = name === "sample_take_photo_run" ? sampleRun : { data: null, error: null };
+    return { single: () => Promise.resolve(result), then: (resolve: (v: unknown) => void) => resolve(result) };
+  };
+  // deno-lint-ignore no-explicit-any
+  const service = { schema: () => ({ from: makeChain, rpc }) } as any;
+  const req = new Request("http://localhost/attempt-response", {
+    method: "POST",
+    headers: { "content-type": "application/json", authorization: "Bearer test-token" },
+    body: JSON.stringify({
+      operation: "propose_transcript",
+      idempotency_key: crypto.randomUUID(),
+      attempt_id: ids.attempt,
+      response_version_id: ids.response,
+    }),
+  });
+  return { ids, service, req, rpcCalls, tablesQueried };
+}
+
+Deno.test("propose_transcript: a sample:* refusal from sample_take_photo_run is a typed 403", async () => {
+  const { ids, service, req, tablesQueried } = proposeTranscriptFixture({
+    data: null,
+    error: { message: "sample:extraction_limit_reached" },
+  });
+  const res = await handleAttemptResponse(req, { service, requireProfile: fakeAuth({ id: ids.user }, "admin") });
+  assertEquals(res.status, 403);
+  assertEquals(await res.json(), { error: "sample:extraction_limit_reached", access: "sample" });
+  // Nothing past the gate ran: no ledger/cap query, no model call.
+  assertEquals(tablesQueried.includes("model_usage_ledger"), false);
+});
+
+Deno.test("propose_transcript: an unexpected sample_take_photo_run failure fails CLOSED with 503, never continues to extraction", async () => {
+  const { ids, service, req, tablesQueried } = proposeTranscriptFixture({
+    data: null,
+    error: { message: "connection reset" },
+  });
+  const res = await handleAttemptResponse(req, { service, requireProfile: fakeAuth({ id: ids.user }, "admin") });
+  assertEquals(res.status, 503);
+  assertEquals(await res.json(), { error: "sample_photo_check_failed" });
+  assertEquals(tablesQueried.includes("model_usage_ledger"), false);
+});
+
+Deno.test("propose_transcript: 'not_sample' from sample_take_photo_run lets the request continue to the shared caps", async () => {
+  const { ids, service, req, tablesQueried } = proposeTranscriptFixture({ data: "not_sample", error: null });
+  const res = await handleAttemptResponse(req, { service, requireProfile: fakeAuth({ id: ids.user }, "admin") });
+  // Past the sample gate: the shared daily-run cap query ran. The fixture has
+  // no model deps, so the request ends somewhere after that; the gate is what
+  // is pinned here, not the model path.
+  assertEquals(tablesQueried.includes("model_usage_ledger"), true);
+  assertEquals(res.status === 403 || res.status === 503, false);
+});

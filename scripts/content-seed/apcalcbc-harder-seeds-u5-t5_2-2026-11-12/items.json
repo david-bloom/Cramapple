@@ -1,0 +1,434 @@
+[
+ {
+  "src_id": "N-5.2-A",
+  "content_key": "apcalcbc-mcq-b9-h-5.2-a",
+  "family": "5.2-A",
+  "variant": null,
+  "topic": "5.2",
+  "title": "apply Extreme Value Theorem hypotheses",
+  "stem": "On [-1,1], let f(x)=x² for x≠0 and f(0)=1. A student invokes the Extreme Value Theorem to claim both absolute extrema exist. Which assessment is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The theorem applies because f is defined at every x, and the absolute minimum is 0 at x=0.",
+    "is_correct": false,
+    "rationale": "Being defined everywhere is not the same as continuity, and f(0)=1 rather than 0."
+   },
+   {
+    "label": "B",
+    "text": "The theorem does not apply because f is discontinuous at 0; f has absolute maximum 1 but no absolute minimum on [-1,1].",
+    "is_correct": true,
+    "rationale": "Correct: As x approaches 0, x² approaches 0 but f(0)=1, so continuity fails. Every value is positive and values approach 0 without reaching it; the maximum 1 is attained at 0 and both endpoints."
+   },
+   {
+    "label": "C",
+    "text": "The theorem does not apply, so neither an absolute maximum nor an absolute minimum can exist.",
+    "is_correct": false,
+    "rationale": "Failure of EVT removes a guarantee; a maximum can still exist, and here it equals 1."
+   },
+   {
+    "label": "D",
+    "text": "The theorem applies because differentiability is unnecessary, and both extrema occur at the endpoints.",
+    "is_correct": false,
+    "rationale": "EVT requires continuity, which fails at 0; endpoints alone do not supply a minimum here."
+   }
+  ]
+ },
+ {
+  "src_id": "N-5.2-A-v1",
+  "content_key": "apcalcbc-mcq-b9-sv-h-5.2-a-v1",
+  "family": "5.2-A",
+  "variant": "1",
+  "topic": "5.2",
+  "title": "apply Extreme Value Theorem hypotheses (variant 1)",
+  "stem": "Let g(x)=1/x on the closed interval [1,4]. Which conclusion correctly uses the Extreme Value Theorem and the function's behavior?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "EVT fails because g is undefined at x=0, even though 0 is outside [1,4].",
+    "is_correct": false,
+    "rationale": "A discontinuity outside the interval does not violate continuity on [1,4]."
+   },
+   {
+    "label": "B",
+    "text": "EVT guarantees extrema only when the derivative is zero at an interior point.",
+    "is_correct": false,
+    "rationale": "EVT needs closed-interval continuity, not an interior stationary point; extrema can be endpoints."
+   },
+   {
+    "label": "C",
+    "text": "Both extreme values occur at x=0 because the derivative is undefined there.",
+    "is_correct": false,
+    "rationale": "X=0 is outside the domain interval and cannot supply an extremum on [1,4]."
+   },
+   {
+    "label": "D",
+    "text": "g is continuous on [1,4], so EVT applies; its absolute maximum is 1 at x=1 and its absolute minimum is 1/4 at x=4.",
+    "is_correct": true,
+    "rationale": "Correct: The interval [1,4] excludes the discontinuity at 0; 1/x is continuous there and decreasing, so endpoint values 1 and 1/4 are the absolute extrema."
+   }
+  ]
+ },
+ {
+  "src_id": "N-5.2-A-v2",
+  "content_key": "apcalcbc-mcq-b9-sv-h-5.2-a-v2",
+  "family": "5.2-A",
+  "variant": "2",
+  "topic": "5.2",
+  "title": "apply Extreme Value Theorem hypotheses (variant 2)",
+  "stem": "A function h(x)=x is considered on [0,2), including 0 but excluding 2. Which statement about its greatest value and EVT is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "EVT does not apply because the interval is not closed; h has a minimum 0, but no maximum because values approach 2 without attaining it.",
+    "is_correct": true,
+    "rationale": "Correct: The endpoint 2 is absent, so [0,2) is not a closed interval. h(0)=0 is attained, while values can be arbitrarily close to 2 without equaling it."
+   },
+   {
+    "label": "B",
+    "text": "EVT applies because h is continuous, and the maximum is 2 at x=2.",
+    "is_correct": false,
+    "rationale": "Continuity alone is insufficient for EVT on a nonclosed interval, and x=2 is excluded."
+   },
+   {
+    "label": "C",
+    "text": "EVT does not apply, so h cannot have either a minimum or maximum.",
+    "is_correct": false,
+    "rationale": "No EVT guarantee does not rule out the actual minimum at the included endpoint 0."
+   },
+   {
+    "label": "D",
+    "text": "The maximum is 1 because 2 is not included in the interval.",
+    "is_correct": false,
+    "rationale": "Values such as 1.5 exceed 1, and there is no greatest value below 2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-5.2-A-v3",
+  "content_key": "apcalcbc-mcq-b9-sv-h-5.2-a-v3",
+  "family": "5.2-A",
+  "variant": "3",
+  "topic": "5.2",
+  "title": "apply Extreme Value Theorem hypotheses (variant 3)",
+  "stem": "For p(x)=x² on [-1,2], which explanation correctly separates the Extreme Value Theorem from locating the extrema?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "EVT guarantees that both extrema must be at endpoints, so the minimum is 1 at x=-1.",
+    "is_correct": false,
+    "rationale": "EVT guarantees existence, not that extrema are restricted to endpoints; x=0 is smaller."
+   },
+   {
+    "label": "B",
+    "text": "EVT does not apply because p'(0)=0, creating a critical point.",
+    "is_correct": false,
+    "rationale": "A zero derivative is allowed under EVT, which requires continuity only."
+   },
+   {
+    "label": "C",
+    "text": "Continuity on the closed interval guarantees both extrema; checking the graph or values shows absolute minimum 0 at x=0 and maximum 4 at x=2.",
+    "is_correct": true,
+    "rationale": "Correct: x² is continuous on [-1,2], so existence follows from EVT. The interior value p(0)=0 is below endpoint values 1 and 4; p(2)=4 is greatest."
+   },
+   {
+    "label": "D",
+    "text": "EVT states that the maximum and minimum values must be equal for a continuous function.",
+    "is_correct": false,
+    "rationale": "EVT makes no claim that the extreme values coincide; here they are 0 and 4."
+   }
+  ]
+ },
+ {
+  "src_id": "N-5.2-B",
+  "content_key": "apcalcbc-mcq-b9-h-5.2-b",
+  "family": "5.2-B",
+  "variant": null,
+  "topic": "5.2",
+  "title": "distinguish critical points and local extrema",
+  "stem": "For f(x)=x³ on (-2,2), a student says x=0 is a local extremum because f'(0)=0. Which response is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Every point with derivative 0 is both a local maximum and a local minimum.",
+    "is_correct": false,
+    "rationale": "The definition of critical point does not guarantee a local extremum; f continues increasing."
+   },
+   {
+    "label": "B",
+    "text": "x=0 is a critical point but not a local extremum: f is increasing through 0, so the derivative's zero does not force a turn.",
+    "is_correct": true,
+    "rationale": "Correct: f'(x)=3x², so f'(0)=0 makes 0 critical. But f values change from negative to positive through 0, so 0 is neither a local high nor low."
+   },
+   {
+    "label": "C",
+    "text": "x=0 is not a critical point because f is differentiable there.",
+    "is_correct": false,
+    "rationale": "A critical point can have derivative zero at a differentiable point."
+   },
+   {
+    "label": "D",
+    "text": "x=0 is an absolute maximum because f(0)=0.",
+    "is_correct": false,
+    "rationale": "Nearby positive x-values have f(x)>0, so f(0) is not a maximum."
+   }
+  ]
+ },
+ {
+  "src_id": "N-5.2-B-v1",
+  "content_key": "apcalcbc-mcq-b9-sv-h-5.2-b-v1",
+  "family": "5.2-B",
+  "variant": "1",
+  "topic": "5.2",
+  "title": "distinguish critical points and local extrema (variant 1)",
+  "stem": "For g(x)=|x-1| on (0,2), which classification of x=1 is justified?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x=1 is a critical point and local minimum even though g'(1) does not exist; the graph decreases before 1 and increases after.",
+    "is_correct": true,
+    "rationale": "Correct: The cusp at 1 lies in the domain and has no derivative, satisfying the critical-point definition. |x-1| is 0 there and positive at nearby points, so it is a local minimum."
+   },
+   {
+    "label": "B",
+    "text": "x=1 cannot be critical because the derivative is undefined rather than zero.",
+    "is_correct": false,
+    "rationale": "A critical point includes an interior domain point where the derivative is zero or undefined."
+   },
+   {
+    "label": "C",
+    "text": "x=1 is a local maximum because the left and right slopes have opposite signs.",
+    "is_correct": false,
+    "rationale": "The function falls toward 1 and rises afterward, making a minimum rather than a maximum."
+   },
+   {
+    "label": "D",
+    "text": "The function has no extrema because it is not differentiable at x=1.",
+    "is_correct": false,
+    "rationale": "Differentiability is not required for a local extremum; the cusp is the lowest nearby point."
+   }
+  ]
+ },
+ {
+  "src_id": "N-5.2-B-v2",
+  "content_key": "apcalcbc-mcq-b9-sv-h-5.2-b-v2",
+  "family": "5.2-B",
+  "variant": "2",
+  "topic": "5.2",
+  "title": "distinguish critical points and local extrema (variant 2)",
+  "stem": "Let h(x)=x^(1/3) on (-1,1), using the real cube root. At x=0 the derivative is undefined. What follows?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x=0 is not critical because h is continuous there.",
+    "is_correct": false,
+    "rationale": "Continuity does not prevent a point with undefined derivative from being critical."
+   },
+   {
+    "label": "B",
+    "text": "x=0 is critical but not a local extremum because h increases through 0 despite its vertical tangent.",
+    "is_correct": true,
+    "rationale": "Correct: The function is defined at 0, and h'(0) is undefined, so 0 is critical. Real cube root increases on both sides of 0; nearby negative and positive values bracket h(0), ruling out an extremum."
+   },
+   {
+    "label": "C",
+    "text": "x=0 is a local maximum because the derivative is undefined.",
+    "is_correct": false,
+    "rationale": "An undefined derivative alone cannot establish a local maximum when nearby values exceed h(0)."
+   },
+   {
+    "label": "D",
+    "text": "x=0 is a local minimum because h(0)=0.",
+    "is_correct": false,
+    "rationale": "Nearby negative values are below h(0), so it is not a local minimum either."
+   }
+  ]
+ },
+ {
+  "src_id": "N-5.2-B-v3",
+  "content_key": "apcalcbc-mcq-b9-sv-h-5.2-b-v3",
+  "family": "5.2-B",
+  "variant": "3",
+  "topic": "5.2",
+  "title": "distinguish critical points and local extrema (variant 3)",
+  "stem": "For q(x)=x⁴-2x² on (-2,2), a student finds critical points at -1, 0, and 1 and claims all are local minima. Which correction is valid?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "-1 and 1 are local minima, but 0 is a local maximum; all three are critical because q'(x)=4x(x²-1).",
+    "is_correct": true,
+    "rationale": "Correct: q'(x)=4x(x²-1), so the critical points are -1,0,1. q(±1)=-1 and q(0)=0; in nearby regions the graph rises from -1 to 0 then falls to 1, so 0 is locally high and ±1 locally low."
+   },
+   {
+    "label": "B",
+    "text": "Only 0 is critical because the derivative is zero there.",
+    "is_correct": false,
+    "rationale": "The derivative equation has all three listed roots, not just 0."
+   },
+   {
+    "label": "C",
+    "text": "All three are local maxima because the derivative vanishes at all three.",
+    "is_correct": false,
+    "rationale": "A zero derivative identifies candidates; q values and neighboring behavior show different extremum types."
+   },
+   {
+    "label": "D",
+    "text": "None is a local extremum because polynomial derivatives exist everywhere.",
+    "is_correct": false,
+    "rationale": "Differentiable polynomials can have local extrema where their derivative equals zero."
+   }
+  ]
+ },
+ {
+  "src_id": "N-5.2-C",
+  "content_key": "apcalcbc-mcq-b9-h-5.2-c",
+  "family": "5.2-C",
+  "variant": null,
+  "topic": "5.2",
+  "title": "compare local and absolute extrema",
+  "stem": "A continuous function on [-2,2] is strictly decreasing, increasing, decreasing, then increasing on successive intervals cut by x=-1,0,1. Its values at x=-2,-1,0,1,2 are 4,0,3,1,5. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x=1 is the absolute minimum because it is an interior local minimum.",
+    "is_correct": false,
+    "rationale": "F(1)=1 exceeds f(-1)=0, so the local minimum at 1 is not absolute."
+   },
+   {
+    "label": "B",
+    "text": "x=0 is the absolute maximum because it is the only interior local maximum.",
+    "is_correct": false,
+    "rationale": "The interior local peak f(0)=3 is below the endpoint value f(2)=5, so it is not the absolute maximum."
+   },
+   {
+    "label": "C",
+    "text": "x=-1 is an interior local and absolute minimum; x=2 is the absolute maximum, even though it is an endpoint.",
+    "is_correct": true,
+    "rationale": "Correct: The monotonicity on each segment leaves the smallest listed/possible value 0 at -1 and largest 5 at endpoint 2. x=1 is only a higher local minimum and x=0 a lower local maximum."
+   },
+   {
+    "label": "D",
+    "text": "The absolute maximum must occur at a critical point inside the interval.",
+    "is_correct": false,
+    "rationale": "An absolute extremum can occur at a closed interval endpoint; interior critical points are not the only candidates."
+   }
+  ]
+ },
+ {
+  "src_id": "N-5.2-C-v1",
+  "content_key": "apcalcbc-mcq-b9-sv-h-5.2-c-v1",
+  "family": "5.2-C",
+  "variant": "1",
+  "topic": "5.2",
+  "title": "compare local and absolute extrema (variant 1)",
+  "stem": "A continuous function on [-2,2] alternately increases, decreases, increases, and decreases across x=-1,0,1. Values at -2,-1,0,1,2 are 2,5,1,4,0. Which classification is supported?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x=1 is the absolute maximum because it is the last interior local maximum.",
+    "is_correct": false,
+    "rationale": "F(1)=4 is below f(-1)=5, despite being locally high."
+   },
+   {
+    "label": "B",
+    "text": "x=0 is the absolute minimum because it is an interior local minimum.",
+    "is_correct": false,
+    "rationale": "The local minimum f(0)=1 is above the endpoint value f(2)=0, so it is not absolute."
+   },
+   {
+    "label": "C",
+    "text": "No endpoint can be an absolute minimum when the function has interior local extrema.",
+    "is_correct": false,
+    "rationale": "Interior local extrema do not prevent an endpoint from being globally smallest."
+   },
+   {
+    "label": "D",
+    "text": "x=-1 is an interior local and absolute maximum, while x=2 is an absolute minimum at an endpoint.",
+    "is_correct": true,
+    "rationale": "Correct: The monotonicity confirms local maxima at -1 and 1, and a local minimum at 0. Listed values show the largest is 5 at -1 and smallest is 0 at endpoint 2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-5.2-C-v2",
+  "content_key": "apcalcbc-mcq-b9-sv-h-5.2-c-v2",
+  "family": "5.2-C",
+  "variant": "2",
+  "topic": "5.2",
+  "title": "compare local and absolute extrema (variant 2)",
+  "stem": "A continuous function on [-2,2] alternately increases, decreases, increases, and decreases across x=-1,0,1. Values at -2,-1,0,1,2 are 0,3,1,4,2. What is true?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x=0 is the absolute minimum because it is an interior local minimum.",
+    "is_correct": false,
+    "rationale": "The interior local minimum f(0)=1 exceeds the endpoint value f(-2)=0."
+   },
+   {
+    "label": "B",
+    "text": "x=-1 is the absolute maximum because it is the first interior peak.",
+    "is_correct": false,
+    "rationale": "The first local peak f(-1)=3 is below the later local peak f(1)=4."
+   },
+   {
+    "label": "C",
+    "text": "Absolute extrema cannot occur at endpoints if a function changes direction inside.",
+    "is_correct": false,
+    "rationale": "An endpoint may be an absolute extremum even when interior local extrema exist."
+   },
+   {
+    "label": "D",
+    "text": "x=-2 is the absolute minimum, and x=1 is an interior local and absolute maximum.",
+    "is_correct": true,
+    "rationale": "Correct: The smallest value is f(-2)=0 and the greatest is f(1)=4. The stated monotonicity prevents any intermediate values outside the neighboring endpoint values."
+   }
+  ]
+ },
+ {
+  "src_id": "N-5.2-C-v3",
+  "content_key": "apcalcbc-mcq-b9-sv-h-5.2-c-v3",
+  "family": "5.2-C",
+  "variant": "3",
+  "topic": "5.2",
+  "title": "compare local and absolute extrema (variant 3)",
+  "stem": "A continuous function on [-2,2] decreases, increases, decreases, and increases across x=-1,0,1. Values at -2,-1,0,1,2 are 5,1,4,0,3. Which comparison is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x=0 is the absolute maximum because it is an interior local peak.",
+    "is_correct": false,
+    "rationale": "The interior local peak f(0)=4 is below the endpoint value f(-2)=5."
+   },
+   {
+    "label": "B",
+    "text": "x=-1 is the absolute minimum because it is the first interior valley.",
+    "is_correct": false,
+    "rationale": "The first local valley f(-1)=1 is above the later valley f(1)=0."
+   },
+   {
+    "label": "C",
+    "text": "x=-2 is the absolute maximum, while x=1 is an interior local and absolute minimum.",
+    "is_correct": true,
+    "rationale": "Correct: The listed monotonic intervals confine values to the endpoint values of each segment. f(-2)=5 is greatest, f(1)=0 is least; 0 is a smaller local peak and -1 a higher local valley."
+   },
+   {
+    "label": "D",
+    "text": "The function cannot have absolute extrema because its direction changes three times.",
+    "is_correct": false,
+    "rationale": "Direction changes do not prevent a continuous function on a closed interval from attaining absolute extrema."
+   }
+  ]
+ }
+]

@@ -532,4 +532,4 @@ export function isSafeByoqPath(path: string) {
 /* -------------------------------------------------------------------------- */
 
 export const NOT_SCORED_MESSAGE =
-  "This is your question, so CramApple can't score it — there's no answer key for a question we didn't write. Use the reference and scoring guidance to check your own work.";
+  "This is your question, so Cramapple can't score it — there's no answer key for a question we didn't write. Use the reference and scoring guidance to check your own work.";

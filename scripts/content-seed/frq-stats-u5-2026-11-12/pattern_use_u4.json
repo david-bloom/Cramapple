@@ -1,0 +1,940 @@
+{
+ "ap_statistics__4.1__seed": [
+  [
+   {
+    "pattern": "MEAN_XBAR",
+    "fills": {
+     "mu": 12.4,
+     "units": "hours",
+     "n": 36,
+     "noun": "laptops"
+    }
+   },
+   {
+    "pattern": "SD_XBAR",
+    "fills": {
+     "sigma": 1.8,
+     "n": 36,
+     "sd": "0.3",
+     "units": "hours"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "XBAR_SHAPE",
+    "fills": {
+     "stat_name": "x̄",
+     "why": "the sample is random and much smaller than 10% of all laptops, so the values are independent, and the sample size n = 36 is at least 30, so the central limit theorem applies even though the population is skewed",
+     "why_short": "random sample, independence, and n of at least 30 (central limit theorem)"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "XBAR_PROB",
+    "fills": {
+     "event_text": "the probability that the mean of a random sample of 36 laptops is less than 12.0 hours",
+     "cut": 12.0,
+     "mu": 12.4,
+     "sd": "0.3",
+     "z": "−1.33",
+     "prob": "0.0912"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "SD_CHANGE",
+    "fills": {
+     "n2": 144,
+     "sd2": "0.15",
+     "sd": "0.3",
+     "units": "hours"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.1__variant": [
+  [
+   {
+    "pattern": "MEAN_XBAR",
+    "fills": {
+     "mu": 1000,
+     "units": "grams",
+     "n": 16,
+     "noun": "bags"
+    }
+   },
+   {
+    "pattern": "SD_XBAR",
+    "fills": {
+     "sigma": 24,
+     "n": 16,
+     "sd": "6",
+     "units": "grams"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "XBAR_SHAPE",
+    "fills": {
+     "stat_name": "x̄",
+     "why": "the sample is random and much smaller than 10% of all bags, so the values are independent, and the population of bag weights is normally distributed, so x̄ is normal for any sample size",
+     "why_short": "random sample, independence, and a normal population"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "XBAR_PROB",
+    "fills": {
+     "event_text": "the probability that the mean of a random sample of 16 bags is greater than 1005 grams",
+     "cut": 1005,
+     "mu": 1000,
+     "sd": "6",
+     "z": "0.83",
+     "prob": "0.2023"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "SD_CHANGE",
+    "fills": {
+     "n2": 64,
+     "sd2": "3",
+     "sd": "6",
+     "units": "grams"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.2__seed": [
+  [
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the checkouts were randomly selected"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "25 checkouts are less than 10% of the thousands completed this month"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "n = 25 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_SE",
+    "fills": {
+     "se_formula": "s/√n = 9.5/√25",
+     "se": "1.90",
+     "units": "seconds"
+    }
+   },
+   {
+    "pattern": "CI_INTERVAL",
+    "fills": {
+     "formula": "48.2 ± 2.064(1.90)",
+     "lo": "44.28",
+     "hi": "52.12",
+     "units": "seconds",
+     "tstar": 2.064
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "T_STAR",
+    "fills": {
+     "ts": 2.064,
+     "zs": "1.96",
+     "df": 24,
+     "conf": 95
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.2__variant": [
+  [
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the cans were randomly selected"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "16 cans are less than 10% of the thousands filled in the shift"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "n = 16 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_SE",
+    "fills": {
+     "se_formula": "s/√n = 2.6/√16",
+     "se": "0.65",
+     "units": "milliliters"
+    }
+   },
+   {
+    "pattern": "CI_INTERVAL",
+    "fills": {
+     "formula": "354.1 ± 2.131(0.65)",
+     "lo": "352.71",
+     "hi": "355.49",
+     "units": "milliliters",
+     "tstar": 2.131
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "T_STAR",
+    "fills": {
+     "ts": 2.131,
+     "zs": "1.96",
+     "df": 15,
+     "conf": 95
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.3__seed": [
+  [
+   {
+    "pattern": "CI_INTERPRET",
+    "fills": {
+     "conf": 95,
+     "lo": "0.37",
+     "hi": "2.33",
+     "units": "minutes",
+     "param_phrase": "true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_CLAIM",
+    "fills": {
+     "value": "0",
+     "in_out": "not in",
+     "lo": "0.37",
+     "hi": "2.33",
+     "claim_concl": "0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the program is associated with a change in mean 5K time)"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_CLAIM",
+    "fills": {
+     "value": 2.5,
+     "in_out": "above",
+     "lo": "0.37",
+     "hi": "2.33",
+     "claim_concl": "2.5 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_WIDTH",
+    "fills": {
+     "conf2": 99
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.3__variant": [
+  [
+   {
+    "pattern": "CI_INTERPRET",
+    "fills": {
+     "conf": 95,
+     "lo": "2.75",
+     "hi": "10.85",
+     "units": "mmHg",
+     "param_phrase": "true mean drop (before minus after) in systolic blood pressure for all patients like these after the new medication"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_CLAIM",
+    "fills": {
+     "value": "0",
+     "in_out": "not in",
+     "lo": "2.75",
+     "hi": "10.85",
+     "claim_concl": "0 is not a plausible value of the population mean difference, so the interval provides convincing evidence that the mean difference is not 0 (the medication is associated with a change in mean systolic blood pressure)"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_CLAIM",
+    "fills": {
+     "value": 12,
+     "in_out": "above",
+     "lo": "2.75",
+     "hi": "10.85",
+     "claim_concl": "12 is not a plausible value of μ_d and every plausible value is below it, so the interval does not support the claim"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_WIDTH",
+    "fills": {
+     "conf2": 99
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.4__seed": [
+  [
+   {
+    "pattern": "PARAM_DEFINE",
+    "fills": {
+     "param_sym": "μ",
+     "param_phrase": "true mean lifetime, in hours, of all of this company's light bulbs sold in stores nationwide"
+    }
+   },
+   {
+    "pattern": "HYPOTHESES",
+    "fills": {
+     "h0": "μ = 1200",
+     "ha": "μ < 1200"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "PROC_ID",
+    "fills": {
+     "proc": "a one-sample t-test for a population mean",
+     "why_proc": ""
+    }
+   },
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the 40 bulbs were randomly selected"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "40 bulbs are less than 10% of all of this company's bulbs in stores"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "n = 40 is at least 30, so the sampling distribution of the sample mean is approximately normal"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.4__variant": [
+  [
+   {
+    "pattern": "PARAM_DEFINE",
+    "fills": {
+     "param_sym": "μ",
+     "param_phrase": "true mean waiting time, in minutes, of all patients seen at this clinic this month"
+    }
+   },
+   {
+    "pattern": "HYPOTHESES",
+    "fills": {
+     "h0": "μ = 20",
+     "ha": "μ > 20"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "PROC_ID",
+    "fills": {
+     "proc": "a one-sample t-test for a population mean",
+     "why_proc": ""
+    }
+   },
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the 18 patients were randomly selected"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "18 patients are less than 10% of the hundreds seen this month"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "n = 18 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.5__seed": [
+  [
+   {
+    "pattern": "TEST_STAT",
+    "fills": {
+     "t_formula": "t = d̄/(s_d/√n) = 3.4/(4.6/√15)",
+     "t_text": "2.86"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_INTERPRET",
+    "fills": {
+     "p": "0.0063",
+     "null_context": "the mean score gain for all students after mnemonic training is 0",
+     "extreme_text": "a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater)"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_DECISION",
+    "fills": {
+     "p": "0.0063",
+     "alpha": 0.05,
+     "cmp": "less than",
+     "decision": "reject"
+    }
+   },
+   {
+    "pattern": "CONCLUDE",
+    "fills": {
+     "concl_text": "there is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these",
+     "concl_short": "convincing evidence for Hₐ"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.5__variant": [
+  [
+   {
+    "pattern": "TEST_STAT",
+    "fills": {
+     "t_formula": "t = d̄/(s_d/√n) = −2.90/(5.1/√12)",
+     "t_text": "−1.97"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_INTERPRET",
+    "fills": {
+     "p": "0.0746",
+     "null_context": "the mean commute-time difference (route A minus route B) for all drivers is 0",
+     "extreme_text": "a sample mean difference at least 2.9 minutes away from 0 in either direction (equivalently, a test statistic at least about 1.97 away from 0)"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_DECISION",
+    "fills": {
+     "p": "0.0746",
+     "alpha": 0.05,
+     "cmp": "greater than",
+     "decision": "fail to reject"
+    }
+   },
+   {
+    "pattern": "CONCLUDE",
+    "fills": {
+     "concl_text": "there is not convincing evidence that the mean commute-time difference (route A minus route B) is not 0 minutes for all drivers like these",
+     "concl_short": "not convincing evidence for Hₐ"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.6__seed": [
+  [
+   {
+    "pattern": "DIFF_MEAN",
+    "fills": {
+     "md": 4,
+     "units": "minutes"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "DIFF_SD",
+    "fills": {
+     "s1": 8,
+     "n1": 40,
+     "s2": 6,
+     "n2": 45,
+     "sdd": "1.549",
+     "units": "minutes"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "XBAR_SHAPE",
+    "fills": {
+     "stat_name": "x̄₁ − x̄₂",
+     "why": "both samples are random and independent, and both sample sizes (40 and 45) are at least 30",
+     "why_short": "independent random samples and both sample sizes at least 30"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "XBAR_PROB",
+    "fills": {
+     "event_text": "the probability that x̄₁ − x̄₂ is greater than 6 minutes",
+     "cut": 6,
+     "mu": 4,
+     "sd": "1.549",
+     "z": "1.29",
+     "prob": "0.0984"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.6__variant": [
+  [
+   {
+    "pattern": "DIFF_MEAN",
+    "fills": {
+     "md": 5,
+     "units": "minutes"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "DIFF_SD",
+    "fills": {
+     "s1": 10,
+     "n1": 50,
+     "s2": 7,
+     "n2": 60,
+     "sdd": "1.678",
+     "units": "minutes"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "XBAR_SHAPE",
+    "fills": {
+     "stat_name": "x̄₁ − x̄₂",
+     "why": "both samples are random and independent, and both sample sizes (50 and 60) are at least 30",
+     "why_short": "independent random samples and both sample sizes at least 30"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "XBAR_PROB",
+    "fills": {
+     "event_text": "the probability that x̄₁ − x̄₂ is less than 2 minutes",
+     "cut": 2,
+     "mu": 5,
+     "sd": "1.678",
+     "z": "−1.79",
+     "prob": "0.0369"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.7__seed": [
+  [
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the students were selected by independent random samples from the two schools"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "each sample is less than 10% of the students at its school"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "both sample sizes (32 and 35) are at least 30"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_SE",
+    "fills": {
+     "se_formula": "√(s₁²/n₁ + s₂²/n₂) = √(11.2²/32 + 9.8²/35)",
+     "se": "2.581",
+     "units": "points"
+    }
+   },
+   {
+    "pattern": "CI_INTERVAL",
+    "fills": {
+     "formula": "(78.4 − 72.1) ± 1.999(2.581)",
+     "lo": "1.14",
+     "hi": "11.46",
+     "units": "points",
+     "tstar": 1.999
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "POINT_EST",
+    "fills": {
+     "m1": 78.4,
+     "m2": 72.1,
+     "d": "6.3",
+     "units": "points"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.7__variant": [
+  [
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the seedlings were selected by independent random samples from the two greenhouses"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "each sample is less than 10% of the seedlings in its greenhouse"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_SE",
+    "fills": {
+     "se_formula": "√(s₁²/n₁ + s₂²/n₂) = √(3.1²/18 + 2.8²/22)",
+     "se": "0.944",
+     "units": "centimeters"
+    }
+   },
+   {
+    "pattern": "CI_INTERVAL",
+    "fills": {
+     "formula": "(14.6 − 12.9) ± 2.031(0.944)",
+     "lo": "−0.22",
+     "hi": "3.62",
+     "units": "centimeters",
+     "tstar": 2.031
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "POINT_EST",
+    "fills": {
+     "m1": 14.6,
+     "m2": 12.9,
+     "d": "1.7",
+     "units": "centimeters"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.8__seed": [
+  [
+   {
+    "pattern": "CI_INTERPRET",
+    "fills": {
+     "conf": 95,
+     "lo": "0.80",
+     "hi": "9.60",
+     "units": "words per minute",
+     "param_phrase": "true difference (program group minus comparison group) in mean reading fluency for all students like these"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_CLAIM",
+    "fills": {
+     "value": "0",
+     "in_out": "not in",
+     "lo": "0.80",
+     "hi": "9.60",
+     "claim_concl": "0 is not a plausible value of the difference in population means, so the interval provides convincing evidence that the means differ (the program is associated with a difference in mean reading fluency)"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_CLAIM",
+    "fills": {
+     "value": 10,
+     "in_out": "above",
+     "lo": "0.80",
+     "hi": "9.60",
+     "claim_concl": "10 is not a plausible value of μ₁ − μ₂ and every plausible value is below it, so the interval does not support the claim"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_WIDTH",
+    "fills": {
+     "conf2": 99
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.8__variant": [
+  [
+   {
+    "pattern": "CI_INTERPRET",
+    "fills": {
+     "conf": 95,
+     "lo": "1.53",
+     "hi": "4.87",
+     "units": "thousand steps",
+     "param_phrase": "true difference (participant minus non-participant) in mean daily steps, in thousands, for all employees like these"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_CLAIM",
+    "fills": {
+     "value": "0",
+     "in_out": "not in",
+     "lo": "1.53",
+     "hi": "4.87",
+     "claim_concl": "0 is not a plausible value of the difference in population means, so the interval provides convincing evidence that the means differ (participants and non-participants differ in mean daily steps)"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_CLAIM",
+    "fills": {
+     "value": 6,
+     "in_out": "above",
+     "lo": "1.53",
+     "hi": "4.87",
+     "claim_concl": "6 is not a plausible value of μ₁ − μ₂ and every plausible value is below it, so the interval does not support the claim"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_WIDTH",
+    "fills": {
+     "conf2": 99
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.9__seed": [
+  [
+   {
+    "pattern": "PARAM_DEFINE",
+    "fills": {
+     "param_sym": "μ₁ and μ₂",
+     "param_phrase": "μ₁ is the true mean yield, in bushels per acre, of all fields in the region that use the new fertilizer, and μ₂ is the true mean yield of all fields in the region that use the standard fertilizer"
+    }
+   },
+   {
+    "pattern": "HYPOTHESES",
+    "fills": {
+     "h0": "μ₁ − μ₂ = 0",
+     "ha": "μ₁ − μ₂ > 0"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "PROC_ID",
+    "fills": {
+     "proc": "a two-sample t-test for a difference in population means",
+     "why_proc": ""
+    }
+   },
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the fields were selected by independent random samples from the two groups of fields"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "each sample is less than 10% of the thousands of fields that use its fertilizer"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "both sample sizes (36 and 40) are at least 30"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.9__variant": [
+  [
+   {
+    "pattern": "PARAM_DEFINE",
+    "fills": {
+     "param_sym": "μ₁ and μ₂",
+     "param_phrase": "μ₁ is the true mean exam score, in points, of all students at the school who study with flashcards, and μ₂ is the true mean exam score of all students at the school who study by rereading notes"
+    }
+   },
+   {
+    "pattern": "HYPOTHESES",
+    "fills": {
+     "h0": "μ₁ − μ₂ = 0",
+     "ha": "μ₁ − μ₂ > 0"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "PROC_ID",
+    "fills": {
+     "proc": "a two-sample t-test for a difference in population means",
+     "why_proc": ""
+    }
+   },
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the students were selected by independent random samples from the two groups of students"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "each sample is less than 10% of its group of 200 students (14 and 16 are each under 20)"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.10__seed": [
+  [
+   {
+    "pattern": "TEST_STAT",
+    "fills": {
+     "t_formula": "t = (x̄₁ − x̄₂)/√(s₁²/n₁ + s₂²/n₂) = (82.5 − 76.8)/√(12.1²/30 + 10.7²/34)",
+     "t_text": "1.98"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_INTERPRET",
+    "fills": {
+     "p": "0.0259",
+     "null_context": "tutoring has no effect on the mean exam score (μ₁ − μ₂ = 0)",
+     "extreme_text": "a difference in sample means of 5.7 points or greater (equivalently, a test statistic of about 1.98 or greater)"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_DECISION",
+    "fills": {
+     "p": "0.0259",
+     "alpha": 0.05,
+     "cmp": "less than",
+     "decision": "reject"
+    }
+   },
+   {
+    "pattern": "CONCLUDE",
+    "fills": {
+     "concl_text": "there is convincing evidence that the mean exam score with tutoring is greater than the mean exam score without tutoring for the students in this study",
+     "concl_short": "convincing evidence for Hₐ"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.10__variant": [
+  [
+   {
+    "pattern": "TEST_STAT",
+    "fills": {
+     "t_formula": "t = (x̄₁ − x̄₂)/√(s₁²/n₁ + s₂²/n₂) = (71.4 − 68.9)/√(9.8²/26 + 11.3²/28)",
+     "t_text": "0.87"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_INTERPRET",
+    "fills": {
+     "p": "0.3882",
+     "null_context": "the two treatments have the same mean recovery time (μ₁ − μ₂ = 0)",
+     "extreme_text": "a difference in sample means at least 2.5 minutes away from 0 in either direction (equivalently, a test statistic at least about 0.87 away from 0)"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_DECISION",
+    "fills": {
+     "p": "0.3882",
+     "alpha": 0.05,
+     "cmp": "greater than",
+     "decision": "fail to reject"
+    }
+   },
+   {
+    "pattern": "CONCLUDE",
+    "fills": {
+     "concl_text": "there is not convincing evidence that the mean recovery time with treatment 1 differs from the mean recovery time with treatment 2 for the patients in this study",
+     "concl_short": "not convincing evidence for Hₐ"
+    }
+   }
+  ]
+ ]
+}

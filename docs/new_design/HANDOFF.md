@@ -34,7 +34,7 @@ Always consume the semantic aliases (`--text-earned`, `--surface-hint`, `--actio
 
 Minimum viable prompt preamble if you only have room for a paragraph:
 
-> Square corners everywhere (radius 0). No motion, no transitions. Body text never below 16px. Colour is an assignment: orange #f54900 is brand chrome and the single primary action, blue #1f56a8 is rubric and points earned, green #2f9c67 is reference material only, yellow #edb90d is hints only and always costs the student something, purple #5f43ba is the student's own work, maroon #8a2f3f is points lost and incorrect, clay #8c4530 is the ↻ revisit mark. No emoji. A missed point is ↻, never ✕.
+> One system for every subject. Wordmark only, no logo. Fonts: Bungee wordmark, Passion One headings, Source Sans 3 body; equations in KaTeX. Square corners everywhere (radius 0). No motion, no transitions. Body text never below 16px. Full marks are green (#2b7a24, the full-* scale), always with a ✓ and the words "Full marks". Colour is an assignment: orange #f54900 is brand chrome and the single primary action, blue #1f56a8 is rubric and points earned, green #2f9c67 is reference material only, yellow #edb90d is hints only and always costs the student something, purple #5f43ba is the student's own work, maroon #8a2f3f is points lost and incorrect, clay #8c4530 is the ↻ revisit mark. No emoji. A missed point is ↻, never ✕.
 
 ## 3. Components — 19 React components
 
@@ -45,5 +45,5 @@ Do not re-implement `Button` inside a screen; `ActionButton` already carries the
 ## Gotchas
 
 - **Fonts load from Google Fonts** (`tokens/fonts.css`). If the network is blocked the wordmark falls back to system sans. Self-host the four families for production.
-- **The plate is fixed at 1440×900 and must not scroll.** If a port introduces a scrollbar inside a plate, the port is wrong, not the content. Cut copy or restructure.
+- **Prefer a plate that does not scroll, but it may.** Not scrolling is a design guideline (decided 2026-11-08), not a rule. If a port introduces a scrollbar, first ask whether copy can be cut or the layout restructured without losing what a student needs; if not, let it scroll, and keep the primary action and the feedback reachable.
 - **Light-only, by decision.** Dark mode was retired 2026-09-21; do not invent one by inverting the tokens — the voice colours will not survive it.

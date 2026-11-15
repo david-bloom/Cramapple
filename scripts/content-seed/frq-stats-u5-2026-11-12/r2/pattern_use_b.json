@@ -1,0 +1,1154 @@
+{
+ "ap_statistics__5.1__seed": [
+  [
+   {
+    "pattern": "SCATTER_FORM",
+    "fills": {
+     "form_phrase": "non-linear (a curve that rises and then falls)"
+    }
+   },
+   {
+    "pattern": "SCATTER_DIR_MIXED",
+    "fills": {
+     "x_name": "daily study time",
+     "y_name": "test score",
+     "turn": "3.5",
+     "first_dir": "positive",
+     "second_dir": "negative",
+     "x_units": "hours"
+    }
+   },
+   {
+    "pattern": "SCATTER_STRENGTH",
+    "fills": {
+     "strength": "strong",
+     "strength_reason": "all of the points lie close to one smooth curve"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "ERR_STRENGTH_LINE",
+    "fills": {
+     "student_claim": "the claim that the association is weak because the points do not stay close to a straight line"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "SCATTER_CLAIM",
+    "fills": {
+     "claim_text": "Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours.",
+     "claim_evidence": "Response says the claim is not supported and cites values from the table, such as 85 points at 3.5 hours versus 65 points at 6 hours."
+    }
+   },
+   {
+    "pattern": "SCATTER_CLAIM",
+    "fills": {
+     "claim_text": "Concludes Claim 2 is supported: the highest score among students who studied 5 hours or more is 78 points, which is below the lowest score (82 points) among students who studied 2.5 to 4.5 hours.",
+     "claim_evidence": "Response says Claim 2 is supported and shows every score at 5 hours or more (78, 72, 65) is below every score from 2.5 to 4.5 hours (82 or higher), for example by comparing the highest of the first group (78) with the lowest of the second (82)."
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.1__variant": [
+  [
+   {
+    "pattern": "SCATTER_FORM",
+    "fills": {
+     "form_phrase": "non-linear (a curve that rises and then falls)"
+    }
+   },
+   {
+    "pattern": "SCATTER_DIR_MIXED",
+    "fills": {
+     "x_name": "weekly water amount",
+     "y_name": "seedling growth",
+     "turn": "6",
+     "first_dir": "positive",
+     "second_dir": "negative",
+     "x_units": "liters"
+    }
+   },
+   {
+    "pattern": "SCATTER_STRENGTH",
+    "fills": {
+     "strength": "strong",
+     "strength_reason": "all of the points lie close to one smooth curve"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "ERR_STRENGTH_LINE",
+    "fills": {
+     "student_claim": "the claim that the association is weak because the points do not stay close to a straight line"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "SCATTER_CLAIM",
+    "fills": {
+     "claim_text": "Concludes Claim 1 is not supported: growth rises up to 6 liters (70 mm) but falls for larger amounts, for example 27 mm at 12 liters.",
+     "claim_evidence": "Response says Claim 1 is not supported and cites values from the table, such as 70 mm at 6 liters versus 27 mm at 12 liters."
+    }
+   },
+   {
+    "pattern": "SCATTER_CLAIM",
+    "fills": {
+     "claim_text": "Concludes Claim 2 is supported: the highest growth among groups given 10 or more liters is 51 mm, which is below the lowest growth (59 mm) among groups given 3 to 8 liters.",
+     "claim_evidence": "Response says Claim 2 is supported and shows every growth at 10 or more liters (51, 40, 27) is below every growth from 3 to 8 liters (59 or higher), for example by comparing 51 with 59."
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.3__seed": [
+  [
+   {
+    "pattern": "EQ_FROM_POINTS",
+    "fills": {
+     "p1": "(4, 19.8)",
+     "p2": "(8, 12.2)",
+     "b_text": "−1.9",
+     "a_text": "27.4",
+     "eq_text": "ŷ = 27.4 − 1.9x"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "PREDICT",
+    "fills": {
+     "eq_text": "ŷ = 27.4 − 1.9x",
+     "x0": 16,
+     "yhat_text": "−3.0",
+     "y_units": "thousand dollars"
+    }
+   },
+   {
+    "pattern": "IMPLAUSIBLE",
+    "fills": {
+     "x0": 16,
+     "yhat_text": "−3.0",
+     "y_name": "asking price",
+     "y_units": "thousand dollars",
+     "lo": 2,
+     "hi": 9,
+     "x_units": "years"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "EXTRAP_CLASS",
+    "fills": {
+     "x0": 1.5,
+     "kind": "extrapolation",
+     "where": "below",
+     "x_name": "age",
+     "lo": 2,
+     "hi": 9,
+     "x_units": "years"
+    }
+   },
+   {
+    "pattern": "EXTRAP_CLASS",
+    "fills": {
+     "x0": 9,
+     "kind": "interpolation",
+     "where": "within (at the upper end of)",
+     "x_name": "age",
+     "lo": 2,
+     "hi": 9,
+     "x_units": "years"
+    }
+   },
+   {
+    "pattern": "EXTRAP_CLASS",
+    "fills": {
+     "x0": 12,
+     "kind": "extrapolation",
+     "where": "beyond",
+     "x_name": "age",
+     "lo": 2,
+     "hi": 9,
+     "x_units": "years"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.3__variant": [
+  [
+   {
+    "pattern": "EQ_FROM_POINTS",
+    "fills": {
+     "p1": "(2, 1430)",
+     "p2": "(4, 1010)",
+     "b_text": "−210",
+     "a_text": "1850",
+     "eq_text": "ŷ = 1850 − 210x"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "PREDICT",
+    "fills": {
+     "eq_text": "ŷ = 1850 − 210x",
+     "x0": 10,
+     "yhat_text": "−250",
+     "y_units": "dollars"
+    }
+   },
+   {
+    "pattern": "IMPLAUSIBLE",
+    "fills": {
+     "x0": 10,
+     "yhat_text": "−250",
+     "y_name": "resale price",
+     "y_units": "dollars",
+     "lo": 1,
+     "hi": 5,
+     "x_units": "years"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "EXTRAP_CLASS",
+    "fills": {
+     "x0": 0.5,
+     "kind": "extrapolation",
+     "where": "below",
+     "x_name": "age",
+     "lo": 1,
+     "hi": 5,
+     "x_units": "years"
+    }
+   },
+   {
+    "pattern": "EXTRAP_CLASS",
+    "fills": {
+     "x0": 5,
+     "kind": "interpolation",
+     "where": "within (at the upper end of)",
+     "x_name": "age",
+     "lo": 1,
+     "hi": 5,
+     "x_units": "years"
+    }
+   },
+   {
+    "pattern": "EXTRAP_CLASS",
+    "fills": {
+     "x0": 8,
+     "kind": "extrapolation",
+     "where": "beyond",
+     "x_name": "age",
+     "lo": 1,
+     "hi": 5,
+     "x_units": "years"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.4__seed": [
+  [
+   {
+    "pattern": "RESID_CALC",
+    "fills": {
+     "y_obs": 14,
+     "yhat_text": "20.29",
+     "resid_text": "−6.29",
+     "y_units": "mm"
+    }
+   },
+   {
+    "pattern": "RESID_CALC",
+    "fills": {
+     "y_obs": 30,
+     "yhat_text": "24.58",
+     "resid_text": "5.42",
+     "y_units": "mm"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "RESID_SIGN_CTX",
+    "fills": {
+     "sign_word": "negative",
+     "model_verb": "overpredicts",
+     "y_name": "plant growth",
+     "case_phrase": "group with x = 1 mg",
+     "above_below": "below"
+    }
+   },
+   {
+    "pattern": "RESID_MAGNITUDE",
+    "fills": {
+     "case_phrase": "group with x = 1 mg",
+     "y_name": "plant growth",
+     "abs_resid": "6.29",
+     "y_units": "mm",
+     "above_below": "below"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "RESID_SEQ",
+    "fills": {
+     "seq_text": "negative, negative, positive, positive, positive, positive, negative",
+     "shape_word": "negative, positive, negative (arch-shaped)"
+    }
+   },
+   {
+    "pattern": "RESID_PLOT_CURVE",
+    "fills": {
+     "pattern_text": "arch-shaped pattern of the residuals"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.4__variant": [
+  [
+   {
+    "pattern": "RESID_CALC",
+    "fills": {
+     "y_obs": 11,
+     "yhat_text": "18.00",
+     "resid_text": "−7.00",
+     "y_units": "kg"
+    }
+   },
+   {
+    "pattern": "RESID_CALC",
+    "fills": {
+     "y_obs": 26,
+     "yhat_text": "19.71",
+     "resid_text": "6.29",
+     "y_units": "kg"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "RESID_SIGN_CTX",
+    "fills": {
+     "sign_word": "negative",
+     "model_verb": "overpredicts",
+     "y_name": "fruit yield",
+     "case_phrase": "age group with x = 1 years",
+     "above_below": "below"
+    }
+   },
+   {
+    "pattern": "RESID_MAGNITUDE",
+    "fills": {
+     "case_phrase": "age group with x = 1 years",
+     "y_name": "fruit yield",
+     "abs_resid": "7.00",
+     "y_units": "kg",
+     "above_below": "below"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "RESID_SEQ",
+    "fills": {
+     "seq_text": "negative, negative, positive, positive, positive, positive, negative",
+     "shape_word": "negative, positive, negative (arch-shaped)"
+    }
+   },
+   {
+    "pattern": "RESID_PLOT_CURVE",
+    "fills": {
+     "pattern_text": "arch-shaped pattern of the residuals"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.5__seed": [
+  [
+   {
+    "pattern": "SLOPE_INTERP",
+    "fills": {
+     "x_unit_one": "degree Fahrenheit",
+     "y_name": "number of cups sold",
+     "inc_dec": "decreases",
+     "b_abs": "3.8",
+     "y_units": "cups",
+     "x_name": "noon temperature"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "INTERCEPT_DEF",
+    "fills": {
+     "a_text": "312.4",
+     "y_name": "number of cups sold",
+     "x_name": "noon temperature",
+     "y_units": "cups"
+    }
+   },
+   {
+    "pattern": "INTERCEPT_WHY",
+    "fills": {
+     "x_name": "noon temperature",
+     "lo": 30,
+     "hi": 70,
+     "x_units": "degrees Fahrenheit"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "R2_ERR",
+    "fills": {
+     "student_claim": "the student's interpretation that 81% of the days fall exactly on the regression line"
+    }
+   },
+   {
+    "pattern": "R2_INTERP",
+    "fills": {
+     "r2_text": "0.81",
+     "pct": 81,
+     "y_name": "number of cups sold",
+     "x_name": "noon temperature"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "SOLVE_XBAR",
+    "fills": {
+     "ybar_text": "122.4",
+     "a_text": "312.4",
+     "b_text": "− 3.8",
+     "xbar": "50",
+     "x_units": "degrees Fahrenheit",
+     "x_name": "noon temperature"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__5.5__variant": [
+  [
+   {
+    "pattern": "SLOPE_INTERP",
+    "fills": {
+     "x_unit_one": "hundred pounds",
+     "y_name": "fuel economy",
+     "inc_dec": "decreases",
+     "b_abs": "0.8",
+     "y_units": "miles per gallon",
+     "x_name": "vehicle weight"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "INTERCEPT_DEF",
+    "fills": {
+     "a_text": "52.4",
+     "y_name": "fuel economy",
+     "x_name": "vehicle weight",
+     "y_units": "miles per gallon"
+    }
+   },
+   {
+    "pattern": "INTERCEPT_WHY",
+    "fills": {
+     "x_name": "vehicle weight",
+     "lo": 22,
+     "hi": 42,
+     "x_units": "hundreds of pounds"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "R2_ERR",
+    "fills": {
+     "student_claim": "the student's interpretation that the regression line predicts the fuel economy exactly for 88% of the vehicle models"
+    }
+   },
+   {
+    "pattern": "R2_INTERP",
+    "fills": {
+     "r2_text": "0.88",
+     "pct": 88,
+     "y_name": "fuel economy",
+     "x_name": "vehicle weight"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "SOLVE_XBAR",
+    "fills": {
+     "ybar_text": "28.4",
+     "a_text": "52.4",
+     "b_text": "− 0.8",
+     "xbar": "30",
+     "x_units": "hundreds of pounds",
+     "x_name": "vehicle weight"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.3__seed": [
+  [
+   {
+    "pattern": "CI_INTERPRET",
+    "fills": {
+     "conf": 95,
+     "lo": "0.37",
+     "hi": "2.33",
+     "units": "minutes",
+     "param_phrase": "true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program"
+    }
+   },
+   {
+    "pattern": "CI_LEVEL",
+    "fills": {
+     "conf": 95
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_CLAIM",
+    "fills": {
+     "value": "0",
+     "in_out": "not in",
+     "lo": "0.37",
+     "hi": "2.33",
+     "claim_concl": "0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the program is associated with a change in mean 5K time)"
+    }
+   },
+   {
+    "pattern": "CI_CLAIM",
+    "fills": {
+     "value": 2.5,
+     "in_out": "above",
+     "lo": "0.37",
+     "hi": "2.33",
+     "claim_concl": "2.5 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_NOT_INDIV",
+    "fills": {
+     "student_claim": "the coach's statement that 95% of runners improved by between 0.37 and 2.33 minutes",
+     "param_phrase": "population mean difference"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_SAMPLE_SIZE",
+    "fills": {
+     "n_old": 20,
+     "n_new": 80,
+     "ratio_text": "half",
+     "me_text": "0.47",
+     "units": "minutes"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.3__variant": [
+  [
+   {
+    "pattern": "CI_INTERPRET",
+    "fills": {
+     "conf": 95,
+     "lo": "1.21",
+     "hi": "4.99",
+     "units": "kg",
+     "param_phrase": "true mean weight loss (before minus after) for all adults like these after the 8-week diet"
+    }
+   },
+   {
+    "pattern": "CI_LEVEL",
+    "fills": {
+     "conf": 95
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_CLAIM",
+    "fills": {
+     "value": "0",
+     "in_out": "not in",
+     "lo": "1.21",
+     "hi": "4.99",
+     "claim_concl": "0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the diet is associated with a change in mean weight)"
+    }
+   },
+   {
+    "pattern": "CI_CLAIM",
+    "fills": {
+     "value": 6,
+     "in_out": "above",
+     "lo": "1.21",
+     "hi": "4.99",
+     "claim_concl": "6 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_NOT_INDIV",
+    "fills": {
+     "student_claim": "the dietitian's statement that 95% of participants lost between 1.21 and 4.99 kg",
+     "param_phrase": "population mean difference"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "CI_SAMPLE_SIZE",
+    "fills": {
+     "n_old": 18,
+     "n_new": 72,
+     "ratio_text": "half",
+     "me_text": "0.89",
+     "units": "kg"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.4__seed": [
+  [
+   {
+    "pattern": "PARAM_DEFINE",
+    "fills": {
+     "param_sym": "μ_d",
+     "param_phrase": "μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school"
+    }
+   },
+   {
+    "pattern": "HYPOTHESES",
+    "fills": {
+     "h0": "μ_d = 0",
+     "ha": "μ_d < 0"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the 15 students were randomly selected"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "15 students are less than 10% of the students at the school"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "PROC_ERR",
+    "fills": {
+     "proposed": "the classmate's two-sample t-test",
+     "why_not": "each student provided both times, so the two sets of times are not independent samples; the analysis should use the 15 differences (a matched-pairs, one-sample procedure)"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.4__variant": [
+  [
+   {
+    "pattern": "PARAM_DEFINE",
+    "fills": {
+     "param_sym": "μ_d",
+     "param_phrase": "μ_d is the true mean difference (focus score without headphones minus focus score with headphones), in points, for all students at this college"
+    }
+   },
+   {
+    "pattern": "HYPOTHESES",
+    "fills": {
+     "h0": "μ_d = 0",
+     "ha": "μ_d < 0"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the 14 students were randomly selected"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "14 students are less than 10% of the students at the college"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "the sample of differences has n = 14, which is less than 30, and its dotplot is strongly skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "PROC_ERR",
+    "fills": {
+     "proposed": "the classmate's two-sample t-test",
+     "why_not": "each student provided both scores, so the two sets of scores are not independent samples; the analysis should use the 14 differences (a matched-pairs, one-sample procedure)"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.5__seed": [
+  [
+   {
+    "pattern": "TEST_STAT",
+    "fills": {
+     "t_formula": "t = d̄/(s_d/√n) = 3.4/(4.6/√15)",
+     "t_text": "2.86"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_INTERPRET",
+    "fills": {
+     "p": "0.0063",
+     "null_context": "the mean score gain for all students after mnemonic training is 0",
+     "extreme_text": "a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater)"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_ERR",
+    "fills": {
+     "student_claim": "the student's statement that there is a 0.63% chance that the null hypothesis is true",
+     "correction": "the p-value is computed assuming the null hypothesis is true; it is the probability of a result this extreme, not the probability that the null hypothesis is true"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_DECISION",
+    "fills": {
+     "p": "0.0063",
+     "alpha": 0.05,
+     "cmp": "less than",
+     "decision": "reject"
+    }
+   },
+   {
+    "pattern": "CONCLUDE",
+    "fills": {
+     "concl_text": "there is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these",
+     "concl_short": "convincing evidence for Hₐ"
+    }
+   },
+   {
+    "pattern": "P_DECISION",
+    "fills": {
+     "p": "0.0063",
+     "alpha": 0.001,
+     "cmp": "greater than",
+     "decision": "fail to reject"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.5__variant": [
+  [
+   {
+    "pattern": "TEST_STAT",
+    "fills": {
+     "t_formula": "t = d̄/(s_d/√n) = −2.60/(4.4/√18)",
+     "t_text": "−2.51"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_INTERPRET",
+    "fills": {
+     "p": "0.0113",
+     "null_context": "the mean difference in typing errors (after minus before) for all typists is 0",
+     "extreme_text": "a sample mean difference of −2.6 errors or lower (equivalently, a test statistic of about −2.51 or lower)"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_ERR",
+    "fills": {
+     "student_claim": "the student's statement that the small p-value shows the keyboard reduces errors by a large amount",
+     "correction": "a small p-value means convincing evidence that the mean difference is less than 0; it does not measure how large the difference is, which is estimated by the sample mean difference of −2.6 errors"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "P_DECISION",
+    "fills": {
+     "p": "0.0113",
+     "alpha": 0.05,
+     "cmp": "less than",
+     "decision": "reject"
+    }
+   },
+   {
+    "pattern": "CONCLUDE",
+    "fills": {
+     "concl_text": "there is convincing evidence that the mean difference in typing errors (after minus before) is less than 0 for all typists like these",
+     "concl_short": "convincing evidence for Hₐ"
+    }
+   },
+   {
+    "pattern": "P_DECISION",
+    "fills": {
+     "p": "0.0113",
+     "alpha": 0.01,
+     "cmp": "greater than",
+     "decision": "fail to reject"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.6__seed": [
+  [
+   {
+    "pattern": "DIFF_MEAN",
+    "fills": {
+     "md": 4,
+     "units": "minutes"
+    }
+   },
+   {
+    "pattern": "DIFF_SD",
+    "fills": {
+     "s1": 8,
+     "n1": 40,
+     "s2": 6,
+     "n2": 45,
+     "sdd": "1.549",
+     "units": "minutes"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "XBAR_SHAPE",
+    "fills": {
+     "stat_name": "x̄₁ − x̄₂",
+     "why": "both samples are random and independent, and both sample sizes (40 and 45) are at least 30",
+     "why_short": "independent random samples and both sample sizes at least 30"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "XBAR_PROB",
+    "fills": {
+     "event_text": "the probability that the mean commute time of the City B sample exceeds the mean commute time of the City A sample",
+     "cut": 0,
+     "mu": 4,
+     "sd": "1.549",
+     "z": "−2.58",
+     "prob": "0.0049"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "SD_SOLVE_N",
+    "fills": {
+     "target": 0.8,
+     "n_exact": "156.25",
+     "n_ans": 157,
+     "s1": 8,
+     "s2": 6,
+     "units": "minutes"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.6__variant": [
+  [
+   {
+    "pattern": "DIFF_MEAN",
+    "fills": {
+     "md": 3,
+     "units": "minutes"
+    }
+   },
+   {
+    "pattern": "DIFF_SD",
+    "fills": {
+     "s1": 5,
+     "n1": 36,
+     "s2": 4,
+     "n2": 42,
+     "sdd": "1.037",
+     "units": "minutes"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "XBAR_SHAPE",
+    "fills": {
+     "stat_name": "x̄₁ − x̄₂",
+     "why": "both samples are random and independent, and both sample sizes (36 and 42) are at least 30",
+     "why_short": "independent random samples and both sample sizes at least 30"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "XBAR_PROB",
+    "fills": {
+     "event_text": "the probability that the mean wait of the Line 1 sample is less than the mean wait of the Line 2 sample",
+     "cut": 0,
+     "mu": 3,
+     "sd": "1.037",
+     "z": "−2.89",
+     "prob": "0.0019"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "SD_SOLVE_N",
+    "fills": {
+     "target": 0.45,
+     "n_exact": "202.47",
+     "n_ans": 203,
+     "s1": 5,
+     "s2": 4,
+     "units": "minutes"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.7__seed": [
+  [
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the students were selected by independent random samples from the two schools"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "each sample is less than 10% of the students at its school"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "both sample sizes (32 and 35) are at least 30"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "T_CONSERVATIVE",
+    "fills": {
+     "n1": 32,
+     "n2": 35,
+     "df": 31,
+     "ts": "2.040",
+     "conf": 95
+    }
+   },
+   {
+    "pattern": "CI_INTERVAL",
+    "fills": {
+     "formula": "(78.4 − 72.1) ± 2.040√(11.2²/32 + 9.8²/35) = 6.3 ± 2.040(2.581)",
+     "lo": "1.03",
+     "hi": "11.57",
+     "units": "points",
+     "tstar": "2.040"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "DF_WHY",
+    "fills": {
+     "df": 31,
+     "df_tech": 61.9,
+     "ts": "2.040",
+     "ts_tech": "1.999"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.7__variant": [
+  [
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the phones were selected by independent random samples from the two brands"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "each sample is less than 10% of the thousands of phones sold by its brand"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "T_CONSERVATIVE",
+    "fills": {
+     "n1": 26,
+     "n2": 21,
+     "df": 20,
+     "ts": "2.086",
+     "conf": 95
+    }
+   },
+   {
+    "pattern": "CI_INTERVAL",
+    "fills": {
+     "formula": "(14.2 − 12.8) ± 2.086√(2.1²/26 + 2.4²/21) = 1.4 ± 2.086(0.666)",
+     "lo": "0.01",
+     "hi": "2.79",
+     "units": "hours",
+     "tstar": "2.086"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "DF_WHY",
+    "fills": {
+     "df": 20,
+     "df_tech": 40.1,
+     "ts": "2.086",
+     "ts_tech": "2.021"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.9__seed": [
+  [
+   {
+    "pattern": "PARAM_DEFINE",
+    "fills": {
+     "param_sym": "μ₁ and μ₂",
+     "param_phrase": "μ₁ is the true mean setup time, in minutes, of all customers who use the new onboarding process, and μ₂ is the true mean setup time of all customers who use the standard process"
+    }
+   },
+   {
+    "pattern": "HYPOTHESES",
+    "fills": {
+     "h0": "μ₁ − μ₂ = 0",
+     "ha": "μ₁ − μ₂ < 0"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "PROC_ID",
+    "fills": {
+     "proc": "a two-sample t-test for a difference in population means",
+     "why_proc": ""
+    }
+   },
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the customers were selected by independent random samples from the two groups of customers"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "each sample is less than 10% of the thousands of customers in its group"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "one sample (n = 14) is less than 30, so both samples must show no strong skewness or outliers, but the standard-process sample has an outlier and is skewed, so the sample-data condition is not met and the two-sample t-test is not appropriate"
+    }
+   }
+  ]
+ ],
+ "ap_statistics__4.9__variant": [
+  [
+   {
+    "pattern": "PARAM_DEFINE",
+    "fills": {
+     "param_sym": "μ₁ and μ₂",
+     "param_phrase": "μ₁ is the true mean delivery time, in minutes, of all deliveries by the first courier, and μ₂ is the true mean delivery time of all deliveries by the second courier"
+    }
+   },
+   {
+    "pattern": "HYPOTHESES",
+    "fills": {
+     "h0": "μ₁ − μ₂ = 0",
+     "ha": "μ₁ − μ₂ ≠ 0"
+    }
+   }
+  ],
+  [
+   {
+    "pattern": "PROC_ID",
+    "fills": {
+     "proc": "a two-sample t-test for a difference in population means",
+     "why_proc": ""
+    }
+   },
+   {
+    "pattern": "COND_RANDOM",
+    "fills": {
+     "rand_text": "the deliveries were selected by independent random samples from the two couriers' deliveries"
+    }
+   },
+   {
+    "pattern": "COND_TEN",
+    "fills": {
+     "ten_text": "each sample is less than 10% of the thousands of deliveries by its courier"
+    }
+   },
+   {
+    "pattern": "COND_NORMAL",
+    "fills": {
+     "norm_text": "one sample (n = 12) is less than 30, so both samples must show no strong skewness or outliers, but the second courier's sample is skewed with one outlier, so the sample-data condition is not met and the two-sample t-test is not appropriate"
+    }
+   }
+  ]
+ ]
+}

@@ -1,0 +1,200 @@
+{
+ "id": "ap_statistics__4.2__v1",
+ "parent": "ap_statistics__4.2__1",
+ "parent_status": "accepted",
+ "topic_code": "4.2",
+ "item": {
+  "title": "Estimating Mean Fill Volume of Soda Cans",
+  "calculator": "permitted",
+  "stimulus": "A beverage company wants to estimate the mean fill volume of cans from one production line. From the thousands of cans filled in one shift, an inspector selects a random sample of 16 cans. The sample mean is 354.1 milliliters and the sample standard deviation is 2.6 milliliters. A dotplot of the sample shows no strong skewness and no outliers.",
+  "parts": [
+   {
+    "prompt": "Show that the conditions for the appropriate procedure for estimating the mean fill volume are met.",
+    "criteria": [
+     {
+      "text": "Checks the randomization condition: the cans were randomly selected.",
+      "evidence": "Response states the randomization condition in context: the cans were randomly selected.",
+      "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the 10% condition: 16 cans are less than 10% of the thousands filled in the shift.",
+      "evidence": "Response checks that the sample size is less than 10% of the population: 16 cans are less than 10% of the thousands filled in the shift.",
+      "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the sample-data condition: n = 16 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+      "evidence": "Response states the sample-data condition and why it is met: n = 16 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+      "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "The t critical value for 95% confidence with 15 degrees of freedom is t* = 2.131. Calculate the standard error and the interval.",
+    "criteria": [
+     {
+      "text": "Calculates the standard error s/√n = 2.6/√16 = 0.65 milliliters.",
+      "evidence": "Response computes the standard error from the sample statistics and reports about 0.65 milliliters.",
+      "fix": "Use the standard error formula for this procedure with the sample standard deviation(s) and sample size(s).",
+      "accepted_variants": []
+     },
+     {
+      "text": "Computes the interval 354.1 ± 2.131(0.65) = 352.71 to 355.49 milliliters, using t* = 2.131.",
+      "evidence": "Response adds and subtracts t* times the standard error, giving an interval from 352.71 to 355.49 milliliters.",
+      "fix": "Add and subtract t* times the standard error from the sample statistic, using the given critical value.",
+      "accepted_variants": [
+       "(352.71, 355.49)",
+       "(352.7, 355.5)"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "For 95% confidence, the critical value from the standard normal distribution is z* = 1.96, which is smaller than t* = 2.131. Explain why t* is larger.",
+    "criteria": [
+     {
+      "text": "States that t* = 2.131 is larger than the normal critical value z* = 1.96 for 95% confidence, because the t-distribution (with 15 degrees of freedom) has heavier tails than the normal distribution.",
+      "evidence": "Response says t* is larger than z* and gives heavier tails of the t-distribution (using s to estimate σ, with 15 degrees of freedom) as the reason.",
+      "fix": "Recall that t-distributions have heavier tails than the normal, so for the same confidence level t* is larger than z*, especially for small samples.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) The procedure is a one-sample t-interval for a population mean. Randomization: the cans were randomly selected. 10% condition: 16 cans are less than 10% of the thousands filled in the shift. Sample-data condition: n = 16 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.\n\n(b) SE = s/√n = 2.6/√16 = 0.65 milliliters. The interval is 354.1 ± 2.131(0.65) = 352.71 to 355.49 milliliters.\n\n(c) The t-distribution has heavier tails than the normal distribution because s is used to estimate σ (here with 15 degrees of freedom), so t* = 2.131 is larger than z* = 1.96.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, xbar, s, conf = 16, 354.1, 2.6, 0.95\nts = tinv(1 - (1 - conf) / 2, n - 1)\nassert abs(ts - 2.131) < 0.0006\nassert round(zstar(1 - (1 - conf) / 2), 2) == 1.96 and 2.131 > 1.96\nse = s / math.sqrt(n)\nassert round(se, 2) == 0.65\nlo = xbar - 2.131 * se; hi = xbar + 2.131 * se\nassert round(lo, 2) == 352.71 and round(hi, 2) == 355.49\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:57:47.881Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"CI_SE\",\"CI_INTERVAL\"],[\"T_STAR\"]]",
+  "child_order": "[[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"CI_SE\",\"CI_INTERVAL\"],[\"T_STAR\"]]",
+  "child_pattern": [
+   [
+    "COND_RANDOM",
+    "COND_TEN",
+    "COND_NORMAL"
+   ],
+   [
+    "CI_SE",
+    "CI_INTERVAL"
+   ],
+   [
+    "T_STAR"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [3,2,1], variant [3,2,1]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"CI_SE\",\"CI_INTERVAL\"],[\"T_STAR\"]]\nPart a prompt changed.\nCriterion a1 (COND_RANDOM): wording and values changed\nCriterion a2 (COND_TEN): wording and values changed\nCriterion a3 (COND_NORMAL): wording and values changed\nPart b prompt changed.\nCriterion b1 (CI_SE): wording and values changed\nCriterion b2 (CI_INTERVAL): wording and values changed; accepted variants changed\nPart c prompt changed.\nCriterion c1 (T_STAR): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from online checkout times in seconds to soda-can fill volumes in milliliters, sampled from one production shift. The sample size changes from 25 to 16, the mean from 48.2 to 354.1, and the standard deviation from 9.5 to 2.6. Degrees of freedom, the t critical value, standard error, and interval endpoints are updated accordingly. The confidence level, random-sampling design, population described as thousands, and favorable dotplot conditions remain unchanged.",
+     "numbers_recomputed": "The 10% condition requires a population of at least 10(16) = 160 cans; thousands satisfies this, and 16 < 30. Degrees of freedom: 16 − 1 = 15, matching. For 95% confidence, t*(15) ≈ 2.13145, which rounds to the given 2.131. Standard error: 2.6/√16 = 0.65 milliliters, matching b1. Using the supplied critical value, margin of error = 2.131(0.65) = 1.38515 milliliters. Endpoints: 354.1 − 1.38515 = 352.71485 and 354.1 + 1.38515 = 355.48515 milliliters, rounding to (352.71, 355.49) or (352.7, 355.5), matching b2 and both equivalent forms. The comparison 2.131 > 1.96 is correct.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changed from online checkout times in seconds to soda can fill volumes in milliliters. The sample size changed from 25 to 16, the sample mean from 48.2 to 354.1, the sample standard deviation from 9.5 to 2.6, the degrees of freedom from 24 to 15, and t* from 2.064 to 2.131. All prompts, criteria, evidence statements, and model answers were adapted to the new context and numbers.",
+     "numbers_recomputed": "df = 16 - 1 = 15, which matches the given t* = 2.131 for 95% confidence. SE = 2.6 / sqrt(16) = 0.65 milliliters, matching the variant. Margin of error = 2.131(0.65) = 1.38515. Lower bound = 354.1 - 1.38515 = 352.71485, and upper bound = 354.1 + 1.38515 = 355.48515; rounded to 352.71 and 355.49, matching the rubric and accepted equivalent forms. z* = 1.96 is unchanged.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

@@ -26,8 +26,8 @@ v2 specified warm forest/emerald green, Plus Jakarta Sans with a JetBrains Mono 
 | --- | --- | --- |
 | Brand colour | Warm emerald green (`#1A8A4A` / `#36D47D`) | Brand orange (`#f54900`, `#ca3500` for ink) |
 | Surface | Dark-first, green-tinted near-black | Light paper plates on a warm grey desk |
-| Type | Plus Jakarta Sans + JetBrains Mono | Bungee (wordmark), Passion One (display), Source Sans 3 (all reading), STIX Two Math |
-| Full marks | Gold (`#F5B942` / `#C17A10`) | Blue `--blue-600` — the rubric voice owns every earned point |
+| Type | Plus Jakarta Sans + JetBrains Mono | Bungee (wordmark), Passion One (display), Source Sans 3 (all reading); equations render in KaTeX |
+| Full marks | Gold (`#F5B942` / `#C17A10`) | Green, the `--full-*` scale (`--full-600` `#2b7a24`), decided 2026-11-08. Blue `--blue-600` still owns every other earned point |
 | Corners | Unspecified | Square everywhere; radius 0 |
 | Motion | Unspecified | None at all |
 
@@ -37,7 +37,7 @@ What v2 called for and this system deliberately does **not** have: a dark mode. 
 
 ## The system in one paragraph
 
-A student works one question at a time inside a fixed 1440×900 three-pane plate: how it is scored on the left, the question and their own work in the centre, what they may look up on the right. Every question type exists in two modes — **Open Hand** (rubric face-up and manipulable, nothing scored) and **Practice** (scoring withheld behind hints that cost something, the student's work scored). Colour is an assignment, not decoration: five voices, each owning exactly one job.
+A student works one question at a time inside a two-pane plate (fluid up to 1440px, stacking below 900px): the question and their own work on the left, filling the width, and one 440px rail on the right that holds how it is scored and what they may look up as two tabs, Rubric and Reference. The Cheat Sheet is not a tab: it is a link pinned to the foot of the rail that opens a modal. Every question type exists in two modes — **Open Hand** (rubric face-up and manipulable, nothing scored) and **Practice** (scoring withheld behind hints that cost something, the student's work scored). Colour is an assignment, not decoration: five voices, each owning exactly one job.
 
 ## Files
 
@@ -54,25 +54,25 @@ The full system — components, UI kits, specimen cards — lives in the design-
 
 ## Decided
 
+- **Not scrolling is a guideline, not a rule** (2026-11-08, David; `DECISION-0132`). Use "the plate should not need scrolling" as a design principle, and scroll where content needs it. This replaces the fixed no-scroll rule and closes the plate-versus-page-length question.
+- **Full marks are green** (2026-11-08, David; `DECISION-0131`). Not gold, not blue. The `full-*` scale is a yellower green than the cooler reference green (`--green-500`), and the two never share a component. It appears only at the maximum score and always sits beside a ✓ and the words "Full marks", so the colour is never the only signal. Any score short of the maximum stays blue (earned) and maroon (lost). Tokens: `--full-050…700`, `--text-full-marks`, `--surface-full-marks`, `--border-full-marks`, `--chip-full-marks-bg`.
+- **Wordmark only, permanently** (2026-11-08, David). There is no logo and none is to be drawn.
+- **Type stack confirmed** (2026-11-08, David), read from the live pages cramapple.com (marketing) and app.cramapple.com (app): Bungee 400 for the wordmark, Passion One 700 for headings, Source Sans 3 400/600/700 for body and controls.
+- **Every equation is KaTeX** (2026-11-08, David; restates the 2026-10-12 amendment, `DECISION-0119`). STIX Two Math remains only for set-notation glyphs in prose.
+- **One system for every subject** (2026-11-08, David). AP Statistics Unit 2 is the sample content the plates were validated against, not a limit on the system. A subject never gets its own hue, type or layout.
+- **The name is written "Cramapple"** (2026-11-08, David), initial capital then lower case, including the browser tab title (`Question | Cramapple`).
 - **Dark mode: retired** (2026-09-21, David). Light-only. Supersedes v2's dark-first requirement.
 - **The no-scroll plate stays for now** (2026-09-21, David) — held as-is to see how it plays out under real content, with the page-length question explicitly open. See "The plate vs. page length" below. **[SUPERSEDED 2026-09-26: go responsive — see CORRECTION at top.]**
 
 ## Open items needing a David decision
 
-1. **Gold for full marks.** v2's gold-on-full-marks rule is currently absorbed into blue. If the gold moment is worth keeping, it needs a token and a rule about how it interacts with the rubric voice.
-3. **The logo.** Still none. The wordmark is type-set and tokenised for four grounds. v2 left two mark options open (faceted polygon, abstract open ring) — neither has been drawn, and it should not be drawn by an agent.
-4. **Type stack confirmation.** Bungee / Passion One / Source Sans 3 came from the working templates, not from a brand decision. v2 specified Plus Jakarta Sans. Confirm which is real.
-4. **Subject coverage.** Everything is validated against AP Statistics Unit 2 only. The repo's primary subject is AP Biology, whose FRQs are longer and whose stimulus is diagrammatic.
+1. **Full-marks versus reference green.** They are one family, split by hue and by rule. If they read as too close in real screens, separate them further.
+2. **AP Biology.** Its FRQs are longer and its stimulus is diagrammatic; the plates have not been tested against that yet.
 
 ## The plate vs. page length
 
-The system's hardest rule is that a plate is fixed at 1440×900 and never scrolls: content is sized to fit, and if it does not fit, copy gets cut. That rule is doing real pedagogical work — the rubric, the question and the reference material stay simultaneously visible, which is the product's whole argument.
+Decided 2026-11-08: **not scrolling is a guideline, not a rule.** The principle still does real pedagogical work: the rubric, the question and the reference material visible together is the product's whole argument, so design toward a plate that needs no scrolling. But students avoid clicking, so longer scrolling pages can perform better, and AP Biology's longer FRQs and diagrammatic stimulus will not always fit. When content needs to scroll, let it. Two cautions: do not cut copy below what a student needs just to avoid a scrollbar, and keep the primary action and the feedback reachable. If a pattern emerges (for example, the centre pane scrolling while scoring and reference stay pinned), record it here as a recommended layout.
 
-**It is also in tension with a finding David raised: students avoid clicking, so longer scrolling pages perform better than paginated ones.** Both can be true — the finding is about navigation cost across a session, while the no-scroll rule is about a single question being apprehensible at a glance.
+Decided 2026-11-08: **the question screens use two panes, not three.** The 296px and 360px side columns left the task pane tall and mostly empty. The task takes the width and a single 440px rail carries **Rubric** and **Reference** as tabs (the only Tabs in the product: exactly two, square, 52px tall, a 3px underline in the open tab's voice colour; the rail's top rule changes with the tab: blue for Rubric, green for Reference). Before a question is submitted Reference opens by default, since there is no score yet; after submission Rubric opens so the student can read it against their answer. Each tab keeps its hint gate until revealed.
 
-Held as-is for now, deliberately, to see how it behaves under real AP Biology content. The failure mode to watch for is a plate that only fits because the copy was cut below what a student actually needs — at which point the rule is costing more than it earns. Two directions if that happens, neither designed yet:
-
-- **Scroll the centre pane only.** The scoring and reference panes stay pinned; the question and the student's work scroll. Cheapest change, preserves the argument, breaks the "no scrolling inside a plate" rule in exactly one place.
-- **Let the plate become a page.** The three panes reflow to a single column with the rubric pinned. This is a genuinely different design, not a tweak, and would need the fixed-frame components (`Plate`, `PlateGrid`) reworked.
-
-Revisit once Biology content exists. Do not let individual screens quietly start scrolling in the meantime — that is how a system loses a rule without deciding to.
+Decided 2026-11-08: **Deep Dive is renamed Cheat Sheet, everywhere,** on student feedback. It is a cheat sheet for the unit and topic and is long by design, so it never sits inside a pane or a tab. A link pinned to the foot of the rail opens it as a modal (teal cap, 2px outline) that keeps the student's answer and tab state, scrolls inside itself, and offers Copy notes, Open in new tab and Close. Code identifiers (`DeepDiveOverlay`, `--cap-deepdive`) keep their current names until a separate rename.

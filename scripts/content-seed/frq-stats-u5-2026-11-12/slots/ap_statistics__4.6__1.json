@@ -1,0 +1,540 @@
+{
+ "id": "ap_statistics__4.6__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.6",
+  "topic_title": "Sampling Distributions for the Difference Between Two Sample Means",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:49:47.779Z",
+   "source": "given",
+   "item": {
+    "title": "Sampling Distribution of a Difference in Mean Commute Times",
+    "calculator": "permitted",
+    "stimulus": "Commute times (in minutes) in City A have a mean of 34 and a standard deviation of 8. Commute times in City B have a mean of 30 and a standard deviation of 6. A researcher takes independent random samples of 40 commuters from City A and 45 commuters from City B, each far smaller than 10% of the commuters in its city. Let x̄₁ be the mean for City A and x̄₂ the mean for City B.",
+    "parts": [
+     {
+      "prompt": "Find the mean of the sampling distribution of x̄₁ − x̄₂, the difference between the two sample means.",
+      "criteria": [
+       {
+        "text": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 4 minutes.",
+        "evidence": "Response gives 4 minutes as the mean of the sampling distribution of the difference in sample means.",
+        "fix": "The sampling distribution of x̄₁ − x̄₂ is centered at μ₁ − μ₂; subtract the second mean from the first.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the standard deviation of the sampling distribution of x̄₁ − x̄₂.",
+      "criteria": [
+       {
+        "text": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(8²/40 + 6²/45) = 1.549 minutes.",
+        "evidence": "Response adds the two variances divided by their sample sizes, takes the square root, and reports about 1.549 minutes.",
+        "fix": "Add the two variance-over-sample-size terms before taking the square root; do not subtract or add the standard deviations.",
+        "accepted_variants": [
+         "1.55"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Is the sampling distribution of x̄₁ − x̄₂ approximately normal? Justify your answer.",
+      "criteria": [
+       {
+        "text": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.",
+        "evidence": "Response says the sampling distribution is approximately normal and gives the reason: independent random samples and both sample sizes at least 30.",
+        "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the probability that the sample mean from City A exceeds the sample mean from City B by more than 6 minutes.",
+      "criteria": [
+       {
+        "text": "Finds the probability that x̄₁ − x̄₂ is greater than 6 minutes: the probability is about 0.0984, using a normal distribution with mean 4 and standard deviation 1.549 (for example, z = (6 − 4)/1.549 = 1.29).",
+        "evidence": "Response uses the mean 4 and standard deviation 1.549 of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about 0.0984.",
+        "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+        "accepted_variants": [
+         "0.098",
+         "9.8%"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The mean is μ₁ − μ₂ = 34 − 30 = 4 minutes.\n\n(b) √(8²/40 + 6²/45) = 1.549 minutes.\n\n(c) Yes. The sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.\n\n(d) z = (6 − 4)/1.549 = 1.29, so the probability that x̄₁ − x̄₂ is greater than 6 minutes is about 0.0984.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nm1, s1, n1, m2, s2, n2, cut = 34, 8, 40, 30, 6, 45, 6\nmd = m1 - m2\nsd = math.sqrt(s1 ** 2 / n1 + s2 ** 2 / n2)\nassert md == 4 and round(sd, 3) == 1.549\nz = (cut - md) / sd\nassert round(z, 2) == 1.29\np = 1 - ncdf(z)\nassert round(p, 4) == 0.0984\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     4
+    ],
+    "unitCount": {
+     "2": 5,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Sampling Distribution of a Difference in Mean Commute Times",
+   "calculator": "permitted",
+   "stimulus": "Commute times (in minutes) in City A have a mean of 34 and a standard deviation of 8. Commute times in City B have a mean of 30 and a standard deviation of 6. A researcher takes independent random samples of 40 commuters from City A and 45 commuters from City B, each far smaller than 10% of the commuters in its city. Let x̄₁ be the mean for City A and x̄₂ the mean for City B.",
+   "parts": [
+    {
+     "prompt": "Find the mean of the sampling distribution of x̄₁ − x̄₂, the difference between the two sample means.",
+     "criteria": [
+      {
+       "text": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 4 minutes.",
+       "evidence": "Response gives 4 minutes as the mean of the sampling distribution of the difference in sample means.",
+       "fix": "The sampling distribution of x̄₁ − x̄₂ is centered at μ₁ − μ₂; subtract the second mean from the first.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the standard deviation of the sampling distribution of x̄₁ − x̄₂.",
+     "criteria": [
+      {
+       "text": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(8²/40 + 6²/45) = 1.549 minutes.",
+       "evidence": "Response adds the two variances divided by their sample sizes, takes the square root, and reports about 1.549 minutes.",
+       "fix": "Add the two variance-over-sample-size terms before taking the square root; do not subtract or add the standard deviations.",
+       "accepted_variants": [
+        "1.55"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Is the sampling distribution of x̄₁ − x̄₂ approximately normal? Justify your answer.",
+     "criteria": [
+      {
+       "text": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.",
+       "evidence": "Response says the sampling distribution is approximately normal and gives the reason: independent random samples and both sample sizes at least 30.",
+       "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the probability that the sample mean from City A exceeds the sample mean from City B by more than 6 minutes.",
+     "criteria": [
+      {
+       "text": "Finds the probability that x̄₁ − x̄₂ is greater than 6 minutes: the probability is about 0.0984, using a normal distribution with mean 4 and standard deviation 1.549 (for example, z = (6 − 4)/1.549 = 1.29).",
+       "evidence": "Response uses the mean 4 and standard deviation 1.549 of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about 0.0984.",
+       "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+       "accepted_variants": [
+        "0.098",
+        "9.8%"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The mean is μ₁ − μ₂ = 34 − 30 = 4 minutes.\n\n(b) √(8²/40 + 6²/45) = 1.549 minutes.\n\n(c) Yes. The sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.\n\n(d) z = (6 − 4)/1.549 = 1.29, so the probability that x̄₁ − x̄₂ is greater than 6 minutes is about 0.0984.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nm1, s1, n1, m2, s2, n2, cut = 34, 8, 40, 30, 6, 45, 6\nmd = m1 - m2\nsd = math.sqrt(s1 ** 2 / n1 + s2 ** 2 / n2)\nassert md == 4 and round(sd, 3) == 1.549\nz = (cut - md) / sd\nassert round(z, 2) == 1.29\np = 1 - ncdf(z)\nassert round(p, 4) == 0.0984\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items.py, rubric_patterns.json), 2026-11-12",
+  "at": "2026-11-12T21:48:55.636615Z"
+ },
+ "history_before_patch": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:42:09.097Z",
+   "source": "given",
+   "item": {
+    "title": "Sampling Distribution of a Difference in Mean Commute Times",
+    "calculator": "permitted",
+    "stimulus": "Commute times (in minutes) in City A have a mean of 34 and a standard deviation of 8. Commute times in City B have a mean of 30 and a standard deviation of 6. A researcher takes independent random samples of 40 commuters from City A and 45 commuters from City B, each far smaller than 10% of the commuters in its city. Let x̄₁ be the mean for City A and x̄₂ the mean for City B.",
+    "parts": [
+     {
+      "prompt": "Find the mean of the sampling distribution of x̄₁ − x̄₂, the difference between the two sample means.",
+      "criteria": [
+       {
+        "text": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 4 minutes.",
+        "evidence": "Response gives 4 minutes as the mean of the sampling distribution of the difference in sample means.",
+        "fix": "The sampling distribution of x̄₁ − x̄₂ is centered at μ₁ − μ₂; subtract the second mean from the first.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the standard deviation of the sampling distribution of x̄₁ − x̄₂.",
+      "criteria": [
+       {
+        "text": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(8²/40 + 6²/45) = 1.549 minutes.",
+        "evidence": "Response adds the two variances divided by their sample sizes, takes the square root, and reports about 1.549 minutes.",
+        "fix": "Add the two variance-over-sample-size terms before taking the square root; do not subtract or add the standard deviations.",
+        "accepted_variants": [
+         "1.55"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Is the sampling distribution of x̄₁ − x̄₂ approximately normal? Justify your answer.",
+      "criteria": [
+       {
+        "text": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.",
+        "evidence": "Response says the sampling distribution is approximately normal and gives the reason: independent random samples and both sample sizes at least 30.",
+        "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the probability that the sample mean from City A exceeds the sample mean from City B by more than 6 minutes.",
+      "criteria": [
+       {
+        "text": "Finds the probability that x̄₁ − x̄₂ is greater than 6 minutes: z = (6 − 4)/1.549 = 1.29, so the probability is about 0.0984.",
+        "evidence": "Response standardizes using the mean 4 and standard deviation 1.549 of the sampling distribution (not of individual values) and reports about 0.0984.",
+        "fix": "Standardize with the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+        "accepted_variants": [
+         "0.098",
+         "9.8%"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The mean is μ₁ − μ₂ = 34 − 30 = 4 minutes.\n\n(b) √(8²/40 + 6²/45) = 1.549 minutes.\n\n(c) Yes. The sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.\n\n(d) z = (6 − 4)/1.549 = 1.29, so the probability that x̄₁ − x̄₂ is greater than 6 minutes is about 0.0984.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nm1, s1, n1, m2, s2, n2, cut = 34, 8, 40, 30, 6, 45, 6\nmd = m1 - m2\nsd = math.sqrt(s1 ** 2 / n1 + s2 ** 2 / n2)\nassert md == 4 and round(sd, 3) == 1.549\nz = (cut - md) / sd\nassert round(z, 2) == 1.29\np = 1 - ncdf(z)\nassert round(p, 4) == 0.0984\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     4
+    ],
+    "unitCount": {
+     "2": 6,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1 requires standardization, although the question does not prescribe that method. Accept a direct normal probability calculation with labeled mean 4 and standard deviation √2.4, yielding approximately 0.0984, without requiring a z-score."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1 requires standardization, although the question does not prescribe that method. Accept a direct normal probability calculation with labeled mean 4 and standard deviation √2.4, yielding approximately 0.0984, without requiring a z-score."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1 requires standardization, although the question does not prescribe that method. A direct normal-probability calculation identifying mean 4, standard deviation √2.4, and the upper-tail boundary 6 is equally valid and should earn credit without a z-score."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1 requires standardization, although the question does not prescribe that method. A direct normal-probability calculation identifying mean 4, standard deviation √2.4, and the upper-tail boundary 6 is equally valid and should earn credit without a z-score."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "arbitration": {},
+ "accepted_round": 1
+}

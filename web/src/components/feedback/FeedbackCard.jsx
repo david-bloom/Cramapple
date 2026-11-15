@@ -1,8 +1,20 @@
 import React from 'react';
 import { VerdictChip } from './VerdictChip.jsx';
 import { ScoreChip } from '../pane/ScoreChip.jsx';
+import { FeedbackRating } from './FeedbackRating.jsx';
 
-export function FeedbackCard({ verdict, earned, total, coaching, hintsUsed = [], marks, submitted, submittedLabel = 'Your answer' }) {
+/**
+ * `coaching` is the grader's composed feedback and is always the baseline: it
+ * appears with the grade, instantly. `coach` is optional model-written
+ * coaching that arrives after the grade ({ status: 'pending' | 'ready' | 'none',
+ * text }). When it is ready it takes the place of the composed text in the same
+ * slot; when it is pending or absent the composed text stays and the card never
+ * shows an error or an apology. `onRate` is passed only where the feedback is
+ * real, so an ungradable result shows no rating.
+ */
+export function FeedbackCard({ verdict, earned, total, coaching, coach, rating = null, onRate, hintsUsed = [], marks, submitted, submittedLabel = 'Your answer' }) {
+  const coachReady = coach && coach.status === 'ready' && coach.text;
+  const slotText = coachReady ? coach.text : coaching;
   return (
     <div style={{
       background: 'var(--surface-feedback)', border: '1px solid var(--purple-rule)',
@@ -18,10 +30,18 @@ export function FeedbackCard({ verdict, earned, total, coaching, hintsUsed = [],
         </span>
         {typeof total === 'number' && <ScoreChip earned={earned} total={total} size="lg" />}
       </div>
-      {coaching && <p style={{
+      {slotText && <p data-feedback-source={coachReady ? 'coaching' : 'composed'} style={{
         margin: '0 var(--pane-pad-x) 14px', fontSize: 'var(--type-body-size)', lineHeight: 'var(--type-body-line)', color: 'var(--text-body)'
-      }}>{coaching}</p>}
+      }}>{slotText}</p>}
+      {coach && coach.status === 'pending' && (
+        <p style={{ margin: '0 var(--pane-pad-x) 12px', fontSize: 'var(--type-count-size)', color: 'var(--text-quiet)' }}>Coaching on its way</p>
+      )}
       {marks && <div style={{ margin: '0 var(--pane-pad-x) 14px', display: 'grid', gap: '8px' }}>{marks}</div>}
+      {onRate && slotText && (
+        <div style={{ margin: '0 var(--pane-pad-x) 12px' }}>
+          <FeedbackRating value={rating} onRate={onRate} />
+        </div>
+      )}
       {submitted && (
         <div style={{ background: 'var(--paper-000)', borderTop: '1px solid var(--purple-rule)', padding: '12px var(--pane-pad-x)' }}>
           <span style={{

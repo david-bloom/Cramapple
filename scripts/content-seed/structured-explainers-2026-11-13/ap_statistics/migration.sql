@@ -1,0 +1,860 @@
+-- Structured explainer pieces (recommendation #3), batch 2026-11-13. Guarded on each row still holding the text it was built on.
+begin;
+update app.topic_explainers set
+  core_idea = $q$- Every AP Statistics unit is a different tool for the same investigative question in the presence of variability.
+- Topic 1.1 earns no points itself; later free-response prompts assume you open by restating the investigative question before calculating anything.$q$,
+  what_students_need_to_understand = $q$- 1.1 is never scored as its own step, so the skill is a habit: treat every dataset as evidence toward a stated real-world question, not numbers to process in isolation.
+- Later inference units grade you on connecting statistical results back to that question.$q$,
+  how_this_becomes_points = $q$1. Expect no item that tests 1.1 in isolation.
+2. In later free-response parts, restate the investigative question the scenario opened with.
+3. Reference it in your final interpretation, rather than stopping at a bare numeric result.$q$,
+  point_attaining_answer = $q$The investigative question is whether the new fertilizer increases average tomato yield. The sample mean yield of 14.2 pounds is the evidence gathered toward answering it.
+
+Compare the number against a baseline, or interpret it with the original question restated: a bare mean, disconnected from the question, doesn't complete the response later units will expect.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.1' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='d8dc4e6adb2754a3bf5beb70ad346bae';
+update app.topic_explainers set
+  core_idea = $q$- Categorical vs quantitative and discrete vs continuous is pure vocabulary, with no formula attached.
+- The CED treats it as a gate: a mean or standard deviation on a categorical variable, or a bar chart on a continuous one, is scored as a category error, not partial credit for a numeric mistake.$q$,
+  what_students_need_to_understand = $q$- This classification decides which graphs, statistics and inference procedures are valid later in the course.
+- A misclassified variable can invalidate an otherwise-correct calculation several units later.$q$,
+  how_this_becomes_points = $q$1. Classify the stated variable correctly before any statistic or graph choice is judged.
+2. The right numeric answer for the wrong variable type earns no credit for the classification component.$q$,
+  point_attaining_answer = $q$Zip code is categorical, not quantitative, even though it's written with digits.
+
+The test: arithmetic on it (like averaging two zip codes) produces a meaningless result, so a numeric-looking variable like this is actually categorical.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.2' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='2fbf1a56b61caa09196448cce8458d36';
+update app.topic_explainers set
+  core_idea = $q$- A relative frequency table turns each category's count into a proportion of the table's total observational units.
+- A documented AP error is dividing by the number of categories or rows instead of that grand total, which gives proportions that don't sum to 1.$q$,
+  what_students_need_to_understand = $q$- These tables are the raw material for the bar charts in 1.4 and for two-way table reasoning throughout the course.
+- A proportion computed against the wrong denominator propagates into every downstream graph and comparison.$q$,
+  how_this_becomes_points = $q$1. Give each value the correct count-vs-proportion label.
+2. Compute the proportion as category count divided by the total number of observations.
+3. Never divide by the number of category rows.$q$,
+  point_attaining_answer = $q$Pepperoni's relative frequency is 40/100 = 0.40: its count divided by the total number of observations, not by the number of categories.
+
+| Category | Count | Relative frequency |
+| Pepperoni | 40 | 0.40 |
+| Cheese | 30 | 0.30 |
+| Veggie | 20 | 0.20 |
+| Other | 10 | 0.10 |
+
+The four relative frequencies sum to 1 (0.40+0.30+0.20+0.10), confirming the correct denominator.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.3' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='d06618eafff5d2376a62ee09420035ab';
+update app.topic_explainers set
+  core_idea = $q$- A bar chart's bars have gaps because the variable is categorical: categories have no inherent order or continuity.
+- A histogram's touching bars signal a quantitative variable's continuous number line, so the gap is a meaningful visual marker, not a stylistic choice.$q$,
+  what_students_need_to_understand = $q$- Bar charts are the standard visual for comparing categories across groups.
+- Read the vertical axis scale correctly (counts versus relative frequencies) before any cross-chart comparison of two groups can be trusted.$q$,
+  how_this_becomes_points = $q$1. Construct with gaps between bars, equal bar widths, and an accurately labeled and scaled axis.
+2. Read values off a given chart correctly.
+3. Catch when two compared charts use different axis scales.$q$,
+  point_attaining_answer = $q$The two charts use different vertical axis scales: Town A's is counts (0 to 50) and Town B's is relative frequencies (0 to 1). Comparing raw bar heights across the two charts is invalid.
+
+A fair comparison converts both to the same scale, such as relative frequencies, before judging which town has proportionally more dog owners.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.4' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='4dad742f061bf72185575d198ff6b0ff';
+update app.topic_explainers set
+  core_idea = $q$- A histogram groups values into bins and can hide sub-bin structure like a gap or cluster.
+- A stem-and-leaf plot or dotplot preserves every individual data value.
+- The 2026 released FRQ tests this contrast: name a shape feature visible in a stem-and-leaf plot that the same data's boxplot cannot show.$q$,
+  what_students_need_to_understand = $q$- Choosing a graph type is a tested skill, not a formatting preference.
+- Different graphs of the identical dataset reveal or conceal features, depending on whether individual values or only binned/summarized values are shown.$q$,
+  how_this_becomes_points = $q$1. Name the specific graph type that preserves the needed information.
+2. Explain, in terms of what that graph shows and the other doesn't, why it reveals the feature in question.$q$,
+  point_attaining_answer = $q$The stem-and-leaf plot better reveals the gap, because it preserves every individual value (each leaf).
+
+The histogram groups all scores from 70-79 into one bin and displays only the bin's total count, hiding whether those scores are spread out or clustered within that range.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.5' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='031b210fe8d2d38eae837f8765cc1de7';
+update app.topic_explainers set
+  core_idea = $q$- Modality (unimodal, bimodal) and normality can never be determined from a boxplot.
+- A boxplot supports only skew direction, inferred by comparing box-section and whisker lengths.
+- The 2025 Chief Reader Report names describing boxplot shape as symmetric, normal, or unimodal the most repeated scoring error on the exam.$q$,
+  what_students_need_to_understand = $q$- Shape determines which summary statistics are trustworthy in 1.7-1.8 (mean versus median, for instance).
+- A shape claim must come from the graph type given: a histogram or dotplot shows modality directly, but a boxplot only supports a skew-direction claim.$q$,
+  how_this_becomes_points = $q$1. Describe a boxplot's shape only as a skew direction.
+2. Back it by comparing section lengths.
+3. Never call a boxplot symmetric, normal or unimodal: scoring guidelines bar full credit.$q$,
+  point_attaining_answer = $q$Modality and normality can never be read off a boxplot; only skew direction can, from comparing section and whisker lengths.
+
+Here the longer right whisker and the median positioned closer to Q1 than Q3 both indicate the distribution is right-skewed, the only shape claim a boxplot alone can support.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.6' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='bce67ecf8289b28289869e3b54e69c09';
+update app.topic_explainers set
+  core_idea = $q$- A value is an outlier under either of two CED rules: more than 1.5 times the IQR beyond Q1/Q3, or more than 2 standard deviations from the mean.
+- No preference is stated between them, so either earns credit as long as the supporting calculation is shown.$q$,
+  what_students_need_to_understand = $q$- A documented, exam-worthy error: finding the median of two combined groups by averaging the two groups' separate medians.
+- Instead re-sort all values together and find the true middle of the full combined list; the shortcut looks plausible but is mathematically wrong.$q$,
+  how_this_becomes_points = $q$1. State the actual numeric median or mean from the problem to support a mean-median relationship claim.
+2. Describing the relationship correctly in words alone, without the numbers, earns only partial credit.$q$,
+  point_attaining_answer = $q$Averaging the two group medians is not a valid way to find the combined dataset's median.
+
+Re-sort all 10 values into one ordered list and take the mean of the 5th and 6th values. That will only coincidentally equal 16: the two separate medians don't determine the combined median without knowing every individual value.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.7' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='599eb279d964b6587a923ca2a0636195';
+update app.topic_explainers set
+  core_idea = $q$- A boxplot's whisker stops at the most extreme non-outlier value; outliers are plotted as separate points beyond it.
+- The mean-versus-median position rule (mean pulled toward the longer tail under skew) follows from whichever 1.7 outlier rule built the five-number summary.$q$,
+  what_students_need_to_understand = $q$- Boxplots are the standard tool for comparing multiple groups' distributions side by side.
+- A whisker drawn out to an outlier misrepresents that distribution's spread and any group comparison built on it.$q$,
+  how_this_becomes_points = $q$1. Compute the five-number summary first.
+2. Identify outliers and plot them separately, not absorbed into the whisker.
+3. Apply the mean-median position rule to the skew direction shown.$q$,
+  point_attaining_answer = $q$Since 52 is flagged as an outlier by the 1.5xIQR rule, the right whisker stops at the most extreme non-outlier value below 52, and 52 is plotted as a separate point beyond the whisker.
+
+Stretching the whisker to an outlier misrepresents the boxplot's middle-50%-and-spread structure.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.8' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='ac6a18c50cea362ce2f9a2c0e434587f';
+update app.topic_explainers set
+  core_idea = $q$- The z-score formula z=(x-mean)/SD is the same whether you have population parameters (mu, sigma) or sample statistics (x-bar, s).
+- The CED gives no separate notation for the sample version, so the same formula and interpretation apply either way.$q$,
+  what_students_need_to_understand = $q$- z-scores put individuals from different distributions, like two tests with different means and spreads, onto one comparable scale.
+- The same computation reappears later inside probability and inference formulas.$q$,
+  how_this_becomes_points = $q$1. Compute z using that individual's own group's mean and standard deviation.
+2. Interpret the sign and magnitude in context.
+3. Never leave it as a bare unlabeled number.$q$,
+  point_attaining_answer = $q$Comparing raw point gaps across two different distributions is invalid; convert to z-scores first.
+
+| Student | Calculation | z-score |
+| Maria | (80-70)/5 | 2.0 |
+| Josh | (580-500)/100 | 0.8 |
+
+Maria performed better relative to her own test's distribution: 2 standard deviations above the mean, compared with Josh's 0.8.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.9' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='b53087ccc87182e26821367aae120119';
+update app.topic_explainers set
+  core_idea = $q$- Observational vs experimental turns on one test: did the researcher impose a treatment?
+- Tracking or measuring subjects over time, even repeatedly, is still observational unless a treatment was actively assigned.
+- Observational studies split further into prospective (forward-looking) and retrospective (looking back at existing records).$q$,
+  what_students_need_to_understand = $q$- This classification decides whether a causal claim is ever justified: only a well-designed experiment (1.13) can support cause-and-effect.
+- Naming a study observational also signals that no causal conclusion can be drawn from it.$q$,
+  how_this_becomes_points = $q$1. Classify first, based on whether a treatment was imposed.
+2. Only for observational studies, then name prospective or retrospective.
+3. Base that on the direction data collection moves in time.$q$,
+  point_attaining_answer = $q$This is an observational study, not an experiment, because the researchers never imposed a treatment: the runners trained however they chose and the researchers only recorded outcomes.
+
+Data collection moves forward from now, so it is specifically a prospective observational study.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.10' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='f42caf4611a4f0bfad3b4be4b5634d1e';
+update app.topic_explainers set
+  core_idea = $q$- Cluster and stratified sampling are near-opposites that get confused often.
+- Stratified: a separate random sample from within every stratum.
+- Cluster: randomly select a few whole clusters, then sample every unit in only those, leaving the other clusters entirely unsampled.$q$,
+  what_students_need_to_understand = $q$- Naming the wrong bias type after spotting a flawed sampling method is a documented, exam-worthy error.
+- Undercoverage, voluntary response, nonresponse, and response/question-wording bias are each a distinct, precisely defined failure mode, not interchangeable labels.$q$,
+  how_this_becomes_points = $q$1. Identify the sampling method (SRS, stratified, cluster, or systematic) by its specific mechanism, not just that randomness was involved.
+2. Name the one specific bias type that matches the described flaw.$q$,
+  point_attaining_answer = $q$This is a cluster sample, not a stratified sample: the researcher randomly selected whole clusters (the 8 buildings) and then sampled every household within only those.
+
+A stratified sample would instead take a separate random sample of households from within every one of the 200 buildings, not skip most of them entirely.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.11' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='4b9be2119a4a34dd9e9256ae0027e7dc';
+update app.topic_explainers set
+  core_idea = $q$- Describing the procedure as "generate random numbers" is incomplete for full credit.
+- An exam-worthy response specifies the exact number range, what happens when a number repeats (skip it), and precisely how each number maps to one individual on a labeled list.$q$,
+  what_students_need_to_understand = $q$- 1.11 asks what a random sample is; this topic asks you to describe, step by step, how to generate one from a real population list.
+- A correct-sounding method with a missing implementation detail is still incomplete.$q$,
+  how_this_becomes_points = $q$1. Give the exact range of random numbers, matched to how individuals are labeled.
+2. State how a repeated number is handled.
+3. State the exact rule that maps a number back to an individual.$q$,
+  point_attaining_answer = $q$1. Label the 30 students 01 through 30.
+2. Generate random two-digit numbers from 01 to 30, skipping any that repeat or fall outside 01-30, until 10 distinct numbers are generated.
+3. Select the students whose labels match those numbers.
+
+The exact label range, the repeat-handling rule and the number-to-individual mapping make this a complete implementation, not just naming a random number generator.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.12' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='7039f387fbb03860f3e1670adcad97db';
+update app.topic_explainers set
+  core_idea = $q$- The CED defines the placebo effect precisely: the measured difference between a placebo group's average response and a true no-treatment group's average response.
+- That is sharper than "fake treatment with no effect", and it requires an actual no-treatment comparison group to be defined at all.$q$,
+  what_students_need_to_understand = $q$- This is the only topic in the unit that supports a cause-and-effect conclusion.
+- Its four requirements (comparison of treatment groups, random assignment, replication, direct control of extraneous variables) are the checklist for whether any later causal claim is valid.$q$,
+  how_this_becomes_points = $q$1. Name every applicable required element when critiquing or designing an experiment.
+2. Distinguish single- from double-blind correctly.
+3. When the placebo effect comes up, define it as the measured outcome difference against a genuine no-treatment group, not just subjects' belief.$q$,
+  point_attaining_answer = $q$The placebo effect is specifically the measured difference between the placebo group's average reported pain relief and the no-treatment group's average reported pain relief.
+
+Defining it only as subjects' belief, without the comparison to a genuine no-treatment group's average response, misses the precise, measurable definition this course requires.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=1 and topic_code='1.13' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='05d610014da699d338b38da0e3d583f0';
+update app.topic_explainers set
+  core_idea = $q$- The essential knowledge is definitional, with no formula: read a two-way table's structure (cell, row total, column total, grand total).
+- Translate between a two-way table and its segmented or side-by-side bar chart.
+- The relative-frequency formulas arrive in 2.2, so credit here is about locating and reading, not calculating.$q$,
+  what_students_need_to_understand = $q$- The real requirement is fluently identifying which number a graph or table cell represents.
+- A segmented bar chart hides each group's total size behind percentages; a side-by-side bar chart preserves raw counts as bar heights. Which one you're reading changes what a tall bar means.$q$,
+  how_this_becomes_points = $q$1. Locate the requested value (cell vs. row total vs. column total vs. grand total) in a described or partially completed two-way table.
+2. Build a table from a word problem's stated marginal counts.
+3. Read counts or percentages off a segmented or side-by-side bar chart without confusing the two types.$q$,
+  point_attaining_answer = $q$Equal segment heights mean equal percentages, not equal counts.
+
+| School | Walkers |
+| A | 30% of 100 = 30 |
+| B | 30% of 400 = 120 |
+
+School B has four times as many students who walk, even though its segment looks identical in height on the chart.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=2 and topic_code='2.1' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='735509272602f098186f046c2c2e0020';
+update app.topic_explainers set
+  core_idea = $q$- Joint, marginal and conditional relative frequency each divide by a different total from the same two-way table.
+- So conditional relative frequencies within a single row (or column) always sum to 100% on their own.
+- That makes conditional distributions comparable across groups of very different sizes.$q$,
+  what_students_need_to_understand = $q$- Choosing the right denominator is the entire skill.
+- Conditional relative frequencies use each group's own total, so they compare two groups fairly even when one is much larger.
+- That same comparison later becomes an argument for or against association between the two categorical variables.$q$,
+  how_this_becomes_points = $q$1. Compute the requested relative frequency with the denominator that matches the question's wording.
+2. Name the group that denominator describes.
+3. Support an association conclusion by comparing conditional distributions across groups, not raw counts.$q$,
+  point_attaining_answer = $q$The question asks for a percentage 'of the seniors', so the denominator is the senior total (90), not the grand total (150): 30/90 ≈ 33.3% of seniors are in band.
+
+Dividing by the grand total instead answers a different question: what percentage of all 150 students are senior band members.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=2 and topic_code='2.2' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='9c347589ffdadbb681bb534b05b8a43f';
+update app.topic_explainers set
+  core_idea = $q$- The CED gives simulation only as a qualitative procedure, with no formula for how many trials are 'enough'.
+- The Law of Large Numbers guarantees only that the long-run relative frequency drifts toward the true probability, not that any number of trials pins down an exact value.
+- So report a simulation-based probability as an estimate.$q$,
+  what_students_need_to_understand = $q$- A complete simulation design states every piece: the random device, how outputs map onto real-world outcomes, what one trial is and when it ends, and what is recorded.
+- Skipping any one leaves the design too vague to run, even if the final estimate looks reasonable.$q$,
+  how_this_becomes_points = $q$1. Describe all five design pieces: device, mapping, trial definition, stopping point and recorded quantity.
+2. Count successful trials correctly and divide by total trials.
+3. Label the result an estimate, not an exact probability.$q$,
+  point_attaining_answer = $q$3 out of 5 trials succeeded, giving a simulation-based estimate of 3/5 = 0.6.
+
+This is only an estimate from 5 trials, not the exact probability. Per the Law of Large Numbers, many more trials would let it settle closer to the true long-run probability, which 5 trials cannot pin down.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=2 and topic_code='2.3' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='cf486e597e3e05b99d14c08092bfa7ea';
+update app.topic_explainers set
+  core_idea = $q$- Probability lives on the closed interval from 0 to 1: exactly 0 is possible in principle but never happens, exactly 1 is certain.
+- The outcomes-over-total formula applies only when outcomes are genuinely equally likely, not merely countable.$q$,
+  what_students_need_to_understand = $q$- The complement rule is a shortcut, not a separate concept: P(not E) = 1 - P(E) always holds, equally likely or not.
+- That is why it stays useful in 2.7 and 2.10, after the simple counting formula stops applying to unequal-probability settings.$q$,
+  how_this_becomes_points = $q$1. Decide whether outcomes are equally likely before using the counting formula.
+2. Use the complement rule to turn an 'at least one' or 'none' question into its simpler opposite.
+3. Report a final value between 0 and 1.$q$,
+  point_attaining_answer = $q$The four sectors cover different fractions of the spinner, so they are not equally likely and the outcomes-over-total counting formula does not apply.
+
+Use the complement rule with the given probability instead: P(not red) = 1 - P(red) = 1 - 0.50 = 0.50.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=2 and topic_code='2.4' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='33b99cdf260b6d551778b416e743a493';
+update app.topic_explainers set
+  core_idea = $q$- Mutually exclusive means the events cannot happen together: much narrower than 'unrelated'.
+- Events built from overlapping conditions on the same trial ('the roll is even', 'the roll is greater than 4') can share an outcome, so they are not disjoint, even though they sound like separate features.$q$,
+  what_students_need_to_understand = $q$- For genuinely disjoint events with nonzero probability, the addition rule is a plain sum, P(A or B) = P(A) + P(B), because nothing is double-counted.
+- If two events share even one outcome, that simplification is invalid and the full union rule with subtraction is required.$q$,
+  how_this_becomes_points = $q$1. Check overlap directly: could one trial land in both events at once?
+2. Don't guess from how unrelated the events sound.
+3. Decide when the addition rule is a plain sum and when the overlap must be subtracted.$q$,
+  point_attaining_answer = $q$A and B are not mutually exclusive: the outcome 6 is both even and greater than 4, so A and B = {6}, which has probability 1/6, not 0.
+
+Sounding like two unrelated conditions doesn't guarantee no overlap. The only valid test is whether a specific outcome can satisfy both events at once, and here one does.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=2 and topic_code='2.5' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='b9eea6861e89ef00a41487b25686f9da';
+update app.topic_explainers set
+  core_idea = $q$- Rearranging the conditional probability definition gives the multiplication rule P(A and B) = P(A|B)·P(B).
+- The same joint probability can also be built as P(B|A)·P(A): P(A and B) is symmetric, though P(A|B) and P(B|A) are almost never equal.$q$,
+  what_students_need_to_understand = $q$- Conditioning on B shrinks the sample space to the outcomes where B happened, and B becomes the new denominator.
+- P(A|B) asks how much of that reduced space is also A, a genuinely different question from P(B|A): the direction of conditioning matters.$q$,
+  how_this_becomes_points = $q$1. Identify which event is the condition (the denominator).
+2. Compute the conditional probability from a table or tree diagram with that denominator.
+3. Apply the multiplication rule for a joint probability by chaining a conditional and a marginal probability.$q$,
+  point_attaining_answer = $q$The condition is 'given that it was rainy', so rainy days (40) are the denominator, not umbrella-days (55): P(umbrella | rainy) = 35/40 = 0.875.
+
+The weak answer computed P(rainy | umbrella) instead: a different, reversed question that uses the same table but restricts to the wrong 55 days as its condition.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=2 and topic_code='2.6' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='7d29a1d7d976f4ecc637bcbeb5a6b147';
+update app.topic_explainers set
+  core_idea = $q$- The 2025 Chief Reader Report documents students defaulting to a without-replacement, dependent-events calculation even when the events are explicitly independent.
+- For example, treating two separate selections as one shrinking finite population when the setup keeps the probability constant.$q$,
+  what_students_need_to_understand = $q$- Verify independence with the scenario's mechanics; don't assume it.
+- If a population is restocked, selections come from separate processes, or the problem says they don't affect each other, the probability stays constant: multiply plain probabilities.
+- Only sampling without replacement from one fixed finite group changes the fraction each time.$q$,
+  how_this_becomes_points = $q$1. Test independence against the scenario's actual setup, not one default model.
+2. State the independence or dependence conclusion in context.
+3. For 'or' questions, apply the union rule with the overlap subtracted, or recognize when it is zero.$q$,
+  point_attaining_answer = $q$The machine is restocked to the same proportion before each dispense, so the two dispenses are independent: the second doesn't draw from a pool depleted by the first.
+
+The correct calculation is 0.10 × 0.10 = 0.01, using the same constant probability on each dispense rather than a without-replacement fraction that assumes a single depleting batch.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=2 and topic_code='2.7' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='8edec1f58d1c6b5457d432377b9bd701';
+update app.topic_explainers set
+  core_idea = $q$- For a discrete random variable, P(X < x) and P(X ≤ x) differ by exactly P(X = x), the probability of the boundary value.
+- Reading a cumulative distribution correctly means deciding whether that boundary value belongs in your answer before you add or subtract.$q$,
+  what_students_need_to_understand = $q$- A discrete probability distribution is valid only if its probabilities sum to exactly 1 across every listed value, so a missing probability is 1 minus the sum of the known ones.
+- A cumulative distribution is the running total of that same sum, stopping at the value you're asked about.$q$,
+  how_this_becomes_points = $q$1. Verify or complete a distribution so its probabilities sum to 1.
+2. Find a missing probability by subtraction when needed.
+3. Choose correctly whether a boundary value counts: at most (≤) versus strictly less than (<).$q$,
+  point_attaining_answer = $q$'Fewer than 2' means X < 2, which is X = 0 or X = 1 only: it excludes the boundary value X = 2.
+
+So P(X < 2) = 0.4 + 0.3 = 0.7. The weak answer computed P(X ≤ 2) instead, which includes the 2-pet households that 'fewer than 2' is supposed to exclude.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=2 and topic_code='2.8' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='721e428b4d6df9f8d5053bdad9a77e75';
+update app.topic_explainers set
+  core_idea = $q$- Expected value is a probability-weighted sum, not a plain average of the listed values.
+- Dropping the P(x_i) factor and averaging the numbers is a documented, exam-common wrong answer that looks reasonable but ignores how much more likely some outcomes are.$q$,
+  what_students_need_to_understand = $q$- Each value is weighted by its own probability: a rare outcome adds little even if its raw number is large, while a very likely outcome dominates even if its number is small.
+- Expected value is the long-run average per trial, not a value you'd expect on any single trial.$q$,
+  how_this_becomes_points = $q$1. Multiply every value by its own probability before summing, never the unweighted average.
+2. Interpret the result in context as a long-run average.
+3. Compute the probability-weighted standard deviation correctly.
+4. Identify which values a compound event like 'fewer than' includes.$q$,
+  point_attaining_answer = $q$E(X) must weight each value by its own probability, not average the four values as if equally likely:
+
+E(X) = 0(0.5) + 1(0.3) + 2(0.15) + 3(0.05) = 0 + 0.3 + 0.3 + 0.15 = 0.75
+
+The unweighted average of 1.5 ignores that 0 visits is far more likely (probability 0.5) than 3 visits (probability 0.05), so it overstates the true long-run average.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=2 and topic_code='2.9' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='f5fad6b311cc8738bdcdfd7415a6e199';
+update app.topic_explainers set
+  core_idea = $q$- A binomial answer built only from a calculator command like binomcdf(6,0.2,2) forfeits the parameter-identification credit, even with a correct number.
+- The scoring expectation is a full distribution statement: X as a count over a stated number of trials, named as binomial, with n and p stated in words.$q$,
+  what_students_need_to_understand = $q$- Recognizing a binomial setting from a word problem is the tested skill. All four conditions must hold: fixed number of trials, independent trials, exactly two outcomes per trial, constant success probability.
+- Naming the variable after the item counted, not as a count over a stated number of trials, is an incomplete definition.$q$,
+  how_this_becomes_points = $q$1. Define the random variable in words as a count over a stated interval or number of trials.
+2. Name the distribution as binomial with its n and p.
+3. Check all four binomial conditions against the scenario.
+4. Compute the requested probability, mean or standard deviation with the parameters labeled.$q$,
+  point_attaining_answer = $q$Let X = the number of winning codes among the 6 items purchased. X is binomial with n = 6 and p = 0.2.
+
+P(X=2) = C(6,2)(0.2)^2(0.8)^4 = 15 × 0.04 × 0.4096 ≈ 0.246
+
+The weak answer never names the distribution as binomial, omits the C(6,2) count of arrangements, and omits the (0.8)^4 factor for the 4 items that are not winners.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=2 and topic_code='2.10' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='61811d3677bd2ef317aaef7f93e1cdd6';
+update app.topic_explainers set
+  core_idea = $q$- The CED writes normal-curve boundaries with p as a percentage from 0 to 100, not a 0-to-1 proportion (EK 2.11.E.2): the opposite of how probability is written elsewhere in this unit.
+- That trap causes factor-of-100 errors: 0.025 reported as 0.25, or 2.5 reported as 0.025.$q$,
+  what_students_need_to_understand = $q$- The empirical rule's 68/95/99.7 landmarks anchor any normal-curve question: 68% within 1 SD, 95% within 2 SD, 99.7% within 3 SD.
+- The area outside splits evenly between both tails (the curve is symmetric), which turns a two-tail total into a single-tail percentage.$q$,
+  how_this_becomes_points = $q$1. Apply the empirical rule at landmark boundaries.
+2. Standardize a value to find area on the correct side or between two boundaries.
+3. Work backward from a percentile to a raw value.
+4. State the final answer with the correct percent-versus-proportion label.$q$,
+  point_attaining_answer = $q$220 grams is 2 SD above the mean: z = (220-180)/20 = 2.0.
+
+The empirical rule puts 95% within 2 SD, leaving 5% split evenly between both tails, so 2.5% is above 220 grams. As a proportion that is 0.025, not 2.5.
+
+Reporting '2.5' without converting to the 0-to-1 scale (or explicitly labeling it 2.5%) drops a factor of 100 from the answer.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=2 and topic_code='2.11' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='d5a6a5f5802cf9cdeea3121f6b64383f';
+update app.topic_explainers set
+  core_idea = $q$- A sampling distribution's dots aren't enumerated by hand: they represent the theoretical collection of every possible sample's statistic.
+- The simulation approach from 2.3 is the practical stand-in for approximating one when the true distribution can't be listed.$q$,
+  what_students_need_to_understand = $q$- Three distributions get blurred: the population (one dot per individual in the whole population), a single sample's data (one dot per individual in that sample), and the sampling distribution of a statistic (one dot per whole sample's statistic, across many samples).
+- Naming which one a graph shows is the entire conceptual task.$q$,
+  how_this_becomes_points = $q$1. Identify which a graph or description shows: population, single sample, or sampling distribution of a statistic.
+2. The Central Limit Theorem makes a sample mean's sampling distribution approximately normal for a large sample, even if the population isn't.
+3. A larger sample tightens the statistic's spread.$q$,
+  point_attaining_answer = $q$Each dot represents one entire sample's mean: the average of all 40 scores in that one sample, not a single student's score.
+
+This dotplot is the sampling distribution of the sample mean. By the Central Limit Theorem it will appear approximately normal even though the original population of exam scores is right-skewed, and the approximation improves as the sample size of 40 (or larger) increases.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=2 and topic_code='2.12' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='a26c4ea393fbd8253d6d037f9d8fe2c4';
+update app.topic_explainers set
+  core_idea = $q$- phat is the point estimator of p. Unbiasedness is a property of the sampling distribution of phat across every possible sample of size n, not of any single sample's result.
+- An unbiased estimator's sampling distribution has mean exactly p (mu_phat = p, formalized in 3.2), even though almost every individual phat lands above or below p by chance.$q$,
+  what_students_need_to_understand = $q$- Bias describes long-run behavior over repeated sampling, so one sample landing far from p is consistent with phat being unbiased.
+- Bias comes from a method that systematically pulls results one direction (e.g., a convenience sample over-representing one group), not ordinary sample-to-sample variability.$q$,
+  how_this_becomes_points = $q$1. Name phat as the estimator of the population parameter p.
+2. Explain unbiasedness as average behavior across repeated sampling, not any one sample's result.
+3. Do not mistake sampling variability (a result differing from p) for bias (a systematic direction).$q$,
+  point_attaining_answer = $q$phat is an unbiased estimator of p regardless of this one result: unbiasedness describes the mean of phat's sampling distribution across every possible random sample of size 50, which equals p=0.52 (mu_phat=p).
+
+This sample's phat=0.58 differs from p=0.52 by 0.06, which is ordinary sampling variability, not bias; bias would require the sampling method itself to systematically favor one outcome.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.1' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='1952a2b7ca9507a864de315f5cc40f3c';
+update app.topic_explainers set
+  core_idea = $q$- The sampling distribution of phat has mean mu_phat=p and standard deviation sigma_phat=sqrt(p(1-p)/n) (formula sheet).
+- Its large-counts condition for approximate normality, np>=10 and n(1-p)>=10, uses the true p, not the observed phat.
+- Later procedures substitute phat (intervals) or p0 (tests) only because the real p is unknown.$q$,
+  what_students_need_to_understand = $q$- Three conditions must hold before treating phat's sampling distribution as approximately normal: randomization, the 10% condition (if sampling without replacement), and large counts.
+- Mixing up which value (true p, phat, or p0) goes in the large-counts check is one of the most common setup errors in every proportion procedure that follows.$q$,
+  how_this_becomes_points = $q$1. State mu_phat=p and sigma_phat=sqrt(p(1-p)/n) correctly.
+2. Check randomization and the 10% condition.
+3. Check large counts with the correct p for the situation; using an observed phat when the question is about the theoretical shape is a documented setup error.$q$,
+  point_attaining_answer = $q$The large-counts condition for the sampling distribution of phat uses the claimed/true p=0.05, not an observed phat.
+
+| Value used | Calculation | Result |
+| p=0.05 | n(p)=150(0.05) | 7.5, less than 10: fails |
+| phat=0.10 | n(phat) | 15: would wrongly appear to pass |
+
+The theoretical shape depends on the population value p, not on any one sample's estimate of it.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.2' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='f4dc67197b279ee482bcfae7f43f6c43';
+update app.topic_explainers set
+  core_idea = $q$- The interval phat ± z*·SE uses SE=sqrt(phat(1-phat)/n), substituting phat for the unknown p; this differs from 3.2's theoretical sigma_phat=sqrt(p(1-p)/n).
+- It always uses a z critical value, never t: proportions have no t-based procedure in this course; t applies only to mean procedures, where sigma is unknown.$q$,
+  what_students_need_to_understand = $q$- Margin of error (z*·SE) is added to and subtracted from phat to build the interval.
+- Required sample size n=(z*)^2·phat(1-phat)/MOE^2 uses phat=0.5 as a worst-case placeholder when no prior estimate exists, because phat(1-phat) is largest, and so needs the biggest sample, at phat=0.5.$q$,
+  how_this_becomes_points = $q$1. Compute phat=x/n.
+2. Use SE=sqrt(phat(1-phat)/n) with the correct z* for the stated confidence level.
+3. Verify randomization, 10%, and large counts (using phat) before interpreting.
+4. Do not substitute a t critical value from a means procedure.$q$,
+  point_attaining_answer = $q$One-sample proportion procedures always use z*, never t*: t applies only to mean procedures in this course, regardless of whether the SE is estimated from sample data.
+
+z*=1.96, phat=0.62, SE=sqrt(0.62×0.38/200)≈0.0343, so the interval is 0.62 ± 1.96(0.0343) ≈ (0.553, 0.687).
+
+We are 95% confident the true proportion of customers who would recommend the product is between 0.553 and 0.687.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.3' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='a940e6446bd0870f4d9dec8be5dc2102';
+update app.topic_explainers set
+  core_idea = $q$- The confidence level is the long-run capture rate of the interval-construction method across repeated sampling (EK 3.4.A.2): about C% of the resulting intervals would contain the true p.
+- It is not a probability statement about this one computed interval: p is a fixed number that either is or isn't inside it.$q$,
+  what_students_need_to_understand = $q$- Judging whether a claimed p is plausible only requires checking whether it lies inside the already-built interval; no new calculation is needed.
+- Phrase it around the interval as a range of plausible values, never as a probability statement about the fixed parameter.$q$,
+  how_this_becomes_points = $q$1. Check whether the claimed value lies inside the constructed interval.
+2. State a plausibility conclusion tied to that check, not a probability that p is in the interval.
+3. To interpret the confidence level, use repeated-sampling capture-rate language.$q$,
+  point_attaining_answer = $q$0.60 falls outside the interval (0.41, 0.53), so the interval gives convincing evidence against the claimed value; this rests on 0.60 lying outside a range of plausible values, not on a probability about this interval.
+
+The 90% confidence level means that if this process were repeated many times, about 90% of the resulting intervals would capture the true (fixed) population proportion; it does not mean there is a 90% probability that this specific, already-computed interval contains p.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.4' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='c1b98fe8272a34becff7cfa4665b129e';
+update app.topic_explainers set
+  core_idea = $q$- A documented AP scoring pattern: hypotheses written in nonstandard notation such as H0: x=0.22 or H0: phat=0.22.
+- The required form is H0: p=0.22, about the fixed population proportion p, never a sample count x or statistic phat, which are random and vary from sample to sample.$q$,
+  what_students_need_to_understand = $q$- Match Ha's direction to the wording: 'more than,' 'greater than,' 'increased' give Ha: p>p0; 'less than,' 'decreased' give Ha: p<p0; 'different from,' 'changed,' or no directional wording give two-sided Ha: p≠p0.
+- Guessing the direction without matching the wording is a setup error even if every other part of the test is correct.$q$,
+  how_this_becomes_points = $q$1. Define p in words with full population context.
+2. Write H0: p=p0 and Ha in correct notation (never x or phat).
+3. Select a one- or two-sided Ha matching the direction implied by the wording.$q$,
+  point_attaining_answer = $q$Let p = the true proportion of all the company's customers who prefer the redesigned product.
+
+H0: p=0.30. The researcher's belief is that MORE than 30% prefer it, so the alternative is one-sided: Ha: p>0.30.
+
+Writing hypotheses in terms of x (a sample count) or phat (a sample proportion) instead of the fixed population parameter p is a documented, frequently penalized notation error, even when the rest of the test is set up correctly.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.5' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='b385fabb0cb1f974e446d06ba7141cef';
+update app.topic_explainers set
+  core_idea = $q$- A p-value is the probability, computed assuming H0 is true, of a sample result at least as extreme as the one observed.
+- It is not the probability that H0 is true: H0 is a fixed claim about the population, not a random event.
+- A small p-value means the result would be unusual if H0 were true: evidence against H0.$q$,
+  what_students_need_to_understand = $q$- Decision rule: reject H0 if the p-value is less than alpha; otherwise fail to reject H0.
+- Getting the comparison backwards, or treating a small p-value as proof H0 is false rather than evidence against it, costs points even when the p-value is computed correctly.$q$,
+  how_this_becomes_points = $q$1. Compute the p-value correctly from the test statistic.
+2. Interpret it in context as a conditional probability assuming H0 is true, never as the probability H0 is true.
+3. Compare it correctly to alpha to decide about H0.$q$,
+  point_attaining_answer = $q$A p-value of 0.03 means: if H0 is actually true, there is a 3% chance of getting a sample result at least as extreme as the one observed, purely from sampling variability. It says nothing about the probability that H0 itself is true or false.
+
+Since 0.03 is less than alpha=0.05, the result is statistically significant at the 5% level, giving convincing evidence against H0.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.6' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='81555de4f896d343f3aa9edb95da161b';
+update app.topic_explainers set
+  core_idea = $q$- The one-proportion test statistic puts the null value p0 under the radical, not phat: z=(phat-p0)/sqrt(p0(1-p0)/n).
+- Its large-counts condition likewise uses p0 (np0>=10 and n(1-p0)>=10), unlike 3.3's confidence-interval condition, which uses phat because no p0 exists there.$q$,
+  what_students_need_to_understand = $q$- z measures how far phat is from p0 in units of the standard error the sampling distribution WOULD have if H0 were exactly true: that is why p0 belongs under the radical.
+- Substituting phat answers a subtly different question and can produce a materially different z.$q$,
+  how_this_becomes_points = $q$1. Check conditions using p0 (not phat).
+2. Compute z=(phat-p0)/sqrt(p0(1-p0)/n) with p0 under the radical.
+3. Find the p-value.
+4. Conclude in context using non-definitive language ('convincing evidence,' never 'proves').$q$,
+  point_attaining_answer = $q$The standard error must use the null value p0=0.5, not phat: sqrt(0.5×0.5/100)=0.05, giving z=(0.58-0.5)/0.05=1.6.
+
+This is a genuinely different value from using phat (1.62 vs. 1.6), because the statistic measures phat's distance from p0 in units of the standard error the sampling distribution would have under H0, not the one estimated from this sample.
+
+With this z, there is not strong evidence against H0 at typical significance levels: the data don't give convincing evidence that p differs from 0.5.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.7' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='36adcae826e2509d6aeb7637878ce2b7';
+update app.topic_explainers set
+  core_idea = $q$- Type I error: H0 is actually true AND the test incorrectly rejects it; its probability equals alpha exactly, not merely 'small.'
+- Type II error, the mirror: H0 is actually false AND the test fails to reject it; its probability is 1 minus power.
+- Power increases with larger sample size, a bigger true-vs-null gap, or a larger alpha.$q$,
+  what_students_need_to_understand = $q$- Dropping the conditional framing (stating only 'H0 is true' without what the test concludes, or vice versa) is a documented, frequently penalized incompleteness.
+- Confusing which error is which (defining Type I using Type II's logic) is an equally common, exam-tested mistake.$q$,
+  how_this_becomes_points = $q$1. Define Type I and Type II errors with both the true state of H0 and the test's incorrect conclusion, in context.
+2. Relate alpha correctly to the Type I error rate.
+3. Describe correctly how power changes with sample size, effect size, or alpha.$q$,
+  point_attaining_answer = $q$| Error | H0 is actually | Test concludes | Probability |
+| Type I | true (drug has no effect beyond placebo) | rejects H0 (drug works when it really doesn't) | alpha |
+| Type II | false (drug really works) | fails to reject H0 (misses the effect) | 1 minus power |
+
+Both the true state and the wrong conclusion have to be stated together. alpha is the significance level chosen before the test, and power would improve with a larger sample size.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.8' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='5c2202f36d1484a142257a1a4f0cdb7a';
+update app.topic_explainers set
+  core_idea = $q$- The sampling distribution of phat1-phat2 has mean p1-p2 and standard deviation sqrt(p1(1-p1)/n1 + p2(1-p2)/n2) (formula sheet).
+- Large counts requires checking all four values n1p1, n1(1-p1), n2p2, n2(1-p2) individually, each at least 10.
+- Passing one sample's two values says nothing about the other sample's.$q$,
+  what_students_need_to_understand = $q$- The samples are independent, so the variance of the difference is the SUM of each sample's variance, never a difference of variances.
+- Check all four large-counts values: a small second sample can fail even when the first passes easily.$q$,
+  how_this_becomes_points = $q$1. State the center (p1-p2) and standard deviation correctly.
+2. Check randomization and the 10% condition for BOTH samples.
+3. Check all four large-counts values, not just one sample's pair, before treating the distribution as approximately normal.$q$,
+  point_attaining_answer = $q$The large-counts condition for a difference of two proportions requires checking all four values separately.
+
+| Value | Calculation | At least 10? |
+| n1p1 | 20 | yes |
+| n1(1-p1) | 30 | yes |
+| n2p2 | 40(0.15)=6 | no |
+| n2(1-p2) | 34 | yes |
+
+Since n2p2=6 is less than 10, the condition fails overall. Checking only sample 1's two values and ignoring sample 2's is incomplete, even though sample 1 alone would pass.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.9' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='19b0a0ef932ac2bd3233d4c901086ba0';
+update app.topic_explainers set
+  core_idea = $q$- The interval (phat1-phat2) ± z*·SE uses SE=sqrt(phat1(1-phat1)/n1 + phat2(1-phat2)/n2), built from each sample's OWN phat separately, never a pooled proportion.
+- Pooling assumes p1=p2, exactly the claim a significance test evaluates; a confidence interval makes no such assumption.$q$,
+  what_students_need_to_understand = $q$- Each sample keeps its own phat here, so the large-counts condition also uses each sample's own unpooled phat_i (as in 3.9), unlike the pooled version in the test (3.12-3.13).
+- Mixing up which proportion belongs in which procedure is the single most common error connecting these topics.$q$,
+  how_this_becomes_points = $q$1. Compute each sample's phat separately.
+2. Use the unpooled standard error formula.
+3. Verify conditions for both samples.
+4. Interpret the interval as a range of plausible values for p1-p2.$q$,
+  point_attaining_answer = $q$Each sample's own proportion goes in the SE separately: SE=sqrt(0.45×0.55/80 + 0.30×0.70/100)≈0.072.
+
+The interval is (0.45-0.30) ± 1.96(0.072) ≈ 0.15 ± 0.141, or (0.009, 0.291).
+
+Pooling assumes p1=p2, which is the claim a significance test evaluates, not an assumption a confidence interval makes; pooling belongs only in the corresponding test's SE (3.12-3.13), never here.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.10' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='4d07ac9830323b427db8165f6957ab10';
+update app.topic_explainers set
+  core_idea = $q$- If the interval for p1-p2 excludes 0, that is convincing evidence of a real difference between the two population proportions.
+- If it contains 0, the evidence is insufficient: 0 (p1=p2, no difference) remains a plausible value, even when most of the interval sits on one side of 0.$q$,
+  what_students_need_to_understand = $q$- An interval that is mostly positive but still contains 0 does not support a directional claim.
+- The conclusion is about whether 0 is inside or outside the interval, not which side has more area: a plausible value of exactly 0 is enough to block a claim of difference.$q$,
+  how_this_becomes_points = $q$1. Check whether 0 lies inside the constructed interval.
+2. State a conclusion about the existence (not necessarily the direction) of a difference tied to that check.
+3. Avoid a directional claim when the interval still contains 0.$q$,
+  point_attaining_answer = $q$Because the interval (-0.05, 0.18) contains 0, this is not convincing evidence of a difference between the treatment and control success rates: 0 (no difference) remains a plausible value for p1-p2.
+
+The interval being mostly positive doesn't override this. As long as 0 falls inside the interval, the data don't rule out p1=p2, so no directional claim that the treatment is more effective can be made.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.11' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='5fa1e7792d3f06f3f7ece73eeede9d9d';
+update app.topic_explainers set
+  core_idea = $q$- H0 assumes p1=p2, so the test statistic's SE uses one pooled estimate phat_c=(n1phat1+n2phat2)/(n1+n2), built from both samples combined.
+- Under H0 there is really only a single common p to estimate; 3.10's confidence interval never pools because it makes no such assumption.$q$,
+  what_students_need_to_understand = $q$- Define exactly which population is p1 and which is p2 in words, before writing any symbols.
+- Ha: p1>p2 and Ha: p2>p1 are opposite claims; without stated definitions a grader cannot tell which direction the alternative claims.$q$,
+  how_this_becomes_points = $q$1. Define both p1 and p2 in words with population context.
+2. Write H0: p1=p2 (or p1-p2=0).
+3. Choose Ha's direction to match the research question.
+4. Identify that the test's SE uses the pooled phat_c, not each sample's own phat_i.$q$,
+  point_attaining_answer = $q$Let p1 = the true proportion of all grade 9 students at this school who use the study app, and p2 = the true proportion of all grade 12 students who use it.
+
+H0: p1=p2 (equivalently, p1-p2=0); Ha: p1≠p2, two-sided since no direction was specified.
+
+H0 assumes equal proportions, so the test's SE uses one pooled estimate phat_c=(n1phat1+n2phat2)/(n1+n2) from both samples combined, unlike the interval in 3.10, which never pools because it doesn't assume p1=p2.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.12' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='f1ff7b335daf35aa063f6a68814b8223';
+update app.topic_explainers set
+  core_idea = $q$- The pooled statistic z=[(phat1-phat2)-0]/sqrt(phat_c(1-phat_c)(1/n1+1/n2)) uses phat_c under the radical.
+- Its large-counts condition likewise uses pooled counts (n1phat_c, n1(1-phat_c), n2phat_c, n2(1-phat_c), all at least 10), genuinely different from 3.10's unpooled interval condition.$q$,
+  what_students_need_to_understand = $q$- Using the interval's unpooled SE formula in a significance test gives a numerically different, generally incorrect z.
+- The formulas look similar but aren't interchangeable: the test's pooled formula reflects the H0 assumption that p1=p2, which the interval never assumes.$q$,
+  how_this_becomes_points = $q$1. Compute the pooled proportion phat_c correctly.
+2. Use it (not each phat_i) in both the large-counts check and the test's SE.
+3. Compute z correctly.
+4. Conclude in context using non-definitive language.$q$,
+  point_attaining_answer = $q$H0 assumes p1=p2, so the SE uses the pooled proportion: phat_c=(30+15)/110≈0.409.
+
+SE=sqrt(0.409×0.591×(1/60+1/50))≈0.0942, giving z=(0.50-0.30)/0.0942≈2.12.
+
+| SE used | z |
+| Pooled (correct for a test) | 2.12 |
+| Each sample's own unpooled phat_i (interval formula) | 2.19 |
+
+The unpooled SE is the wrong one for a test and gives a different, inflated z-value here.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.13' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='3334e47dffed1d4b5d156d474de6d478';
+update app.topic_explainers set
+  core_idea = $q$- Homogeneity (one variable across several populations or groups) and independence (two variables in one population) are a naming distinction only; both use the same chi-square statistic and expected count = (row total)(column total)/table total.
+- Goodness-of-fit (one sample vs. a fixed claimed distribution) was removed from the course and is not tested.$q$,
+  what_students_need_to_understand = $q$- Tell them apart by the study design, not the table's shape: multiple separate samples (one per population or treatment group) point to homogeneity; one single sample cross-classified by two categorical variables points to independence.
+- Both then use df=(rows-1)(columns-1).$q$,
+  how_this_becomes_points = $q$1. Identify homogeneity vs. independence from the study design.
+2. Compute expected counts as (row total)(column total)/table total.
+3. Set df=(rows-1)(columns-1).
+4. Do not default to goodness-of-fit, which is outside the course's current scope.$q$,
+  point_attaining_answer = $q$This is a chi-square test for homogeneity, not goodness-of-fit: goodness-of-fit compares one sample to a fixed claimed distribution and was removed from the current course.
+
+Here, three separate samples (one per school) are compared on the same categorical variable (genre preference), which is exactly the homogeneity setup.
+
+Expected count for each cell = (row total)(column total)/table total, and df=(rows-1)(columns-1) based on the table's dimensions.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.14' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='b9159b4db90159ebce8b1439868196a3';
+update app.topic_explainers set
+  core_idea = $q$- The chi-square statistic sums (observed-expected)^2/expected across every cell.
+- Its expected-counts condition requires every expected count to exceed 5, a lower threshold than the 10 in the large-counts conditions for proportion and mean procedures.
+- Applying the 10-threshold here is a documented cross-topic confusion.$q$,
+  what_students_need_to_understand = $q$- A chi-square test can still be valid even when some expected counts sit between 5 and 10.
+- Checking against the wrong (10) threshold could wrongly disqualify a usable table, so get the threshold (5) right before any chi-square value is computed.$q$,
+  how_this_becomes_points = $q$1. Check the expected-counts condition against 5, not 10.
+2. Compute chi-square = sum((observed-expected)^2/expected) across all cells.
+3. Set df=(rows-1)(columns-1).
+4. Interpret the p-value for the association or homogeneity question in context.$q$,
+  point_attaining_answer = $q$The expected-counts condition requires all expected counts to exceed 5, not 10; the 10-count threshold is the large-counts condition for proportions and means, a different procedure.
+
+All four expected counts (6, 24, 14, 56) exceed 5, so the condition is satisfied and the test may proceed.
+
+chi-square = (8-6)^2/6 + (22-24)^2/24 + (12-14)^2/14 + (58-56)^2/56 ≈ 1.19, with df=(2-1)(2-1)=1.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=3 and topic_code='3.15' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='0a14f038451501974f579d63081fadb0';
+update app.topic_explainers set
+  core_idea = $q$- x-bar is a random variable with its own distribution across samples, not a fixed number.
+- Center mu-x-bar = mu and spread sigma-x-bar = sigma/sqrt(n) hold regardless of shape.
+- Only the shape claim depends on whether the population is normal or n is large.$q$,
+  what_students_need_to_understand = $q$- The Central Limit Theorem is a claim about shape only, and it is conditional on n, not automatic.
+- A skewed population needs a larger n before x-bar's sampling distribution looks normal; a normal population needs no minimum n at all.$q$,
+  how_this_becomes_points = $q$1. State the center.
+2. State the spread.
+3. Justify the shape as its own claim, tied to n or to the population's known shape.
+4. Three separate statements, not one blended sentence.$q$,
+  point_attaining_answer = $q$No. The population is strongly skewed and n = 25 is below the n >= 30 guideline used for skewed populations.
+
+So the sampling distribution of x-bar cannot be assumed approximately normal here; a larger sample would be needed.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=4 and topic_code='4.1' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='b1302fed08e90444a5b603844c8df701';
+update app.topic_explainers set
+  core_idea = $q$- The t-interval has the same structure as a z-interval (statistic +/- critical value times standard error).
+- It swaps in the t-distribution because s replaces the unknown sigma, adding extra uncertainty that the wider, flatter t-curve accounts for.$q$,
+  what_students_need_to_understand = $q$- Matched-pairs data is not two-sample data.
+- Subtracting each pair down to one list of differences gives a one-sample t-interval on mu-d, with its condition check applied to the differences, not to the original two columns.$q$,
+  how_this_becomes_points = $q$1. Use the correct symbol (t, not z).
+2. State df = n - 1 explicitly.
+3. Check all three conditions in the fixed order.
+4. Compute the interval with the right standard error (s/sqrt(n)).$q$,
+  point_attaining_answer = $q$A one-sample t-interval on the ten before/after differences, because each pair comes from the same runner (matched pairs).
+
+Reduce to one list of differences and find x-bar-d +/- t*(s-d/sqrt(10)) with df = 9, not comparing the two original samples independently.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=4 and topic_code='4.2' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='e0562a21258fa237a984229a1d989ee0';
+update app.topic_explainers set
+  core_idea = $q$- A confidence interval already contains every decision you need.
+- Justifying a claim from it is a reading exercise, not a new computation; scoring rewards that reading being explicit and stated in context.$q$,
+  what_students_need_to_understand = $q$- 'Justify' means point to the interval's endpoints and compare, then translate that comparison into a sentence about the population parameter.
+- Skipping straight to yes or no without showing the comparison loses the justification point even if the calculation was right.$q$,
+  how_this_becomes_points = $q$1. Build the interval correctly (scored separately).
+2. Justify the claim from the interval, in a non-definitive, context-specific sentence.
+3. Writing that the claim is simply true loses the second point even with correct arithmetic.$q$,
+  point_attaining_answer = $q$85 mg falls inside the interval (78, 94), so the interval is consistent with, not proof of, the claimed mean.
+
+There is no evidence against a true mean caffeine content of 85 mg for this brand.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=4 and topic_code='4.3' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='0ebeae06106b8a5da12c2603ae3c7281';
+update app.topic_explainers set
+  core_idea = $q$- Setup is where a test lives or dies: hypotheses must be about the unknown parameter, not the known sample statistic.
+- The procedure choice (t here, always) must be justified by sigma being unknown rather than assumed.$q$,
+  what_students_need_to_understand = $q$- Ha's direction comes from the research question's wording (greater than, less than, different from) and must be decided before seeing the data.
+- Choosing direction after calculating the test statistic is exactly the kind of reasoning error the rubric checks for.$q$,
+  how_this_becomes_points = $q$1. Hypotheses in correct parameter notation.
+2. Procedure identification with justification.
+3. Conditions checked in order.
+4. Each is scored separately: one can be lost even with a perfect final numeric answer.$q$,
+  point_attaining_answer = $q$H0: mu = 350, Ha: mu < 350, where mu is the true mean fill weight of all boxes.
+
+A one-sample t-test applies because the population standard deviation is unknown and must be estimated from the sample.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=4 and topic_code='4.4' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='9c5a2939dfad9991ae368f3c041511fd';
+update app.topic_explainers set
+  core_idea = $q$- The test statistic and p-value are only half the work.
+- The other half is translating a reject or fail-to-reject decision into a sentence about the real-world parameter that never overstates what a p-value can prove.$q$,
+  what_students_need_to_understand = $q$- A small p-value means the observed data would be unusual if H0 were true; it does not mean H0 is false with certainty.
+- That is why the conclusion must use hedged, evidence-based language rather than definitive claims.$q$,
+  how_this_becomes_points = $q$1. The calculation is checked.
+2. The comparison direction is correct (p-value versus alpha, not the reverse).
+3. The conclusion ties back to the specific parameter and population named in the hypotheses; generic conclusions lose this point even when the math is right.$q$,
+  point_attaining_answer = $q$Since p = 0.31 > alpha = 0.05, we fail to reject H0.
+
+There is not convincing evidence that the true mean battery life differs from 500 hours.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=4 and topic_code='4.5' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='cc03b4180a739edcd0270cecf3f80f8a';
+update app.topic_explainers set
+  core_idea = $q$- x-bar-1 minus x-bar-2 is itself a random variable with a predictable center and spread built from both original samples.
+- Its shape claim requires both samples to satisfy the normality condition, not just the larger or more convenient one.$q$,
+  what_students_need_to_understand = $q$- Variances add under subtraction because the two samples are independent, so the spread formula uses a sum inside the square root even though the statistic is a difference.
+- This is a common source of sign confusion.$q$,
+  how_this_becomes_points = $q$1. Name both sample sizes or both population shapes explicitly in the shape justification.
+2. Naming only one and asserting the difference is approximately normal is an incomplete justification.$q$,
+  point_attaining_answer = $q$Yes, but the justification needs both samples.
+
+| Sample | Basis for approximate normality |
+| A (n1 = 15) | population known normal (any n1 works) |
+| B (n2 = 45) | n2 = 45 >= 30 |
+
+Both conditions together justify the difference being approximately normal.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=4 and topic_code='4.6' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='52cd725505d6ccd6ace42d5386614ca5';
+update app.topic_explainers set
+  core_idea = $q$- The interval's structure mirrors every other t-interval in this unit: statistic plus or minus critical value times standard error.
+- Both the standard error and the df calculation are specific to two independent samples and do not simplify to the pooled formula from other statistics courses.$q$,
+  what_students_need_to_understand = $q$- This course deliberately does not use the pooled two-sample df = n1 + n2 - 2.
+- The correct df is calculated by technology and falls between n1 + n2 - 2 and the smaller of n1 - 1 and n2 - 1; citing the pooled formula by name is a scoring risk even if the final interval happens to be close.$q$,
+  how_this_becomes_points = $q$1. Standard error formula.
+2. Correct non-pooled df sourcing.
+3. Both samples' conditions.
+4. Each earns separate credit: a numerically reasonable interval can still lose the df-specific point.$q$,
+  point_attaining_answer = $q$Use SE = sqrt(4-squared/20 + 5-squared/25).
+
+Find t* from technology using the df calculated for unequal variances (not the pooled df = 43), then compute (34 - 31) +/- t* times SE.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=4 and topic_code='4.7' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='d8b0609ab22a68b364aab020403f940e';
+update app.topic_explainers set
+  core_idea = $q$- Whether zero is inside or outside a difference interval is the entire justification; no new hypothesis test is needed.
+- The interval's sign, not just its exclusion of zero, tells you which population has the larger mean.$q$,
+  what_students_need_to_understand = $q$- Unequal sample means are expected from random sampling even when the true population means are identical.
+- The confidence interval, not the raw difference in x-bar's, is what tells you whether that difference is convincing.$q$,
+  how_this_becomes_points = $q$1. State the zero-check explicitly.
+2. Conclude in context, naming both populations.
+3. When zero is excluded, name the direction of the difference, not just a yes or no about whether the means differ.$q$,
+  point_attaining_answer = $q$Because the interval (2.1, 8.4) does not contain zero, there is convincing evidence that the true mean time for Method A is greater than for Method B.
+
+The difference is somewhere between 2.1 and 8.4 minutes.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=4 and topic_code='4.8' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='1b8f599fde7809d44b1014f7ead9a863';
+update app.topic_explainers set
+  core_idea = $q$- Setup mirrors the one-sample setup: parameter-based hypotheses, a named and justified procedure, and conditions checked before arithmetic.
+- Every condition now has to be verified twice, once per sample.$q$,
+  what_students_need_to_understand = $q$- The two samples are independent, so satisfying a condition for one says nothing about the other.
+- Skipping the second sample's check is treated the same as not checking conditions at all.$q$,
+  how_this_becomes_points = $q$1. Hypotheses in correct notation.
+2. Procedure identification with justification.
+3. Conditions checked for both groups.
+4. Missing any one costs a distinct point even with a correct final test statistic.$q$,
+  point_attaining_answer = $q$H0: mu-1 minus mu-2 = 0, Ha: mu-1 minus mu-2 > 0, where mu-1 and mu-2 are the true mean study hours for tutored and non-tutored students.
+
+A two-sample t-test applies since both population standard deviations are unknown and the samples are independent.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=4 and topic_code='4.9' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='12a269031ca65b8d1b0a6c80cd9b3c18';
+update app.topic_explainers set
+  core_idea = $q$- The final step of the unit ties the two-sample calculation to the same evidence-based conclusion language required everywhere else in Unit 4.
+- A correct test statistic with an overclaiming conclusion still loses the conclusion point.$q$,
+  what_students_need_to_understand = $q$- A significant result compares two samples, not two populations directly.
+- The conclusion must translate 'the observed gap is unusual if the true means were equal' into a hedged statement about the two population means, never a flat claim that one group is better.$q$,
+  how_this_becomes_points = $q$1. Test statistic and df sourcing.
+2. p-value-to-alpha comparison direction.
+3. A final sentence naming both populations and using convincing-evidence language.
+4. A technically correct t and p-value with a definitive conclusion still loses a point.$q$,
+  point_attaining_answer = $q$Since p = 0.018 < alpha = 0.05, we reject H0.
+
+There is convincing evidence that the true mean commute time differs between the two groups, with Group 1's sample mean suggesting it is the longer of the two.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=4 and topic_code='4.10' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='e0935cd0018292e5a5a6a93f9ec74324';
+update app.topic_explainers set
+  core_idea = $q$- A scatterplot's four-part description is a fixed checklist, not a menu: form, direction, strength, unusual features.
+- Naming only one or two of the four leaves points unclaimed even when the description given is accurate.$q$,
+  what_students_need_to_understand = $q$- Strong and weak describe how tightly points cluster around a pattern, not how many points there are or how large the values are.
+- Strength is about scatter around the pattern, not sample size or magnitude.$q$,
+  how_this_becomes_points = $q$1. Name all four components in a single description: form, direction, strength, and any unusual features.
+2. Address each explicitly rather than implying it.$q$,
+  point_attaining_answer = $q$The relationship is linear, positive, and strong, with one unusual point.
+
+| Component | Description |
+| Form | linear |
+| Direction | positive |
+| Strength | strong |
+| Unusual feature | a student scoring far higher than the pattern would predict for that number of study hours |$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=5 and topic_code='5.1' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='7fbe67408f9eaeed7a592879ee892fdc';
+update app.topic_explainers set
+  core_idea = $q$- r is unit-free precisely so it can compare relationships measured in completely different units.
+- A large |r| only measures how closely points follow a straight line: it never proves that line is the right model, and it never proves one variable causes the other.$q$,
+  what_students_need_to_understand = $q$- This course does not expect you to compute r by hand from raw data; the CED states r is calculated using technology.
+- Cite and interpret the technology-reported value rather than attempting a hand formula.$q$,
+  how_this_becomes_points = $q$1. Use sign-as-direction and magnitude-as-strength language, sourced from technology.
+2. Recognize that r alone, even close to 1 or -1, does not confirm linearity without a residual-plot check.$q$,
+  point_attaining_answer = $q$The conclusion is not supported.
+
+A strong correlation only shows a strong linear association, not that one variable causes the other.
+
+A third variable, such as hot weather driving both ice cream sales and swimming, likely explains the pattern.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=5 and topic_code='5.2' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='e645be88295c41d4bd5f71744f6ae8dc';
+update app.topic_explainers set
+  core_idea = $q$- The regression equation only reliably predicts within the range of x-values used to build it.
+- Predicting outside that range is a substantively different, less trustworthy activity, even though the arithmetic looks identical either way.$q$,
+  what_students_need_to_understand = $q$- Interpolation vs. extrapolation depends entirely on where the requested x-value sits relative to the data's x-range, not on the model's r or r-squared value.
+- A great-fitting model can still make an unreliable extrapolated prediction.$q$,
+  how_this_becomes_points = $q$1. State whether the requested x-value is inside or outside the original data's range.
+2. Name interpolation or extrapolation accordingly, not just computing y-hat.$q$,
+  point_attaining_answer = $q$The prediction is an extrapolation: $200,000 falls far outside the $10,000 to $50,000 range used to build the model.
+
+So the prediction is unreliable regardless of how well the model fits the original data.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=5 and topic_code='5.3' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='166e77da2f1759194588bce62330a324';
+update app.topic_explainers set
+  core_idea = $q$- The sign of a residual is easy to flip in your head.
+- A positive residual means the actual value came in higher than predicted, so the model underpredicted, not that the model was somehow more correct or more positive.$q$,
+  what_students_need_to_understand = $q$- A residual plot showing patternless scatter around zero supports the linear model.
+- A residual plot showing clear curvature is direct evidence the straight-line model is the wrong shape for this data, regardless of how large r is.$q$,
+  how_this_becomes_points = $q$1. Compute residual as observed minus predicted (never predicted minus observed).
+2. Read the residual plot's shape as the deciding evidence for whether a linear model is appropriate.$q$,
+  point_attaining_answer = $q$The residual is 295,000 minus 310,000, which equals -15,000.
+
+A negative residual means the actual sale price came in below the predicted price, so the model overpredicted this house's value.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=5 and topic_code='5.4' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='6256bbdf1b4a2b024f45184ebf92bb5d';
+update app.topic_explainers set
+  core_idea = $q$- The least-squares line is the one specific line that minimizes the sum of squared residuals across every data point.
+- Unlike the slope, the y-intercept sometimes should not be interpreted at all, when x = 0 is far outside the data or a negative predicted y has no real meaning.$q$,
+  what_students_need_to_understand = $q$- r-squared is the proportion of the variation in the response variable explained by the linear relationship with the explanatory variable.
+- It is not the correlation coefficient itself, and not the proportion of individual points that fit exactly.$q$,
+  how_this_becomes_points = $q$1. Interpret the slope in context: predicted increase or decrease in y for a one-unit increase in x.
+2. Interpret r-squared as the proportion of variation explained.
+3. Recognize explicitly when the y-intercept has no real-world meaning, rather than interpreting it automatically.$q$,
+  point_attaining_answer = $q$No, the y-intercept should not be interpreted here: age = 0 is far outside the 24 to 60 month range the model was built from.
+
+Interpreting it would be extrapolation far beyond the data.$q$,
+  source_note = coalesce(source_note,'') || $q$ Structured 2026-11-13 (recommendation #3, AP Statistics units 1-5): Claude-authored in session; four fields reshaped into bullets, numbered steps and tables (text markers, no schema change); checked by openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro, rulings in scripts/content-seed/structured-explainers-2026-11-13/ap_statistics/RULINGS.md.$q$
+where subject_key='ap_statistics' and unit_number=5 and topic_code='5.5' and status='published'
+  and md5(core_idea||'|'||what_students_need_to_understand||'|'||how_this_becomes_points||'|'||point_attaining_answer)='d56e245b63f34ad3f28eba83a7c0434e';
+do $$ begin if (select count(*) from app.topic_explainers where subject_key='ap_statistics' and topic_code in ('1.1','1.2','1.3','1.4','1.5','1.6','1.7','1.8','1.9','1.10','1.11','1.12','1.13','2.1','2.2','2.3','2.4','2.5','2.6','2.7','2.8','2.9','2.10','2.11','2.12','3.1','3.2','3.3','3.4','3.5','3.6','3.7','3.8','3.9','3.10','3.11','3.12','3.13','3.14','3.15','4.1','4.2','4.3','4.4','4.5','4.6','4.7','4.8','4.9','4.10','5.1','5.2','5.3','5.4','5.5') and source_note like '%Structured 2026-11-13 (recommendation #3%')<>55 then raise exception 'expected 55 rows updated'; end if; end $$;
+commit;

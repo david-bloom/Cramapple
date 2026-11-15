@@ -123,3 +123,65 @@ Per the plan's §10: a CED-cited grid in `taxonomy_cells`; published MCQs and FR
 **non-null** `skill_code` with a recorded consensus trail; at least one cell meeting `DECISION-0074`'s
 bar verified by ID; feasibility numbers and implied ceiling recorded; `CONTENT_GAPS_RUNNING_LIST.md`
 GAP-10 updated with the subject's result.
+
+## 2026-11-11 Statistics Phase B continuation
+
+**Branch:** `codex/task-0050-statistics-phase-b`
+**PR:** [#631](https://github.com/david-bloom/Cramapple/pull/631) (draft; package and Production evidence)
+**Packet and run evidence:** `scripts/content-seed/task0050-stats-phase-b-2026-11-11/README.md`
+
+Production reads confirmed the retired pilot's 203 MCQs have zero matching content keys,
+titles, or exact stems in the live pack. Its labels are tied to different content and cannot be
+transferred safely. The live pack did receive its separate 2026-09-29 Phase B migration, but the
+bank changed substantially afterward. At the pre-write snapshot, 372 published MCQ item rows and 41 published FRQ item
+rows lacked a skill. Of those, 8 MCQs and 15 FRQs have no published version (their latest version is
+retired), leaving 364 MCQ and 26 FRQ published versions for a direct label pass. All 390 have a
+primary topic and at least one registered skill; 99 have exactly one and need no model call.
+
+David explicitly approved this session's model calls. The three-model pass completed against the
+remaining 291 items: 247 unanimous, 44 majority-earned, 0 held; the 99 deterministic items bring
+the review package to all 390 labelable published versions. Gateway spend was $6.0790 across 873
+calls. A post-run Production read confirmed the same 390 missing version IDs. David then separately
+approved the exact 390-row Production insert (`APPROVAL-0236`), which was applied and verified:
+364 MCQ and 26 FRQ secondary `provisional_model` cells, zero published versions missing a skill,
+and a database label digest equal to the local decisions file. Live inventory now has 49 topic ×
+skill cells with at least two MCQs and one FRQ, up from 12; this is a coverage count, not a
+student-mastery result. The older CHECK
+constraint note above is stale: Production now permits `validated_by` **or** `model_run_id` for
+`validated`, but still requires `validated_at` and `validation_decision_id`. Promotion of this
+run's `provisional_model` rows and lifecycle resolution for the 23 items remain outside
+`APPROVAL-0236`.
+
+## 2026-11-12 follow-up: 23 item rows with no published version
+
+A read-only Production audit of all 23 keys found one retired version per published parent item,
+zero topic or skill cells on those versions, and zero topic-resolution rows. Twenty retain a
+validated serving-unit label and three have a held one; a unit label cannot determine a skill.
+Consequently **zero of the 23 can receive a published-version skill label today**. The exact keys,
+reproducible query, and lifecycle paths are in
+`scripts/content-seed/task0050-stats-phase-b-2026-11-11/stranded_lifecycle_audit_2026_11_12.md`.
+No model calls, content changes, or Production writes were made in this follow-up. Resolving the
+parent/version mismatch requires a separate Production lifecycle decision before any restored
+version joins the Phase B label pass.
+
+The 14 `modification_reserved` versions were then reviewed individually against their tutor
+decisions and stored question content. Twelve successor repairs and a deterministic checker
+are in `scripts/content-seed/task0050-stats-phase-b-2026-11-11/review14_remedy_2026_11_12.md`;
+two needed no substantive content edit. MCQ-012 had an independently found p-value/key contradiction;
+the successor corrects the counts and reported p-value together.
+
+## 2026-11-13: the 14 reviewed Statistics successors published
+
+Under `APPROVAL-0258`, Production pack `548f06be` received one published v2 for each of these 14
+items, with all retired v1 histories preserved. Twelve v2 contents were revised; two copied v1
+content. The three-family skill pass reached 9 unanimous and 2 majority decisions, with 3 more
+single-candidate decisions. Two-family CED checks on the corrected drafts passed the final
+scope gate; the graph FRQs were explicitly marked supplemental hand-drawn targeted drills.
+The guarded SQL, model evidence, QA, and exact execution receipt are in
+`scripts/content-seed/task0050-stats-publish14-2026-11-12/` and
+`docs/activity_log/APPROVAL-0258_TASK0050_STATISTICS_14_SUCCESSORS_PRODUCTION_2026_11_12.md`.
+Independent read-back found 14/14 published v2, validated hash-current serving labels,
+topic/skill pairs, difficulty rows, and topic resolutions. The student selector returned all 14
+v2 and all 14 intended topic matches. The separate TASK-0069 student photo rollout remains a
+product gate for the eight photo-required graph drills. Nine of the original 23 stranded items
+remain outside this 14-item release and still need their own lifecycle decision.

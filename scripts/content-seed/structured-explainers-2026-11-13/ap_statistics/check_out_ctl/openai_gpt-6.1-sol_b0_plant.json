@@ -1,0 +1,36 @@
+{
+  "topics": [
+    {
+      "code": "1.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "1.2",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "1.3",
+      "findings": [
+        {
+          "field": "point_attaining_answer",
+          "severity": "defect",
+          "issue": "The Markdown table is missing its header separator row and will not render as a table in standard Markdown. Add `| --- | --- | --- |` immediately below the header.",
+          "evidence": "The header `| Category | Count | Relative frequency |` is followed directly by `| Pepperoni | 40 | 0.40 |`."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "code": "1.4",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "code": "1.5",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}

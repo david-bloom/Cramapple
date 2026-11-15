@@ -1,5 +1,8 @@
 # Phase 1 Curated Interface Notes
 
+> **STATUS: HISTORICAL — superseded by `supabase/migrations/20260731160000_schema_baseline.sql`, which now contains the curated `public` views (reviewed 2026-11-09).**
+> Notes for the 2026-07-09 curated-interface migration; the `202607090001_curated_public_interface.sql` file it cites no longer exists in `supabase/migrations/` (squashed into the baseline). Kept for history; do not treat as the current plan. Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075, ratified 2026-09-27) or with live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Scope:** backend consolidation Phase 1, curated `public` interface over `app`
 for Supabase Production `pcntajvbdfqhbeewmdry`.
 **Status:** prepared from the local source-of-truth docs and repo migrations.

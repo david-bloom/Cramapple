@@ -43,7 +43,7 @@ export function ViewportGate({ children }) {
           fontSize: 'var(--type-pane-title-size)', lineHeight: 'var(--type-pane-title-line)', color: 'var(--text-body)'
         }}>Widen your window</h1>
         <p style={{ margin: '0 0 16px', fontSize: 'var(--type-body-size)', lineHeight: 'var(--type-body-line)', color: 'var(--text-secondary)' }}>
-          CramApple shows scoring, the question, and reference material at once, so it needs at least {MIN_WIDTH} by {MIN_HEIGHT} pixels. Make the browser window bigger, or switch to a larger screen.
+          Cramapple shows scoring, the question, and reference material at once, so it needs at least {MIN_WIDTH} by {MIN_HEIGHT} pixels. Make the browser window bigger, or switch to a larger screen.
         </p>
         <p style={{ margin: 0, fontSize: 'var(--type-count-size)', lineHeight: 'var(--type-count-line)', color: 'var(--text-quiet)' }}>
           Current window: {viewport.width} × {viewport.height}

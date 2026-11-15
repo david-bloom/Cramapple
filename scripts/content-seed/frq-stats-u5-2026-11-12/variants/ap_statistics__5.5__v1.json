@@ -1,0 +1,187 @@
+{
+ "id": "ap_statistics__5.5__v1",
+ "parent": "ap_statistics__5.5__1",
+ "parent_status": "accepted",
+ "topic_code": "5.5",
+ "item": {
+  "title": "Interpreting a Regression Line for Ice Cream Sales",
+  "calculator": "permitted",
+  "stimulus": "A shop owner recorded the afternoon temperature and the number of ice cream cones sold that day for 36 days when the afternoon temperature was between 62°F and 96°F. Technology gives the least-squares regression line ŷ = 24.5 + 2.1x, where x is the afternoon temperature in degrees Fahrenheit and ŷ is the predicted number of cones sold, and gives r² = 0.76.",
+  "parts": [
+   {
+    "prompt": "Interpret the slope of the regression line in context.",
+    "criteria": [
+     {
+      "text": "Interprets the slope in context: for each one-degree Fahrenheit increase in afternoon temperature, the predicted number of cones sold increases by about 2.1 cones.",
+      "evidence": "Response says the predicted number of cones sold increases by about 2.1 cones per one-degree Fahrenheit increase in afternoon temperature.",
+      "fix": "Use the pattern: for each one-unit increase in x, the predicted y increases or decreases by the slope, with units and context.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Can the y-intercept of the regression line be given a reasonable interpretation in this context? Explain.",
+    "criteria": [
+     {
+      "text": "States that the y-intercept 24.5 is the predicted number of cones sold when afternoon temperature is 0.",
+      "evidence": "Response identifies 24.5 as the predicted number of cones sold at afternoon temperature = 0.",
+      "fix": "Define the y-intercept as the predicted response when the explanatory variable equals 0, naming both variables.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that this intercept should not be interpreted because afternoon temperature = 0 is outside the interval of values used to fit the line (62 to 96 degrees Fahrenheit), so it is extrapolation.",
+      "evidence": "Response says the intercept has no reasonable interpretation because 0 is beyond the range 62 to 96 degrees Fahrenheit (extrapolation).",
+      "fix": "Check whether x = 0 lies inside the observed x-values; if not, the intercept comes from extrapolation and has no meaningful interpretation.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Interpret the value of r² in context.",
+    "criteria": [
+     {
+      "text": "Interprets r² = 0.76: about 76% of the variation in number of cones sold is explained by the linear relationship with afternoon temperature.",
+      "evidence": "Response states that about 76% of the variation in number of cones sold is explained by the linear relationship with afternoon temperature.",
+      "fix": "Write r² as a percent and say that share of the variation in the response is explained by the linear relationship with x.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "For these data the mean afternoon temperature is x̅ = 80 degrees Fahrenheit and the mean number of cones sold is ȳ = 192.5 cones. Show that the regression line passes through the point (x̅, ȳ).",
+    "criteria": [
+     {
+      "text": "Shows that substituting x̅ = 80 into ŷ = 24.5 + 2.1x gives 192.5, the mean of y, so the line passes through (x̅, ȳ).",
+      "evidence": "Response substitutes x = 80 into the equation, gets 192.5, and says this equals the mean response, so the line passes through the means.",
+      "fix": "Substitute the mean of x into the regression equation; getting the mean of y confirms the least-squares line passes through (mean x, mean y).",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) For each one-degree Fahrenheit increase in afternoon temperature, the predicted number of cones sold increases by about 2.1 cones.\n\n(b) The y-intercept, 24.5, is the predicted number of cones sold when afternoon temperature is 0. It should not be interpreted, because afternoon temperature = 0 is outside the interval of values used to fit the line (62 to 96 degrees Fahrenheit); this would be extrapolation.\n\n(c) About 76% of the variation in number of cones sold is explained by the linear relationship with afternoon temperature.\n\n(d) Substituting x = 80 into ŷ = 24.5 + 2.1x gives ŷ = 24.5 + 2.1(80) = 192.5, which equals ȳ. So the least-squares line passes through (x̅, ȳ).",
+  "verification_python": "a = 24.5\nb = 2.1\nlo, hi = 62, 96\nxbar, ybar = 80, 192.5\nr2 = 0.76\nassert abs(a + b * xbar - ybar) < 1e-9\nassert round(r2 * 100) == 76\nassert not (lo <= 0 <= hi)\nassert round(abs(b), 1) == 2.1\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:29:01.050Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"SLOPE_INTERP\"],[\"INTERCEPT_DEF\",\"INTERCEPT_WHY\"],[\"R2_INTERP\"],[\"LSRL_THROUGH_MEANS\"]]",
+  "child_order": "[[\"SLOPE_INTERP\"],[\"INTERCEPT_DEF\",\"INTERCEPT_WHY\"],[\"R2_INTERP\"],[\"LSRL_THROUGH_MEANS\"]]",
+  "child_pattern": [
+   [
+    "SLOPE_INTERP"
+   ],
+   [
+    "INTERCEPT_DEF",
+    "INTERCEPT_WHY"
+   ],
+   [
+    "R2_INTERP"
+   ],
+   [
+    "LSRL_THROUGH_MEANS"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 4, variant 4. Criteria per part: parent [1,2,1,1], variant [1,2,1,1]. Points: parent 5, variant 5.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"SLOPE_INTERP\"],[\"INTERCEPT_DEF\",\"INTERCEPT_WHY\"],[\"R2_INTERP\"],[\"LSRL_THROUGH_MEANS\"]]\nCriterion a1 (SLOPE_INTERP): wording and values changed\nCriterion b1 (INTERCEPT_DEF): wording and values changed\nCriterion b2 (INTERCEPT_WHY): wording and values changed\nCriterion c1 (R2_INTERP): wording and values changed\nPart d prompt changed.\nCriterion d1 (LSRL_THROUGH_MEANS): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from hot chocolate sales versus noon temperature to ice cream cone sales versus afternoon temperature. The sample changes from 40 to 36 days, the temperature interval from 30–70°F to 62–96°F, the regression equation from ŷ = 312.4 − 3.8x to ŷ = 24.5 + 2.1x, r² from 0.81 to 0.76, and the means from (50, 122.4) to (80, 192.5). The rubric structure is unchanged.",
+     "numbers_recomputed": "a1: ŷ(x + 1) − ŷ(x) = 2.1, so predicted sales increase by 2.1 cones per 1°F increase; matches. b1: ŷ(0) = 24.5 + 2.1(0) = 24.5 cones; matches. b2: 0 < 62, so 0°F is outside the fitted interval [62, 96]°F; matches. c1: 0.76 × 100% = 76%; matches. d1: ŷ(80) = 24.5 + 2.1(80) = 24.5 + 168 = 192.5 cones, matching the stated mean and point (80, 192.5). No variant model answer was provided or assessed.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The variant changes the context from a café owner recording noon temperature and hot chocolate sales to a shop owner recording afternoon temperature and ice cream cone sales. Sample size changes from 40 days to 36 days, the observed temperature range changes from 30–70°F to 62–96°F, the regression equation changes from ŷ = 312.4 − 3.8x to ŷ = 24.5 + 2.1x, r² changes from 0.81 to 0.76, and the means in part (d) change from x̅ = 50 and ȳ = 122.4 to x̅ = 80 and ȳ = 192.5. The slope interpretation therefore changes from a decrease to an increase.",
+     "numbers_recomputed": "Slope updated from −3.8 to +2.1, so the predicted response increases by 2.1 cones per 1°F; this matches the rubric and model answer. y-intercept updated from 312.4 to 24.5; this matches. r² updated from 0.81 to 0.76; this matches. Part (d): 24.5 + 2.1(80) = 192.5, which equals the stated mean ȳ = 192.5, so the line passes through (80, 192.5); this matches. The observed temperature range also changed to 62–96°F, and 0 is still outside that range.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

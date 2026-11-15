@@ -1,0 +1,205 @@
+{
+ "id": "ap_statistics__5.4__v1",
+ "parent": "ap_statistics__5.4__1",
+ "parent_status": "accepted",
+ "topic_code": "5.4",
+ "item": {
+  "title": "Residual Pattern for a Temperature and Energy Use Model",
+  "calculator": "permitted",
+  "stimulus": "A utility recorded the mean monthly temperature and the mean household energy use for seven temperature groups. The least-squares regression line, found using technology, is ŷ = 26.39 − 0.15x, where x is the mean monthly temperature in degrees Fahrenheit and ŷ is the predicted energy use in hundreds of kilowatt-hours. The data are shown below.\n\nMean monthly temperature (°F) | Energy use (hundreds of kWh)\n20 | 30\n30 | 24\n40 | 16\n50 | 12\n60 | 11\n70 | 14\n80 | 24",
+  "parts": [
+   {
+    "prompt": "Calculate the residuals for the observations at x = 20 and x = 50.",
+    "criteria": [
+     {
+      "text": "Calculates the residual as observed minus predicted: 30 - 23.39 = 6.61 hundreds of kWh.",
+      "evidence": "Response subtracts the predicted value from the observed value 30 and reports 6.61 hundreds of kWh.",
+      "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+      "accepted_variants": [
+       "6.61",
+       "6.6"
+      ]
+     },
+     {
+      "text": "Calculates the residual as observed minus predicted: 12 - 18.89 = −6.89 hundreds of kWh.",
+      "evidence": "Response subtracts the predicted value from the observed value 12 and reports −6.89 hundreds of kWh.",
+      "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+      "accepted_variants": [
+       "−6.89",
+       "−6.9"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Interpret the residual at x = 20 in context.",
+    "criteria": [
+     {
+      "text": "States that because the residual is positive, the model underpredicts the energy use for temperature group with x = 20 °F: the observed value is above the predicted value.",
+      "evidence": "Response links the positive residual to the model underpredicts the energy use for temperature group with x = 20 °F, in context.",
+      "fix": "Link the sign to the context: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Interprets the size in context: for temperature group with x = 20 °F, the observed energy use is about 6.61 hundreds of kWh above the predicted value.",
+      "evidence": "Response states the difference of about 6.61 hundreds of kWh between observed and predicted energy use for temperature group with x = 20 °F.",
+      "fix": "Restate the residual as a gap between observed and predicted values, with units and the specific case named.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Determine the sign of the residual for each of the seven observations. Describe the pattern in the signs as x increases, and state what it suggests about the linear model.",
+    "criteria": [
+     {
+      "text": "States that the signs of the residuals as x increases are positive, positive, negative, negative, negative, negative, positive, a systematic positive, negative, positive (U-shaped) pattern rather than random scatter.",
+      "evidence": "Response gives the sign pattern positive, positive, negative, negative, negative, negative, positive for the seven observations in order of x and calls it systematic, not random.",
+      "fix": "Find every residual (observed minus predicted), then read their signs in order of x and look for a repeating pattern.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that the U-shaped pattern of the residuals (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+      "evidence": "Response identifies the pattern as curvature and concludes the linear model is not the most appropriate.",
+      "fix": "Treat a curved pattern in the residual plot as evidence against a linear model; do not call it random scatter.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) At x = 20: ŷ = 26.39 − 0.15(20) = 23.39, so the residual is 30 − 23.39 = 6.61 hundreds of kWh. At x = 50: ŷ = 18.89, so the residual is 12 − 18.89 = −6.89 hundreds of kWh.\n\n(b) The residual at x = 20 is positive, so the model underpredicts the energy use there: the observed value is above the predicted value, by about 6.61 hundreds of kWh.\n\n(c) In order of x the residuals are positive, positive, negative, negative, negative, negative, positive. This is a systematic positive, negative, positive (U-shaped) pattern, not random scatter. It means the residual plot would show curvature, which suggests the linear model is not the most appropriate model for the data.",
+  "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nxs = [20, 30, 40, 50, 60, 70, 80]\nys = [30, 24, 16, 12, 11, 14, 24]\nb, a, r, mx, my = reg(xs, ys)\na2, b2 = round(a, 2), round(b, 2)\nassert (a2, b2) == (26.39, -0.15)\nres = [y - (a2 + b2 * x) for x, y in zip(xs, ys)]\nassert min(abs(e) for e in res) >= 1.5\nsigns = ['positive' if e > 0 else 'negative' for e in res]\nassert signs == ['positive', 'positive', 'negative', 'negative', 'negative', 'negative', 'positive']\nia, ib = xs.index(20), xs.index(50)\nassert round(res[ia], 2) == 6.61 and round(res[ib], 2) == -6.89\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T22:43:58.077Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"RESID_CALC\",\"RESID_CALC\"],[\"RESID_SIGN_CTX\",\"RESID_MAGNITUDE\"],[\"RESID_SEQ\",\"RESID_PLOT_CURVE\"]]",
+  "child_order": "[[\"RESID_CALC\",\"RESID_CALC\"],[\"RESID_SIGN_CTX\",\"RESID_MAGNITUDE\"],[\"RESID_SEQ\",\"RESID_PLOT_CURVE\"]]",
+  "child_pattern": [
+   [
+    "RESID_CALC",
+    "RESID_CALC"
+   ],
+   [
+    "RESID_SIGN_CTX",
+    "RESID_MAGNITUDE"
+   ],
+   [
+    "RESID_SEQ",
+    "RESID_PLOT_CURVE"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [2,2,2], variant [2,2,2]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"RESID_CALC\",\"RESID_CALC\"],[\"RESID_SIGN_CTX\",\"RESID_MAGNITUDE\"],[\"RESID_SEQ\",\"RESID_PLOT_CURVE\"]]\nPart a prompt changed.\nCriterion a1 (RESID_CALC): wording and values changed; accepted variants changed\nCriterion a2 (RESID_CALC): wording and values changed; accepted variants changed\nPart b prompt changed.\nCriterion b1 (RESID_SIGN_CTX): wording and values changed\nCriterion b2 (RESID_MAGNITUDE): wording and values changed\nCriterion c1 (RESID_SEQ): wording and values changed\nCriterion c2 (RESID_PLOT_CURVE): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from supplement dose and plant growth to temperature and household energy use, with new data, units, regression coefficients, and evaluation points (20 and 50 instead of 1 and 4). The interpreted residual changes from negative to positive, so overprediction becomes underprediction. The residual pattern changes from arch-shaped to U-shaped. The parts, point allocation, and reasoning requirements remain unchanged.",
+     "numbers_recomputed": "The data give x̄ = 50 and ȳ = 131/7; the least-squares slope is −430/2800 = −0.153571… and intercept is 26.392857…, matching the displayed rounded equation ŷ = 26.39 − 0.15x. Using that displayed equation, predictions at x = 20, 30, 40, 50, 60, 70, 80 are respectively 23.39, 21.89, 20.39, 18.89, 17.39, 15.89, 14.39. Corresponding residuals are 6.61, 2.11, −4.39, −6.89, −6.39, −1.89, 9.61 hundreds of kWh. Thus a1's 6.61 (or 6.6), a2's −6.89 (or −6.9), b2's magnitude 6.61, and c1's sign sequence +, +, −, −, −, −, + all match.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Context changed from supplement dose/plant growth to temperature/energy use. The data and regression line changed: parent used ŷ=18.86+1.43x for dose (mg) vs. plant growth (mm), while the variant uses ŷ=26.39-0.15x for mean monthly temperature (°F) vs. energy use (hundreds of kWh). Part a now asks for residuals at x=20 and x=50 rather than x=1 and x=4. Values, signs, units, sign sequence, and context interpretations were updated accordingly.",
+     "numbers_recomputed": "At x=20: ŷ=26.39-0.15(20)=23.39, residual=30-23.39=6.61 hundreds of kWh (matches a1 and b2). At x=50: ŷ=26.39-0.15(50)=18.89, residual=12-18.89=-6.89 hundreds of kWh (matches a2). All seven fitted values/residuals in order of x are: x=20: 23.39, +6.61; x=30: 21.89, +2.11; x=40: 20.39, -4.39; x=50: 18.89, -6.89; x=60: 17.39, -6.39; x=70: 15.89, -1.89; x=80: 14.39, +9.61. Sign sequence is +, +, −, −, −, −, + (matches c1).",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

@@ -1,6 +1,6 @@
 # AP Statistics Unit 2: harder seeds and variants, publish package
 
-Status: PREPARED, NOT RUN. Nothing here has been executed against Development or Production.
+Status: EXECUTED in Production 2026-11-10 under `APPROVAL-0214` (96 published, 33 retired). Blind solve by DeepSeek V4 Pro and Kimi K3.1 Pro: 96 of 96 keys agree. See the approval record for the execution log and what was not verified.
 Created 2026-11-10 from the owner-session drafts in `output/stats_unit2_replacement_seeds_draft.md`.
 
 ## What it contains
@@ -39,8 +39,8 @@ Copied from `scripts/content-seed/pipeline-v2-physcem-u13-2026-10-03/gen_load.py
 - **No two-checker pass, no topic/skill vote.** Owner decision 2026-11-10: the earlier protocol produced the over-simple seeds. The topic on each item is the author's design intent.
 
 ## Not verified (state plainly)
-- No SQL here has been executed anywhere (no Dev, no Prod, not even in a rolled-back transaction). Syntax and the guard-trigger behaviour on `published -> retired` are untested; the rehearsal scripts exist to find out.
-- Key correctness: every number was computed in Python by the author while drafting. There was no independent solver. Project memory lists independent re-derivation of keys as a hard publish precondition even with Product Owner approval; this package does not satisfy it by itself.
+- (Superseded by execution.) Both rehearsals returned REHEARSAL OK, both real runs committed with the expected counts.
+- Key correctness: every number was computed in Python by the author while drafting. (Superseded: a blind solve by two non-Claude models later agreed on 96 of 96.) Project memory lists independent re-derivation of keys as a hard publish precondition even with Product Owner approval; this package does not satisfy it by itself.
 - Dev was not checked for drift, and no APPROVAL id has been taken.
 - Student-facing text was not read by a content reviewer. Tables are written as `Row, Column: value` lines (as `APSTATS-MCQ-SV-046-v3` does); group totals are omitted and are left for the student to compute.
 - 2.12 normal-probability answers assume the CLT conditions are met (stated in each stem).

@@ -137,8 +137,8 @@ export function HomeScreen() {
         <PaneShell voice="plain" eyebrow="Bring a question" title="Practice your own homework">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--space-6)' }}>
             <p style={body}>
-              Type or paste a question from outside CramApple and practice it here.
-              It won't be scored — there's no answer key for a question CramApple
+              Type or paste a question from outside Cramapple and practice it here.
+              It won't be scored — there's no answer key for a question Cramapple
               didn't write.
             </p>
             <ActionButton variant="quiet" onClick={() => navigate('/bring-a-question')}>
@@ -259,7 +259,7 @@ export function HomeScreen() {
         flex: '0 0 auto', height: 'var(--caption-height)', display: 'flex', alignItems: 'center', padding: '0 var(--gutter)',
         fontSize: 'var(--type-caption-size)', lineHeight: 'var(--type-caption-line)', fontWeight: 'var(--type-caption-weight)', color: 'var(--text-quiet)'
       }}>
-        CramApple · {COURSE.title} · {UNIT.heading}
+        Cramapple · {COURSE.title} · {UNIT.heading}
       </div>
     </div>
   );

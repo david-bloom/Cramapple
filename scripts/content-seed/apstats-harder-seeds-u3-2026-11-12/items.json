@@ -1,0 +1,434 @@
+[
+ {
+  "src_id": "N-3.7-B",
+  "content_key": "apstats-mcq-b2-h-3.7-b",
+  "family": "3.7-B",
+  "variant": null,
+  "topic": "3.7",
+  "title": "One-proportion z-test: statistic, p-value, conclusion and p-value meaning",
+  "stem": "A company claims that 40% of its customers renew their subscription. A random sample of 150 customers, a small fraction of all customers, shows that 33% renewed. A manager tests H0: p = 0.40 versus Ha: p < 0.40 at the 5% significance level. Which choice gives the correct test statistic, p-value and conclusion?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "z ≈ −1.75 and p ≈ 0.08, so there is not convincing evidence that fewer than 40% of customers renew.",
+    "is_correct": false,
+    "rationale": "The alternative is one-sided, so the p-value is not doubled; doubling gives 0.08 and reverses the conclusion."
+   },
+   {
+    "label": "B",
+    "text": "z ≈ −1.75 and p ≈ 0.04, so there is convincing evidence that fewer than 40% of customers renew.",
+    "is_correct": true,
+    "rationale": "Correct: SE = sqrt(0.40 × 0.60 / 150) = 0.04; z = (0.33 − 0.40)/0.04 = −1.75; the lower-tail p-value is 0.040, which is below 0.05."
+   },
+   {
+    "label": "C",
+    "text": "z ≈ −1.75 and p ≈ 0.04, so there is a 4% probability that the company's claim is true.",
+    "is_correct": false,
+    "rationale": "A p-value is the probability of a result this extreme if H0 is true, not the probability that H0 is true."
+   },
+   {
+    "label": "D",
+    "text": "z ≈ −1.75 and p ≈ 0.96, so there is not convincing evidence that fewer than 40% of customers renew.",
+    "is_correct": false,
+    "rationale": "The alternative p < 0.40 asks for the lower tail, and 0.96 is the upper tail."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.7-B-v1",
+  "content_key": "apstats-mcq-b2-sv-h-3.7-b-v1",
+  "family": "3.7-B",
+  "variant": "1",
+  "topic": "3.7",
+  "title": "One-proportion z-test: statistic, p-value, conclusion and p-value meaning (variant 1)",
+  "stem": "A supplier claims that 30% of its parts are defective. A random sample of 250 parts, a small fraction of the shipment, has 35% defective. An inspector tests H0: p = 0.30 versus Ha: p ≠ 0.30 at the 5% significance level. Which choice gives the correct test statistic, p-value and conclusion?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "z ≈ 1.72 and p ≈ 0.042, so there is convincing evidence that the proportion differs from 0.30.",
+    "is_correct": false,
+    "rationale": "The alternative is two-sided, so the tail area must be doubled; 0.042 is a one-tail area."
+   },
+   {
+    "label": "B",
+    "text": "z ≈ 1.72 and p ≈ 0.085, so the data prove that the proportion is 0.30.",
+    "is_correct": false,
+    "rationale": "Failing to reject does not prove that H0 is true."
+   },
+   {
+    "label": "C",
+    "text": "z ≈ 1.66 and p ≈ 0.098, so there is not convincing evidence that the proportion differs from 0.30.",
+    "is_correct": false,
+    "rationale": "This standard error uses p̂ instead of the hypothesized p0, which is not how a test of a proportion is done."
+   },
+   {
+    "label": "D",
+    "text": "z ≈ 1.72 and p ≈ 0.085, so there is not convincing evidence that the proportion differs from 0.30.",
+    "is_correct": true,
+    "rationale": "Correct: SE = sqrt(0.30 × 0.70 / 250) = 0.0290; z = 0.05/0.0290 = 1.72; the two-sided p-value is 2 × 0.0422 = 0.085 > 0.05."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.7-B-v2",
+  "content_key": "apstats-mcq-b2-sv-h-3.7-b-v2",
+  "family": "3.7-B",
+  "variant": "2",
+  "topic": "3.7",
+  "title": "One-proportion z-test: statistic, p-value, conclusion and p-value meaning (variant 2)",
+  "stem": "A town claims that 50% of voters support a measure. A random sample of 400 voters, a small fraction of all voters, has 54.5% in support. A researcher tests H0: p = 0.50 versus Ha: p > 0.50 at the 1% significance level. Which choice gives the correct test statistic, p-value and conclusion?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "z ≈ 1.80 and p ≈ 0.036, so there is not convincing evidence that more than 50% support the measure.",
+    "is_correct": true,
+    "rationale": "Correct: SE = sqrt(0.5 × 0.5 / 400) = 0.025; z = 0.045/0.025 = 1.80; the upper-tail p-value is 0.036, which is greater than 0.01."
+   },
+   {
+    "label": "B",
+    "text": "z ≈ 1.80 and p ≈ 0.036, so there is convincing evidence that more than 50% support the measure.",
+    "is_correct": false,
+    "rationale": "The p-value 0.036 is below 0.05 but not below the stated significance level of 0.01, so H0 is not rejected."
+   },
+   {
+    "label": "C",
+    "text": "z ≈ 1.80 and p ≈ 0.072, so there is not convincing evidence that more than 50% support the measure.",
+    "is_correct": false,
+    "rationale": "The alternative is one-sided, so the p-value is not doubled."
+   },
+   {
+    "label": "D",
+    "text": "z ≈ 0.09 and p ≈ 0.46, so there is not convincing evidence that more than 50% support the measure.",
+    "is_correct": false,
+    "rationale": "This leaves the sample size out of the standard error, which makes z far too small."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.7-B-v3",
+  "content_key": "apstats-mcq-b2-sv-h-3.7-b-v3",
+  "family": "3.7-B",
+  "variant": "3",
+  "topic": "3.7",
+  "title": "One-proportion z-test: statistic, p-value, conclusion and p-value meaning (variant 3)",
+  "stem": "A phone maker claims that 25% of its phones need a repair within a year. In a random sample of 120 phones, a small fraction of all phones, 18% needed a repair. For H0: p = 0.25 versus Ha: p < 0.25, the p-value is about 0.038. Which statement correctly interprets this p-value?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "There is a 3.8% probability that the true proportion is 0.25.",
+    "is_correct": false,
+    "rationale": "The p-value is computed assuming the null is true, so it is not the probability that the null is true."
+   },
+   {
+    "label": "B",
+    "text": "The probability that exactly 18% of a sample of 120 phones need a repair is 3.8%.",
+    "is_correct": false,
+    "rationale": "The p-value is a tail probability for results at least this extreme, not the probability of exactly the observed value."
+   },
+   {
+    "label": "C",
+    "text": "If the true proportion were 0.25, about 3.8% of samples of 120 phones would have a proportion of 0.18 or lower.",
+    "is_correct": true,
+    "rationale": "Correct: the p-value is P(p̂ ≤ 0.18 | p = 0.25); here z = (0.18 − 0.25)/sqrt(0.25 × 0.75/120) = −1.77 and the lower-tail area is 0.038."
+   },
+   {
+    "label": "D",
+    "text": "There is a 3.8% probability that the true proportion is less than 0.25.",
+    "is_correct": false,
+    "rationale": "A p-value is not the probability of the alternative hypothesis, since the parameter is fixed and not random."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.12-B",
+  "content_key": "apstats-mcq-b2-h-3.12-b",
+  "family": "3.12-B",
+  "variant": null,
+  "topic": "3.12",
+  "title": "Two-proportion z-test conditions and pooled proportion",
+  "stem": "Two independent random samples, each a small fraction of its population, are used to test H0: p1 − p2 = 0. Sample 1 has 6 successes out of 40 and sample 2 has 9 successes out of 50. Which statement about the large counts condition for the two-proportion z-test is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The condition is met, because each sample has at least 5 successes.",
+    "is_correct": false,
+    "rationale": "The counts to check are n·p̂c and n·(1 − p̂c) for each sample, and the threshold is 10, not 5."
+   },
+   {
+    "label": "B",
+    "text": "The condition is not met, because with the pooled proportion 15/90 ≈ 0.167, the expected successes are 40(0.167) ≈ 6.7 and 50(0.167) ≈ 8.3, both less than 10.",
+    "is_correct": true,
+    "rationale": "Correct: pooled p̂c = (6 + 9)/(40 + 50) = 0.167; n1·p̂c = 6.67 and n2·p̂c = 8.33 are below 10."
+   },
+   {
+    "label": "C",
+    "text": "The condition is met, because both sample sizes are at least 30.",
+    "is_correct": false,
+    "rationale": "A sample size of at least 30 is not the large counts condition for proportions."
+   },
+   {
+    "label": "D",
+    "text": "The condition is not met, because the sample proportions 0.15 and 0.18 are not equal.",
+    "is_correct": false,
+    "rationale": "The sample proportions are not expected to be equal even when H0 is true, and equality is not a condition."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.12-B-v1",
+  "content_key": "apstats-mcq-b2-sv-h-3.12-b-v1",
+  "family": "3.12-B",
+  "variant": "1",
+  "topic": "3.12",
+  "title": "Two-proportion z-test conditions and pooled proportion (variant 1)",
+  "stem": "An analyst takes an independent random sample of 40 workers from a plant of 300 workers and a sample of 50 workers from a plant of 600 workers, and plans a two-proportion z-test of H0: p1 − p2 = 0. In sample 1, 18 workers are satisfied; in sample 2, 25 are satisfied. Which condition is NOT met?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The independence (10%) condition for sample 1, because 40 is more than 10% of 300.",
+    "is_correct": true,
+    "rationale": "Correct: 40/300 = 13.3% > 10%, while 50/600 = 8.3%; pooled p̂c = 43/90 = 0.478, so all counts are far above 10."
+   },
+   {
+    "label": "B",
+    "text": "The large counts condition, because 18 is less than 25.",
+    "is_correct": false,
+    "rationale": "Large counts uses the pooled proportion with each sample size, and all those counts are well above 10."
+   },
+   {
+    "label": "C",
+    "text": "The random condition, because the plants have different sizes.",
+    "is_correct": false,
+    "rationale": "The plants can have different sizes, and the random condition is about how each sample was selected."
+   },
+   {
+    "label": "D",
+    "text": "All conditions are met, because both samples are random.",
+    "is_correct": false,
+    "rationale": "The 10% condition fails for sample 1, so being random is not enough."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.12-B-v2",
+  "content_key": "apstats-mcq-b2-sv-h-3.12-b-v2",
+  "family": "3.12-B",
+  "variant": "2",
+  "topic": "3.12",
+  "title": "Two-proportion z-test conditions and pooled proportion (variant 2)",
+  "stem": "A statistician carries out a two-proportion z-test of H0: p1 − p2 = 0 and uses the pooled proportion in the standard error. Which statement best explains why the pooled proportion is used for the test?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The pooled proportion is always closer to the true value than either sample proportion, even when H0 is false.",
+    "is_correct": false,
+    "rationale": "When H0 is false the two populations differ, so a single pooled value does not estimate either population well."
+   },
+   {
+    "label": "B",
+    "text": "If H0 is true, both samples come from populations with the same proportion, so the combined sample gives the best single estimate of that proportion.",
+    "is_correct": true,
+    "rationale": "Correct: under H0 the common proportion p is estimated by total successes over total trials; the standard error is computed assuming H0 is true."
+   },
+   {
+    "label": "C",
+    "text": "Pooling always makes the standard error larger, which guarantees that the test is conservative.",
+    "is_correct": false,
+    "rationale": "Pooling changes the standard error in either direction depending on the data, and it does not guarantee a conservative test."
+   },
+   {
+    "label": "D",
+    "text": "The pooled proportion is also used for confidence intervals, so the test and the interval must agree.",
+    "is_correct": false,
+    "rationale": "A confidence interval for a difference does not assume equal proportions, so it uses the two sample proportions separately."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.12-B-v3",
+  "content_key": "apstats-mcq-b2-sv-h-3.12-b-v3",
+  "family": "3.12-B",
+  "variant": "3",
+  "topic": "3.12",
+  "title": "Two-proportion z-test conditions and pooled proportion (variant 3)",
+  "stem": "Volunteers are randomly assigned to two treatments: 30 of 60 improve with treatment 1 and 28 of 70 improve with treatment 2. A student plans a two-proportion z-test of H0: p1 − p2 = 0. Which statement is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The conditions are met: the treatments were randomly assigned and, with the pooled proportion 58/130 ≈ 0.446, all expected counts are at least 10.",
+    "is_correct": true,
+    "rationale": "Correct: random assignment replaces random sampling in an experiment, so the 10% condition is not needed; 60(0.446) ≈ 26.8, 60(0.554) ≈ 33.2, 70(0.446) ≈ 31.2, 70(0.554) ≈ 38.8."
+   },
+   {
+    "label": "B",
+    "text": "The test cannot be done, because the volunteers were not randomly sampled from a population.",
+    "is_correct": false,
+    "rationale": "In an experiment, random assignment of treatments takes the place of random sampling for the conditions."
+   },
+   {
+    "label": "C",
+    "text": "The test is not appropriate, because 130 volunteers is not less than 10% of any population.",
+    "is_correct": false,
+    "rationale": "The 10% condition applies to sampling without replacement from a population, and not to randomly assigned groups."
+   },
+   {
+    "label": "D",
+    "text": "The large counts condition is not met, because 28 is less than 30.",
+    "is_correct": false,
+    "rationale": "The large counts condition uses the pooled proportion, and all of those counts are above 10."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.14-B",
+  "content_key": "apstats-mcq-b2-h-3.14-b",
+  "family": "3.14-B",
+  "variant": null,
+  "topic": "3.14",
+  "title": "Chi-square hypotheses and expected-count condition",
+  "stem": "A random sample of 200 residents of a city is classified by age group (3 groups) and by usual transportation mode (4 modes). Which hypotheses are appropriate for a chi-square test?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: In the sample, the proportion using each mode is the same in every age group. Ha: In the sample, the proportions differ.",
+    "is_correct": false,
+    "rationale": "Hypotheses are about the population, not the sample, and this setup would suit a test of homogeneity with separate samples."
+   },
+   {
+    "label": "B",
+    "text": "H0: The four transportation modes are equally likely. Ha: The four transportation modes are not equally likely.",
+    "is_correct": false,
+    "rationale": "This describes a goodness-of-fit test for a single variable and does not involve two variables."
+   },
+   {
+    "label": "C",
+    "text": "H0: Age group and transportation mode are independent in the population of residents. Ha: Age group and transportation mode are not independent.",
+    "is_correct": true,
+    "rationale": "Correct: one sample classified on two categorical variables calls for a test of independence, with hypotheses about the population."
+   },
+   {
+    "label": "D",
+    "text": "H0: Age group and transportation mode are independent. Ha: Age group and transportation mode are positively correlated.",
+    "is_correct": false,
+    "rationale": "Correlation applies to quantitative variables, and the alternative for a chi-square test is only that the variables are not independent."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.14-B-v1",
+  "content_key": "apstats-mcq-b2-sv-h-3.14-b-v1",
+  "family": "3.14-B",
+  "variant": "1",
+  "topic": "3.14",
+  "title": "Chi-square hypotheses and expected-count condition (variant 1)",
+  "stem": "A quality manager takes independent random samples of 100 items from each of three plants and classifies each item by defect type (4 types). Which hypotheses are appropriate for a chi-square test?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: Defect type and plant are independent. Ha: Defect type and plant are not independent.",
+    "is_correct": false,
+    "rationale": "This states the hypotheses of a test of independence, which fits one sample classified on two variables and not separate samples from each plant."
+   },
+   {
+    "label": "B",
+    "text": "H0: In the samples, the distribution of defect types is the same for each plant. Ha: In the samples, the distributions differ.",
+    "is_correct": false,
+    "rationale": "Hypotheses must be about the populations, since samples would almost never have identical distributions."
+   },
+   {
+    "label": "C",
+    "text": "H0: The mean number of defects is the same at the three plants. Ha: At least one mean is different.",
+    "is_correct": false,
+    "rationale": "The response is categorical, so means are not defined, and this is a hypothesis for a different procedure."
+   },
+   {
+    "label": "D",
+    "text": "H0: The distribution of defect types is the same in the populations of items from the three plants. Ha: The distribution of defect types is not the same in all three populations.",
+    "is_correct": true,
+    "rationale": "Correct: independent random samples from several populations, with one categorical response, calls for a test of homogeneity."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.14-B-v2",
+  "content_key": "apstats-mcq-b2-sv-h-3.14-b-v2",
+  "family": "3.14-B",
+  "variant": "2",
+  "topic": "3.14",
+  "title": "Chi-square hypotheses and expected-count condition (variant 2)",
+  "stem": "A chi-square test is planned for the table below, from a random sample of 70 people classified by group (rows) and response (columns).\n| | Response 1 | Response 2 | Response 3 | Total |\n|---|---|---|---|---|\n| Group 1 | 12 | 18 | 10 | 40 |\n| Group 2 | 5 | 9 | 16 | 30 |\n| Total | 17 | 27 | 26 | 70 |\nWhich statement about the expected count for Group 2, Response 1 and the condition is correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The expected count is 5, and the condition is not met because that count is below 10.",
+    "is_correct": false,
+    "rationale": "The expected count is not the observed count, and the usual threshold for expected counts is 5, not 10."
+   },
+   {
+    "label": "B",
+    "text": "The expected count is 10, so the condition is met.",
+    "is_correct": false,
+    "rationale": "This divides the row total by 3 and ignores the column total."
+   },
+   {
+    "label": "C",
+    "text": "The expected count is 7.29, but the condition requires all expected counts to be at least 10, so it is not met.",
+    "is_correct": false,
+    "rationale": "The standard condition is that every expected count is at least 5."
+   },
+   {
+    "label": "D",
+    "text": "The expected count is 7.29, and all expected counts are at least 5, so the condition is met.",
+    "is_correct": true,
+    "rationale": "Correct: expected = (30 × 17)/70 = 7.29; the smallest expected count is 7.29, which is at least 5."
+   }
+  ]
+ },
+ {
+  "src_id": "N-3.14-B-v3",
+  "content_key": "apstats-mcq-b2-sv-h-3.14-b-v3",
+  "family": "3.14-B",
+  "variant": "3",
+  "topic": "3.14",
+  "title": "Chi-square hypotheses and expected-count condition (variant 3)",
+  "stem": "A random sample of 90 students is classified by grade (rows: Freshman 40, Sophomore 30, Junior 20) and by whether they own a car (columns: Yes 70, No 20), with observed counts Freshman 30 and 10, Sophomore 22 and 8, Junior 18 and 2. Which statement about the expected count for Junior, No and the large counts condition is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The expected count equals the observed count of 2, which is less than 5, so the condition is not met.",
+    "is_correct": false,
+    "rationale": "An expected count comes from the row and column totals and is not the observed count, so it is not 2 here."
+   },
+   {
+    "label": "B",
+    "text": "The expected count is 4.44, but the condition only requires that observed counts be at least 5, so it is met.",
+    "is_correct": false,
+    "rationale": "The condition applies to expected counts, so the small expected value matters."
+   },
+   {
+    "label": "C",
+    "text": "The expected count is 4.44, which is less than 5, so the condition is not met.",
+    "is_correct": true,
+    "rationale": "Correct: expected = (20 × 20)/90 = 4.44 < 5, so the condition on expected counts fails."
+   },
+   {
+    "label": "D",
+    "text": "The expected count is 10, so the condition is met.",
+    "is_correct": false,
+    "rationale": "This does not use the row and column totals, which give 20 × 20 / 90."
+   }
+  ]
+ }
+]

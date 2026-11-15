@@ -1,0 +1,2882 @@
+[
+ {
+  "src_id": "N-2.1-A",
+  "content_key": "apcalcbc-mcq-b5-h-2.1-a",
+  "family": "2.1-A",
+  "variant": null,
+  "topic": "2.1",
+  "title": "combine average rates of change over adjacent intervals using total change, not by averaging or subtracting the rates.",
+  "stem": "A differentiable function f has average rate of change 4 over the interval [2, 5] and average rate of change 6 over the interval [2, 3]. What is the average rate of change of f over [3, 5]?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "5",
+    "is_correct": false,
+    "rationale": "Averaging the two given rates, (4 + 6)/2, treats the intervals as if they had equal width, but [2, 3] and [3, 5] have widths 1 and 2 and the intervals overlap differently."
+   },
+   {
+    "label": "B",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "Subtracting the rates, 6 − 4, is not meaningful; average rates combine through total changes f(5) − f(2) = 12 and f(3) − f(2) = 6, not through the rates themselves."
+   },
+   {
+    "label": "C",
+    "text": "6",
+    "is_correct": false,
+    "rationale": "The change f(5) − f(3) is 12 − 6 = 6, but this is a change in f and must still be divided by the width 5 − 3 = 2 to give a rate."
+   },
+   {
+    "label": "D",
+    "text": "3",
+    "is_correct": true,
+    "rationale": "Correct: f(5) − f(2) = 4·3 = 12 and f(3) − f(2) = 6·1 = 6, so f(5) − f(3) = 6 and the average rate over [3, 5] is 6/2 = 3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.1-A-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.1-a-v1",
+  "family": "2.1-A",
+  "variant": "1",
+  "topic": "2.1",
+  "title": "combine average rates of change over adjacent intervals using total change, not by averaging or subtracting the rates. (variant 1)",
+  "stem": "The temperature of a sample is T(t) degrees Celsius at time t minutes. The average rate of change of T over [0, 4] is 3 degrees per minute, and the average rate of change of T over [0, 1] is −2 degrees per minute. What is the average rate of change of T over [1, 4], in degrees per minute?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/2",
+    "is_correct": false,
+    "rationale": "Averaging 3 and −2 gives 1/2, but the average over [1, 4] is not the mean of the other two rates because the three intervals have different widths."
+   },
+   {
+    "label": "B",
+    "text": "5",
+    "is_correct": false,
+    "rationale": "Subtracting the rates, 3 − (−2), mixes rates with totals; the correct step is to subtract the changes T(4) − T(0) = 12 and T(1) − T(0) = −2 and then divide."
+   },
+   {
+    "label": "C",
+    "text": "14/3",
+    "is_correct": true,
+    "rationale": "Correct: T(4) − T(0) = 12 and T(1) − T(0) = −2, so T(4) − T(1) = 14 over a width of 3 gives 14/3."
+   },
+   {
+    "label": "D",
+    "text": "14",
+    "is_correct": false,
+    "rationale": "The change T(4) − T(1) = 12 − (−2) = 14 is correct, but it is a change in temperature, and it must be divided by the width 3 of [1, 4]."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.1-A-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.1-a-v2",
+  "family": "2.1-A",
+  "variant": "2",
+  "topic": "2.1",
+  "title": "combine average rates of change over adjacent intervals using total change, not by averaging or subtracting the rates. (variant 2)",
+  "stem": "A store's cumulative revenue is R(t) thousand dollars after t weeks. The average rate of change of R over [1, 7] is 5 thousand dollars per week, and the average rate of change of R over [4, 7] is 2 thousand dollars per week. What is the average rate of change of R over [1, 4]?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "8",
+    "is_correct": true,
+    "rationale": "Correct: R(7) − R(1) = 30 and R(7) − R(4) = 6, so R(4) − R(1) = 24 and the average rate over [1, 4] is 24/3 = 8."
+   },
+   {
+    "label": "B",
+    "text": "7/2",
+    "is_correct": false,
+    "rationale": "The mean of 5 and 2 is 7/2, but the average over [1, 4] is not their mean; [1, 7] and [4, 7] overlap and have different widths, so the rates cannot simply be averaged."
+   },
+   {
+    "label": "C",
+    "text": "3",
+    "is_correct": false,
+    "rationale": "Subtracting 5 − 2 treats the rates as if they were changes; the right step is R(7) − R(1) = 30 minus R(7) − R(4) = 6, which gives the change over [1, 4]."
+   },
+   {
+    "label": "D",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "The change over [1, 4] is 30 − 6 = 24, but dividing by 6, the width of [1, 7], is wrong; the width of [1, 4] is 3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.1-A-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.1-a-v3",
+  "family": "2.1-A",
+  "variant": "3",
+  "topic": "2.1",
+  "title": "combine average rates of change over adjacent intervals using total change, not by averaging or subtracting the rates. (variant 3)",
+  "stem": "A function f has average rate of change 2 over [1, 3] and average rate of change 5 over [3, 7]. What is the average rate of change of f over [1, 7]?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "7/2",
+    "is_correct": false,
+    "rationale": "The mean of 2 and 5 is 7/2, but the two intervals have widths 2 and 4, so the rate over [1, 7] is a weighted average, not a plain one."
+   },
+   {
+    "label": "B",
+    "text": "7",
+    "is_correct": false,
+    "rationale": "Adding the rates 2 + 5 treats rates as if they were changes; over [1, 7] the changes 4 and 20 are added and then divided by the total width."
+   },
+   {
+    "label": "C",
+    "text": "24",
+    "is_correct": false,
+    "rationale": "The total change is 4 + 20 = 24, but a rate over [1, 7] requires dividing by the width 6, which gives 4."
+   },
+   {
+    "label": "D",
+    "text": "4",
+    "is_correct": true,
+    "rationale": "Correct: f(3) − f(1) = 2·2 = 4 and f(7) − f(3) = 5·4 = 20, so the average rate over [1, 7] is 24/6 = 4."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.1-B",
+  "content_key": "apcalcbc-mcq-b5-h-2.1-b",
+  "family": "2.1-B",
+  "variant": null,
+  "topic": "2.1",
+  "title": "decide which conclusions follow from an average rate of change over an interval, separating net change from pointwise or",
+  "stem": "A differentiable function f has average rate of change 0 over the interval [1, 5]. Which of the following must be true?  I. f(1) = f(5).  II. f′(x) = 0 for every x in (1, 5).  III. f′(3) = 0.",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "I only",
+    "is_correct": true,
+    "rationale": "Correct: Zero average rate means (f(5) − f(1))/4 = 0, so only I is forced; f(x) = (x − 1)²(x − 5) satisfies I but has f′(3) = −4."
+   },
+   {
+    "label": "B",
+    "text": "I and II only",
+    "is_correct": false,
+    "rationale": "Statement II confuses an average of zero with zero at every point; for example, f(x) = (x − 1)²(x − 5) has f(1) = f(5) but f′(x) is not zero throughout (1, 5)."
+   },
+   {
+    "label": "C",
+    "text": "I and III only",
+    "is_correct": false,
+    "rationale": "Statement III picks out a single point, the midpoint, but an average of zero does not force f′(3) = 0; for f(x) = (x − 1)²(x − 5) we get f′(3) = −4."
+   },
+   {
+    "label": "D",
+    "text": "II and III only",
+    "is_correct": false,
+    "rationale": "Both II and III claim values of f′, which an average rate over an interval does not determine; only the net change f(5) − f(1) = 0 is forced, as in statement I."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.1-B-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.1-b-v1",
+  "family": "2.1-B",
+  "variant": "1",
+  "topic": "2.1",
+  "title": "decide which conclusions follow from an average rate of change over an interval, separating net change from pointwise or (variant 1)",
+  "stem": "The temperature T(t) of a metal rod is differentiable, and its average rate of change over [2, 6] is −3 degrees per minute. Which of the following must be true?  I. T(6) = T(2) − 12.  II. T′(4) = −3.  III. T is decreasing at every time in [2, 6].",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "I only",
+    "is_correct": true,
+    "rationale": "Correct: (T(6) − T(2))/4 = −3 gives T(6) − T(2) = −12; II and III need extra information about T between the endpoints."
+   },
+   {
+    "label": "B",
+    "text": "I and II only",
+    "is_correct": false,
+    "rationale": "Statement II treats the average rate as the instantaneous rate at the midpoint; that works for a linear or quadratic T but not for every differentiable T."
+   },
+   {
+    "label": "C",
+    "text": "II only",
+    "is_correct": false,
+    "rationale": "Statement II is not forced, and statement I is: an average rate of −3 over a length-4 interval means T drops by 3·4 = 12 in total."
+   },
+   {
+    "label": "D",
+    "text": "I and III only",
+    "is_correct": false,
+    "rationale": "Statement III is false because T can rise for part of the interval and still have a negative average rate; only the net change over [2, 6] is determined."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.1-B-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.1-b-v2",
+  "family": "2.1-B",
+  "variant": "2",
+  "topic": "2.1",
+  "title": "decide which conclusions follow from an average rate of change over an interval, separating net change from pointwise or (variant 2)",
+  "stem": "A differentiable function f has average rate of change 2 over [1, 3] and average rate of change 2 over [3, 7]. Which of the following must be true?  I. The average rate of change of f over [1, 7] is 2.  II. f(7) − f(1) = 12.  III. f′(3) = 2.",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "I only",
+    "is_correct": false,
+    "rationale": "Statement II follows from I: an average rate of 2 over an interval of width 6 gives f(7) − f(1) = 12, so it is also forced."
+   },
+   {
+    "label": "B",
+    "text": "I, II, and III",
+    "is_correct": false,
+    "rationale": "Statement III is not forced; equal average rates on both sides of 3 say nothing about the slope at 3 itself, since f may bend and still have the same net changes."
+   },
+   {
+    "label": "C",
+    "text": "I and II only",
+    "is_correct": true,
+    "rationale": "Correct: f(3) − f(1) = 4 and f(7) − f(3) = 8, so f(7) − f(1) = 12 and the average over [1, 7] is 2; f′(3) is not determined."
+   },
+   {
+    "label": "D",
+    "text": "II and III only",
+    "is_correct": false,
+    "rationale": "Statement I is also forced, since f(7) − f(1) = 4 + 8 = 12 gives average 12/6 = 2, and statement III is not forced by average rates alone."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.1-B-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.1-b-v3",
+  "family": "2.1-B",
+  "variant": "3",
+  "topic": "2.1",
+  "title": "decide which conclusions follow from an average rate of change over an interval, separating net change from pointwise or (variant 3)",
+  "stem": "Let f(x) = x³. The average rate of change of f over [0, 6] is 36. Which of the following must be true?  I. f′(3) = 36.  II. f′(x) = 36 for some x in (0, 6).  III. f′(x) < 36 for every x in (0, 6).",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "I only",
+    "is_correct": false,
+    "rationale": "Statement I treats the average rate as the slope at the midpoint, but for a cubic f′(3) = 27, which differs from 36."
+   },
+   {
+    "label": "B",
+    "text": "I and III only",
+    "is_correct": false,
+    "rationale": "Statement III is false: f′(x) = 3x² exceeds 36 for x > 2√3, for example f′(5) = 75, and statement I is false because f′(3) = 27."
+   },
+   {
+    "label": "C",
+    "text": "III only",
+    "is_correct": false,
+    "rationale": "Statement III fails because f′(x) = 3x² is larger than 36 near x = 6, and statement II holds at x = 2√3, which lies in (0, 6)."
+   },
+   {
+    "label": "D",
+    "text": "II only",
+    "is_correct": true,
+    "rationale": "Correct: (216 − 0)/6 = 36; f′(x) = 3x² = 36 at x = 2√3 ≈ 3.46 in (0, 6), while f′(3) = 27 and f′(5) = 75."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.2-A",
+  "content_key": "apcalcbc-mcq-b5-h-2.2-a",
+  "family": "2.2-A",
+  "variant": null,
+  "topic": "2.2",
+  "title": "evaluate a scaled or offset difference quotient as a multiple of f′(a), tracking the coefficients of h in both terms.",
+  "stem": "Let f be a differentiable function with f′(3) = 5. What is lim as h→0 of [f(3 + 2h) − f(3 − h)]/h?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "15",
+    "is_correct": true,
+    "rationale": "Correct: f(3 + 2h) − f(3 − h) ≈ f′(3)(2h − (−h)) = 3h f′(3), so the limit is 3·5 = 15."
+   },
+   {
+    "label": "B",
+    "text": "5",
+    "is_correct": false,
+    "rationale": "Subtracting the coefficients 2 − 1 = 1 ignores that the second point lies below 3, so the total horizontal gap is 2h − (−h) = 3h and the limit is 3f′(3)."
+   },
+   {
+    "label": "C",
+    "text": "10",
+    "is_correct": false,
+    "rationale": "This keeps only the shift of 2h from the first term and treats f(3 − h) as f(3), missing the extra h of separation on the other side."
+   },
+   {
+    "label": "D",
+    "text": "3",
+    "is_correct": false,
+    "rationale": "The total gap is 3h, which does give the factor 3, but the limit is that factor times the derivative f′(3) = 5, not the factor alone."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.2-A-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.2-a-v1",
+  "family": "2.2-A",
+  "variant": "1",
+  "topic": "2.2",
+  "title": "evaluate a scaled or offset difference quotient as a multiple of f′(a), tracking the coefficients of h in both terms. (variant 1)",
+  "stem": "Let f be a differentiable function with f′(2) = −4. What is lim as h→0 of [f(2 + 3h) − f(2 − h)]/h?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−12",
+    "is_correct": false,
+    "rationale": "This counts only the 3h shift on the upper side and treats f(2 − h) as f(2), so it gives 3·(−4) and misses the extra h below 2."
+   },
+   {
+    "label": "B",
+    "text": "−8",
+    "is_correct": false,
+    "rationale": "Subtracting the coefficients 3 − 1 = 2 treats the lower point as if it lay above 2; the actual gap between the inputs is 3h − (−h) = 4h."
+   },
+   {
+    "label": "C",
+    "text": "−16",
+    "is_correct": true,
+    "rationale": "Correct: The inputs differ by 3h − (−h) = 4h, so the limit is 4f′(2) = 4·(−4) = −16."
+   },
+   {
+    "label": "D",
+    "text": "16",
+    "is_correct": false,
+    "rationale": "The magnitude 4·4 comes from the gap 4h, but the derivative f′(2) = −4 is negative, so the limit must be negative."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.2-A-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.2-a-v2",
+  "family": "2.2-A",
+  "variant": "2",
+  "topic": "2.2",
+  "title": "evaluate a scaled or offset difference quotient as a multiple of f′(a), tracking the coefficients of h in both terms. (variant 2)",
+  "stem": "Let f be a differentiable function with f′(1) = 6. What is lim as h→0 of [f(1 + h) − f(1 − 2h)]/(3h)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "18",
+    "is_correct": false,
+    "rationale": "This finds that the numerator behaves like 3h·f′(1) = 18h but forgets to divide by the 3 in the denominator 3h."
+   },
+   {
+    "label": "B",
+    "text": "6",
+    "is_correct": true,
+    "rationale": "Correct: f(1 + h) − f(1 − 2h) ≈ 3h f′(1), so dividing by 3h leaves f′(1) = 6."
+   },
+   {
+    "label": "C",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "Dividing f′(1) = 6 by 3 treats the 3h in the denominator as if it were not already matched by the 3h gap in the numerator."
+   },
+   {
+    "label": "D",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This counts only the 2h shift of the lower term and divides by 3, giving 2·6/3, and it ignores the h shift of the first term."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.2-A-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.2-a-v3",
+  "family": "2.2-A",
+  "variant": "3",
+  "topic": "2.2",
+  "title": "evaluate a scaled or offset difference quotient as a multiple of f′(a), tracking the coefficients of h in both terms. (variant 3)",
+  "stem": "Let f be a differentiable function with f′(5) = −2. What is lim as h→0 of [f(5 − h) − f(5 + 2h)]/h?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−6",
+    "is_correct": false,
+    "rationale": "Reversing the order of the terms, this computes the limit of [f(5 + 2h) − f(5 − h)]/h, which is 3f′(5), but the given numerator is f(5 − h) − f(5 + 2h), the opposite."
+   },
+   {
+    "label": "B",
+    "text": "−2",
+    "is_correct": false,
+    "rationale": "This reports f′(5) alone, taking the combination as a single derivative and ignoring that the inputs are 3h apart and in decreasing order."
+   },
+   {
+    "label": "C",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "This keeps only the −h shift, (−1)(−2), and ignores the 2h shift in the second term, which adds another factor from the same direction."
+   },
+   {
+    "label": "D",
+    "text": "6",
+    "is_correct": true,
+    "rationale": "Correct: The first input is 3h below the second, so the numerator ≈ −3h f′(5) and the limit is −3·(−2) = 6."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.2-B",
+  "content_key": "apcalcbc-mcq-b5-h-2.2-b",
+  "family": "2.2-B",
+  "variant": null,
+  "topic": "2.2",
+  "title": "recognize a limit of the form (g(x) − g(a))/(x² − a²) as a derivative divided by (x + a), evaluating the extra factor.",
+  "stem": "What is the value of lim as x→e of (ln x − 1)/(x² − e²)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/e",
+    "is_correct": false,
+    "rationale": "This is the derivative of ln x at x = e alone; the denominator x² − e² = (x − e)(x + e) contributes an extra factor x + e that tends to 2e."
+   },
+   {
+    "label": "B",
+    "text": "1/(2e²)",
+    "is_correct": true,
+    "rationale": "Correct: (ln x − 1)/(x − e) → (ln)′(e) = 1/e and 1/(x + e) → 1/(2e), so the limit is 1/(2e²)."
+   },
+   {
+    "label": "C",
+    "text": "1/(2e)",
+    "is_correct": false,
+    "rationale": "The factor x + e tends to 2e, not to 2, so dividing 1/e by 2 leaves out the e in the denominator."
+   },
+   {
+    "label": "D",
+    "text": "1/e²",
+    "is_correct": false,
+    "rationale": "This replaces the factor x + e by e instead of 2e, so the second factor is only half of what it should be."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.2-B-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.2-b-v1",
+  "family": "2.2-B",
+  "variant": "1",
+  "topic": "2.2",
+  "title": "recognize a limit of the form (g(x) − g(a))/(x² − a²) as a derivative divided by (x + a), evaluating the extra factor. (variant 1)",
+  "stem": "What is the value of lim as x→1 of (eˣ − e)/(x² − 1)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "e",
+    "is_correct": false,
+    "rationale": "This is the derivative of eˣ at x = 1 alone; the factor 1/(x + 1) in the denominator still has to be applied and tends to 1/2."
+   },
+   {
+    "label": "B",
+    "text": "2e",
+    "is_correct": false,
+    "rationale": "This multiplies by x + 1 = 2 instead of dividing by it, since x² − 1 = (x − 1)(x + 1) sits in the denominator."
+   },
+   {
+    "label": "C",
+    "text": "e/2",
+    "is_correct": true,
+    "rationale": "Correct: (eˣ − e)/(x − 1) → e and 1/(x + 1) → 1/2, so the limit is e/2."
+   },
+   {
+    "label": "D",
+    "text": "1/2",
+    "is_correct": false,
+    "rationale": "This takes the derivative of eˣ at 1 to be 1, which is the derivative at 0, and then divides by 2 as required."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.2-B-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.2-b-v2",
+  "family": "2.2-B",
+  "variant": "2",
+  "topic": "2.2",
+  "title": "recognize a limit of the form (g(x) − g(a))/(x² − a²) as a derivative divided by (x + a), evaluating the extra factor. (variant 2)",
+  "stem": "What is the value of lim as x→π/6 of (sin x − 1/2)/(x² − π²/36)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "√3/2",
+    "is_correct": false,
+    "rationale": "This is cos(π/6), the derivative of sin x at π/6 alone; it ignores the factor 1/(x + π/6), which tends to 3/π."
+   },
+   {
+    "label": "B",
+    "text": "3√3/(2π)",
+    "is_correct": true,
+    "rationale": "Correct: (sin x − 1/2)/(x − π/6) → cos(π/6) = √3/2 and 1/(x + π/6) → 3/π, so the limit is 3√3/(2π)."
+   },
+   {
+    "label": "C",
+    "text": "3/(2π)",
+    "is_correct": false,
+    "rationale": "This uses sin(π/6) = 1/2 in place of the derivative cos(π/6) = √3/2, then correctly divides by x + π/6 = π/3."
+   },
+   {
+    "label": "D",
+    "text": "√3π/6",
+    "is_correct": false,
+    "rationale": "This multiplies cos(π/6) by x + π/6 = π/3 instead of dividing by it, so the factor from the denominator is inverted."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.2-B-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.2-b-v3",
+  "family": "2.2-B",
+  "variant": "3",
+  "topic": "2.2",
+  "title": "recognize a limit of the form (g(x) − g(a))/(x² − a²) as a derivative divided by (x + a), evaluating the extra factor. (variant 3)",
+  "stem": "What is the value of lim as x→4 of (√x − 2)/(x² − 16)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/4",
+    "is_correct": false,
+    "rationale": "This is the derivative of √x at x = 4 alone; the denominator x² − 16 = (x − 4)(x + 4) also supplies a factor 1/8."
+   },
+   {
+    "label": "B",
+    "text": "1/16",
+    "is_correct": false,
+    "rationale": "This divides 1/4 by 4, using 4 for the factor x + 4 instead of 4 + 4 = 8."
+   },
+   {
+    "label": "C",
+    "text": "1/32",
+    "is_correct": true,
+    "rationale": "Correct: (√x − 2)/(x − 4) → 1/(2√4) = 1/4 and 1/(x + 4) → 1/8, so the limit is 1/32."
+   },
+   {
+    "label": "D",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "This multiplies 1/4 by x + 4 = 8 instead of dividing by it, so the factor from the denominator is inverted."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.3-A",
+  "content_key": "apcalcbc-mcq-b5-h-2.3-a",
+  "family": "2.3-A",
+  "variant": null,
+  "topic": "2.3",
+  "title": "use monotonic f′ to place f′ at a point strictly between the adjacent secant slopes, rather than treating the centered e",
+  "stem": "A differentiable function f has a strictly increasing derivative on [3, 5]. The values f(3) = 10, f(4) = 12.5, and f(5) = 17 are known. Which statement about f′(4) must be true?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f′(4) = 3.5 exactly.",
+    "is_correct": false,
+    "rationale": "The centered estimate (17 − 10)/2 = 3.5 is only an approximation; it equals f′(4) only for special functions such as quadratics."
+   },
+   {
+    "label": "B",
+    "text": "f′(4) is strictly between 2.5 and 4.5.",
+    "is_correct": true,
+    "rationale": "Correct: Average slopes are (12.5 − 10)/1 = 2.5 on [3, 4] and (17 − 12.5)/1 = 4.5 on [4, 5]; with f′ increasing, 2.5 < f′(4) < 4.5."
+   },
+   {
+    "label": "C",
+    "text": "f′(4) > 4.5.",
+    "is_correct": false,
+    "rationale": "Increasing f′ makes f′(4) smaller than the average slope on [4, 5], which is 4.5, because f′ keeps growing past x = 4."
+   },
+   {
+    "label": "D",
+    "text": "f′(4) < 2.5.",
+    "is_correct": false,
+    "rationale": "Increasing f′ makes f′(4) larger than the average slope on [3, 4], which is 2.5, because f′ was smaller before x = 4."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.3-A-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.3-a-v1",
+  "family": "2.3-A",
+  "variant": "1",
+  "topic": "2.3",
+  "title": "use monotonic f′ to place f′ at a point strictly between the adjacent secant slopes, rather than treating the centered e (variant 1)",
+  "stem": "A function f is differentiable and concave down on [1, 3]. The values f(1) = 7, f(2) = 12, and f(3) = 15 are known. Which statement about f′(2) must be true?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f′(2) = 4 exactly.",
+    "is_correct": false,
+    "rationale": "The centered estimate (15 − 7)/2 = 4 is only an approximation; concave down does not make the central slope exact."
+   },
+   {
+    "label": "B",
+    "text": "f′(2) is strictly between 3 and 5.",
+    "is_correct": true,
+    "rationale": "Correct: Average slopes are 12 − 7 = 5 on [1, 2] and 15 − 12 = 3 on [2, 3]; with f′ decreasing, 3 < f′(2) < 5."
+   },
+   {
+    "label": "C",
+    "text": "f′(2) > 5.",
+    "is_correct": false,
+    "rationale": "With f′ decreasing, f′(2) is smaller than the average slope on [1, 2], which is 5, so it cannot exceed 5."
+   },
+   {
+    "label": "D",
+    "text": "f′(2) < 3.",
+    "is_correct": false,
+    "rationale": "With f′ decreasing, f′(2) is larger than the average slope on [2, 3], which is 3, so it cannot be smaller than 3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.3-A-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.3-a-v2",
+  "family": "2.3-A",
+  "variant": "2",
+  "topic": "2.3",
+  "title": "use monotonic f′ to place f′ at a point strictly between the adjacent secant slopes, rather than treating the centered e (variant 2)",
+  "stem": "A differentiable function f has a strictly increasing derivative on [2, 7]. The values f(2) = 1, f(4) = 5, and f(7) = 17 are known. Which statement about f′(4) must be true?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f′(4) is strictly between 2 and 4.",
+    "is_correct": true,
+    "rationale": "Correct: Average slopes are (5 − 1)/2 = 2 on [2, 4] and (17 − 5)/3 = 4 on [4, 7]; with f′ increasing, 2 < f′(4) < 4."
+   },
+   {
+    "label": "B",
+    "text": "f′(4) = 3.2 exactly.",
+    "is_correct": false,
+    "rationale": "The quotient (17 − 1)/(7 − 2) = 3.2 is only an estimate, and with the unequal spacing it need not equal f′(4)."
+   },
+   {
+    "label": "C",
+    "text": "f′(4) > 4.",
+    "is_correct": false,
+    "rationale": "Increasing f′ places f′(4) below the average slope on [4, 7], which is 4, since f′ keeps growing after x = 4."
+   },
+   {
+    "label": "D",
+    "text": "f′(4) < 2.",
+    "is_correct": false,
+    "rationale": "Increasing f′ places f′(4) above the average slope on [2, 4], which is 2, since f′ was smaller before x = 4."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.3-A-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.3-a-v3",
+  "family": "2.3-A",
+  "variant": "3",
+  "topic": "2.3",
+  "title": "use monotonic f′ to place f′ at a point strictly between the adjacent secant slopes, rather than treating the centered e (variant 3)",
+  "stem": "The price index P(t) is differentiable and is increasing at an increasing rate on [0, 6]. The values P(0) = 20, P(2) = 26, and P(6) = 50 are known. Which statement about P′(2) must be true?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "P′(2) = 5 exactly.",
+    "is_correct": false,
+    "rationale": "The quotient (50 − 20)/6 = 5 is the average rate over all of [0, 6], not the instantaneous rate at t = 2."
+   },
+   {
+    "label": "B",
+    "text": "P′(2) is strictly between 3 and 6.",
+    "is_correct": true,
+    "rationale": "Correct: Average rates are (26 − 20)/2 = 3 on [0, 2] and (50 − 26)/4 = 6 on [2, 6]; with P′ increasing, 3 < P′(2) < 6."
+   },
+   {
+    "label": "C",
+    "text": "P′(2) > 6.",
+    "is_correct": false,
+    "rationale": "Because P′ is increasing, P′(2) lies below the average rate on [2, 6], which is 6, not above it."
+   },
+   {
+    "label": "D",
+    "text": "P′(2) < 3.",
+    "is_correct": false,
+    "rationale": "Because P′ is increasing, P′(2) lies above the average rate on [0, 2], which is 3, not below it."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.3-B",
+  "content_key": "apcalcbc-mcq-b5-h-2.3-b",
+  "family": "2.3-B",
+  "variant": null,
+  "topic": "2.3",
+  "title": "estimate the derivative of a linear combination of two tabulated functions by applying the same difference quotient to t",
+  "stem": "Differentiable functions f and g have the values f(3) = 9, f(5) = 15, g(3) = 4, g(5) = 8 (x = 3 and x = 5 are the table inputs closest to 4 on either side). Let h(x) = f(x) − 2g(x). Estimate h′(4) with a difference quotient built from these values.",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This subtracts the derivative estimates without the factor 2: f′ ≈ 3 and g′ ≈ 2 give 3 − 2, but the coefficient of g is 2."
+   },
+   {
+    "label": "B",
+    "text": "−1",
+    "is_correct": true,
+    "rationale": "Correct: h(3) = 9 − 8 = 1 and h(5) = 15 − 16 = −1, so h′(4) ≈ (−1 − 1)/(5 − 3) = −1."
+   },
+   {
+    "label": "C",
+    "text": "−2",
+    "is_correct": false,
+    "rationale": "The change h(5) − h(3) = −1 − 1 = −2 is correct but is a change, not a rate; dividing by the width 2 gives −1."
+   },
+   {
+    "label": "D",
+    "text": "7",
+    "is_correct": false,
+    "rationale": "This adds 2g′ ≈ 4 to f′ ≈ 3, using the wrong sign for the subtracted function."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.3-B-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.3-b-v1",
+  "family": "2.3-B",
+  "variant": "1",
+  "topic": "2.3",
+  "title": "estimate the derivative of a linear combination of two tabulated functions by applying the same difference quotient to t (variant 1)",
+  "stem": "Differentiable functions f and g have the values f(5) = 11, f(9) = 31, g(5) = 20, g(9) = 12 (x = 5 and x = 9 are the table inputs closest to 6 on either side). Let h(x) = 2f(x) + g(x). Estimate h′(6) with a difference quotient built from these values.",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3",
+    "is_correct": false,
+    "rationale": "This forgets the coefficient 2 on f: f′ ≈ 5 and g′ ≈ −2 give 5 + (−2) = 3, but h = 2f + g gives 2·5 + (−2)."
+   },
+   {
+    "label": "B",
+    "text": "32",
+    "is_correct": false,
+    "rationale": "The change h(9) − h(5) = 2·20 + (−8) = 32 is correct but is a total change; dividing by the width 4 gives the rate."
+   },
+   {
+    "label": "C",
+    "text": "8",
+    "is_correct": true,
+    "rationale": "Correct: h(5) = 22 + 20 = 42 and h(9) = 62 + 12 = 74, so h′(6) ≈ (74 − 42)/4 = 8."
+   },
+   {
+    "label": "D",
+    "text": "12",
+    "is_correct": false,
+    "rationale": "This subtracts g′ ≈ −2 from 2f′ ≈ 10, which gives 12, but h = 2f + g adds g."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.3-B-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.3-b-v2",
+  "family": "2.3-B",
+  "variant": "2",
+  "topic": "2.3",
+  "title": "estimate the derivative of a linear combination of two tabulated functions by applying the same difference quotient to t (variant 2)",
+  "stem": "Cumulative amounts f(t) and g(t) are differentiable. The table values are f(6) = 18, f(12) = 36, g(6) = 15, g(12) = 21 (t = 6 and t = 12 are the table inputs closest to 10 on either side). Let h(t) = f(t) − g(t). Estimate h′(10) with a difference quotient built from these values.",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This adds the rate estimates 3 and 1, but h = f − g subtracts them."
+   },
+   {
+    "label": "B",
+    "text": "12",
+    "is_correct": false,
+    "rationale": "The change h(12) − h(6) = 18 − 6 = 12 is correct but is a total change; it must be divided by the width 6."
+   },
+   {
+    "label": "C",
+    "text": "3",
+    "is_correct": false,
+    "rationale": "This estimates only f′ ≈ 3 and omits the contribution of g, which must be subtracted."
+   },
+   {
+    "label": "D",
+    "text": "2",
+    "is_correct": true,
+    "rationale": "Correct: h(6) = 18 − 15 = 3 and h(12) = 36 − 21 = 15, so h′(10) ≈ (15 − 3)/6 = 2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.3-B-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.3-b-v3",
+  "family": "2.3-B",
+  "variant": "3",
+  "topic": "2.3",
+  "title": "estimate the derivative of a linear combination of two tabulated functions by applying the same difference quotient to t (variant 3)",
+  "stem": "Differentiable functions f and g have the values f(1) = 8, f(3) = 2, g(1) = −1, g(3) = 5 (x = 1 and x = 3 are the table inputs closest to 2 on either side). Let h(x) = 5f(x) − 2g(x). Estimate h′(2) with a difference quotient built from these values.",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−6",
+    "is_correct": false,
+    "rationale": "This combines the rate estimates −3 and 3 without the coefficients 5 and 2, so it adds them with the wrong weights."
+   },
+   {
+    "label": "B",
+    "text": "−21",
+    "is_correct": true,
+    "rationale": "Correct: f′ ≈ (2 − 8)/2 = −3 and g′ ≈ (5 − (−1))/2 = 3, so h′(2) ≈ 5(−3) − 2(3) = −21."
+   },
+   {
+    "label": "C",
+    "text": "−9",
+    "is_correct": false,
+    "rationale": "This computes 5(−3) + 2(3) = −9, using the wrong sign on the 2g term even though h subtracts it."
+   },
+   {
+    "label": "D",
+    "text": "−42",
+    "is_correct": false,
+    "rationale": "The change h(3) − h(1) = 5(−6) − 2(6) = −42 is correct but is a total change; dividing by the width 2 gives −21."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.4-A",
+  "content_key": "apcalcbc-mcq-b5-h-2.4-a",
+  "family": "2.4-A",
+  "variant": null,
+  "topic": "2.4",
+  "title": "identify which function is differentiable at a point by diagnosing corners, cusps, and vertical tangents among similar-l",
+  "stem": "Which of the following functions is differentiable at x = 2?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f(x) = (x − 2)|x − 2|",
+    "is_correct": true,
+    "rationale": "Correct: For f(x) = (x − 2)|x − 2| the quotient (f(2 + h) − f(2))/h = |h|, which tends to 0, so f′(2) exists and equals 0."
+   },
+   {
+    "label": "B",
+    "text": "f(x) = |x − 2|",
+    "is_correct": false,
+    "rationale": "This has a corner at x = 2: the one-sided difference quotients are −1 and +1, so the limit does not exist."
+   },
+   {
+    "label": "C",
+    "text": "f(x) = (x − 2)^(2/3)",
+    "is_correct": false,
+    "rationale": "This is continuous but has a cusp at x = 2; the difference quotient h^(−1/3) is unbounded as h approaches 0."
+   },
+   {
+    "label": "D",
+    "text": "f(x) = (x − 2)^(1/3)",
+    "is_correct": false,
+    "rationale": "This is continuous but has a vertical tangent at x = 2; the difference quotient h^(−2/3) grows without bound."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.4-A-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.4-a-v1",
+  "family": "2.4-A",
+  "variant": "1",
+  "topic": "2.4",
+  "title": "identify which function is differentiable at a point by diagnosing corners, cusps, and vertical tangents among similar-l (variant 1)",
+  "stem": "Which of the following functions is differentiable at x = 0?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f(x) = x^(4/3)",
+    "is_correct": true,
+    "rationale": "Correct: For f(x) = x^(4/3) the quotient (f(h) − f(0))/h = h^(1/3), which tends to 0, so f′(0) = 0 (matching (4/3)x^(1/3) at 0)."
+   },
+   {
+    "label": "B",
+    "text": "f(x) = x^(1/3) + x²",
+    "is_correct": false,
+    "rationale": "The term x^(1/3) has a vertical tangent at 0, so the difference quotient grows without bound and f is not differentiable."
+   },
+   {
+    "label": "C",
+    "text": "f(x) = |x| + x²",
+    "is_correct": false,
+    "rationale": "The term |x| has a corner at 0, so the one-sided quotients are −1 and +1 and the limit does not exist."
+   },
+   {
+    "label": "D",
+    "text": "f(x) = x^(2/3) + x",
+    "is_correct": false,
+    "rationale": "The term x^(2/3) has a cusp at 0, since its difference quotient h^(−1/3) is unbounded."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.4-A-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.4-a-v2",
+  "family": "2.4-A",
+  "variant": "2",
+  "topic": "2.4",
+  "title": "identify which function is differentiable at a point by diagnosing corners, cusps, and vertical tangents among similar-l (variant 2)",
+  "stem": "Which of the following piecewise functions is differentiable at x = 0?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f(x) = eˣ for x < 0 and f(x) = 2x + 1 for x ≥ 0",
+    "is_correct": false,
+    "rationale": "The pieces meet at 1, so f is continuous, but the slopes are 1 from the left and 2 from the right, a corner."
+   },
+   {
+    "label": "B",
+    "text": "f(x) = eˣ for x < 0 and f(x) = x + 1 for x ≥ 0",
+    "is_correct": true,
+    "rationale": "Correct: Both pieces equal 1 at 0, and the one-sided derivatives are e⁰ = 1 on the left and 1 on the right, so f′(0) = 1."
+   },
+   {
+    "label": "C",
+    "text": "f(x) = eˣ for x < 0 and f(x) = x + 2 for x ≥ 0",
+    "is_correct": false,
+    "rationale": "The left limit is 1 and f(0) = 2, so f is not even continuous at 0, and it cannot be differentiable there."
+   },
+   {
+    "label": "D",
+    "text": "f(x) = eˣ for x < 0 and f(x) = 1 + x² for x ≥ 0",
+    "is_correct": false,
+    "rationale": "The pieces meet at 1, but the slope from the left is 1 and from the right is 0, a corner."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.4-A-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.4-a-v3",
+  "family": "2.4-A",
+  "variant": "3",
+  "topic": "2.4",
+  "title": "identify which function is differentiable at a point by diagnosing corners, cusps, and vertical tangents among similar-l (variant 3)",
+  "stem": "Which of the following functions is differentiable at x = 0?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f(x) = |sin x|",
+    "is_correct": false,
+    "rationale": "Near 0, |sin x| behaves like |x|: the one-sided slopes are −1 and +1, a corner."
+   },
+   {
+    "label": "B",
+    "text": "f(x) = x^(1/3)",
+    "is_correct": false,
+    "rationale": "The difference quotient h^(−2/3) grows without bound, so there is a vertical tangent and no derivative."
+   },
+   {
+    "label": "C",
+    "text": "f(x) = x^(2/5)",
+    "is_correct": false,
+    "rationale": "The difference quotient h^(−3/5) is unbounded and changes sign across 0, a cusp, so f′(0) does not exist."
+   },
+   {
+    "label": "D",
+    "text": "f(x) = x|x|",
+    "is_correct": true,
+    "rationale": "Correct: For f(x) = x|x| the quotient (f(h) − f(0))/h = |h|, which tends to 0, so f′(0) = 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.4-B",
+  "content_key": "apcalcbc-mcq-b5-h-2.4-b",
+  "family": "2.4-B",
+  "variant": null,
+  "topic": "2.4",
+  "title": "conclude correctly about continuity and differentiability from one-sided information, avoiding the converse and averagin",
+  "stem": "Let f be a function with f(2) = 5 and lim as x→2 of f(x) = 5. Also, lim as h→0⁺ of [f(2 + h) − 5]/h = 3 and lim as h→0⁻ of [f(2 + h) − 5]/h = −3. Which statement must be true?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f is continuous at x = 2 but not differentiable at x = 2.",
+    "is_correct": true,
+    "rationale": "Correct: Continuity holds since the limit equals f(2); the one-sided derivatives 3 and −3 differ, so f′(2) does not exist."
+   },
+   {
+    "label": "B",
+    "text": "f is differentiable at x = 2 with f′(2) = 0.",
+    "is_correct": false,
+    "rationale": "Averaging the one-sided slopes 3 and −3 is not how derivatives work; the derivative exists only if the two one-sided limits are equal."
+   },
+   {
+    "label": "C",
+    "text": "f is not continuous at x = 2.",
+    "is_correct": false,
+    "rationale": "The values f(2) = 5 and the limit 5 agree, so f is continuous; failing to be differentiable does not imply failing to be continuous."
+   },
+   {
+    "label": "D",
+    "text": "f is differentiable at x = 2 because f is continuous at x = 2.",
+    "is_correct": false,
+    "rationale": "Continuity does not imply differentiability; the unequal one-sided slopes 3 and −3 give a corner."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.4-B-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.4-b-v1",
+  "family": "2.4-B",
+  "variant": "1",
+  "topic": "2.4",
+  "title": "conclude correctly about continuity and differentiability from one-sided information, avoiding the converse and averagin (variant 1)",
+  "stem": "Let f be a function with f(4) = 1 and lim as x→4 of f(x) = 2. Which statement must be true?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f is continuous at x = 4, but f might not be differentiable there.",
+    "is_correct": false,
+    "rationale": "The limit exists but equals 2, while f(4) = 1, so f is not continuous at 4."
+   },
+   {
+    "label": "B",
+    "text": "f is differentiable at x = 4 because the limit of f(x) exists there.",
+    "is_correct": false,
+    "rationale": "Existence of the limit is not enough; differentiability requires continuity, which needs the limit to equal f(4)."
+   },
+   {
+    "label": "C",
+    "text": "f could be differentiable at x = 4 even though f is not continuous there.",
+    "is_correct": false,
+    "rationale": "Differentiability at a point implies continuity there, so a function with a jump at 4 cannot be differentiable at 4."
+   },
+   {
+    "label": "D",
+    "text": "f is not differentiable at x = 4.",
+    "is_correct": true,
+    "rationale": "Correct: The limit 2 differs from f(4) = 1, so f is discontinuous at 4, and a discontinuous function cannot be differentiable there."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.4-B-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.4-b-v2",
+  "family": "2.4-B",
+  "variant": "2",
+  "topic": "2.4",
+  "title": "conclude correctly about continuity and differentiability from one-sided information, avoiding the converse and averagin (variant 2)",
+  "stem": "Let f be continuous at x = 4, and suppose lim as h→0⁺ of [f(4 + h) − f(4)]/h = 1/4 and lim as h→0⁻ of [f(4 + h) − f(4)]/h = 1/4. Which statement must be true?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f is differentiable at x = 4 with f′(4) = 1/2.",
+    "is_correct": false,
+    "rationale": "The derivative is the common value of the one-sided limits, not their sum, so it is 1/4."
+   },
+   {
+    "label": "B",
+    "text": "f is not differentiable at x = 4 because continuity alone does not guarantee a derivative.",
+    "is_correct": false,
+    "rationale": "Here the two one-sided limits exist and agree, so the two-sided limit exists, which is the definition of differentiability."
+   },
+   {
+    "label": "C",
+    "text": "f is differentiable at x = 4 with f′(4) = 0.",
+    "is_correct": false,
+    "rationale": "The limit of the difference quotient is 1/4, not 0; a value of 0 would require both one-sided limits to be 0."
+   },
+   {
+    "label": "D",
+    "text": "f is differentiable at x = 4 with f′(4) = 1/4.",
+    "is_correct": true,
+    "rationale": "Correct: Equal one-sided limits of the difference quotient mean the two-sided limit exists and equals 1/4, so f′(4) = 1/4."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.4-B-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.4-b-v3",
+  "family": "2.4-B",
+  "variant": "3",
+  "topic": "2.4",
+  "title": "conclude correctly about continuity and differentiability from one-sided information, avoiding the converse and averagin (variant 3)",
+  "stem": "Let f be continuous at x = 1, and suppose lim as h→0⁺ of [f(1 + h) − f(1)]/h = ∞ and lim as h→0⁻ of [f(1 + h) − f(1)]/h = ∞. Which statement must be true?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f is continuous at x = 1 but not differentiable at x = 1.",
+    "is_correct": true,
+    "rationale": "Correct: A difference quotient that tends to infinity means the derivative does not exist (vertical tangent), though f remains continuous."
+   },
+   {
+    "label": "B",
+    "text": "f is differentiable at x = 1 with f′(1) = ∞.",
+    "is_correct": false,
+    "rationale": "A derivative must be a finite number; an infinite limit means a vertical tangent, where f′(1) does not exist."
+   },
+   {
+    "label": "C",
+    "text": "f is not continuous at x = 1 because the difference quotient is unbounded.",
+    "is_correct": false,
+    "rationale": "Continuity is given in the stem; an unbounded difference quotient indicates a vertical tangent, not a jump."
+   },
+   {
+    "label": "D",
+    "text": "f is differentiable at x = 1 with f′(1) = 0 because the one-sided limits agree.",
+    "is_correct": false,
+    "rationale": "Agreement of the one-sided limits only gives differentiability when the common value is a finite real number; here it is infinite."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.5-A",
+  "content_key": "apcalcbc-mcq-b5-h-2.5-a",
+  "family": "2.5-A",
+  "variant": null,
+  "topic": "2.5",
+  "title": "find the point of tangency for a tangent line to a power curve that passes through a given external point, by setting up",
+  "stem": "The tangent line to the graph of y = 1/x at the point where x = a (a > 0) passes through the point (0, 4). What is a?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/2",
+    "is_correct": true,
+    "rationale": "Correct: The tangent at a is y = 1/a − (x − a)/a²; at x = 0 it gives 2/a = 4, so a = 1/2."
+   },
+   {
+    "label": "B",
+    "text": "1/3",
+    "is_correct": false,
+    "rationale": "This differentiates 1/x as −1/x, forgetting to lower the exponent to −2, so the tangent slope is −1/a and the equation becomes 1/a + 1 = 4."
+   },
+   {
+    "label": "C",
+    "text": "1/4",
+    "is_correct": false,
+    "rationale": "This sets the height of the curve, 1/a, equal to 4, which finds where the curve reaches height 4 and ignores the tangent line altogether."
+   },
+   {
+    "label": "D",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "The correct equation 2/a = 4 gives a = 1/2; solving it as a = 2 inverts the fraction."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.5-A-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.5-a-v1",
+  "family": "2.5-A",
+  "variant": "1",
+  "topic": "2.5",
+  "title": "find the point of tangency for a tangent line to a power curve that passes through a given external point, by setting up (variant 1)",
+  "stem": "The tangent line to the graph of y = x^(3/2) at the point where x = a (a > 0) passes through the point (1, 0). What is a?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "5/3",
+    "is_correct": false,
+    "rationale": "This differentiates x^(3/2) as (3/2)x^(3/2), forgetting to lower the exponent, so the condition becomes 1 + (3/2)(1 − a) = 0."
+   },
+   {
+    "label": "B",
+    "text": "3",
+    "is_correct": true,
+    "rationale": "Correct: The tangent at a is y = a^(3/2) + (3/2)a^(1/2)(x − a); at (1, 0) this gives a + (3/2)(1 − a) = 0, so a = 3."
+   },
+   {
+    "label": "C",
+    "text": "3/5",
+    "is_correct": false,
+    "rationale": "This writes the run from (1, 0) to (a, a^(3/2)) as 1 − a instead of a − 1, a sign slip that turns a/(a − 1) = 3/2 into a/(1 − a) = 3/2."
+   },
+   {
+    "label": "D",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This uses the x-coordinate of the given point as the point of tangency, but the tangent at x = 1 is y = (3/2)(x − 1) + 1, which does not pass through (1, 0)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.5-A-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.5-a-v2",
+  "family": "2.5-A",
+  "variant": "2",
+  "topic": "2.5",
+  "title": "find the point of tangency for a tangent line to a power curve that passes through a given external point, by setting up (variant 2)",
+  "stem": "The tangent line to the graph of y = 1/x at the point where x = a (a > 0) passes through the point (3, 0). What is a?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "This differentiates 1/x as −1/x, so the tangent slope is −1/a and the condition becomes 1 − 3 + a = 0."
+   },
+   {
+    "label": "B",
+    "text": "3",
+    "is_correct": false,
+    "rationale": "This uses the x-coordinate of the given point as the point of tangency, but the tangent at x = 3 passes through (3, 1/3) on the curve, not through (3, 0)."
+   },
+   {
+    "label": "C",
+    "text": "3/2",
+    "is_correct": true,
+    "rationale": "Correct: The tangent at a is y = 1/a − (x − a)/a²; setting y = 0 at x = 3 gives a − (3 − a) = 0, so a = 3/2."
+   },
+   {
+    "label": "D",
+    "text": "1/3",
+    "is_correct": false,
+    "rationale": "This sets 1/a = 3, which is where the curve reaches height 3, and does not use the tangent condition."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.5-A-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.5-a-v3",
+  "family": "2.5-A",
+  "variant": "3",
+  "topic": "2.5",
+  "title": "find the point of tangency for a tangent line to a power curve that passes through a given external point, by setting up (variant 3)",
+  "stem": "The tangent line to the graph of y = ∛x at the point where x = a (a > 0) passes through the point (0, 2). What is a?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "8",
+    "is_correct": false,
+    "rationale": "This sets the height of the curve ∛a equal to 2, which finds where the curve reaches height 2 and ignores the tangent line."
+   },
+   {
+    "label": "B",
+    "text": "27/8",
+    "is_correct": false,
+    "rationale": "This adds the tangent term instead of subtracting it, giving (4/3)∛a = 2 in place of (2/3)∛a = 2."
+   },
+   {
+    "label": "C",
+    "text": "27",
+    "is_correct": true,
+    "rationale": "Correct: The tangent at a is y = a^(1/3) + (1/3)a^(−2/3)(x − a); at x = 0 it gives (2/3)a^(1/3) = 2, so a^(1/3) = 3 and a = 27."
+   },
+   {
+    "label": "D",
+    "text": "3",
+    "is_correct": false,
+    "rationale": "This solves (2/3)∛a = 2 correctly for the cube root ∛a = 3 but reports that value instead of a itself."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.5-B",
+  "content_key": "apcalcbc-mcq-b5-h-2.5-b",
+  "family": "2.5-B",
+  "variant": null,
+  "topic": "2.5",
+  "title": "rewrite a product or quotient of radicals as a single power before differentiating, and avoid differentiating each facto",
+  "stem": "Let f(x) = √x · ∛x for x > 0. What is f′(64)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/768",
+    "is_correct": false,
+    "rationale": "This multiplies the two derivatives (1/(2√x))·(1/(3x^(2/3))) instead of using the product rule, giving (1/16)(1/48)."
+   },
+   {
+    "label": "B",
+    "text": "1/192",
+    "is_correct": false,
+    "rationale": "This multiplies the exponents instead of adding them, writing f(x) = x^(1/6), and then differentiates that."
+   },
+   {
+    "label": "C",
+    "text": "80/3",
+    "is_correct": false,
+    "rationale": "This writes f(x) = x^(5/6) correctly but forgets to lower the exponent in the derivative, giving (5/6)x^(5/6) = (5/6)(32)."
+   },
+   {
+    "label": "D",
+    "text": "5/12",
+    "is_correct": true,
+    "rationale": "Correct: f(x) = x^(5/6), so f′(x) = (5/6)x^(−1/6) and f′(64) = (5/6)(1/2) = 5/12."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.5-B-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.5-b-v1",
+  "family": "2.5-B",
+  "variant": "1",
+  "topic": "2.5",
+  "title": "rewrite a product or quotient of radicals as a single power before differentiating, and avoid differentiating each facto (variant 1)",
+  "stem": "Let f(x) = x²/∛x for x > 0. What is f′(8)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "192",
+    "is_correct": false,
+    "rationale": "This divides the derivative of the numerator by the derivative of the denominator, 2x/((1/3)x^(−2/3)), instead of simplifying or using the quotient rule."
+   },
+   {
+    "label": "B",
+    "text": "112/3",
+    "is_correct": false,
+    "rationale": "This adds 1/3 to the exponent 2 instead of subtracting it, writing f(x) = x^(7/3)."
+   },
+   {
+    "label": "C",
+    "text": "10/3",
+    "is_correct": false,
+    "rationale": "This writes the derivative correctly as (5/3)x^(2/3) but evaluates x^(2/3) at 8 as 2 instead of 4."
+   },
+   {
+    "label": "D",
+    "text": "20/3",
+    "is_correct": true,
+    "rationale": "Correct: f(x) = x^(5/3), so f′(x) = (5/3)x^(2/3) and f′(8) = (5/3)(4) = 20/3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.5-B-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.5-b-v2",
+  "family": "2.5-B",
+  "variant": "2",
+  "topic": "2.5",
+  "title": "rewrite a product or quotient of radicals as a single power before differentiating, and avoid differentiating each facto (variant 2)",
+  "stem": "Let f(x) = 1/(x√x) for x > 0. What is f′(4)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−3/16",
+    "is_correct": false,
+    "rationale": "This differentiates x^(−3/2) as (−3/2)x^(−3/2), forgetting to lower the exponent, which gives (−3/2)(1/8)."
+   },
+   {
+    "label": "B",
+    "text": "−3/64",
+    "is_correct": true,
+    "rationale": "Correct: f(x) = x^(−3/2), so f′(x) = (−3/2)x^(−5/2) and f′(4) = (−3/2)(1/32) = −3/64."
+   },
+   {
+    "label": "C",
+    "text": "3/64",
+    "is_correct": false,
+    "rationale": "The magnitude is right, but the exponent −3/2 is negative, so the derivative is negative."
+   },
+   {
+    "label": "D",
+    "text": "1/256",
+    "is_correct": false,
+    "rationale": "This multiplies the derivatives of the two factors x^(−1) and x^(−1/2) instead of combining them into x^(−3/2)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.5-B-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.5-b-v3",
+  "family": "2.5-B",
+  "variant": "3",
+  "topic": "2.5",
+  "title": "rewrite a product or quotient of radicals as a single power before differentiating, and avoid differentiating each facto (variant 3)",
+  "stem": "Let f(x) = ∛(x²) · √x for x > 0. What is f′(64)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "7/6",
+    "is_correct": false,
+    "rationale": "This forgets the factor x^(1/6) in f′(x) = (7/6)x^(1/6); at x = 64 that factor is 2."
+   },
+   {
+    "label": "B",
+    "text": "1/48",
+    "is_correct": false,
+    "rationale": "This multiplies the exponents 2/3 and 1/2 to get x^(1/3), instead of adding them, and then differentiates that."
+   },
+   {
+    "label": "C",
+    "text": "7/3",
+    "is_correct": true,
+    "rationale": "Correct: f(x) = x^(2/3 + 1/2) = x^(7/6), so f′(x) = (7/6)x^(1/6) and f′(64) = (7/6)(2) = 7/3."
+   },
+   {
+    "label": "D",
+    "text": "448/3",
+    "is_correct": false,
+    "rationale": "This writes f(x) = x^(7/6) but forgets to lower the exponent, giving (7/6)x^(7/6) = (7/6)(128)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.6-A",
+  "content_key": "apcalcbc-mcq-b5-h-2.6-a",
+  "family": "2.6-A",
+  "variant": null,
+  "topic": "2.6",
+  "title": "find the tangent line to a linear combination of functions from the tangent lines of the pieces, combining slopes and va",
+  "stem": "The tangent line to the graph of f at x = 2 is y = 3x − 1, and the tangent line to the graph of g at x = 2 is y = −x + 5. Let h(x) = 2f(x) − g(x). Which is an equation of the tangent line to the graph of h at x = 2?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = 7x − 12",
+    "is_correct": false,
+    "rationale": "The slope 7 is right, but this uses h(2) = f(2) − g(2) = 2 and forgets to double f(2) = 5."
+   },
+   {
+    "label": "B",
+    "text": "y = 7x − 7",
+    "is_correct": true,
+    "rationale": "Correct: f(2) = 5, f′(2) = 3, g(2) = 3, g′(2) = −1, so h(2) = 7 and h′(2) = 6 + 1 = 7; the tangent is y − 7 = 7(x − 2)."
+   },
+   {
+    "label": "C",
+    "text": "y = 5x − 3",
+    "is_correct": false,
+    "rationale": "This computes the slope as 2(3) − 1 = 5, using g′(2) = −1 with the wrong sign for a subtracted function."
+   },
+   {
+    "label": "D",
+    "text": "y = 7x − 6",
+    "is_correct": false,
+    "rationale": "This doubles the 3x in f's tangent line but not its constant −1, writing 2(3x) − 1 − (−x + 5)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.6-A-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.6-a-v1",
+  "family": "2.6-A",
+  "variant": "1",
+  "topic": "2.6",
+  "title": "find the tangent line to a linear combination of functions from the tangent lines of the pieces, combining slopes and va (variant 1)",
+  "stem": "The tangent line to the graph of f at x = 3 is y = −2x + 9, and the tangent line to the graph of g at x = 3 is y = x − 1. Let h(x) = 3f(x) + 2g(x). Which is an equation of the tangent line to the graph of h at x = 3?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = −4x + 25",
+    "is_correct": true,
+    "rationale": "Correct: f(3) = 3, f′(3) = −2, g(3) = 2, g′(3) = 1, so h(3) = 13 and h′(3) = −6 + 2 = −4; the tangent is y − 13 = −4(x − 3)."
+   },
+   {
+    "label": "B",
+    "text": "y = −5x + 28",
+    "is_correct": false,
+    "rationale": "This forgets to double g′(3): 3(−2) + 1 = −5 gives the slope, and the line is then built through (3, 13)."
+   },
+   {
+    "label": "C",
+    "text": "y = −4x + 17",
+    "is_correct": false,
+    "rationale": "The slope −4 is right, but this uses h(3) = f(3) + g(3) = 5 and ignores the coefficients 3 and 2 on the values."
+   },
+   {
+    "label": "D",
+    "text": "y = −x + 8",
+    "is_correct": false,
+    "rationale": "This adds the two tangent line equations without the coefficients, (−2x + 9) + (x − 1)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.6-A-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.6-a-v2",
+  "family": "2.6-A",
+  "variant": "2",
+  "topic": "2.6",
+  "title": "find the tangent line to a linear combination of functions from the tangent lines of the pieces, combining slopes and va (variant 2)",
+  "stem": "The tangent line to the graph of f at x = 1 is y = 4x + 2, and the tangent line to the graph of g at x = 1 is y = −2x + 3. Let h(x) = f(x) − 3g(x) + x². Which is an equation of the tangent line to the graph of h at x = 1?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = 10x − 6",
+    "is_correct": false,
+    "rationale": "This treats x² as a constant in the derivative, so the 2x term is left out and the slope is 4 + 6 = 10."
+   },
+   {
+    "label": "B",
+    "text": "y = 12x − 9",
+    "is_correct": false,
+    "rationale": "The slope 12 is right, but this uses h(1) = f(1) − 3g(1) = 3 and leaves out the value 1² = 1."
+   },
+   {
+    "label": "C",
+    "text": "y = 12x − 8",
+    "is_correct": true,
+    "rationale": "Correct: f(1) = 6, f′(1) = 4, g(1) = 1, g′(1) = −2, so h(1) = 6 − 3 + 1 = 4 and h′(1) = 4 + 6 + 2 = 12; the tangent is y − 4 = 12(x − 1)."
+   },
+   {
+    "label": "D",
+    "text": "y = 4",
+    "is_correct": false,
+    "rationale": "This adds 3g′(1) instead of subtracting it, so the slope becomes 4 − 6 + 2 = 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.6-A-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.6-a-v3",
+  "family": "2.6-A",
+  "variant": "3",
+  "topic": "2.6",
+  "title": "find the tangent line to a linear combination of functions from the tangent lines of the pieces, combining slopes and va (variant 3)",
+  "stem": "The tangent line to the graph of f at x = 0 is y = 2x + 1, and the tangent line to the graph of g at x = 0 is y = −x + 4. Let h(x) = g(x) − 2f(x) + 3eˣ. Which is an equation of the tangent line to the graph of h at x = 0?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = 5",
+    "is_correct": false,
+    "rationale": "This forgets to double f′(0): the slope becomes −1 − 2 + 3 = 0 instead of −1 − 4 + 3 = −2."
+   },
+   {
+    "label": "B",
+    "text": "y = 6x + 5",
+    "is_correct": false,
+    "rationale": "This adds 2f′(0) instead of subtracting it, so the slope becomes −1 + 4 + 3 = 6."
+   },
+   {
+    "label": "C",
+    "text": "y = −2x + 2",
+    "is_correct": false,
+    "rationale": "The slope is right, but this leaves out the 3e⁰ = 3 in h(0), using h(0) = g(0) − 2f(0) = 2."
+   },
+   {
+    "label": "D",
+    "text": "y = −2x + 5",
+    "is_correct": true,
+    "rationale": "Correct: f(0) = 1, f′(0) = 2, g(0) = 4, g′(0) = −1, so h(0) = 4 − 2 + 3 = 5 and h′(0) = −1 − 4 + 3 = −2; the tangent is y = −2x + 5."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.6-B",
+  "content_key": "apcalcbc-mcq-b5-h-2.6-b",
+  "family": "2.6-B",
+  "variant": null,
+  "topic": "2.6",
+  "title": "use f′ = c·g′ (or f′ = g′ + k) to conclude that a related combination of f and g is constant, rather than that f and g a",
+  "stem": "The functions f and g are differentiable for all real x, and f′(x) = g′(x) for all x. Which statement must be true?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f(x) − g(x) is constant.",
+    "is_correct": true,
+    "rationale": "Correct: (f − g)′ = f′ − g′ = 0 for all x, so f − g is constant, but that constant need not be 0."
+   },
+   {
+    "label": "B",
+    "text": "f(x) = g(x) for all x.",
+    "is_correct": false,
+    "rationale": "Functions with the same derivative can differ by a vertical shift; for example f(x) = x² and g(x) = x² + 1."
+   },
+   {
+    "label": "C",
+    "text": "f and g have the same zeros.",
+    "is_correct": false,
+    "rationale": "A vertical shift moves the zeros; x² has a zero at 0, but x² + 1 has none."
+   },
+   {
+    "label": "D",
+    "text": "f(0) = g(0).",
+    "is_correct": false,
+    "rationale": "Equal derivatives do not force equal values at any point, for example f(x) = x and g(x) = x + 5."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.6-B-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.6-b-v1",
+  "family": "2.6-B",
+  "variant": "1",
+  "topic": "2.6",
+  "title": "use f′ = c·g′ (or f′ = g′ + k) to conclude that a related combination of f and g is constant, rather than that f and g a (variant 1)",
+  "stem": "The functions f and g are differentiable for all real x, and f′(x) = g′(x) + 3 for all x. Which statement must be true?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f(x) = g(x) + 3 for all x.",
+    "is_correct": false,
+    "rationale": "The derivative of g(x) + 3 is g′(x), not g′(x) + 3, so adding the constant 3 to g does not produce the extra 3 in the derivative."
+   },
+   {
+    "label": "B",
+    "text": "f(x) − g(x) is constant.",
+    "is_correct": false,
+    "rationale": "The difference f − g has derivative 3, not 0, so it changes at a constant rate rather than staying constant."
+   },
+   {
+    "label": "C",
+    "text": "f(x) − g(x) − 3x is constant.",
+    "is_correct": true,
+    "rationale": "Correct: (f − g − 3x)′ = f′ − g′ − 3 = 0 for all x, so f(x) − g(x) − 3x is constant."
+   },
+   {
+    "label": "D",
+    "text": "f(x) = g(x) + 3x for all x.",
+    "is_correct": false,
+    "rationale": "This is the right growth rate, but it omits the possible constant: f(x) = g(x) + 3x + 7 also has f′ = g′ + 3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.6-B-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.6-b-v2",
+  "family": "2.6-B",
+  "variant": "2",
+  "topic": "2.6",
+  "title": "use f′ = c·g′ (or f′ = g′ + k) to conclude that a related combination of f and g is constant, rather than that f and g a (variant 2)",
+  "stem": "The functions f and g are differentiable for all real x, and f′(x) = 2g′(x) for all x. Which statement must be true?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f(x) = 2g(x) for all x.",
+    "is_correct": false,
+    "rationale": "Equal derivatives of f and 2g allow a constant offset, for example g(x) = x and f(x) = 2x + 1."
+   },
+   {
+    "label": "B",
+    "text": "f(x) − g(x) is constant.",
+    "is_correct": false,
+    "rationale": "The difference f − g has derivative 2g′ − g′ = g′, which is not zero in general."
+   },
+   {
+    "label": "C",
+    "text": "f(0) = 2g(0).",
+    "is_correct": false,
+    "rationale": "Doubling the derivative does not force the values to match at any point, as with g(x) = x and f(x) = 2x + 1."
+   },
+   {
+    "label": "D",
+    "text": "f(x) − 2g(x) is constant.",
+    "is_correct": true,
+    "rationale": "Correct: (f − 2g)′ = f′ − 2g′ = 0 for all x, so f(x) − 2g(x) is constant."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.6-B-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.6-b-v3",
+  "family": "2.6-B",
+  "variant": "3",
+  "topic": "2.6",
+  "title": "use f′ = c·g′ (or f′ = g′ + k) to conclude that a related combination of f and g is constant, rather than that f and g a (variant 3)",
+  "stem": "The functions f and g are differentiable for all real x, and f′(x) = −g′(x) for all x. Which statement must be true?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f(x) = −g(x) for all x.",
+    "is_correct": false,
+    "rationale": "Opposite derivatives allow a constant offset, for example f(x) = x and g(x) = −x + 4."
+   },
+   {
+    "label": "B",
+    "text": "f(x) + g(x) is constant.",
+    "is_correct": true,
+    "rationale": "Correct: (f + g)′ = f′ + g′ = 0 for all x, so f(x) + g(x) is constant."
+   },
+   {
+    "label": "C",
+    "text": "f(x) − g(x) is constant.",
+    "is_correct": false,
+    "rationale": "The difference f − g has derivative f′ + f′ = 2f′, which is not zero in general."
+   },
+   {
+    "label": "D",
+    "text": "f(x)·g(x) is constant.",
+    "is_correct": false,
+    "rationale": "Opposite derivatives say nothing about products; f(x) = x and g(x) = −x give a product −x², which is not constant."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.7-A",
+  "content_key": "apcalcbc-mcq-b5-h-2.7-a",
+  "family": "2.7-A",
+  "variant": null,
+  "topic": "2.7",
+  "title": "find the slope of a tangent line to y = ln x or y = eˣ that passes through a given external point, by solving the tangen",
+  "stem": "A line through the origin is tangent to the graph of y = ln x. What is the slope of this line?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This is the slope of the tangent at x = 1, where the curve meets the x-axis, but that line does not pass through the origin."
+   },
+   {
+    "label": "B",
+    "text": "e",
+    "is_correct": false,
+    "rationale": "This reports the point of tangency x = e, found from ln a − 1 = 0, instead of the slope 1/a at that point."
+   },
+   {
+    "label": "C",
+    "text": "1/(e − 1)",
+    "is_correct": false,
+    "rationale": "This is the slope of the line through (1, 0) and (e, 1), which uses the x-intercept instead of the origin and is not tangent."
+   },
+   {
+    "label": "D",
+    "text": "1/e",
+    "is_correct": true,
+    "rationale": "Correct: The tangent at a is y = ln a + (x − a)/a; passing through (0, 0) gives ln a = 1, so a = e and the slope is 1/e."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.7-A-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.7-a-v1",
+  "family": "2.7-A",
+  "variant": "1",
+  "topic": "2.7",
+  "title": "find the slope of a tangent line to y = ln x or y = eˣ that passes through a given external point, by solving the tangen (variant 1)",
+  "stem": "A line through the point (2, 0) is tangent to the graph of y = eˣ. What is the slope of this line?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "e²",
+    "is_correct": false,
+    "rationale": "This is the slope of the tangent at x = 2, but that line is y = e²(x − 1) and does not pass through (2, 0)."
+   },
+   {
+    "label": "B",
+    "text": "e",
+    "is_correct": false,
+    "rationale": "This reverses (x − a) as (a − x) in the tangent equation, giving 1 + (a − 2) = 0 and a = 1."
+   },
+   {
+    "label": "C",
+    "text": "3",
+    "is_correct": false,
+    "rationale": "This reports the point of tangency a = 3 instead of the slope e^a = e³."
+   },
+   {
+    "label": "D",
+    "text": "e³",
+    "is_correct": true,
+    "rationale": "Correct: The tangent at a is y = eᵃ + eᵃ(x − a); passing through (2, 0) gives 1 + 2 − a = 0, so a = 3 and the slope is e³."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.7-A-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.7-a-v2",
+  "family": "2.7-A",
+  "variant": "2",
+  "topic": "2.7",
+  "title": "find the slope of a tangent line to y = ln x or y = eˣ that passes through a given external point, by solving the tangen (variant 2)",
+  "stem": "A line through the point (0, −2) is tangent to the graph of y = ln x. What is the slope of this line?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/e",
+    "is_correct": false,
+    "rationale": "This reports the point of tangency a = 1/e instead of the slope 1/a = e."
+   },
+   {
+    "label": "B",
+    "text": "e",
+    "is_correct": true,
+    "rationale": "Correct: The tangent at a is y = ln a + (x − a)/a; at x = 0 it gives ln a − 1 = −2, so a = 1/e and the slope is 1/a = e."
+   },
+   {
+    "label": "C",
+    "text": "e²",
+    "is_correct": false,
+    "rationale": "This sets ln a = −2 and ignores the −1 contributed by the tangent term, giving a = e⁻² and slope e²."
+   },
+   {
+    "label": "D",
+    "text": "1/e²",
+    "is_correct": false,
+    "rationale": "This reports the point a = e⁻² from setting ln a = −2, not the slope, and it also drops the −1 from the tangent term."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.7-A-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.7-a-v3",
+  "family": "2.7-A",
+  "variant": "3",
+  "topic": "2.7",
+  "title": "find the slope of a tangent line to y = ln x or y = eˣ that passes through a given external point, by solving the tangen (variant 3)",
+  "stem": "A line through the point (−2, 0) is tangent to the graph of y = eˣ. What is the slope of this line?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/e",
+    "is_correct": true,
+    "rationale": "Correct: The tangent at a is y = eᵃ + eᵃ(x − a); at (−2, 0) it gives 1 + (−2 − a) = 0, so a = −1 and the slope is e⁻¹."
+   },
+   {
+    "label": "B",
+    "text": "e⁻²",
+    "is_correct": false,
+    "rationale": "This is the slope of the tangent at x = −2 itself, but that line does not pass through (−2, 0) because it meets the curve there."
+   },
+   {
+    "label": "C",
+    "text": "−1",
+    "is_correct": false,
+    "rationale": "This reports the point of tangency a = −1 instead of the slope e^a = 1/e."
+   },
+   {
+    "label": "D",
+    "text": "e",
+    "is_correct": false,
+    "rationale": "This writes 1 + (−2 + a) = 0 with a sign slip on a, giving a = 1 and slope e instead of a = −1 and slope 1/e."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.7-B",
+  "content_key": "apcalcbc-mcq-b5-h-2.7-b",
+  "family": "2.7-B",
+  "variant": null,
+  "topic": "2.7",
+  "title": "evaluate a high-order derivative of sin x, cos x, and eˣ by identifying the cycle of length four and the remainder of th",
+  "stem": "Let f(x) = sin x. What is the 2025th derivative of f at x = π/3?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "√3/2",
+    "is_correct": false,
+    "rationale": "This treats 2025 as a multiple of 4, where the derivative returns to sin x, but 2025 leaves remainder 1, which gives cos x."
+   },
+   {
+    "label": "B",
+    "text": "−√3/2",
+    "is_correct": false,
+    "rationale": "This uses the cycle position for remainder 2, which gives −sin x, but 2025 leaves remainder 1."
+   },
+   {
+    "label": "C",
+    "text": "1/2",
+    "is_correct": true,
+    "rationale": "Correct: The derivatives of sin x cycle sin, cos, −sin, −cos; 2025 = 4·506 + 1, so f^(2025)(x) = cos x and the value is cos(π/3) = 1/2."
+   },
+   {
+    "label": "D",
+    "text": "−1/2",
+    "is_correct": false,
+    "rationale": "This uses the cycle position for remainder 3, which gives −cos x, but 2025 leaves remainder 1."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.7-B-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.7-b-v1",
+  "family": "2.7-B",
+  "variant": "1",
+  "topic": "2.7",
+  "title": "evaluate a high-order derivative of sin x, cos x, and eˣ by identifying the cycle of length four and the remainder of th (variant 1)",
+  "stem": "Let f(x) = cos x. What is the 43rd derivative of f at x = π/6?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−1/2",
+    "is_correct": false,
+    "rationale": "This takes the 43rd derivative as −sin x, the first derivative in the cycle, but 43 = 4·10 + 3 gives sin x."
+   },
+   {
+    "label": "B",
+    "text": "√3/2",
+    "is_correct": false,
+    "rationale": "This treats 43 as a multiple of 4, where the derivative returns to cos x, but 43 leaves remainder 3."
+   },
+   {
+    "label": "C",
+    "text": "1/2",
+    "is_correct": true,
+    "rationale": "Correct: The derivatives of cos x cycle cos, −sin, −cos, sin; 43 = 4·10 + 3, so f^(43)(x) = sin x and the value is sin(π/6) = 1/2."
+   },
+   {
+    "label": "D",
+    "text": "−√3/2",
+    "is_correct": false,
+    "rationale": "This uses the cycle position for remainder 2, which gives −cos x, but 43 leaves remainder 3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.7-B-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.7-b-v2",
+  "family": "2.7-B",
+  "variant": "2",
+  "topic": "2.7",
+  "title": "evaluate a high-order derivative of sin x, cos x, and eˣ by identifying the cycle of length four and the remainder of th (variant 2)",
+  "stem": "Let f(x) = 2cos x + 5eˣ. What is the 102nd derivative of f at x = 0?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "7",
+    "is_correct": false,
+    "rationale": "This treats 102 as a multiple of 4, where 2cos x returns to itself with value 2, but 102 leaves remainder 2 and gives −2cos x."
+   },
+   {
+    "label": "B",
+    "text": "3",
+    "is_correct": true,
+    "rationale": "Correct: 102 = 4·25 + 2, so the cosine term gives −2cos x, and 5eˣ stays 5eˣ; at 0 the value is −2 + 5 = 3."
+   },
+   {
+    "label": "C",
+    "text": "5",
+    "is_correct": false,
+    "rationale": "This drops the contribution of the cosine term, as happens at an odd order, but 102 is even and gives −2cos 0 = −2."
+   },
+   {
+    "label": "D",
+    "text": "−2",
+    "is_correct": false,
+    "rationale": "This differentiates the cosine term correctly but treats 5eˣ as vanishing, when every derivative of eˣ is eˣ and contributes 5e⁰ = 5."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.7-B-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.7-b-v3",
+  "family": "2.7-B",
+  "variant": "3",
+  "topic": "2.7",
+  "title": "evaluate a high-order derivative of sin x, cos x, and eˣ by identifying the cycle of length four and the remainder of th (variant 3)",
+  "stem": "Let f(x) = 2 sin x − cos x. What is the 7th derivative of f at x = π?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−2",
+    "is_correct": false,
+    "rationale": "This uses the first derivative of f, 2cos x + sin x, whose value at π is −2, but 7 = 4 + 3 requires the third derivative."
+   },
+   {
+    "label": "B",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This treats 7 as a multiple of 4, where f returns to itself with value 2 sin π − cos π = 1, but 7 leaves remainder 3."
+   },
+   {
+    "label": "C",
+    "text": "−1",
+    "is_correct": false,
+    "rationale": "This uses the second derivative of f, −2 sin x + cos x, whose value at π is −1, but 7 leaves remainder 3."
+   },
+   {
+    "label": "D",
+    "text": "2",
+    "is_correct": true,
+    "rationale": "Correct: 7 = 4 + 3, so f^(7) is the third derivative: (2 sin x)‴ = −2cos x and (−cos x)‴ = −sin x; at π this is 2 − 0 = 2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.8-A",
+  "content_key": "apcalcbc-mcq-b5-h-2.8-a",
+  "family": "2.8-A",
+  "variant": null,
+  "topic": "2.8",
+  "title": "differentiate a product of three factors, one given only by table values, tracking every term of the product rule.",
+  "stem": "Differentiable functions f and g satisfy f(2) = 3, f′(2) = −1, g(2) = 2, and g′(2) = 4. Let h(x) = x·f(x)·g(x). What is h′(2)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "26",
+    "is_correct": true,
+    "rationale": "Correct: h′ = f g + x f′ g + x f g′ = 6 + 2(−1)(2) + 2(3)(4) = 6 − 4 + 24 = 26."
+   },
+   {
+    "label": "B",
+    "text": "20",
+    "is_correct": false,
+    "rationale": "This leaves out the term from differentiating the factor x, which contributes f(2)g(2) = 6."
+   },
+   {
+    "label": "C",
+    "text": "−4",
+    "is_correct": false,
+    "rationale": "This multiplies the three derivatives, 1·(−1)·4, instead of using the product rule."
+   },
+   {
+    "label": "D",
+    "text": "16",
+    "is_correct": false,
+    "rationale": "This keeps all three terms but drops the multiplying factor x = 2 from the two terms that keep x: 6 − 2 + 12."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.8-A-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.8-a-v1",
+  "family": "2.8-A",
+  "variant": "1",
+  "topic": "2.8",
+  "title": "differentiate a product of three factors, one given only by table values, tracking every term of the product rule. (variant 1)",
+  "stem": "Differentiable functions f and g satisfy f(ln 2) = 2, f′(ln 2) = 3, g(ln 2) = −1, and g′(ln 2) = 5. Let h(x) = eˣ·f(x)·g(x). What is h′(ln 2)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "14",
+    "is_correct": false,
+    "rationale": "This leaves out the term from differentiating eˣ, which contributes eˣf g, so only the terms with f′ and g′ remain."
+   },
+   {
+    "label": "B",
+    "text": "30",
+    "is_correct": false,
+    "rationale": "This multiplies the three derivatives, e^(ln 2)·3·5, instead of using the product rule."
+   },
+   {
+    "label": "C",
+    "text": "12",
+    "is_correct": false,
+    "rationale": "This treats the derivative of eˣ as 1 instead of eˣ, so the first term is f g = −2 rather than eˣ f g = −4."
+   },
+   {
+    "label": "D",
+    "text": "10",
+    "is_correct": true,
+    "rationale": "Correct: h′ = eˣ(f g + f′g + f g′) = 2(−2 − 3 + 10) = 10 at x = ln 2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.8-A-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.8-a-v2",
+  "family": "2.8-A",
+  "variant": "2",
+  "topic": "2.8",
+  "title": "differentiate a product of three factors, one given only by table values, tracking every term of the product rule. (variant 2)",
+  "stem": "Differentiable functions f and g satisfy f(1) = 4, f′(1) = 2, g(1) = 3, and g′(1) = −2. Let h(x) = (f(x) + x)(g(x) − x²). What is h′(1)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−12",
+    "is_correct": false,
+    "rationale": "This multiplies the derivatives of the two factors, (f′ + 1)(g′ − 2x) = 3·(−4), instead of using the product rule."
+   },
+   {
+    "label": "B",
+    "text": "−14",
+    "is_correct": true,
+    "rationale": "Correct: (f + x) = 5 with derivative 3, and (g − x²) = 2 with derivative −2 − 2 = −4, so h′(1) = 3·2 + 5·(−4) = −14."
+   },
+   {
+    "label": "C",
+    "text": "−6",
+    "is_correct": false,
+    "rationale": "This differentiates the two factors without the terms from x and x², so it uses f′ and g′ alone."
+   },
+   {
+    "label": "D",
+    "text": "26",
+    "is_correct": false,
+    "rationale": "This subtracts the second product-rule term instead of adding it, 3·2 − 5·(−4)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.8-A-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.8-a-v3",
+  "family": "2.8-A",
+  "variant": "3",
+  "topic": "2.8",
+  "title": "differentiate a product of three factors, one given only by table values, tracking every term of the product rule. (variant 3)",
+  "stem": "Differentiable functions f and g satisfy f(π) = 2, f′(π) = 4, g(π) = −3, and g′(π) = 5. Let h(x) = sin x·f(x)·g(x). What is h′(π)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−6",
+    "is_correct": false,
+    "rationale": "This uses cos π = +1 in the only surviving term, but cos π = −1."
+   },
+   {
+    "label": "B",
+    "text": "−2",
+    "is_correct": false,
+    "rationale": "This differentiates only the product f·g, giving f′g + fg′, and ignores the factor sin x entirely."
+   },
+   {
+    "label": "C",
+    "text": "−20",
+    "is_correct": false,
+    "rationale": "This multiplies the derivatives cos π, f′, and g′, instead of using the product rule."
+   },
+   {
+    "label": "D",
+    "text": "6",
+    "is_correct": true,
+    "rationale": "Correct: Since sin π = 0, only the term from differentiating sin x survives: h′(π) = cos π · f(π)·g(π) = (−1)(2)(−3) = 6."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.8-B",
+  "content_key": "apcalcbc-mcq-b5-h-2.8-b",
+  "family": "2.8-B",
+  "variant": null,
+  "topic": "2.8",
+  "title": "locate horizontal tangent lines of a product by solving f′ = 0, separating critical points from zeros of f and from erro",
+  "stem": "For 0 < x ≤ π, at what value of x does the graph of f(x) = eˣ sin x have a horizontal tangent line?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3π/4",
+    "is_correct": true,
+    "rationale": "Correct: f′(x) = eˣ(sin x + cos x) = 0 gives tan x = −1, so x = 3π/4 on (0, π]."
+   },
+   {
+    "label": "B",
+    "text": "π/4",
+    "is_correct": false,
+    "rationale": "This uses f′(x) = eˣ(cos x − sin x), a sign error in the product rule, which gives tan x = 1."
+   },
+   {
+    "label": "C",
+    "text": "π/2",
+    "is_correct": false,
+    "rationale": "This multiplies the derivatives eˣ and cos x instead of using the product rule, so it solves cos x = 0."
+   },
+   {
+    "label": "D",
+    "text": "π",
+    "is_correct": false,
+    "rationale": "This solves f(x) = 0 instead of f′(x) = 0; the zeros of f are not where its tangent is horizontal."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.8-B-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.8-b-v1",
+  "family": "2.8-B",
+  "variant": "1",
+  "topic": "2.8",
+  "title": "locate horizontal tangent lines of a product by solving f′ = 0, separating critical points from zeros of f and from erro (variant 1)",
+  "stem": "For 0 < x ≤ π, at what value of x does the graph of f(x) = eˣ cos x have a horizontal tangent line?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3π/4",
+    "is_correct": false,
+    "rationale": "This writes f′(x) = eˣ(cos x + sin x), a sign error in the derivative of cos x, which gives tan x = −1."
+   },
+   {
+    "label": "B",
+    "text": "π/2",
+    "is_correct": false,
+    "rationale": "This solves f(x) = 0 instead of f′(x) = 0."
+   },
+   {
+    "label": "C",
+    "text": "π/4",
+    "is_correct": true,
+    "rationale": "Correct: f′(x) = eˣ(cos x − sin x) = 0 gives tan x = 1, so x = π/4 on (0, π]."
+   },
+   {
+    "label": "D",
+    "text": "π",
+    "is_correct": false,
+    "rationale": "This multiplies the derivatives eˣ and −sin x instead of using the product rule, giving sin x = 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.8-B-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.8-b-v2",
+  "family": "2.8-B",
+  "variant": "2",
+  "topic": "2.8",
+  "title": "locate horizontal tangent lines of a product by solving f′ = 0, separating critical points from zeros of f and from erro (variant 2)",
+  "stem": "For x > 0, at what value of x does the graph of f(x) = x² ln x have a horizontal tangent line?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This solves f(x) = 0 instead of f′(x) = 0; the zero of x² ln x is x = 1, where the tangent slope is 1."
+   },
+   {
+    "label": "B",
+    "text": "e^(−1)",
+    "is_correct": false,
+    "rationale": "This solves 2 ln x + 1 = 0 as ln x = −1, forgetting to divide by 2."
+   },
+   {
+    "label": "C",
+    "text": "e^(1/2)",
+    "is_correct": false,
+    "rationale": "This solves 2 ln x + 1 = 0 as ln x = 1/2, a sign slip when isolating ln x."
+   },
+   {
+    "label": "D",
+    "text": "e^(−1/2)",
+    "is_correct": true,
+    "rationale": "Correct: f′(x) = 2x ln x + x²(1/x) = x(2 ln x + 1) = 0 gives ln x = −1/2, so x = e^(−1/2)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.8-B-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.8-b-v3",
+  "family": "2.8-B",
+  "variant": "3",
+  "topic": "2.8",
+  "title": "locate horizontal tangent lines of a product by solving f′ = 0, separating critical points from zeros of f and from erro (variant 3)",
+  "stem": "At which values of x does the graph of f(x) = x²eˣ have a horizontal tangent line?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x = −2 only",
+    "is_correct": false,
+    "rationale": "This discards x = 0, but f′(x) = eˣ(x² + 2x) = x(x + 2)eˣ is also 0 at x = 0."
+   },
+   {
+    "label": "B",
+    "text": "x = 0 and x = 2",
+    "is_correct": false,
+    "rationale": "This factors x² + 2x as x(x − 2), a sign error, instead of x(x + 2)."
+   },
+   {
+    "label": "C",
+    "text": "x = 0 and x = −2",
+    "is_correct": true,
+    "rationale": "Correct: f′(x) = 2xeˣ + x²eˣ = x(x + 2)eˣ, which is 0 at x = 0 and x = −2."
+   },
+   {
+    "label": "D",
+    "text": "x = 0 only",
+    "is_correct": false,
+    "rationale": "This multiplies the derivatives 2x and eˣ instead of using the product rule, which gives only x = 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.9-A",
+  "content_key": "apcalcbc-mcq-b5-h-2.9-a",
+  "family": "2.9-A",
+  "variant": null,
+  "topic": "2.9",
+  "title": "apply the quotient rule when the numerator or denominator is itself a sum or product involving values of f, g, f′, g′, t",
+  "stem": "Differentiable functions f and g satisfy f(2) = 3, f′(2) = −1, g(2) = 4, and g′(2) = 2. Let h(x) = f(x)/(x + g(x)). What is h′(2)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−1/3",
+    "is_correct": false,
+    "rationale": "This differentiates the denominator as g′(2) = 2 instead of 1 + g′(2) = 3, leaving out the derivative of x."
+   },
+   {
+    "label": "B",
+    "text": "5/12",
+    "is_correct": false,
+    "rationale": "This subtracts in the wrong order, using (numerator)(derivative of denominator) minus (derivative of numerator)(denominator)."
+   },
+   {
+    "label": "C",
+    "text": "−5/12",
+    "is_correct": true,
+    "rationale": "Correct: h′ = (f′(x + g) − f(1 + g′))/(x + g)² = (−1·6 − 3·3)/36 = −15/36 = −5/12."
+   },
+   {
+    "label": "D",
+    "text": "−5/2",
+    "is_correct": false,
+    "rationale": "This leaves out the square of the denominator and divides by x + g(x) = 6 instead of by 36."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.9-A-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.9-a-v1",
+  "family": "2.9-A",
+  "variant": "1",
+  "topic": "2.9",
+  "title": "apply the quotient rule when the numerator or denominator is itself a sum or product involving values of f, g, f′, g′, t (variant 1)",
+  "stem": "Differentiable functions f and g satisfy f(1) = 3, f′(1) = −2, g(1) = 2, and g′(1) = 4. Let h(x) = (x² + f(x))/g(x). What is h′(1)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−4",
+    "is_correct": true,
+    "rationale": "Correct: Numerator N = 1 + 3 = 4, N′ = 2 − 2 = 0, so h′ = (0·2 − 4·4)/2² = −16/4 = −4."
+   },
+   {
+    "label": "B",
+    "text": "−5",
+    "is_correct": false,
+    "rationale": "This differentiates the numerator as f′(1) = −2, leaving out the derivative 2x = 2 of x²."
+   },
+   {
+    "label": "C",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This subtracts in the wrong order: (numerator)(g′) − (numerator′)(g)."
+   },
+   {
+    "label": "D",
+    "text": "−8",
+    "is_correct": false,
+    "rationale": "This leaves out the square of the denominator and divides by g(1) = 2 instead of by 4."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.9-A-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.9-a-v2",
+  "family": "2.9-A",
+  "variant": "2",
+  "topic": "2.9",
+  "title": "apply the quotient rule when the numerator or denominator is itself a sum or product involving values of f, g, f′, g′, t (variant 2)",
+  "stem": "Differentiable functions f and g satisfy f(3) = 2, f′(3) = 1, g(3) = 4, and g′(3) = −2. Let h(x) = x·f(x)/g(x). What is h′(3)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "5/4",
+    "is_correct": false,
+    "rationale": "This differentiates the numerator as f(3) alone, leaving out the term x f′ from the product rule."
+   },
+   {
+    "label": "B",
+    "text": "1",
+    "is_correct": false,
+    "rationale": "This differentiates the numerator as f′(3) alone, treating x f(x) as if only f changed."
+   },
+   {
+    "label": "C",
+    "text": "2",
+    "is_correct": true,
+    "rationale": "Correct: N = x f = 6 and N′ = f + x f′ = 5, so h′ = (5·4 − 6·(−2))/16 = 32/16 = 2."
+   },
+   {
+    "label": "D",
+    "text": "1/2",
+    "is_correct": false,
+    "rationale": "This subtracts with the wrong sign, (20 − 12)/16, instead of 20 − (6)(−2) = 32 in the numerator."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.9-A-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.9-a-v3",
+  "family": "2.9-A",
+  "variant": "3",
+  "topic": "2.9",
+  "title": "apply the quotient rule when the numerator or denominator is itself a sum or product involving values of f, g, f′, g′, t (variant 3)",
+  "stem": "Differentiable functions f and g satisfy f(1) = 3, f′(1) = 5, g(1) = −4, and g′(1) = 3. Let h(x) = g(x)/(f(x) − x). What is h′(1)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "13/2",
+    "is_correct": false,
+    "rationale": "This differentiates the denominator as f′(1) = 5, leaving out the derivative of x, which is 1."
+   },
+   {
+    "label": "B",
+    "text": "−5/2",
+    "is_correct": false,
+    "rationale": "This subtracts with the wrong sign, 6 − 16 instead of 6 + 16, mishandling g(−4) times the denominator derivative."
+   },
+   {
+    "label": "C",
+    "text": "11/2",
+    "is_correct": true,
+    "rationale": "Correct: D = f − x = 2 and D′ = 5 − 1 = 4, so h′ = (g′D − gD′)/D² = (3·2 − (−4)(4))/4 = 22/4 = 11/2."
+   },
+   {
+    "label": "D",
+    "text": "−11/2",
+    "is_correct": false,
+    "rationale": "This subtracts in the wrong order, (numerator)(derivative of denominator) − (derivative of numerator)(denominator)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.9-B",
+  "content_key": "apcalcbc-mcq-b5-h-2.9-b",
+  "family": "2.9-B",
+  "variant": null,
+  "topic": "2.9",
+  "title": "reverse the quotient rule: from a given tangent-slope condition on f/g (or g/f or xf/g) solve for an unknown derivative ",
+  "stem": "Differentiable functions f and g satisfy f(a) = 6, g(a) = 3, and f′(a) = 4, with g(a) ≠ 0. The graph of h(x) = f(x)/g(x) has a horizontal tangent line at x = a. What is g′(a)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2",
+    "is_correct": true,
+    "rationale": "Correct: h′(a) = (f′g − fg′)/g² = 0 gives 4·3 − 6g′ = 0, so g′(a) = 2."
+   },
+   {
+    "label": "B",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This assumes f′(a) = g′(a), but a horizontal tangent for f/g requires f′g = fg′, not equal derivatives."
+   },
+   {
+    "label": "C",
+    "text": "8",
+    "is_correct": false,
+    "rationale": "This inverts the ratio, g′ = f′ f/g = 4·6/3, instead of f′ g/f = 4·3/6."
+   },
+   {
+    "label": "D",
+    "text": "−2",
+    "is_correct": false,
+    "rationale": "This sets the numerator f′g + fg′ equal to 0, a sign error, instead of f′g − fg′ = 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.9-B-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.9-b-v1",
+  "family": "2.9-B",
+  "variant": "1",
+  "topic": "2.9",
+  "title": "reverse the quotient rule: from a given tangent-slope condition on f/g (or g/f or xf/g) solve for an unknown derivative  (variant 1)",
+  "stem": "Differentiable functions f and g satisfy f(a) = 2, g(a) = −2, and f′(a) = 5. The graph of h(x) = f(x)/g(x) has a tangent line of slope 3 at x = a. What is g′(a)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "11",
+    "is_correct": false,
+    "rationale": "This writes the numerator as f′g + fg′ with the wrong sign when solving, so it gets +11."
+   },
+   {
+    "label": "B",
+    "text": "−11",
+    "is_correct": true,
+    "rationale": "Correct: (5(−2) − 2g′)/(−2)² = 3 gives −10 − 2g′ = 12, so g′(a) = −11."
+   },
+   {
+    "label": "C",
+    "text": "−2",
+    "is_correct": false,
+    "rationale": "This sets the numerator equal to 3g(a) = −6 instead of 3g(a)² = 12, dividing by g once instead of squaring it."
+   },
+   {
+    "label": "D",
+    "text": "−13/2",
+    "is_correct": false,
+    "rationale": "This sets the numerator equal to 3 instead of 3g(a)² = 12, leaving out the square of the denominator."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.9-B-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.9-b-v2",
+  "family": "2.9-B",
+  "variant": "2",
+  "topic": "2.9",
+  "title": "reverse the quotient rule: from a given tangent-slope condition on f/g (or g/f or xf/g) solve for an unknown derivative  (variant 2)",
+  "stem": "Differentiable functions f and g satisfy f(a) = 5, g(a) = −10, and g′(a) = −4. The graph of h(x) = g(x)/f(x) has a horizontal tangent line at x = a. What is f′(a)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−4",
+    "is_correct": false,
+    "rationale": "This assumes f′(a) = g′(a), but a horizontal tangent for g/f requires g′f = gf′, not equal derivatives."
+   },
+   {
+    "label": "B",
+    "text": "2",
+    "is_correct": true,
+    "rationale": "Correct: h′(a) = (g′f − gf′)/f² = 0 gives (−4)(5) − (−10)f′ = 0, so f′(a) = 2."
+   },
+   {
+    "label": "C",
+    "text": "8",
+    "is_correct": false,
+    "rationale": "This inverts the ratio, f′ = g′g/f = (−4)(−10)/5, instead of g′f/g = (−4)(5)/(−10)."
+   },
+   {
+    "label": "D",
+    "text": "−2",
+    "is_correct": false,
+    "rationale": "This sets g′f + gf′ = 0, a sign error, instead of g′f − gf′ = 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.9-B-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.9-b-v3",
+  "family": "2.9-B",
+  "variant": "3",
+  "topic": "2.9",
+  "title": "reverse the quotient rule: from a given tangent-slope condition on f/g (or g/f or xf/g) solve for an unknown derivative  (variant 3)",
+  "stem": "Differentiable functions f and g satisfy f(2) = 3, g(2) = 6, and g′(2) = 4. The graph of h(x) = x f(x)/g(x) has a horizontal tangent line at x = 2. What is f′(2)?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/2",
+    "is_correct": true,
+    "rationale": "Correct: N = x f = 6, N′ = f + x f′ = 3 + 2f′; h′ = 0 gives N′g = N g′, so (3 + 2f′)6 = 6·4 and f′(2) = 1/2."
+   },
+   {
+    "label": "B",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This treats the numerator derivative as f′(2) alone, so it solves f′·g = (x f)·g′ and ignores the term f from the product rule."
+   },
+   {
+    "label": "C",
+    "text": "2",
+    "is_correct": false,
+    "rationale": "This treats the numerator derivative as x f′ alone, leaving out the term f(2) = 3 from the product rule."
+   },
+   {
+    "label": "D",
+    "text": "−7/2",
+    "is_correct": false,
+    "rationale": "This sets the numerator equal to −(x f)g′, a sign error that turns 3 + 2f′ = 4 into 3 + 2f′ = −4."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.10-A",
+  "content_key": "apcalcbc-mcq-b5-h-2.10-a",
+  "family": "2.10-A",
+  "variant": null,
+  "topic": "2.10",
+  "title": "write and use the tangent line to y = sec x, csc x, cot x, or tan x at a point to find where that line crosses the x-axi",
+  "stem": "What is the x-intercept of the line tangent to the graph of y = sec x at x = π/3?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "π/3 + √3/3",
+    "is_correct": false,
+    "rationale": "This reverses the sign: the tangent has positive slope 2√3 at a positive height 2, so it crosses the axis to the left of π/3."
+   },
+   {
+    "label": "B",
+    "text": "π/3 − 1/2",
+    "is_correct": false,
+    "rationale": "This uses the slope sec² x = 4 instead of sec x tan x = 2√3, treating the derivative of sec x as that of tan x."
+   },
+   {
+    "label": "C",
+    "text": "π/3 − √3/3",
+    "is_correct": true,
+    "rationale": "Correct: At π/3, y = 2 and y′ = sec x tan x = 2√3, so 0 = 2 + 2√3(x − π/3) gives x = π/3 − 1/√3 = π/3 − √3/3."
+   },
+   {
+    "label": "D",
+    "text": "π/3 − 2√3",
+    "is_correct": false,
+    "rationale": "This uses the slope 2√3 as the horizontal shift instead of dividing the height 2 by the slope."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.10-A-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.10-a-v1",
+  "family": "2.10-A",
+  "variant": "1",
+  "topic": "2.10",
+  "title": "write and use the tangent line to y = sec x, csc x, cot x, or tan x at a point to find where that line crosses the x-axi (variant 1)",
+  "stem": "What is the x-intercept of the line tangent to the graph of y = csc x at x = π/6?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "π/6 + √3/3",
+    "is_correct": true,
+    "rationale": "Correct: At π/6, y = 2 and y′ = −csc x cot x = −2√3, so 0 = 2 − 2√3(x − π/6) gives x = π/6 + 1/√3 = π/6 + √3/3."
+   },
+   {
+    "label": "B",
+    "text": "π/6 − √3/3",
+    "is_correct": false,
+    "rationale": "This uses the slope +csc x cot x, forgetting the minus sign, so the line crosses on the wrong side."
+   },
+   {
+    "label": "C",
+    "text": "π/6 + 1/2",
+    "is_correct": false,
+    "rationale": "This uses the slope −csc² x = −4 instead of −csc x cot x = −2√3, treating the derivative of csc x as that of cot x."
+   },
+   {
+    "label": "D",
+    "text": "π/6 + 2√3",
+    "is_correct": false,
+    "rationale": "This uses the magnitude of the slope as the horizontal shift instead of dividing the height 2 by the slope."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.10-A-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.10-a-v2",
+  "family": "2.10-A",
+  "variant": "2",
+  "topic": "2.10",
+  "title": "write and use the tangent line to y = sec x, csc x, cot x, or tan x at a point to find where that line crosses the x-axi (variant 2)",
+  "stem": "What is the x-intercept of the line tangent to the graph of y = cot x at x = π/4?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "π/4 − 1/2",
+    "is_correct": false,
+    "rationale": "This uses the slope +csc² x = 2, forgetting the minus sign in the derivative of cot x."
+   },
+   {
+    "label": "B",
+    "text": "π/4 + 1/2",
+    "is_correct": true,
+    "rationale": "Correct: At π/4, y = 1 and y′ = −csc² x = −2, so 0 = 1 − 2(x − π/4) gives x = π/4 + 1/2."
+   },
+   {
+    "label": "C",
+    "text": "π/4 + √2/2",
+    "is_correct": false,
+    "rationale": "This uses the slope −csc x cot x = −√2, treating the derivative of cot x as that of csc x."
+   },
+   {
+    "label": "D",
+    "text": "π/4 + 2",
+    "is_correct": false,
+    "rationale": "This uses the magnitude of the slope as the horizontal shift instead of dividing the height 1 by the slope."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.10-A-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.10-a-v3",
+  "family": "2.10-A",
+  "variant": "3",
+  "topic": "2.10",
+  "title": "write and use the tangent line to y = sec x, csc x, cot x, or tan x at a point to find where that line crosses the x-axi (variant 3)",
+  "stem": "What is the x-intercept of the line tangent to the graph of y = tan x at x = π/3?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "π/3 − √3/4",
+    "is_correct": true,
+    "rationale": "Correct: At π/3, y = √3 and y′ = sec² x = 4, so 0 = √3 + 4(x − π/3) gives x = π/3 − √3/4."
+   },
+   {
+    "label": "B",
+    "text": "π/3 + √3/4",
+    "is_correct": false,
+    "rationale": "This reverses the sign: the tangent has positive slope 4 at a positive height √3, so it crosses to the left of π/3."
+   },
+   {
+    "label": "C",
+    "text": "π/3 − 1/2",
+    "is_correct": false,
+    "rationale": "This uses the slope sec x tan x = 2√3 instead of sec² x = 4, treating the derivative of tan x as that of sec x."
+   },
+   {
+    "label": "D",
+    "text": "π/3 − 4√3",
+    "is_correct": false,
+    "rationale": "This multiplies the height √3 by the slope 4 instead of dividing, so the shift is 4√3."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.10-B",
+  "content_key": "apcalcbc-mcq-b5-h-2.10-b",
+  "family": "2.10-B",
+  "variant": null,
+  "topic": "2.10",
+  "title": "simplify a product of trigonometric functions with an identity before differentiating, and recognize product-rule sign a",
+  "stem": "Let f(x) = tan x · cos x for 0 < x < π/2. What is f′(π/3)?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "7/2",
+    "is_correct": false,
+    "rationale": "This applies the product rule with the wrong sign, sec² x cos x + tan x sin x, instead of sec² x cos x − tan x sin x."
+   },
+   {
+    "label": "B",
+    "text": "1/2",
+    "is_correct": true,
+    "rationale": "Correct: tan x cos x = sin x, so f′(x) = cos x and f′(π/3) = 1/2; the product rule gives the same, 2 − 3/2."
+   },
+   {
+    "label": "C",
+    "text": "−2√3",
+    "is_correct": false,
+    "rationale": "This multiplies the derivatives sec² x and −sin x instead of using the product rule."
+   },
+   {
+    "label": "D",
+    "text": "√3/2",
+    "is_correct": false,
+    "rationale": "This simplifies tan x cos x to sin x correctly but then differentiates sin x as sin x instead of cos x."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.10-B-v1",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.10-b-v1",
+  "family": "2.10-B",
+  "variant": "1",
+  "topic": "2.10",
+  "title": "simplify a product of trigonometric functions with an identity before differentiating, and recognize product-rule sign a (variant 1)",
+  "stem": "Let f(x) = cot x · sin x for 0 < x < π. What is f′(π/6)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−2√3",
+    "is_correct": false,
+    "rationale": "This multiplies the derivatives −csc² x and cos x instead of using the product rule."
+   },
+   {
+    "label": "B",
+    "text": "−7/2",
+    "is_correct": false,
+    "rationale": "This applies the product rule with the wrong sign, −csc² x sin x − cot x cos x, instead of adding cot x cos x."
+   },
+   {
+    "label": "C",
+    "text": "1/2",
+    "is_correct": false,
+    "rationale": "This simplifies cot x sin x to cos x correctly but then differentiates cos x as sin x, missing the minus sign."
+   },
+   {
+    "label": "D",
+    "text": "−1/2",
+    "is_correct": true,
+    "rationale": "Correct: cot x sin x = cos x, so f′(x) = −sin x and f′(π/6) = −1/2; the product rule gives −2 + 3/2 = −1/2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.10-B-v2",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.10-b-v2",
+  "family": "2.10-B",
+  "variant": "2",
+  "topic": "2.10",
+  "title": "simplify a product of trigonometric functions with an identity before differentiating, and recognize product-rule sign a (variant 2)",
+  "stem": "Let f(x) = sec x · cot x for 0 < x < π/2. What is f′(π/4)?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−2√2",
+    "is_correct": false,
+    "rationale": "This multiplies the derivatives sec x tan x and −csc² x instead of using the product rule."
+   },
+   {
+    "label": "B",
+    "text": "√2",
+    "is_correct": false,
+    "rationale": "This simplifies sec x cot x to csc x correctly but then differentiates csc x without the minus sign."
+   },
+   {
+    "label": "C",
+    "text": "3√2",
+    "is_correct": false,
+    "rationale": "This applies the product rule with the wrong sign, sec x tan x cot x − sec x(−csc² x), so the two terms add instead of partially cancelling."
+   },
+   {
+    "label": "D",
+    "text": "−√2",
+    "is_correct": true,
+    "rationale": "Correct: sec x cot x = csc x, so f′(x) = −csc x cot x and f′(π/4) = −√2; the product rule gives √2 − 2√2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-2.10-B-v3",
+  "content_key": "apcalcbc-mcq-b5-sv-h-2.10-b-v3",
+  "family": "2.10-B",
+  "variant": "3",
+  "topic": "2.10",
+  "title": "simplify a product of trigonometric functions with an identity before differentiating, and recognize product-rule sign a (variant 3)",
+  "stem": "Let f(x) = csc x · tan x for 0 < x < π/2. What is f′(π/3)?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−8/3",
+    "is_correct": false,
+    "rationale": "This multiplies the derivatives −csc x cot x and sec² x instead of using the product rule."
+   },
+   {
+    "label": "B",
+    "text": "4",
+    "is_correct": false,
+    "rationale": "This simplifies csc x tan x to sec x correctly but then differentiates sec x as sec² x instead of sec x tan x."
+   },
+   {
+    "label": "C",
+    "text": "2√3",
+    "is_correct": true,
+    "rationale": "Correct: csc x tan x = sec x, so f′(x) = sec x tan x and f′(π/3) = 2√3; the product rule gives −2/√3 + 8/√3 = 6/√3 = 2√3."
+   },
+   {
+    "label": "D",
+    "text": "−10√3/3",
+    "is_correct": false,
+    "rationale": "This applies the product rule with the wrong sign, so the two terms −2/√3 and 8/√3 are both taken negative."
+   }
+  ]
+ }
+]

@@ -1,0 +1,316 @@
+{
+ "id": "ap_statistics__5.1__v1",
+ "parent": "ap_statistics__5.1__1",
+ "parent_status": "accepted",
+ "topic_code": "5.1",
+ "item": {
+  "title": "Weekly Practice Time and Typing Speed for Twelve Students",
+  "calculator": "not_applicable",
+  "stimulus": "A keyboarding teacher wants to know whether practice time is related to typing speed. For each of 12 randomly chosen students, the teacher recorded the weekly practice time in hours and the typing speed on a timed test in words per minute.\n\nPractice time (hours per week) | Typing speed (words per minute)\n2 | 38\n3 | 43\n4 | 46\n5 | 52\n6 | 55\n7 | 45\n8 | 63\n9 | 68\n10 | 62\n11 | 76\n12 | 80\n14 | 88",
+  "parts": [
+   {
+    "prompt": "If the teacher wants to use weekly practice time to predict typing speed, which variable is the explanatory variable and which is the response variable? State which axis each variable is placed on in a scatterplot.",
+    "criteria": [
+     {
+      "text": "Identifies weekly practice time as the explanatory variable (x-axis) and typing speed as the response variable (y-axis).",
+      "evidence": "Response names weekly practice time as the explanatory variable on the x-axis and typing speed as the response variable on the y-axis; naming both roles without both axes does not earn the point.",
+      "fix": "Ask which variable is used to predict the other: that is explanatory (x-axis); the variable being predicted is the response (y-axis).",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Describe the association between weekly practice time and typing speed that a scatterplot of these data would show. Address form, direction, strength and any unusual feature, in context.",
+    "criteria": [
+     {
+      "text": "Describes the form of the association as linear (the points follow a roughly straight-line pattern).",
+      "evidence": "Response states the form of the association as linear (the points follow a roughly straight-line pattern).",
+      "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+      "accepted_variants": []
+     },
+     {
+      "text": "States the direction is positive: as weekly practice time increases, typing speed tends to increase.",
+      "evidence": "Response states a positive association in context, that is, typing speed tends to increase as weekly practice time increases.",
+      "fix": "State the direction in context: say how the response variable tends to change as the explanatory variable increases.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that the association is strong because all points other than one lie close to a single straight-line pattern.",
+      "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+      "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Identifies the point with 7 hours of practice and 45 words per minute of typing speed as an unusual feature: it does not fit the general pattern because this student types much more slowly than other students with similar practice time.",
+      "evidence": "Response singles out the observation (7, 45) as not fitting the general pattern and says how it differs from the other points.",
+      "fix": "Scan the table for a point that does not fit the general pattern, then identify it by its values and say how it differs.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "The teacher claims that students who practice 10 hours or more per week type at least 70 words per minute. Does the data table support this claim? Justify your answer using the values in the table.",
+    "criteria": [
+     {
+      "text": "Concludes the claim is supported, because all 4 students with 10 hours or more of practice (72, 76, 80, 88 words per minute) type at least 70 words per minute.",
+      "evidence": "Response says the claim is supported and cites the 4 students with practice of 10 hours or more, all of whom type at least 70 words per minute.",
+      "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) The explanatory variable is weekly practice time, placed on the x-axis, because it is the variable used to predict the other. The response variable is typing speed, placed on the y-axis.\n\n(b) Form: the association is linear, because the points follow a roughly straight-line pattern. Direction: it is positive; as weekly practice time increases, typing speed tends to increase. Strength: the association is strong, because all points other than one lie close to a single straight-line pattern. Unusual feature: the point (7, 45), 7 hours of practice and 45 words per minute of typing speed, does not fit the general pattern because this student types much more slowly than other students with similar practice time.\n\n(c) Yes, the data support the claim. All 4 students with 10 hours or more of practice have typing speed of 72, 76, 80, 88 words per minute, and each types at least 70 words per minute.",
+  "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nxs = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14]\nys = [38, 43, 46, 52, 55, 45, 63, 68, 72, 76, 80, 88]\nui = 5\nb, a, r, mx, my = reg(xs, ys)\nassert r > 0.85\nassert (b < 0) == False\nres = [y - (a + b * x) for x, y in zip(xs, ys)]\nothers = sorted(abs(e) for i, e in enumerate(res) if i != ui)\nassert abs(res[ui]) >= 2.5 * others[-1]\nassert max(range(len(res)), key=lambda i: abs(res[i])) == ui\nmeet = [y for x, y in zip(xs, ys) if x >= 10]\nassert len(meet) == 4\nassert all(y >= 70 for y in meet)\nassert meet == [72, 76, 80, 88]\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:29:45.574Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"EXPL_RESP\"],[\"SCATTER_FORM\",\"SCATTER_DIR\",\"SCATTER_STRENGTH\",\"SCATTER_UNUSUAL\"],[\"SCATTER_CLAIM\"]]",
+  "child_order": "[[\"EXPL_RESP\"],[\"SCATTER_FORM\",\"SCATTER_DIR\",\"SCATTER_STRENGTH\",\"SCATTER_UNUSUAL\"],[\"SCATTER_CLAIM\"]]",
+  "child_pattern": [
+   [
+    "EXPL_RESP"
+   ],
+   [
+    "SCATTER_FORM",
+    "SCATTER_DIR",
+    "SCATTER_STRENGTH",
+    "SCATTER_UNUSUAL"
+   ],
+   [
+    "SCATTER_CLAIM"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [1,4,1], variant [1,4,1]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"EXPL_RESP\"],[\"SCATTER_FORM\",\"SCATTER_DIR\",\"SCATTER_STRENGTH\",\"SCATTER_UNUSUAL\"],[\"SCATTER_CLAIM\"]]\nPart a prompt changed.\nCriterion a1 (EXPL_RESP): wording and values changed\nPart b prompt changed.\nCriterion b1 (SCATTER_FORM): identical wording\nCriterion b2 (SCATTER_DIR): wording and values changed\nCriterion b3 (SCATTER_STRENGTH): identical wording\nCriterion b4 (SCATTER_UNUSUAL): wording and values changed\nPart c prompt changed.\nCriterion c1 (SCATTER_CLAIM): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": false,
+   "first": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "numbers: There are 12 observations, as stated. The designated unusual observation (7, 45) matches the table. However, (10, 62) also falls noticeably below the main linear pattern: relative to the reference line y = 4x + 31, these two observations have deviations of −14 and −9 words per minute, while all other observations have deviations between −1 and 1. Thus, b3's assertion that all points except one lie close to the line does not match the data. Exactly 4 students practice at least 10 hours, but their speeds are 62, 76, 80, and 88—not 72, 76, 80, and 88 as c1 states. Only 3 of these 4 speeds are at least 70; (10, 62) contradicts the claim.",
+     "criterion b3: The association is strong, but the stated justification is inaccurate: both (7, 45) and (10, 62) depart noticeably below the otherwise very tight linear pattern, not just one point.",
+     "criterion c1: The data do not support the claim: the student practicing 10 hours types 62 words per minute, below 70. The rubric incorrectly substitutes 72 for 62 and requires the wrong conclusion.",
+     "conditions: The single-unusual-point condition no longer holds because (10, 62) is a second departure from the main pattern. The condition that every observation meeting the explanatory-variable threshold satisfies the claimed response threshold also fails.",
+     "new issue: The table's (10, 62) observation creates both a second unusual feature and a counterexample to part (c), while the rubric assumes (10, 72). These introduced inconsistencies invalidate b3's stated rationale and c1's conclusion."
+    ],
+    "out": {
+     "changes_listed": "The context changes from daily screen time and nightly sleep to weekly practice time and typing speed, with 12 new data pairs and new units. The association changes from negative to positive, the designated unusual point becomes (7, 45), and part (c) now checks whether students practicing at least 10 hours type at least 70 words per minute. The rubric structure and point allocations are unchanged.",
+     "numbers_recomputed": "There are 12 observations, as stated. The designated unusual observation (7, 45) matches the table. However, (10, 62) also falls noticeably below the main linear pattern: relative to the reference line y = 4x + 31, these two observations have deviations of −14 and −9 words per minute, while all other observations have deviations between −1 and 1. Thus, b3's assertion that all points except one lie close to the line does not match the data. Exactly 4 students practice at least 10 hours, but their speeds are 62, 76, 80, and 88—not 72, 76, 80, and 88 as c1 states. Only 3 of these 4 speeds are at least 70; (10, 62) contradicts the claim.",
+     "numbers_ok": false,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": false,
+       "issue": "The association is strong, but the stated justification is inaccurate: both (7, 45) and (10, 62) depart noticeably below the otherwise very tight linear pattern, not just one point."
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": false,
+       "issue": "The data do not support the claim: the student practicing 10 hours types 62 words per minute, below 70. The rubric incorrectly substitutes 72 for 62 and requires the wrong conclusion."
+      }
+     ],
+     "conditions_still_hold": false,
+     "conditions_issue": "The single-unusual-point condition no longer holds because (10, 62) is a second departure from the main pattern. The condition that every observation meeting the explanatory-variable threshold satisfies the claimed response threshold also fails.",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "The table's (10, 62) observation creates both a second unusual feature and a counterexample to part (c), while the rubric assumes (10, 72). These introduced inconsistencies invalidate b3's stated rationale and c1's conclusion."
+    }
+   },
+   "second": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "numbers: The table contains 12 students, matching the setup. The designated unusual observation is indeed (7, 45). There are 4 students practicing at least 10 hours, matching the rubric's count, but their speeds are 62, 76, 80, and 88—not 72, 76, 80, and 88. Only 3 of these 4 students type at least 70 words per minute, so the claim is not supported. The assertion that only one point departs noticeably from the linear pattern also fails: relative to the approximate main pattern y = 30 + 4x, (7, 45) is 13 words per minute below and (10, 62) is 8 below, while every other observation is within 2 words per minute.",
+     "criterion b3: The association remains strong, but the criterion's explanation that all points other than one lie close to the straight-line pattern is inaccurate. Both (7, 45) and (10, 62) fall noticeably below the main pattern.",
+     "criterion c1: The rubric substitutes 72 for the recorded speed of 62 at 10 practice hours. The observation (10, 62) contradicts the claim, so a correct answer must conclude that the table does not support it.",
+     "conditions: The single-unusual-point condition no longer holds, and the claim in part (c) is contradicted rather than supported by the data. The positive direction and roughly linear, strong association are correctly described.",
+     "new issue: The table's (10, 62) observation introduces a second noticeably low point and contradicts part (c)'s rubric, which instead uses (10, 72). These discrepancies affect both the strength explanation and the required claim evaluation."
+    ],
+    "out": {
+     "changes_listed": "The context changes from daily screen time and nightly sleep to weekly typing practice and typing speed, with 12 new data pairs. The association changes from negative to positive, the designated unusual point changes to (7, 45), and the claim changes to practice of at least 10 hours implying typing speed of at least 70 words per minute. The part and point structure is unchanged.",
+     "numbers_recomputed": "The table contains 12 students, matching the setup. The designated unusual observation is indeed (7, 45). There are 4 students practicing at least 10 hours, matching the rubric's count, but their speeds are 62, 76, 80, and 88—not 72, 76, 80, and 88. Only 3 of these 4 students type at least 70 words per minute, so the claim is not supported. The assertion that only one point departs noticeably from the linear pattern also fails: relative to the approximate main pattern y = 30 + 4x, (7, 45) is 13 words per minute below and (10, 62) is 8 below, while every other observation is within 2 words per minute.",
+     "numbers_ok": false,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": false,
+       "issue": "The association remains strong, but the criterion's explanation that all points other than one lie close to the straight-line pattern is inaccurate. Both (7, 45) and (10, 62) fall noticeably below the main pattern."
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": false,
+       "issue": "The rubric substitutes 72 for the recorded speed of 62 at 10 practice hours. The observation (10, 62) contradicts the claim, so a correct answer must conclude that the table does not support it."
+      }
+     ],
+     "conditions_still_hold": false,
+     "conditions_issue": "The single-unusual-point condition no longer holds, and the claim in part (c) is contradicted rather than supported by the data. The positive direction and roughly linear, strong association are correctly described.",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "The table's (10, 62) observation introduces a second noticeably low point and contradicts part (c)'s rubric, which instead uses (10, 72). These discrepancies affect both the strength explanation and the required claim evaluation."
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": false,
+   "first": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "numbers: Part (c): For practice time of 10 hours or more, the actual students are (10,62), (11,76), (12,80), and (14,88). So the count of 4 is correct, but the first cited value is wrong: it should be 62, not 72. The claim is not supported because 62 is less than 70 wpm. Part (b): The stated unusual point (7,45) does exist, but the new data also contain a second outlier at (10,62). Relative to a linear pattern through the other points, (7,45) has a residual around -12.3 and (10,62) has a residual around -7.5, while the remaining residuals are within about ±3. Therefore the 'all points other than one lie close' condition is false. The direction remains positive and the sample size remains 12.",
+     "criterion b3: The new data have two points, (7,45) and (10,62), that do not lie close to a single straight-line pattern. The statement that all points other than one lie close is therefore false, and the strength should not be justified this way.",
+     "criterion b4: The point (7,45) is indeed unusual, but (10,62) is also an outlier. The criterion credits only (7,45), so a response identifying (10,62) as the unusual feature would be correct but would not earn credit under the rubric as written.",
+     "criterion c1: The claim is not supported because the student with 10 hours of practice has 62 words per minute, which is below 70. The criterion and model answer incorrectly conclude the claim is supported and also cite 72 instead of the actual value 62.",
+     "conditions: The parent conditions that only one point deviates from a single linear pattern and that all members of the part (c) threshold group satisfy the claim no longer hold. The new data contain two outliers, and the part (c) claim is contradicted by the value 62 at 10 hours.",
+     "new issue: Part (c) is broken: the data contradict the teacher's claim because the 10-hour student types 62 wpm, below 70, but the rubric and model answer say the claim is supported and list 72 instead of 62. Part (b) now has two low outliers, (7,45) and (10,62), while the rubric treats (7,45) as the only unusual point and calls the association strong because all points other than one follow the pattern."
+    ],
+    "out": {
+     "changes_listed": "The context changed from a school counselor studying daily screen time and nightly sleep to a keyboarding teacher studying weekly practice time and typing speed. Variable names, units, all data values, direction of association, the designated unusual point, and the part (c) threshold and claim changed. The rubric structure, part count, criterion count, and point total remained the same.",
+     "numbers_recomputed": "Part (c): For practice time of 10 hours or more, the actual students are (10,62), (11,76), (12,80), and (14,88). So the count of 4 is correct, but the first cited value is wrong: it should be 62, not 72. The claim is not supported because 62 is less than 70 wpm. Part (b): The stated unusual point (7,45) does exist, but the new data also contain a second outlier at (10,62). Relative to a linear pattern through the other points, (7,45) has a residual around -12.3 and (10,62) has a residual around -7.5, while the remaining residuals are within about ±3. Therefore the 'all points other than one lie close' condition is false. The direction remains positive and the sample size remains 12.",
+     "numbers_ok": false,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": false,
+       "issue": "The new data have two points, (7,45) and (10,62), that do not lie close to a single straight-line pattern. The statement that all points other than one lie close is therefore false, and the strength should not be justified this way."
+      },
+      {
+       "criterion": "b4",
+       "holds": false,
+       "issue": "The point (7,45) is indeed unusual, but (10,62) is also an outlier. The criterion credits only (7,45), so a response identifying (10,62) as the unusual feature would be correct but would not earn credit under the rubric as written."
+      },
+      {
+       "criterion": "c1",
+       "holds": false,
+       "issue": "The claim is not supported because the student with 10 hours of practice has 62 words per minute, which is below 70. The criterion and model answer incorrectly conclude the claim is supported and also cite 72 instead of the actual value 62."
+      }
+     ],
+     "conditions_still_hold": false,
+     "conditions_issue": "The parent conditions that only one point deviates from a single linear pattern and that all members of the part (c) threshold group satisfy the claim no longer hold. The new data contain two outliers, and the part (c) claim is contradicted by the value 62 at 10 hours.",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "Part (c) is broken: the data contradict the teacher's claim because the 10-hour student types 62 wpm, below 70, but the rubric and model answer say the claim is supported and list 72 instead of 62. Part (b) now has two low outliers, (7,45) and (10,62), while the rubric treats (7,45) as the only unusual point and calls the association strong because all points other than one follow the pattern."
+    }
+   },
+   "second": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "numbers: Direction: as weekly practice time increases, typing speed tends to increase, so the positive-direction claim matches. Unusual point: (7,45) is a low outlier relative to the increasing trend; however, (10,62) is also a second low outlier. Part (c): students with practice time at least 10 are (10,62), (11,76), (12,80), (14,88). Only three of those four type at least 70 wpm; the 10-hour student typed 62 wpm. The variant's listed values 72,76,80,88 are wrong because 72 is not in the table and 62 was omitted.",
+     "criterion b3: The data have two low outliers, (7,45) and (10,62), so 'all points other than one lie close to a single straight-line pattern' is false.",
+     "criterion c1: The claim is not supported: the 10-hour student typed 62 wpm, which is below 70. The rubric and model answer incorrectly say supported and give values 72,76,80,88, but 72 is not in the table and 62 is omitted.",
+     "conditions: The parent rubric relied on a single outlier and on all high-screen-time students satisfying the threshold. In the variant, (10,62) is a second outlier, and the threshold condition fails for 10 hours because 62 < 70.",
+     "new issue: Part (c) is broken: the 10-hour student typed 62 wpm, so the claim 'at least 70 wpm' is false, and the rubric/model answer lists a non-existent value of 72. The dataset also contains a second low outlier at (10,62), so the strength wording 'all points other than one lie close' is inaccurate and the rubric identifies only one of the two unusual points."
+    ],
+    "out": {
+     "changes_listed": "Context changed from daily screen time and nightly sleep to weekly practice time and typing speed. Variables and units were renamed, the direction of the relationship changed from negative to positive, and all data values were replaced. The unusual point changed from (60,7.7) to (7,45). Part (c) changed from students with at least 120 minutes of screen time sleeping fewer than 8 hours to students with at least 10 hours of practice typing at least 70 wpm.",
+     "numbers_recomputed": "Direction: as weekly practice time increases, typing speed tends to increase, so the positive-direction claim matches. Unusual point: (7,45) is a low outlier relative to the increasing trend; however, (10,62) is also a second low outlier. Part (c): students with practice time at least 10 are (10,62), (11,76), (12,80), (14,88). Only three of those four type at least 70 wpm; the 10-hour student typed 62 wpm. The variant's listed values 72,76,80,88 are wrong because 72 is not in the table and 62 was omitted.",
+     "numbers_ok": false,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": false,
+       "issue": "The data have two low outliers, (7,45) and (10,62), so 'all points other than one lie close to a single straight-line pattern' is false."
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": false,
+       "issue": "The claim is not supported: the 10-hour student typed 62 wpm, which is below 70. The rubric and model answer incorrectly say supported and give values 72,76,80,88, but 72 is not in the table and 62 is omitted."
+      }
+     ],
+     "conditions_still_hold": false,
+     "conditions_issue": "The parent rubric relied on a single outlier and on all high-screen-time students satisfying the threshold. In the variant, (10,62) is a second outlier, and the threshold condition fails for 10 hours because 62 < 70.",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "Part (c) is broken: the 10-hour student typed 62 wpm, so the claim 'at least 70 wpm' is false, and the rubric/model answer lists a non-existent value of 72. The dataset also contains a second low outlier at (10,62), so the strength wording 'all points other than one lie close' is inaccurate and the rubric identifies only one of the two unusual points."
+    }
+   }
+  }
+ ],
+ "status": "flagged"
+}
