@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0137 — More Help Is Cut From the Question Page; the Plain "Your answer is saved." Line Is Removed; the Report Trigger Shrinks to a Flag Icon
 - DECISION-0136 — The No-Card 7-Day Trial Is the New-Student Path; the 72-Hour Sample Is on Hold Indefinitely (Amends D12 of DECISION-0135 and Supersedes Its D3 Retire-After-Launch Plan)
 - DECISION-0135 — Free Trial Without a Card Is the Active Trial: 7 Days of Full Access for One Chosen Subject, Email Code on Landing, Card Trial Preserved but Inactive (Partly Supersedes DECISION-0126 Items 1 and 12; Plan Decisions D1-D8 Approved at Their Recommendations)
 - DECISION-0134 — Paywall Sample Access Backend Rules P1–P8 Approved at Their Proposed Defaults (Anonymous Try Limits, Consumption at Attempt Insert, One Sample Per User and Per Email, Trial Supersedes Permanently, Unit Lock and Eligibility, Cramapple-FRQ Path First, Two-Switch Rollback, Grace Resume Deferred)
@@ -61,6 +62,19 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0137 — More Help Is Cut From the Question Page; the Plain "Your answer is saved." Line Is Removed; the Report Trigger Shrinks to a Flag Icon
+
+- **Date:** 2026-11-15
+- **Decided by:** David Bloom (Product Owner), in session: "Cut more help. Remove saved. Shrink the report trigger to a flag icon."
+- **Context:** Model coaching and a 1 to 5 "Helpful?" rating were added to the `/question` feedback card (Lovable commit `9487891`, published 2026-11-14, coaching switched off by `VITE_COACHING`; plan `docs/product/COACHING_VIA_GRADER_V2_PLAN_2026_11_14.md`). After a graded answer, coaching and More help would explain the same miss. The plain "Your answer is saved." line repeated what the card already shows, and "See something wrong or confusing?" was as prominent as the primary actions. More help was approved in `docs/product/MORE_HELP_DECISIONS_AND_DESIGN.md` (2026-10-13) without a numbered decision.
+- **Decision:**
+  1. **Cut More help from the question page.** Remove every student-facing entry point (the button beside "Next question", the entry in `HelpPanel`, and the "More help used · Assisted" display). The backend (`more-help` Edge Function, schema, RPCs), the frontend files and the design docs stay in place for a later restore. Hint recording (rubric, reference, Cheat Sheet) is unchanged; only More help's own assisted marking goes away.
+  2. **Remove the plain "Your answer is saved." line.** The two different messages that say the answer is saved but grading is delayed, or that the trial or subscription does not cover it (`SessionFrame.tsx`), stay, because they are the only confirmation when no result is on screen.
+  3. **Shrink the report trigger to a flag icon.** An outline flag (inline SVG in the design system's stroke style, 44px hit area, muted ink, accessible name unchanged) opens the same report dialog. A question mark is not used: in the design system it means hint.
+- **Consequences:** students lose pre-answer and follow-up help until a replacement is decided. The coaching plan's More help click-rate metric is dropped; the retry-earns-the-missed-point rate and the ratings remain. Implementation is a Lovable draft (`drft_01m7gm7d5df90rrsm7et32f38z`, thread `thr_a9xhllpazl11`) sent on 2026-11-15; at the time of this entry it was sent but not reviewed, merged or published. No Supabase, Edge Function or migration change.
+- **Not decided here:** publishing the Lovable draft, deleting the More help backend or code, any replacement help, or whether the report icon later moves onto the rating row.
+- **Rollback:** a later DECISION restoring the entry points (the files are kept), or revert the Lovable commit.
 
 ## DECISION-0136 — The No-Card 7-Day Trial Is the New-Student Path; the 72-Hour Sample Is on Hold Indefinitely (Amends D12 of DECISION-0135 and Supersedes Its D3 Retire-After-Launch Plan)
 
