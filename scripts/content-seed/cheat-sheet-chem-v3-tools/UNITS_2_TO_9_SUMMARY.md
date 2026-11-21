@@ -43,6 +43,9 @@ So the format is shorter only where the current text was long (Units 1 to 3). In
 - Field mismatches: 8.1 and 8.8 `common_point_loss` do not match their worked-example weak answers; 8.4 and 8.11 `how_this_becomes_points` hold no steps; 8.7 step 2 and 7.3 step 3 have no demonstration in the published example.
 - Not used on purpose: exam statistics in sources (for example the "2025 FRQ mean 0.56 of 1.0" in 2.7 and "0.11/1.0" in 3.1), because the guidelines avoid scoring claims.
 
+## Plants after the fixes
+`plants.json` in every folder was re-verified against the final `proposed.json` (every target text present, every plant changes the text, 2 to 4 per folder). Two were stale after later fixes (Unit 4: 4.2 step; Unit 7: 7.10 table row) and were repointed, so `check_unit.py <folder> run` applies cleanly everywhere (found by a PR review). The controls were caught by both models on the text as it stood in each agent's run; they were not re-run through the gateway after these refreshes.
+
 ## Left on purpose (documented disagreements and suggestions)
 - 8.2: gpt flagged the H₂SO₄ and Group II points several times; the text now calls [H₃O⁺] = initial concentration "a convention" and ties Group II to "as far as they dissolve". Both models passed the last version.
 - Suggestions not applied (all non-defects): 2.6 draw both resonance forms; 6.4 Link "at constant pressure"; 7.3 separate Qc, Qp and Ksp forms; 5.11 weak wording; 8.5 pKa of HB⁺ in Know; assorted "verification only" notes.
