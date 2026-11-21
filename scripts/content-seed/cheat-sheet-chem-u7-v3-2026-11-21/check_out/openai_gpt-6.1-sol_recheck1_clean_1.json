@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "id": "7.4",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "7.6",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "7.8",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "“In equal volumes, particle counts stand in for [concentrations]” is too general. Counts are proportional to concentrations, but substituting raw counts into K gives the correct numerical value only when the common concentration-per-particle factor cancels. Restrict this shortcut to the A ⇌ B case used in the table, or explain that counts must otherwise be converted to concentrations.",
+          "evidence": "This added shortcut is judged using standard chemistry. For A ⇌ 2B, suppose each pictured particle represents 0.010 M and the equilibrium diagram contains one A and two B particles. Then Kc = (0.020)^2/0.010 = 0.040, whereas substituting raw counts gives 2^2/1 = 4. Equal volume alone does not make these equivalent. The source requires using the equilibrium-expression form; it does not establish an unrestricted raw-count substitution rule."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

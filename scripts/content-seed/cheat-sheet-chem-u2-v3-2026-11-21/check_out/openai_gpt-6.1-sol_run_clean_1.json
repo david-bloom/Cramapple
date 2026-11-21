@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "id": "2.4",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "LINK",
+          "issue": "Knowing which atom is larger is not sufficient to classify the alloy. The comparison must establish whether the radii are comparable or significantly different.",
+          "evidence": "The statement 'which is all this call needs' contradicts the source's size criterion and the draft's own table. Replace it with: 'Unit 1’s atomic-radius ideas support comparing whether the atoms have comparable or significantly different radii.'"
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "2.5",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea; SCORE steps",
+          "issue": "The instructions make completing a central atom's octet by forming additional bonds sound universal. Not every electron-deficient central atom should receive an extra bond, and not every valid Lewis structure gives its central atom an octet.",
+          "evidence": "The reference specifies octets 'where possible,' and the source steps say 'where required.' Standard chemistry supplies counterexamples: BF₃ normally has an incomplete octet on B, while SF₆ has an expanded valence shell on S. These examples are chemistry-based checks, not facts supplied in the sources. Qualify the instructions: 'Satisfy octets where appropriate; for an octet-obeying central atom that remains short, convert a neighboring lone pair into an additional bond.'"
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "2.6",
+      "findings": [
+        {
+          "severity": "suggestion",
+          "card": "SCORE full credit",
+          "issue": "For literal alignment with step 2, show the two resonance diagrams rather than only describing their bond placement. The explanation itself correctly answers the source's conceptual question.",
+          "evidence": "Step 2 says 'draw every form'; the full-credit answer identifies the two forms verbally and correctly explains the averaged bonding, but does not draw them."
+        }
+      ],
+      "verdict": "pass"
+    }
+  ]
+}

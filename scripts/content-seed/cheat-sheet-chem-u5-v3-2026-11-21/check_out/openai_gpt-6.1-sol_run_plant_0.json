@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "id": "5.1",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "Step (2) multiplies by the coefficient instead of dividing, producing the wrong reaction rate and contradicting step (3). Replace it with reaction rate = 0.20 M/s ÷ 2 = 0.10 M/s.",
+          "evidence": "For 2A → B, the source gives B's appearance rate as 0.10 M/s. The draft's 0.40 M/s is incorrect; its final 0.10 M/s answer is correct but does not follow from its stated intermediate result."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea; SCORE steps",
+          "issue": "The reaction-rate definition and conversion steps omit the sign convention. A reactant's signed concentration-change rate is negative, so simply dividing it by its positive coefficient gives a negative reaction rate.",
+          "evidence": "Standard chemistry convention is rate = −(1/a)d[A]/dt for a reactant and +(1/b)d[B]/dt for a product. Alternatively, explicitly instruct students to use positive disappearance or appearance rate magnitudes. The worked example uses a positive disappearance magnitude, but the general wording does not specify this."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "5.2",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The second-order units of k are incorrect. Replace M⁻² s⁻¹ with M⁻¹ s⁻¹.",
+          "evidence": "By dimensional analysis, [k] = M^(1−overall order) s⁻¹. Thus orders zero, one, and two have units M s⁻¹, s⁻¹, and M⁻¹ s⁻¹, respectively. This is a standard-chemistry derivation, consistent with the source's second-order rate-constant units."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The statement that orders come from experimental data, 'not from coefficients,' needs qualification: orders cannot generally be inferred from the overall balanced equation, but elementary-reaction orders can be inferred from their stoichiometric coefficients.",
+          "evidence": "The topic source limits the coefficient-related warning to a 'non-elementary overall reaction.' The supplied CED 5.4 explicitly permits deriving an elementary reaction's rate law from collision stoichiometry."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "5.3",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The 1/[A] versus t row incorrectly identifies the order as first. It must say second; the +k slope is correct.",
+          "evidence": "Both the topic source and CED give 1/[A]ₜ − 1/[A]₀ = kt for second-order kinetics. Separately, the added numerical worked example is valid standard chemistry: k = 0.0231 s⁻¹ and 0.693/0.0231 = 30.0 s, correctly rounded."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

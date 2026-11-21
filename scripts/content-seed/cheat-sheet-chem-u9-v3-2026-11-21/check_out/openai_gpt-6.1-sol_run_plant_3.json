@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "id": "9.10",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The row labeling Q = 1 as “Standard conditions” incorrectly makes the implication reversible. Nonstandard conditions can also give Q = 1.",
+          "evidence": "Standard chemistry: nonunit reactant and product activities can cancel in Q. Thus Q = 1 establishes E = E° at the specified temperature, but does not establish that every species is in its standard state. Replace “Standard conditions” with “E equals its standard value; conditions need not be standard.” The core card’s statement that standard conditions give Q = 1 is correct."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "9.11",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The charge calculation has an exponent error: the result should be 1.93 × 10⁵ C, not 1.93 × 10⁴ C.",
+          "evidence": "Using the standard Faraday constant supplied in the draft, 2 mol e⁻ × 96,485 C/mol e⁻ = 192,970 C ≈ 1.93 × 10⁵ C. The answer of 2 mol e⁻ agrees with the source; the added charge calculation is incorrect."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism; LINK",
+          "issue": "The blanket claim that the displayed chain works for any electrochemical cell overgeneralizes the instruction to divide by “electrons per ion.” Converting electrons to the requested substance requires the half-reaction’s stoichiometric ratio, which is not always one mole of substance per mole of ion.",
+          "evidence": "Standard chemistry beyond the supplied examples: Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O transfers 6 electrons per dichromate ion but produces 2 chromium(III) ions. Dividing moles of electrons by 6 gives moles of dichromate consumed, not moles of Cr³⁺ produced. Some electrode reactions also involve neutral reactants such as O₂. Replace the conversion instruction with “multiply by the mole ratio from the balanced half-reaction.” The existing division shortcut is valid for the Cu²⁺ plating example."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

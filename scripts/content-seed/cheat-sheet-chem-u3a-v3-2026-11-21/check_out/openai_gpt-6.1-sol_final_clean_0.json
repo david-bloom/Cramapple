@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "id": "3.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "3.2",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "3.3",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The comparison still assigns the ideal-gas molar volume at STP to water vapor without explicitly identifying this as a hypothetical ideal-gas calculation. Pure water is not a stable gas at STP. State that the vapor value is hypothetical, or compare the phases using conditions under which water vapor can exist.",
+          "evidence": "Standard-chemistry check: 22,400 mL/mol is the correctly rounded ideal-gas molar volume at 273.15 K and 1 atm, but water vapor would condense/deposit under those conditions. The draft correctly labels the number as an ideal-gas value, yet still presents it as the vapor entry alongside actual condensed-phase volumes. This misleading physical comparison is inherited from the source example; the arithmetic and the 'over a thousand times' comparison are correct."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

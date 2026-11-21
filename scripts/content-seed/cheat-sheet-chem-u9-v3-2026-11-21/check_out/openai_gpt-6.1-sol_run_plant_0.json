@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "9.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "9.2",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "9.3",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The ΔH° > 0, ΔS° < 0 row incorrectly says the process is favored at low temperature. Replace “At low T” with “At no T.”",
+          "evidence": "Both the source and CED specify that this sign combination is favored at no temperature. For positive absolute temperature, ΔH° is positive and −TΔS° is also positive, so ΔG° > 0."
+        },
+        {
+          "severity": "suggestion",
+          "card": "KNOW core_idea",
+          "issue": "Make stoichiometric weighting explicit in the formation-free-energy equation: ΔG°ᵣₓₙ = Σ nΔG°f(products) − Σ nΔG°f(reactants).",
+          "evidence": "The draft matches the source and CED shorthand, so this is not counted as a defect. Standard chemistry requires each standard molar free energy of formation to be multiplied by its balanced-equation coefficient; showing n would prevent students from interpreting the sums as unweighted."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

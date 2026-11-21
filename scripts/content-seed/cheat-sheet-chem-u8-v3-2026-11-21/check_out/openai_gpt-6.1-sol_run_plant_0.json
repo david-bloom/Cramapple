@@ -1,0 +1,45 @@
+{
+  "items": [
+    {
+      "id": "8.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "8.2",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The final subtraction is incorrect. The answer must be pH = 12.00, not 11.00.",
+          "evidence": "14.00 − 2.00 = 12.00. The source worked example also gives pH = 12.00. The reported two decimal places are appropriate."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The blanket statement that every listed strong acid gives [H₃O⁺] equal to its initial concentration is incorrect for H₂SO₄. Its first ionization is essentially complete, but its second ionization contributes additional hydronium through an equilibrium.",
+          "evidence": "The supplied source and CED excerpt repeat this simplification, but it is chemically misleading. As a standard-chemistry correction, restrict the concentration equality to monoprotic strong acids under ordinary concentration conditions, and distinguish sulfuric acid's first and second ionizations."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea; KNOW mechanism",
+          "issue": "Calling all Group II hydroxides strong bases overgeneralizes the category. The table should specify a strong Group II hydroxide that has dissolved, rather than imply that every Group II hydroxide produces twice its initial concentration as aqueous OH⁻.",
+          "evidence": "Although the supplied sources use the same broad wording, standard chemistry requires qualification: Be(OH)₂ is amphoteric, and solubility can limit the amount of a Group II hydroxide entering solution. The 2:1 stoichiometry applies to complete dissociation of dissolved M(OH)₂; Ca(OH)₂, Sr(OH)₂, and Ba(OH)₂ are customary examples."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "8.3",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism; SCORE full credit",
+          "issue": "Weak-acid classification alone does not guarantee that hydronium is much less than the initial concentration or that most HA remains un-ionized. Likewise, the worked answer cannot conclude that [H₃O⁺] is 'well below 0.10 M' without knowing Ka. Retain the conclusion that it is not automatically 0.10 M and must be determined from equilibrium.",
+          "evidence": "The mechanism reproduces an overgeneralization in the reference entry; the worked source more cautiously says only that the acid partially ionizes. As a standard-chemistry matter, percent ionization depends on both Ka and initial concentration and generally increases upon dilution. A small ionized fraction must be established, not inferred solely from the label 'weak.'"
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

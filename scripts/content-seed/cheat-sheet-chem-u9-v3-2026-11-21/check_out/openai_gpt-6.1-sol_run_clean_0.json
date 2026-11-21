@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "9.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "9.2",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "9.3",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The formation-free-energy formula omits stoichiometric coefficients. Write ΔG°ᵣₓₙ = Σ nΔG°f(products) − Σ nΔG°f(reactants), with n defined as the balanced-equation coefficient.",
+          "evidence": "Standard free energies of formation are molar quantities, so each must be multiplied by the corresponding stoichiometric coefficient. This is a standard-chemistry clarification of the source's shorthand summation notation; the draft otherwise risks teaching an incorrect calculation whenever a coefficient is not 1."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "Qualify the favorability criterion as applying under standard-state conditions. As written, it can imply that ΔG° determines the direction of a process under any conditions.",
+          "evidence": "The source and CED explicitly restrict ΔG° to standard states. As a matter of standard chemistry, ΔG determines favorability at the actual composition, whereas ΔG° < 0 establishes favorability under standard-state conditions and corresponds to K > 1."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "id": "5.1",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea; SCORE steps",
+          "issue": "The reaction-rate definition and conversion steps omit the sign convention for reactants. A reactant's concentration-change rate is negative, whereas its disappearance rate is positive. Simply dividing a signed reactant concentration-change rate by its coefficient gives the wrong sign.",
+          "evidence": "Standard chemistry gives rate = −(1/a)Δ[A]/Δt = +(1/b)Δ[B]/Δt for aA → bB. Specify a positive disappearance/appearance rate, or include the appropriate sign. The table and worked answer correctly use positive disappearance and appearance magnitudes; 0.20/2 = 0.10 M/s is correct."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "5.2",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "“The orders m and n come from experimental data, not from coefficients” is too absolute. The restriction applies to inferring orders from an overall equation that is not an elementary reaction; elementary-reaction orders can be inferred from reactant coefficients.",
+          "evidence": "The topic source specifically warns against using coefficients for a “non-elementary overall reaction,” and CED 5.4 explicitly permits deriving an elementary reaction's rate law from its collision stoichiometry. Revise to say that orders generally must be determined experimentally and cannot generally be inferred from overall balanced-equation coefficients."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "5.3",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}

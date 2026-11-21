@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "9.4",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "9.5",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The negative-ΔG° row incorrectly gives K < 1. Replace that cell with K > 1.",
+          "evidence": "ΔG° = −RT ln K implies that ΔG° < 0 gives ln K > 0 and K > 1. The current cell contradicts the sources, its own 'Products favored' cell, and the Full-credit answer."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "9.6",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The table uses enthalpy reasoning to assign effects on Gibbs free energy. Breaking attractions costs energy and forming attractions releases energy, but those statements alone do not establish the corresponding contributions to ΔG°. Label these as enthalpy effects, or explicitly account for the entropy contributions before assigning free-energy effects.",
+          "evidence": "The source states that each of the three factors has both enthalpic and entropic contributions. Under ΔG° = ΔH° − TΔS°, an enthalpy sign alone does not establish a free-energy sign. These added table assignments are evaluated as chemistry, rather than as claims supplied by the sources; the heading 'Typical effect' does not explain the omitted entropy dependence."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The worked answer does not complete its own factor-listing and weighing steps: it omits favorable solute–solvent attractions and compares the listed energy costs only with the mixing entropy gain. Those costs exceeding the mixing benefit does not by itself establish the sign of the total ΔG°. Include solute–solvent interactions in both the list and the balance.",
+          "evidence": "Steps 1–2 require listing and weighing the factors, and the source explicitly identifies solute separation, solvent reorganization, and solute–solvent interaction. The Full-credit answer includes separation, reorganization, and dispersal, but never includes the solute–solvent contribution. Although its wording closely follows the source's abbreviated worked example, it does not fully execute the draft's stated steps."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

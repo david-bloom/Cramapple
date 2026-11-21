@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "6.4",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "Part (1) selects the wrong mass and contradicts both the calculation in part (2) and the explanation of the Weak answer.",
+          "evidence": "Part (1) says m = 0.10 g, but part (2) uses 100.1 g. The source specifies approximately 100.1 g if the solid remains in solution. Replace part (1) with m = 100.1 g under that assumption. The calculation 100.1 × 4.18 × 2.0 = 836.836 J, rounded to +8.4×10² J, and the opposite reaction sign are otherwise correct."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The answer presents newly introduced numerical conditions as given data without supplying them or identifying them as assumptions.",
+          "evidence": "The source question supplies neither c = 4.18 J/(g·°C) nor ΔT = +2.0 °C. As standard chemistry, approximating a dilute aqueous solution's specific heat capacity by that of water can be appropriate, but it must be stated as an approximation; the temperature change must be introduced as a hypothetical measurement. Label these as added illustrative conditions rather than 'given.'"
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "6.5",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "6.6",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}

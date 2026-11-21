@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "8.4",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE steps",
+          "issue": "Step 1 gives an unrestricted instruction to react the limiting reagent completely, although the core card also includes weak-acid–weak-base reactions. Those reactions must be treated as equilibria and cannot universally be assumed to consume the limiting reagent completely. Restrict this step to reactions involving a strong acid or strong base.",
+          "evidence": "The draft's core card and the source explicitly describe weak acid + weak base as reacting to an equilibrium state, rather than necessarily to completion."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "8.5",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism (what_students_need_to_understand)",
+          "issue": "The weak acid–strong base row incorrectly labels the equivalence-point solution acidic. It should say basic: A⁻ reacts with water to produce OH⁻.",
+          "evidence": "Both the topic reference and CED specify a basic equivalence-point solution for a weak-acid–strong-base titration. The relevant equilibrium is A⁻ + H₂O ⇌ HA + OH⁻."
+        },
+        {
+          "severity": "suggestion",
+          "card": "KNOW core_idea",
+          "issue": "Clarify the notation for weak-base titrations: at half-equivalence, [B] = [HB⁺], and pH equals the pKa of HB⁺. The existing HA/A⁻ notation directly describes a weak-acid titration.",
+          "evidence": "This clarification follows standard conjugate-pair chemistry. The half-equivalence pH = pKa relationship remains correct for a weak-base titration when pKa refers to its conjugate acid."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "8.6",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}

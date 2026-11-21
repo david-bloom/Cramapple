@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "id": "7.7",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "7.8",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The statement that K is found from equilibrium particle counts needs a qualification: raw counts alone do not generally determine a numerical K. Counts must be related to concentrations or partial pressures using the diagram’s scale and volume information when needed.",
+          "evidence": "This wording follows the supplied reference, but standard chemistry requires the qualification. For A ⇌ 2B, Kc = [B]^2/[A] = (N_B^2/N_A)/(N_Avogadro V), so identical particle counts at different volumes give different Kc values. Count ratios suffice for the one-to-one example in the mechanism table because the common concentration conversion factor cancels."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "7.9",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "“A stress shifts the equilibrium” is too absolute when paired with the unrestricted list of stresses. Some listed changes produce no equilibrium shift. State that a disturbance can shift equilibrium, and that a shift occurs when the disturbance makes Q differ from K.",
+          "evidence": "Although the supplied source uses similar shorthand, standard chemistry supplies counterexamples: changing volume at constant temperature does not shift an ideal-gas equilibrium with equal total gaseous coefficients on both sides; adding an inert gas at constant volume raises total pressure without changing reacting-gas partial pressures; adding more of an already-present pure solid does not change Q. The mechanism table appropriately limits species additions/removals to species appearing in Q, but the core rule lacks that qualification."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

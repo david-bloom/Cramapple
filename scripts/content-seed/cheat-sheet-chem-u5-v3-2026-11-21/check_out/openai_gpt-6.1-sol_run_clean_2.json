@@ -1,0 +1,45 @@
+{
+  "items": [
+    {
+      "id": "5.7",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "5.8",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The elementary-step coefficient rule is stated too broadly as a rule for the mechanism's final rate law. Qualify when it applies directly; otherwise, distinguish the slow-step rate expression from the final derived rate law.",
+          "evidence": "The CED specifies mechanisms with every step irreversible or with the first step rate-limiting. For a later slow step involving an intermediate, substitution can change the concentration dependence of the final law. The subsequent table acknowledges substitution, but the core statement does not preserve this distinction."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "Part (3) asserts without sufficient information that A and B are overall reactants. Keep the justified conclusion that the elementary-step rate expression is k[A][B], or provide the remaining mechanism before classifying both species as overall reactants.",
+          "evidence": "The worked example supplies only the first, slow step, A + B → C. Either A or B could be regenerated later and therefore be a catalyst rather than an overall reactant. This is a standard-chemistry assessment of an added claim, not a contradiction of the supplied rate-law calculation."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "5.9",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism (what_students_need_to_understand)",
+          "issue": "The table presents the slow step before the fast equilibrium under the heading 'Illustrative mechanism,' making the mechanism's sequence misleading. Number the fast equilibrium as step 1 and the slow reaction as step 2, or explicitly identify the displayed order as calculation order rather than mechanism order.",
+          "evidence": "Both the source and the draft's core idea require the fast pre-equilibrium to precede the slow step. The calculations and overall equation are correct, but the displayed step order suggests the reverse."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The numbered answer does not carry out the corresponding numbered steps. Part (1) explains why substitution is needed rather than writing the slow-step law, and parts (2) and (3) describe operations without giving the equilibrium relationship or substituted law.",
+          "evidence": "For the supplied illustrative mechanism, the matching worked answer is (1) rate = k[I][B]; (2) K = [I]/[A], so [I] = K[A]; (3) rate = kK[A][B]. The existing answer addresses the source's conceptual question, but its numbering does not demonstrate the draft's stated procedure."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

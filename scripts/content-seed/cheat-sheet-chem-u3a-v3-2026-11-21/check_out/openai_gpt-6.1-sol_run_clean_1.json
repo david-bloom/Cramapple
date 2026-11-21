@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "3.4",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The final total pressure and nitrogen partial pressure have more significant figures than the given mole amounts support.",
+          "evidence": "The mole amounts 0.50 and 0.20 mol each have two significant figures. Retaining guard digits gives P(total) = 1.72326 atm and P(N₂) = 1.2309 atm, but final answers should be approximately 1.7 atm and 1.2 atm. P(O₂) = 0.49 atm is appropriately rounded. The source has the same precision issue; this finding follows standard chemistry significant-figure conventions."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE steps / SCORE full credit",
+          "issue": "Full-credit part (1) does not perform the equation-selection task assigned to step 1.",
+          "evidence": "Step 1 says to choose PV = nRT or the mixture relationships, but numbered part (1) only adds the mole amounts. Begin part (1) by identifying PV = nRT for total pressure and P_A = X_A P(total) for partial pressures, then calculate total moles."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "3.5",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "3.6",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea / SCORE steps / SCORE full credit",
+          "issue": "Calling these conditions categorically the conditions of the “largest” deviation overstates the rule.",
+          "evidence": "The CED says attractions matter especially near condensation and particle volume matters especially at very high pressure; it does not establish a universal maximum deviation under either condition. The topic source also uses the overstatement, but standard real-gas chemistry requires qualification: deviation generally increases near condensation or at very high pressure, with its magnitude depending on the gas and conditions. Replace “largest” with “generally greater” or describe these as conditions where substantial deviations are expected."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

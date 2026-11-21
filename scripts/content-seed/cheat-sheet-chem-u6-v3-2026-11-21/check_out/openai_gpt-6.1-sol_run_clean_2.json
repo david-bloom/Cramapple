@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "id": "6.7",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "LINK",
+          "issue": "The statement that the two methods “should agree in sign” needs qualification. Average-bond-enthalpy estimates can give the wrong sign, especially for reactions whose actual enthalpy change is near zero.",
+          "evidence": "The source and CED explicitly describe the bond-energy result as an estimate. Replace with: “Topic 6.8 uses tabulated formation values instead of bond counts; bond-energy estimates generally agree in sign but can differ, especially near ΔH = 0.” The added H₂/Cl₂ example is correct by standard chemistry, independently of the supplied sources: 436 + 243 = 679; 2 × 431 = 862; 679 − 862 = −183 kJ."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "6.8",
+      "findings": [
+        {
+          "severity": "suggestion",
+          "card": "SCORE full credit",
+          "issue": "Optionally label the species N₂(g), H₂(g), and NH₃(g) to make the phase associated with the supplied formation enthalpy explicit. This is a clarification, not a defect.",
+          "evidence": "Judged as standard chemistry rather than source-derived content, the added facts are correct: elements in their reference standard states have zero standard formation enthalpy, and the supplied −45.9 kJ/mol value is appropriate for gaseous NH₃. The calculation 2 × (−45.9) = −91.8 kJ is correct, and the numbered work matches the steps."
+        }
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "6.9",
+      "findings": [
+        {
+          "severity": "suggestion",
+          "card": "SCORE full credit",
+          "issue": "Optionally add gas-phase labels to the equations, since reaction enthalpies depend on physical states. This is a clarification, not a defect.",
+          "evidence": "Judged as standard chemistry rather than source-derived content, the added gaseous NO/NO₂ example is valid. The equations balance and cancel correctly; 2(+90.3) = +180.6, 2(−57.1) = −114.2, and the sum is +66.4 kJ. The numbered work matches the steps. The state-functions exclusion matches the CED."
+        }
+      ],
+      "verdict": "pass"
+    }
+  ]
+}

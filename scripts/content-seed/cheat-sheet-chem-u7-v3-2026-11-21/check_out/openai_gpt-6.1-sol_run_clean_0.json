@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "id": "7.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "7.2",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE weak",
+          "issue": "“Both directions always occur” is too absolute. A reversible reaction can initially have a zero reverse rate when no products are present. Replace it with: “Both directions occurring does not establish equilibrium; their rates must be equal.”",
+          "evidence": "Standard chemistry qualification beyond the supplied sources: reversibility does not require both instantaneous rates to be nonzero under every initial condition. The sources establish that equal opposing rates characterize equilibrium, not that both directions always occur."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "7.3",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "“More AgCl dissolves until Q = K” needs the condition that sufficient solid AgCl remains available. An insufficient amount can dissolve completely while the solution remains unsaturated, with Q < Ksp. Write: “If Q < Ksp, AgCl dissolves if solid is present; Q reaches Ksp provided sufficient solid is available.”",
+          "evidence": "This dissolution prediction is an addition to the supplied worked answer and is judged using standard solubility chemistry. The source establishes the expression Ksp = [Ag⁺][Cl⁻], but does not guarantee enough solid to produce a saturated solution."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}
