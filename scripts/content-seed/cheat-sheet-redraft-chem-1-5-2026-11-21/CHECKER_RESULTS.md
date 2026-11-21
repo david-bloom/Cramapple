@@ -24,3 +24,9 @@ Recheck of the fixed unit mock: kimi 0 findings; gpt 0 defects, 3 style suggesti
 - Both checkers treat the sources as truth, as in the earlier rollouts. The NEW 1.7 trend line and the Radius column were judged as chemistry only: gpt accepted the radius column and the trend (with "generally"); neither is in the CED fact pack.
 - Kimi found 1 of the 5 real defects that gpt found; the pair covers more than either alone.
 - Not done: render at desktop and 375px, human read, any write to Development or Production, app changes.
+
+## v3 (TWO_LAYER_1_5_v3.md), checked 2026-11-21
+Checkers: openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro. Script: `check_v3.py` (every plant asserts its target text exists). Raw output: `check_out/*_v3_*.json`. Gateway spend about $0.17 (gpt about $0.03, kimi about $0.14).
+- **Clean run:** both models, 0 findings and verdict pass on all eight items (six cards, hook, overlap). The overlap check found no two cards making the same claim for the same job, including the merged Steps / Weak / Full-credit unit. Both also confirmed the Weak answer skips step 2 and the Full-credit (1), (2), (3) match the steps.
+- **Controls:** four planted (fill string 3d before 4s, levers row inverted, S written 3p³, Al/S core electrons given as 12). Both models failed every affected card, two defects found in the Full-credit card by each.
+- **Still not done:** render at desktop and 375px, human read, any write to Development or Production, the app changes (one merged card, null recap). The transition-metal cation trap is not in v3 and was not checked.
