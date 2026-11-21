@@ -5,7 +5,7 @@ Checkers: openai/gpt-6.1-sol and moonshotai/kimi-k3.1-pro (different families fr
 ## Controls (planted defects)
 Four planted: 1.5 fill string (3d before 4s), 1.5 levers table (more core electrons = stronger pull, higher ionization energy), unit 1.4 (constant ratio means mixture), unit 1.6 (core electrons bind more loosely).
 - 1.5 plants: both models failed both planted cards.
-- Unit plants: both models failed 1.4 and 1.6. gpt also raised its genuine clean-run findings again; kimi did not.
+- Unit plants: both models failed 1.4 and 1.6 (the first run, before the 1.4 wording was fixed; `check_drafts.py` now plants against the fixed wording and asserts every plant matches, so a later run cannot silently test fewer controls). gpt also raised its genuine clean-run findings again; kimi did not.
 
 ## Topic 1.5 draft (clean run)
 Both models: 0 findings, verdict pass on all eight items (six cards, hook, and the overlap check). The overlap check found no two cards making the same claim for the same job.
