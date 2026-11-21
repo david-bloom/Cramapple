@@ -51,10 +51,13 @@ CED EXCERPT:
 For each id: (1) each Know/Do/Trap line is supported by that topic's sources, with no inverted, dropped-key or invented content; (2) chemistry is correct (including the formulas strip and the levers table, holding other things equal); (3) any claim that would mislead (e.g. a rule of thumb that contradicts the course). Ids are the topic titles plus "Formulas" and "Three levers". {FMT}"""
 def plant(c, u):
     c = dict(c); u = dict(u)
-    k = "Know: core_idea"; c[k] = c[k].replace("4s² 3d¹⁰ 4p⁶", "3d¹⁰ 4s² 4p⁶")
-    k = "Know: what_students_need_to_understand (the levers)"; c[k] = c[k].replace("More inner (core) electrons in between | Weaker | Lower", "More inner (core) electrons in between | Stronger | Higher")
-    k = "1.4 Composition of mixtures"; u[k] = u[k].replace("constant means pure, changing means mixture", "constant means mixture, changing means pure")
-    k = "1.6 Photoelectron spectroscopy"; u[k] = u[k].replace("Core electrons always bind more tightly than valence electrons", "Core electrons always bind more loosely than valence electrons")
+    def sub(d, k, a, b):
+        assert a in d[k], f"plant target missing in {k!r}: {a!r}"  # a silent no-op would hide a lost control
+        d[k] = d[k].replace(a, b)
+    sub(c, "Know: core_idea", "4s² 3d¹⁰ 4p⁶", "3d¹⁰ 4s² 4p⁶")
+    sub(c, "Know: what_students_need_to_understand (the levers)", "More inner (core) electrons in between | Weaker | Lower", "More inner (core) electrons in between | Stronger | Higher")
+    sub(u, "1.4 Composition of mixtures", "constant supports pure, changing means mixture", "constant means mixture, changing means pure")
+    sub(u, "1.6 Photoelectron spectroscopy", "Core electrons always bind more tightly than valence electrons", "Core electrons always bind more loosely than valence electrons")
     return c, u
 pc, pu = plant(cards, unit)
 jobs = [("m15", p15(cards)), ("munit", punit(unit)), ("plant15", p15(pc)), ("plantunit", punit(pu))]
