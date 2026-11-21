@@ -1,0 +1,89 @@
+{
+  "items": [
+    {
+      "id": "Formulas",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "Three levers",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "1.1 Moles and molar mass",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "1.2 Mass spectra of elements",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "1.3 Composition of pure substances",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "1.4 Composition of mixtures",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "The Do line reverses the purity conclusions. Replace with: “A constant ratio supports a pure substance; a changing ratio indicates a mixture.” Constant elemental ratios alone do not prove purity.",
+          "evidence": "The source answer_move explicitly says that a constant ratio supports a pure substance and a changing ratio supports a mixture. The draft states the opposite."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "1.5 Atomic structure and electron configuration",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "“Not tested: n, l, mₗ, mₛ” overstates the exclusion. Say that assigning quantum numbers to individual electrons is not assessed; shell and subshell knowledge remains assessable.",
+          "evidence": "The CED excludes “the assignment of quantum numbers to electrons in subshells of an atom,” not all knowledge involving those quantities. Shell/subshell structure is explicitly required."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "1.6 Photoelectron spectroscopy",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "The final Trap sentence reverses core and valence binding energies. Core electrons are more tightly bound and require more energy to remove than valence electrons.",
+          "evidence": "The source states that core electrons, being closer to the nucleus and less shielded, need more energy to remove. The draft says they “bind more loosely.”"
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "1.7 Periodic trends",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "Qualify the NEW line as describing general trends, especially for first ionization energy. It does not increase at every step across a period; subshell energy and electron pairing produce AP-relevant exceptions.",
+          "evidence": "First ionization energy decreases from Be to B and from N to O, despite the general increase across the period. The unqualified wording can lead to incorrect comparisons."
+        },
+        {
+          "severity": "suggestion",
+          "issue": "Make the exclusion precise: “Writing Aufbau-exception electron configurations, such as Cr and Cu, is not assessed.”",
+          "evidence": "The CED exclusion concerns writing exception configurations, rather than every question involving chromium, copper, or exceptions to periodic trends."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "1.8 Valence electrons and ionic compounds",
+      "findings": [
+        {
+          "severity": "defect",
+          "issue": "Restore the “common main-group ions” limitation on the Do line. Group-number counting and gaining or losing electrons to reach a noble-gas configuration are not general methods for assigning transition-metal ion charges.",
+          "evidence": "The source answer_move explicitly begins “For common main-group ions.” Common ions such as Fe²⁺ and Fe³⁺ do not have noble-gas configurations."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}
