@@ -1,0 +1,45 @@
+{
+  "items": [
+    {
+      "id": "1.5",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "1.6",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE steps",
+          "issue": "Steps 1–2 treat peak heights as absolute electron counts without first establishing their scale. Peak heights are proportional to electron counts; arbitrary relative heights cannot simply be added to obtain the number of electrons.",
+          "evidence": "The core card and CED correctly state proportionality. The same magnesium spectrum could have relative heights 1:1:3:1 rather than 2:2:6:2; directly adding the former gives 6, not 12. Instruct students to convert relative heights to subshell occupancies before summing. The worked example's occupancies and arithmetic are correct."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "1.7",
+      "findings": [
+        {
+          "severity": "suggestion",
+          "card": "SCORE steps / SCORE full credit",
+          "issue": "The worked answer demonstrates steps 1–2 but does not illustrate step 3's estimation task. This is not a chemistry error because step 3 is conditional, but the worked unit does not demonstrate all three listed steps.",
+          "evidence": "The full-credit answer labels only (1) and (2) and explains the Cl–S comparison. Consider marking step 3 as an optional extension or adding an explicit estimation example."
+        }
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "1.8",
+      "findings": [
+        {
+          "severity": "suggestion",
+          "card": "KNOW core_idea",
+          "issue": "Add 'generally' or 'tend to' to the same-column analogy statement so it reads as a predictive tendency rather than a universal rule.",
+          "evidence": "The reference states that same-column elements 'tend to form analogous compounds.' The common-ion table is correctly scoped and its entries are correct; it does not need another 'generally' qualifier."
+        }
+      ],
+      "verdict": "pass"
+    }
+  ]
+}
