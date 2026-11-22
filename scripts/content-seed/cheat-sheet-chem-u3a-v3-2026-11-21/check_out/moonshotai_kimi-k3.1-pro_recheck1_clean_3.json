@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "id": "3.4",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "mechanism (what_students_need_to_understand)",
+          "issue": "The mixture row treats moles of each gas as sufficient to obtain total pressure from PV = nRT. As a matter of standard ideal-gas chemistry, once n(total) is known, P(total) = n(total)RT/V still requires T and V unless total pressure is supplied independently. As written, the table can mislead a student about the data needed. Include V and T among the givens, or use P_A = X_A P_total directly when P_total is known.",
+          "evidence": "The row reads 'Moles of each gas in a mixture' → 'Add moles, get total P from PV = nRT.' The source worked example additionally supplies V = 10.0 L and T = 300 K before calculating P_total."
+        },
+        {
+          "severity": "suggestion",
+          "card": "steps / full credit",
+          "issue": "The numerical worked answer is correct, but its numbering does not cleanly correspond to Score steps 1–3. Full-credit (1) only adds moles rather than explicitly choosing the equation or route; that choice appears implicitly in (2). The addition also occurs before the unit confirmation, despite step 2 saying 'before any arithmetic.' Rewording or reordering the worked unit would make it model the stated steps directly.",
+          "evidence": "Step 1 is 'Choose the equation,' while Full-credit (1) is only 'n(total) = 0.50 + 0.20 = 0.70 mol.' Full-credit (2) checks the units and calculates P_total, and (3) correctly calculates the mole fractions and partial pressures."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

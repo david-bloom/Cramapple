@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "8.7",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "8.8",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "8.9",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE steps",
+          "issue": "Step 2 incorrectly instructs students to raise e to the power pH − pKa. The correct base is 10. This contradicts the correct expression later in the same step and the Full-credit calculation.",
+          "evidence": "The draft says “Raise e to that power,” but isolating the ratio from the base-10 logarithm gives [A⁻]/[HA] = 10^(pH − pKa). Source 8.9 explicitly distinguishes this operation from using natural logarithms."
+        },
+        {
+          "severity": "defect",
+          "card": "LINK",
+          "issue": "“Whenever” both species remain is too broad for the post-reaction calculation rule. Specify that appreciable amounts of both remain, forming a buffer. Merely having both species present does not justify treating their post-reaction concentrations as the equilibrium concentrations in a Henderson–Hasselbalch calculation.",
+          "evidence": "CED 8.4 specifies the buffer-forming case where the weak reactant remains in excess; at equivalence it instead calls for conjugate-species hydrolysis. As a standard-chemistry qualification, both conjugate forms can be present through equilibrium even at equivalence, so their mere presence is insufficient."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

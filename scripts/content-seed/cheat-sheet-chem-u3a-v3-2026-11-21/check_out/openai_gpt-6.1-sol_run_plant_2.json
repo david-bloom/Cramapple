@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "id": "3.7",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The molarity definition incorrectly uses liters of solvent instead of liters of final solution.",
+          "evidence": "The draft states “Molarity = moles of solute ÷ liters of solvent.” Both the source and CED specify M = n_solute/L_solution. Replace “solvent” with “final solution.”"
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism (what_students_need_to_understand)",
+          "issue": "The solvent-volume row improperly generalizes the worked example’s small volume increase. The amount and direction of the volume change depend on the substances and quantities; a small increase cannot be assumed for an unspecified solution.",
+          "evidence": "“The final volume is generally slightly larger” extends a claim made in the source specifically for 0.250 mol NaCl added to 500. mL water. As a matter of standard solution chemistry, mixing volumes are not necessarily additive, and the change need not be small or positive. Use: “Do not substitute solvent volume for final solution volume; use the final volume after mixing.”"
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "items": [
+    {
+      "id": "7.7",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "7.8",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea; SCORE weak",
+          "issue": "The wording implies that raw particle counts can always be substituted directly into the equilibrium expression. Counts must represent concentrations or partial pressures; for general stoichiometry, the count-to-concentration scale does not cancel.",
+          "evidence": "The source requires using the equilibrium-expression form, while standard chemistry additionally requires the appropriate concentration or pressure scale. For A ⇌ 2B, Kc = [B]^2/[A], not generally NB^2/NA. Replace the count-only rule with an instruction to use the diagram's particle key and volume information when needed."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "Even with the heading 'Likely K,' the table is too general: a greater number of product particles alone does not reliably establish whether K is greater than 1 for an unspecified equation.",
+          "evidence": "By standard chemistry, stoichiometric exponents and concentration scale matter. For A ⇌ 2B with [A] = 0.010 M and [B] = 0.020 M, there are twice as many B particles, but Kc = 0.040. Restrict the table to a stated simple equilibrium such as A ⇌ B, or require evaluation of the appropriate expression. The worked answer's explicitly tentative inference matches the supplied source."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "7.9",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea; KNOW mechanism",
+          "issue": "The unconditional shift rules omit cases in which an addition, removal, or pressure change does not disturb equilibrium.",
+          "evidence": "Standard chemistry qualifies the source's shorthand: adding a pure solid does not change Q, and removing some of it does not change Q while that phase remains. Adding an inert gas at constant volume also causes no shift. The mechanism's assertions that adding or removing any species changes Q and causes consumption or replacement are therefore too broad. Specify species whose concentration or partial pressure enters Q, and qualify the general shift statement."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE steps",
+          "issue": "Step 3 is presented as a general explanation method, but consuming an added species or replacing a removed species does not explain every stress listed in the sheet.",
+          "evidence": "The source includes temperature changes, gas-volume changes, and dilution. For these, students may need to explain the favored endothermic/exothermic direction, the gas-mole relationship, or the resulting Q-versus-K change. Restrict step 3 to species addition/removal or broaden it to explaining how the shift counteracts the particular disturbance. The product-removal worked unit itself correctly follows all three steps."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

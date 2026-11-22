@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "4.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "4.2",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE steps",
+          "issue": "Step 2 incorrectly permits cancellation when charge or phase differs. Cancel only identical species with the same formula, charge, and phase on both sides.",
+          "evidence": "Draft: “Cancel any species that appears on both sides, even if its charge or phase differs.” The source explicitly requires the same phase and charge, and the draft's own mechanism table says species that change phase, formula, or charge must be kept."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The numbered response does not fully demonstrate the corresponding steps. Part (1) identifies an unchanged ion rather than writing a complete ionic equation; part (3) states the balance requirement without checking atom counts or total charge. Either adapt the steps to this spectator-identification example or provide a complete equation and demonstrate the checks.",
+          "evidence": "Step 1 requires writing the complete ionic equation, but Full credit (1) only says Na⁺(aq) appears on both sides. Step 3 requires checking atom and charge balance, but Full credit (3) supplies no equation or balance comparison."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "4.3",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}

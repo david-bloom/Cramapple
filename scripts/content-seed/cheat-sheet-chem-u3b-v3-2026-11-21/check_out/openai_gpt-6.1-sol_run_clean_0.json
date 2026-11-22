@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "3.8",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "3.9",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "3.10",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The mismatch row overgeneralizes: different dominant force types do not necessarily mean that the solvent's own interactions are stronger or that dissolution is unfavorable. Compare the interactions formed between solute and solvent with those disrupted, rather than treating a force-type mismatch as decisive.",
+          "evidence": "“Mismatch | Solvent prefers its own, stronger forces” is categorical, whereas the CED says substances with similar IMFs “tend to” be soluble or miscible. As a standard-chemistry counterexample beyond the supplied sources, ions can dissolve in polar solvents through favorable ion–dipole interactions even though the pure solute and solvent have different dominant interactions."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "Calling water's hydrogen bonding “much stronger” than iodine's London dispersion forces is not justified. London dispersion interactions involving large, highly polarizable iodine molecules can be substantial. Explain iodine's low water solubility through the unfavorable balance of interactions disrupted and formed, not a universal force-type strength ranking.",
+          "evidence": "Step (1) says “water: hydrogen bonding, much stronger,” contrasting it with iodine's London dispersion forces. Although the worked source repeats this claim, the supplied CED cautions that London dispersion forces are often the strongest net IMF between large molecules. The source's simplified strength comparison should therefore also be corrected."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

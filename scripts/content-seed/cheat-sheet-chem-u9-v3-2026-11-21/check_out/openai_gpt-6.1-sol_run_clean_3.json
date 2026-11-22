@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "id": "9.10",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The Q = 1 row incorrectly identifies Q = 1 as sufficient to establish standard conditions. Nonstandard concentrations or pressures can also produce Q = 1.",
+          "evidence": "Standard chemistry, consistent with the Nernst equation: Q = 1 guarantees E = E° at the specified temperature, but does not guarantee that every species is in its standard state. The source's statement that standard conditions have Q = 1 does not establish the converse. Replace 'Standard conditions' with 'E equals its standard value; conditions need not be standard.'"
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "9.11",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism; LINK",
+          "issue": "Dividing by 'electrons per ion' is not a general conversion from moles of electrons to moles of any substance. The Link overgeneralizes this metal-plating shortcut to any electrochemical cell.",
+          "evidence": "Standard chemistry beyond the specific copper example: the general conversion uses the half-reaction coefficient ratio, mol target substance/mol electrons. For 2Cl⁻ → Cl₂ + 2e⁻, there is one electron transferred per chloride ion, but producing one mole of Cl₂ requires two moles of electrons. Replace 'electrons per ion' in the general chain and Link with 'moles of electrons per mole of the target substance, from the balanced half-reaction.' The copper worked answer and its charge calculation are correct."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

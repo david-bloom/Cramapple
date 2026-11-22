@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "9.7",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "9.8",
+      "findings": [
+        {
+          "severity": "suggestion",
+          "card": "KNOW mechanism",
+          "issue": "Consider adding the voltage/current measuring device to complete the source's component coverage: it measures cell potential or current.",
+          "evidence": "Both the source and CED include this component. Its omission is a coverage suggestion, not a chemistry defect. The draft's more specific electrode examples—possible anode mass loss, cathode mass gain, and gas evolution—are valid standard-chemistry examples, checked independently rather than treated as verbatim source claims."
+        }
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "9.9",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE steps; SCORE full credit",
+          "issue": "Restore the galvanic-cell qualification when choosing the greater reduction potential as the cathode. This is not a universal rule for assigning electrodes in a specified cell reaction.",
+          "evidence": "The source explicitly says to choose the greater reduction potential as the cathode 'in a galvanic cell.' An electrolytic reaction can instead reduce the species with the lower standard reduction potential. For a specified reaction, identify its actual reduction and oxidation half-reactions before calculating E°cell = E°cathode − E°anode."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "Step (2) incorrectly calls ΔG° positive. Replace it with: 'n and F are positive, so with E°cell > 0, ΔG° = −nFE°cell is negative; the reaction is thermodynamically favored.'",
+          "evidence": "The leading minus sign makes ΔG° negative when E°cell is positive. The draft contradicts its own formula, sign table, and source worked answer, and repeats the Weak answer's sign error. The table's additional K relationships are correct derived chemistry: ΔG° = −RT ln K gives K > 1 for ΔG° < 0 and K < 1 for ΔG° > 0."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

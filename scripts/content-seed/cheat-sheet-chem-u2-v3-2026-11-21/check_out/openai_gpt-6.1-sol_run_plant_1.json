@@ -1,0 +1,45 @@
+{
+  "items": [
+    {
+      "id": "2.4",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The two entries in the Radii row are reversed.",
+          "evidence": "The sources and CED specify significantly different radii for interstitial alloys and comparable radii for substitutional alloys. The draft table states the opposite, contradicting its own Score steps and examples."
+        },
+        {
+          "severity": "defect",
+          "card": "LINK",
+          "issue": "Knowing only which atom is larger is insufficient to classify the alloy.",
+          "evidence": "The sources require distinguishing comparable radii from significantly different radii, not merely ranking the atoms by size. Replace 'which is all this call needs' with a statement that the relevant comparison is how different the radii are."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "2.5",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "Step (2) incorrectly says that 14 electrons remain as lone pairs; the correct number is 16.",
+          "evidence": "There are 24 total electrons and 8 bonding electrons, so 24 − 8 = 16 nonbonding electrons. The listed lone pairs also total 16 electrons: 4 + 6 + 6. Step (3) and the source correctly use 16."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea; SCORE steps",
+          "issue": "The instruction to convert a lone pair into an extra bond whenever the central atom is short, together with the unconditional instruction to meet octets, overgeneralizes the octet procedure.",
+          "evidence": "The source reference qualifies octet completion with 'where possible,' and the source steps say 'where required.' Standard chemistry, beyond the specific worked example: electron-deficient centers such as B in BF₃ can appropriately have incomplete octets; a multiple bond should not automatically be forced to complete them. Qualify these instructions to apply where octets are appropriate."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "2.6",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}

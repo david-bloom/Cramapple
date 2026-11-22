@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "id": "5.4",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "“Not the coefficients” is more absolute than the source. Overall stoichiometric coefficients can coincide with rate-law orders; they simply cannot generally be used to infer those orders.",
+          "evidence": "The source says overall coefficients “do not automatically give orders.” Replace the table entry with “Cannot infer powers from overall coefficients.”"
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism; LINK",
+          "issue": "The unqualified instruction to use the slow step can mislead students into treating its elementary-step rate law as the final overall rate law.",
+          "evidence": "The CED qualifies the direct slow-step treatment, and 5.9 states that approximations such as pre-equilibrium may be needed when the first step is not rate-limiting. A slow-step expression containing intermediates generally requires further derivation. Qualify both references to the slow-step shortcut."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "5.5",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The concentration/surface-area row turns a conditional effect into a universal rule.",
+          "evidence": "The source says increasing concentration or surface area “can increase collision frequency.” Surface area must be accessible and relevant to a heterogeneous reaction. Use “can increase collisions per second” and specify exposed reactant surface area."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE weak",
+          "issue": "The explanation incorrectly says the Weak answer skips step 2. That answer does identify collision frequency, which step 2 explicitly permits.",
+          "evidence": "The actual error is claiming that increased collision frequency is temperature’s only effect and omitting the increased fraction of sufficiently energetic collisions. Describe step 2 as incomplete or incorrectly applied, rather than skipped."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "5.6",
+      "findings": [
+        {
+          "severity": "suggestion",
+          "card": "KNOW core_idea",
+          "issue": "Chemistry-only verification, not a defect: the added reverse-activation-energy formula is correct for the single-step profile described.",
+          "evidence": "Although not explicitly supplied in the topic sources, reverse Eₐ = transition-state energy − product energy follows from applying the activation-energy definition in the reverse direction. The Arrhenius-calculation exclusion also matches the CED."
+        }
+      ],
+      "verdict": "pass"
+    }
+  ]
+}

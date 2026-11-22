@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "5.7",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "5.8",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The rule that the slow step controls the mechanism's rate law is stated without the source's qualifying conditions. Distinguish the slow-step rate expression from the final overall rate law, which may require an additional approximation.",
+          "evidence": "The CED specifies mechanisms where every step is irreversible or the first step is rate-limiting. Suggested replacement: 'For the mechanisms considered here, begin with the rate expression for the rate-limiting elementary step; if it contains an intermediate, use an additional mechanism relationship to derive the final rate law.'"
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "Part (3) adds an unsupported claim that A and B are overall reactants. The supplied example identifies only the slow first step, not the complete mechanism or overall equation.",
+          "evidence": "The source establishes rate = k[A][B] from the elementary step A + B → C. It does not establish that neither A nor B is regenerated later. By standard chemistry, a reactant in the slow first step could be a catalyst and cancel from the overall equation. Supply the complete mechanism or remove the assertion that both are overall reactants."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "5.9",
+      "findings": [
+        {
+          "severity": "suggestion",
+          "card": "KNOW mechanism (what_students_need_to_understand)",
+          "issue": "Clarify that the table follows derivation order rather than chronological mechanism order, or display the fast equilibrium before the slow step.",
+          "evidence": "The table lists 'Slow: I + B → P' before 'Fast: A ⇌ I', although the pre-equilibrium precedes the slow step. This is not a chemical error when read as calculation order. Judged as standard chemistry rather than a sourced example, the added mechanism correctly sums to A + B → P and gives [I] = K[A] and rate = kK[A][B] under the pre-equilibrium approximation."
+        }
+      ],
+      "verdict": "pass"
+    }
+  ]
+}

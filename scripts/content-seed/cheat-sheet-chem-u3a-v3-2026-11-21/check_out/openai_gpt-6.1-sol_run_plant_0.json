@@ -1,0 +1,58 @@
+{
+  "items": [
+    {
+      "id": "3.1",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The weakest-to-strongest list misleadingly places hydrogen bonding above ion–dipole interactions as a general ordering. There is no reliable universal ordering between these categories.",
+          "evidence": "The CED says ion–dipole interactions are typically stronger than dipole–dipole interactions, but does not rank hydrogen bonding above ion–dipole interactions. Standard chemistry: interaction strengths depend on charge, separation, dipole magnitude, and other structural factors; ion–dipole interactions can be substantially stronger than hydrogen bonds. This defect is inherited from the supplied source."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism; SCORE steps",
+          "issue": "The table and instruction to compare force type before molar mass turn a useful comparison strategy into a universal hierarchy. A polar molecule does not necessarily have dipole–dipole interactions as its strongest net attraction, and the presence of hydrogen bonding does not guarantee that it dominates dispersion.",
+          "evidence": "Both the source and CED explicitly say London dispersion can be the strongest net IMF between large molecules. The reference comparison of polar and nonpolar molecules is qualified by comparable size. Qualify the table and comparison strategy accordingly, and consider size/polarizability alongside force type."
+        },
+        {
+          "severity": "defect",
+          "card": "LINK",
+          "issue": "Saying the ranking 'decides' solid type and which substances mix overstates its predictive power.",
+          "evidence": "Solid classification requires identifying particles and bonding, including ion–ion, metallic, and network covalent bonding—not merely ranking the listed IMFs. The CED says substances with similar IMFs tend to mix, rather than guaranteeing mixing. Say these interactions help explain solid properties and support solubility predictions."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "3.2",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The ionic-solid row incorrectly says ionic substances conduct as solids.",
+          "evidence": "The source and CED state that ionic substances conduct only when their ions are mobile, such as when molten or dissolved. In the ordinary solid lattice, the ions are fixed. Replace 'conducts as a solid' with 'does not conduct as a solid; conducts when molten or dissolved.'"
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "3.3",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "Step (2) does not fully execute the required spacing–motion–order comparison. It describes spacing and order for ice and liquid water but gives motion only for vapor.",
+          "evidence": "SCORE step 2 requires spacing, motion, and order for each phase. Add that ice molecules vibrate about fixed positions and liquid-water molecules continually move past one another. The KNOW table contains this information, but the worked answer does not apply it."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The vapor molar volume of 22,400 mL/mol is presented without temperature, pressure, or an ideal-gas qualification, making the numerical comparison misleading.",
+          "evidence": "Standard chemistry: gas molar volume depends strongly on temperature and pressure. The supplied worked example attributes this value to water vapor at standard conditions, but pure water is not a stable gas at 0 °C and 1 atm; 22.4 L/mol there is a hypothetical ideal-gas value. State explicit physically appropriate vapor conditions and a corresponding volume, or label 22.4 L/mol as an ideal-gas reference value rather than an actual equilibrium water-vapor molar volume at STP."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "items": [
+    {
+      "id": "8.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "8.2",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The rule that hydronium concentration equals initial acid concentration incorrectly includes H₂SO₄ without qualification.",
+          "evidence": "Although this reproduces the supplied source and CED excerpt, it is chemically misleading. H₂SO₄'s first ionization is effectively complete, but HSO₄⁻ undergoes a second, partial ionization that contributes additional H₃O⁺. Its hydronium concentration is therefore not generally equal to its initial analytical concentration. Restrict the simple equality to strong monoprotic acids under the usual concentration assumptions."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea; KNOW mechanism",
+          "issue": "Calling all Group II hydroxides strong bases and applying the concentration multiplier to them without qualification is too broad.",
+          "evidence": "The supplied sources use the same broad wording, but standard chemistry requires distinguishing base strength from solubility and recognizing exceptions such as amphoteric Be(OH)₂. Use strong-base examples such as Ca(OH)₂, Sr(OH)₂, and Ba(OH)₂, and specify that the 2× multiplier applies to the concentration actually dissolved, not an arbitrary amount initially added."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea; KNOW mechanism",
+          "issue": "The concentration equalities omit the condition that the acid or base contribution must dominate water autoionization.",
+          "evidence": "This is a standard-chemistry qualification absent from the supplied sources. In extremely dilute solutions, water contributes appreciably to both ion concentrations, so full dissociation alone does not establish [H₃O⁺] = initial acid concentration or [OH⁻] = the stoichiometric base concentration. Add a brief qualification such as 'when water autoionization is negligible.' The 0.010 M NaOH worked calculation itself is correct."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "8.3",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The table presents small percent ionization as a universal property of weak acids.",
+          "evidence": "The supplied reference makes the same generalization, but it is not universally correct chemistry. Percent ionization depends on both Ka and initial concentration; a weak acid can be substantially ionized, especially upon dilution. Replace 'Much less than the initial concentration' and 'Most stays un-ionized' with conditional statements, such as 'Often much less, when percent ionization is small' and 'Mostly un-ionized when Ka is small relative to the initial concentration.'"
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The conclusion that [H₃O⁺] is 'well below 0.10 M' is not established by the information given.",
+          "evidence": "The source worked answer only concludes that the acid partially ionizes and that its equilibrium must be used. Without Ka, the degree of ionization cannot be determined, so 'well below' adds an unsupported quantitative implication. Retain: 'No: [H₃O⁺] is not automatically 0.10 M; it must be determined from the acid equilibrium.'"
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "id": "3.1",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The weakest-to-strongest list misleadingly places hydrogen bonding above ion–dipole interactions as the usual order. Ion–dipole interactions are generally stronger than hydrogen bonds, although there is no universal strength ranking independent of the species involved.",
+          "evidence": "This ordering is reproduced from the supplied source, but it is problematic as standard chemistry. The CED excerpt describes hydrogen bonding as strong and ion–dipole interactions as typically stronger than dipole–dipole interactions; it does not establish hydrogen bonding as stronger than ion–dipole interactions."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism; SCORE steps",
+          "issue": "The table categorically identifies the strongest force from functional groups or polarity, and step 3 reinforces a force-type-first ranking without a size qualification. These rules can incorrectly imply that dipole–dipole interactions or hydrogen bonding must dominate dispersion whenever present. Identify the interaction types from structure, then compare their contributions using size/polarizability as well as polarity and hydrogen-bonding ability.",
+          "evidence": "The draft itself correctly states that London forces are often the strongest net force between very large molecules. The references restrict the typical polar-versus-nonpolar strength comparison to molecules of comparable size. Thus, the table's unqualified 'Strongest force' entries lose an important source qualification. The particular CH₄/CH₃Cl/CH₃OH worked comparison remains correct."
+        },
+        {
+          "severity": "defect",
+          "card": "LINK",
+          "issue": "Saying the ranking 'decides' solid type, properties, and which substances mix overstates its predictive power. Interaction types and strengths help explain these outcomes; the displayed ranking alone does not determine them.",
+          "evidence": "The CED distinguishes ionic, covalent-network, molecular, and metallic solids, which cannot be classified from this IMF ranking alone. Its solubility statement says substances with similar IMFs 'tend to' be miscible or soluble, rather than making miscibility an unconditional consequence of a strength ranking."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

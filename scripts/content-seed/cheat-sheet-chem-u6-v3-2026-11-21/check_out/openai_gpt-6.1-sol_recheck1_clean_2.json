@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "id": "6.8",
+      "findings": [
+        {
+          "severity": "suggestion",
+          "card": "KNOW mechanism; SCORE full credit",
+          "issue": "No correction needed. The zero formation enthalpy for elements in their standard states is a standard-chemistry addition, checked as chemistry rather than against the supplied sources.",
+          "evidence": "N₂(g) and H₂(g) contribute zero. Using the given NH₃(g) value, 2(−45.9) = −91.8 kJ per mole of reaction as written. The arithmetic, precision, and correspondence to steps 1–3 are correct."
+        }
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "6.9",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The table presents useful matching heuristics as unconditional rules. A target species appearing on the opposite side of one given equation does not always mean that equation should be reversed; likewise, a differing coefficient does not always require scaling that individual equation. Contributions from multiple equations can produce the required net coefficient.",
+          "evidence": "For target C(s) + O₂(g) → CO₂(g), the equations C(s) + CO₂(g) → 2 CO(g) and 2 CO(g) + O₂(g) → 2 CO₂(g) add directly to the target. The first must remain unreversed despite CO₂ being opposite its target side, and the second needs no scaling despite its CO₂ coefficient differing from the target. Qualify these rows as possible moves and make obtaining the correct net equation the deciding condition."
+        },
+        {
+          "severity": "suggestion",
+          "card": "SCORE full credit; LINK",
+          "issue": "No correction needed to these additions. The numerical example and the connection between formation enthalpies and Hess’s law were checked as standard or derived chemistry.",
+          "evidence": "The adjusted equations sum to the target, and 2(+90.3) + 2(−57.1) = +180.6 − 114.2 = +66.4 kJ, with correct precision. The numbered work matches steps 1–3. The state-functions exclusion also matches the CED verbatim in meaning."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "id": "3.4",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The N₂ mole fraction is arithmetically incorrect, making the worked calculation internally inconsistent.",
+          "evidence": "0.50 ÷ 0.70 = 0.714285..., which rounds to 0.714, not 0.814; this also matches the source table. Furthermore, 0.814 × 1.72 ≈ 1.40 atm, not 1.23 atm. The stated 1.23 atm is correct only when the proper mole fraction, approximately 0.714, is used. As written, the listed mole fractions also sum to 0.814 + 0.286 = 1.100 rather than 1."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "3.5",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism (what_students_need_to_understand)",
+          "issue": "The lighter-gas row reverses the mass–speed relationship by listing average speed as \"Smaller.\"",
+          "evidence": "At the same temperature, the gases have the same average kinetic energy. From KE = ½mv², the lighter gas must have the greater average speed, so the entry should be \"Greater.\" This is also required by the draft's core idea and Full-credit He/Xe explanation, and it is consistent with the row's statement that the distribution shifts to higher speeds."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "3.6",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}

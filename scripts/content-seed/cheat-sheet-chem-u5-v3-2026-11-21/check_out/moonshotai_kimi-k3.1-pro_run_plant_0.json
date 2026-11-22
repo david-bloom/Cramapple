@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "id": "5.1",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "Step (2) multiplies by A's coefficient instead of dividing, contradicting SCORE step 2. Step (3) then silently uses 0.10 M/s rather than the 0.40 M/s calculated in step (2), leaving the worked answer internally inconsistent even though its final numerical answer is correct.",
+          "evidence": "For 2A -> B, the reaction rate is (0.20 M/s)/2 = 0.10 M/s. B therefore appears at 1 x 0.10 M/s = 0.10 M/s. If the printed reaction rate of 0.40 M/s were used, step (3) would give 0.40 M/s for B."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "5.2",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The listed units of k for an overall second-order reaction are wrong: M^-2 s^-1 should be M^-1 s^-1.",
+          "evidence": "Derived from rate = k[A]^m[B]^n, k has units M^(1-overall order) s^-1 when rate is in M s^-1. Thus second order gives M^-1 s^-1; M^-2 s^-1 corresponds to overall third order."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The unqualified statement that orders come from experimental data, 'not from coefficients,' overgeneralizes the source rule and is false for elementary reactions.",
+          "evidence": "The 5.2 source limits its coefficient warning to a 'non-elementary overall reaction.' CED 5.4 states that an elementary reaction's rate law can be inferred directly from collision stoichiometry. Qualify the claim as applying to overall/non-elementary reactions, whose orders generally cannot be inferred from balanced-equation coefficients."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "5.3",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism (what_students_need_to_understand)",
+          "issue": "The table labels a linear 1/[A] versus t plot as first order. It identifies second order, not first order.",
+          "evidence": "The source's second-order integrated rate law is 1/[A]_t - 1/[A]_0 = kt, so 1/[A] versus t is linear with slope +k for second order. First order instead gives a linear ln[A] versus t plot with slope -k."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

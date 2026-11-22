@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "8.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "8.2",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "The rule “[H₃O⁺] = initial acid concentration” cannot be applied generally to H₂SO₄. Sulfuric acid is diprotic: its first ionization is essentially complete, but its second ionization is an equilibrium that can contribute additional H₃O⁺.",
+          "evidence": "The draft reproduces an error in the supplied reference and CED excerpt rather than contradicting them. By standard chemistry, HSO₄⁻ ⇌ H⁺ + SO₄²⁻ contributes additional hydronium to an extent that depends on concentration. Restrict the simple concentration rule to strong monoprotic acids under ordinary solution conditions, and qualify H₂SO₄ separately."
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea; KNOW mechanism",
+          "issue": "Identifying all Group II hydroxides as strong bases is too broad. The table's 2× relationship also needs to refer to the concentration of dissolved strong hydroxide, not an arbitrary amount initially added.",
+          "evidence": "This overgeneralization is also present in the supplied sources. By standard chemistry, Be(OH)₂ is amphoteric and is not classified as a strong base; several Group II hydroxides have limited solubility. For a dissolved strong base such as Ca(OH)₂, [OH⁻] ≈ 2 times its dissolved formula-unit concentration under ordinary conditions. Specify the applicable strong hydroxides and distinguish complete dissociation of dissolved material from complete dissolution."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "8.3",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}

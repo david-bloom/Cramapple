@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "id": "1.1",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The final molecule count is too large by a factor of 10. Replace 1.14×10²³ with 1.14×10²² molecules.",
+          "evidence": "0.01898 × 6.022×10²³ = 1.143×10²². The source's final molecule count is correct."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "1.2",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "The Mg-24 weighted product is incorrectly rounded: it should be 18.946, not 18.945. The final average remains correct.",
+          "evidence": "23.985 × 0.7899 = 18.9457515, which rounds to 18.946 at three decimal places. This arithmetic error is also present in the source."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "1.3",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "Step (2) gives the wrong empirical formula mass. Replace 60.06 g/mol with 30.03 g/mol.",
+          "evidence": "For CH₂O, 12.01 + 2(1.008) + 16.00 = 30.026 g/mol ≈ 30.03 g/mol. Step (3) correctly uses 30.03, contradicting step (2)."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "1.4",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE steps",
+          "issue": "The statement that a single sample is 'not evidence' is too absolute. One sample's elemental analysis can provide evidence against its being a claimed pure compound when compared with that compound's known composition.",
+          "evidence": "Sample B's composition alone rules out pure water because it differs substantially from water's known mass percentages. Multiple samples are needed to demonstrate variation across samples, not for every meaningful purity assessment. The source contains the same overstatement."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

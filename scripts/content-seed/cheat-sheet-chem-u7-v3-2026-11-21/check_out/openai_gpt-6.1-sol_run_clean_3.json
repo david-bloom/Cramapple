@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "id": "7.10",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism; SCORE full credit",
+          "issue": "The addition rules need to specify a reactant or product included in Q. Adding a pure solid or pure liquid does not change Q or cause the stated shift when that phase is already present.",
+          "evidence": "The table unconditionally says adding reactant lowers Q and adding product raises Q; the worked answer likewise says reactants sit in the denominator. The source qualifies the addition rule, and the CED explicitly excludes pure solids and pure liquids from Q. Restrict these claims to increasing the concentration or partial pressure of a species appearing in Q."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "7.11",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea",
+          "issue": "A saturated solution does not necessarily contain undissolved solid. It can have the equilibrium dissolved concentration with no excess solid remaining.",
+          "evidence": "This is a standard-chemistry correction, not a contradiction of an explicit source statement. Replace the first bullet with a conditional statement such as: 'When a saturated solution is in contact with undissolved solid, dissolution and precipitation are in dynamic equilibrium.'"
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "7.12",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The table states Q > Ksp and precipitation as unconditional consequences of adding an ion. Specify that the solution starts at saturation and that the addition increases the common-ion concentration.",
+          "evidence": "The source says adding a common ion increases Q and favors precipitation, not that every addition necessarily makes Q exceed Ksp. By standard chemistry, an initially unsaturated solution can remain below Ksp after a common-ion addition. For the removal row, additional dissolution also requires solid to be available."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE steps; SCORE full credit",
+          "issue": "The acid example incorrectly labels OH⁻ as a shared ion. OH⁻ is the salt-derived ion consumed by the added acid, not an ion shared by the acid and the salt.",
+          "evidence": "The source's worked example correctly describes acid removing OH⁻. Standard acid–base chemistry gives H⁺ + OH⁻ → H₂O. Change step 1 to identify the salt-derived ion whose concentration is affected, and change full-credit part (1) to 'The affected ion is OH⁻.'"
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "id": "5.4",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "“Not the coefficients” incorrectly implies that overall stoichiometric coefficients cannot equal the rate-law orders. They may coincide; they simply cannot generally be used to infer the orders.",
+          "evidence": "The source says overall coefficients “do not automatically give orders.” Replace the cell with “Cannot infer powers from overall coefficients; use data or a justified mechanism.”"
+        },
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism; LINK",
+          "issue": "The instruction to “use the slow step” needs a boundary: directly applying an elementary-step rate law does not always produce the overall rate law in observable reactant concentrations.",
+          "evidence": "The CED limits the stated slow-step shortcut to specified mechanism conditions and identifies pre-equilibrium reasoning for cases where the first step is not rate-limiting. A later slow step may involve an intermediate whose concentration must first be eliminated."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "5.5",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "“Higher concentration or surface area → more collisions per second” turns a conditional relationship into an unrestricted rule. In particular, the surface-area effect needs to refer to exposed reactive surface in a heterogeneous reaction.",
+          "evidence": "The source says increasing concentration or surface area “can increase collision frequency.” Standard chemistry supports qualifying this as increased reactant concentration or increased exposed reactive surface area increasing relevant collision frequency under appropriate conditions."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE weak",
+          "issue": "The feedback incorrectly says the weak answer “skips step 2.” Step 2 explicitly permits identifying collision frequency, which the weak answer does. Its actual error is claiming that increased collision frequency is temperature’s only effect.",
+          "evidence": "Step 2 lists “collision frequency, fraction at or above activation energy, or orientation.” Revise the feedback to say the answer omits the larger energetic fraction and falsely calls collision frequency the only temperature effect."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "5.6",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism",
+          "issue": "The row for products below reactants has the wrong energy-change sign and classification. It should read “ΔE negative: exothermic.”",
+          "evidence": "The draft correctly defines ΔE = products − reactants elsewhere. Products below reactants therefore give ΔE < 0, as both the source worked example and the draft’s Full-credit answer state."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

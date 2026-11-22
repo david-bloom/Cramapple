@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "id": "4.4",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "4.5",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE steps",
+          "issue": "Step 3's instruction “do not stop at moles” is too absolute: moles are the correct stopping point when the question requests an amount in moles. Change it to “Convert to the requested unit; do not stop at moles if another unit is requested.”",
+          "evidence": "The source requires returning to the requested unit rather than stopping early; it does not prohibit answers in moles. The draft's added conversion formulas are valid derivations or standard chemistry, and its limiting-reactant instruction is also chemically correct."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "4.6",
+      "findings": [],
+      "verdict": "pass"
+    }
+  ]
+}

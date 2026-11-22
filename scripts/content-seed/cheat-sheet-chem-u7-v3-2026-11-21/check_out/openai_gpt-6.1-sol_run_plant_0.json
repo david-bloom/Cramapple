@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "7.1",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "7.2",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "SCORE weak",
+          "issue": "“Both directions always occur” is too absolute. A reversible reaction can initially have zero reverse rate if no products are present. The relevant distinction is that both directions occurring does not establish equal rates.",
+          "evidence": "The sources require equal forward and reverse rates at equilibrium; they do not say both rates are always nonzero. The initial-zero-product counterexample is standard chemistry, judged independently of the supplied sources."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "7.3",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW mechanism (what_students_need_to_understand)",
+          "issue": "The Q < K row gives the direction backward. It should say “Reactants consumed, products formed.” It also contradicts the draft’s Full-credit answer.",
+          "evidence": "The CED explicitly states Q < K means net forward change toward products; Q > K means net reverse change toward reactants."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE full credit",
+          "issue": "“More AgCl dissolves until Q = K” needs the condition that enough solid remains. An insufficient amount of AgCl can dissolve completely while the solution remains unsaturated, with Q < Ksp.",
+          "evidence": "This added dissolution scenario is judged as standard chemistry. Q < Ksp favors dissolution when solid is available, but saturation is not guaranteed if the solid is exhausted. Revise to “More AgCl dissolves; if sufficient solid is available, dissolution continues until Q = Ksp.”"
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}

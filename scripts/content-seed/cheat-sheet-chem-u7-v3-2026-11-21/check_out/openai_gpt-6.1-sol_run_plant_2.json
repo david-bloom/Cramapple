@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "7.7",
+      "findings": [],
+      "verdict": "pass"
+    },
+    {
+      "id": "7.8",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea; SCORE weak",
+          "issue": "The draft implies that raw particle counts can always be substituted directly into the K expression. Counts must represent concentrations or partial pressures appropriately; raw count ratios alone do not generally determine K when the total stoichiometric exponents differ between the two sides.",
+          "evidence": "“K takes the form of the K expression, applied to the counts at equilibrium” and “the counts decide” repeat the source's simplified wording but need a chemistry qualification. For A ⇌ 2B, Kc = [B]^2/[A]; converting particle counts to concentrations introduces a volume-dependent factor that does not cancel. Say to use the counts, written equation, and any concentration/volume information to interpret or calculate K."
+        }
+      ],
+      "verdict": "fail"
+    },
+    {
+      "id": "7.9",
+      "findings": [
+        {
+          "severity": "defect",
+          "card": "KNOW core_idea; KNOW mechanism",
+          "issue": "The stress-response rules are stated as unconditional. Not every addition, removal, or pressure change alters Q or causes an equilibrium shift.",
+          "evidence": "“A stress shifts the equilibrium,” “Add a species | Q | Consumes what was added,” and the corresponding removal row need qualifications. Standard chemistry exceptions include adding more of a pure solid already present, which does not change Q, and adding an inert gas at constant volume, which does not change reacting gases' partial pressures. The CED explicitly excludes pure solids and liquids from equilibrium expressions. Restrict the species rules to changes that alter a species' concentration or partial pressure in Q, and explain that a shift occurs when the disturbance makes Q differ from K."
+        },
+        {
+          "severity": "defect",
+          "card": "SCORE steps",
+          "issue": "Step 3 presents consuming an added species or replacing a removed species as the explanation for every listed stress. That procedure does not cover temperature changes or general volume changes.",
+          "evidence": "The draft includes temperature and volume/pressure stresses, but step 3 says only “Explain it as consuming what was added or replacing what was removed.” This follows the source's addition/removal answer move but overextends its scope. Qualify that explanation as applying to species addition/removal, and provide an appropriate explanation for other stresses. The worked product-removal answer itself correctly matches all three steps."
+        }
+      ],
+      "verdict": "fail"
+    }
+  ]
+}
