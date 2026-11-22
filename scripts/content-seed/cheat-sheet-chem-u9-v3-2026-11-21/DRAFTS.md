@@ -441,7 +441,7 @@ Weak: “One mole, because one mole of copper is made.” It skips step 1: it ig
 
 **Score: Full credit (answer_move)**
 ```
-Full credit: (1) Cu²⁺ + 2e⁻ → Cu(s): 2 mol e⁻ per mol Cu. (2) So 1 mol Cu needs 2 mol e⁻ (about 2 × 96,485 ≈ 1.93×10⁵ C).
+Full credit: (F = 96,485 C per mole of electrons, a standard constant.) (1) Cu²⁺ + 2e⁻ → Cu(s): 2 mol e⁻ per mol Cu. (2) So 1 mol Cu needs 2 mol e⁻ (about 2 × 96,485 ≈ 1.93×10⁵ C).
 ```
 
 **Link (practice_bridge)**

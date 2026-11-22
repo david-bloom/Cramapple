@@ -109,7 +109,7 @@ Weak: “Second order because concentration is changing with time.” It skips s
 
 **Score: Full credit (answer_move)**
 ```
-Full credit: (1) ln[A] vs t is linear with negative slope: first order. (2) ln[A]ₜ − ln[A]₀ = −kt, so slope = −k; for a slope of −0.0231 s⁻¹, k = 0.0231 s⁻¹. (3) t½ = 0.693 ÷ 0.0231 s⁻¹ = 30.0 s.
+Full credit: (Illustrative numbers, chosen for this model answer.) (1) ln[A] vs t is linear with negative slope: first order. (2) ln[A]ₜ − ln[A]₀ = −kt, so slope = −k; for a slope of −0.0231 s⁻¹, k = 0.0231 s⁻¹. (3) t½ = 0.693 ÷ 0.0231 s⁻¹ = 30.0 s.
 ```
 
 **Link (practice_bridge)**

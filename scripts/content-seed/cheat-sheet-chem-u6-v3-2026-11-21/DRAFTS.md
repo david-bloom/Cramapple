@@ -153,7 +153,7 @@ Weak: “Use 0.10 g because that is the reacting solid.” It breaks step 1: q =
 
 **Score: Full credit (answer_move)**
 ```
-Full credit: (1) m = 100.0 g + 0.10 g = 100.1 g; with c = 4.18 J/(g·°C) and ΔT = +2.0 °C assumed for this example. (2) q(solution) = 100.1 × 4.18 × 2.0 ≈ +8.4×10² J. (3) q(system) = −q(solution) ≈ −8.4×10² J: the reaction released heat.
+Full credit: (Illustrative inputs, chosen for this model answer.) (1) m = 100.0 g + 0.10 g = 100.1 g; with c = 4.18 J/(g·°C) and ΔT = +2.0 °C assumed for this example. (2) q(solution) = 100.1 × 4.18 × 2.0 ≈ +8.4×10² J. (3) q(system) = −q(solution) ≈ −8.4×10² J: the reaction released heat.
 ```
 
 **Link (practice_bridge)**
@@ -233,7 +233,7 @@ Weak: “Positive, because the temperature increased.” It skips step 2: the wa
 
 **Score: Full credit (answer_move)**
 ```
-Full credit: (1) The solution's temperature rose, so the solution gained heat. (2) The reacting system lost that heat, so q(reaction) is negative: exothermic, ΔH negative. (3) Per mole: if q(solution) = +8.4×10² J came from 0.0100 mol of reaction, ΔH = −8.4×10² J ÷ 0.0100 mol = −84 kJ/mol.
+Full credit: (Illustrative amount, chosen for this model answer.) (1) The solution's temperature rose, so the solution gained heat. (2) The reacting system lost that heat, so q(reaction) is negative: exothermic, ΔH negative. (3) Per mole: if q(solution) = +8.4×10² J came from 0.0100 mol of reaction, ΔH = −8.4×10² J ÷ 0.0100 mol = −84 kJ/mol.
 ```
 
 **Link (practice_bridge)**
@@ -272,7 +272,7 @@ Weak: “Because breaking strong bonds releases extra energy.” It breaks step 
 
 **Score: Full credit (answer_move)**
 ```
-Full credit: (1) H₂ + Cl₂ → 2 HCl: broken H–H and Cl–Cl; formed 2 H–Cl. (2) Broken: 436 + 243 = 679 kJ required; formed: 2 × 431 = 862 kJ released (energies given). (3) ΔH ≈ 679 − 862 = −183 kJ per mole of reaction as written: released exceeds required, so exothermic.
+Full credit: (Standard data values, given as data in a real question.) (1) H₂ + Cl₂ → 2 HCl: broken H–H and Cl–Cl; formed 2 H–Cl. (2) Broken: 436 + 243 = 679 kJ required; formed: 2 × 431 = 862 kJ released (energies given). (3) ΔH ≈ 679 − 862 = −183 kJ per mole of reaction as written: released exceeds required, so exothermic.
 ```
 
 **Link (practice_bridge)**
@@ -312,7 +312,7 @@ Weak: “They should not be multiplied because the table value already belongs t
 
 **Score: Full credit (answer_move)**
 ```
-Full credit: N₂(g) + 3 H₂(g) → 2 NH₃(g), with ΔH°f(NH₃) = −45.9 kJ/mol given. (1) ΔH° = [2·ΔH°f(NH₃)] − [ΔH°f(N₂) + 3·ΔH°f(H₂)]. (2) 2 × (−45.9) = −91.8 kJ; both elements contribute 0. (3) ΔH° = −91.8 − 0 = −91.8 kJ per mole of reaction as written.
+Full credit: (Standard data value, given as data in a real question.) N₂(g) + 3 H₂(g) → 2 NH₃(g), with ΔH°f(NH₃) = −45.9 kJ/mol given. (1) ΔH° = [2·ΔH°f(NH₃)] − [ΔH°f(N₂) + 3·ΔH°f(H₂)]. (2) 2 × (−45.9) = −91.8 kJ; both elements contribute 0. (3) ΔH° = −91.8 − 0 = −91.8 kJ per mole of reaction as written.
 ```
 
 **Link (practice_bridge)**
@@ -353,7 +353,7 @@ Weak: “Because the calculator order might change the answer.” It skips step 
 
 **Score: Full credit (answer_move)**
 ```
-Full credit: target N₂(g) + 2 O₂(g) → 2 NO₂(g); given ½N₂(g) + ½O₂(g) → NO(g), ΔH = +90.3 kJ, and NO₂(g) → NO(g) + ½O₂(g), ΔH = +57.1 kJ. (1) Multiply the first by 2: N₂ + O₂ → 2 NO; reverse the second and multiply by 2: 2 NO + O₂ → 2 NO₂; they sum to the target (2 NO cancels). (2) ΔH = 2(+90.3) and 2(−57.1) = +180.6 kJ and −114.2 kJ. (3) Sum: +180.6 − 114.2 = +66.4 kJ.
+Full credit: (Standard data values, given as data in a real question.) target N₂(g) + 2 O₂(g) → 2 NO₂(g); given ½N₂(g) + ½O₂(g) → NO(g), ΔH = +90.3 kJ, and NO₂(g) → NO(g) + ½O₂(g), ΔH = +57.1 kJ. (1) Multiply the first by 2: N₂ + O₂ → 2 NO; reverse the second and multiply by 2: 2 NO + O₂ → 2 NO₂; they sum to the target (2 NO cancels). (2) ΔH = 2(+90.3) and 2(−57.1) = +180.6 kJ and −114.2 kJ. (3) Sum: +180.6 − 114.2 = +66.4 kJ.
 ```
 
 **Link (practice_bridge)**

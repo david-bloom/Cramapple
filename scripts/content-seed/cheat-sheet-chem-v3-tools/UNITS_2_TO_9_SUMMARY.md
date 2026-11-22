@@ -16,17 +16,17 @@ Words a student sees across the cards (same counting method as Unit 1), current 
 | 2 | 7 | 1,867 | 1,479 | -21% |
 | 3 (3a + 3b) | 13 | 2,921 | 2,678 | -8% |
 | 4 | 9 | 1,486 | 1,536 | +3% |
-| 5 | 11 | 1,803 | 1,942 | +8% |
-| 6 | 9 | 1,393 | 1,758 | +26% |
+| 5 | 11 | 1,803 | 1,960 | +9% |
+| 6 | 9 | 1,393 | 1,802 | +29% |
 | 7 | 12 | 1,362 | 1,711 | +26% |
 | 8 | 11 | 1,245 | 1,719 | +38% |
-| 9 | 11 | 1,214 | 1,833 | +51% |
-| All | 91 | 15,336 | 16,244 | +6% |
+| 9 | 11 | 1,214 | 1,847 | +52% |
+| All | 91 | 15,336 | 16,320 | +6% |
 
 So the format is shorter only where the current text was long (Units 1 to 3). In Units 4 to 9 the current fields are terse and have no weak or full-credit answer, so the new worked unit adds words. The goal that held everywhere is structure (one job per card, no repeats, a model answer, a mechanism table), not length. (The validator prints "-26% less" for a 26% increase: a sign bug in `validate.py`.)
 
 ## Decisions for David
-1. **Illustrative numbers added to Full-credit answers** (the brief said numbers come from the published example; these units' examples are conceptual, so agents added figures; arithmetic recomputed and checked by both models, but the question the answer responds to is not the published one):
+1. **DECIDED 2026-11-22 (David): keep, labelled.** Each affected Full-credit answer now opens with a label: 5.3 "Illustrative numbers", 6.4 "Illustrative inputs", 6.6 "Illustrative amount", 6.7 and 6.9 "Standard data values", 6.8 "Standard data value", 9.11 "F = 96,485 C per mole of electrons, a standard constant". 7.6's K = 4 is already worded "for example". Rechecked clean by both models. Original issue: **Illustrative numbers added to Full-credit answers** (the brief said numbers come from the published example; these units' examples are conceptual, so agents added figures; arithmetic recomputed and checked by both models, but the question the answer responds to is not the published one):
    - 5.3: slope -0.0231 s⁻¹, k = 0.0231 s⁻¹, t½ = 30.0 s (chosen by the agent).
    - 6.4: c = 4.18 J/(g·°C), ΔT = +2.0 °C (now worded "assumed for this example"); 6.6: 0.0100 mol giving -84 kJ/mol.
    - 6.7: bond energies H-H 436, Cl-Cl 243, H-Cl 431 kJ/mol; 6.8: ΔH°f(NH₃) = -45.9 kJ/mol; 6.9: +90.3 and +57.1 kJ steps summing to +66.4 kJ (standard data values, not in our fields).
