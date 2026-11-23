@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- 2026-11-23: Mobile-first funnel audit at 375px; findings in `docs/qa/MOBILE_FIRST_FUNNEL_FINDINGS_2026_11_23.md`; app PR 65 (`/start` polish) open, not published.
 - 2026-11-13: Calculus AB 5.6-5.9, 5.11 second-derivative primes restored in Production (APPROVAL-0274).
 - 2026-11-13: Recommendation #3 structured text applied to Production for six more subjects (317 rows, APPROVAL-0273).
 - quick_take ("In 30 seconds") text for 136 Chemistry, Biology and Statistics units 1-5 topics applied to Production (`APPROVAL-0272`, 2026-11-13): schema, RPC key and data live, read back 136/136; students see it after app PR 61 is merged and published
@@ -366,6 +367,10 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-23 — Mobile-first funnel audit and `/start` polish (no approval needed; nothing published)
+
+Read-only phone-width audit of live signed-out pages plus one app change. Ranked findings, decided vs open and a Lovable prompt (not sent) are in `docs/qa/MOBILE_FIRST_FUNNEL_FINDINGS_2026_11_23.md`. App PR 65 on `david-bloom/ap-prep-blueprint` changes `/start` only; it is not merged and not published. No DECISION or APPROVAL recorded; open questions are listed in the findings.
 
 ## 2026-11-13 — Label gap audit and fill, Units 1-5, all ten AP subjects (APPROVAL-0265, APPROVAL-0266)
 
