@@ -1,4 +1,3 @@
-import { requireEnv } from "../_shared/env.ts";
 import { stringOrNull as asString, looseUuid as asUuid } from "../_shared/input.ts";
 import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
@@ -36,17 +35,13 @@ import {
   type AllowedOperation,
   applyDeterministicFlagScope,
   buildCriterionGradingPrompt,
-  buildCriterionRequestBody,
   buildCriterionSystemPrompt,
   buildGradingPrompt,
-  buildGradingRequestBody,
   buildSystemPrompt,
   composeStudentFacingSummary,
-  extractOutputText,
   extractUsage,
   type FeedbackCriterionRow,
   type GradingExemplar,
-  isTransientHttpStatus,
   mergeCriterionResults,
   sanitizeModelResult,
 } from "../_shared/grading-contract.ts";
@@ -66,125 +61,43 @@ import {
 } from "../_shared/grading-telemetry.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { persistGradingMemory } from "../_shared/grading-memory.ts";
+import {
+  DATA_DRIVEN_VERIFIER_VERSION,
+  EVALUATE_ATTEMPT_PROMPT_VERSION,
+  GRADING_ARM,
+  GRADING_ENTITLEMENTS_ENABLED,
+  MATH_VERIFIER_VERSION,
+  OPENAI_DAILY_CAP_USD,
+  OPENAI_INPUT_PRICE_PER_1M,
+  OPENAI_MAX_OUTPUT_TOKENS,
+  OPENAI_MODEL,
+  OPENAI_OUTPUT_PRICE_PER_1M,
+} from "./config.ts";
+import {
+  callOpenAIGrader,
+  callOpenAIGraderPerCriterion,
+} from "./openai-client.ts";
+import { composeMcqFeedback, summarizeSelectedChoice } from "./mcq-feedback.ts";
+import {
+  checkpointGradeWrite,
+  GRADE_STORE_FAILURE,
+  type OutputCriterion,
+  PENDING_GRADE_WRITE,
+  persistAttemptCriterionResults,
+  persistGradingTelemetry,
+  PROCESSING_RECONCILIATION_MS,
+  type Service,
+  sanitizeGradingResultForClient,
+  writeGradeResult,
+} from "./grade-store.ts";
+
+// Kept exported from the entry point for existing callers and tests.
+export { composeMcqFeedback };
 
 
-
-function requirePositiveIntegerEnv(name: string) {
-  const raw = requireEnv(name);
-  const value = Number(raw);
-  if (!Number.isInteger(value) || value <= 0) {
-    throw new Error(`Invalid required environment variable: ${name}`);
-  }
-  return value;
-}
-
-function requirePositiveNumberEnv(name: string) {
-  const raw = requireEnv(name);
-  const value = Number(raw);
-  if (!Number.isFinite(value) || value <= 0) {
-    throw new Error(`Invalid required environment variable: ${name}`);
-  }
-  return value;
-}
-
-// Fail fast on deployment misconfiguration instead of grading with silent defaults.
-const OPENAI_API_KEY = requireEnv("OPENAI_API_KEY");
-const OPENAI_MODEL = requireEnv("OPENAI_MODEL");
-const OPENAI_MAX_OUTPUT_TOKENS = requirePositiveIntegerEnv(
-  "OPENAI_MAX_OUTPUT_TOKENS",
-);
-const OPENAI_INPUT_PRICE_PER_1M = requirePositiveNumberEnv(
-  "OPENAI_INPUT_PRICE_PER_1M",
-);
-const OPENAI_OUTPUT_PRICE_PER_1M = requirePositiveNumberEnv(
-  "OPENAI_OUTPUT_PRICE_PER_1M",
-);
-const OPENAI_DAILY_CAP_USD = requirePositiveNumberEnv("OPENAI_DAILY_CAP_USD");
-const EVALUATE_ATTEMPT_PROMPT_VERSION = requireEnv(
-  "EVALUATE_ATTEMPT_PROMPT_VERSION",
-);
-// Entitlement gating (TASK-0026, 2026-08-15): set to true in Production.
-// `authorize_grading_access` (20260731160200_free_score_check_growth_funnel.sql,
-// simplified by 20260815140000_retire_free_score_check.sql) now only checks
-// app.subject_entitlements -- the FSC one-FRQ-cap fallback it used to have was
-// removed along with the retired Free Score Check offer. Every supported
-// access path (beta/paid/7-day trial via app.start_trial) is a
-// subject_entitlements row, so any caller without one gets a clean
-// `entitlement_required` 403 instead of the old FSC branch logic.
-//
-// Kept as an env-gated const (not hardcoded true) so a bad rollout can be
-// reverted with a secrets change instead of a redeploy -- see the 2026-07-28
-// outage note in git history for why this flag exists at all.
-const GRADING_ENTITLEMENTS_ENABLED =
-  (Deno.env.get("GRADING_ENTITLEMENTS_ENABLED") ?? "false").toLowerCase() ===
-    "true";
-
-// Request architecture for LLM text grading.
-//
-// "b" (default) is what Production runs today: ONE call grading every criterion
-// of an item, measured at 0.58 s + 3.89 s x n_criteria, so ~16 s on a
-// 4-criterion Biology FRQ. "a" grades each criterion in its own parallel call,
-// which is flat in criterion count and should land near Production's own
-// 1-criterion figure of ~4.5 s.
-//
-// Defaulting to "b" so the new path deploys dark. Arm A changes the request
-// shape, the output schema, and the student-facing summary all at once, on a
-// grader that had never completed a Production grading until 2026-07-28 --
-// flipping it blind is how the entitlement-gate outage happened. Deploy, then
-// flip the flag, then measure with the narrow pilot.
-const GRADING_ARM = (Deno.env.get("GRADING_ARM") ?? "b").toLowerCase() === "a"
-  ? "a"
-  : "b";
-
-// Bumped 2026-07-28: three checker defects fixed (supplied inputs now win over
-// the built-in `e`/`pi` constants; CORRECT_VIA_ECF requires a real upstream
-// divergence; `erf`/`factorial` parse). Verdicts from this build are not
-// comparable to 2026-07-08 ones, so the stamp recorded in
-// grading_results.deterministic_verifier_version has to move with it.
-// Bumped 2026-08-11 (O1 approved): the corrected APSTATS-SFRQ-008
-// statistics key and the audited provenance annotations in
-// _shared/statistics-verifier.ts ship with this build, so deterministic
-// verdicts from the corrected keys are distinguishable from pre-fix ones in
-// grading_results.deterministic_verifier_version. See
-// docs/research/DETERMINISTIC_KEY_AUDIT_2026_08_11.md. This stamp covers
-// the deterministic layer as a whole (both math-verifier.ts and
-// statistics-verifier.ts share one version tag here), not math-verifier.ts
-// alone -- the math-verifier itself is unchanged since 2026-07-28.
-const MATH_VERIFIER_VERSION = "stats-verifier-ts-2026-08-11";
-// Course Mode F4: the generic data-driven deterministic verifier's schema
-// version, stamped into grading_results.shadow-adjacent deterministic_check so a
-// grade produced by reading persisted content_item_checks is auditable.
-const DATA_DRIVEN_VERIFIER_VERSION = "data-driven-deterministic-1.0";
-
-// Timeout is configurable so we can tune for high-reasoning models without
-// a code change. 90s accommodates reasoning: { effort: "high" } latency
-// observed in pilot runs while still bounding requests so a hung connection
-// can't tie up the function instance.
-const OPENAI_REQUEST_TIMEOUT_MS = (() => {
-  const raw = Deno.env.get("OPENAI_REQUEST_TIMEOUT_MS");
-  if (!raw) return 90_000;
-  const parsed = Number(raw);
-  if (!Number.isInteger(parsed) || parsed <= 0) {
-    throw new Error("Invalid environment variable: OPENAI_REQUEST_TIMEOUT_MS");
-  }
-  return parsed;
-})();
 
 export type { AllowedOperation };
 
-type OutputCriterion = {
-  criterion_key: string;
-  status:
-    | "earned"
-    | "partially_earned"
-    | "not_yet_earned"
-    | "unable_to_determine"
-    | "not_applicable";
-  points_awarded: number;
-  evidence_quote: string | null;
-  decision_explanation: string | null;
-  minimum_fix: string | null;
-};
 
 const allowedOperations = new Set<AllowedOperation>([
   "grade_initial_attempt",
@@ -204,24 +117,6 @@ function getBodyField(body: Record<string, unknown>, ...keys: string[]) {
 }
 
 
-
-
-
-
-
-// re-QA finding 1: the idempotent-replay paths return the whole grading_results
-// row. `shadow_result` now carries the data-driven verifier's per-check verdicts,
-// whose reason strings embed the expected value/tolerance (the answer key), and
-// `raw_model_response` carries the raw grader output — neither is ever
-// student-facing (the curated public.grading_results view excludes them). Strip
-// them from any replayed row so a re-POST of the same request can't leak them.
-function sanitizeGradingResultForClient(
-  row: Record<string, unknown>,
-): Record<string, unknown> {
-  const { shadow_result: _shadow, raw_model_response: _raw, ...safe } = row;
-  return safe;
-}
-
 function estimateTokens(text: string) {
   return Math.max(32, Math.ceil(text.length / 4));
 }
@@ -239,534 +134,6 @@ function parseJsonSafe(value: string | null | undefined) {
   }
 }
 
-// Best-effort write of the passive telemetry fields (stage timings,
-// cached_tokens, normalized-response hash). The columns come from the
-// 20260811TBD_grading_telemetry migration, which may not be applied yet --
-// a failed write (e.g. 42703 undefined column) is logged and swallowed so
-// telemetry can NEVER fail a grading. Kept separate from the main
-// grading_results update for the same reason: the main update's payload
-// must keep working against the pre-migration schema.
-async function persistGradingTelemetry(
-  service: ReturnType<typeof createServiceClient>,
-  requestId: string,
-  telemetry: {
-    normalized_response_sha256: string | null;
-    cached_tokens: number | null;
-    stage_timings: Record<string, number>;
-  },
-) {
-  try {
-    const { error } = await service.schema("app")
-      .from("grading_results")
-      .update(telemetry)
-      .eq("request_id", requestId);
-    if (error) {
-      console.warn(
-        "grading_telemetry_write_skipped",
-        error.message ?? String(error),
-      );
-    }
-  } catch (error) {
-    console.warn("grading_telemetry_write_skipped", error);
-  }
-}
-
-// app.attempt_criterion_results has had no writer since it was created
-// (20260731160000_schema_baseline.sql) -- evaluate-attempt has only ever
-// persisted per-criterion detail as jsonb inside grading_results.criterion_results.
-// 20260731160400_criterion_partially_earned_status.sql widened the table's
-// status CHECK specifically so a 'partially_earned' criterion would not fail
-// to insert "the first time that table is wired up" -- this is that wiring.
-// Best-effort and swallowed on failure, same rationale as
-// persistGradingTelemetry above: a row-level detail table must never be able
-// to fail a grade. Upserts on (attempt_id, criterion_key) -- the table's own
-// unique index -- so a re-grade of the same attempt replaces its prior rows
-// instead of violating the constraint.
-async function persistAttemptCriterionResults(
-  service: ReturnType<typeof createServiceClient>,
-  attemptId: string,
-  criteria: OutputCriterion[],
-  evaluatorVersion: string,
-) {
-  if (!Array.isArray(criteria) || criteria.length === 0) return;
-  try {
-    const rows = criteria.map((criterion) => ({
-      attempt_id: attemptId,
-      criterion_key: criterion.criterion_key,
-      status: criterion.status,
-      points_awarded: Math.trunc(Number(criterion.points_awarded || 0)),
-      evidence_quote: criterion.evidence_quote ?? null,
-      decision_explanation: criterion.decision_explanation ?? null,
-      minimum_fix: criterion.minimum_fix ?? null,
-      evaluator_version: evaluatorVersion,
-    }));
-    const { error } = await service.schema("app")
-      .from("attempt_criterion_results")
-      .upsert(rows, { onConflict: "attempt_id,criterion_key" });
-    if (error) {
-      console.warn(
-        "attempt_criterion_results_write_skipped",
-        error.message ?? String(error),
-      );
-    }
-  } catch (error) {
-    console.warn("attempt_criterion_results_write_skipped", error);
-  }
-}
-
-// Wrong-answer MCQ feedback used to be one fixed string on every item:
-// "Select the answer choice that matches the published correct answer." That
-// tells a student nothing they did not already know, and it said it while the
-// item's own authored distractor rationales sat unread two variables away in
-// mcqChoices. On 2026-09-29, 34 of the 63 recorded highest_value_gap rows were
-// that placeholder, spread over 19 items which carry 76 authored rationales
-// between them.
-//
-// Feedback is built from what the item already knows, in three moves:
-//   1. orient  — name the skill the question is FOR (content_item_cells ->
-//                taxonomy_skills.label)
-//   2. point   — the CHOSEN distractor's authored rationale, aimed at the exact
-//                spot the student went wrong
-//   3. redirect— hand back a question, never a correction
-// The "Not quite." opener carries the verdict and deliberately none of the
-// substance. Three moves and no more: the brief is to fix one conceptual error,
-// not to enumerate every fault.
-//
-// The moves degrade independently: an unlabelled item loses move 1 and keeps 2
-// and 3; a distractor with no authored rationale loses move 2.
-//
-// Deliberately absent: the CORRECT choice's rationale. It names the answer, and
-// this item may be served to the same student again. Two further strategies are
-// out of reach here and are NOT silently approximated — naming what the student
-// got right first (a 1-point MCQ has no partial credit to praise), and handing
-// them a similar bite-sized problem immediately (a serving decision, not a
-// feedback string).
-//
-// Pure and exported so the wording is testable without a database.
-
-// Skill labels are lifted verbatim from the CED and written in the register of a
-// curriculum document, not of a student: every one of the 41 labels registered
-// across the labelled subjects is an imperative verb phrase ("Calculate summary
-// statistics, relative positions, predicted responses"). Dropped straight into
-// "This question is testing <label>" the result is ungrammatical, so a
-// verb-initial label is bent into "how to calculate ...".
-//
-// The verb list is an allowlist rather than a "lowercase the first letter" rule
-// because the bend is only valid for a verb. A subject whose grid lands later
-// with a noun-initial label ("Models and representations") simply will not
-// match, and falls back to a colon form that is grammatical for any label
-// shape. That is the failure mode worth having: a new subject reads slightly
-// stiffly instead of emitting broken English.
-const SKILL_VERBS = new Set([
-  "analyze",
-  "apply",
-  "argue",
-  "calculate",
-  "compare",
-  "confirm",
-  "construct",
-  "derive",
-  "describe",
-  "determine",
-  "estimate",
-  "evaluate",
-  "explain",
-  "identify",
-  "interpret",
-  "justify",
-  "model",
-  "perform",
-  "predict",
-  "provide",
-  "represent",
-  "select",
-  "use",
-]);
-
-function asHowTo(label: string): string | null {
-  const trimmed = label.replace(/\.$/, "").trim();
-  const firstWord = trimmed.split(/\s+/)[0] ?? "";
-  // "Calculate/estimate expected counts ..." — the slash form is a single token
-  // whose leading half is the verb.
-  const head = firstWord.split("/")[0].toLowerCase();
-  if (!SKILL_VERBS.has(head)) return null;
-  return trimmed.charAt(0).toLowerCase() + trimmed.slice(1);
-}
-
-// A single template, however well built, is formulaic by the third question:
-// a student working twenty MCQs would read the same three-move skeleton twenty
-// times and stop reading it. So the three ingredients are held constant and the
-// SHAPE rotates — some variants tell and then ask, some open with the pointer,
-// some orient by unit first, in the manner of "This is Unit 2 material. Keeping
-// <skill> in mind, how would you answer it now?".
-//
-// Rotation is by a hash of the item and the chosen key, not by random(): the
-// same student re-reading the same result sees the same words, two different
-// items in one session almost certainly differ, and the output stays
-// reproducible in tests and in support.
-function variantIndex(seed: string, count: number): number {
-  // FNV-1a. Any cheap avalanche would do; what matters is that it is stable
-  // across deploys, which Math.random and Date.now are not.
-  let hash = 0x811c9dc5;
-  for (let index = 0; index < seed.length; index++) {
-    hash ^= seed.charCodeAt(index);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-  return count > 0 ? hash % count : 0;
-}
-
-export function composeMcqFeedback(
-  input: {
-    earned: boolean;
-    rationale?: string | null;
-    skillLabels?: string[];
-    unitNumber?: number | null;
-    variantSeed?: string | null;
-  },
-): { summary: string; actionableFix: string; redirect: string } {
-  const cleanedLabels = (input.skillLabels ?? [])
-    .filter((label): label is string => typeof label === "string")
-    .map((label) => label.replace(/\.$/, "").trim())
-    .filter((label) => label.length > 0);
-
-  const howToLabels = cleanedLabels.map(asHowTo);
-  const skillPhrase = cleanedLabels.length === 0
-    ? null
-    : howToLabels.every((label) => label !== null)
-    ? `how to ${howToLabels.join(", and how to ")}`
-    : null;
-  // Set only when the label could not be bent into the "how to" form; the
-  // sentence is then built with a colon, which accepts any label shape.
-  const skillColonPhrase = skillPhrase === null && cleanedLabels.length > 0
-    ? cleanedLabels.join("; ")
-    : null;
-  const skillTell = skillPhrase
-    ? `This question is testing ${skillPhrase}.`
-    : skillColonPhrase
-    ? `The skill this question is testing: ${skillColonPhrase}.`
-    : "";
-
-  // Authored rationales come in two styles and nothing constrains which:
-  // subject-less fragments ("Reported a standard deviation instead of the
-  // mean") from the bulk-generated Stats items, and whole sentences ("The
-  // magnitude of residuals alone doesn't establish appropriateness; ...") from
-  // the hand-authored ones. Spliced in as a bare sentence the first style reads
-  // clipped, so every variant introduces it after a colon, which is grammatical
-  // for a fragment and a sentence alike. Terminal punctuation is not enforced
-  // either, so do not rely on it.
-  const authored = typeof input.rationale === "string"
-    ? input.rationale.trim()
-    : "";
-  const pointed = authored
-    ? (/[.!?]$/.test(authored) ? authored : `${authored}.`)
-    : "";
-
-  const unitSentence = typeof input.unitNumber === "number" &&
-      Number.isFinite(input.unitNumber)
-    ? `This is Unit ${input.unitNumber} material.`
-    : "";
-
-  // Every variant ends on a question: the student is always left holding
-  // something to do, never a verdict to absorb.
-  const askKeepingInMind = skillPhrase
-    ? `Keeping ${skillPhrase} in mind, how would you answer it now?`
-    : "How would you answer it now?";
-  const askAgainPlain = "How would you answer it now?";
-  const askWorkItThrough = skillPhrase || skillColonPhrase
-    ? "What would you need to work out to answer the question as asked?"
-    : "What is the question actually asking you to find, and how does that differ from what you chose?";
-
-  // Each variant is a list of fragments; empty ones drop out, so a missing
-  // skill, rationale or unit degrades the shape without breaking its grammar.
-  const variants: string[][] = [
-    // tell, then point, then ask
-    ["Not quite.", skillTell, pointer(pointed), askWorkItThrough],
-    // orient by unit, point, then ask in the "keeping X in mind" voice
-    ["Not quite.", unitSentence, pointer(pointed), askKeepingInMind],
-    // lead with the pointer, tell second
-    [
-      "Not quite.",
-      pointed ? `Here is the catch with the one you chose: ${pointed}` : "",
-      skillTell,
-      askWorkItThrough,
-    ],
-    // orient by unit and skill together, then point and ask. The ask is the
-    // plain one: this shape has already named the skill, and repeating it
-    // inside "keeping ... in mind" reads as padding, especially with a label
-    // as long as "calculate summary statistics, relative positions, predicted
-    // responses".
-    ["Not quite.", unitSentence, skillTell, pointer(pointed), askAgainPlain],
-  ];
-
-  const chosen = variants[
-    variantIndex(input.variantSeed ?? "", variants.length)
-  ];
-  const summary = input.earned ? "Correct." : chosen.filter(Boolean).join(" ");
-
-  // The authored rationale is the closest thing the item writers produced to
-  // "what to fix", so it carries the field even though the field is named for a
-  // fix rather than a diagnosis.
-  const actionableFix = authored ||
-    "Identify which quantity the question asks for before choosing.";
-
-  return { summary, actionableFix, redirect: chosen[chosen.length - 1] };
-}
-
-function pointer(pointed: string): string {
-  return pointed ? `Look again at the choice you picked: ${pointed}` : "";
-}
-
-function summarizeSelectedChoice(responseJson: Record<string, unknown>) {
-  const candidates = [
-    responseJson.selected_choice_key,
-    responseJson.selectedChoiceKey,
-    responseJson.choice_key,
-    responseJson.choiceKey,
-    responseJson.selected_choice_id,
-    responseJson.selectedChoiceId,
-    responseJson.answer,
-    responseJson.selected_answer,
-    responseJson.selectedAnswer,
-  ];
-
-  for (const candidate of candidates) {
-    if (typeof candidate === "string" && candidate.length > 0) {
-      return candidate;
-    }
-  }
-
-  return null;
-}
-
-// Sentinel error thrown when a transient failure is worth retrying once.
-// Non-transient errors (4xx other than 429, JSON parse failures, schema
-// violations) are thrown directly and not retried.
-class TransientGraderError extends Error {
-  constructor(message: string, public override readonly cause?: unknown) {
-    super(message);
-    this.name = "TransientGraderError";
-  }
-}
-
-async function attemptOpenAICall(input: {
-  body: Record<string, unknown>;
-  idempotencyKey: string;
-  timeoutMs: number;
-}) {
-  const startedAt = Date.now();
-  let response: Response;
-
-  try {
-    response = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
-        "Content-Type": "application/json",
-        // Send a stable idempotency key so a network-level retry against
-        // the same logical grading request cannot be charged twice.
-        "Idempotency-Key": input.idempotencyKey,
-      },
-      body: JSON.stringify(input.body),
-      // AbortSignal.timeout bounds the entire fetch lifecycle including
-      // connection + read. On timeout, fetch rejects with an AbortError
-      // which we surface as a transient error so it can be retried once.
-      signal: AbortSignal.timeout(input.timeoutMs),
-    });
-  } catch (error) {
-    const elapsedMs = Date.now() - startedAt;
-    if (error instanceof DOMException && error.name === "AbortError") {
-      throw new TransientGraderError(
-        `openai_timeout_after_${elapsedMs}ms`,
-        error,
-      );
-    }
-    // TypeError covers DNS, TLS handshake, connection-reset style failures.
-    if (error instanceof TypeError) {
-      throw new TransientGraderError("openai_network_error", error);
-    }
-    throw error;
-  }
-
-  const elapsedMs = Date.now() - startedAt;
-  const raw = await response.json().catch(() => null);
-
-  if (!response.ok) {
-    const message = raw?.error?.message ?? `openai_http_${response.status}`;
-    // Retry on 408/425/429/5xx. Other 4xx are validation problems where
-    // the same request will keep failing — fail fast and let the caller's
-    // catch produce a safe uncertainty response for the student.
-    if (isTransientHttpStatus(response.status)) {
-      throw new TransientGraderError(
-        `openai_http_${response.status}: ${message}`,
-      );
-    }
-    throw new Error(message);
-  }
-
-  const outputText = extractOutputText(raw ?? {});
-  if (!outputText) {
-    throw new Error("openai_missing_output_text");
-  }
-
-  const parsed = JSON.parse(outputText);
-  return { raw, parsed, elapsedMs };
-}
-
-async function callOpenAIGrader(input: {
-  modelId: string;
-  maxOutputTokens: number;
-  systemPrompt: string;
-  userPrompt: string;
-  userIdHash: string;
-  idempotencyKey: string;
-}) {
-  const body = buildGradingRequestBody({
-    modelId: input.modelId,
-    maxOutputTokens: input.maxOutputTokens,
-    systemPrompt: input.systemPrompt,
-    userPrompt: input.userPrompt,
-    userIdHash: input.userIdHash,
-  });
-
-  // At most one retry on transient failures. The Idempotency-Key header
-  // makes the retry safe against double-billing for requests that reached
-  // the server but failed mid-response.
-  try {
-    return await attemptOpenAICall({
-      body,
-      idempotencyKey: input.idempotencyKey,
-      timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
-    });
-  } catch (error) {
-    if (!(error instanceof TransientGraderError)) {
-      throw error;
-    }
-    // Brief backoff before the single retry. 500ms is small enough that
-    // students do not feel it during a normal grading hop but large enough
-    // to let a transient upstream blip clear.
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    return await attemptOpenAICall({
-      body,
-      idempotencyKey: input.idempotencyKey,
-      timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
-    });
-  }
-}
-
-// Arm A: grade each criterion in its own call, in parallel.
-//
-// Aggregation rules that matter:
-//   - latency is the MAX of the calls, not the sum. They overlap; summing them
-//     would report an item as slower than the student experienced and would
-//     make Arm A look like the thing it replaces.
-//   - tokens and cost are the SUM. The stem and stimulus are re-sent once per
-//     criterion, so input tokens rise ~3.6x (Phase C). Accepted under the
-//     standing Speed > Quality > Cost order, but it is a real increase and the
-//     ledger must show it.
-//   - each call gets its own idempotency key. Reusing the item's key across
-//     the fan-out would let the provider serve one criterion's cached response
-//     for every criterion on the item.
-//   - one criterion failing does not fail the item. Its slot resolves to null,
-//     mergeCriterionResults turns that into unable_to_determine, and the
-//     sanitizer marks the grading uncertain. Under Arm B the same failure lost
-//     every criterion.
-async function callOpenAIGraderPerCriterion(input: {
-  modelId: string;
-  maxOutputTokens: number;
-  systemPrompt: string;
-  criteria: FeedbackCriterionRow[];
-  buildUserPrompt: (criterion: FeedbackCriterionRow) => string;
-  userIdHash: string;
-  idempotencyKey: string;
-}) {
-  const settled = await Promise.all(
-    input.criteria.map(async (criterion) => {
-      const body = buildCriterionRequestBody({
-        modelId: input.modelId,
-        // The item-sized cap is reused deliberately. A single criterion cannot
-        // approach it, so truncation is impossible -- and truncation at a
-        // hand-tuned per-criterion cap is exactly what was misdiagnosed as an
-        // architectural failure in Phase C (ARM_B_ROOT_CAUSE_ANALYSIS.md 1).
-        // A cap costs nothing unless it is hit.
-        maxOutputTokens: input.maxOutputTokens,
-        systemPrompt: input.systemPrompt,
-        userPrompt: input.buildUserPrompt(criterion),
-        userIdHash: input.userIdHash,
-      });
-      const idempotencyKey =
-        `${input.idempotencyKey}:${criterion.criterion_key}`;
-
-      try {
-        return await attemptOpenAICall({
-          body,
-          idempotencyKey,
-          timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
-        });
-      } catch (error) {
-        if (!(error instanceof TransientGraderError)) {
-          return { failed: true as const, error };
-        }
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        try {
-          return await attemptOpenAICall({
-            body,
-            idempotencyKey,
-            timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
-          });
-        } catch (retryError) {
-          return { failed: true as const, error: retryError };
-        }
-      }
-    }),
-  );
-
-  const parsed: Array<Record<string, unknown> | null> = [];
-  const raws: unknown[] = [];
-  const failures: unknown[] = [];
-  let inputTokens = 0;
-  let outputTokens = 0;
-  // Null until any call reports the field: "the provider said 0 cached"
-  // and "the provider said nothing" must stay distinguishable (extractUsage
-  // convention).
-  let cachedTokens: number | null = null;
-  let maxElapsedMs = 0;
-
-  for (const outcome of settled) {
-    if ("failed" in outcome) {
-      parsed.push(null);
-      failures.push(outcome.error);
-      continue;
-    }
-    parsed.push(
-      outcome.parsed && typeof outcome.parsed === "object"
-        ? outcome.parsed as Record<string, unknown>
-        : null,
-    );
-    raws.push(outcome.raw);
-    const usage = extractUsage(outcome.raw as Record<string, unknown>);
-    inputTokens += usage.inputTokens ?? 0;
-    outputTokens += usage.outputTokens ?? 0;
-    if (usage.cachedTokens !== null) {
-      cachedTokens = (cachedTokens ?? 0) + usage.cachedTokens;
-    }
-    maxElapsedMs = Math.max(maxElapsedMs, outcome.elapsedMs);
-  }
-
-  // Every criterion failing is an item-level failure, not a gradeable result
-  // with N abstentions. Throwing puts it on the same error path Arm B uses.
-  if (failures.length === input.criteria.length && input.criteria.length > 0) {
-    throw failures[0];
-  }
-
-  return {
-    parsed,
-    raws,
-    inputTokens,
-    outputTokens,
-    cachedTokens,
-    elapsedMs: maxElapsedMs,
-  };
-}
 
 async function readBodyAsRecord(req: Request) {
   const body = await readJsonBody(req);
@@ -775,73 +142,6 @@ async function readBodyAsRecord(req: Request) {
     : null;
 }
 
-type Service = ReturnType<typeof createServiceClient>;
-
-const GRADE_STORE_FAILURE = "grade_store_failed";
-const PENDING_GRADE_WRITE = "pending_grade_write_v1";
-// A timeout is containment, never permission to re-run a model call.
-const PROCESSING_RECONCILIATION_MS = Math.max(
-  10 * 60_000,
-  2 * OPENAI_REQUEST_TIMEOUT_MS + 60_000,
-);
-
-async function writeGradeResult(
-  service: Service,
-  requestId: string,
-  requestHash: string,
-  payload: Record<string, unknown>,
-  priorVersion?: string,
-) {
-  try {
-    let query = service.schema("app").from("grading_results").update(payload)
-      .eq("request_id", requestId).eq("request_hash", requestHash);
-    if (priorVersion) {
-      query = query.eq("updated_at", priorVersion)
-        .eq("status", "failed").eq("uncertainty_reason", GRADE_STORE_FAILURE);
-    }
-    return await query.select("*").maybeSingle();
-  } catch {
-    return { data: null, error: { code: "transport_error" } };
-  }
-}
-
-async function checkpointGradeWrite(
-  service: Service,
-  requestId: string,
-  requestHash: string,
-  operation: string,
-  payload: Record<string, unknown>,
-) {
-  try {
-    // Only a still-processing row can become retryable. Never downgrade a grade
-    // whose write committed but whose acknowledgement was lost.
-    const { data, error } = await service.schema("app").from("grading_results")
-      .update({
-        status: "failed",
-        uncertainty_reason: GRADE_STORE_FAILURE,
-        raw_model_response: {
-          kind: PENDING_GRADE_WRITE,
-          request_hash: requestHash,
-          operation,
-          payload,
-        },
-      }).eq("request_id", requestId).eq("request_hash", requestHash)
-      .eq("status", "processing").select("request_id").maybeSingle();
-    if (error) {
-      console.error("evaluate-attempt:grade_checkpoint_failed", {
-        request_id: requestId,
-        code: error.code,
-      });
-    }
-    return !error && !!data;
-  } catch {
-    console.error("evaluate-attempt:grade_checkpoint_failed", {
-      request_id: requestId,
-      code: "transport_error",
-    });
-    return false;
-  }
-}
 export interface EvaluateAttemptDeps {
   service?: Service;
   requireProfile?: typeof requireProfile;
