@@ -4,19 +4,11 @@ import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
 import { resolveGradingRoute } from "../_shared/grading-router.ts";
-import { detectAmbiguousTypedFormulaText } from "../_shared/formula-notation.ts";
-import { resolveFormulaActionHint } from "../_shared/formula-notation.ts";
 import { resolveFormulaRepairHint } from "../_shared/formula-notation.ts";
 import {
-  formatVerificationProfileSummary,
   getVerificationProfile,
   summarizeVerificationProfile,
 } from "../_shared/verification-profiles.ts";
-import {
-  buildEcfResult,
-  coerceEcfQuestion,
-  findStatisticsItem,
-} from "../_shared/math-verifier.ts";
 import {
   buildStatisticsDeterministicFallback,
   checkStatisticsDeterministicEvidence,
@@ -28,7 +20,6 @@ import {
   buildShadowReviewPayload,
   pickHighestGap,
 } from "../_shared/grading-feedback.ts";
-import { gradeAgainstChecks } from "../_shared/deterministic-verifier.ts";
 import { persistCellState } from "../_shared/cell-state-persist.ts";
 import { deriveAssistanceState } from "../_shared/assistance-state.ts";
 import {
@@ -56,7 +47,12 @@ import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { persistGradingMemory } from "../_shared/grading-memory.ts";
 import { buildGraderSystemPrompt, runModelGrading } from "./model-grading.ts";
 import {
-  DATA_DRIVEN_VERIFIER_VERSION,
+  gradeDataDriven,
+  gradeShadowReview,
+  gradeSymbolicEcf,
+} from "./deterministic-routes.ts";
+import { loadMcqFeedbackContext } from "./mcq-context.ts";
+import {
   EVALUATE_ATTEMPT_PROMPT_VERSION,
   gradingArm,
   GRADING_ENTITLEMENTS_ENABLED,
@@ -1162,80 +1158,11 @@ export async function handleEvaluateAttempt(
       ) ?? null
       : null;
 
-    let skillLabels: string[] = [];
-    let unitNumber: number | null = null;
-    if (!earned) {
-      const { data: cellRows, error: cellError } = await service.schema("app")
-        .from("content_item_cells")
-        .select("skill_code, topic_code, taxonomy_source_version")
-        .eq("content_item_version_id", contentVersion.id);
-      if (!cellError && Array.isArray(cellRows) && cellRows.length > 0) {
-        // An item is tagged against exactly one taxonomy version in practice;
-        // pin to the first and ignore any stragglers rather than mixing labels
-        // from two CED editions into one sentence.
-        const taxonomyVersion = cellRows[0].taxonomy_source_version;
-        // skill_code is NULLABLE in Production, despite the original DDL
-        // declaring it NOT NULL. Most tagged items are topic-only: of the 783
-        // published MCQs, 406 carry a topic and only 304 (all Statistics)
-        // carry a skill. Passing a null through to .in() would query for a
-        // skill code of "null", so drop them here and let the skill sentence
-        // be absent rather than wrong.
-        const codes = [
-          ...new Set(
-            cellRows
-              .filter((row) => row.taxonomy_source_version === taxonomyVersion)
-              .map((row) => row.skill_code)
-              .filter((code): code is string =>
-                typeof code === "string" && code.length > 0
-              ),
-          ),
-        ];
-        const { data: skillRows, error: skillError } = codes.length === 0
-          ? { data: [], error: null }
-          : await service
-            .schema("app")
-            .from("taxonomy_skills")
-            .select("skill_code, label")
-            .eq("taxonomy_source_version", taxonomyVersion)
-            .in("skill_code", codes);
-        if (!skillError && Array.isArray(skillRows)) {
-          skillLabels = codes
-            .map((code) =>
-              skillRows.find((row) => row.skill_code === code)?.label ?? null
-            )
-            .filter((label): label is string => typeof label === "string");
-        }
-
-        // The unit is an orienting cue ("This is Unit 2 material"), so it is
-        // only worth stating when the item sits in ONE unit. A cross-unit item
-        // has no single answer here and simply drops the cue rather than
-        // picking a unit arbitrarily. As with the skill lookup, an error is
-        // treated as "unknown" and never fails the grade.
-        const topicCodes = [
-          ...new Set(
-            cellRows
-              .filter((row) => row.taxonomy_source_version === taxonomyVersion)
-              .map((row) => row.topic_code),
-          ),
-        ];
-        const { data: topicRows, error: topicError } = await service
-          .schema("app")
-          .from("taxonomy_topics")
-          .select("unit_number")
-          .eq("taxonomy_source_version", taxonomyVersion)
-          .in("topic_code", topicCodes);
-        if (!topicError && Array.isArray(topicRows) && topicRows.length > 0) {
-          const units = [
-            ...new Set(
-              topicRows
-                .map((row) => row.unit_number)
-                .filter((unit): unit is number => typeof unit === "number"),
-            ),
-          ];
-          if (units.length === 1) unitNumber = units[0];
-        }
-      }
-    }
+    const { skillLabels, unitNumber } = await loadMcqFeedbackContext({
+      service,
+      contentVersion,
+      earned,
+    });
 
     const { summary, actionableFix, redirect } = composeMcqFeedback({
       earned: earned === 1,
@@ -1435,308 +1362,34 @@ export async function handleEvaluateAttempt(
   // is attributed to the verifier that actually produced it (Fable QA #4).
   let deterministicVerifierVersion = MATH_VERIFIER_VERSION;
 
+  // Deterministic and held routes never call the model: no tokens, no cost.
+  const routeContext = {
+    contentItem,
+    contentVersion,
+    responseText,
+    responseParts,
+    promptBase,
+    routing,
+    statisticsCheck,
+    defaultPointsAvailable,
+    verificationProfile,
+    verificationProfileSummary,
+  };
   if (routing.target === "symbolic_ecf") {
-    const statisticsItem = findStatisticsItem(
-      contentItem.content_key as string | null,
-    );
-    const typedFormulaAmbiguity = detectAmbiguousTypedFormulaText(responseText);
-    const ecfQuestion = coerceEcfQuestion(
-      statisticsItem,
-      responseParts,
-    );
-    const ecfResult = ecfQuestion ? buildEcfResult(ecfQuestion) : null;
-    const ecfCriteria = ecfResult?.parts.map((part) => ({
-      criterion_key: part.part,
-      learner_facing_text: statisticsItem?.ecf_parts.find((item) =>
-        item.id === part.part
-      )?.note ??
-        `ECF part ${part.part}`,
-      points_possible: statisticsItem?.ecf_parts.find((item) =>
-        item.id === part.part
-      )?.points ??
-        part.points_possible,
-      evidence_requirements: null,
-      minimum_fix: statisticsItem?.ecf_parts.find((item) =>
-        item.id === part.part
-      )?.note ??
-        "Show the formula and substitutions for this step.",
-      accepted_variants: [],
-    })) ?? promptBase.criteria;
-    const ecfHighestGap = ecfResult?.parts.find((part) =>
-      part.verdict !== "CORRECT"
-    ) ?? null;
-    const ecfSummary = ecfResult
-      ? ecfResult.parts.map((part) =>
-        `${part.part}: ${part.verdict} (${part.points_awarded}/${part.points_possible})`
-      ).join("; ")
-      : "The symbolic verifier could not reconstruct a structured ECF payload from the submitted response.";
-    const resolvedActionHint = typedFormulaAmbiguity.ambiguous
-      ? "show_scaffold"
-      : ecfResult?.parts.some((part) =>
-          part.verdict === "NAKED_ANSWER" ||
-          part.verdict === "CONCEPTUAL_COLLAPSE"
-        )
-      ? "show_scaffold"
-      : "review_context";
-    const resolvedRepairHint = typedFormulaAmbiguity.repair_hint ??
-      ecfHighestGap?.feedback ??
-      null;
-    const deterministicCheck = ecfResult
-      ? {
-        status: ecfResult.parts.every((part) => part.verdict === "CORRECT")
-          ? "pass"
-          : "flag",
-        version: MATH_VERIFIER_VERSION,
-        content_key: contentItem.content_key,
-        result: ecfResult,
-        reason: ecfSummary,
-      }
-      : statisticsCheck;
-    const shadowSummary = statisticsItem
-      ? `${statisticsItem.content_key} symbolic/ECF grading is saved for follow-up. ${ecfSummary}`
-      : "This response is saved and routed for reviewer follow-up.";
-    const shadowReason = [
-      routing.reason,
-      statisticsItem
-        ? `Symbolic formula and ECF boundary executed for ${statisticsItem.content_key}.`
-        : "No symbolic verification profile was available for this item, so the response is routed for follow-up.",
-      typedFormulaAmbiguity.ambiguous ? typedFormulaAmbiguity.reason : null,
-    ].filter(Boolean).join(" ");
-
-    shadowResult = {
-      engine: "symbolic_ecf",
-      verifier_version: MATH_VERIFIER_VERSION,
-      content_key: contentItem.content_key,
-      ambiguous_notation: typedFormulaAmbiguity.ambiguous
-        ? { reason: typedFormulaAmbiguity.reason }
-        : null,
-      ecf_result: ecfResult,
-    };
-
-    finalPayload = buildShadowReviewPayload({
-      criteria: ecfCriteria,
-      pointsAvailable: ecfResult?.possible ?? defaultPointsAvailable,
-      reason: shadowReason,
-      actionHint: resolvedActionHint,
-      repairHint: resolveFormulaRepairHint(
-        resolvedRepairHint ?? statisticsCheck?.repair_hint,
-        ecfHighestGap
-          ? {
-            minimum_fix: statisticsItem?.ecf_parts.find((item) =>
-              item.id === ecfHighestGap.part
-            )
-              ?.note ?? "Show the missing work.",
-            repair_prompt: statisticsItem?.ecf_parts.find((item) =>
-              item.id === ecfHighestGap.part
-            )
-              ?.note ?? "Show the missing work.",
-          }
-          : null,
-      ),
-      deterministicCheck,
-      summary: `${shadowSummary}${
-        typedFormulaAmbiguity.ambiguous
-          ? ` ${typedFormulaAmbiguity.reason}`
-          : ""
-      }`,
-      verificationProfileSummary,
-    });
-    finalStatus = "uncertain";
+    ({ finalPayload, finalStatus, shadowResult } = gradeSymbolicEcf(routeContext));
     modelResponse = null;
     inputTokens = 0;
     outputTokens = 0;
     actualCost = 0;
   } else if (routing.target === "data_driven") {
-    // Course Mode F4 LIVE grading (2026-08-23). Grade the response against the
-    // item's PERSISTED content_item_checks with the generic deterministic
-    // verifier (_shared/deterministic-verifier.ts) -- no per-content_key code
-    // (CM-FACT-20). Determinism (INV-4). An ABSTAIN (no parseable number, an
-    // unhandled check kind, or no checks at all) still HOLDS for shadow review
-    // rather than guessing (INV-3), preserving the pre-wiring safe posture for
-    // exactly the content class those invariants protect.
-    const { data: checkRows, error: checkErr } = await service.schema("app")
-      .from("content_item_checks")
-      .select("criterion_key, checks")
-      .eq("content_item_version_id", contentVersion.id)
-      .order("criterion_key", { ascending: true });
-    // A read error must NOT masquerade as "no checks" (which would silently
-    // convert a gradeable submission into a shadow hold). Log it (Fable QA #14);
-    // it still routes to the abstain hold below, which is the safe outcome.
-    if (checkErr) {
-      console.error("data_driven_checks_read_failed", {
-        content_item_version_id: contentVersion.id,
-        error: checkErr.message,
-      });
-    }
-
-    const checkList = Array.isArray(checkRows) ? checkRows : [];
-    const checkKeys = new Set(
-      checkList.map((row) => row.criterion_key as string),
-    );
-    const sourceByKey = new Map(
-      promptBase.criteria.map((
-        criterion,
-      ) => [criterion.criterion_key, criterion]),
-    );
-    // F5: a criterion declared in frq_criteria but with NO persisted check would
-    // otherwise vanish from grading (graded on a shrunken denominator = over-grade).
-    // Hold the whole item for review instead.
-    const uncoveredCriteria = promptBase.criteria.filter(
-      (criterion) => !checkKeys.has(criterion.criterion_key),
-    );
-    // Generated items may carry no frq_criteria rows (the loader persists checks
-    // + cells, not frq_criteria) -- derive the graded criteria from the check
-    // rows themselves, defaulting a missing source to a 1-point criterion.
-    const gradeCriteria: FeedbackCriterionRow[] = checkList.map((row) =>
-      sourceByKey.get(row.criterion_key as string) ?? {
-        criterion_key: row.criterion_key as string,
-        learner_facing_text: row.criterion_key as string,
-        points_possible: 1,
-        evidence_requirements: null,
-        minimum_fix: "Recompute the value and enter the correct result.",
-        accepted_variants: [],
-      }
-    );
-    const criterionResults = checkList.map((row) => ({
-      criterion_key: row.criterion_key as string,
-      result: gradeAgainstChecks(
-        Array.isArray(row.checks) ? row.checks : [],
-        responseText ?? "",
-      ),
-    }));
-    // Full audit record -> grading_results.shadow_result (server-side only, F4).
-    const deterministicCheck = {
-      engine: "data_driven_deterministic",
-      version: DATA_DRIVEN_VERIFIER_VERSION,
-      content_item_version_id: contentVersion.id,
-      uncovered_criteria: uncoveredCriteria.map((c) => c.criterion_key),
-      results: criterionResults.map((entry) => ({
-        criterion_key: entry.criterion_key,
-        status: entry.result.status,
-        verdicts: entry.result.verdicts,
-      })),
-    };
-    // Student-facing REDACTION (F10): the verdict `reason` strings embed the
-    // expected value/tolerance (e.g. "0.5 is not within +/-0.01 of 0.62"), which
-    // would leak the answer key through uncertainty_reason / the client payload.
-    // Everything reaching the student carries statuses only; the full verdicts
-    // stay in shadow_result above.
-    // NOTE (re-QA finding 7): this redacted check flows into the finalPayload
-    // builders (uncertainty_reason on the hold path; the graded payload's
-    // deterministic_check field). The top-level response's `deterministic_check`
-    // stays the content-key-specific `statisticsCheck` (null here) — the client
-    // reads the per-criterion outcomes from `criterion_results`, which carries
-    // them for this route. Intentional: statuses reach the student, values don't.
-    const redactedCheck = {
-      engine: "data_driven_deterministic",
-      version: DATA_DRIVEN_VERIFIER_VERSION,
-      results: criterionResults.map((entry) => ({
-        criterion_key: entry.criterion_key,
-        status: entry.result.status,
-      })),
-    };
-    shadowResult = deterministicCheck;
-    deterministicVerifierVersion = DATA_DRIVEN_VERIFIER_VERSION;
-    // Any abstain, an uncovered criterion, or nothing to grade -> hold; never let
-    // it fall through to the LLM grader, and never award/deny credit off an
-    // unparseable response or a partially-checked item.
-    const anyAbstain = criterionResults.length === 0 ||
-      uncoveredCriteria.length > 0 ||
-      criterionResults.some((entry) => entry.result.status === "abstain");
-
-    if (anyAbstain) {
-      finalPayload = buildShadowReviewPayload({
-        criteria: promptBase.criteria,
-        pointsAvailable: defaultPointsAvailable,
-        reason:
-          `${routing.reason} The data-driven verifier abstained (no single parseable number in the response, an unhandled check kind, no persisted checks, or a criterion with no check), so the item is held for shadow review instead of guessing.`,
-        actionHint: null,
-        repairHint: null,
-        deterministicCheck: redactedCheck,
-        summary:
-          "Your answer is saved. This item needs a reviewer before it can be scored automatically.",
-        verificationProfileSummary,
-      });
-      finalStatus = "uncertain";
-    } else {
-      const verdictByKey = new Map<string, "pass" | "fail">(
-        criterionResults.map((entry) => [
-          entry.criterion_key,
-          entry.result.status === "correct" ? "pass" : "fail",
-        ]),
-      );
-      const allCorrect = criterionResults.every(
-        (entry) => entry.result.status === "correct",
-      );
-      finalPayload = buildDeterministicGradedPayload({
-        criteria: gradeCriteria,
-        verdictByKey,
-        summary: allCorrect
-          ? "Correct."
-          : "Not quite. Recompute the value and check it against the expected answer.",
-        deterministicCheck: redactedCheck,
-      });
-      finalStatus = "graded";
-    }
+    ({ finalPayload, finalStatus, shadowResult, deterministicVerifierVersion } =
+      await gradeDataDriven(service, routeContext));
     modelResponse = null;
     inputTokens = 0;
     outputTokens = 0;
     actualCost = 0;
   } else if (routing.target === "shadow_review") {
-    // Shadow-review hold for the symbolic/formula boundary that is declared but
-    // not wired in this phase -- routed here instead of guessing (Fable QA #1).
-    const verificationProfileSummary = summarizeVerificationProfile(
-      verificationProfile,
-    );
-    const readableVerificationSummary = formatVerificationProfileSummary(
-      verificationProfile,
-    );
-    const typedFormulaAmbiguity = detectAmbiguousTypedFormulaText(responseText);
-    const actionHint = statisticsCheck?.status === "flag"
-      ? "show_scaffold"
-      : resolveFormulaActionHint(typedFormulaAmbiguity.ambiguous);
-    const repairHint = resolveFormulaRepairHint(
-      statisticsCheck?.repair_hint ?? typedFormulaAmbiguity.repair_hint,
-      null,
-    );
-    const shadowSummary = verificationProfile
-      ? `${verificationProfile.display_name} formula feedback is saved and routed for reviewer follow-up. The symbolic verifier is declared but not wired in this phase, so we are holding the item instead of guessing.${
-        typedFormulaAmbiguity.ambiguous
-          ? ` ${typedFormulaAmbiguity.reason}`
-          : ""
-      }`
-      : "This response is saved and routed for reviewer follow-up.";
-    const shadowReason =
-      `${routing.reason} The item is held for human/shadow review until the declared verifier is wired in.${
-        typedFormulaAmbiguity.ambiguous
-          ? ` ${typedFormulaAmbiguity.reason}`
-          : ""
-      }${
-        statisticsCheck?.status === "flag"
-          ? ` Deterministic statistics check: ${statisticsCheck.reason}`
-          : ""
-      }`;
-    finalPayload = buildShadowReviewPayload({
-      criteria: promptBase.criteria,
-      pointsAvailable: defaultPointsAvailable,
-      reason: shadowReason,
-      actionHint,
-      repairHint,
-      deterministicCheck: statisticsCheck,
-      summary: readableVerificationSummary
-        ? `${shadowSummary} Expected checks: ${
-          verificationProfile?.required_checks.map((check) => check.check).join(
-            ", ",
-          )
-        }.${
-          statisticsCheck?.status === "flag"
-            ? ` Deterministic check flagged the keyed Statistics evidence.`
-            : ""
-        }`
-        : shadowSummary,
-      verificationProfileSummary,
-    });
-    finalStatus = "uncertain";
+    ({ finalPayload, finalStatus } = gradeShadowReview(routeContext));
     modelResponse = null;
     inputTokens = 0;
     outputTokens = 0;
