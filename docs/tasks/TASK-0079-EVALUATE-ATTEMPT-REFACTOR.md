@@ -1,6 +1,6 @@
 # TASK-0079 — Behaviour-preserving split of `evaluate-attempt`
 
-**Status:** In Progress — S0 and S1 on branch `claude/codebase-refactoring-cwj8by`; S2–S5 not started; nothing deployed
+**Status:** In Progress — S0, S1, S2 on branch `claude/codebase-refactoring-cwj8by` (PR #679); S3–S5 not started; nothing deployed
 **Tier:** Standard for source slices. Any deploy of `evaluate-attempt` (Development or Production) is Hard-Gate and needs
 its own `APPROVAL`, following the A6 pattern in TASK-0078 (deploy from `main`, bundle diff, boot checks, approval file).
 **Owner:** Claude (executing); David Bloom (Product Owner, merges and approves releases)
@@ -21,7 +21,7 @@ side-effect sequences all live in that one function body. A change to any route 
 
 1. **No behaviour change.** A slice moves or restructures code only. Bugs found along the way are recorded in §5, not
    fixed inside a refactor slice.
-2. **Golden traces are the contract.** `golden_test.ts` records, for 14 scenarios, every Supabase call (table or RPC,
+2. **Golden traces are the contract.** `golden_test.ts` records, for 19 scenarios, every Supabase call (table or RPC,
    action, filters, modifiers, payload), the hash and size of every OpenAI request, and the response status and body.
    A slice passes only if `golden_fixtures.json` is unchanged. Regenerating the fixtures is a behaviour change and
    needs a reviewed reason in the PR body.
@@ -35,7 +35,7 @@ side-effect sequences all live in that one function body. A change to any route 
 | --- | --- | --- | --- |
 | S0 | Golden characterization tests: recording mock + 14 scenarios (MCQ right; MCQ wrong with skill/unit; LLM arm B graded; arm B provider failure; budget capped; Statistics scoped override; Statistics unscoped fallback; symbolic ECF with and without a verifier item; data-driven graded; data-driven abstain; shadow review; replay of a stored grade; QA no-persist). Added to Minimal CI | **done** | 14 pass, stable over repeated runs under CI's `env -i` permission set; fixtures generated from `main` `535df62` |
 | S1 | Move leaf code out of `index.ts`: `config.ts` (env, version stamps), `openai-client.ts` (grader client, retry), `mcq-feedback.ts` (`composeMcqFeedback`, choice parsing), `grade-store.ts` (grading_results writes, checkpoint, telemetry, criterion rows) | **done** | `index.ts` 2,907 → 2,181 lines; line-multiset diff shows only imports, header comments and `export` keywords differ; `deno check` and `deno lint` clean; 53/53 tests pass; fixtures unchanged |
-| S2 | One `runModelGrading()` for the arm A / arm B call, used by both the live path and `qa_no_persist` (today duplicated) | not started | needs arm A golden coverage first: `GRADING_ARM` is read at module load, so arm A needs its own test process or a lazy read (see §5, item 1) |
+| S2 | One `runModelGrading()` (`model-grading.ts`) for the arm A / arm B call, used by both the live path and `qa_no_persist`, which each carried a copy | **done** | S2a: four arm A goldens (graded; one criterion failing; every criterion failing; QA no-persist) recorded on the unchanged code with `GRADING_ARM=a` at process start; `GRADING_ARM` then read once per request (`gradingArm()`), so both arms run in one test process; all traces unchanged. S2b: a golden for a provider reply of JSON `null` (sanitizer throws; arm B still stores the raw response and the estimated token count) recorded before the change; the shared function keeps that through an `onModelReturned` hook, and a mutation that drops it fails the golden. 58/58 tests; `index.ts` 2,181 → 2,109 lines |
 | S3 | Route branches become functions returning `{ finalPayload, finalStatus, shadowResult, verifierVersion }`: `gradeSymbolicEcf`, `gradeDataDriven`, `gradeShadowReview`, plus `loadMcqFeedbackContext` for the MCQ taxonomy lookup | not started | |
 | S4 | Request parsing/validation and the load phase (`parseEvaluateRequest`, `loadGradingContext`); `respondFromStoredResult` out of the closure | not started | |
 | S5 | One post-grade finalize sequence (grade write → checkpoint → telemetry → attempt truth → memory → cell state) shared by the MCQ path and the model path, keeping each path's current differences explicit as parameters | not started | the two copies differ today (§5, items 4 and 5); the shared version must reproduce both exactly |
@@ -55,8 +55,8 @@ then Production under an `APPROVAL`.
 
 Each needs David's call before a separate fix slice. None is introduced by this task.
 
-1. **Arm A has no test coverage.** `GRADING_ARM` is a module-load constant, and no test sets it to `a`. Whether
-   Production runs arm A is not verified here (secret values are not readable). S2 needs this covered first.
+1. **Arm A had no test coverage** (closed for tests by S2a: four arm A goldens). Whether Production runs arm A is
+   still not verified (secret values are not readable).
 2. **Any `reserve_model_usage` failure is shown as the daily budget cap.** The RPC's `error` is never read; a database
    error and a real cap both return `429 budget_capped` with "Cramapple has reached today's research limit." A
    database outage reads to a student as a spending limit.
@@ -69,6 +69,11 @@ Each needs David's call before a separate fix slice. None is introduced by this 
 5. **The attempt-truth update has no status fence on the live paths.** The recovery path updates `app.attempts` only
    where `status = 'submitted'`; the MCQ and model paths update by `id` alone, so a late request can overwrite a
    finalized attempt's score.
+
+6. **A provider reply of JSON `null` is stored with an estimated token count.** On arm B the sanitizer throws on a
+   non-object reply after usage is known but before it is read, so `grading_results.input_tokens` holds the
+   pre-call estimate and `complete_model_usage` is charged at that estimate with `actual_cost` 0. Rare, and pinned
+   by a golden so a later fix is deliberate.
 
 ## 6. Local test method
 
