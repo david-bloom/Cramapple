@@ -93,6 +93,30 @@ function parseJsonSafe(value: string | null | undefined) {
 }
 
 
+// Runs a bookkeeping write whose failure must never fail a grade. Returns
+// whether it succeeded; logs the error code (never the message, which can carry
+// row data) under a stable label.
+async function bestEffortWrite(
+  label: string,
+  requestId: string,
+  write: () => PromiseLike<{ error: { code?: string } | null }>,
+): Promise<boolean> {
+  try {
+    const { error } = await write();
+    if (!error) return true;
+    console.warn(`evaluate-attempt:${label}_failed`, {
+      request_id: requestId,
+      code: error.code ?? "unknown",
+    });
+  } catch {
+    console.warn(`evaluate-attempt:${label}_failed`, {
+      request_id: requestId,
+      code: "transport_error",
+    });
+  }
+  return false;
+}
+
 async function readBodyAsRecord(req: Request) {
   const body = await readJsonBody(req);
   return body && typeof body === "object" && !Array.isArray(body)
@@ -986,21 +1010,30 @@ export async function handleEvaluateAttempt(
       );
 
       try {
-        await service.schema("app").from("grading_results").update({
-          status: "processing",
-          model_id: routedModelId,
-          estimated_cost_usd: reservedCost,
-          prompt_version: promptVersion,
-          rubric_version_id: effectiveRubricVersionId,
-          deterministic_verifier_version: MATH_VERIFIER_VERSION,
-          boundary_contract_version: verificationProfile?.profile_version ??
-            null,
-        }).eq("request_id", idempotencyKey);
+        // TASK-0079 bug 3: both writes are bookkeeping and must not stop the
+        // grade. Their errors were unread, and a transport throw here landed in
+        // the catch below, so the student got the "taking longer" fallback and
+        // the model was never called. The re-stamp repeats the insert's values;
+        // complete_model_usage accepts a ledger row still at 'reserved'.
+        await bestEffortWrite("grading_results_restamp", idempotencyKey, () =>
+          service.schema("app").from("grading_results").update({
+            status: "processing",
+            model_id: routedModelId,
+            estimated_cost_usd: reservedCost,
+            prompt_version: promptVersion,
+            rubric_version_id: effectiveRubricVersionId,
+            deterministic_verifier_version: MATH_VERIFIER_VERSION,
+            boundary_contract_version: verificationProfile?.profile_version ??
+              null,
+          }).eq("request_id", idempotencyKey)
+        );
 
         if (usageRow) {
-          await service.schema("app").from("model_usage_ledger").update({
-            status: "running",
-          }).eq("request_id", idempotencyKey);
+          await bestEffortWrite("model_usage_ledger_running", idempotencyKey, () =>
+            service.schema("app").from("model_usage_ledger").update({
+              status: "running",
+            }).eq("request_id", idempotencyKey)
+          );
         }
 
         const graded = await runModelGrading({
@@ -1082,14 +1115,35 @@ export async function handleEvaluateAttempt(
         };
       } finally {
         if (usageRow) {
-          await service.schema("app").rpc("complete_model_usage", {
-            p_request_id: idempotencyKey,
-            p_request_hash: requestHash,
-            p_status: finalStatus === "graded" ? "completed" : "failed",
-            p_actual_cost_usd: actualCost,
-            p_input_tokens: inputTokens,
-            p_output_tokens: outputTokens,
-          });
+          // TASK-0079 bug 3: an unread failure here left the reservation
+          // counting against the day's cap, and a throw from this finally block
+          // crashed a request whose grade was already computed. The RPC is
+          // idempotent (a row no longer reserved/running is returned as is), so
+          // one retry is safe; a second failure is logged, never thrown.
+          const completeUsage = () =>
+            service.schema("app").rpc("complete_model_usage", {
+              p_request_id: idempotencyKey,
+              p_request_hash: requestHash,
+              p_status: finalStatus === "graded" ? "completed" : "failed",
+              p_actual_cost_usd: actualCost,
+              p_input_tokens: inputTokens,
+              p_output_tokens: outputTokens,
+            });
+          const completed = await bestEffortWrite(
+            "model_usage_completion_try1",
+            idempotencyKey,
+            completeUsage,
+          ) ||
+            await bestEffortWrite(
+              "model_usage_completion_try2",
+              idempotencyKey,
+              completeUsage,
+            );
+          if (!completed) {
+            console.error("evaluate-attempt:model_usage_completion_failed", {
+              request_id: idempotencyKey,
+            });
+          }
         }
       }
     }

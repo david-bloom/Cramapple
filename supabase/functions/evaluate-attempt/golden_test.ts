@@ -382,6 +382,16 @@ const scenarios: Scenario[] = [
     model: () => ({ output_text: "null", usage: { input_tokens: 7, output_tokens: 1 } }),
   },
   {
+    // Bookkeeping failures around the model call: the grade still completes,
+    // and complete_model_usage is retried once.
+    name: "llm ledger completion fails twice",
+    tables: baseTables({ itemType: "frq" }),
+    rpc: {
+      complete_model_usage: { data: null, error: { code: "XX000", message: "boom" } },
+    },
+    model: llmGrade(["c1"]),
+  },
+  {
     name: "llm budget capped",
     tables: baseTables({ itemType: "frq" }),
     // The exception text app.reserve_model_usage raises for a real cap.
