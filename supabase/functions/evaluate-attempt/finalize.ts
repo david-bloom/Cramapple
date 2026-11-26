@@ -120,7 +120,16 @@ export async function finalizeGrade(input: {
     // service_role -- capturing and logging the error here (rather than
     // continuing to swallow it) is the only way to confirm the actual cause the
     // next time a real attempt is graded, without guessing at a fix blind.
-    const { error: attemptUpdateError } = await service.schema("app")
+    //
+    // TASK-0079 bug 5: fenced on status = 'submitted', the same fence the
+    // replay-recovery path and record_manual_grade use. app.submit_response
+    // only moves an attempt to 'submitted' from draft/failed, so a finalized
+    // attempt is never legitimately re-scored here; without the fence a late
+    // or duplicate grade (a new idempotency key) overwrote an earlier grade or
+    // a human reviewer's. This request's own grade is still stored in
+    // grading_results and returned; only the attempt row is left alone.
+    const { data: updatedAttempt, error: attemptUpdateError } = await service
+      .schema("app")
       .from("attempts")
       .update({
         status: finalStatus === "graded" ? "graded" : "uncertain",
@@ -132,13 +141,21 @@ export async function finalizeGrade(input: {
         result_summary: input.summary,
         assistance_state: derivedAssistanceState,
       })
-      .eq("id", attempt.id);
+      .eq("id", attempt.id)
+      .eq("status", "submitted")
+      .select("id")
+      .maybeSingle();
     if (attemptUpdateError) {
       console.error("attempts_grading_truth_update_failed", {
         attempt_id: attempt.id,
         route: input.truthRoute,
         error: attemptUpdateError.message,
         code: (attemptUpdateError as { code?: string }).code,
+      });
+    } else if (!updatedAttempt) {
+      console.warn("attempts_grading_truth_update_skipped_finalized", {
+        attempt_id: attempt.id,
+        route: input.truthRoute,
       });
     }
   };
