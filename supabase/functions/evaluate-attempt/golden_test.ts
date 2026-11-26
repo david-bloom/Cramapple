@@ -384,7 +384,24 @@ const scenarios: Scenario[] = [
   {
     name: "llm budget capped",
     tables: baseTables({ itemType: "frq" }),
-    rpc: { reserve_model_usage: { data: null, error: { message: "cap" } } },
+    // The exception text app.reserve_model_usage raises for a real cap.
+    rpc: {
+      reserve_model_usage: {
+        data: null,
+        error: { message: "daily cap exceeded" },
+      },
+    },
+    model: llmGrade(["c1"]),
+  },
+  {
+    name: "llm budget reservation database error",
+    tables: baseTables({ itemType: "frq" }),
+    rpc: {
+      reserve_model_usage: {
+        data: null,
+        error: { code: "57014", message: "canceling statement due to statement timeout" },
+      },
+    },
     model: llmGrade(["c1"]),
   },
   {

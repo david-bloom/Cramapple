@@ -687,39 +687,70 @@ export async function handleEvaluateAttempt(
   const isMcq = routing.target === "mcq_rule";
 
   if (routing.target === "llm_text" && !statisticsDeterministicFallback) {
+    // TASK-0079 bug 2: only a real cap is reported as the daily limit.
+    // app.reserve_model_usage raises 'daily cap exceeded' for a cap; any other
+    // error (database, transport, idempotency conflict) used to be shown to the
+    // student as the research limit too.
+    let reservationFailure: "daily_cap_exceeded" | "budget_reservation_failed" | null =
+      null;
     try {
-      usageRow = await service.schema("app").rpc("reserve_model_usage", {
+      const reservation = await service.schema("app").rpc("reserve_model_usage", {
         p_request_id: idempotencyKey,
         p_request_hash: requestHash,
         p_model_id: modelId,
         p_reserved_cost_usd: reservedCost,
         p_cap_usd: OPENAI_DAILY_CAP_USD,
-      }).then((result) => result.data as Record<string, unknown> | null);
-
-      if (!usageRow) {
-        throw new Error("budget_reservation_failed");
+      });
+      if (reservation.error) {
+        reservationFailure = /daily cap exceeded/i.test(
+            reservation.error.message ?? "",
+          )
+          ? "daily_cap_exceeded"
+          : "budget_reservation_failed";
+      } else {
+        usageRow = reservation.data as Record<string, unknown> | null;
+        if (!usageRow) reservationFailure = "budget_reservation_failed";
       }
-    } catch (error) {
+    } catch {
+      reservationFailure = "budget_reservation_failed";
+    }
+
+    if (reservationFailure) {
+      if (reservationFailure === "budget_reservation_failed") {
+        console.error("evaluate-attempt:budget_reservation_failed", {
+          request_id: idempotencyKey,
+        });
+      }
       await service.schema("app")
         .from("grading_results")
         .update({
           status: "failed",
           confidence: "low",
-          uncertainty_reason: error instanceof Error
-            ? error.message
-            : "budget_reservation_failed",
+          uncertainty_reason: reservationFailure,
         })
         .eq("request_id", idempotencyKey);
 
+      if (reservationFailure === "daily_cap_exceeded") {
+        return respond(
+          {
+            status: "budget_capped",
+            function: "evaluate-attempt",
+            operation,
+            message:
+              "Cramapple has reached today's research limit. Your work is saved. Please come back after the daily limit resets.",
+          },
+          { status: 429 },
+        );
+      }
       return respond(
         {
-          status: "budget_capped",
+          status: "grading_unavailable",
           function: "evaluate-attempt",
           operation,
           message:
-            "Cramapple has reached today's research limit. Your work is saved. Please come back after the daily limit resets.",
+            "Your work is saved, but grading is unavailable right now. Please try again in a few minutes.",
         },
-        { status: 429 },
+        { status: 503 },
       );
     }
   }

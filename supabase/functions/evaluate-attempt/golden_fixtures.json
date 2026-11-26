@@ -2917,7 +2917,7 @@
         "payload": {
           "status": "failed",
           "confidence": "low",
-          "uncertainty_reason": "budget_reservation_failed"
+          "uncertainty_reason": "daily_cap_exceeded"
         }
       }
     ],
@@ -11689,5 +11689,290 @@
         "body_bytes": 3889
       }
     ]
+  },
+  "llm budget reservation database error": {
+    "status": 503,
+    "body": {
+      "status": "grading_unavailable",
+      "function": "evaluate-attempt",
+      "operation": "grade_initial_attempt",
+      "message": "Your work is saved, but grading is unavailable right now. Please try again in a few minutes."
+    },
+    "calls": [
+      {
+        "schema": "app",
+        "target": "prompt_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "operation",
+            "grade_initial_attempt"
+          ],
+          [
+            "eq",
+            "version",
+            "test-v1"
+          ]
+        ],
+        "modifiers": [
+          "select:id, status",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000002"
+          ]
+        ],
+        "modifiers": [
+          "select:id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, artifact_version_id, attempt_mode, status, assistance_state, pre_submit_hint_count, started_at, submitted_at, graded_at, score_points, score_possible",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "response_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000003"
+          ]
+        ],
+        "modifiers": [
+          "select:id, attempt_id, parent_response_version_id, response_text, response_parts, version_number, is_submitted, created_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:content_item_id",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "open_hand_scoring_exclusions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ],
+          [
+            "eq",
+            "content_item_id",
+            "40000000-0000-4000-8000-000000000006"
+          ]
+        ],
+        "modifiers": [
+          "select:content_item_id",
+          "limit:1"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:id, content_item_id, version_num, stem, stimulus, prompt_json, rubric_type, evaluator_strategy, explanation, help_text, content_hash, status, approved_at, approved_by, published_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm budget reservation database error"
+          ]
+        ],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_items",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000006"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_pack_version_id, content_key, item_type, title, status, response_policy",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "exam_pack_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000005"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_pack_id, school_year, official_exam_date, status",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "frq_criteria",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:criterion_key, learner_facing_text, points_possible, evidence_requirements, minimum_fix, accepted_variants",
+          "order:criterion_key:{\"ascending\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "mcq_choices",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:choice_key, choice_text, is_correct, rationale",
+          "order:choice_key:{\"ascending\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "rpc:authorize_grading_access",
+        "action": "rpc",
+        "payload": {
+          "p_user_id": "40000000-0000-4000-8000-000000000001",
+          "p_attempt_id": "40000000-0000-4000-8000-000000000002",
+          "p_operation": "grade_initial_attempt",
+          "p_request_id": "golden:llm budget reservation database error"
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "exam_packs",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000007"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_code, exam_name, subject_id",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "insert",
+        "filters": [],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ],
+        "payload": {
+          "request_id": "golden:llm budget reservation database error",
+          "request_hash": "5606b5b46bf3deda85b4c48138667478cbcd108e79b80f1f9e446b9cce9b3bca",
+          "attempt_id": "40000000-0000-4000-8000-000000000002",
+          "response_version_id": "40000000-0000-4000-8000-000000000003",
+          "operation": "grade_initial_attempt",
+          "status": "processing",
+          "points_available": 1,
+          "confidence": "medium",
+          "model_id": "test-model",
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "estimated_cost_usd": 0.0002,
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "rpc:reserve_model_usage",
+        "action": "rpc",
+        "payload": {
+          "p_request_id": "golden:llm budget reservation database error",
+          "p_request_hash": "5606b5b46bf3deda85b4c48138667478cbcd108e79b80f1f9e446b9cce9b3bca",
+          "p_model_id": "test-model",
+          "p_reserved_cost_usd": 0.0002,
+          "p_cap_usd": 1
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm budget reservation database error"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "failed",
+          "confidence": "low",
+          "uncertainty_reason": "budget_reservation_failed"
+        }
+      }
+    ],
+    "fetches": []
   }
 }
