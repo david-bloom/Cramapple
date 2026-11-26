@@ -1,6 +1,6 @@
 # TASK-0079 — Behaviour-preserving split of `evaluate-attempt`
 
-**Status:** In Progress — S0–S4 on branch `claude/codebase-refactoring-cwj8by` (PR #679); S5 not started; nothing deployed
+**Status:** In Progress — S0–S4 merged (PR #679); S5 and fixes for findings 2, 3, 5 on branch `claude/codebase-refactoring-cwj8by` (second PR); nothing deployed
 **Tier:** Standard for source slices. Any deploy of `evaluate-attempt` (Development or Production) is Hard-Gate and needs
 its own `APPROVAL`, following the A6 pattern in TASK-0078 (deploy from `main`, bundle diff, boot checks, approval file).
 **Owner:** Claude (executing); David Bloom (Product Owner, merges and approves releases)
@@ -21,7 +21,7 @@ side-effect sequences all live in that one function body. A change to any route 
 
 1. **No behaviour change.** A slice moves or restructures code only. Bugs found along the way are recorded in §5, not
    fixed inside a refactor slice.
-2. **Golden traces are the contract.** `golden_test.ts` records, for 19 scenarios, every Supabase call (table or RPC,
+2. **Golden traces are the contract.** `golden_test.ts` records, for 21 scenarios, every Supabase call (table or RPC,
    action, filters, modifiers, payload), the hash and size of every OpenAI request, and the response status and body.
    A slice passes only if `golden_fixtures.json` is unchanged. Regenerating the fixtures is a behaviour change and
    needs a reviewed reason in the PR body.
@@ -38,42 +38,61 @@ side-effect sequences all live in that one function body. A change to any route 
 | S2 | One `runModelGrading()` (`model-grading.ts`) for the arm A / arm B call, used by both the live path and `qa_no_persist`, which each carried a copy | **done** | S2a: four arm A goldens (graded; one criterion failing; every criterion failing; QA no-persist) recorded on the unchanged code with `GRADING_ARM=a` at process start; `GRADING_ARM` then read once per request (`gradingArm()`), so both arms run in one test process; all traces unchanged. S2b: a golden for a provider reply of JSON `null` (sanitizer throws; arm B still stores the raw response and the estimated token count) recorded before the change; the shared function keeps that through an `onModelReturned` hook, and a mutation that drops it fails the golden. 58/58 tests; `index.ts` 2,181 → 2,109 lines |
 | S3 | Route branches become functions: `deterministic-routes.ts` (`gradeSymbolicEcf`, `gradeDataDriven`, `gradeShadowReview`, each returning `{ finalPayload, finalStatus, shadowResult?, deterministicVerifierVersion? }`) and `mcq-context.ts` (`loadMcqFeedbackContext`, the MCQ skill/unit lookup) | **done** | bodies moved verbatim (whitespace-normalised line diff: only signatures, destructuring, returns, assignment→declaration); 19 golden traces unchanged; a mutation flipping the data-driven verdict fails its golden; 58/58 tests; `index.ts` 2,109 → 1,762 lines |
 | S4 | Request parsing (`request.ts`: `parseEvaluateRequest`), the two load phases (`load-context.ts`: `loadAttemptContext`, `loadItemContext`) and the replay/recovery responder (`replay.ts`: `createStoredResultResponder`, formerly a closure) | **done** | each loader returns rows or the early-exit `Response`, which the handler returns unchanged, so every early-exit line moved byte-for-byte; query order unchanged (the replay lookup stays between the two phases); whitespace-normalised line diff shows only signatures, parameter types and three `instanceof Response` checks; replay/recovery covered by the 9 existing `index_test.ts` recovery tests, success paths by the goldens; 58/58 tests; `index.ts` 1,762 → 1,362 lines |
-| S5 | One post-grade finalize sequence (grade write → checkpoint → telemetry → attempt truth → memory → cell state) shared by the MCQ path and the model path, keeping each path's current differences explicit as parameters | not started | the two copies differ today (§5, items 4 and 5); the shared version must reproduce both exactly |
+| S5 | One post-grade finalize sequence (`finalize.ts`: `finalizeGrade` — grade store and checkpoint → telemetry and criterion rows → attempt truth → memory → cell state) shared by the MCQ path and the model path | **done** | each path passes its own log labels, evaluator id, cached tokens and memory payload. The goldens caught one ordering difference on the first try (the MCQ path writes the attempt truth row before telemetry, the model path after), kept as `attemptTruthFirst`; all traces unchanged; 58/58 tests; `index.ts` 1,362 → 1,263 lines |
 
 Target after S5: `index.ts` is the HTTP entry and orchestration (roughly 400–600 lines), each route is readable on its
 own, and the route modules can get focused unit tests.
 
 ## 4. Release
 
-Production runs `evaluate-attempt` v82 (`a1336c20…`, TASK-0078 A6, 2026-10-21). After any slice merges, `main` and
-Production differ in file layout but, per the golden traces, not in behaviour. The function does not need to be
-redeployed after each slice; one release after S5 is the plan. That release follows the A6 pattern: Development
-deploy, bundle diff against `main`, boot checks, one signed-in grade on Development per route that has live content,
-then Production under an `APPROVAL`.
+Production runs `evaluate-attempt` v82 (`a1336c20…`, TASK-0078 A6, 2026-10-21). S0–S5 change layout only. The
+fixes in §5a change behaviour, so the release is no longer a layout-only redeploy: it is a Hard-Gate release under its
+own `APPROVAL`, following the A6 pattern (Development deploy, bundle diff against `main`, boot checks, one signed-in
+grade per live route on Development, then Production).
 
-## 5. Pre-existing findings (recorded, not fixed here)
+Before that release:
 
-Each needs David's call before a separate fix slice. None is introduced by this task.
+1. **Check the app's handling of the new 503.** A reservation failure now returns HTTP 503 with
+   `status: "grading_unavailable"` instead of 429 `budget_capped`. The caller is the Lovable app, which is not in
+   this repository; confirm it shows a sensible message for a 503 (or add a branch for `grading_unavailable`).
+2. Watch the new log codes after deploy: `evaluate-attempt:budget_reservation_failed`,
+   `evaluate-attempt:model_usage_completion_failed`, `attempts_grading_truth_update_skipped_finalized`.
+
+## 5. Pre-existing findings
+
+None is introduced by this task. David chose 2, 3 and 5 for fixing on 2026-11-26 (§5a); the others remain open.
 
 1. **Arm A had no test coverage** (closed for tests by S2a: four arm A goldens). Whether Production runs arm A is
    still not verified (secret values are not readable).
-2. **Any `reserve_model_usage` failure is shown as the daily budget cap.** The RPC's `error` is never read; a database
+2. **[Fixed, §5a] Any `reserve_model_usage` failure is shown as the daily budget cap.** The RPC's `error` is never read; a database
    error and a real cap both return `429 budget_capped` with "Cramapple has reached today's research limit." A
    database outage reads to a student as a spending limit.
-3. **Unread errors before and after the model call:** the `status: processing` re-stamp of `grading_results`, the
+3. **[Fixed, §5a] Unread errors before and after the model call:** the `status: processing` re-stamp of `grading_results`, the
    `model_usage_ledger` `running` update and the `complete_model_usage` RPC all ignore their `error`. A failed
    `complete_model_usage` leaves a ledger row reserved, which counts against the daily cap until it is reconciled.
 4. **MCQ grades never fire `first_response_graded`.** Only the model path records it. `attempt-response` also records
    the event on its own path; whether that covers MCQ is **not verified**. If it does not, a student whose first
    graded answer is an MCQ is never counted, because later FRQ grades see a prior graded result.
-5. **The attempt-truth update has no status fence on the live paths.** The recovery path updates `app.attempts` only
+5. **[Fixed, §5a] The attempt-truth update has no status fence on the live paths.** The recovery path updates `app.attempts` only
    where `status = 'submitted'`; the MCQ and model paths update by `id` alone, so a late request can overwrite a
    finalized attempt's score.
-
 6. **A provider reply of JSON `null` is stored with an estimated token count.** On arm B the sanitizer throws on a
    non-object reply after usage is known but before it is read, so `grading_results.input_tokens` holds the
    pre-call estimate and `complete_model_usage` is charged at that estimate with `actual_cost` 0. Rare, and pinned
    by a golden so a later fix is deliberate.
+
+7. **A duplicate grade still runs the memory and mastery writes.** With finding 5 fixed, a late grade on a finalized
+   attempt no longer overwrites the attempt row, but `persistGradingMemory` and `persistCellState` still run for it.
+   Whether `persistCellState` de-duplicates by attempt (it records `last_attempt_id`) is **not verified**; if it does
+   not, a duplicate grade could count mastery evidence twice. Production shows one twice-graded attempt in 154.
+
+## 5a. Fixes (2026-11-26, source only)
+
+| Finding | Fix | Evidence |
+| --- | --- | --- |
+| 2 | `reserve_model_usage`'s error is read. Its `daily cap exceeded` exception keeps the 429 `budget_capped` response unchanged; any other failure returns 503 `grading_unavailable` ("Your work is saved, but grading is unavailable right now") and logs `budget_reservation_failed`. The stored `uncertainty_reason` now distinguishes `daily_cap_exceeded` from `budget_reservation_failed` | intended golden changes only: the cap scenario's stored reason, and a new database-error scenario (503, no model call) |
+| 3 | The re-stamp and the ledger `running` update were inside the model call's `try`, so a transport throw skipped the model and gave the student the fallback; both are now best-effort (error code logged, never thrown). `complete_model_usage` is idempotent, so it is retried once; a second failure logs `model_usage_completion_failed` instead of crashing a computed grade. A stranded reservation only affects that UTC day's cap (`daily_budgets` is per `current_date`). Production ledger today: 248 completed, 114 failed, none left reserved or running | existing traces unchanged; new scenario: completion fails twice → two RPC calls, grade stored, 200 |
+| 5 | The attempt truth update is fenced on `status = 'submitted'`, the fence the recovery path and `record_manual_grade` already use. `app.submit_response` only moves an attempt to `submitted` from `draft`/`failed`; Production: 154 graded attempts, 1 graded twice, 0 with a second response version, no revision or repair operations, so no legitimate re-scoring path is blocked. A skipped write logs `attempts_grading_truth_update_skipped_finalized`; the request's own grade is still stored and returned | three new regression tests (MCQ, shadow, LLM) failed before the fix (score 99 overwritten with 1) and pass after; golden regeneration checked mechanically: across 21 scenarios the only change is the fence and `select id` on 16 attempt-truth calls; 63/63 tests |
 
 ## 6. Local test method
 
