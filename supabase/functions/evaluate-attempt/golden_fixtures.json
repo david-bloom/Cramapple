@@ -10930,5 +10930,764 @@
         "body_bytes": 3170
       }
     ]
+  },
+  "llm arm b output is json null": {
+    "status": 202,
+    "body": {
+      "status": "uncertain",
+      "function": "evaluate-attempt",
+      "operation": "grade_initial_attempt",
+      "result": {
+        "status": "uncertain",
+        "points_earned": 0,
+        "points_available": 1,
+        "criteria": [
+          {
+            "criterion_key": "c1",
+            "status": "unable_to_determine",
+            "points_awarded": 0,
+            "evidence_quote": null,
+            "decision_explanation": "Cramapple can offer a few useful observations, but it is not confident enough to present this result as reliable.",
+            "minimum_fix": "State the idea."
+          }
+        ],
+        "highest_value_gap": null,
+        "predicted_improvement": null,
+        "confidence": "low",
+        "uncertainty_reason": "Cannot read properties of null (reading 'criteria')",
+        "student_facing_summary": "Your answer is saved, but feedback is taking longer than expected.",
+        "action_hint": null,
+        "repair_hint": "State the idea.",
+        "sanitization_version": "grading-sanitizer-v3",
+        "integrity_issues": [
+          {
+            "code": "criteria_missing",
+            "criterion_key": null
+          }
+        ],
+        "normalizations": [],
+        "actual_point_gain": null,
+        "prediction_outcome": null,
+        "model_id": "test-model",
+        "prompt_version": "test-v1",
+        "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+        "grading_route": {
+          "rubricType": "discrete_text",
+          "evaluatorStrategy": "llm_discrete_text",
+          "target": "llm_text",
+          "source": "explicit",
+          "reason": "Discrete analytic text is routed to the existing FRQ grader."
+        },
+        "verification_profile": null,
+        "verification_profile_summary": null,
+        "feedback_preview": "Your answer is saved, but feedback is taking longer than expected.",
+        "repair_plan": {
+          "contract_version": "grade-repair-v1",
+          "grade_fingerprint": "golden:llm arm b output is json null:test-v1:40000000-0000-4000-8000-000000000004",
+          "criterion_key": "c1",
+          "repair_class": "conceptual_error",
+          "repair_prompt": "State the idea.",
+          "expected_point_gain": 1,
+          "requires_learner_confirmation": false,
+          "source": "rubric"
+        },
+        "deterministic_check": null,
+        "attempt_id": "40000000-0000-4000-8000-000000000002",
+        "response_version_id": "40000000-0000-4000-8000-000000000003",
+        "request_id": "golden:llm arm b output is json null",
+        "latency_ms": "<volatile>"
+      },
+      "runtime_context": null
+    },
+    "calls": [
+      {
+        "schema": "app",
+        "target": "prompt_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "operation",
+            "grade_initial_attempt"
+          ],
+          [
+            "eq",
+            "version",
+            "test-v1"
+          ]
+        ],
+        "modifiers": [
+          "select:id, status",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000002"
+          ]
+        ],
+        "modifiers": [
+          "select:id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, artifact_version_id, attempt_mode, status, assistance_state, pre_submit_hint_count, started_at, submitted_at, graded_at, score_points, score_possible",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "response_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000003"
+          ]
+        ],
+        "modifiers": [
+          "select:id, attempt_id, parent_response_version_id, response_text, response_parts, version_number, is_submitted, created_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:content_item_id",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "open_hand_scoring_exclusions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ],
+          [
+            "eq",
+            "content_item_id",
+            "40000000-0000-4000-8000-000000000006"
+          ]
+        ],
+        "modifiers": [
+          "select:content_item_id",
+          "limit:1"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:id, content_item_id, version_num, stem, stimulus, prompt_json, rubric_type, evaluator_strategy, explanation, help_text, content_hash, status, approved_at, approved_by, published_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm b output is json null"
+          ]
+        ],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_items",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000006"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_pack_version_id, content_key, item_type, title, status, response_policy",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "exam_pack_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000005"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_pack_id, school_year, official_exam_date, status",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "frq_criteria",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:criterion_key, learner_facing_text, points_possible, evidence_requirements, minimum_fix, accepted_variants",
+          "order:criterion_key:{\"ascending\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "mcq_choices",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:choice_key, choice_text, is_correct, rationale",
+          "order:choice_key:{\"ascending\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "rpc:authorize_grading_access",
+        "action": "rpc",
+        "payload": {
+          "p_user_id": "40000000-0000-4000-8000-000000000001",
+          "p_attempt_id": "40000000-0000-4000-8000-000000000002",
+          "p_operation": "grade_initial_attempt",
+          "p_request_id": "golden:llm arm b output is json null"
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "exam_packs",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000007"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_code, exam_name, subject_id",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "insert",
+        "filters": [],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ],
+        "payload": {
+          "request_id": "golden:llm arm b output is json null",
+          "request_hash": "65b738205fbbd0dd08d87142076ab4d07ec41a6f5a26994df02b3869e5e5aa70",
+          "attempt_id": "40000000-0000-4000-8000-000000000002",
+          "response_version_id": "40000000-0000-4000-8000-000000000003",
+          "operation": "grade_initial_attempt",
+          "status": "processing",
+          "points_available": 1,
+          "confidence": "medium",
+          "model_id": "test-model",
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "estimated_cost_usd": 0.0002,
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "rpc:reserve_model_usage",
+        "action": "rpc",
+        "payload": {
+          "p_request_id": "golden:llm arm b output is json null",
+          "p_request_hash": "65b738205fbbd0dd08d87142076ab4d07ec41a6f5a26994df02b3869e5e5aa70",
+          "p_model_id": "test-model",
+          "p_reserved_cost_usd": 0.0002,
+          "p_cap_usd": 1
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm b output is json null"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "processing",
+          "model_id": "test-model",
+          "estimated_cost_usd": 0.0002,
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "model_usage_ledger",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm b output is json null"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "running"
+        }
+      },
+      {
+        "schema": "app",
+        "target": "rpc:complete_model_usage",
+        "action": "rpc",
+        "payload": {
+          "p_request_id": "golden:llm arm b output is json null",
+          "p_request_hash": "65b738205fbbd0dd08d87142076ab4d07ec41a6f5a26994df02b3869e5e5aa70",
+          "p_status": "failed",
+          "p_actual_cost_usd": 0,
+          "p_input_tokens": 103,
+          "p_output_tokens": 0
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "attempt_id",
+            "40000000-0000-4000-8000-000000000002"
+          ],
+          [
+            "neq",
+            "request_id",
+            "golden:llm arm b output is json null"
+          ]
+        ],
+        "modifiers": [
+          "select:points_earned, status",
+          "order:created_at:{\"ascending\":false}",
+          "limit:1",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ]
+        ],
+        "modifiers": [
+          "select:id"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "in",
+            "attempt_id",
+            [
+              "40000000-0000-4000-8000-000000000002"
+            ]
+          ],
+          [
+            "in",
+            "status",
+            [
+              "graded",
+              "uncertain"
+            ]
+          ]
+        ],
+        "modifiers": [
+          "select:id{\"count\":\"exact\",\"head\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "growth_event_outbox",
+        "action": "upsert",
+        "filters": [],
+        "modifiers": [
+          "upsert:{\"onConflict\":\"dedupe_key\",\"ignoreDuplicates\":true}",
+          "select:id, delivered_at, delivery_attempts",
+          "maybeSingle"
+        ],
+        "payload": {
+          "event_name": "first_response_graded",
+          "user_id": "40000000-0000-4000-8000-000000000001",
+          "free_score_check_id": null,
+          "source": "web",
+          "dedupe_key": "first_response_graded:40000000-0000-4000-8000-000000000001",
+          "properties": {
+            "environment": "development"
+          }
+        }
+      },
+      {
+        "schema": "app",
+        "target": "growth_event_outbox",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "dedupe_key",
+            "first_response_graded:40000000-0000-4000-8000-000000000001"
+          ]
+        ],
+        "modifiers": [
+          "select:id, delivered_at, delivery_attempts",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm b output is json null"
+          ],
+          [
+            "eq",
+            "request_hash",
+            "65b738205fbbd0dd08d87142076ab4d07ec41a6f5a26994df02b3869e5e5aa70"
+          ]
+        ],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ],
+        "payload": {
+          "status": "uncertain",
+          "points_earned": 0,
+          "points_available": 1,
+          "criterion_results": [
+            {
+              "criterion_key": "c1",
+              "status": "unable_to_determine",
+              "points_awarded": 0,
+              "evidence_quote": null,
+              "decision_explanation": "Cramapple can offer a few useful observations, but it is not confident enough to present this result as reliable.",
+              "minimum_fix": "State the idea."
+            }
+          ],
+          "highest_value_gap": {
+            "criterion_key": "c1",
+            "minimum_fix": "State the idea.",
+            "repair_prompt": "State the idea."
+          },
+          "predicted_label": null,
+          "predicted_point_gain": null,
+          "actual_point_gain": null,
+          "prediction_outcome": null,
+          "confidence": "low",
+          "uncertainty_reason": "Cannot read properties of null (reading 'criteria')",
+          "model_id": "test-model",
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null,
+          "feedback_preview": "Your answer is saved, but feedback is taking longer than expected.",
+          "action_hint": null,
+          "repair_hint": "State the idea.",
+          "input_tokens": 103,
+          "output_tokens": 0,
+          "estimated_cost_usd": 0.0002,
+          "latency_ms": "<volatile>",
+          "raw_model_response": {
+            "output_text": "null",
+            "usage": {
+              "input_tokens": 7,
+              "output_tokens": 1
+            }
+          },
+          "shadow_result": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm b output is json null"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "normalized_response_sha256": "e30d9e5aeda60bbcbf6c32232c71cc010b3abf85c2e9ca531b629beebc5b1888",
+          "cached_tokens": null,
+          "stage_timings": "<volatile>"
+        }
+      },
+      {
+        "schema": "app",
+        "target": "attempt_criterion_results",
+        "action": "upsert",
+        "filters": [],
+        "modifiers": [
+          "upsert:{\"onConflict\":\"attempt_id,criterion_key\"}"
+        ],
+        "payload": [
+          {
+            "attempt_id": "40000000-0000-4000-8000-000000000002",
+            "criterion_key": "c1",
+            "status": "unable_to_determine",
+            "points_awarded": 0,
+            "evidence_quote": null,
+            "decision_explanation": "Cramapple can offer a few useful observations, but it is not confident enough to present this result as reliable.",
+            "minimum_fix": "State the idea.",
+            "evaluator_version": "test-model"
+          }
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000002"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "uncertain",
+          "graded_at": "<iso>",
+          "score_points": 0,
+          "score_possible": 1,
+          "confidence_level": "low",
+          "result_state": "uncertain",
+          "result_summary": "Your answer is saved, but feedback is taking longer than expected.",
+          "assistance_state": "independent"
+        }
+      },
+      {
+        "schema": "app",
+        "target": "content_item_cells",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ],
+          [
+            "eq",
+            "is_primary",
+            true
+          ],
+          [
+            "in",
+            "assignment_status",
+            [
+              "validated",
+              "authored"
+            ]
+          ],
+          [
+            "not.is",
+            "skill_code",
+            null
+          ]
+        ],
+        "modifiers": [
+          "select:taxonomy_source_version, topic_code, skill_code"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:item_package_payload",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "subjects",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000008"
+          ]
+        ],
+        "modifiers": [
+          "select:subject_key",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "taxonomy_source_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "taxonomy_source_version",
+            "ced-2025"
+          ]
+        ],
+        "modifiers": [
+          "select:subject_key",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "student_cell_state",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ],
+          [
+            "eq",
+            "taxonomy_source_version",
+            "ced-2025"
+          ],
+          [
+            "eq",
+            "topic_code",
+            "4.1"
+          ],
+          [
+            "eq",
+            "skill_code",
+            "2.A"
+          ]
+        ],
+        "modifiers": [
+          "select:tier, fragile, weighted_evidence, last_independent_success_at, last_attempt_at, last_exposure_at, next_due_at, due_reason, last_session_id, last_template_id, last_params_hash, last_attempt_id, updated_at, mastery_mcq_correct_count, mastery_frq_full_count, mastery_reached_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "student_cell_state",
+        "action": "insert",
+        "filters": [],
+        "modifiers": [],
+        "payload": {
+          "user_id": "40000000-0000-4000-8000-000000000001",
+          "subject_id": "40000000-0000-4000-8000-000000000008",
+          "taxonomy_source_version": "ced-2025",
+          "topic_code": "4.1",
+          "skill_code": "2.A",
+          "tier": "unseen",
+          "fragile": false,
+          "weighted_evidence": 0,
+          "last_independent_success_at": null,
+          "last_attempt_at": "<iso>",
+          "last_exposure_at": null,
+          "next_due_at": null,
+          "due_reason": null,
+          "last_event": "content_uncertain",
+          "last_weight": 0,
+          "rule_engine_version": "cell-state-1.0",
+          "last_session_id": null,
+          "last_template_id": null,
+          "last_params_hash": null,
+          "last_attempt_id": null,
+          "mastery_mcq_correct_count": 0,
+          "mastery_frq_full_count": 0,
+          "mastery_reached_at": null
+        }
+      }
+    ],
+    "fetches": [
+      {
+        "url": "https://api.openai.com/v1/responses",
+        "body_sha256": "1c81218d5b60661887f08702792fd0d254f133705c33d6bcddedaf5985769a13",
+        "body_bytes": 3889
+      }
+    ]
   }
 }

@@ -34,15 +34,8 @@ import { deriveAssistanceState } from "../_shared/assistance-state.ts";
 import {
   type AllowedOperation,
   applyDeterministicFlagScope,
-  buildCriterionGradingPrompt,
-  buildCriterionSystemPrompt,
-  buildGradingPrompt,
-  buildSystemPrompt,
-  composeStudentFacingSummary,
-  extractUsage,
   type FeedbackCriterionRow,
   type GradingExemplar,
-  mergeCriterionResults,
   sanitizeModelResult,
 } from "../_shared/grading-contract.ts";
 import { loadLearningRuntimeContext } from "../_shared/learning-context.ts";
@@ -61,6 +54,7 @@ import {
 } from "../_shared/grading-telemetry.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { persistGradingMemory } from "../_shared/grading-memory.ts";
+import { buildGraderSystemPrompt, runModelGrading } from "./model-grading.ts";
 import {
   DATA_DRIVEN_VERIFIER_VERSION,
   EVALUATE_ATTEMPT_PROMPT_VERSION,
@@ -73,10 +67,6 @@ import {
   OPENAI_MODEL,
   OPENAI_OUTPUT_PRICE_PER_1M,
 } from "./config.ts";
-import {
-  callOpenAIGrader,
-  callOpenAIGraderPerCriterion,
-} from "./openai-client.ts";
 import { composeMcqFeedback, summarizeSelectedChoice } from "./mcq-feedback.ts";
 import {
   checkpointGradeWrite,
@@ -362,71 +352,27 @@ async function handleQaNoPersist(
     `qa:${contentVersion.id}:${promptVersion}:${answerSha256}`;
   const userIdHash = await sha256Hex(`canonical-qa:${contentVersion.id}`);
   const gradingArmForRequest = gradingArm();
-  const systemPrompt = gradingArmForRequest === "a"
-    ? buildCriterionSystemPrompt(examPack.exam_name as string)
-    : buildSystemPrompt(examPack.exam_name as string);
+  const systemPrompt = buildGraderSystemPrompt(
+    gradingArmForRequest,
+    examPack.exam_name as string,
+  );
 
   try {
-    let finalPayload;
-    let rawGraderResponse: unknown;
-    let inputTokens = 0;
-    let outputTokens = 0;
-    let cachedTokens: number | null = null;
-    let latencyMs = 0;
-
-    if (gradingArmForRequest === "a") {
-      const fanOut = await callOpenAIGraderPerCriterion({
-        modelId: OPENAI_MODEL,
-        maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
-        systemPrompt,
-        criteria,
-        buildUserPrompt: (criterion) =>
-          buildCriterionGradingPrompt({ ...promptBase, criterion }),
-        userIdHash,
-        idempotencyKey,
-      });
-      const merged = mergeCriterionResults(fanOut.parsed, criteria);
-      finalPayload = sanitizeModelResult(merged, criteria, {
-        responseText: answerText,
-        responseParts: {},
-      });
-      finalPayload = {
-        ...finalPayload,
-        student_facing_summary: composeStudentFacingSummary(
-          finalPayload.criteria,
-          finalPayload.points_earned,
-          finalPayload.points_available,
-          finalPayload.highest_value_gap?.minimum_fix ?? null,
-        ),
-      };
-      rawGraderResponse = {
-        arm: "a",
-        criterion_responses: fanOut.raws,
-      };
-      inputTokens = fanOut.inputTokens;
-      outputTokens = fanOut.outputTokens;
-      cachedTokens = fanOut.cachedTokens;
-      latencyMs = fanOut.elapsedMs;
-    } else {
-      const modelResponse = await callOpenAIGrader({
-        modelId: OPENAI_MODEL,
-        maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
-        systemPrompt,
-        userPrompt: buildGradingPrompt(promptBase),
-        userIdHash,
-        idempotencyKey,
-      });
-      finalPayload = sanitizeModelResult(modelResponse.parsed, criteria, {
-        responseText: answerText,
-        responseParts: {},
-      });
-      rawGraderResponse = modelResponse.raw;
-      const usage = extractUsage(modelResponse.raw as Record<string, unknown>);
-      inputTokens = usage.inputTokens ?? 0;
-      outputTokens = usage.outputTokens ?? 0;
-      cachedTokens = usage.cachedTokens;
-      latencyMs = modelResponse.elapsedMs;
-    }
+    const graded = await runModelGrading({
+      arm: gradingArmForRequest,
+      modelId: OPENAI_MODEL,
+      systemPrompt,
+      promptBase,
+      sanitizeContext: { responseText: answerText, responseParts: {} },
+      userIdHash,
+      idempotencyKey,
+    });
+    const finalPayload = graded.finalPayload;
+    const rawGraderResponse = graded.response.raw;
+    const inputTokens = graded.inputTokens ?? 0;
+    const outputTokens = graded.outputTokens ?? 0;
+    const cachedTokens = graded.cachedTokens;
+    const latencyMs = graded.response.elapsedMs;
 
     const possibleByKey = new Map(
       criteria.map((criterion) => [
@@ -1805,9 +1751,10 @@ export async function handleEvaluateAttempt(
       actualCost = 0;
     } else {
       const gradingArmForRequest = gradingArm();
-      const systemPrompt = gradingArmForRequest === "a"
-        ? buildCriterionSystemPrompt(examPack.exam_name as string)
-        : buildSystemPrompt(examPack.exam_name as string);
+      const systemPrompt = buildGraderSystemPrompt(
+        gradingArmForRequest,
+        examPack.exam_name as string,
+      );
 
       try {
         await service.schema("app").from("grading_results").update({
@@ -1827,76 +1774,29 @@ export async function handleEvaluateAttempt(
           }).eq("request_id", idempotencyKey);
         }
 
-        if (gradingArmForRequest === "a") {
-          const fanOut = await callOpenAIGraderPerCriterion({
-            modelId,
-            maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
-            systemPrompt,
-            criteria: promptBase.criteria,
-            buildUserPrompt: (criterion) =>
-              buildCriterionGradingPrompt({ ...promptBase, criterion }),
-            userIdHash: await sha256Hex(user.id),
-            idempotencyKey,
-          });
-          stageTimer.mark("model");
-          cachedTokensTelemetry = fanOut.cachedTokens;
-
-          const merged = mergeCriterionResults(
-            fanOut.parsed,
-            promptBase.criteria,
-          );
-          finalPayload = sanitizeModelResult(
-            merged,
-            promptBase.criteria,
-            { responseText, responseParts },
-          );
-          // The summary is composed after sanitization, from the points that
-          // actually survived grounding and partial-credit reconciliation --
-          // not from the model's raw claims, which those checks may have
-          // revised downward.
-          finalPayload = {
-            ...finalPayload,
-            student_facing_summary: composeStudentFacingSummary(
-              finalPayload.criteria,
-              finalPayload.points_earned,
-              finalPayload.points_available,
-              finalPayload.highest_value_gap?.minimum_fix ?? null,
-            ),
-          };
-
-          // One entry per criterion: raw_model_response has to stay auditable,
-          // and an item's grading is now N provider responses, not one.
-          modelResponse = {
-            raw: { arm: "a", criterion_responses: fanOut.raws },
-            parsed: merged as Record<string, unknown>,
-            elapsedMs: fanOut.elapsedMs,
-          };
-          inputTokens = fanOut.inputTokens;
-          outputTokens = fanOut.outputTokens;
-          stageTimer.mark("sanitize");
-        } else {
-          modelResponse = await callOpenAIGrader({
-            modelId,
-            maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
-            systemPrompt,
-            userPrompt: buildGradingPrompt(promptBase),
-            userIdHash: await sha256Hex(user.id),
-            idempotencyKey: idempotencyKey,
-          });
-          stageTimer.mark("model");
-
-          finalPayload = sanitizeModelResult(
-            modelResponse.parsed,
-            promptBase.criteria,
-            { responseText, responseParts },
-          );
-
-          const usage = extractUsage(modelResponse.raw);
-          inputTokens = usage.inputTokens ?? inputTokens;
-          outputTokens = usage.outputTokens ?? outputTokens;
-          cachedTokensTelemetry = usage.cachedTokens;
-          stageTimer.mark("sanitize");
-        }
+        const graded = await runModelGrading({
+          arm: gradingArmForRequest,
+          modelId,
+          systemPrompt,
+          promptBase,
+          sanitizeContext: { responseText, responseParts },
+          userIdHash: await sha256Hex(user.id),
+          idempotencyKey,
+          // Record what is known before sanitization, which can throw: arm B
+          // keeps the raw response and latency for the stored row, arm A keeps
+          // its cached-token telemetry (see ModelReturnedEvent).
+          onModelReturned: (event) => {
+            stageTimer.mark("model");
+            if (event.arm === "a") cachedTokensTelemetry = event.cachedTokens;
+            else modelResponse = event.response;
+          },
+        });
+        finalPayload = graded.finalPayload;
+        modelResponse = graded.response;
+        inputTokens = graded.inputTokens ?? inputTokens;
+        outputTokens = graded.outputTokens ?? outputTokens;
+        cachedTokensTelemetry = graded.cachedTokens;
+        stageTimer.mark("sanitize");
 
         // O2 (2026-08-13): the model graded the whole item normally above --
         // now force just the deterministic-flagged criteria back to

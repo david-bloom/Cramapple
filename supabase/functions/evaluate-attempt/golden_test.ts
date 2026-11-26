@@ -375,6 +375,13 @@ const scenarios: Scenario[] = [
     model: () => ({ broken: true }),
   },
   {
+    // The provider returns valid JSON that is not an object: the sanitizer
+    // throws after the response is in hand, and the raw response is kept.
+    name: "llm arm b output is json null",
+    tables: baseTables({ itemType: "frq" }),
+    model: () => ({ output_text: "null", usage: { input_tokens: 7, output_tokens: 1 } }),
+  },
+  {
     name: "llm budget capped",
     tables: baseTables({ itemType: "frq" }),
     rpc: { reserve_model_usage: { data: null, error: { message: "cap" } } },
@@ -604,7 +611,6 @@ async function runScenario(scenario: Scenario) {
     }
     return respond(call);
   });
-  const fetches: Array<{ url: string; body_sha256: string; body_bytes: number }> = [];
   const originalFetch = globalThis.fetch;
   // Recorded in call order, synchronously: arm A issues its requests in
   // parallel, and hashing before recording would let completion order leak in.
