@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- 2026-11-26: TASK-0079 opened; `evaluate-attempt` refactor slices S0–S4 in source (golden tests in CI; `index.ts` 2,907 → 1,362 lines), nothing deployed. Record: `docs/tasks/TASK-0079-EVALUATE-ATTEMPT-REFACTOR.md`.
 - 2026-11-23: Mobile-first funnel audit at 375px; findings in `docs/qa/MOBILE_FIRST_FUNNEL_FINDINGS_2026_11_23.md`; app PR 65 (`/start` polish) open, not published.
 - 2026-11-13: Calculus AB 5.6-5.9, 5.11 second-derivative primes restored in Production (APPROVAL-0274).
 - 2026-11-13: Recommendation #3 structured text applied to Production for six more subjects (317 rows, APPROVAL-0273).
@@ -368,6 +369,9 @@ Most recent entries (full reverse-chronological list follows below):
 
 <!-- INDEX_END -->
 
+## 2026-11-26 — TASK-0079 opened: behaviour-preserving split of evaluate-attempt (S0–S4)
+
+David asked for a refactoring session and chose `evaluate-attempt`. S0 adds golden characterization tests (`golden_test.ts`, now 19 scenarios; every DB call, provider request hash and response recorded) and puts them in Minimal CI. S1 moves leaf code into four sibling modules; S2 covers arm A and shares one model-grading function between the live and QA paths; S3 makes each non-model route a function; S4 moves request parsing, the load phases and replay out of the handler. `index.ts` goes from 2,907 to 1,362 lines; 19 golden traces unchanged throughout; 58/58 tests. Source only, nothing deployed. Six pre-existing findings recorded for David in the task record §5. Record: `docs/tasks/TASK-0079-EVALUATE-ATTEMPT-REFACTOR.md`.
 ## 2026-11-23 — Mobile-first funnel audit and `/start` polish (no approval needed; nothing published)
 
 Read-only phone-width audit of live signed-out pages plus one app change. Ranked findings, decided vs open and a Lovable prompt (not sent) are in `docs/qa/MOBILE_FIRST_FUNNEL_FINDINGS_2026_11_23.md`. App PR 65 on `david-bloom/ap-prep-blueprint` changes `/start` only; it is not merged and not published. No DECISION or APPROVAL recorded; open questions are listed in the findings.

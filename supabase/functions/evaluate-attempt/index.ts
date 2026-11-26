@@ -1,23 +1,14 @@
-import { requireEnv } from "../_shared/env.ts";
 import { stringOrNull as asString, looseUuid as asUuid } from "../_shared/input.ts";
 import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
 import { resolveGradingRoute } from "../_shared/grading-router.ts";
-import { detectAmbiguousTypedFormulaText } from "../_shared/formula-notation.ts";
-import { resolveFormulaActionHint } from "../_shared/formula-notation.ts";
 import { resolveFormulaRepairHint } from "../_shared/formula-notation.ts";
 import {
-  formatVerificationProfileSummary,
   getVerificationProfile,
   summarizeVerificationProfile,
 } from "../_shared/verification-profiles.ts";
-import {
-  buildEcfResult,
-  coerceEcfQuestion,
-  findStatisticsItem,
-} from "../_shared/math-verifier.ts";
 import {
   buildStatisticsDeterministicFallback,
   checkStatisticsDeterministicEvidence,
@@ -29,25 +20,11 @@ import {
   buildShadowReviewPayload,
   pickHighestGap,
 } from "../_shared/grading-feedback.ts";
-import { gradeAgainstChecks } from "../_shared/deterministic-verifier.ts";
 import { persistCellState } from "../_shared/cell-state-persist.ts";
-import { deriveAssistanceState } from "../_shared/assistance-state.ts";
 import {
   type AllowedOperation,
   applyDeterministicFlagScope,
-  buildCriterionGradingPrompt,
-  buildCriterionRequestBody,
-  buildCriterionSystemPrompt,
-  buildGradingPrompt,
-  buildGradingRequestBody,
-  buildSystemPrompt,
-  composeStudentFacingSummary,
-  extractOutputText,
-  extractUsage,
   type FeedbackCriterionRow,
-  type GradingExemplar,
-  isTransientHttpStatus,
-  mergeCriterionResults,
   sanitizeModelResult,
 } from "../_shared/grading-contract.ts";
 import { loadLearningRuntimeContext } from "../_shared/learning-context.ts";
@@ -66,161 +43,46 @@ import {
 } from "../_shared/grading-telemetry.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { persistGradingMemory } from "../_shared/grading-memory.ts";
+import { buildGraderSystemPrompt, runModelGrading } from "./model-grading.ts";
+import {
+  gradeDataDriven,
+  gradeShadowReview,
+  gradeSymbolicEcf,
+} from "./deterministic-routes.ts";
+import { loadMcqFeedbackContext } from "./mcq-context.ts";
+import { getBodyField, parseEvaluateRequest } from "./request.ts";
+import { loadAttemptContext, loadItemContext } from "./load-context.ts";
+import { createStoredResultResponder } from "./replay.ts";
+import {
+  EVALUATE_ATTEMPT_PROMPT_VERSION,
+  gradingArm,
+  MATH_VERIFIER_VERSION,
+  OPENAI_DAILY_CAP_USD,
+  OPENAI_INPUT_PRICE_PER_1M,
+  OPENAI_MAX_OUTPUT_TOKENS,
+  OPENAI_MODEL,
+  OPENAI_OUTPUT_PRICE_PER_1M,
+} from "./config.ts";
+import { composeMcqFeedback, summarizeSelectedChoice } from "./mcq-feedback.ts";
+import {
+  checkpointGradeWrite,
+  GRADE_STORE_FAILURE,
+  type OutputCriterion,
+  persistAttemptCriterionResults,
+  persistGradingTelemetry,
+  type Service,
+  writeGradeResult,
+} from "./grade-store.ts";
+
+// Kept exported from the entry point for existing callers and tests.
+export { composeMcqFeedback };
 
 
-
-function requirePositiveIntegerEnv(name: string) {
-  const raw = requireEnv(name);
-  const value = Number(raw);
-  if (!Number.isInteger(value) || value <= 0) {
-    throw new Error(`Invalid required environment variable: ${name}`);
-  }
-  return value;
-}
-
-function requirePositiveNumberEnv(name: string) {
-  const raw = requireEnv(name);
-  const value = Number(raw);
-  if (!Number.isFinite(value) || value <= 0) {
-    throw new Error(`Invalid required environment variable: ${name}`);
-  }
-  return value;
-}
-
-// Fail fast on deployment misconfiguration instead of grading with silent defaults.
-const OPENAI_API_KEY = requireEnv("OPENAI_API_KEY");
-const OPENAI_MODEL = requireEnv("OPENAI_MODEL");
-const OPENAI_MAX_OUTPUT_TOKENS = requirePositiveIntegerEnv(
-  "OPENAI_MAX_OUTPUT_TOKENS",
-);
-const OPENAI_INPUT_PRICE_PER_1M = requirePositiveNumberEnv(
-  "OPENAI_INPUT_PRICE_PER_1M",
-);
-const OPENAI_OUTPUT_PRICE_PER_1M = requirePositiveNumberEnv(
-  "OPENAI_OUTPUT_PRICE_PER_1M",
-);
-const OPENAI_DAILY_CAP_USD = requirePositiveNumberEnv("OPENAI_DAILY_CAP_USD");
-const EVALUATE_ATTEMPT_PROMPT_VERSION = requireEnv(
-  "EVALUATE_ATTEMPT_PROMPT_VERSION",
-);
-// Entitlement gating (TASK-0026, 2026-08-15): set to true in Production.
-// `authorize_grading_access` (20260731160200_free_score_check_growth_funnel.sql,
-// simplified by 20260815140000_retire_free_score_check.sql) now only checks
-// app.subject_entitlements -- the FSC one-FRQ-cap fallback it used to have was
-// removed along with the retired Free Score Check offer. Every supported
-// access path (beta/paid/7-day trial via app.start_trial) is a
-// subject_entitlements row, so any caller without one gets a clean
-// `entitlement_required` 403 instead of the old FSC branch logic.
-//
-// Kept as an env-gated const (not hardcoded true) so a bad rollout can be
-// reverted with a secrets change instead of a redeploy -- see the 2026-07-28
-// outage note in git history for why this flag exists at all.
-const GRADING_ENTITLEMENTS_ENABLED =
-  (Deno.env.get("GRADING_ENTITLEMENTS_ENABLED") ?? "false").toLowerCase() ===
-    "true";
-
-// Request architecture for LLM text grading.
-//
-// "b" (default) is what Production runs today: ONE call grading every criterion
-// of an item, measured at 0.58 s + 3.89 s x n_criteria, so ~16 s on a
-// 4-criterion Biology FRQ. "a" grades each criterion in its own parallel call,
-// which is flat in criterion count and should land near Production's own
-// 1-criterion figure of ~4.5 s.
-//
-// Defaulting to "b" so the new path deploys dark. Arm A changes the request
-// shape, the output schema, and the student-facing summary all at once, on a
-// grader that had never completed a Production grading until 2026-07-28 --
-// flipping it blind is how the entitlement-gate outage happened. Deploy, then
-// flip the flag, then measure with the narrow pilot.
-const GRADING_ARM = (Deno.env.get("GRADING_ARM") ?? "b").toLowerCase() === "a"
-  ? "a"
-  : "b";
-
-// Bumped 2026-07-28: three checker defects fixed (supplied inputs now win over
-// the built-in `e`/`pi` constants; CORRECT_VIA_ECF requires a real upstream
-// divergence; `erf`/`factorial` parse). Verdicts from this build are not
-// comparable to 2026-07-08 ones, so the stamp recorded in
-// grading_results.deterministic_verifier_version has to move with it.
-// Bumped 2026-08-11 (O1 approved): the corrected APSTATS-SFRQ-008
-// statistics key and the audited provenance annotations in
-// _shared/statistics-verifier.ts ship with this build, so deterministic
-// verdicts from the corrected keys are distinguishable from pre-fix ones in
-// grading_results.deterministic_verifier_version. See
-// docs/research/DETERMINISTIC_KEY_AUDIT_2026_08_11.md. This stamp covers
-// the deterministic layer as a whole (both math-verifier.ts and
-// statistics-verifier.ts share one version tag here), not math-verifier.ts
-// alone -- the math-verifier itself is unchanged since 2026-07-28.
-const MATH_VERIFIER_VERSION = "stats-verifier-ts-2026-08-11";
-// Course Mode F4: the generic data-driven deterministic verifier's schema
-// version, stamped into grading_results.shadow-adjacent deterministic_check so a
-// grade produced by reading persisted content_item_checks is auditable.
-const DATA_DRIVEN_VERIFIER_VERSION = "data-driven-deterministic-1.0";
-
-// Timeout is configurable so we can tune for high-reasoning models without
-// a code change. 90s accommodates reasoning: { effort: "high" } latency
-// observed in pilot runs while still bounding requests so a hung connection
-// can't tie up the function instance.
-const OPENAI_REQUEST_TIMEOUT_MS = (() => {
-  const raw = Deno.env.get("OPENAI_REQUEST_TIMEOUT_MS");
-  if (!raw) return 90_000;
-  const parsed = Number(raw);
-  if (!Number.isInteger(parsed) || parsed <= 0) {
-    throw new Error("Invalid environment variable: OPENAI_REQUEST_TIMEOUT_MS");
-  }
-  return parsed;
-})();
 
 export type { AllowedOperation };
 
-type OutputCriterion = {
-  criterion_key: string;
-  status:
-    | "earned"
-    | "partially_earned"
-    | "not_yet_earned"
-    | "unable_to_determine"
-    | "not_applicable";
-  points_awarded: number;
-  evidence_quote: string | null;
-  decision_explanation: string | null;
-  minimum_fix: string | null;
-};
-
-const allowedOperations = new Set<AllowedOperation>([
-  "grade_initial_attempt",
-  "select_repair",
-  "grade_revision",
-  "grade_transfer_attempt",
-]);
-
-function getBodyField(body: Record<string, unknown>, ...keys: string[]) {
-  for (const key of keys) {
-    const value = body[key];
-    if (value !== undefined && value !== null) {
-      return value;
-    }
-  }
-  return undefined;
-}
 
 
-
-
-
-
-
-// re-QA finding 1: the idempotent-replay paths return the whole grading_results
-// row. `shadow_result` now carries the data-driven verifier's per-check verdicts,
-// whose reason strings embed the expected value/tolerance (the answer key), and
-// `raw_model_response` carries the raw grader output — neither is ever
-// student-facing (the curated public.grading_results view excludes them). Strip
-// them from any replayed row so a re-POST of the same request can't leak them.
-function sanitizeGradingResultForClient(
-  row: Record<string, unknown>,
-): Record<string, unknown> {
-  const { shadow_result: _shadow, raw_model_response: _raw, ...safe } = row;
-  return safe;
-}
 
 function estimateTokens(text: string) {
   return Math.max(32, Math.ceil(text.length / 4));
@@ -239,534 +101,6 @@ function parseJsonSafe(value: string | null | undefined) {
   }
 }
 
-// Best-effort write of the passive telemetry fields (stage timings,
-// cached_tokens, normalized-response hash). The columns come from the
-// 20260811TBD_grading_telemetry migration, which may not be applied yet --
-// a failed write (e.g. 42703 undefined column) is logged and swallowed so
-// telemetry can NEVER fail a grading. Kept separate from the main
-// grading_results update for the same reason: the main update's payload
-// must keep working against the pre-migration schema.
-async function persistGradingTelemetry(
-  service: ReturnType<typeof createServiceClient>,
-  requestId: string,
-  telemetry: {
-    normalized_response_sha256: string | null;
-    cached_tokens: number | null;
-    stage_timings: Record<string, number>;
-  },
-) {
-  try {
-    const { error } = await service.schema("app")
-      .from("grading_results")
-      .update(telemetry)
-      .eq("request_id", requestId);
-    if (error) {
-      console.warn(
-        "grading_telemetry_write_skipped",
-        error.message ?? String(error),
-      );
-    }
-  } catch (error) {
-    console.warn("grading_telemetry_write_skipped", error);
-  }
-}
-
-// app.attempt_criterion_results has had no writer since it was created
-// (20260731160000_schema_baseline.sql) -- evaluate-attempt has only ever
-// persisted per-criterion detail as jsonb inside grading_results.criterion_results.
-// 20260731160400_criterion_partially_earned_status.sql widened the table's
-// status CHECK specifically so a 'partially_earned' criterion would not fail
-// to insert "the first time that table is wired up" -- this is that wiring.
-// Best-effort and swallowed on failure, same rationale as
-// persistGradingTelemetry above: a row-level detail table must never be able
-// to fail a grade. Upserts on (attempt_id, criterion_key) -- the table's own
-// unique index -- so a re-grade of the same attempt replaces its prior rows
-// instead of violating the constraint.
-async function persistAttemptCriterionResults(
-  service: ReturnType<typeof createServiceClient>,
-  attemptId: string,
-  criteria: OutputCriterion[],
-  evaluatorVersion: string,
-) {
-  if (!Array.isArray(criteria) || criteria.length === 0) return;
-  try {
-    const rows = criteria.map((criterion) => ({
-      attempt_id: attemptId,
-      criterion_key: criterion.criterion_key,
-      status: criterion.status,
-      points_awarded: Math.trunc(Number(criterion.points_awarded || 0)),
-      evidence_quote: criterion.evidence_quote ?? null,
-      decision_explanation: criterion.decision_explanation ?? null,
-      minimum_fix: criterion.minimum_fix ?? null,
-      evaluator_version: evaluatorVersion,
-    }));
-    const { error } = await service.schema("app")
-      .from("attempt_criterion_results")
-      .upsert(rows, { onConflict: "attempt_id,criterion_key" });
-    if (error) {
-      console.warn(
-        "attempt_criterion_results_write_skipped",
-        error.message ?? String(error),
-      );
-    }
-  } catch (error) {
-    console.warn("attempt_criterion_results_write_skipped", error);
-  }
-}
-
-// Wrong-answer MCQ feedback used to be one fixed string on every item:
-// "Select the answer choice that matches the published correct answer." That
-// tells a student nothing they did not already know, and it said it while the
-// item's own authored distractor rationales sat unread two variables away in
-// mcqChoices. On 2026-09-29, 34 of the 63 recorded highest_value_gap rows were
-// that placeholder, spread over 19 items which carry 76 authored rationales
-// between them.
-//
-// Feedback is built from what the item already knows, in three moves:
-//   1. orient  — name the skill the question is FOR (content_item_cells ->
-//                taxonomy_skills.label)
-//   2. point   — the CHOSEN distractor's authored rationale, aimed at the exact
-//                spot the student went wrong
-//   3. redirect— hand back a question, never a correction
-// The "Not quite." opener carries the verdict and deliberately none of the
-// substance. Three moves and no more: the brief is to fix one conceptual error,
-// not to enumerate every fault.
-//
-// The moves degrade independently: an unlabelled item loses move 1 and keeps 2
-// and 3; a distractor with no authored rationale loses move 2.
-//
-// Deliberately absent: the CORRECT choice's rationale. It names the answer, and
-// this item may be served to the same student again. Two further strategies are
-// out of reach here and are NOT silently approximated — naming what the student
-// got right first (a 1-point MCQ has no partial credit to praise), and handing
-// them a similar bite-sized problem immediately (a serving decision, not a
-// feedback string).
-//
-// Pure and exported so the wording is testable without a database.
-
-// Skill labels are lifted verbatim from the CED and written in the register of a
-// curriculum document, not of a student: every one of the 41 labels registered
-// across the labelled subjects is an imperative verb phrase ("Calculate summary
-// statistics, relative positions, predicted responses"). Dropped straight into
-// "This question is testing <label>" the result is ungrammatical, so a
-// verb-initial label is bent into "how to calculate ...".
-//
-// The verb list is an allowlist rather than a "lowercase the first letter" rule
-// because the bend is only valid for a verb. A subject whose grid lands later
-// with a noun-initial label ("Models and representations") simply will not
-// match, and falls back to a colon form that is grammatical for any label
-// shape. That is the failure mode worth having: a new subject reads slightly
-// stiffly instead of emitting broken English.
-const SKILL_VERBS = new Set([
-  "analyze",
-  "apply",
-  "argue",
-  "calculate",
-  "compare",
-  "confirm",
-  "construct",
-  "derive",
-  "describe",
-  "determine",
-  "estimate",
-  "evaluate",
-  "explain",
-  "identify",
-  "interpret",
-  "justify",
-  "model",
-  "perform",
-  "predict",
-  "provide",
-  "represent",
-  "select",
-  "use",
-]);
-
-function asHowTo(label: string): string | null {
-  const trimmed = label.replace(/\.$/, "").trim();
-  const firstWord = trimmed.split(/\s+/)[0] ?? "";
-  // "Calculate/estimate expected counts ..." — the slash form is a single token
-  // whose leading half is the verb.
-  const head = firstWord.split("/")[0].toLowerCase();
-  if (!SKILL_VERBS.has(head)) return null;
-  return trimmed.charAt(0).toLowerCase() + trimmed.slice(1);
-}
-
-// A single template, however well built, is formulaic by the third question:
-// a student working twenty MCQs would read the same three-move skeleton twenty
-// times and stop reading it. So the three ingredients are held constant and the
-// SHAPE rotates — some variants tell and then ask, some open with the pointer,
-// some orient by unit first, in the manner of "This is Unit 2 material. Keeping
-// <skill> in mind, how would you answer it now?".
-//
-// Rotation is by a hash of the item and the chosen key, not by random(): the
-// same student re-reading the same result sees the same words, two different
-// items in one session almost certainly differ, and the output stays
-// reproducible in tests and in support.
-function variantIndex(seed: string, count: number): number {
-  // FNV-1a. Any cheap avalanche would do; what matters is that it is stable
-  // across deploys, which Math.random and Date.now are not.
-  let hash = 0x811c9dc5;
-  for (let index = 0; index < seed.length; index++) {
-    hash ^= seed.charCodeAt(index);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-  return count > 0 ? hash % count : 0;
-}
-
-export function composeMcqFeedback(
-  input: {
-    earned: boolean;
-    rationale?: string | null;
-    skillLabels?: string[];
-    unitNumber?: number | null;
-    variantSeed?: string | null;
-  },
-): { summary: string; actionableFix: string; redirect: string } {
-  const cleanedLabels = (input.skillLabels ?? [])
-    .filter((label): label is string => typeof label === "string")
-    .map((label) => label.replace(/\.$/, "").trim())
-    .filter((label) => label.length > 0);
-
-  const howToLabels = cleanedLabels.map(asHowTo);
-  const skillPhrase = cleanedLabels.length === 0
-    ? null
-    : howToLabels.every((label) => label !== null)
-    ? `how to ${howToLabels.join(", and how to ")}`
-    : null;
-  // Set only when the label could not be bent into the "how to" form; the
-  // sentence is then built with a colon, which accepts any label shape.
-  const skillColonPhrase = skillPhrase === null && cleanedLabels.length > 0
-    ? cleanedLabels.join("; ")
-    : null;
-  const skillTell = skillPhrase
-    ? `This question is testing ${skillPhrase}.`
-    : skillColonPhrase
-    ? `The skill this question is testing: ${skillColonPhrase}.`
-    : "";
-
-  // Authored rationales come in two styles and nothing constrains which:
-  // subject-less fragments ("Reported a standard deviation instead of the
-  // mean") from the bulk-generated Stats items, and whole sentences ("The
-  // magnitude of residuals alone doesn't establish appropriateness; ...") from
-  // the hand-authored ones. Spliced in as a bare sentence the first style reads
-  // clipped, so every variant introduces it after a colon, which is grammatical
-  // for a fragment and a sentence alike. Terminal punctuation is not enforced
-  // either, so do not rely on it.
-  const authored = typeof input.rationale === "string"
-    ? input.rationale.trim()
-    : "";
-  const pointed = authored
-    ? (/[.!?]$/.test(authored) ? authored : `${authored}.`)
-    : "";
-
-  const unitSentence = typeof input.unitNumber === "number" &&
-      Number.isFinite(input.unitNumber)
-    ? `This is Unit ${input.unitNumber} material.`
-    : "";
-
-  // Every variant ends on a question: the student is always left holding
-  // something to do, never a verdict to absorb.
-  const askKeepingInMind = skillPhrase
-    ? `Keeping ${skillPhrase} in mind, how would you answer it now?`
-    : "How would you answer it now?";
-  const askAgainPlain = "How would you answer it now?";
-  const askWorkItThrough = skillPhrase || skillColonPhrase
-    ? "What would you need to work out to answer the question as asked?"
-    : "What is the question actually asking you to find, and how does that differ from what you chose?";
-
-  // Each variant is a list of fragments; empty ones drop out, so a missing
-  // skill, rationale or unit degrades the shape without breaking its grammar.
-  const variants: string[][] = [
-    // tell, then point, then ask
-    ["Not quite.", skillTell, pointer(pointed), askWorkItThrough],
-    // orient by unit, point, then ask in the "keeping X in mind" voice
-    ["Not quite.", unitSentence, pointer(pointed), askKeepingInMind],
-    // lead with the pointer, tell second
-    [
-      "Not quite.",
-      pointed ? `Here is the catch with the one you chose: ${pointed}` : "",
-      skillTell,
-      askWorkItThrough,
-    ],
-    // orient by unit and skill together, then point and ask. The ask is the
-    // plain one: this shape has already named the skill, and repeating it
-    // inside "keeping ... in mind" reads as padding, especially with a label
-    // as long as "calculate summary statistics, relative positions, predicted
-    // responses".
-    ["Not quite.", unitSentence, skillTell, pointer(pointed), askAgainPlain],
-  ];
-
-  const chosen = variants[
-    variantIndex(input.variantSeed ?? "", variants.length)
-  ];
-  const summary = input.earned ? "Correct." : chosen.filter(Boolean).join(" ");
-
-  // The authored rationale is the closest thing the item writers produced to
-  // "what to fix", so it carries the field even though the field is named for a
-  // fix rather than a diagnosis.
-  const actionableFix = authored ||
-    "Identify which quantity the question asks for before choosing.";
-
-  return { summary, actionableFix, redirect: chosen[chosen.length - 1] };
-}
-
-function pointer(pointed: string): string {
-  return pointed ? `Look again at the choice you picked: ${pointed}` : "";
-}
-
-function summarizeSelectedChoice(responseJson: Record<string, unknown>) {
-  const candidates = [
-    responseJson.selected_choice_key,
-    responseJson.selectedChoiceKey,
-    responseJson.choice_key,
-    responseJson.choiceKey,
-    responseJson.selected_choice_id,
-    responseJson.selectedChoiceId,
-    responseJson.answer,
-    responseJson.selected_answer,
-    responseJson.selectedAnswer,
-  ];
-
-  for (const candidate of candidates) {
-    if (typeof candidate === "string" && candidate.length > 0) {
-      return candidate;
-    }
-  }
-
-  return null;
-}
-
-// Sentinel error thrown when a transient failure is worth retrying once.
-// Non-transient errors (4xx other than 429, JSON parse failures, schema
-// violations) are thrown directly and not retried.
-class TransientGraderError extends Error {
-  constructor(message: string, public override readonly cause?: unknown) {
-    super(message);
-    this.name = "TransientGraderError";
-  }
-}
-
-async function attemptOpenAICall(input: {
-  body: Record<string, unknown>;
-  idempotencyKey: string;
-  timeoutMs: number;
-}) {
-  const startedAt = Date.now();
-  let response: Response;
-
-  try {
-    response = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
-        "Content-Type": "application/json",
-        // Send a stable idempotency key so a network-level retry against
-        // the same logical grading request cannot be charged twice.
-        "Idempotency-Key": input.idempotencyKey,
-      },
-      body: JSON.stringify(input.body),
-      // AbortSignal.timeout bounds the entire fetch lifecycle including
-      // connection + read. On timeout, fetch rejects with an AbortError
-      // which we surface as a transient error so it can be retried once.
-      signal: AbortSignal.timeout(input.timeoutMs),
-    });
-  } catch (error) {
-    const elapsedMs = Date.now() - startedAt;
-    if (error instanceof DOMException && error.name === "AbortError") {
-      throw new TransientGraderError(
-        `openai_timeout_after_${elapsedMs}ms`,
-        error,
-      );
-    }
-    // TypeError covers DNS, TLS handshake, connection-reset style failures.
-    if (error instanceof TypeError) {
-      throw new TransientGraderError("openai_network_error", error);
-    }
-    throw error;
-  }
-
-  const elapsedMs = Date.now() - startedAt;
-  const raw = await response.json().catch(() => null);
-
-  if (!response.ok) {
-    const message = raw?.error?.message ?? `openai_http_${response.status}`;
-    // Retry on 408/425/429/5xx. Other 4xx are validation problems where
-    // the same request will keep failing — fail fast and let the caller's
-    // catch produce a safe uncertainty response for the student.
-    if (isTransientHttpStatus(response.status)) {
-      throw new TransientGraderError(
-        `openai_http_${response.status}: ${message}`,
-      );
-    }
-    throw new Error(message);
-  }
-
-  const outputText = extractOutputText(raw ?? {});
-  if (!outputText) {
-    throw new Error("openai_missing_output_text");
-  }
-
-  const parsed = JSON.parse(outputText);
-  return { raw, parsed, elapsedMs };
-}
-
-async function callOpenAIGrader(input: {
-  modelId: string;
-  maxOutputTokens: number;
-  systemPrompt: string;
-  userPrompt: string;
-  userIdHash: string;
-  idempotencyKey: string;
-}) {
-  const body = buildGradingRequestBody({
-    modelId: input.modelId,
-    maxOutputTokens: input.maxOutputTokens,
-    systemPrompt: input.systemPrompt,
-    userPrompt: input.userPrompt,
-    userIdHash: input.userIdHash,
-  });
-
-  // At most one retry on transient failures. The Idempotency-Key header
-  // makes the retry safe against double-billing for requests that reached
-  // the server but failed mid-response.
-  try {
-    return await attemptOpenAICall({
-      body,
-      idempotencyKey: input.idempotencyKey,
-      timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
-    });
-  } catch (error) {
-    if (!(error instanceof TransientGraderError)) {
-      throw error;
-    }
-    // Brief backoff before the single retry. 500ms is small enough that
-    // students do not feel it during a normal grading hop but large enough
-    // to let a transient upstream blip clear.
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    return await attemptOpenAICall({
-      body,
-      idempotencyKey: input.idempotencyKey,
-      timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
-    });
-  }
-}
-
-// Arm A: grade each criterion in its own call, in parallel.
-//
-// Aggregation rules that matter:
-//   - latency is the MAX of the calls, not the sum. They overlap; summing them
-//     would report an item as slower than the student experienced and would
-//     make Arm A look like the thing it replaces.
-//   - tokens and cost are the SUM. The stem and stimulus are re-sent once per
-//     criterion, so input tokens rise ~3.6x (Phase C). Accepted under the
-//     standing Speed > Quality > Cost order, but it is a real increase and the
-//     ledger must show it.
-//   - each call gets its own idempotency key. Reusing the item's key across
-//     the fan-out would let the provider serve one criterion's cached response
-//     for every criterion on the item.
-//   - one criterion failing does not fail the item. Its slot resolves to null,
-//     mergeCriterionResults turns that into unable_to_determine, and the
-//     sanitizer marks the grading uncertain. Under Arm B the same failure lost
-//     every criterion.
-async function callOpenAIGraderPerCriterion(input: {
-  modelId: string;
-  maxOutputTokens: number;
-  systemPrompt: string;
-  criteria: FeedbackCriterionRow[];
-  buildUserPrompt: (criterion: FeedbackCriterionRow) => string;
-  userIdHash: string;
-  idempotencyKey: string;
-}) {
-  const settled = await Promise.all(
-    input.criteria.map(async (criterion) => {
-      const body = buildCriterionRequestBody({
-        modelId: input.modelId,
-        // The item-sized cap is reused deliberately. A single criterion cannot
-        // approach it, so truncation is impossible -- and truncation at a
-        // hand-tuned per-criterion cap is exactly what was misdiagnosed as an
-        // architectural failure in Phase C (ARM_B_ROOT_CAUSE_ANALYSIS.md 1).
-        // A cap costs nothing unless it is hit.
-        maxOutputTokens: input.maxOutputTokens,
-        systemPrompt: input.systemPrompt,
-        userPrompt: input.buildUserPrompt(criterion),
-        userIdHash: input.userIdHash,
-      });
-      const idempotencyKey =
-        `${input.idempotencyKey}:${criterion.criterion_key}`;
-
-      try {
-        return await attemptOpenAICall({
-          body,
-          idempotencyKey,
-          timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
-        });
-      } catch (error) {
-        if (!(error instanceof TransientGraderError)) {
-          return { failed: true as const, error };
-        }
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        try {
-          return await attemptOpenAICall({
-            body,
-            idempotencyKey,
-            timeoutMs: OPENAI_REQUEST_TIMEOUT_MS,
-          });
-        } catch (retryError) {
-          return { failed: true as const, error: retryError };
-        }
-      }
-    }),
-  );
-
-  const parsed: Array<Record<string, unknown> | null> = [];
-  const raws: unknown[] = [];
-  const failures: unknown[] = [];
-  let inputTokens = 0;
-  let outputTokens = 0;
-  // Null until any call reports the field: "the provider said 0 cached"
-  // and "the provider said nothing" must stay distinguishable (extractUsage
-  // convention).
-  let cachedTokens: number | null = null;
-  let maxElapsedMs = 0;
-
-  for (const outcome of settled) {
-    if ("failed" in outcome) {
-      parsed.push(null);
-      failures.push(outcome.error);
-      continue;
-    }
-    parsed.push(
-      outcome.parsed && typeof outcome.parsed === "object"
-        ? outcome.parsed as Record<string, unknown>
-        : null,
-    );
-    raws.push(outcome.raw);
-    const usage = extractUsage(outcome.raw as Record<string, unknown>);
-    inputTokens += usage.inputTokens ?? 0;
-    outputTokens += usage.outputTokens ?? 0;
-    if (usage.cachedTokens !== null) {
-      cachedTokens = (cachedTokens ?? 0) + usage.cachedTokens;
-    }
-    maxElapsedMs = Math.max(maxElapsedMs, outcome.elapsedMs);
-  }
-
-  // Every criterion failing is an item-level failure, not a gradeable result
-  // with N abstentions. Throwing puts it on the same error path Arm B uses.
-  if (failures.length === input.criteria.length && input.criteria.length > 0) {
-    throw failures[0];
-  }
-
-  return {
-    parsed,
-    raws,
-    inputTokens,
-    outputTokens,
-    cachedTokens,
-    elapsedMs: maxElapsedMs,
-  };
-}
 
 async function readBodyAsRecord(req: Request) {
   const body = await readJsonBody(req);
@@ -775,73 +109,6 @@ async function readBodyAsRecord(req: Request) {
     : null;
 }
 
-type Service = ReturnType<typeof createServiceClient>;
-
-const GRADE_STORE_FAILURE = "grade_store_failed";
-const PENDING_GRADE_WRITE = "pending_grade_write_v1";
-// A timeout is containment, never permission to re-run a model call.
-const PROCESSING_RECONCILIATION_MS = Math.max(
-  10 * 60_000,
-  2 * OPENAI_REQUEST_TIMEOUT_MS + 60_000,
-);
-
-async function writeGradeResult(
-  service: Service,
-  requestId: string,
-  requestHash: string,
-  payload: Record<string, unknown>,
-  priorVersion?: string,
-) {
-  try {
-    let query = service.schema("app").from("grading_results").update(payload)
-      .eq("request_id", requestId).eq("request_hash", requestHash);
-    if (priorVersion) {
-      query = query.eq("updated_at", priorVersion)
-        .eq("status", "failed").eq("uncertainty_reason", GRADE_STORE_FAILURE);
-    }
-    return await query.select("*").maybeSingle();
-  } catch {
-    return { data: null, error: { code: "transport_error" } };
-  }
-}
-
-async function checkpointGradeWrite(
-  service: Service,
-  requestId: string,
-  requestHash: string,
-  operation: string,
-  payload: Record<string, unknown>,
-) {
-  try {
-    // Only a still-processing row can become retryable. Never downgrade a grade
-    // whose write committed but whose acknowledgement was lost.
-    const { data, error } = await service.schema("app").from("grading_results")
-      .update({
-        status: "failed",
-        uncertainty_reason: GRADE_STORE_FAILURE,
-        raw_model_response: {
-          kind: PENDING_GRADE_WRITE,
-          request_hash: requestHash,
-          operation,
-          payload,
-        },
-      }).eq("request_id", requestId).eq("request_hash", requestHash)
-      .eq("status", "processing").select("request_id").maybeSingle();
-    if (error) {
-      console.error("evaluate-attempt:grade_checkpoint_failed", {
-        request_id: requestId,
-        code: error.code,
-      });
-    }
-    return !error && !!data;
-  } catch {
-    console.error("evaluate-attempt:grade_checkpoint_failed", {
-      request_id: requestId,
-      code: "transport_error",
-    });
-    return false;
-  }
-}
 export interface EvaluateAttemptDeps {
   service?: Service;
   requireProfile?: typeof requireProfile;
@@ -1061,71 +328,28 @@ async function handleQaNoPersist(
   const idempotencyKey =
     `qa:${contentVersion.id}:${promptVersion}:${answerSha256}`;
   const userIdHash = await sha256Hex(`canonical-qa:${contentVersion.id}`);
-  const systemPrompt = GRADING_ARM === "a"
-    ? buildCriterionSystemPrompt(examPack.exam_name as string)
-    : buildSystemPrompt(examPack.exam_name as string);
+  const gradingArmForRequest = gradingArm();
+  const systemPrompt = buildGraderSystemPrompt(
+    gradingArmForRequest,
+    examPack.exam_name as string,
+  );
 
   try {
-    let finalPayload;
-    let rawGraderResponse: unknown;
-    let inputTokens = 0;
-    let outputTokens = 0;
-    let cachedTokens: number | null = null;
-    let latencyMs = 0;
-
-    if (GRADING_ARM === "a") {
-      const fanOut = await callOpenAIGraderPerCriterion({
-        modelId: OPENAI_MODEL,
-        maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
-        systemPrompt,
-        criteria,
-        buildUserPrompt: (criterion) =>
-          buildCriterionGradingPrompt({ ...promptBase, criterion }),
-        userIdHash,
-        idempotencyKey,
-      });
-      const merged = mergeCriterionResults(fanOut.parsed, criteria);
-      finalPayload = sanitizeModelResult(merged, criteria, {
-        responseText: answerText,
-        responseParts: {},
-      });
-      finalPayload = {
-        ...finalPayload,
-        student_facing_summary: composeStudentFacingSummary(
-          finalPayload.criteria,
-          finalPayload.points_earned,
-          finalPayload.points_available,
-          finalPayload.highest_value_gap?.minimum_fix ?? null,
-        ),
-      };
-      rawGraderResponse = {
-        arm: "a",
-        criterion_responses: fanOut.raws,
-      };
-      inputTokens = fanOut.inputTokens;
-      outputTokens = fanOut.outputTokens;
-      cachedTokens = fanOut.cachedTokens;
-      latencyMs = fanOut.elapsedMs;
-    } else {
-      const modelResponse = await callOpenAIGrader({
-        modelId: OPENAI_MODEL,
-        maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
-        systemPrompt,
-        userPrompt: buildGradingPrompt(promptBase),
-        userIdHash,
-        idempotencyKey,
-      });
-      finalPayload = sanitizeModelResult(modelResponse.parsed, criteria, {
-        responseText: answerText,
-        responseParts: {},
-      });
-      rawGraderResponse = modelResponse.raw;
-      const usage = extractUsage(modelResponse.raw as Record<string, unknown>);
-      inputTokens = usage.inputTokens ?? 0;
-      outputTokens = usage.outputTokens ?? 0;
-      cachedTokens = usage.cachedTokens;
-      latencyMs = modelResponse.elapsedMs;
-    }
+    const graded = await runModelGrading({
+      arm: gradingArmForRequest,
+      modelId: OPENAI_MODEL,
+      systemPrompt,
+      promptBase,
+      sanitizeContext: { responseText: answerText, responseParts: {} },
+      userIdHash,
+      idempotencyKey,
+    });
+    const finalPayload = graded.finalPayload;
+    const rawGraderResponse = graded.response.raw;
+    const inputTokens = graded.inputTokens ?? 0;
+    const outputTokens = graded.outputTokens ?? 0;
+    const cachedTokens = graded.cachedTokens;
+    const latencyMs = graded.response.elapsedMs;
 
     const possibleByKey = new Map(
       criteria.map((criterion) => [
@@ -1157,7 +381,7 @@ async function handleQaNoPersist(
         execution_id: Deno.env.get("SB_EXECUTION_ID") ?? null,
         model_id: OPENAI_MODEL,
         prompt_version: promptVersion,
-        grading_arm: GRADING_ARM,
+        grading_arm: gradingArmForRequest,
         latency_ms: latencyMs,
         input_tokens: inputTokens,
         output_tokens: outputTokens,
@@ -1210,78 +434,20 @@ export async function handleEvaluateAttempt(
     return await handleQaNoPersist(req, body, deps);
   }
 
-  const operation = asString(getBodyField(body, "operation"));
-  if (!operation || !allowedOperations.has(operation as AllowedOperation)) {
-    return respond({ error: "invalid_operation" }, { status: 400 });
-  }
-
-  const idempotencyKey = asString(
-    getBodyField(
-      body,
-      "idempotency_key",
-      "idempotencyKey",
-      "request_id",
-      "requestId",
-    ),
-  );
-  const attemptId = asUuid(getBodyField(body, "attempt_id", "attemptId"));
-  const responseVersionId = asUuid(
-    getBodyField(body, "response_version_id", "responseVersionId"),
-  );
-  const artifactVersionId = asUuid(
-    getBodyField(body, "artifact_version_id", "artifactVersionId"),
-  );
-  const requestedContentItemVersionId = asUuid(
-    getBodyField(body, "content_item_version_id", "contentItemVersionId"),
-  );
-  const requestedRubricVersionId = asUuid(
-    getBodyField(body, "rubric_version_id", "rubricVersionId"),
-  );
-  // Prompt rollout is server-controlled. The version comes from
-  // EVALUATE_ATTEMPT_PROMPT_VERSION only — any prompt_version supplied in
-  // the request body is ignored. This closes the loophole where a client
-  // could otherwise select any published prompt row at request time and
-  // bypass the env-controlled rollout gate documented in
-  // 202606210005_seed_initial_prompt_versions.sql.
-  const promptVersion = EVALUATE_ATTEMPT_PROMPT_VERSION;
-  const assistanceCondition = asString(
-    getBodyField(body, "assistance_condition", "assistanceCondition"),
-  ) ?? "independent";
-  // Per-request opt-in for the exemplar-grading pilot
-  // (docs/research/exemplar_grading_pilot_2026_08/). Deliberately per-request,
-  // not env-based like GRADING_ARM: the pilot's capture script needs to flip
-  // between "off" and "with_exemplar" call-to-call without a redeploy.
-  // Defaults to "off" and any unrecognized value collapses to "off", so
-  // existing callers (which never send this field) are byte-for-byte
-  // unaffected. Exemplar payloads are supplied directly by the pilot's
-  // capture script (sourced from that pilot's own materialized fixtures, not
-  // a DB fetch here) to avoid adding a DB round-trip to a latency-sensitive
-  // grading path for what is currently pilot-only usage.
-  const exemplarModeRaw = asString(
-    getBodyField(body, "exemplar_mode", "exemplarMode"),
-  );
-  const exemplarMode = exemplarModeRaw === "with_exemplar"
-    ? "with_exemplar"
-    : "off";
-  const requestExemplars = exemplarMode === "with_exemplar"
-    ? (Array.isArray(getBodyField(body, "exemplars"))
-      ? getBodyField(body, "exemplars") as GradingExemplar[]
-      : undefined)
-    : undefined;
-
-  if (!idempotencyKey || !attemptId || !responseVersionId) {
-    return respond(
-      {
-        error: "missing_required_fields",
-        required: [
-          "idempotency_key",
-          "attempt_id",
-          "response_version_id",
-        ],
-      },
-      { status: 400 },
-    );
-  }
+  const parsed = parseEvaluateRequest(body, respond);
+  if (parsed instanceof Response) return parsed;
+  const {
+    operation,
+    idempotencyKey,
+    attemptId,
+    responseVersionId,
+    artifactVersionId,
+    requestedContentItemVersionId,
+    requestedRubricVersionId,
+    promptVersion,
+    assistanceCondition,
+    requestExemplars,
+  } = parsed;
 
   // Passive stage timings (replan 2.2): wall-clock per stage, written
   // best-effort at the end. Attacks the measured ~691 ms p50 non-model
@@ -1302,157 +468,28 @@ export async function handleEvaluateAttempt(
 
   const service = deps.service ?? createServiceClient();
 
-  // Enforce prompt governance: the supplied promptVersion must correspond
-  // to a published row in app.prompt_versions for this operation. Without
-  // this check, a client could pass any free-text string and have it
-  // written verbatim into grading_results.prompt_version, breaking the
-  // audit trail and bypassing the prompt-rollout gate the table was
-  // created to enforce.
-  const { data: promptVersionRow, error: promptVersionLookupError } =
-    await service.schema("app")
-      .from("prompt_versions")
-      .select("id, status")
-      .eq("operation", operation)
-      .eq("version", promptVersion)
-      .maybeSingle();
-
-  if (promptVersionLookupError) {
-    return respond(
-      { error: "prompt_version_lookup_failed" },
-      { status: 500 },
-    );
-  }
-
-  if (!promptVersionRow || promptVersionRow.status !== "published") {
-    return respond(
-      { error: "invalid_prompt_version" },
-      { status: 400 },
-    );
-  }
-
-  const [
-    { data: attempt, error: attemptError },
-    { data: responseVersion, error: responseError },
-  ] = await Promise.all([
-    service.schema("app")
-      .from("attempts")
-      .select(
-        "id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, artifact_version_id, attempt_mode, status, assistance_state, pre_submit_hint_count, started_at, submitted_at, graded_at, score_points, score_possible",
-      )
-      .eq("id", attemptId)
-      .maybeSingle(),
-    service.schema("app")
-      .from("response_versions")
-      .select(
-        "id, attempt_id, parent_response_version_id, response_text, response_parts, version_number, is_submitted, created_at",
-      )
-      .eq("id", responseVersionId)
-      .maybeSingle(),
-  ]);
-
-  if (attemptError || responseError || !attempt || !responseVersion) {
-    return respond({ error: "not_found" }, { status: 404 });
-  }
-
-  if (attempt.user_id !== user.id && profile.role !== "admin") {
-    return respond({ error: "forbidden" }, { status: 403 });
-  }
-
-  if (responseVersion.attempt_id !== attempt.id) {
-    return respond({ error: "response_attempt_mismatch" }, { status: 409 });
-  }
-
-  if (!responseVersion.is_submitted) {
-    return respond({ error: "response_not_submitted" }, { status: 409 });
-  }
-
-  // DECISION-0080 / STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md Phase 1
-  // item 1: attempts.assistance_state was entirely client-supplied until now.
-  // Derive the server-truth value once here and use it everywhere below
-  // instead of the raw attempt.assistance_state column.
-  const derivedAssistanceState = deriveAssistanceState(
-    attempt.assistance_state as string | null,
-    attempt.pre_submit_hint_count as number | null,
-  );
-
-  const effectiveContentItemVersionId = requestedContentItemVersionId ??
-    attempt.content_item_version_id as string;
-  const effectiveRubricVersionId = requestedRubricVersionId ??
-    effectiveContentItemVersionId;
-
-  if (!effectiveContentItemVersionId || !effectiveRubricVersionId) {
-    return respond({ error: "missing_content_version" }, { status: 409 });
-  }
-
-  // Open Hand discloses the full key and permanently makes that ITEM
-  // non-scorable for that student. Fail before loading content or any
-  // answer-bearing tables; service_role is the only direct reader of the
-  // private exclusion table.
-  //
-  // Keyed on content_item_id, not content_item_version_id (DECISION-0086):
-  // republishing an item mints a new version id, so a version-keyed check would
-  // silently restore scorability for a student who has already read the key. The
-  // version the attempt carries is client-supplied, so it is resolved to its item
-  // here rather than trusted as a stable identity.
-  // Resolve the version to its item first. This reads one non-answer-bearing
-  // column and touches no key, rubric, or criterion data.
-  const { data: versionItem, error: versionItemError } = await service
-    .schema("app")
-    .from("content_item_versions")
-    .select("content_item_id")
-    .eq("id", effectiveContentItemVersionId)
-    .maybeSingle();
-
-  if (versionItemError || !versionItem?.content_item_id) {
-    return respond({ error: "open_hand_eligibility_check_failed" }, {
-      status: 500,
-    });
-  }
-
-  const { data: openHandExclusion, error: openHandExclusionError } =
-    await service.schema("app")
-      .from("open_hand_scoring_exclusions")
-      .select("content_item_id")
-      .eq("user_id", attempt.user_id)
-      .eq("content_item_id", versionItem.content_item_id)
-      // TASK-0051 QA F2: the key is (user_id, content_item_version_id), so a
-      // student who viewed two versions of one item has two rows here.
-      // .maybeSingle() errors on that; any row at all means "excluded".
-      .limit(1);
-
-  if (openHandExclusionError) {
-    return respond({ error: "open_hand_eligibility_check_failed" }, {
-      status: 500,
-    });
-  }
-
-  if (openHandExclusion && openHandExclusion.length > 0) {
-    return respond({ error: "open_hand_item_not_scorable" }, { status: 409 });
-  }
-
-  const { data: contentVersion, error: contentError } = await service
-    .schema("app")
-    .from("content_item_versions")
-    .select(
-      "id, content_item_id, version_num, stem, stimulus, prompt_json, rubric_type, evaluator_strategy, explanation, help_text, content_hash, status, approved_at, approved_by, published_at",
-    )
-    .eq("id", effectiveContentItemVersionId)
-    .maybeSingle();
-
-  if (contentError || !contentVersion) {
-    return respond({ error: "not_found" }, { status: 404 });
-  }
-
-  if (
-    requestedContentItemVersionId &&
-    attempt.content_item_version_id !== contentVersion.id
-  ) {
-    return respond({ error: "content_version_mismatch" }, { status: 409 });
-  }
-
-  if (artifactVersionId && attempt.artifact_version_id !== artifactVersionId) {
-    return respond({ error: "artifact_version_mismatch" }, { status: 409 });
-  }
+  const attemptContext = await loadAttemptContext({
+    service,
+    respond,
+    user,
+    profile,
+    operation,
+    promptVersion,
+    attemptId,
+    responseVersionId,
+    artifactVersionId,
+    requestedContentItemVersionId,
+    requestedRubricVersionId,
+  });
+  if (attemptContext instanceof Response) return attemptContext;
+  const {
+    attempt,
+    responseVersion,
+    derivedAssistanceState,
+    effectiveContentItemVersionId,
+    effectiveRubricVersionId,
+    contentVersion,
+  } = attemptContext;
 
   const requestHashPayload = {
     operation,
@@ -1468,130 +505,15 @@ export async function handleEvaluateAttempt(
   const requestHash = await sha256Hex(JSON.stringify(requestHashPayload));
 
   // Replays may recover a private pending write, but NEVER call the grader.
-  const respondFromStoredResult = async (
-    row: Record<string, unknown>,
-    recover = true,
-  ): Promise<Response> => {
-    if (row.request_hash !== requestHash) {
-      return respond({ error: "idempotency_conflict" }, { status: 409 });
-    }
-    if (
-      row.status === "failed" && row.uncertainty_reason === GRADE_STORE_FAILURE
-    ) {
-      if (!recover) {
-        return respond({ error: "grade_store_retry_conflict", retryable: true }, {
-          status: 409,
-        });
-      }
-      const checkpoint = asRecord(row.raw_model_response);
-      const payload = asRecord(checkpoint.payload);
-      const forbidden = [
-        "id",
-        "request_id",
-        "request_hash",
-        "attempt_id",
-        "response_version_id",
-        "operation",
-        "created_at",
-        "updated_at",
-      ];
-      if (
-        checkpoint.kind !== PENDING_GRADE_WRITE ||
-        checkpoint.request_hash !== requestHash ||
-        checkpoint.operation !== operation ||
-        !["graded", "uncertain"].includes(String(payload.status)) ||
-        forbidden.some((key) => Object.hasOwn(payload, key)) ||
-        typeof row.updated_at !== "string" ||
-        !Number.isFinite(Date.parse(row.updated_at))
-      ) {
-        return respond({
-          error: "grading_reconciliation_required",
-          reconciliation_required: true,
-        }, { status: 503 });
-      }
-      // The version fence admits one writer; losers read its committed result.
-      const { data: recovered, error } = await writeGradeResult(
-        service,
-        idempotencyKey,
-        requestHash,
-        payload,
-        row.updated_at,
-      );
-      if (error) {
-        console.error("evaluate-attempt:grade_store_retry_failed", {
-          request_id: idempotencyKey,
-          code: error.code,
-        });
-        return respond({ error: GRADE_STORE_FAILURE, retryable: true }, {
-          status: 500,
-        });
-      }
-      if (recovered) return await respondFromStoredResult(recovered, false);
-      const { data: latest, error: readError } = await service.schema("app").from(
-        "grading_results",
-      )
-        .select("*").eq("request_id", idempotencyKey).maybeSingle();
-      if (readError || !latest) {
-        return respond({
-          error: "grading_reconciliation_required",
-          reconciliation_required: true,
-        }, { status: 503 });
-      }
-      return await respondFromStoredResult(latest, false);
-    }
-    if (row.status === "processing") {
-      const updatedAt = Date.parse(
-        String(row.updated_at ?? row.created_at ?? ""),
-      );
-      if (
-        !Number.isFinite(updatedAt) ||
-        Date.now() - updatedAt >= PROCESSING_RECONCILIATION_MS
-      ) {
-        return respond({
-          error: "grading_reconciliation_required",
-          reconciliation_required: true,
-        }, { status: 503 });
-      }
-    }
-    // A grade recovered after a failed store must also reach the attempt truth
-    // row used by progress. Retrying this projection never re-runs grading and
-    // cannot overwrite an attempt another request has already finalized.
-    if (["graded", "uncertain"].includes(String(row.status)) && attempt.status === "submitted") {
-      try {
-        const { data: updated, error } = await service.schema("app").from("attempts")
-          .update({
-            status: row.status,
-            graded_at: row.updated_at ?? new Date().toISOString(),
-            score_points: row.points_earned,
-            score_possible: row.points_available,
-            confidence_level: row.confidence,
-            result_state: row.status,
-            result_summary: row.feedback_preview,
-            assistance_state: derivedAssistanceState,
-          }).eq("id", attempt.id).eq("status", "submitted").select("id").maybeSingle();
-        if (error) throw error;
-        if (!updated) {
-          const { data: latestAttempt, error: readError } = await service.schema("app").from("attempts")
-            .select("status").eq("id", attempt.id).maybeSingle();
-          if (readError || !["graded", "uncertain"].includes(String(latestAttempt?.status))) {
-            throw readError ?? { code: "attempt_not_finalized" };
-          }
-        }
-      } catch (error) {
-        console.error("attempts_grading_truth_recovery_failed", {
-          attempt_id: attempt.id,
-          code: typeof error === "object" && error !== null && "code" in error ? error.code : "transport_error",
-        });
-        return respond({ error: "attempt_grade_store_failed", retryable: true }, { status: 503 });
-      }
-    }
-    return respond({
-      status: row.status,
-      function: "evaluate-attempt",
-      operation,
-      result: sanitizeGradingResultForClient(row),
-    }, { status: row.status === "processing" ? 202 : 200 });
-  };
+  const respondFromStoredResult = createStoredResultResponder({
+    service,
+    respond,
+    requestHash,
+    operation,
+    idempotencyKey,
+    attempt,
+    derivedAssistanceState,
+  });
   const { data: existingResult, error: existingReadError } = await service.schema(
     "app",
   )
@@ -1601,102 +523,23 @@ export async function handleEvaluateAttempt(
     return respond({ error: "grading_result_read_failed" }, { status: 503 });
   }
   if (existingResult) return await respondFromStoredResult(existingResult);
-  const [
-    { data: contentItem },
-    { data: examPackVersion },
-    { data: criteriaRows, error: criteriaError },
-    { data: mcqChoices },
-  ] = await Promise.all([
-    service.schema("app")
-      .from("content_items")
-      .select("id, exam_pack_version_id, content_key, item_type, title, status, response_policy")
-      .eq("id", contentVersion.content_item_id)
-      .maybeSingle(),
-    service.schema("app")
-      .from("exam_pack_versions")
-      .select("id, exam_pack_id, school_year, official_exam_date, status")
-      .eq("id", attempt.exam_pack_version_id)
-      .maybeSingle(),
-    service.schema("app")
-      .from("frq_criteria")
-      .select(
-        "criterion_key, learner_facing_text, points_possible, evidence_requirements, minimum_fix, accepted_variants",
-      )
-      .eq("content_item_version_id", contentVersion.id)
-      .order("criterion_key", { ascending: true }),
-    service.schema("app")
-      .from("mcq_choices")
-      .select("choice_key, choice_text, is_correct, rationale")
-      .eq("content_item_version_id", contentVersion.id)
-      .order("choice_key", { ascending: true }),
-  ]);
-
-  if (!contentItem || !examPackVersion) {
-    return respond({ error: "content_not_found" }, { status: 404 });
-  }
-
-  // re-QA finding 4: a frq_criteria READ ERROR must not masquerade as "no
-  // criteria" (empty rows). An empty result is legitimate (MCQ / generated
-  // data_driven items carry no frq_criteria); a genuine error would silently
-  // flatten point weights and bypass the data_driven uncovered-criteria hold, so
-  // fail loudly instead of grading against a fabricated empty rubric.
-  if (criteriaError) {
-    return respond({ error: "criteria_read_failed" }, { status: 500 });
-  }
-
-  if (
-    contentItem.status !== "published" ||
-    contentVersion.status !== "published" ||
-    examPackVersion.status !== "published"
-  ) {
-    return respond({ error: "content_not_published" }, { status: 409 });
-  }
-
-  // TASK-0069 (QA P2-a): a photo_required item is scored by a human reviewer
-  // (DECISION-0059); automated grading would move it out of the manual queue.
-  if ((contentItem as { response_policy?: string | null }).response_policy === "photo_required") {
-    return respond({ error: "human_review_required" }, { status: 409 });
-  }
-
-  // Product access is authoritative on the server. Paid/beta users pass
-  // through; free-score-check users can reserve exactly one initial grade and
-  // one repair grade, idempotently by request ID. Admin calls are operational
-  // and intentionally bypass learner entitlements.
-  if (GRADING_ENTITLEMENTS_ENABLED && profile.role !== "admin") {
-    const { error: accessError } = await service.schema("app").rpc(
-      "authorize_grading_access",
-      {
-        p_user_id: user.id,
-        p_attempt_id: attempt.id,
-        p_operation: operation,
-        p_request_id: idempotencyKey,
-      },
-    );
-
-    if (accessError) {
-      const accessCode = accessError.message.match(
-        /grading_access:([a-z_]+)/,
-      )?.[1] ?? "entitlement_required";
-      const status = accessCode === "attempt_not_found" ? 404 : 403;
-      return respond({ error: accessCode }, { status });
-    }
-  }
-
-  // Subject-driven grading: examName comes from the exam pack the question
-  // actually belongs to, not a literal. This is what makes grading prompts
-  // work for any subject without a code change per subject (TASK-0013
-  // Phase 1) — fails loudly rather than silently falling back to Biology if
-  // the exam pack row is somehow missing.
-  const { data: examPack, error: examPackError } = await service
-    .schema("app")
-    .from("exam_packs")
-    .select("id, exam_code, exam_name, subject_id")
-    .eq("id", examPackVersion.exam_pack_id)
-    .maybeSingle();
-
-  if (examPackError || !examPack) {
-    return respond({ error: "exam_pack_not_found" }, { status: 404 });
-  }
+  const itemContext = await loadItemContext({
+    service,
+    respond,
+    user,
+    profile,
+    operation,
+    idempotencyKey,
+    attempt,
+    contentVersion,
+  });
+  if (itemContext instanceof Response) return itemContext;
+  const {
+    contentItem,
+    criteriaRows,
+    mcqChoices,
+    examPack,
+  } = itemContext;
   stageTimer.mark("db");
 
   const responseParts = parseJsonSafe(
@@ -1915,80 +758,11 @@ export async function handleEvaluateAttempt(
       ) ?? null
       : null;
 
-    let skillLabels: string[] = [];
-    let unitNumber: number | null = null;
-    if (!earned) {
-      const { data: cellRows, error: cellError } = await service.schema("app")
-        .from("content_item_cells")
-        .select("skill_code, topic_code, taxonomy_source_version")
-        .eq("content_item_version_id", contentVersion.id);
-      if (!cellError && Array.isArray(cellRows) && cellRows.length > 0) {
-        // An item is tagged against exactly one taxonomy version in practice;
-        // pin to the first and ignore any stragglers rather than mixing labels
-        // from two CED editions into one sentence.
-        const taxonomyVersion = cellRows[0].taxonomy_source_version;
-        // skill_code is NULLABLE in Production, despite the original DDL
-        // declaring it NOT NULL. Most tagged items are topic-only: of the 783
-        // published MCQs, 406 carry a topic and only 304 (all Statistics)
-        // carry a skill. Passing a null through to .in() would query for a
-        // skill code of "null", so drop them here and let the skill sentence
-        // be absent rather than wrong.
-        const codes = [
-          ...new Set(
-            cellRows
-              .filter((row) => row.taxonomy_source_version === taxonomyVersion)
-              .map((row) => row.skill_code)
-              .filter((code): code is string =>
-                typeof code === "string" && code.length > 0
-              ),
-          ),
-        ];
-        const { data: skillRows, error: skillError } = codes.length === 0
-          ? { data: [], error: null }
-          : await service
-            .schema("app")
-            .from("taxonomy_skills")
-            .select("skill_code, label")
-            .eq("taxonomy_source_version", taxonomyVersion)
-            .in("skill_code", codes);
-        if (!skillError && Array.isArray(skillRows)) {
-          skillLabels = codes
-            .map((code) =>
-              skillRows.find((row) => row.skill_code === code)?.label ?? null
-            )
-            .filter((label): label is string => typeof label === "string");
-        }
-
-        // The unit is an orienting cue ("This is Unit 2 material"), so it is
-        // only worth stating when the item sits in ONE unit. A cross-unit item
-        // has no single answer here and simply drops the cue rather than
-        // picking a unit arbitrarily. As with the skill lookup, an error is
-        // treated as "unknown" and never fails the grade.
-        const topicCodes = [
-          ...new Set(
-            cellRows
-              .filter((row) => row.taxonomy_source_version === taxonomyVersion)
-              .map((row) => row.topic_code),
-          ),
-        ];
-        const { data: topicRows, error: topicError } = await service
-          .schema("app")
-          .from("taxonomy_topics")
-          .select("unit_number")
-          .eq("taxonomy_source_version", taxonomyVersion)
-          .in("topic_code", topicCodes);
-        if (!topicError && Array.isArray(topicRows) && topicRows.length > 0) {
-          const units = [
-            ...new Set(
-              topicRows
-                .map((row) => row.unit_number)
-                .filter((unit): unit is number => typeof unit === "number"),
-            ),
-          ];
-          if (units.length === 1) unitNumber = units[0];
-        }
-      }
-    }
+    const { skillLabels, unitNumber } = await loadMcqFeedbackContext({
+      service,
+      contentVersion,
+      earned,
+    });
 
     const { summary, actionableFix, redirect } = composeMcqFeedback({
       earned: earned === 1,
@@ -2188,308 +962,34 @@ export async function handleEvaluateAttempt(
   // is attributed to the verifier that actually produced it (Fable QA #4).
   let deterministicVerifierVersion = MATH_VERIFIER_VERSION;
 
+  // Deterministic and held routes never call the model: no tokens, no cost.
+  const routeContext = {
+    contentItem,
+    contentVersion,
+    responseText,
+    responseParts,
+    promptBase,
+    routing,
+    statisticsCheck,
+    defaultPointsAvailable,
+    verificationProfile,
+    verificationProfileSummary,
+  };
   if (routing.target === "symbolic_ecf") {
-    const statisticsItem = findStatisticsItem(
-      contentItem.content_key as string | null,
-    );
-    const typedFormulaAmbiguity = detectAmbiguousTypedFormulaText(responseText);
-    const ecfQuestion = coerceEcfQuestion(
-      statisticsItem,
-      responseParts,
-    );
-    const ecfResult = ecfQuestion ? buildEcfResult(ecfQuestion) : null;
-    const ecfCriteria = ecfResult?.parts.map((part) => ({
-      criterion_key: part.part,
-      learner_facing_text: statisticsItem?.ecf_parts.find((item) =>
-        item.id === part.part
-      )?.note ??
-        `ECF part ${part.part}`,
-      points_possible: statisticsItem?.ecf_parts.find((item) =>
-        item.id === part.part
-      )?.points ??
-        part.points_possible,
-      evidence_requirements: null,
-      minimum_fix: statisticsItem?.ecf_parts.find((item) =>
-        item.id === part.part
-      )?.note ??
-        "Show the formula and substitutions for this step.",
-      accepted_variants: [],
-    })) ?? promptBase.criteria;
-    const ecfHighestGap = ecfResult?.parts.find((part) =>
-      part.verdict !== "CORRECT"
-    ) ?? null;
-    const ecfSummary = ecfResult
-      ? ecfResult.parts.map((part) =>
-        `${part.part}: ${part.verdict} (${part.points_awarded}/${part.points_possible})`
-      ).join("; ")
-      : "The symbolic verifier could not reconstruct a structured ECF payload from the submitted response.";
-    const resolvedActionHint = typedFormulaAmbiguity.ambiguous
-      ? "show_scaffold"
-      : ecfResult?.parts.some((part) =>
-          part.verdict === "NAKED_ANSWER" ||
-          part.verdict === "CONCEPTUAL_COLLAPSE"
-        )
-      ? "show_scaffold"
-      : "review_context";
-    const resolvedRepairHint = typedFormulaAmbiguity.repair_hint ??
-      ecfHighestGap?.feedback ??
-      null;
-    const deterministicCheck = ecfResult
-      ? {
-        status: ecfResult.parts.every((part) => part.verdict === "CORRECT")
-          ? "pass"
-          : "flag",
-        version: MATH_VERIFIER_VERSION,
-        content_key: contentItem.content_key,
-        result: ecfResult,
-        reason: ecfSummary,
-      }
-      : statisticsCheck;
-    const shadowSummary = statisticsItem
-      ? `${statisticsItem.content_key} symbolic/ECF grading is saved for follow-up. ${ecfSummary}`
-      : "This response is saved and routed for reviewer follow-up.";
-    const shadowReason = [
-      routing.reason,
-      statisticsItem
-        ? `Symbolic formula and ECF boundary executed for ${statisticsItem.content_key}.`
-        : "No symbolic verification profile was available for this item, so the response is routed for follow-up.",
-      typedFormulaAmbiguity.ambiguous ? typedFormulaAmbiguity.reason : null,
-    ].filter(Boolean).join(" ");
-
-    shadowResult = {
-      engine: "symbolic_ecf",
-      verifier_version: MATH_VERIFIER_VERSION,
-      content_key: contentItem.content_key,
-      ambiguous_notation: typedFormulaAmbiguity.ambiguous
-        ? { reason: typedFormulaAmbiguity.reason }
-        : null,
-      ecf_result: ecfResult,
-    };
-
-    finalPayload = buildShadowReviewPayload({
-      criteria: ecfCriteria,
-      pointsAvailable: ecfResult?.possible ?? defaultPointsAvailable,
-      reason: shadowReason,
-      actionHint: resolvedActionHint,
-      repairHint: resolveFormulaRepairHint(
-        resolvedRepairHint ?? statisticsCheck?.repair_hint,
-        ecfHighestGap
-          ? {
-            minimum_fix: statisticsItem?.ecf_parts.find((item) =>
-              item.id === ecfHighestGap.part
-            )
-              ?.note ?? "Show the missing work.",
-            repair_prompt: statisticsItem?.ecf_parts.find((item) =>
-              item.id === ecfHighestGap.part
-            )
-              ?.note ?? "Show the missing work.",
-          }
-          : null,
-      ),
-      deterministicCheck,
-      summary: `${shadowSummary}${
-        typedFormulaAmbiguity.ambiguous
-          ? ` ${typedFormulaAmbiguity.reason}`
-          : ""
-      }`,
-      verificationProfileSummary,
-    });
-    finalStatus = "uncertain";
+    ({ finalPayload, finalStatus, shadowResult } = gradeSymbolicEcf(routeContext));
     modelResponse = null;
     inputTokens = 0;
     outputTokens = 0;
     actualCost = 0;
   } else if (routing.target === "data_driven") {
-    // Course Mode F4 LIVE grading (2026-08-23). Grade the response against the
-    // item's PERSISTED content_item_checks with the generic deterministic
-    // verifier (_shared/deterministic-verifier.ts) -- no per-content_key code
-    // (CM-FACT-20). Determinism (INV-4). An ABSTAIN (no parseable number, an
-    // unhandled check kind, or no checks at all) still HOLDS for shadow review
-    // rather than guessing (INV-3), preserving the pre-wiring safe posture for
-    // exactly the content class those invariants protect.
-    const { data: checkRows, error: checkErr } = await service.schema("app")
-      .from("content_item_checks")
-      .select("criterion_key, checks")
-      .eq("content_item_version_id", contentVersion.id)
-      .order("criterion_key", { ascending: true });
-    // A read error must NOT masquerade as "no checks" (which would silently
-    // convert a gradeable submission into a shadow hold). Log it (Fable QA #14);
-    // it still routes to the abstain hold below, which is the safe outcome.
-    if (checkErr) {
-      console.error("data_driven_checks_read_failed", {
-        content_item_version_id: contentVersion.id,
-        error: checkErr.message,
-      });
-    }
-
-    const checkList = Array.isArray(checkRows) ? checkRows : [];
-    const checkKeys = new Set(
-      checkList.map((row) => row.criterion_key as string),
-    );
-    const sourceByKey = new Map(
-      promptBase.criteria.map((
-        criterion,
-      ) => [criterion.criterion_key, criterion]),
-    );
-    // F5: a criterion declared in frq_criteria but with NO persisted check would
-    // otherwise vanish from grading (graded on a shrunken denominator = over-grade).
-    // Hold the whole item for review instead.
-    const uncoveredCriteria = promptBase.criteria.filter(
-      (criterion) => !checkKeys.has(criterion.criterion_key),
-    );
-    // Generated items may carry no frq_criteria rows (the loader persists checks
-    // + cells, not frq_criteria) -- derive the graded criteria from the check
-    // rows themselves, defaulting a missing source to a 1-point criterion.
-    const gradeCriteria: FeedbackCriterionRow[] = checkList.map((row) =>
-      sourceByKey.get(row.criterion_key as string) ?? {
-        criterion_key: row.criterion_key as string,
-        learner_facing_text: row.criterion_key as string,
-        points_possible: 1,
-        evidence_requirements: null,
-        minimum_fix: "Recompute the value and enter the correct result.",
-        accepted_variants: [],
-      }
-    );
-    const criterionResults = checkList.map((row) => ({
-      criterion_key: row.criterion_key as string,
-      result: gradeAgainstChecks(
-        Array.isArray(row.checks) ? row.checks : [],
-        responseText ?? "",
-      ),
-    }));
-    // Full audit record -> grading_results.shadow_result (server-side only, F4).
-    const deterministicCheck = {
-      engine: "data_driven_deterministic",
-      version: DATA_DRIVEN_VERIFIER_VERSION,
-      content_item_version_id: contentVersion.id,
-      uncovered_criteria: uncoveredCriteria.map((c) => c.criterion_key),
-      results: criterionResults.map((entry) => ({
-        criterion_key: entry.criterion_key,
-        status: entry.result.status,
-        verdicts: entry.result.verdicts,
-      })),
-    };
-    // Student-facing REDACTION (F10): the verdict `reason` strings embed the
-    // expected value/tolerance (e.g. "0.5 is not within +/-0.01 of 0.62"), which
-    // would leak the answer key through uncertainty_reason / the client payload.
-    // Everything reaching the student carries statuses only; the full verdicts
-    // stay in shadow_result above.
-    // NOTE (re-QA finding 7): this redacted check flows into the finalPayload
-    // builders (uncertainty_reason on the hold path; the graded payload's
-    // deterministic_check field). The top-level response's `deterministic_check`
-    // stays the content-key-specific `statisticsCheck` (null here) — the client
-    // reads the per-criterion outcomes from `criterion_results`, which carries
-    // them for this route. Intentional: statuses reach the student, values don't.
-    const redactedCheck = {
-      engine: "data_driven_deterministic",
-      version: DATA_DRIVEN_VERIFIER_VERSION,
-      results: criterionResults.map((entry) => ({
-        criterion_key: entry.criterion_key,
-        status: entry.result.status,
-      })),
-    };
-    shadowResult = deterministicCheck;
-    deterministicVerifierVersion = DATA_DRIVEN_VERIFIER_VERSION;
-    // Any abstain, an uncovered criterion, or nothing to grade -> hold; never let
-    // it fall through to the LLM grader, and never award/deny credit off an
-    // unparseable response or a partially-checked item.
-    const anyAbstain = criterionResults.length === 0 ||
-      uncoveredCriteria.length > 0 ||
-      criterionResults.some((entry) => entry.result.status === "abstain");
-
-    if (anyAbstain) {
-      finalPayload = buildShadowReviewPayload({
-        criteria: promptBase.criteria,
-        pointsAvailable: defaultPointsAvailable,
-        reason:
-          `${routing.reason} The data-driven verifier abstained (no single parseable number in the response, an unhandled check kind, no persisted checks, or a criterion with no check), so the item is held for shadow review instead of guessing.`,
-        actionHint: null,
-        repairHint: null,
-        deterministicCheck: redactedCheck,
-        summary:
-          "Your answer is saved. This item needs a reviewer before it can be scored automatically.",
-        verificationProfileSummary,
-      });
-      finalStatus = "uncertain";
-    } else {
-      const verdictByKey = new Map<string, "pass" | "fail">(
-        criterionResults.map((entry) => [
-          entry.criterion_key,
-          entry.result.status === "correct" ? "pass" : "fail",
-        ]),
-      );
-      const allCorrect = criterionResults.every(
-        (entry) => entry.result.status === "correct",
-      );
-      finalPayload = buildDeterministicGradedPayload({
-        criteria: gradeCriteria,
-        verdictByKey,
-        summary: allCorrect
-          ? "Correct."
-          : "Not quite. Recompute the value and check it against the expected answer.",
-        deterministicCheck: redactedCheck,
-      });
-      finalStatus = "graded";
-    }
+    ({ finalPayload, finalStatus, shadowResult, deterministicVerifierVersion } =
+      await gradeDataDriven(service, routeContext));
     modelResponse = null;
     inputTokens = 0;
     outputTokens = 0;
     actualCost = 0;
   } else if (routing.target === "shadow_review") {
-    // Shadow-review hold for the symbolic/formula boundary that is declared but
-    // not wired in this phase -- routed here instead of guessing (Fable QA #1).
-    const verificationProfileSummary = summarizeVerificationProfile(
-      verificationProfile,
-    );
-    const readableVerificationSummary = formatVerificationProfileSummary(
-      verificationProfile,
-    );
-    const typedFormulaAmbiguity = detectAmbiguousTypedFormulaText(responseText);
-    const actionHint = statisticsCheck?.status === "flag"
-      ? "show_scaffold"
-      : resolveFormulaActionHint(typedFormulaAmbiguity.ambiguous);
-    const repairHint = resolveFormulaRepairHint(
-      statisticsCheck?.repair_hint ?? typedFormulaAmbiguity.repair_hint,
-      null,
-    );
-    const shadowSummary = verificationProfile
-      ? `${verificationProfile.display_name} formula feedback is saved and routed for reviewer follow-up. The symbolic verifier is declared but not wired in this phase, so we are holding the item instead of guessing.${
-        typedFormulaAmbiguity.ambiguous
-          ? ` ${typedFormulaAmbiguity.reason}`
-          : ""
-      }`
-      : "This response is saved and routed for reviewer follow-up.";
-    const shadowReason =
-      `${routing.reason} The item is held for human/shadow review until the declared verifier is wired in.${
-        typedFormulaAmbiguity.ambiguous
-          ? ` ${typedFormulaAmbiguity.reason}`
-          : ""
-      }${
-        statisticsCheck?.status === "flag"
-          ? ` Deterministic statistics check: ${statisticsCheck.reason}`
-          : ""
-      }`;
-    finalPayload = buildShadowReviewPayload({
-      criteria: promptBase.criteria,
-      pointsAvailable: defaultPointsAvailable,
-      reason: shadowReason,
-      actionHint,
-      repairHint,
-      deterministicCheck: statisticsCheck,
-      summary: readableVerificationSummary
-        ? `${shadowSummary} Expected checks: ${
-          verificationProfile?.required_checks.map((check) => check.check).join(
-            ", ",
-          )
-        }.${
-          statisticsCheck?.status === "flag"
-            ? ` Deterministic check flagged the keyed Statistics evidence.`
-            : ""
-        }`
-        : shadowSummary,
-      verificationProfileSummary,
-    });
-    finalStatus = "uncertain";
+    ({ finalPayload, finalStatus } = gradeShadowReview(routeContext));
     modelResponse = null;
     inputTokens = 0;
     outputTokens = 0;
@@ -2503,9 +1003,11 @@ export async function handleEvaluateAttempt(
       outputTokens = 0;
       actualCost = 0;
     } else {
-      const systemPrompt = GRADING_ARM === "a"
-        ? buildCriterionSystemPrompt(examPack.exam_name as string)
-        : buildSystemPrompt(examPack.exam_name as string);
+      const gradingArmForRequest = gradingArm();
+      const systemPrompt = buildGraderSystemPrompt(
+        gradingArmForRequest,
+        examPack.exam_name as string,
+      );
 
       try {
         await service.schema("app").from("grading_results").update({
@@ -2525,76 +1027,29 @@ export async function handleEvaluateAttempt(
           }).eq("request_id", idempotencyKey);
         }
 
-        if (GRADING_ARM === "a") {
-          const fanOut = await callOpenAIGraderPerCriterion({
-            modelId,
-            maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
-            systemPrompt,
-            criteria: promptBase.criteria,
-            buildUserPrompt: (criterion) =>
-              buildCriterionGradingPrompt({ ...promptBase, criterion }),
-            userIdHash: await sha256Hex(user.id),
-            idempotencyKey,
-          });
-          stageTimer.mark("model");
-          cachedTokensTelemetry = fanOut.cachedTokens;
-
-          const merged = mergeCriterionResults(
-            fanOut.parsed,
-            promptBase.criteria,
-          );
-          finalPayload = sanitizeModelResult(
-            merged,
-            promptBase.criteria,
-            { responseText, responseParts },
-          );
-          // The summary is composed after sanitization, from the points that
-          // actually survived grounding and partial-credit reconciliation --
-          // not from the model's raw claims, which those checks may have
-          // revised downward.
-          finalPayload = {
-            ...finalPayload,
-            student_facing_summary: composeStudentFacingSummary(
-              finalPayload.criteria,
-              finalPayload.points_earned,
-              finalPayload.points_available,
-              finalPayload.highest_value_gap?.minimum_fix ?? null,
-            ),
-          };
-
-          // One entry per criterion: raw_model_response has to stay auditable,
-          // and an item's grading is now N provider responses, not one.
-          modelResponse = {
-            raw: { arm: "a", criterion_responses: fanOut.raws },
-            parsed: merged as Record<string, unknown>,
-            elapsedMs: fanOut.elapsedMs,
-          };
-          inputTokens = fanOut.inputTokens;
-          outputTokens = fanOut.outputTokens;
-          stageTimer.mark("sanitize");
-        } else {
-          modelResponse = await callOpenAIGrader({
-            modelId,
-            maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
-            systemPrompt,
-            userPrompt: buildGradingPrompt(promptBase),
-            userIdHash: await sha256Hex(user.id),
-            idempotencyKey: idempotencyKey,
-          });
-          stageTimer.mark("model");
-
-          finalPayload = sanitizeModelResult(
-            modelResponse.parsed,
-            promptBase.criteria,
-            { responseText, responseParts },
-          );
-
-          const usage = extractUsage(modelResponse.raw);
-          inputTokens = usage.inputTokens ?? inputTokens;
-          outputTokens = usage.outputTokens ?? outputTokens;
-          cachedTokensTelemetry = usage.cachedTokens;
-          stageTimer.mark("sanitize");
-        }
+        const graded = await runModelGrading({
+          arm: gradingArmForRequest,
+          modelId,
+          systemPrompt,
+          promptBase,
+          sanitizeContext: { responseText, responseParts },
+          userIdHash: await sha256Hex(user.id),
+          idempotencyKey,
+          // Record what is known before sanitization, which can throw: arm B
+          // keeps the raw response and latency for the stored row, arm A keeps
+          // its cached-token telemetry (see ModelReturnedEvent).
+          onModelReturned: (event) => {
+            stageTimer.mark("model");
+            if (event.arm === "a") cachedTokensTelemetry = event.cachedTokens;
+            else modelResponse = event.response;
+          },
+        });
+        finalPayload = graded.finalPayload;
+        modelResponse = graded.response;
+        inputTokens = graded.inputTokens ?? inputTokens;
+        outputTokens = graded.outputTokens ?? outputTokens;
+        cachedTokensTelemetry = graded.cachedTokens;
+        stageTimer.mark("sanitize");
 
         // O2 (2026-08-13): the model graded the whole item normally above --
         // now force just the deterministic-flagged criteria back to
