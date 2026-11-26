@@ -64,7 +64,7 @@ import { persistGradingMemory } from "../_shared/grading-memory.ts";
 import {
   DATA_DRIVEN_VERIFIER_VERSION,
   EVALUATE_ATTEMPT_PROMPT_VERSION,
-  GRADING_ARM,
+  gradingArm,
   GRADING_ENTITLEMENTS_ENABLED,
   MATH_VERIFIER_VERSION,
   OPENAI_DAILY_CAP_USD,
@@ -361,7 +361,8 @@ async function handleQaNoPersist(
   const idempotencyKey =
     `qa:${contentVersion.id}:${promptVersion}:${answerSha256}`;
   const userIdHash = await sha256Hex(`canonical-qa:${contentVersion.id}`);
-  const systemPrompt = GRADING_ARM === "a"
+  const gradingArmForRequest = gradingArm();
+  const systemPrompt = gradingArmForRequest === "a"
     ? buildCriterionSystemPrompt(examPack.exam_name as string)
     : buildSystemPrompt(examPack.exam_name as string);
 
@@ -373,7 +374,7 @@ async function handleQaNoPersist(
     let cachedTokens: number | null = null;
     let latencyMs = 0;
 
-    if (GRADING_ARM === "a") {
+    if (gradingArmForRequest === "a") {
       const fanOut = await callOpenAIGraderPerCriterion({
         modelId: OPENAI_MODEL,
         maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,
@@ -457,7 +458,7 @@ async function handleQaNoPersist(
         execution_id: Deno.env.get("SB_EXECUTION_ID") ?? null,
         model_id: OPENAI_MODEL,
         prompt_version: promptVersion,
-        grading_arm: GRADING_ARM,
+        grading_arm: gradingArmForRequest,
         latency_ms: latencyMs,
         input_tokens: inputTokens,
         output_tokens: outputTokens,
@@ -1803,7 +1804,8 @@ export async function handleEvaluateAttempt(
       outputTokens = 0;
       actualCost = 0;
     } else {
-      const systemPrompt = GRADING_ARM === "a"
+      const gradingArmForRequest = gradingArm();
+      const systemPrompt = gradingArmForRequest === "a"
         ? buildCriterionSystemPrompt(examPack.exam_name as string)
         : buildSystemPrompt(examPack.exam_name as string);
 
@@ -1825,7 +1827,7 @@ export async function handleEvaluateAttempt(
           }).eq("request_id", idempotencyKey);
         }
 
-        if (GRADING_ARM === "a") {
+        if (gradingArmForRequest === "a") {
           const fanOut = await callOpenAIGraderPerCriterion({
             modelId,
             maxOutputTokens: OPENAI_MAX_OUTPUT_TOKENS,

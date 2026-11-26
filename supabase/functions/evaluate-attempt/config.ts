@@ -67,9 +67,15 @@ export const GRADING_ENTITLEMENTS_ENABLED =
 // grader that had never completed a Production grading until 2026-07-28 --
 // flipping it blind is how the entitlement-gate outage happened. Deploy, then
 // flip the flag, then measure with the narrow pilot.
-export const GRADING_ARM = (Deno.env.get("GRADING_ARM") ?? "b").toLowerCase() === "a"
-  ? "a"
-  : "b";
+//
+// Read per request (TASK-0079 S2) rather than once at module load, so tests can
+// exercise both arms in one process. A deployed isolate's environment does not
+// change while it runs, so this is the same value the module-load constant held.
+export function gradingArm(): "a" | "b" {
+  return (Deno.env.get("GRADING_ARM") ?? "b").toLowerCase() === "a"
+    ? "a"
+    : "b";
+}
 
 // Bumped 2026-07-28: three checker defects fixed (supplied inputs now win over
 // the built-in `e`/`pi` constants; CORRECT_VIA_ECF requires a real upstream

@@ -164,7 +164,9 @@ type Scenario = {
   role?: string;
   tables: Record<string, unknown>;
   rpc?: Record<string, Reply>;
-  model?: (requestBody: Row) => Row;
+  model?: (requestBody: Row, requestText: string) => Row;
+  // Grading arm for this scenario. Defaults to "b", Production's default.
+  arm?: "a" | "b";
 };
 
 const llmGrade = (keys: string[], earned = true) => () => ({
@@ -192,6 +194,38 @@ const llmGrade = (keys: string[], earned = true) => () => ({
     input_tokens_details: { cached_tokens: 0 },
   },
 });
+
+// Arm A sends one request per criterion; the criterion key is in the prompt.
+const perCriterionGrade = (failing: string[] = []) =>
+(_body: Row, text: string) => {
+  const key = text.match(/criterion_key set to (\w+)/)?.[1] ?? "unknown";
+  if (failing.includes(key)) return { broken: true };
+  return {
+    output_text: JSON.stringify({
+      criterion_key: key,
+      status: "earned",
+      points_awarded: 1,
+      evidence_quote: "The cell divides",
+      decision_explanation: `Meets ${key}.`,
+      minimum_fix: null,
+      confidence: key === "c2" ? "medium" : "high",
+    }),
+    usage: {
+      input_tokens: 50,
+      output_tokens: 10,
+      input_tokens_details: { cached_tokens: key === "c1" ? 5 : 0 },
+    },
+  };
+};
+
+const twoCriteria = ["c1", "c2"].map((key) => ({
+  criterion_key: key,
+  learner_facing_text: `Criterion ${key}`,
+  points_possible: 1,
+  evidence_requirements: null,
+  minimum_fix: `Fix ${key}.`,
+  accepted_variants: [],
+}));
 
 function baseTables(opts: {
   itemType: "mcq" | "frq";
@@ -440,6 +474,37 @@ const scenarios: Scenario[] = [
     },
   },
   {
+    name: "llm arm a graded",
+    arm: "a",
+    tables: baseTables({ itemType: "frq", criteria: twoCriteria }),
+    model: perCriterionGrade(),
+  },
+  {
+    name: "llm arm a one criterion fails",
+    arm: "a",
+    tables: baseTables({ itemType: "frq", criteria: twoCriteria }),
+    model: perCriterionGrade(["c2"]),
+  },
+  {
+    name: "llm arm a every criterion fails",
+    arm: "a",
+    tables: baseTables({ itemType: "frq", criteria: twoCriteria }),
+    model: perCriterionGrade(["c1", "c2"]),
+  },
+  {
+    name: "qa no persist arm a",
+    arm: "a",
+    body: {
+      qa_no_persist: true,
+      content_item_version_id: VERSION,
+      answer_text: "The cell divides",
+    },
+    headers: { "x-qa-grader-token": "token" },
+    tables: baseTables({ itemType: "frq", criteria: twoCriteria }),
+    rpc: { verify_qa_grader_token: { data: true, error: null } },
+    model: perCriterionGrade(),
+  },
+  {
     name: "qa no persist arm b",
     body: {
       qa_no_persist: true,
@@ -541,18 +606,30 @@ async function runScenario(scenario: Scenario) {
   });
   const fetches: Array<{ url: string; body_sha256: string; body_bytes: number }> = [];
   const originalFetch = globalThis.fetch;
-  globalThis.fetch = async (input, init) => {
+  // Recorded in call order, synchronously: arm A issues its requests in
+  // parallel, and hashing before recording would let completion order leak in.
+  const requestTexts: string[] = [];
+  globalThis.fetch = (input, init) => {
     const text = String(init?.body ?? "");
-    fetches.push({
-      url: String(input),
-      body_sha256: await sha256(text),
-      body_bytes: text.length,
-    });
-    const reply = scenario.model?.(JSON.parse(text)) ?? { error: "no model" };
-    return Response.json(reply);
+    requestTexts.push(`${String(input)}\n${text}`);
+    const reply = scenario.model?.(JSON.parse(text), text) ??
+      { error: "no model" };
+    return Promise.resolve(Response.json(reply));
   };
+  const previousArm = Deno.env.get("GRADING_ARM");
+  Deno.env.set("GRADING_ARM", scenario.arm ?? "b");
   try {
     const response = await invoke(scenario, recorder.service);
+    const fetches = [];
+    for (const entry of requestTexts) {
+      const [url, ...rest] = entry.split("\n");
+      const text = rest.join("\n");
+      fetches.push({
+        url,
+        body_sha256: await sha256(text),
+        body_bytes: text.length,
+      });
+    }
     return normalize({
       status: response.status,
       body: await response.json(),
@@ -561,6 +638,8 @@ async function runScenario(scenario: Scenario) {
     });
   } finally {
     globalThis.fetch = originalFetch;
+    if (previousArm === undefined) Deno.env.delete("GRADING_ARM");
+    else Deno.env.set("GRADING_ARM", previousArm);
   }
 }
 
@@ -598,9 +677,18 @@ const updating = (() => {
     return false;
   }
 })();
-const regenerated: Record<string, unknown> = {};
+// UPDATE_GOLDEN=1 rewrites the fixtures; GOLDEN_ONLY=<substring> limits the
+// run (and the rewrite) to matching scenarios, keeping every other fixture.
+const only = (() => {
+  try {
+    return Deno.env.get("GOLDEN_ONLY") ?? null;
+  } catch {
+    return null;
+  }
+})();
+const regenerated: Record<string, unknown> = { ...fixtures };
 
-for (const scenario of scenarios) {
+for (const scenario of scenarios.filter((s) => !only || s.name.includes(only))) {
   Deno.test(`golden: ${scenario.name}`, async () => {
     const trace = await runScenario(scenario);
     if (updating) {

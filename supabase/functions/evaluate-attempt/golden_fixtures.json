@@ -8312,5 +8312,2623 @@
         "body_bytes": 3889
       }
     ]
+  },
+  "llm arm a graded": {
+    "status": 200,
+    "body": {
+      "status": "graded",
+      "function": "evaluate-attempt",
+      "operation": "grade_initial_attempt",
+      "result": {
+        "status": "graded",
+        "points_earned": 2,
+        "points_available": 2,
+        "criteria": [
+          {
+            "criterion_key": "c1",
+            "status": "earned",
+            "points_awarded": 1,
+            "evidence_quote": "The cell divides",
+            "decision_explanation": "Meets c1.",
+            "minimum_fix": "Fix c1."
+          },
+          {
+            "criterion_key": "c2",
+            "status": "earned",
+            "points_awarded": 1,
+            "evidence_quote": "The cell divides",
+            "decision_explanation": "Meets c2.",
+            "minimum_fix": "Fix c2."
+          }
+        ],
+        "highest_value_gap": null,
+        "predicted_improvement": null,
+        "confidence": "medium",
+        "uncertainty_reason": null,
+        "student_facing_summary": "You earned 2 of 2 points.",
+        "action_hint": null,
+        "repair_hint": null,
+        "sanitization_version": "grading-sanitizer-v3",
+        "integrity_issues": [],
+        "normalizations": [],
+        "actual_point_gain": null,
+        "prediction_outcome": null,
+        "model_id": "test-model",
+        "prompt_version": "test-v1",
+        "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+        "grading_route": {
+          "rubricType": "discrete_text",
+          "evaluatorStrategy": "llm_discrete_text",
+          "target": "llm_text",
+          "source": "explicit",
+          "reason": "Discrete analytic text is routed to the existing FRQ grader."
+        },
+        "verification_profile": null,
+        "verification_profile_summary": null,
+        "feedback_preview": "You earned 2 of 2 points.",
+        "repair_plan": {
+          "contract_version": "grade-repair-v1",
+          "grade_fingerprint": "golden:llm arm a graded:test-v1:40000000-0000-4000-8000-000000000004",
+          "criterion_key": null,
+          "repair_class": null,
+          "repair_prompt": null,
+          "expected_point_gain": 0,
+          "requires_learner_confirmation": false,
+          "source": "none"
+        },
+        "deterministic_check": null,
+        "attempt_id": "40000000-0000-4000-8000-000000000002",
+        "response_version_id": "40000000-0000-4000-8000-000000000003",
+        "request_id": "golden:llm arm a graded",
+        "latency_ms": "<volatile>"
+      },
+      "runtime_context": null
+    },
+    "calls": [
+      {
+        "schema": "app",
+        "target": "prompt_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "operation",
+            "grade_initial_attempt"
+          ],
+          [
+            "eq",
+            "version",
+            "test-v1"
+          ]
+        ],
+        "modifiers": [
+          "select:id, status",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000002"
+          ]
+        ],
+        "modifiers": [
+          "select:id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, artifact_version_id, attempt_mode, status, assistance_state, pre_submit_hint_count, started_at, submitted_at, graded_at, score_points, score_possible",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "response_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000003"
+          ]
+        ],
+        "modifiers": [
+          "select:id, attempt_id, parent_response_version_id, response_text, response_parts, version_number, is_submitted, created_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:content_item_id",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "open_hand_scoring_exclusions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ],
+          [
+            "eq",
+            "content_item_id",
+            "40000000-0000-4000-8000-000000000006"
+          ]
+        ],
+        "modifiers": [
+          "select:content_item_id",
+          "limit:1"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:id, content_item_id, version_num, stem, stimulus, prompt_json, rubric_type, evaluator_strategy, explanation, help_text, content_hash, status, approved_at, approved_by, published_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a graded"
+          ]
+        ],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_items",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000006"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_pack_version_id, content_key, item_type, title, status, response_policy",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "exam_pack_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000005"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_pack_id, school_year, official_exam_date, status",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "frq_criteria",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:criterion_key, learner_facing_text, points_possible, evidence_requirements, minimum_fix, accepted_variants",
+          "order:criterion_key:{\"ascending\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "mcq_choices",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:choice_key, choice_text, is_correct, rationale",
+          "order:choice_key:{\"ascending\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "rpc:authorize_grading_access",
+        "action": "rpc",
+        "payload": {
+          "p_user_id": "40000000-0000-4000-8000-000000000001",
+          "p_attempt_id": "40000000-0000-4000-8000-000000000002",
+          "p_operation": "grade_initial_attempt",
+          "p_request_id": "golden:llm arm a graded"
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "exam_packs",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000007"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_code, exam_name, subject_id",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "insert",
+        "filters": [],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ],
+        "payload": {
+          "request_id": "golden:llm arm a graded",
+          "request_hash": "8f4704246ce417cabe08222b787a5f2e37797fa4c07dc35a120cc19d648b7ce5",
+          "attempt_id": "40000000-0000-4000-8000-000000000002",
+          "response_version_id": "40000000-0000-4000-8000-000000000003",
+          "operation": "grade_initial_attempt",
+          "status": "processing",
+          "points_available": 2,
+          "confidence": "medium",
+          "model_id": "test-model",
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "estimated_cost_usd": 0.0002,
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "rpc:reserve_model_usage",
+        "action": "rpc",
+        "payload": {
+          "p_request_id": "golden:llm arm a graded",
+          "p_request_hash": "8f4704246ce417cabe08222b787a5f2e37797fa4c07dc35a120cc19d648b7ce5",
+          "p_model_id": "test-model",
+          "p_reserved_cost_usd": 0.0002,
+          "p_cap_usd": 1
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a graded"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "processing",
+          "model_id": "test-model",
+          "estimated_cost_usd": 0.0002,
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "model_usage_ledger",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a graded"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "running"
+        }
+      },
+      {
+        "schema": "app",
+        "target": "rpc:complete_model_usage",
+        "action": "rpc",
+        "payload": {
+          "p_request_id": "golden:llm arm a graded",
+          "p_request_hash": "8f4704246ce417cabe08222b787a5f2e37797fa4c07dc35a120cc19d648b7ce5",
+          "p_status": "completed",
+          "p_actual_cost_usd": 0.0001,
+          "p_input_tokens": 100,
+          "p_output_tokens": 20
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "attempt_id",
+            "40000000-0000-4000-8000-000000000002"
+          ],
+          [
+            "neq",
+            "request_id",
+            "golden:llm arm a graded"
+          ]
+        ],
+        "modifiers": [
+          "select:points_earned, status",
+          "order:created_at:{\"ascending\":false}",
+          "limit:1",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ]
+        ],
+        "modifiers": [
+          "select:id"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "in",
+            "attempt_id",
+            [
+              "40000000-0000-4000-8000-000000000002"
+            ]
+          ],
+          [
+            "in",
+            "status",
+            [
+              "graded",
+              "uncertain"
+            ]
+          ]
+        ],
+        "modifiers": [
+          "select:id{\"count\":\"exact\",\"head\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "growth_event_outbox",
+        "action": "upsert",
+        "filters": [],
+        "modifiers": [
+          "upsert:{\"onConflict\":\"dedupe_key\",\"ignoreDuplicates\":true}",
+          "select:id, delivered_at, delivery_attempts",
+          "maybeSingle"
+        ],
+        "payload": {
+          "event_name": "first_response_graded",
+          "user_id": "40000000-0000-4000-8000-000000000001",
+          "free_score_check_id": null,
+          "source": "web",
+          "dedupe_key": "first_response_graded:40000000-0000-4000-8000-000000000001",
+          "properties": {
+            "environment": "development"
+          }
+        }
+      },
+      {
+        "schema": "app",
+        "target": "growth_event_outbox",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "dedupe_key",
+            "first_response_graded:40000000-0000-4000-8000-000000000001"
+          ]
+        ],
+        "modifiers": [
+          "select:id, delivered_at, delivery_attempts",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a graded"
+          ],
+          [
+            "eq",
+            "request_hash",
+            "8f4704246ce417cabe08222b787a5f2e37797fa4c07dc35a120cc19d648b7ce5"
+          ]
+        ],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ],
+        "payload": {
+          "status": "graded",
+          "points_earned": 2,
+          "points_available": 2,
+          "criterion_results": [
+            {
+              "criterion_key": "c1",
+              "status": "earned",
+              "points_awarded": 1,
+              "evidence_quote": "The cell divides",
+              "decision_explanation": "Meets c1.",
+              "minimum_fix": "Fix c1."
+            },
+            {
+              "criterion_key": "c2",
+              "status": "earned",
+              "points_awarded": 1,
+              "evidence_quote": "The cell divides",
+              "decision_explanation": "Meets c2.",
+              "minimum_fix": "Fix c2."
+            }
+          ],
+          "highest_value_gap": null,
+          "predicted_label": null,
+          "predicted_point_gain": null,
+          "actual_point_gain": null,
+          "prediction_outcome": null,
+          "confidence": "medium",
+          "uncertainty_reason": null,
+          "model_id": "test-model",
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null,
+          "feedback_preview": "You earned 2 of 2 points.",
+          "action_hint": null,
+          "repair_hint": null,
+          "input_tokens": 100,
+          "output_tokens": 20,
+          "estimated_cost_usd": 0.0001,
+          "latency_ms": "<volatile>",
+          "raw_model_response": {
+            "arm": "a",
+            "criterion_responses": [
+              {
+                "output_text": "{\"criterion_key\":\"c1\",\"status\":\"earned\",\"points_awarded\":1,\"evidence_quote\":\"The cell divides\",\"decision_explanation\":\"Meets c1.\",\"minimum_fix\":null,\"confidence\":\"high\"}",
+                "usage": {
+                  "input_tokens": 50,
+                  "output_tokens": 10,
+                  "input_tokens_details": {
+                    "cached_tokens": 5
+                  }
+                }
+              },
+              {
+                "output_text": "{\"criterion_key\":\"c2\",\"status\":\"earned\",\"points_awarded\":1,\"evidence_quote\":\"The cell divides\",\"decision_explanation\":\"Meets c2.\",\"minimum_fix\":null,\"confidence\":\"medium\"}",
+                "usage": {
+                  "input_tokens": 50,
+                  "output_tokens": 10,
+                  "input_tokens_details": {
+                    "cached_tokens": 0
+                  }
+                }
+              }
+            ]
+          },
+          "shadow_result": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a graded"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "normalized_response_sha256": "e30d9e5aeda60bbcbf6c32232c71cc010b3abf85c2e9ca531b629beebc5b1888",
+          "cached_tokens": 5,
+          "stage_timings": "<volatile>"
+        }
+      },
+      {
+        "schema": "app",
+        "target": "attempt_criterion_results",
+        "action": "upsert",
+        "filters": [],
+        "modifiers": [
+          "upsert:{\"onConflict\":\"attempt_id,criterion_key\"}"
+        ],
+        "payload": [
+          {
+            "attempt_id": "40000000-0000-4000-8000-000000000002",
+            "criterion_key": "c1",
+            "status": "earned",
+            "points_awarded": 1,
+            "evidence_quote": "The cell divides",
+            "decision_explanation": "Meets c1.",
+            "minimum_fix": "Fix c1.",
+            "evaluator_version": "test-model"
+          },
+          {
+            "attempt_id": "40000000-0000-4000-8000-000000000002",
+            "criterion_key": "c2",
+            "status": "earned",
+            "points_awarded": 1,
+            "evidence_quote": "The cell divides",
+            "decision_explanation": "Meets c2.",
+            "minimum_fix": "Fix c2.",
+            "evaluator_version": "test-model"
+          }
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000002"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "graded",
+          "graded_at": "<iso>",
+          "score_points": 2,
+          "score_possible": 2,
+          "confidence_level": "medium",
+          "result_state": "graded",
+          "result_summary": "You earned 2 of 2 points.",
+          "assistance_state": "independent"
+        }
+      },
+      {
+        "schema": "app",
+        "target": "content_item_cells",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ],
+          [
+            "eq",
+            "is_primary",
+            true
+          ],
+          [
+            "in",
+            "assignment_status",
+            [
+              "validated",
+              "authored"
+            ]
+          ],
+          [
+            "not.is",
+            "skill_code",
+            null
+          ]
+        ],
+        "modifiers": [
+          "select:taxonomy_source_version, topic_code, skill_code"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:item_package_payload",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "subjects",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000008"
+          ]
+        ],
+        "modifiers": [
+          "select:subject_key",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "taxonomy_source_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "taxonomy_source_version",
+            "ced-2025"
+          ]
+        ],
+        "modifiers": [
+          "select:subject_key",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "student_cell_state",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ],
+          [
+            "eq",
+            "taxonomy_source_version",
+            "ced-2025"
+          ],
+          [
+            "eq",
+            "topic_code",
+            "4.1"
+          ],
+          [
+            "eq",
+            "skill_code",
+            "2.A"
+          ]
+        ],
+        "modifiers": [
+          "select:tier, fragile, weighted_evidence, last_independent_success_at, last_attempt_at, last_exposure_at, next_due_at, due_reason, last_session_id, last_template_id, last_params_hash, last_attempt_id, updated_at, mastery_mcq_correct_count, mastery_frq_full_count, mastery_reached_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "student_cell_state",
+        "action": "insert",
+        "filters": [],
+        "modifiers": [],
+        "payload": {
+          "user_id": "40000000-0000-4000-8000-000000000001",
+          "subject_id": "40000000-0000-4000-8000-000000000008",
+          "taxonomy_source_version": "ced-2025",
+          "topic_code": "4.1",
+          "skill_code": "2.A",
+          "tier": "independent",
+          "fragile": false,
+          "weighted_evidence": 1,
+          "last_independent_success_at": "<iso>",
+          "last_attempt_at": "<iso>",
+          "last_exposure_at": null,
+          "next_due_at": "<iso>",
+          "due_reason": "decay",
+          "last_event": "correct",
+          "last_weight": 1,
+          "rule_engine_version": "cell-state-1.0",
+          "last_session_id": null,
+          "last_template_id": "civ:40000000-0000-4000-8000-000000000004",
+          "last_params_hash": "civ:40000000-0000-4000-8000-000000000004",
+          "last_attempt_id": "40000000-0000-4000-8000-000000000002",
+          "mastery_mcq_correct_count": 0,
+          "mastery_frq_full_count": 1,
+          "mastery_reached_at": null
+        }
+      }
+    ],
+    "fetches": [
+      {
+        "url": "https://api.openai.com/v1/responses",
+        "body_sha256": "64ebd73c7da67d0824b3c695b20c9ed24f407944e8e069d3b74f3f2df7f198bf",
+        "body_bytes": 3170
+      },
+      {
+        "url": "https://api.openai.com/v1/responses",
+        "body_sha256": "bf3db1c86005255bae574da8c3052fe8017c1920581fc3408c14ab54a2a8164c",
+        "body_bytes": 3170
+      }
+    ]
+  },
+  "llm arm a one criterion fails": {
+    "status": 202,
+    "body": {
+      "status": "uncertain",
+      "function": "evaluate-attempt",
+      "operation": "grade_initial_attempt",
+      "result": {
+        "status": "uncertain",
+        "points_earned": 1,
+        "points_available": 2,
+        "criteria": [
+          {
+            "criterion_key": "c1",
+            "status": "earned",
+            "points_awarded": 1,
+            "evidence_quote": "The cell divides",
+            "decision_explanation": "Meets c1.",
+            "minimum_fix": "Fix c1."
+          },
+          {
+            "criterion_key": "c2",
+            "status": "unable_to_determine",
+            "points_awarded": 0,
+            "evidence_quote": null,
+            "decision_explanation": "This criterion could not be graded on this attempt.",
+            "minimum_fix": "Fix c2."
+          }
+        ],
+        "highest_value_gap": {
+          "criterion_key": "c2",
+          "minimum_fix": "Fix c2.",
+          "repair_prompt": "Fix c2."
+        },
+        "predicted_improvement": null,
+        "confidence": "low",
+        "uncertainty_reason": "The grader could not reach a decision on 1 criterion.",
+        "student_facing_summary": "You earned 1 of 2 points. The most valuable next step: Fix c2. 1 criterion could not be decided from what you wrote, so this result is being held for review.",
+        "action_hint": null,
+        "repair_hint": "Fix c2.",
+        "sanitization_version": "grading-sanitizer-v3",
+        "integrity_issues": [],
+        "normalizations": [],
+        "actual_point_gain": null,
+        "prediction_outcome": null,
+        "model_id": "test-model",
+        "prompt_version": "test-v1",
+        "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+        "grading_route": {
+          "rubricType": "discrete_text",
+          "evaluatorStrategy": "llm_discrete_text",
+          "target": "llm_text",
+          "source": "explicit",
+          "reason": "Discrete analytic text is routed to the existing FRQ grader."
+        },
+        "verification_profile": null,
+        "verification_profile_summary": null,
+        "feedback_preview": "You earned 1 of 2 points. The most valuable next step: Fix c2. 1 criterion could not be decided from what you wrote, so this result is being held for review.",
+        "repair_plan": {
+          "contract_version": "grade-repair-v1",
+          "grade_fingerprint": "golden:llm arm a one criterion fails:test-v1:40000000-0000-4000-8000-000000000004",
+          "criterion_key": "c2",
+          "repair_class": "conceptual_error",
+          "repair_prompt": "Fix c2.",
+          "expected_point_gain": 1,
+          "requires_learner_confirmation": false,
+          "source": "rubric"
+        },
+        "deterministic_check": null,
+        "attempt_id": "40000000-0000-4000-8000-000000000002",
+        "response_version_id": "40000000-0000-4000-8000-000000000003",
+        "request_id": "golden:llm arm a one criterion fails",
+        "latency_ms": "<volatile>"
+      },
+      "runtime_context": null
+    },
+    "calls": [
+      {
+        "schema": "app",
+        "target": "prompt_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "operation",
+            "grade_initial_attempt"
+          ],
+          [
+            "eq",
+            "version",
+            "test-v1"
+          ]
+        ],
+        "modifiers": [
+          "select:id, status",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000002"
+          ]
+        ],
+        "modifiers": [
+          "select:id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, artifact_version_id, attempt_mode, status, assistance_state, pre_submit_hint_count, started_at, submitted_at, graded_at, score_points, score_possible",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "response_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000003"
+          ]
+        ],
+        "modifiers": [
+          "select:id, attempt_id, parent_response_version_id, response_text, response_parts, version_number, is_submitted, created_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:content_item_id",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "open_hand_scoring_exclusions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ],
+          [
+            "eq",
+            "content_item_id",
+            "40000000-0000-4000-8000-000000000006"
+          ]
+        ],
+        "modifiers": [
+          "select:content_item_id",
+          "limit:1"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:id, content_item_id, version_num, stem, stimulus, prompt_json, rubric_type, evaluator_strategy, explanation, help_text, content_hash, status, approved_at, approved_by, published_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a one criterion fails"
+          ]
+        ],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_items",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000006"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_pack_version_id, content_key, item_type, title, status, response_policy",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "exam_pack_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000005"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_pack_id, school_year, official_exam_date, status",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "frq_criteria",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:criterion_key, learner_facing_text, points_possible, evidence_requirements, minimum_fix, accepted_variants",
+          "order:criterion_key:{\"ascending\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "mcq_choices",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:choice_key, choice_text, is_correct, rationale",
+          "order:choice_key:{\"ascending\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "rpc:authorize_grading_access",
+        "action": "rpc",
+        "payload": {
+          "p_user_id": "40000000-0000-4000-8000-000000000001",
+          "p_attempt_id": "40000000-0000-4000-8000-000000000002",
+          "p_operation": "grade_initial_attempt",
+          "p_request_id": "golden:llm arm a one criterion fails"
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "exam_packs",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000007"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_code, exam_name, subject_id",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "insert",
+        "filters": [],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ],
+        "payload": {
+          "request_id": "golden:llm arm a one criterion fails",
+          "request_hash": "333312dc257abd5e181bb9408ede175ee3eeed90f3f852f95ada9110b0cac898",
+          "attempt_id": "40000000-0000-4000-8000-000000000002",
+          "response_version_id": "40000000-0000-4000-8000-000000000003",
+          "operation": "grade_initial_attempt",
+          "status": "processing",
+          "points_available": 2,
+          "confidence": "medium",
+          "model_id": "test-model",
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "estimated_cost_usd": 0.0002,
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "rpc:reserve_model_usage",
+        "action": "rpc",
+        "payload": {
+          "p_request_id": "golden:llm arm a one criterion fails",
+          "p_request_hash": "333312dc257abd5e181bb9408ede175ee3eeed90f3f852f95ada9110b0cac898",
+          "p_model_id": "test-model",
+          "p_reserved_cost_usd": 0.0002,
+          "p_cap_usd": 1
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a one criterion fails"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "processing",
+          "model_id": "test-model",
+          "estimated_cost_usd": 0.0002,
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "model_usage_ledger",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a one criterion fails"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "running"
+        }
+      },
+      {
+        "schema": "app",
+        "target": "rpc:complete_model_usage",
+        "action": "rpc",
+        "payload": {
+          "p_request_id": "golden:llm arm a one criterion fails",
+          "p_request_hash": "333312dc257abd5e181bb9408ede175ee3eeed90f3f852f95ada9110b0cac898",
+          "p_status": "failed",
+          "p_actual_cost_usd": 0.0001,
+          "p_input_tokens": 50,
+          "p_output_tokens": 10
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "attempt_id",
+            "40000000-0000-4000-8000-000000000002"
+          ],
+          [
+            "neq",
+            "request_id",
+            "golden:llm arm a one criterion fails"
+          ]
+        ],
+        "modifiers": [
+          "select:points_earned, status",
+          "order:created_at:{\"ascending\":false}",
+          "limit:1",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ]
+        ],
+        "modifiers": [
+          "select:id"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "in",
+            "attempt_id",
+            [
+              "40000000-0000-4000-8000-000000000002"
+            ]
+          ],
+          [
+            "in",
+            "status",
+            [
+              "graded",
+              "uncertain"
+            ]
+          ]
+        ],
+        "modifiers": [
+          "select:id{\"count\":\"exact\",\"head\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "growth_event_outbox",
+        "action": "upsert",
+        "filters": [],
+        "modifiers": [
+          "upsert:{\"onConflict\":\"dedupe_key\",\"ignoreDuplicates\":true}",
+          "select:id, delivered_at, delivery_attempts",
+          "maybeSingle"
+        ],
+        "payload": {
+          "event_name": "first_response_graded",
+          "user_id": "40000000-0000-4000-8000-000000000001",
+          "free_score_check_id": null,
+          "source": "web",
+          "dedupe_key": "first_response_graded:40000000-0000-4000-8000-000000000001",
+          "properties": {
+            "environment": "development"
+          }
+        }
+      },
+      {
+        "schema": "app",
+        "target": "growth_event_outbox",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "dedupe_key",
+            "first_response_graded:40000000-0000-4000-8000-000000000001"
+          ]
+        ],
+        "modifiers": [
+          "select:id, delivered_at, delivery_attempts",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a one criterion fails"
+          ],
+          [
+            "eq",
+            "request_hash",
+            "333312dc257abd5e181bb9408ede175ee3eeed90f3f852f95ada9110b0cac898"
+          ]
+        ],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ],
+        "payload": {
+          "status": "uncertain",
+          "points_earned": 1,
+          "points_available": 2,
+          "criterion_results": [
+            {
+              "criterion_key": "c1",
+              "status": "earned",
+              "points_awarded": 1,
+              "evidence_quote": "The cell divides",
+              "decision_explanation": "Meets c1.",
+              "minimum_fix": "Fix c1."
+            },
+            {
+              "criterion_key": "c2",
+              "status": "unable_to_determine",
+              "points_awarded": 0,
+              "evidence_quote": null,
+              "decision_explanation": "This criterion could not be graded on this attempt.",
+              "minimum_fix": "Fix c2."
+            }
+          ],
+          "highest_value_gap": {
+            "criterion_key": "c2",
+            "minimum_fix": "Fix c2.",
+            "repair_prompt": "Fix c2."
+          },
+          "predicted_label": null,
+          "predicted_point_gain": null,
+          "actual_point_gain": null,
+          "prediction_outcome": null,
+          "confidence": "low",
+          "uncertainty_reason": "The grader could not reach a decision on 1 criterion.",
+          "model_id": "test-model",
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null,
+          "feedback_preview": "You earned 1 of 2 points. The most valuable next step: Fix c2. 1 criterion could not be decided from what you wrote, so this result is being held for review.",
+          "action_hint": null,
+          "repair_hint": "Fix c2.",
+          "input_tokens": 50,
+          "output_tokens": 10,
+          "estimated_cost_usd": 0.0001,
+          "latency_ms": "<volatile>",
+          "raw_model_response": {
+            "arm": "a",
+            "criterion_responses": [
+              {
+                "output_text": "{\"criterion_key\":\"c1\",\"status\":\"earned\",\"points_awarded\":1,\"evidence_quote\":\"The cell divides\",\"decision_explanation\":\"Meets c1.\",\"minimum_fix\":null,\"confidence\":\"high\"}",
+                "usage": {
+                  "input_tokens": 50,
+                  "output_tokens": 10,
+                  "input_tokens_details": {
+                    "cached_tokens": 5
+                  }
+                }
+              }
+            ]
+          },
+          "shadow_result": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a one criterion fails"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "normalized_response_sha256": "e30d9e5aeda60bbcbf6c32232c71cc010b3abf85c2e9ca531b629beebc5b1888",
+          "cached_tokens": 5,
+          "stage_timings": "<volatile>"
+        }
+      },
+      {
+        "schema": "app",
+        "target": "attempt_criterion_results",
+        "action": "upsert",
+        "filters": [],
+        "modifiers": [
+          "upsert:{\"onConflict\":\"attempt_id,criterion_key\"}"
+        ],
+        "payload": [
+          {
+            "attempt_id": "40000000-0000-4000-8000-000000000002",
+            "criterion_key": "c1",
+            "status": "earned",
+            "points_awarded": 1,
+            "evidence_quote": "The cell divides",
+            "decision_explanation": "Meets c1.",
+            "minimum_fix": "Fix c1.",
+            "evaluator_version": "test-model"
+          },
+          {
+            "attempt_id": "40000000-0000-4000-8000-000000000002",
+            "criterion_key": "c2",
+            "status": "unable_to_determine",
+            "points_awarded": 0,
+            "evidence_quote": null,
+            "decision_explanation": "This criterion could not be graded on this attempt.",
+            "minimum_fix": "Fix c2.",
+            "evaluator_version": "test-model"
+          }
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000002"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "uncertain",
+          "graded_at": "<iso>",
+          "score_points": 1,
+          "score_possible": 2,
+          "confidence_level": "low",
+          "result_state": "uncertain",
+          "result_summary": "You earned 1 of 2 points. The most valuable next step: Fix c2. 1 criterion could not be decided from what you wrote, so this result is being held for review.",
+          "assistance_state": "independent"
+        }
+      },
+      {
+        "schema": "app",
+        "target": "content_item_cells",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ],
+          [
+            "eq",
+            "is_primary",
+            true
+          ],
+          [
+            "in",
+            "assignment_status",
+            [
+              "validated",
+              "authored"
+            ]
+          ],
+          [
+            "not.is",
+            "skill_code",
+            null
+          ]
+        ],
+        "modifiers": [
+          "select:taxonomy_source_version, topic_code, skill_code"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:item_package_payload",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "subjects",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000008"
+          ]
+        ],
+        "modifiers": [
+          "select:subject_key",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "taxonomy_source_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "taxonomy_source_version",
+            "ced-2025"
+          ]
+        ],
+        "modifiers": [
+          "select:subject_key",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "student_cell_state",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ],
+          [
+            "eq",
+            "taxonomy_source_version",
+            "ced-2025"
+          ],
+          [
+            "eq",
+            "topic_code",
+            "4.1"
+          ],
+          [
+            "eq",
+            "skill_code",
+            "2.A"
+          ]
+        ],
+        "modifiers": [
+          "select:tier, fragile, weighted_evidence, last_independent_success_at, last_attempt_at, last_exposure_at, next_due_at, due_reason, last_session_id, last_template_id, last_params_hash, last_attempt_id, updated_at, mastery_mcq_correct_count, mastery_frq_full_count, mastery_reached_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "student_cell_state",
+        "action": "insert",
+        "filters": [],
+        "modifiers": [],
+        "payload": {
+          "user_id": "40000000-0000-4000-8000-000000000001",
+          "subject_id": "40000000-0000-4000-8000-000000000008",
+          "taxonomy_source_version": "ced-2025",
+          "topic_code": "4.1",
+          "skill_code": "2.A",
+          "tier": "unseen",
+          "fragile": false,
+          "weighted_evidence": 0,
+          "last_independent_success_at": null,
+          "last_attempt_at": "<iso>",
+          "last_exposure_at": null,
+          "next_due_at": null,
+          "due_reason": null,
+          "last_event": "content_uncertain",
+          "last_weight": 0,
+          "rule_engine_version": "cell-state-1.0",
+          "last_session_id": null,
+          "last_template_id": null,
+          "last_params_hash": null,
+          "last_attempt_id": null,
+          "mastery_mcq_correct_count": 0,
+          "mastery_frq_full_count": 0,
+          "mastery_reached_at": null
+        }
+      }
+    ],
+    "fetches": [
+      {
+        "url": "https://api.openai.com/v1/responses",
+        "body_sha256": "64ebd73c7da67d0824b3c695b20c9ed24f407944e8e069d3b74f3f2df7f198bf",
+        "body_bytes": 3170
+      },
+      {
+        "url": "https://api.openai.com/v1/responses",
+        "body_sha256": "bf3db1c86005255bae574da8c3052fe8017c1920581fc3408c14ab54a2a8164c",
+        "body_bytes": 3170
+      }
+    ]
+  },
+  "llm arm a every criterion fails": {
+    "status": 202,
+    "body": {
+      "status": "uncertain",
+      "function": "evaluate-attempt",
+      "operation": "grade_initial_attempt",
+      "result": {
+        "status": "uncertain",
+        "points_earned": 0,
+        "points_available": 2,
+        "criteria": [
+          {
+            "criterion_key": "c1",
+            "status": "unable_to_determine",
+            "points_awarded": 0,
+            "evidence_quote": null,
+            "decision_explanation": "Cramapple can offer a few useful observations, but it is not confident enough to present this result as reliable.",
+            "minimum_fix": "Fix c1."
+          },
+          {
+            "criterion_key": "c2",
+            "status": "unable_to_determine",
+            "points_awarded": 0,
+            "evidence_quote": null,
+            "decision_explanation": "Cramapple can offer a few useful observations, but it is not confident enough to present this result as reliable.",
+            "minimum_fix": "Fix c2."
+          }
+        ],
+        "highest_value_gap": null,
+        "predicted_improvement": null,
+        "confidence": "low",
+        "uncertainty_reason": "openai_missing_output_text",
+        "student_facing_summary": "Your answer is saved, but feedback is taking longer than expected.",
+        "action_hint": null,
+        "repair_hint": "Fix c1.",
+        "sanitization_version": "grading-sanitizer-v3",
+        "integrity_issues": [
+          {
+            "code": "criteria_missing",
+            "criterion_key": null
+          }
+        ],
+        "normalizations": [],
+        "actual_point_gain": null,
+        "prediction_outcome": null,
+        "model_id": "test-model",
+        "prompt_version": "test-v1",
+        "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+        "grading_route": {
+          "rubricType": "discrete_text",
+          "evaluatorStrategy": "llm_discrete_text",
+          "target": "llm_text",
+          "source": "explicit",
+          "reason": "Discrete analytic text is routed to the existing FRQ grader."
+        },
+        "verification_profile": null,
+        "verification_profile_summary": null,
+        "feedback_preview": "Your answer is saved, but feedback is taking longer than expected.",
+        "repair_plan": {
+          "contract_version": "grade-repair-v1",
+          "grade_fingerprint": "golden:llm arm a every criterion fails:test-v1:40000000-0000-4000-8000-000000000004",
+          "criterion_key": "c1",
+          "repair_class": "conceptual_error",
+          "repair_prompt": "Fix c1.",
+          "expected_point_gain": 1,
+          "requires_learner_confirmation": false,
+          "source": "rubric"
+        },
+        "deterministic_check": null,
+        "attempt_id": "40000000-0000-4000-8000-000000000002",
+        "response_version_id": "40000000-0000-4000-8000-000000000003",
+        "request_id": "golden:llm arm a every criterion fails",
+        "latency_ms": "<volatile>"
+      },
+      "runtime_context": null
+    },
+    "calls": [
+      {
+        "schema": "app",
+        "target": "prompt_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "operation",
+            "grade_initial_attempt"
+          ],
+          [
+            "eq",
+            "version",
+            "test-v1"
+          ]
+        ],
+        "modifiers": [
+          "select:id, status",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000002"
+          ]
+        ],
+        "modifiers": [
+          "select:id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, artifact_version_id, attempt_mode, status, assistance_state, pre_submit_hint_count, started_at, submitted_at, graded_at, score_points, score_possible",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "response_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000003"
+          ]
+        ],
+        "modifiers": [
+          "select:id, attempt_id, parent_response_version_id, response_text, response_parts, version_number, is_submitted, created_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:content_item_id",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "open_hand_scoring_exclusions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ],
+          [
+            "eq",
+            "content_item_id",
+            "40000000-0000-4000-8000-000000000006"
+          ]
+        ],
+        "modifiers": [
+          "select:content_item_id",
+          "limit:1"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:id, content_item_id, version_num, stem, stimulus, prompt_json, rubric_type, evaluator_strategy, explanation, help_text, content_hash, status, approved_at, approved_by, published_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a every criterion fails"
+          ]
+        ],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_items",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000006"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_pack_version_id, content_key, item_type, title, status, response_policy",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "exam_pack_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000005"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_pack_id, school_year, official_exam_date, status",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "frq_criteria",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:criterion_key, learner_facing_text, points_possible, evidence_requirements, minimum_fix, accepted_variants",
+          "order:criterion_key:{\"ascending\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "mcq_choices",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:choice_key, choice_text, is_correct, rationale",
+          "order:choice_key:{\"ascending\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "rpc:authorize_grading_access",
+        "action": "rpc",
+        "payload": {
+          "p_user_id": "40000000-0000-4000-8000-000000000001",
+          "p_attempt_id": "40000000-0000-4000-8000-000000000002",
+          "p_operation": "grade_initial_attempt",
+          "p_request_id": "golden:llm arm a every criterion fails"
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "exam_packs",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000007"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_code, exam_name, subject_id",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "insert",
+        "filters": [],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ],
+        "payload": {
+          "request_id": "golden:llm arm a every criterion fails",
+          "request_hash": "701a3c278a835f79ca19672d051d04f64070de21da746508f9facc850f8c76e7",
+          "attempt_id": "40000000-0000-4000-8000-000000000002",
+          "response_version_id": "40000000-0000-4000-8000-000000000003",
+          "operation": "grade_initial_attempt",
+          "status": "processing",
+          "points_available": 2,
+          "confidence": "medium",
+          "model_id": "test-model",
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "estimated_cost_usd": 0.0002,
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "rpc:reserve_model_usage",
+        "action": "rpc",
+        "payload": {
+          "p_request_id": "golden:llm arm a every criterion fails",
+          "p_request_hash": "701a3c278a835f79ca19672d051d04f64070de21da746508f9facc850f8c76e7",
+          "p_model_id": "test-model",
+          "p_reserved_cost_usd": 0.0002,
+          "p_cap_usd": 1
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a every criterion fails"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "processing",
+          "model_id": "test-model",
+          "estimated_cost_usd": 0.0002,
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "model_usage_ledger",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a every criterion fails"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "running"
+        }
+      },
+      {
+        "schema": "app",
+        "target": "rpc:complete_model_usage",
+        "action": "rpc",
+        "payload": {
+          "p_request_id": "golden:llm arm a every criterion fails",
+          "p_request_hash": "701a3c278a835f79ca19672d051d04f64070de21da746508f9facc850f8c76e7",
+          "p_status": "failed",
+          "p_actual_cost_usd": 0,
+          "p_input_tokens": 140,
+          "p_output_tokens": 0
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "attempt_id",
+            "40000000-0000-4000-8000-000000000002"
+          ],
+          [
+            "neq",
+            "request_id",
+            "golden:llm arm a every criterion fails"
+          ]
+        ],
+        "modifiers": [
+          "select:points_earned, status",
+          "order:created_at:{\"ascending\":false}",
+          "limit:1",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ]
+        ],
+        "modifiers": [
+          "select:id"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "select",
+        "filters": [
+          [
+            "in",
+            "attempt_id",
+            [
+              "40000000-0000-4000-8000-000000000002"
+            ]
+          ],
+          [
+            "in",
+            "status",
+            [
+              "graded",
+              "uncertain"
+            ]
+          ]
+        ],
+        "modifiers": [
+          "select:id{\"count\":\"exact\",\"head\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "growth_event_outbox",
+        "action": "upsert",
+        "filters": [],
+        "modifiers": [
+          "upsert:{\"onConflict\":\"dedupe_key\",\"ignoreDuplicates\":true}",
+          "select:id, delivered_at, delivery_attempts",
+          "maybeSingle"
+        ],
+        "payload": {
+          "event_name": "first_response_graded",
+          "user_id": "40000000-0000-4000-8000-000000000001",
+          "free_score_check_id": null,
+          "source": "web",
+          "dedupe_key": "first_response_graded:40000000-0000-4000-8000-000000000001",
+          "properties": {
+            "environment": "development"
+          }
+        }
+      },
+      {
+        "schema": "app",
+        "target": "growth_event_outbox",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "dedupe_key",
+            "first_response_graded:40000000-0000-4000-8000-000000000001"
+          ]
+        ],
+        "modifiers": [
+          "select:id, delivered_at, delivery_attempts",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a every criterion fails"
+          ],
+          [
+            "eq",
+            "request_hash",
+            "701a3c278a835f79ca19672d051d04f64070de21da746508f9facc850f8c76e7"
+          ]
+        ],
+        "modifiers": [
+          "select:*",
+          "maybeSingle"
+        ],
+        "payload": {
+          "status": "uncertain",
+          "points_earned": 0,
+          "points_available": 2,
+          "criterion_results": [
+            {
+              "criterion_key": "c1",
+              "status": "unable_to_determine",
+              "points_awarded": 0,
+              "evidence_quote": null,
+              "decision_explanation": "Cramapple can offer a few useful observations, but it is not confident enough to present this result as reliable.",
+              "minimum_fix": "Fix c1."
+            },
+            {
+              "criterion_key": "c2",
+              "status": "unable_to_determine",
+              "points_awarded": 0,
+              "evidence_quote": null,
+              "decision_explanation": "Cramapple can offer a few useful observations, but it is not confident enough to present this result as reliable.",
+              "minimum_fix": "Fix c2."
+            }
+          ],
+          "highest_value_gap": {
+            "criterion_key": "c1",
+            "minimum_fix": "Fix c1.",
+            "repair_prompt": "Fix c1."
+          },
+          "predicted_label": null,
+          "predicted_point_gain": null,
+          "actual_point_gain": null,
+          "prediction_outcome": null,
+          "confidence": "low",
+          "uncertainty_reason": "openai_missing_output_text",
+          "model_id": "test-model",
+          "prompt_version": "test-v1",
+          "rubric_version_id": "40000000-0000-4000-8000-000000000004",
+          "deterministic_verifier_version": "stats-verifier-ts-2026-08-11",
+          "boundary_contract_version": null,
+          "feedback_preview": "Your answer is saved, but feedback is taking longer than expected.",
+          "action_hint": null,
+          "repair_hint": "Fix c1.",
+          "input_tokens": 140,
+          "output_tokens": 0,
+          "estimated_cost_usd": 0.0002,
+          "latency_ms": "<volatile>",
+          "raw_model_response": null,
+          "shadow_result": null
+        }
+      },
+      {
+        "schema": "app",
+        "target": "grading_results",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "request_id",
+            "golden:llm arm a every criterion fails"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "normalized_response_sha256": "e30d9e5aeda60bbcbf6c32232c71cc010b3abf85c2e9ca531b629beebc5b1888",
+          "cached_tokens": null,
+          "stage_timings": "<volatile>"
+        }
+      },
+      {
+        "schema": "app",
+        "target": "attempt_criterion_results",
+        "action": "upsert",
+        "filters": [],
+        "modifiers": [
+          "upsert:{\"onConflict\":\"attempt_id,criterion_key\"}"
+        ],
+        "payload": [
+          {
+            "attempt_id": "40000000-0000-4000-8000-000000000002",
+            "criterion_key": "c1",
+            "status": "unable_to_determine",
+            "points_awarded": 0,
+            "evidence_quote": null,
+            "decision_explanation": "Cramapple can offer a few useful observations, but it is not confident enough to present this result as reliable.",
+            "minimum_fix": "Fix c1.",
+            "evaluator_version": "test-model"
+          },
+          {
+            "attempt_id": "40000000-0000-4000-8000-000000000002",
+            "criterion_key": "c2",
+            "status": "unable_to_determine",
+            "points_awarded": 0,
+            "evidence_quote": null,
+            "decision_explanation": "Cramapple can offer a few useful observations, but it is not confident enough to present this result as reliable.",
+            "minimum_fix": "Fix c2.",
+            "evaluator_version": "test-model"
+          }
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "attempts",
+        "action": "update",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000002"
+          ]
+        ],
+        "modifiers": [],
+        "payload": {
+          "status": "uncertain",
+          "graded_at": "<iso>",
+          "score_points": 0,
+          "score_possible": 2,
+          "confidence_level": "low",
+          "result_state": "uncertain",
+          "result_summary": "Your answer is saved, but feedback is taking longer than expected.",
+          "assistance_state": "independent"
+        }
+      },
+      {
+        "schema": "app",
+        "target": "content_item_cells",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ],
+          [
+            "eq",
+            "is_primary",
+            true
+          ],
+          [
+            "in",
+            "assignment_status",
+            [
+              "validated",
+              "authored"
+            ]
+          ],
+          [
+            "not.is",
+            "skill_code",
+            null
+          ]
+        ],
+        "modifiers": [
+          "select:taxonomy_source_version, topic_code, skill_code"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:item_package_payload",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "subjects",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000008"
+          ]
+        ],
+        "modifiers": [
+          "select:subject_key",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "taxonomy_source_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "taxonomy_source_version",
+            "ced-2025"
+          ]
+        ],
+        "modifiers": [
+          "select:subject_key",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "student_cell_state",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "user_id",
+            "40000000-0000-4000-8000-000000000001"
+          ],
+          [
+            "eq",
+            "taxonomy_source_version",
+            "ced-2025"
+          ],
+          [
+            "eq",
+            "topic_code",
+            "4.1"
+          ],
+          [
+            "eq",
+            "skill_code",
+            "2.A"
+          ]
+        ],
+        "modifiers": [
+          "select:tier, fragile, weighted_evidence, last_independent_success_at, last_attempt_at, last_exposure_at, next_due_at, due_reason, last_session_id, last_template_id, last_params_hash, last_attempt_id, updated_at, mastery_mcq_correct_count, mastery_frq_full_count, mastery_reached_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "student_cell_state",
+        "action": "insert",
+        "filters": [],
+        "modifiers": [],
+        "payload": {
+          "user_id": "40000000-0000-4000-8000-000000000001",
+          "subject_id": "40000000-0000-4000-8000-000000000008",
+          "taxonomy_source_version": "ced-2025",
+          "topic_code": "4.1",
+          "skill_code": "2.A",
+          "tier": "unseen",
+          "fragile": false,
+          "weighted_evidence": 0,
+          "last_independent_success_at": null,
+          "last_attempt_at": "<iso>",
+          "last_exposure_at": null,
+          "next_due_at": null,
+          "due_reason": null,
+          "last_event": "content_uncertain",
+          "last_weight": 0,
+          "rule_engine_version": "cell-state-1.0",
+          "last_session_id": null,
+          "last_template_id": null,
+          "last_params_hash": null,
+          "last_attempt_id": null,
+          "mastery_mcq_correct_count": 0,
+          "mastery_frq_full_count": 0,
+          "mastery_reached_at": null
+        }
+      }
+    ],
+    "fetches": [
+      {
+        "url": "https://api.openai.com/v1/responses",
+        "body_sha256": "64ebd73c7da67d0824b3c695b20c9ed24f407944e8e069d3b74f3f2df7f198bf",
+        "body_bytes": 3170
+      },
+      {
+        "url": "https://api.openai.com/v1/responses",
+        "body_sha256": "bf3db1c86005255bae574da8c3052fe8017c1920581fc3408c14ab54a2a8164c",
+        "body_bytes": 3170
+      }
+    ]
+  },
+  "qa no persist arm a": {
+    "status": 200,
+    "body": {
+      "status": "graded",
+      "function": "evaluate-attempt",
+      "mode": "qa_no_persist",
+      "content_key": "GOLDEN-ITEM",
+      "content_item_version_id": "40000000-0000-4000-8000-000000000004",
+      "result": {
+        "status": "graded",
+        "points_earned": 2,
+        "points_available": 2,
+        "criteria": [
+          {
+            "criterion_key": "c1",
+            "status": "earned",
+            "points_awarded": 1,
+            "evidence_quote": "The cell divides",
+            "decision_explanation": "Meets c1.",
+            "minimum_fix": "Fix c1.",
+            "points_possible": 1
+          },
+          {
+            "criterion_key": "c2",
+            "status": "earned",
+            "points_awarded": 1,
+            "evidence_quote": "The cell divides",
+            "decision_explanation": "Meets c2.",
+            "minimum_fix": "Fix c2.",
+            "points_possible": 1
+          }
+        ],
+        "highest_value_gap": null,
+        "predicted_improvement": null,
+        "confidence": "medium",
+        "uncertainty_reason": null,
+        "student_facing_summary": "You earned 2 of 2 points.",
+        "action_hint": null,
+        "repair_hint": null,
+        "sanitization_version": "grading-sanitizer-v3",
+        "integrity_issues": [],
+        "normalizations": [],
+        "carry_forward_used": false,
+        "carry_forward_reason": "QA no-persist mode has no prior-attempt context."
+      },
+      "grader": {
+        "qa_path_version": "evaluate-attempt-qa-no-persist-2026-09-22",
+        "deployment_id": null,
+        "execution_id": null,
+        "model_id": "test-model",
+        "prompt_version": "test-v1",
+        "grading_arm": "a",
+        "latency_ms": "<volatile>",
+        "input_tokens": 100,
+        "output_tokens": 20,
+        "cached_tokens": 5
+      },
+      "raw_grader_response": {
+        "arm": "a",
+        "criterion_responses": [
+          {
+            "output_text": "{\"criterion_key\":\"c1\",\"status\":\"earned\",\"points_awarded\":1,\"evidence_quote\":\"The cell divides\",\"decision_explanation\":\"Meets c1.\",\"minimum_fix\":null,\"confidence\":\"high\"}",
+            "usage": {
+              "input_tokens": 50,
+              "output_tokens": 10,
+              "input_tokens_details": {
+                "cached_tokens": 5
+              }
+            }
+          },
+          {
+            "output_text": "{\"criterion_key\":\"c2\",\"status\":\"earned\",\"points_awarded\":1,\"evidence_quote\":\"The cell divides\",\"decision_explanation\":\"Meets c2.\",\"minimum_fix\":null,\"confidence\":\"medium\"}",
+            "usage": {
+              "input_tokens": 50,
+              "output_tokens": 10,
+              "input_tokens_details": {
+                "cached_tokens": 0
+              }
+            }
+          }
+        ]
+      },
+      "persistence": {
+        "wrote_attempts": false,
+        "wrote_response_versions": false,
+        "wrote_grading_results": false,
+        "wrote_model_usage_ledger": false,
+        "wrote_student_memory": false,
+        "wrote_student_cell_state": false,
+        "wrote_content": false
+      }
+    },
+    "calls": [
+      {
+        "schema": "app",
+        "target": "rpc:verify_qa_grader_token",
+        "action": "rpc",
+        "payload": {
+          "p_token": "token"
+        },
+        "filters": [],
+        "modifiers": []
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:id, content_item_id, version_num, stem, stimulus, prompt_json, rubric_type, evaluator_strategy, status, canonical_answer_1, canonical_answer_2, created_at",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_item_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_id",
+            "40000000-0000-4000-8000-000000000006"
+          ]
+        ],
+        "modifiers": [
+          "select:id, version_num, created_at",
+          "order:version_num:{\"ascending\":false}",
+          "order:created_at:{\"ascending\":false}",
+          "order:id:{\"ascending\":false}",
+          "limit:1",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "content_items",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000006"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_pack_version_id, content_key, item_type, title, status",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "frq_criteria",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "content_item_version_id",
+            "40000000-0000-4000-8000-000000000004"
+          ]
+        ],
+        "modifiers": [
+          "select:criterion_key, learner_facing_text, points_possible, evidence_requirements, minimum_fix, accepted_variants",
+          "order:criterion_key:{\"ascending\":true}"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "exam_pack_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000005"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_pack_id, status",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "exam_packs",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "id",
+            "40000000-0000-4000-8000-000000000007"
+          ]
+        ],
+        "modifiers": [
+          "select:id, exam_code, exam_name",
+          "maybeSingle"
+        ]
+      },
+      {
+        "schema": "app",
+        "target": "prompt_versions",
+        "action": "select",
+        "filters": [
+          [
+            "eq",
+            "operation",
+            "grade_initial_attempt"
+          ],
+          [
+            "eq",
+            "version",
+            "test-v1"
+          ]
+        ],
+        "modifiers": [
+          "select:id, status",
+          "maybeSingle"
+        ]
+      }
+    ],
+    "fetches": [
+      {
+        "url": "https://api.openai.com/v1/responses",
+        "body_sha256": "6da48de27c9892f6e5c629471f210ad0da85a16b7255cddb8b08b7aa09c5d7c4",
+        "body_bytes": 3170
+      },
+      {
+        "url": "https://api.openai.com/v1/responses",
+        "body_sha256": "7ebfe1b26d0a9b505508e846065f414509d4eafc5a5349cc02454cb2ec6d5bec",
+        "body_bytes": 3170
+      }
+    ]
   }
 }
