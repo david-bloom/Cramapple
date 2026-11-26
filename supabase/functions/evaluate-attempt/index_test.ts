@@ -353,6 +353,22 @@ for (const outcome of ["error", "transport", "missing"] as const) {
     });
   });
 }
+// TASK-0079 bug 5: the live grading paths wrote the attempt truth row by id
+// alone, so a late or duplicate grade (a new idempotency key on an attempt
+// already finalized, by an earlier grade or a human reviewer) overwrote it.
+for (const route of ["mcq", "shadow", "llm"] as const) {
+  Deno.test(`${route}: a new grade never overwrites a finalized attempt truth row`, async () => {
+    const f = gradeFixture(route, ["stored"]);
+    f.attempt().status = "graded";
+    f.attempt().score_points = 99;
+    await f.withProvider(async () => {
+      const res = await f.post({ idempotency_key: `late-${route}` });
+      assertEquals(res.status, route === "shadow" ? 202 : 200);
+    });
+    assertEquals(f.attempt().status, "graded");
+    assertEquals(f.attempt().score_points, 99);
+  });
+}
 Deno.test("recovery does not overwrite a finalized attempt truth row", async () => {
   const f = gradeFixture("mcq", ["error", "stored"]);
   assertEquals((await f.post()).status, 500);

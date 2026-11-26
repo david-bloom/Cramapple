@@ -20,7 +20,6 @@ import {
   buildShadowReviewPayload,
   pickHighestGap,
 } from "../_shared/grading-feedback.ts";
-import { persistCellState } from "../_shared/cell-state-persist.ts";
 import {
   type AllowedOperation,
   applyDeterministicFlagScope,
@@ -42,7 +41,6 @@ import {
   normalizeResponseText,
 } from "../_shared/grading-telemetry.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
-import { persistGradingMemory } from "../_shared/grading-memory.ts";
 import { buildGraderSystemPrompt, runModelGrading } from "./model-grading.ts";
 import {
   gradeDataDriven,
@@ -53,6 +51,7 @@ import { loadMcqFeedbackContext } from "./mcq-context.ts";
 import { getBodyField, parseEvaluateRequest } from "./request.ts";
 import { loadAttemptContext, loadItemContext } from "./load-context.ts";
 import { createStoredResultResponder } from "./replay.ts";
+import { finalizeGrade } from "./finalize.ts";
 import {
   EVALUATE_ATTEMPT_PROMPT_VERSION,
   gradingArm,
@@ -64,15 +63,7 @@ import {
   OPENAI_OUTPUT_PRICE_PER_1M,
 } from "./config.ts";
 import { composeMcqFeedback, summarizeSelectedChoice } from "./mcq-feedback.ts";
-import {
-  checkpointGradeWrite,
-  GRADE_STORE_FAILURE,
-  type OutputCriterion,
-  persistAttemptCriterionResults,
-  persistGradingTelemetry,
-  type Service,
-  writeGradeResult,
-} from "./grade-store.ts";
+import { type OutputCriterion, type Service } from "./grade-store.ts";
 
 // Kept exported from the entry point for existing callers and tests.
 export { composeMcqFeedback };
@@ -101,6 +92,30 @@ function parseJsonSafe(value: string | null | undefined) {
   }
 }
 
+
+// Runs a bookkeeping write whose failure must never fail a grade. Returns
+// whether it succeeded; logs the error code (never the message, which can carry
+// row data) under a stable label.
+async function bestEffortWrite(
+  label: string,
+  requestId: string,
+  write: () => PromiseLike<{ error: { code?: string } | null }>,
+): Promise<boolean> {
+  try {
+    const { error } = await write();
+    if (!error) return true;
+    console.warn(`evaluate-attempt:${label}_failed`, {
+      request_id: requestId,
+      code: error.code ?? "unknown",
+    });
+  } catch {
+    console.warn(`evaluate-attempt:${label}_failed`, {
+      request_id: requestId,
+      code: "transport_error",
+    });
+  }
+  return false;
+}
 
 async function readBodyAsRecord(req: Request) {
   const body = await readJsonBody(req);
@@ -696,39 +711,70 @@ export async function handleEvaluateAttempt(
   const isMcq = routing.target === "mcq_rule";
 
   if (routing.target === "llm_text" && !statisticsDeterministicFallback) {
+    // TASK-0079 bug 2: only a real cap is reported as the daily limit.
+    // app.reserve_model_usage raises 'daily cap exceeded' for a cap; any other
+    // error (database, transport, idempotency conflict) used to be shown to the
+    // student as the research limit too.
+    let reservationFailure: "daily_cap_exceeded" | "budget_reservation_failed" | null =
+      null;
     try {
-      usageRow = await service.schema("app").rpc("reserve_model_usage", {
+      const reservation = await service.schema("app").rpc("reserve_model_usage", {
         p_request_id: idempotencyKey,
         p_request_hash: requestHash,
         p_model_id: modelId,
         p_reserved_cost_usd: reservedCost,
         p_cap_usd: OPENAI_DAILY_CAP_USD,
-      }).then((result) => result.data as Record<string, unknown> | null);
-
-      if (!usageRow) {
-        throw new Error("budget_reservation_failed");
+      });
+      if (reservation.error) {
+        reservationFailure = /daily cap exceeded/i.test(
+            reservation.error.message ?? "",
+          )
+          ? "daily_cap_exceeded"
+          : "budget_reservation_failed";
+      } else {
+        usageRow = reservation.data as Record<string, unknown> | null;
+        if (!usageRow) reservationFailure = "budget_reservation_failed";
       }
-    } catch (error) {
+    } catch {
+      reservationFailure = "budget_reservation_failed";
+    }
+
+    if (reservationFailure) {
+      if (reservationFailure === "budget_reservation_failed") {
+        console.error("evaluate-attempt:budget_reservation_failed", {
+          request_id: idempotencyKey,
+        });
+      }
       await service.schema("app")
         .from("grading_results")
         .update({
           status: "failed",
           confidence: "low",
-          uncertainty_reason: error instanceof Error
-            ? error.message
-            : "budget_reservation_failed",
+          uncertainty_reason: reservationFailure,
         })
         .eq("request_id", idempotencyKey);
 
+      if (reservationFailure === "daily_cap_exceeded") {
+        return respond(
+          {
+            status: "budget_capped",
+            function: "evaluate-attempt",
+            operation,
+            message:
+              "Cramapple has reached today's research limit. Your work is saved. Please come back after the daily limit resets.",
+          },
+          { status: 429 },
+        );
+      }
       return respond(
         {
-          status: "budget_capped",
+          status: "grading_unavailable",
           function: "evaluate-attempt",
           operation,
           message:
-            "Cramapple has reached today's research limit. Your work is saved. Please come back after the daily limit resets.",
+            "Your work is saved, but grading is unavailable right now. Please try again in a few minutes.",
         },
-        { status: 429 },
+        { status: 503 },
       );
     }
   }
@@ -830,97 +876,51 @@ export async function handleEvaluateAttempt(
       latency_ms: 0,
       raw_model_response: null,
     };
-    const { data: storedGrade, error: gradeStoreError } = await writeGradeResult(service, idempotencyKey, requestHash, gradePayload);
-    if (gradeStoreError || !storedGrade) {
-      console.error("evaluate-attempt:grade_store_failed", { request_id: idempotencyKey, route: "mcq_rule", code: gradeStoreError?.code ?? "missing_row" });
-      const retryable = await checkpointGradeWrite(service, idempotencyKey, requestHash, operation, gradePayload);
-      return respond({ error: GRADE_STORE_FAILURE, retryable, ...(!retryable ? { reconciliation_required: true } : {}) }, { status: 500 });
-    }
-
-    // STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md Phase 0 item 6 finding:
-    // this write was previously fire-and-forget (no error captured), and a live
-    // audit found attempts.status/graded_at/confidence_level/score_points/
-    // result_summary are 0% populated in Production despite grading_results
-    // (updated just above) being genuinely correct -- i.e. this exact update has
-    // apparently never once succeeded on real traffic. The leading suspect is
-    // app.attempts' attempts_prevent_client_grading_truth_update trigger, which
-    // only permits these columns to change when the request resolves to
-    // service_role -- capturing and logging the error here (rather than
-    // continuing to swallow it) is the only way to confirm the actual cause the
-    // next time a real attempt is graded, without guessing at a fix blind.
-    const { error: attemptUpdateError } = await service.schema("app").from(
-      "attempts",
-    ).update({
-      status: "graded",
-      graded_at: new Date().toISOString(),
-      score_points: finalResult.points_earned,
-      score_possible: finalResult.points_available,
-      confidence_level: finalResult.confidence,
-      result_state: "graded",
-      result_summary: finalResult.student_facing_summary,
-      assistance_state: derivedAssistanceState,
-    }).eq("id", attempt.id);
-    if (attemptUpdateError) {
-      console.error("attempts_grading_truth_update_failed", {
-        attempt_id: attempt.id,
-        route: "deterministic",
-        error: attemptUpdateError.message,
-        code: (attemptUpdateError as { code?: string }).code,
-      });
-    }
-
-    await Promise.all([
-      persistGradingTelemetry(service, idempotencyKey, {
-        normalized_response_sha256: normalizedResponseSha256,
-        cached_tokens: null,
-        stage_timings: stageTimer.finish(),
-      }),
-      persistAttemptCriterionResults(
-        service,
-        attempt.id as string,
-        finalResult.criteria,
-        "rule-based-mcq",
-      ),
-    ]);
-
-    const runtimeContext = await persistGradingMemory({
+    const finalized = await finalizeGrade({
       service,
-      sessionId: attempt.learning_session_id as string | null,
-      attemptId: attempt.id,
-      attemptMode: attempt.attempt_mode as string,
-      assistanceState: derivedAssistanceState as string,
+      respond,
+      idempotencyKey,
+      requestHash,
+      operation,
+      storeRoute: routing.target,
+      gradePayload,
+      normalizedResponseSha256,
+      cachedTokens: null,
+      stageTimer,
+      attempt,
+      derivedAssistanceState,
+      contentVersionId: contentVersion.id as string,
+      subjectId: examPack.subject_id as string,
+      criteria: finalResult.criteria,
+      evaluatorVersion: "rule-based-mcq",
       finalStatus: "graded",
       pointsEarned: finalResult.points_earned,
       pointsAvailable: finalResult.points_available,
       confidence: finalResult.confidence,
-      highestValueGap: finalResult.highest_value_gap,
-      criteria,
       summary: finalResult.student_facing_summary,
-      feedbackPreview: finalResult.student_facing_summary,
-      actionHint: null,
-      repairHint: finalResult.highest_value_gap?.repair_prompt ?? null,
-      deterministicCheck: statisticsCheck,
-      examPackVersionId: attempt.exam_pack_version_id as string,
+      truthRoute: "deterministic",
+      attemptTruthFirst: true,
+      memory: {
+        sessionId: attempt.learning_session_id as string | null,
+        attemptId: attempt.id,
+        attemptMode: attempt.attempt_mode as string,
+        assistanceState: derivedAssistanceState as string,
+        finalStatus: "graded",
+        pointsEarned: finalResult.points_earned,
+        pointsAvailable: finalResult.points_available,
+        confidence: finalResult.confidence,
+        highestValueGap: finalResult.highest_value_gap,
+        criteria,
+        summary: finalResult.student_facing_summary,
+        feedbackPreview: finalResult.student_facing_summary,
+        actionHint: null,
+        repairHint: finalResult.highest_value_gap?.repair_prompt ?? null,
+        deterministicCheck: statisticsCheck,
+        examPackVersionId: attempt.exam_pack_version_id as string,
+      },
     });
-
-    // Course Mode F2/F3: update cell mastery for a cell-tagged item. No-op for
-    // untagged (legacy/non-course-mode) items; routed on item identity, never
-    // session presence. Best-effort -- never fails the grade.
-    await persistCellState({
-      service,
-      userId: attempt.user_id as string,
-      contentItemVersionId: contentVersion.id as string,
-      attemptId: attempt.id as string,
-      subjectId: examPack.subject_id as string,
-      sessionId: attempt.learning_session_id as string | null,
-      assistanceState: derivedAssistanceState,
-      attemptMode: attempt.attempt_mode as string,
-      preSubmitHintCount: attempt.pre_submit_hint_count as number | null,
-      finalStatus: "graded",
-      pointsEarned: finalResult.points_earned,
-      pointsAvailable: finalResult.points_available,
-      submittedAt: attempt.submitted_at as string | null,
-    });
+    if (finalized instanceof Response) return finalized;
+    const { runtimeContext } = finalized;
 
     return respond(
       {
@@ -1010,21 +1010,30 @@ export async function handleEvaluateAttempt(
       );
 
       try {
-        await service.schema("app").from("grading_results").update({
-          status: "processing",
-          model_id: routedModelId,
-          estimated_cost_usd: reservedCost,
-          prompt_version: promptVersion,
-          rubric_version_id: effectiveRubricVersionId,
-          deterministic_verifier_version: MATH_VERIFIER_VERSION,
-          boundary_contract_version: verificationProfile?.profile_version ??
-            null,
-        }).eq("request_id", idempotencyKey);
+        // TASK-0079 bug 3: both writes are bookkeeping and must not stop the
+        // grade. Their errors were unread, and a transport throw here landed in
+        // the catch below, so the student got the "taking longer" fallback and
+        // the model was never called. The re-stamp repeats the insert's values;
+        // complete_model_usage accepts a ledger row still at 'reserved'.
+        await bestEffortWrite("grading_results_restamp", idempotencyKey, () =>
+          service.schema("app").from("grading_results").update({
+            status: "processing",
+            model_id: routedModelId,
+            estimated_cost_usd: reservedCost,
+            prompt_version: promptVersion,
+            rubric_version_id: effectiveRubricVersionId,
+            deterministic_verifier_version: MATH_VERIFIER_VERSION,
+            boundary_contract_version: verificationProfile?.profile_version ??
+              null,
+          }).eq("request_id", idempotencyKey)
+        );
 
         if (usageRow) {
-          await service.schema("app").from("model_usage_ledger").update({
-            status: "running",
-          }).eq("request_id", idempotencyKey);
+          await bestEffortWrite("model_usage_ledger_running", idempotencyKey, () =>
+            service.schema("app").from("model_usage_ledger").update({
+              status: "running",
+            }).eq("request_id", idempotencyKey)
+          );
         }
 
         const graded = await runModelGrading({
@@ -1106,14 +1115,35 @@ export async function handleEvaluateAttempt(
         };
       } finally {
         if (usageRow) {
-          await service.schema("app").rpc("complete_model_usage", {
-            p_request_id: idempotencyKey,
-            p_request_hash: requestHash,
-            p_status: finalStatus === "graded" ? "completed" : "failed",
-            p_actual_cost_usd: actualCost,
-            p_input_tokens: inputTokens,
-            p_output_tokens: outputTokens,
-          });
+          // TASK-0079 bug 3: an unread failure here left the reservation
+          // counting against the day's cap, and a throw from this finally block
+          // crashed a request whose grade was already computed. The RPC is
+          // idempotent (a row no longer reserved/running is returned as is), so
+          // one retry is safe; a second failure is logged, never thrown.
+          const completeUsage = () =>
+            service.schema("app").rpc("complete_model_usage", {
+              p_request_id: idempotencyKey,
+              p_request_hash: requestHash,
+              p_status: finalStatus === "graded" ? "completed" : "failed",
+              p_actual_cost_usd: actualCost,
+              p_input_tokens: inputTokens,
+              p_output_tokens: outputTokens,
+            });
+          const completed = await bestEffortWrite(
+            "model_usage_completion_try1",
+            idempotencyKey,
+            completeUsage,
+          ) ||
+            await bestEffortWrite(
+              "model_usage_completion_try2",
+              idempotencyKey,
+              completeUsage,
+            );
+          if (!completed) {
+            console.error("evaluate-attempt:model_usage_completion_failed", {
+              request_id: idempotencyKey,
+            });
+          }
         }
       }
     }
@@ -1234,98 +1264,54 @@ export async function handleEvaluateAttempt(
     }
   }
 
-  const { data: storedGrade, error: gradeStoreError } = await writeGradeResult(service, idempotencyKey, requestHash, updatePayload);
-  if (gradeStoreError || !storedGrade) {
-    console.error("evaluate-attempt:grade_store_failed", { request_id: idempotencyKey, route: routing.target, code: gradeStoreError?.code ?? "missing_row" });
-    const retryable = await checkpointGradeWrite(service, idempotencyKey, requestHash, operation, updatePayload);
-    return respond({ error: GRADE_STORE_FAILURE, retryable, ...(!retryable ? { reconciliation_required: true } : {}) }, { status: 500 });
-  }
-
-  // Passive telemetry, best-effort: separate write so the main update above
-  // keeps working against the pre-migration schema (see
-  // 20260811TBD_grading_telemetry.sql).
-  await Promise.all([
-    persistGradingTelemetry(service, idempotencyKey, {
-      normalized_response_sha256: normalizedResponseSha256,
-      cached_tokens: cachedTokensTelemetry,
-      stage_timings: stageTimer.finish(),
-    }),
-    persistAttemptCriterionResults(
-      service,
-      attempt.id as string,
-      finalPayload.criteria,
-      routedModelId,
-    ),
-  ]);
-
-  // See the deterministic-path sibling of this call for why the error is now
-  // captured and logged instead of swallowed (STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md
-  // Phase 0 item 6).
-  const { error: attemptUpdateError } = await service.schema("app")
-    .from("attempts")
-    .update({
-      status: finalStatus === "graded" ? "graded" : "uncertain",
-      graded_at: new Date().toISOString(),
-      score_points: finalPayload.points_earned,
-      score_possible: finalPayload.points_available,
-      confidence_level: finalPayload.confidence,
-      result_state: finalStatus,
-      result_summary: finalPayload.student_facing_summary,
-      assistance_state: derivedAssistanceState,
-    })
-    .eq("id", attempt.id);
-  if (attemptUpdateError) {
-    console.error("attempts_grading_truth_update_failed", {
-      attempt_id: attempt.id,
-      route: "model_graded",
-      error: attemptUpdateError.message,
-      code: (attemptUpdateError as { code?: string }).code,
-    });
-  }
-
-  const runtimeContext = await persistGradingMemory({
+  const finalized = await finalizeGrade({
     service,
-    sessionId: attempt.learning_session_id as string | null,
-    attemptId: attempt.id,
-    attemptMode: attempt.attempt_mode as string,
-    assistanceState: derivedAssistanceState as string,
+    respond,
+    idempotencyKey,
+    requestHash,
+    operation,
+    storeRoute: routing.target,
+    gradePayload: updatePayload,
+    normalizedResponseSha256,
+    cachedTokens: cachedTokensTelemetry,
+    stageTimer,
+    attempt,
+    derivedAssistanceState,
+    contentVersionId: contentVersion.id as string,
+    subjectId: examPack.subject_id as string,
+    criteria: finalPayload.criteria,
+    evaluatorVersion: routedModelId,
     finalStatus,
     pointsEarned: finalPayload.points_earned,
     pointsAvailable: finalPayload.points_available,
     confidence: finalPayload.confidence,
-    highestValueGap,
-    criteria: finalPayload.criteria,
     summary: finalPayload.student_facing_summary,
-    repairHint,
-    feedbackPreview,
-    examPackVersionId: attempt.exam_pack_version_id as string,
-    gradingRoute: routing,
-    verificationProfile,
-    verificationProfileSummary,
-    actionHint,
-    deterministicCheck: statisticsCheck,
+    truthRoute: "model_graded",
+    attemptTruthFirst: false,
+    memory: {
+      sessionId: attempt.learning_session_id as string | null,
+      attemptId: attempt.id,
+      attemptMode: attempt.attempt_mode as string,
+      assistanceState: derivedAssistanceState as string,
+      finalStatus,
+      pointsEarned: finalPayload.points_earned,
+      pointsAvailable: finalPayload.points_available,
+      confidence: finalPayload.confidence,
+      highestValueGap,
+      criteria: finalPayload.criteria,
+      summary: finalPayload.student_facing_summary,
+      repairHint,
+      feedbackPreview,
+      examPackVersionId: attempt.exam_pack_version_id as string,
+      gradingRoute: routing,
+      verificationProfile,
+      verificationProfileSummary,
+      actionHint,
+      deterministicCheck: statisticsCheck,
+    },
   });
-
-  // Course Mode F2/F3: update cell mastery for a cell-tagged item (covers the
-  // data_driven, LLM-text, and shadow paths). No-op for untagged items; routed
-  // on item identity, never session presence. Best-effort -- never fails the
-  // grade. content_uncertain (uncertain/shadow) records the attempt without
-  // writing false proficiency (CM-D07 / INV-3).
-  await persistCellState({
-    service,
-    userId: attempt.user_id as string,
-    contentItemVersionId: contentVersion.id as string,
-    attemptId: attempt.id as string,
-    subjectId: examPack.subject_id as string,
-    sessionId: attempt.learning_session_id as string | null,
-    assistanceState: derivedAssistanceState,
-    attemptMode: attempt.attempt_mode as string,
-    preSubmitHintCount: attempt.pre_submit_hint_count as number | null,
-    finalStatus,
-    pointsEarned: finalPayload.points_earned,
-    pointsAvailable: finalPayload.points_available,
-    submittedAt: attempt.submitted_at as string | null,
-  });
+  if (finalized instanceof Response) return finalized;
+  const { runtimeContext } = finalized;
 
   return respond(
     buildEvaluateAttemptResponse({
